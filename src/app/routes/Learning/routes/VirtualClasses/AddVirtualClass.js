@@ -122,7 +122,7 @@ class AddVirtualClass extends React.Component {
                                     onChange={handleChangeClass("itemClass")}
                                     SelectProps={{}}
                                     label={
-                                      <IntlMessages id="ticket.name.class" />
+                                      <IntlMessages id="components.student.formadd.classe" />
                                     }
                                     margin="normal"
                                     fullWidth
