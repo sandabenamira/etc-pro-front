@@ -1,0 +1,74 @@
+ if ("groupeID" in objs[0]) {
+        console.log(
+          "bingoooooooo Template  convient avec le role student",
+          objs
+        );
+        console.log("student List", this.props.ClassSettings);
+        console.log(
+          "establishment IDDDDDDDDDD",
+          this.props.userProfile.establishment_id
+        );
+        console.log("school year", localStorage.school_year_id);
+        console.log("roleeeee", 5);
+        var ListFinalFromFile = objs.map((element) => {
+          var object = {};
+          object = element;
+          object.establishmentId = parseInt(establishmentId, 10);
+          object.schoolYearId = parseInt(school_year_id, 10);
+          return object;
+        });
+
+        console.log("MMMMMMMMMMMMMMMMMMM ", ListFinalFromFile);
+        console.log("MMMMMMMMMMMMMMMMMMM 0000000", this.props.ClassSettings);
+        var FormatedUserList = ListFinalFromFile.slice(1).map((element) => {
+          var UserObject = element;
+          var classList = this.props.ClassSettings.filter((classelement) => {
+            console.log("MMMMMMMMMMMMMMMMMMM 111111", element);
+            console.log("MMMMMMMMMMMMMMMMMMM 111111********", classelement);
+            if (classelement.name == element.classID) {
+              if (classelement.group.length > 0) {
+                classelement.group.map((groupelement) => {
+                  if (groupelement.name == element.groupeID) {
+                    console.log(
+                      "ZZZZZZZZZZZZZZZZZZZZZZZZZz",
+                      classelement.name == element.classID
+                    );
+                    console.log(
+                      "ZZZZZZZZZZZZZZZZZZZZZZZZZz99999999999999999",
+                      classelement.name
+                    );
+                    console.log("OOOOOOOOOOOO element", element);
+                    console.log("OOOOOOOOOOOO classs ", classelement.id);
+                    UserObject.classID = classelement.id;
+                    UserObject.groupeID = groupelement.id;
+                    return UserObject;
+                  }
+                  // else{
+                  //   console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZz++++++++++++++",classelement.name== element.classID)
+                  //   console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZz99999999999999999+++++++++++++++",classelement.name)
+                  //   console.log('OOOOOOOOOOOO element++++++++++++++++++',element)
+                  //       console.log('OOOOOOOOOOOO classs ++++++++++++++++++++++++',classelement.id)
+                  //       UserObject.classID=classelement.id
+                  //       UserObject.groupeID=null
+                  //   return  classelement.name== element.classID
+                  // }
+                });
+              } else {
+                UserObject.classID = classelement.id;
+                UserObject.groupeID = null;
+                return UserObject;
+              }
+            }
+          });
+
+          return UserObject;
+        });
+
+        console.log(
+          "MMMMMMMMMMMMMMMMMMM2222222222222222222 ",
+          FormatedUserList
+        );
+        //  this.props.importUsersFromFile(objs)
+      } else {
+        console.log("Template ne convient pas avec le role student");
+      }
