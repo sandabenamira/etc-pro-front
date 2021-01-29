@@ -664,13 +664,13 @@ class SupportCoursList extends Component {
                       <IntlMessages id="file.title" />
                     </TableCell>
                     <TableCell>
-                      <IntlMessages id="todo.labels" />
+                    <IntlMessages id="components.student.formadd.classe" />
                     </TableCell>
                     <TableCell>
                       <IntlMessages id="publication.date" />
                     </TableCell>
                     <TableCell>
-                      <IntlMessages id="material.professor.name" />
+                      Formateur
                     </TableCell>
                     <TableCell>
                       <IntlMessages id="associated.files.links" />

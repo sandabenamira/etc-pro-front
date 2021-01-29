@@ -813,8 +813,7 @@ class Users extends React.Component {
   }
 
   render() {
-    console.log(this.state, 'staaaate');
-    return (
+     return (
       <div
         className="app-wrapper"
         style={{

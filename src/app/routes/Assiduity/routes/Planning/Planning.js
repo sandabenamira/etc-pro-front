@@ -76,12 +76,12 @@ class Planning extends React.Component {
       isEditAction: false,
       isOpenModalConfirm: false,
       AllObject: {
-        fk_id_establishment: 0,
-        fk_id_level_v4: 0,
-        fk_id_school_year: 0,
-        fk_id_section_v4: 0,
-        id: 0,
-        name: 'All',
+        // fk_id_establishment: 0,
+        // fk_id_level_v4: 0,
+        // fk_id_school_year: 0,
+        // fk_id_section_v4: 0,
+        // id: 0,
+        // name: 'All',
       },
       EventGategorie: '',
       isOpen: false,
@@ -658,7 +658,7 @@ class Planning extends React.Component {
       classService.get(apiEndpoint).then((response) => {
         if (response) {
           let activeClass = response.data.filter((classInfo) => classInfo.status);
-          activeClass.unshift(this.state.AllObject);
+          // activeClass.unshift(this.state.AllObject);
           this.setState({
             establishmentClass: activeClass,
           });
