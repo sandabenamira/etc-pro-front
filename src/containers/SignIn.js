@@ -131,7 +131,7 @@ class SignIn extends React.Component {
 
           <div className="app-logo-content d-flex align-items-center justify-content-center">
             <Link className="logo-lg" to="/" title="STUPP">
-              <img width={220} src={require("../assets/images/logoEducapGris.png")} alt="STUPP" title="STUPP" />
+              <img width={220} src={require("../assets/images/Educap-Pro-logo.png")} alt="Educap Pro" title="Educap Pro" />
             </Link>
           </div>
           <div className="app-login-content">
