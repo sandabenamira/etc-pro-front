@@ -300,7 +300,7 @@ class Users extends React.Component {
         AssignementIdProf.push(element.subjectId);
       }
     });
-    if (this.state.roleId === null ) {
+    if (this.state.roleId === null) {
       this.setState({
         missingValue: true,
         alertMessage: "Il faut remplir les champs obligatoires ",
@@ -689,10 +689,7 @@ class Users extends React.Component {
       this.setState({ classRoomList: classRoomListFiltredByID });
     }
 
-    if (
-      prevProps.usersReducer.roles !== this.props.usersReducer.roles ||
-      prevProps.userPermission !== this.props.userPermission
-    ) {
+    if (prevProps.userPermission !== this.props.userPermission) {
       let listRoles = [];
       if (this.props.userProfile.role_id === roleIdSuperAdmin) {
         listRolesUsers.map((element) => {
@@ -823,6 +820,35 @@ class Users extends React.Component {
     }
     if (this.props.userPermission != undefined) {
       this.setState({ permissionList: this.props.userPermission });
+      let listRoles = [];
+      if (this.props.userProfile.role_id === roleIdSuperAdmin) {
+        listRolesUsers.map((element) => {
+          var object = {};
+          object.label = element.label;
+          object.id = element.id;
+          object.value = element.id;
+
+          listRoles.push(object);
+        });
+      } else {
+        listRolesUsers.map((element) => {
+          var object = {};
+          object.label = element.label;
+          object.id = element.id;
+          object.value = element.id;
+
+          let permitted = false;
+          permitted = addUserPermitted(
+            element.labelBackEnd,
+            this.props.userPermission
+          );
+          if (permitted) {
+            listRoles.push(object);
+          }
+        });
+      }
+
+      this.setState({ listRoles: listRoles });
     }
     if (this.props.establishments != undefined) {
       let establishmentsList = [];
