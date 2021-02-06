@@ -5,7 +5,7 @@ import {Card, CardTitle} from "reactstrap";
 const Widget = ({children, styleName, title}) => {
 
   return (
-    <Card className={`jr-card jr-card-widget ${styleName}`}>
+    <Card className={`jr-card jr-card-widget ${styleName}`} style={{height:"120px"}}>
       {title ? <CardTitle>{title}</CardTitle> : null}
       {children}
     </Card>

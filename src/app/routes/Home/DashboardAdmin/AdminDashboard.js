@@ -1,245 +1,134 @@
-import React, { Component } from 'react';
-import React, { Component } from 'react';
-import GreenStepCard from "../DashboradStudent/GreenStepCard";
-import ProjectsList from "../DashboradStudent/ProjectsList"
-import { latestPostList, marketingData, projects, products, recentList, weeklyData } from '../DashboradStudent/data';
-import CardHeader from '../../../../components/dashboard/Common/CardHeader/index';
-import IntlMessages from '../../../../util/IntlMessages';
-import RecentActivities from '../../../../components/dashboard/Common/RecentActivities/index';
-import TableNotes from '../DashboradStudent/TableNotes'
-import TimerView from '../../../../components/dashboard/Common/TimerView/index';
+import React, { Component } from "react";
+import IconWithTextCard from "../IconWithTextCard";
+import IntlMessages from "../../../../util/IntlMessages";
+import CardHeader from "../../../../components/dashboard/default/CardHeader";
+import logo2 from '../../../../assets/images/dashboard/logo2.jpg';
+
 export default class AdminDashboard extends Component {
   render() {
+
+    const detailCardsRh = [
+      {
+        cardColor: "primary",
+        imageIcon: require("../../../../assets/images/dashboard/project-icon.png"),
+        title: "2000",
+        subTitle: "Nombre total de collaborateurs en agence",
+      },
+      {
+        cardColor: "info",
+        imageIcon: require("../../../../assets/images/dashboard/20.png"),
+        title: "1700",
+        subTitle: "Nombre de collaborateurs présents",
+      },
+      {
+        cardColor: "warning",
+        imageIcon: require("../../../../assets/images/dashboard/tasks-icon.png"),
+        title: "200",
+        subTitle: "Nombre de collaborateurs en retard",
+      },
+      {
+        cardColor: "secondary",
+        imageIcon: require("../../../../assets/images/dashboard/21.png"),
+        title: "100",
+        subTitle: "Nombre de collaborateurs absents",
+      },
+    ];
+    const detailCardsFr = [
+      {
+        cardColor: "primary",
+        imageIcon: require("../../../../assets/images/dashboard/project-icon.png"),
+        title: "10",
+        subTitle: "Nombre de formation aujourd'hui ",
+      },
+      {
+        cardColor: "info",
+        imageIcon: require("../../../../assets/images/dashboard/20.png"),
+        title: "120",
+        subTitle: "Nombre de collaborateurs présents en formation ",
+      },
+      {
+        cardColor: "warning",
+        imageIcon: require("../../../../assets/images/dashboard/tasks-icon.png"),
+        title: "28",
+        subTitle: "Nombre de collaborateurs en retard en formation",
+      },
+      {
+        cardColor: "secondary",
+        imageIcon: require("../../../../assets/images/dashboard/21.png"),
+        title: "15",
+        subTitle: "Nombre de collaborateurs absents en formation",
+      },
+    ];
+
     return (
-      <div className="app-wrapper">
-        <div className="dashboard animated slideInUpTiny animation-duration-3 ">
-          <div className="row">
-            {/* ChartCard 1 */}
-            {detailCards.map((data, index) => (
-              <div
-                key={index}
-                className="col-xl-3 col-lg-3 col-md-3 col-sm-7 col-6"
-              >
-                <IconWithTextCard data={data} />
-              </div>
-            ))}
+      <div className="app-wrapper d-flex flex-column   col-lg-12 col-md-12 col-sm-12">
+       <div class="d-flex flex-row flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12 bd-highlight mb-3">
+          <div class="p-2 bd-highlight">
+            <img src={logo2} alt="Logo" style={{height:"200px" ,width:"auto"}} />
           </div>
+          <div class="p-2 bd-highlight align-self-center">
+    <h2>Bienvenu <strong style={{color:"#F08429"}}>Sami OUNI</strong>  dans votre espace <strong style={{color:"#03497D"}}>BIAT</strong> <br/>le  <strong>06/02/2021</strong>  </h2>
+          </div>
+        </div>
+        <div className="p-2  row d-flex flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12">
+          {/* ChartCard 1 */}
 
-          <div className="row">
-            {/* ChartCard 2 */}
-
-            <div className="col-lg-6 col-12 mb-5 mb-lg-1">
-              <div className="jr-card">
-                <h2>
-                  {' '}
-                  {<IntlMessages id="dashboard.rate.presence.absences" />}
-                </h2>
-                <ResponsiveContainer width="100%" height={260}>
-                  <AreaChart
-                    data={salesStatisticData}
-                    margin={{ top: 10, right: 20, left: 0, bottom: 0 }}
-                  >
-                    <XAxis dataKey="name" />
-                    <YAxis type="number" domain={[0, 100]} />
-                    <CartesianGrid strokeDasharray="0" stroke="#DCDEDE" />
-
-                    <Tooltip />
-                    <defs>
-                      <linearGradient
-                        id="salesStatistic"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop offset="5%" stopColor="#4258BC" stopOpacity={1} />
-                        <stop offset="95%" stopColor="#FFF" stopOpacity={0.8} />
-                      </linearGradient>
-                    </defs>
-
-                    <Area
-                      type="monotone"
-                      dataKey="uv"
-                      strokeWidth={2}
-                      stroke="#6F82E5"
-                      fill="url(#salesStatistic)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
+          {detailCardsRh.map((data, index) => (
+            <div
+              key={index}
+              className="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-12" 
+            >
+              <IconWithTextCard data={data}  />
             </div>
-            {/* ChartCard 3 */}
-            <div className="col-lg-3 col-12">
-              <div className="jr-card">
-                <ResponsiveContainer width="100%">
-                  <SalesGauge />
-                </ResponsiveContainer>
-              </div>
+          ))}
+        </div>
+        <div className="p-2 row  d-flex flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12">
+          {/* ChartCard 2 */}
+          {detailCardsFr.map((data, index) => (
+            <div
+              key={index}
+              className="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-12"
+            >
+              <IconWithTextCard data={data} />
             </div>
-            {/* ChartCard 4 */}
-            <div className="col-lg-3 col-12 jr-card">
-              <h3 className="card-heading">
-                {<IntlMessages id="dashboard.total.number.of.students" />}
-              </h3>
-              <ResponsiveContainer width="100%" height="80%">
-                <DoughnutChart
-                  nbreGirls={this.state.nbreGirls}
-                  nbreBoys={this.state.nbreBoys}
-                />
-              </ResponsiveContainer>
-              <div className="row">
-                <div className="col-6">
-                  <div className="media">
-                    <i className="zmdi zmdi-android zmdi-hc-fw mr-2 text-success" />
-                    <div className="media-body">
-                      <h5 className="mb-0">
-                        {<IntlMessages id="dashboard.male" />}
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-6">
-                  <div className="media">
-                    <i className="zmdi zmdi-apple zmdi-hc-fw mr-2 text-warning" />
-                    <div className="media-body">
-                      <h5 className="mb-0">
-                        {<IntlMessages id="dashboard.female" />}
-                      </h5>
-                    </div>
-                  </div>
-                </div>
+          ))}
+        </div>
+        <div className="p-2 row  d-flex flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12">
+          <div className="col-xl-3 col-sm-6 col-12">
+            <div className="card shadow text-center">
+              <CardHeader
+                title="Budget investi"
+                rightItemStyle="badge badge-primary"
+                updatedAt="Cette semaine"
+              />
+              <div className="stack-order  py-4 px-2">
+                <h1 className="chart-f30 font-weight-light">86,200</h1>
+                <span className="h3 text-muted">Dinars</span>
+                <span className="h5 text-primary">
+                  <i className="zmdi zmdi-long-arrow-return zmdi-hc-fw zmdi-hc-rotate-90" />
+                  20%
+                </span>
               </div>
-              {/* </div> */}
             </div>
           </div>
-          <div className="row">
-            {/* ChartCard 5 */}
-
-            <div className="col-lg-6 col-12">
-              <div className="jr-card">
-                <h2> {<IntlMessages id="dashboard.rate.success" />}</h2>
-                <ResponsiveContainer width="100%" height={425}>
-                  <BarChart
-                    data={data}
-                    margin={{ top: 10, right: 0, left: -20, bottom: 0 }}
-                  >
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="pv" fill="#3367d6" />
-                    <Bar dataKey="uv" fill="#ffc658" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-            {/* ChartCard 6 */}
-            <div className="col-lg-3 col-12">
-              <div className="jr-card">
-                <div
-                  className={`jr-card-header-color text-center bg-gradient-primary`}
-                >
-                  <div className="jr-card-header-top mb-3">
-                    <IconButton
-                      className="jr-menu-icon mr-auto"
-                      aria-label="Menu"
-                    >
-                      <span className="menu-icon bg-white" />
-                    </IconButton>
-                    <IconButton
-                      className="icon-btn p-2"
-                      onClick={this.onOptionMenuSelect.bind(this)}
-                    >
-                      <i className="zmdi zmdi-more-vert text-white" />
-                    </IconButton>
-                  </div>
-
-                  <Avatar className="bg-grey lighten-2 avatar-shadow size-90 mx-auto mb-4">
-                    <h1 className="m-1 text-primary font-weight-bold">24</h1>
-                  </Avatar>
-                  <div className="jr-card-hd-content text-white">
-                    <h2 className="text-white jr-font-weight-medium mb-1">
-                      Monday
-                    </h2>
-                    <p className="mb-0">July 2017</p>
-                  </div>
-                </div>
-                <div className="jr-card-body mb-6">
-                  <div className="d-flex flex-column">
-                    <div className="list-line-item">
-                      <div className={`list-line-badge bg-primary`} />
-
-                      <div className="list-line-content">
-                        <h4 className={`mb-2 text-primary`}>Learning React</h4>
-                        <p className="jr-fs-sm text-light">6:30 pm</p>
-                      </div>
-                    </div>
-
-                    <div className="list-line-item">
-                      <div className="list-line-badge bg-danger" />
-
-                      <div className="list-line-content">
-                        <h4 className="text-danger mb-1">Logo Design</h4>
-                        <p className="jr-fs-sm text-light">7:15 pm</p>
-                      </div>
-                    </div>
-
-                    <div className="list-line-item">
-                      <div className="list-line-badge bg-success" />
-
-                      <div className="list-line-content">
-                        <h4 className="text-success mb-1">Timesheet Setup</h4>
-                        <p className="jr-fs-sm text-light mb-0">8:45 pm</p>
-                      </div>
-                    </div>
-
-                    <div className="list-line-item">
-                      <div className="list-line-badge bg-warning" />
-
-                      <div className="list-line-content">
-                        <h4 className="text-warning mb-1">Timesheet Setup</h4>
-                        <p className="jr-fs-sm text-light mb-0">8:45 pm</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <CardMenu
-                  menuState={menuState}
-                  anchorEl={anchorEl}
-                  handleRequestClose={this.handleRequestClose.bind(this)}
-                />
-              </div>
-            </div>
-            {/* ChartCard 7 */}
-
-            <div className="col-lg-3 col-12">
-              <div className="jr-card jr-full-card">
-                <CardHeader
-                  heading={<IntlMessages id="dashboard.list.of.paiement" />}
-                />
-
-                <UserDetailTable
-                  data={this.state.listPayments}
-                  tableStyle="full-table-last-sm"
-                />
+          <div className="col-xl-3 col-sm-6 col-12">
+            <div className="card shadow text-center">
+              <CardHeader
+                title="Budget retourné"
+                rightItemStyle="badge badge-primary"
+                updatedAt="Cette semaine"
+              />
+              <div className="stack-order  py-4 px-2">
+                <h1 className="chart-f30 font-weight-light">180,800</h1>
+                <span className="h3 text-muted">Dinars</span>
+                <span className="h5 text-primary">
+                  <i className="zmdi zmdi-long-arrow-return zmdi-hc-fw zmdi-hc-rotate-90" />
+                  20%
+                </span>
               </div>
             </div>
           </div>
         </div>
-
-        {this.state.isopen === true ? (
-          <ResetPasswordModal
-            isopen={this.state.isopen}
-            handleCancel={this.handleCancel}
-            handleChange={this.handleChange}
-            ResetPassword={this.ResetPassword}
-            values={this.state}
-          />
-        ) : (
-          ''
-        )}
       </div>
     );
   }

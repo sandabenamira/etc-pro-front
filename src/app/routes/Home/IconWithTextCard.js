@@ -5,7 +5,7 @@ import Widget from "../../../components/Widget/index";
 const IconWithTextCard = ({data}) => {
   const {cardColor, imageIcon, title, subTitle} = data;
   return (
-    <Widget styleName={`p-3 bg-${cardColor} text-white`}>
+    <Widget styleName={`p-3 bg-${cardColor} text-white`} >
       <div className="media align-items-center flex-nowrap py-lg-2">
         <div className="mr-3">
           <img src={imageIcon} alt={imageIcon}/>
