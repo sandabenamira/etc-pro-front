@@ -11,10 +11,6 @@ pipeline {
         }
 
         stage('build develop') {
-            when {
-                branch 'develop'
-            }
-
             steps {
                     sh'export NODE_OPTIONS=--max_old_space_size=8192'
                     sh 'yarn run build:staging'
