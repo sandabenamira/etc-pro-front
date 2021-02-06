@@ -1533,7 +1533,11 @@
   "profile.personel.note":"المعلومات الأساسية المستخدمة في Educap (الاسم والصورة وما إلى ذلك)",
   "profile.personel.informations":"معلومات شخصية",
   "video.conferencing.tool":"أداة التواصل عن بعد",
-  "configuration.of.generic.parameters":"تعديل بيانات عامة"
+  "configuration.of.generic.parameters":"تعديل بيانات عامة",
+  "sidebar.components.evaluation": "تقييم",
+  "sidebar.components.note": "ملحوظة",
+  "sidebar.components.reporting-kpi": "المؤهلات",
+  "sidebar.components.satisfaction-question": " مقدار الرضا"
 
 
 }

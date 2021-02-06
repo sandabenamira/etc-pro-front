@@ -1532,7 +1532,15 @@
   "profile.personel.note":"Basic information used on Educap (name, photo, etc.)",
   "profile.personel.informations":"Personal information",
   "video.conferencing.tool":"Video conferencing tool",
-  "configuration.of.generic.parameters":"Configuration of generic parameters"
+  "configuration.of.generic.parameters":"Configuration of generic parameters",
+  "sidebar.components.evaluation": "Évaluation",
+  "sidebar.components.note": "Note",
+  "sidebar.components.reporting-kpi": "KPI report",
+  "sidebar.components.satisfaction-question": "Satisfaction survey"
+
+
+
+
 
 
 
