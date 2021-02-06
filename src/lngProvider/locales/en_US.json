@@ -729,7 +729,7 @@
   "sidebar.components.health-monitiring": "Health monitiring",
   "sidebar.components.e-learning": "E-learning",
   "e-learning": "E-learning",
-  "sidebar.components.financial_management": "Financial management",
+  "sidebar.components.financial_management": "Financial reporting",
   "components.student.formadd.zip_code": "Zip code",
   "components.student.formadd.addressStudent": "Address",
   "name.and.surname": "Name/Surname",
@@ -1165,7 +1165,7 @@
   "sidebar.components.service-allocation": "Service allocation",
   "sidebar.components.payment": "Payment",
   "sidebar.components.billing": "Billing",
-  "financial_management": "Financial management",
+  "financial_management": "Financial reporting",
   "join.class.viruel": "Join",
   "class.virtual.encours": "Class in progress",
   "homework.detail": "See the details...",
@@ -1532,7 +1532,15 @@
   "profile.personel.note":"Basic information used on Educap (name, photo, etc.)",
   "profile.personel.informations":"Personal information",
   "video.conferencing.tool":"Video conferencing tool",
-  "configuration.of.generic.parameters":"Configuration of generic parameters"
+  "configuration.of.generic.parameters":"Configuration of generic parameters",
+  "sidebar.components.evaluation": "Évaluation",
+  "sidebar.components.note": "Note",
+  "sidebar.components.reporting-kpi": "KPI report",
+  "sidebar.components.satisfaction-question": "Satisfaction survey"
+
+
+
+
 
 
 

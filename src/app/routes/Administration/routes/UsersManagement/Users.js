@@ -7,9 +7,7 @@ import AddUsers from "./AddUsers";
 import { getAllRole } from "../../../../../actions/usersAction";
 import { getSchoolYearEtabs } from "../../../../../actions/SchoolYearEtabAction";
 import countriesList from "../../../../../constants/const";
-import {
-  addUsers,
-} from "../../../../../actions/usersAction";
+import { addUsers } from "../../../../../actions/usersAction";
 import _ from "lodash";
 import moment from "moment";
 import {
@@ -21,50 +19,86 @@ import {
   roleIdParent,
   roleIdSupervisor,
 } from "../../../../../config/config";
-import {
-  toUpperCaseFirst,
-} from "../../../../../constants/ReactConst";
+import { toUpperCaseFirst } from "../../../../../constants/ReactConst";
 import { addUserPermitted } from "../../../../../constants/validationFunctions";
 import LoaderModal from "./LoaderModal";
 import { getAssignementCourse } from "../../../../../actions/AssignementAction";
 import IntlMessages from "../../../../../util/IntlMessages";
 
+// const listRolesUsers = [
+//   {
+//     id: roleIdAdmin,
+//     label: <IntlMessages id={`role.admin`} />,
+//     value: roleIdAdmin,
+//     labelBackEnd: "Admin",
+//   },
+//   {
+//     id: roleIdDirector,
+//     label: <IntlMessages id={`component.etablishments.info.director`} />,
+//     value: roleIdDirector,
+//     labelBackEnd: "Director",
+//   },
+//   {
+//     id: roleIdSupervisor,
+//     label: <IntlMessages id={`role.supervisor`} />,
+//     value: roleIdSupervisor,
+//     labelBackEnd: "Vie scolaire",
+//   },
+//   {
+//     id: roleIdProfessor,
+//     label: <IntlMessages id={`toDo.professor`} />,
+//     value: roleIdProfessor,
+//     labelBackEnd: "Professor",
+//   },
+//   {
+//     id: roleIdStudent,
+//     label: <IntlMessages id={`userStuppDisplay.Student`} />,
+//     value: roleIdStudent,
+//     labelBackEnd: "Student",
+//   },
+//   {
+//     id: roleIdParent,
+//     label: <IntlMessages id={`userStuppDisplay.Parent`} />,
+//     value: roleIdParent,
+//     labelBackEnd: "Parent",
+//   },
+// ];
 const listRolesUsers = [
   {
     id: roleIdAdmin,
-    label: <IntlMessages id={`role.admin`} />,
+    label: <IntlMessages id="role.admin" />,
     value: roleIdAdmin,
     labelBackEnd: "Admin",
   },
   {
     id: roleIdDirector,
-    label: <IntlMessages id={`component.etablishments.info.director`} />,
+    label: "Directeur Des Ressources Humaines",
     value: roleIdDirector,
     labelBackEnd: "Director",
   },
   {
     id: roleIdSupervisor,
-    label: <IntlMessages id={`role.supervisor`} />,
+    label: "Responsable formation",
     value: roleIdSupervisor,
     labelBackEnd: "Vie scolaire",
+  },
+  {
+    id: roleIdParent,
+    label: "Chef d'agence",
+    value: roleIdParent,
+    labelBackEnd: "Responsable formation",
   },
   {
     id: roleIdProfessor,
     label: <IntlMessages id={`toDo.professor`} />,
     value: roleIdProfessor,
-    labelBackEnd: "Professor",
+    labelBackEnd: "Formateur",
   },
   {
     id: roleIdStudent,
-    label: <IntlMessages id={`userStuppDisplay.Student`} />,
+    label: "Participant",
     value: roleIdStudent,
-    labelBackEnd: "Student",
-  },
-  {
-    id: roleIdParent,
-    label: <IntlMessages id={`userStuppDisplay.Parent`} />,
-    value: roleIdParent,
-    labelBackEnd: "Parent",
+    labelBackEnd: "Participant",
   },
 ];
 class Users extends React.Component {
@@ -120,6 +154,8 @@ class Users extends React.Component {
           classId: 0,
           subjectId: 0,
           subjects: [],
+          subjectModuleId: 0,
+          levelId: 0,
         },
       ],
       parentsList: [],
@@ -140,6 +176,9 @@ class Users extends React.Component {
       listGroupClass: [],
       groupId: null,
       subjectIds: [],
+      levelListParticipant: [],
+      classForStudentFiltred: [],
+      subjectModulesList: [],
     };
     this.openAddModal = this.openAddModal.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -169,7 +208,21 @@ class Users extends React.Component {
     this.handleChangeGroupClassRoom = this.handleChangeGroupClassRoom.bind(
       this
     );
+    this.handleChangeLevelParticipant = this.handleChangeLevelParticipant.bind(
+      this
+    );
   }
+
+  handleChangeLevelParticipant = (selectedOption) => {
+    let classForStudentFiltred = [];
+
+    classForStudentFiltred = this.state.classForStudent.filter(
+      (element) => element.levelId == selectedOption.id
+    );
+    this.setState({
+      classForStudentFiltred,
+    });
+  };
   handleChangeStudentClass = (selectedOption) => {
     let listGroupClass = [];
     selectedOption.groups.map((element) => {
@@ -221,14 +274,22 @@ class Users extends React.Component {
       subjectIds: [],
     });
   }
-  // openAddModal() {
-  //   this.setState({ isOpen: true });
-  // }
+
   openAddModal() {
     this.setState({ roleId: "" });
 
     this.setState((previousState) => ({
       isOpen: !previousState.isOpen,
+      listOfSubjects: [
+        {
+          id: 0,
+          classId: 0,
+          subjectId: 0,
+          subjects: [],
+          subjectModuleId: 0,
+          levelId: 0,
+        },
+      ],
     }));
   }
   handleSubmit(event) {
@@ -239,11 +300,7 @@ class Users extends React.Component {
         AssignementIdProf.push(element.subjectId);
       }
     });
-    if (
-      this.state.roleId === null ||
-      this.state.schoolyearId === null 
-      
-    ) {
+    if (this.state.roleId === null) {
       this.setState({
         missingValue: true,
         alertMessage: "Il faut remplir les champs obligatoires ",
@@ -289,7 +346,7 @@ class Users extends React.Component {
           establishmentId: this.state.establishmentId,
           assignClassSubject: AssignementIdProf,
           studentClass: this.state.studentClass,
-          schoolyearId: this.state.schoolyearId,
+          schoolyearId: this.props.userProfile.school_year_id,
           functionName: this.state.functionName,
           password: "123456",
           login: "login1",
@@ -300,12 +357,12 @@ class Users extends React.Component {
           studentId: this.state.studentId,
           groupId: this.state.groupId,
         };
-      console.log(data, 'data avant action');
-       this.props.addUsers(data);
+        console.log(data, "data avant action");
+        this.props.addUsers(data);
         this.setState({
           roleId: "",
           roleName: "",
-          schoolyearId: "",
+          schoolyearId: this.props.userProfile.school_year_id,
           classRoomId: "",
           subjectId: "",
           parentId: null,
@@ -342,6 +399,8 @@ class Users extends React.Component {
               classId: 0,
               subjectId: 0,
               subjects: [],
+              subjectModuleId: 0,
+              levelId: 0,
             },
           ],
           levelId: null,
@@ -414,7 +473,7 @@ class Users extends React.Component {
           ? {
               ...objSubject,
               [name]: selectedOption.value,
-              subjects: subjectsList,
+              // subjects: subjectsList,
             }
           : objSubject
       );
@@ -433,6 +492,48 @@ class Users extends React.Component {
           : objSubject
       );
       this.setState({ listOfSubjects: newListSubjects });
+    } else if (name === "subjectModuleId") {
+      let classId = this.state.listOfSubjects[index].classId;
+      let subjectsList = [];
+      this.props.courseAssignment.map((element) => {
+        if (
+          element.fk_id_class_v4 === classId &&
+          element.subject.fk_id_subjects_module_v4 == selectedOption.value
+        ) {
+          var object = {};
+          object.label = element.subject.name;
+          object.id = element.id;
+          object.value = element.id;
+          object.fk_id_subjects_module_v4 =
+            element.subject.fk_id_subjects_module_v4;
+
+          subjectsList.push(object);
+        }
+      });
+      let newListSubjects = this.state.listOfSubjects.map((objSubject, i) =>
+        i === index
+          ? {
+              ...objSubject,
+              subjects: subjectsList,
+              subjectModuleId: selectedOption.value,
+            }
+          : objSubject
+      );
+      this.setState({ listOfSubjects: newListSubjects });
+    } else if (name === "levelId") {
+      let newListSubjects = this.state.listOfSubjects.map((objSubject, i) =>
+        i === index
+          ? {
+              ...objSubject,
+              [name]: selectedOption.id,
+              classId: 0,
+              subjectId: 0,
+              subjects: [],
+              subjectModuleId: 0,
+            }
+          : objSubject
+      );
+      this.setState({ listOfSubjects: newListSubjects });
     }
   };
   addNewSubject = (index) => {
@@ -444,6 +545,8 @@ class Users extends React.Component {
         subjectId: element.subjectId,
         subjects: element.subjects,
         isAdded: true,
+        subjectModuleId: element.subjectModuleId,
+        levelId: element.levelId,
       });
     });
     listOfSubjects.push({
@@ -452,6 +555,8 @@ class Users extends React.Component {
       subjectId: 0,
       subjects: [],
       isAdded: false,
+      subjectModuleId: 0,
+      levelId: 0,
     });
 
     this.setState({ listOfSubjects });
@@ -502,17 +607,16 @@ class Users extends React.Component {
           oldFiles.push(element);
         });
         this.setState({ userPapiersFiles: oldFiles, nameFiles });
-      }
-      else {
+      } else {
         this.setState({
-          messageAlerte: 'vous avez dépasser 5 fichiers',
+          messageAlerte: "vous avez dépasser 5 fichiers",
           alerteStatus: true,
         });
         setTimeout(() => {
-          this.setState({ messageAlerte: '', alerteStatus: false });
+          this.setState({ messageAlerte: "", alerteStatus: false });
         }, 4000);
       }
-    } 
+    }
   }
   uploadPhoto = (e) => {
     if (e.target.files[0] !== undefined) {
@@ -535,6 +639,29 @@ class Users extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
+    if (prevProps.subjectModules !== this.props.subjectModules) {
+      let subjectModulesList = [];
+      subjectModulesList = this.props.subjectModules.map((element) => {
+        var object = {};
+        object.label = element.name;
+        object.id = element.id;
+        object.value = element.id;
+        return object;
+      });
+      this.setState({ subjectModulesList });
+    }
+    if (prevProps.levels !== this.props.levels) {
+      let levelListParticipant = [];
+      levelListParticipant = this.props.levels.map((element) => {
+        var object = {};
+        object.label = element.name;
+        object.id = element.id;
+        object.value = element.id;
+
+        return object;
+      });
+      this.setState({ levelListParticipant });
+    }
     if (prevProps.ClassSettings !== this.props.ClassSettings) {
       let classForStudent = [];
       classForStudent = this.props.ClassSettings.map((element) => {
@@ -562,10 +689,7 @@ class Users extends React.Component {
       this.setState({ classRoomList: classRoomListFiltredByID });
     }
 
-    if (
-      prevProps.usersReducer.roles !== this.props.usersReducer.roles ||
-      prevProps.userPermission !== this.props.userPermission
-    ) {
+    if (prevProps.userPermission !== this.props.userPermission) {
       let listRoles = [];
       if (this.props.userProfile.role_id === roleIdSuperAdmin) {
         listRolesUsers.map((element) => {
@@ -683,8 +807,48 @@ class Users extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.subjectModules != undefined) {
+      let subjectModulesList = [];
+      subjectModulesList = this.props.subjectModules.map((element) => {
+        var object = {};
+        object.label = element.name;
+        object.id = element.id;
+        object.value = element.id;
+        return object;
+      });
+      this.setState({ subjectModulesList });
+    }
     if (this.props.userPermission != undefined) {
       this.setState({ permissionList: this.props.userPermission });
+      let listRoles = [];
+      if (this.props.userProfile.role_id === roleIdSuperAdmin) {
+        listRolesUsers.map((element) => {
+          var object = {};
+          object.label = element.label;
+          object.id = element.id;
+          object.value = element.id;
+
+          listRoles.push(object);
+        });
+      } else {
+        listRolesUsers.map((element) => {
+          var object = {};
+          object.label = element.label;
+          object.id = element.id;
+          object.value = element.id;
+
+          let permitted = false;
+          permitted = addUserPermitted(
+            element.labelBackEnd,
+            this.props.userPermission
+          );
+          if (permitted) {
+            listRoles.push(object);
+          }
+        });
+      }
+
+      this.setState({ listRoles: listRoles });
     }
     if (this.props.establishments != undefined) {
       let establishmentsList = [];
@@ -748,11 +912,23 @@ class Users extends React.Component {
       });
       this.setState({ studentsList });
     }
+    if (this.props.levels != undefined) {
+      let levelListParticipant = [];
+      levelListParticipant = this.props.levels.map((element) => {
+        var object = {};
+        object.label = element.name;
+        object.id = element.id;
+        object.value = element.id;
+
+        return object;
+      });
+      this.setState({ levelListParticipant });
+    }
     this.setState({ userList: this.props.usersReducer });
   }
 
   render() {
-     return (
+    return (
       <div
         className="app-wrapper"
         style={{
@@ -823,6 +999,9 @@ class Users extends React.Component {
                   studentsList={this.state.studentsList}
                   handleChangeGroupClassRoom={this.handleChangeGroupClassRoom}
                   values={this.state}
+                  handleChangeLevelParticipant={
+                    this.handleChangeLevelParticipant
+                  }
                 />
               </CardBox>
             </div>
@@ -894,6 +1073,8 @@ const mapStateToProps = (state) => {
     userPermission: state.PermissionReducer.userPermission,
     userLoading: state.usersReducer.userLoading,
     groupsList: state.GroupsReducer.groupsList,
+    levels: state.levelsReducer.levels,
+    subjectModules: state.subjectModuleReducer.subjectModules,
   };
 };
 

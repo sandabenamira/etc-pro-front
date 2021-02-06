@@ -489,6 +489,14 @@ export const ARCHIVED_GET_GROUPS = 'ARCHIVED_GET_GROUPS';
 export const INIT_OPTIONS = 'INIT_OPTIONS';
 
 
+///////////////Satisfaction Survey Module
+export const ADD_SATIS_SURVEY = 'ADD_SATIS_SURVEY';
+export const EDIT_SATIS_SURVEY = 'EDIT_SATIS_SURVEY';
+export const DELETE_SATIS_SURVEY = 'DELETE_SATIS_SURVEY';
+export const GET_SATIS_SURVEY_LIST = 'GET_SATIS_SURVEY_LIST';
+
+
+
 
 
 

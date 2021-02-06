@@ -71,6 +71,9 @@ const rules = {
       'module-nav-text_copybook',
       'homework-filter-class',
       'module-nav-internal_mail',
+      'module-nav-note',
+      'module-nav-satisfaction-question',
+      'module-nav-reporting-kpi',
     ],
     dynamic: {
       'module-nav-access': ({ mod, moduleList }) => {
@@ -141,6 +144,10 @@ const rules = {
       'module-nav-homeworks',
       'module-nav-book_management',
       'module-nav-internal_mail',
+      'module-nav-note',
+      'module-nav-satisfaction-question',
+      'module-nav-reporting-kpi',
+
       
       
     ],
@@ -208,6 +215,10 @@ const rules = {
       'module-nav-homeworks',
       'module-nav-book_management',
       'module-nav-internal_mail',
+      'module-nav-note',
+      'module-nav-satisfaction-question',
+      'module-nav-reporting-kpi',
+
     ],
     dynamic: {
       'module-nav-access': ({ mod, moduleList }) => {
@@ -240,6 +251,10 @@ const rules = {
       'module-nav-usersManagement',
       'module-nav-homeworks',
       'module-nav-internal_mail',
+      'module-nav-note',
+      'module-nav-satisfaction-question',
+      'module-nav-reporting-kpi',
+
       
     ],
     dynamic: {
@@ -332,6 +347,10 @@ const rules = {
       'module-nav-moocs',
       'module-nav-homeworks',
       'module-nav-internal_mail',
+      'module-nav-note',
+      'module-nav-satisfaction-question',
+      'module-nav-reporting-kpi',
+
     ],
 
     dynamic: {
@@ -470,6 +489,11 @@ const rules = {
       'homework-filter-class',
       'module-nav-groupes',
       'module-nav-internal_mail',
+      'module-nav-evaluation',
+      'module-nav-note',
+      'module-nav-satisfaction-question',
+      'module-nav-reporting-kpi'
+
       
     ],
 
@@ -594,6 +618,8 @@ const rules = {
       'module-nav-book_management',
       'module-nav-text_copybook',
       'module-nav-internal_mail',
+      'module-nav-note',
+      'module-nav-satisfaction-question',
     ],
 
     dynamic: {

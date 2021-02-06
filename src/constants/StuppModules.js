@@ -67,7 +67,7 @@ export const stuppModules = [
     name: "Gestion financière",
     pathName: "financial_management",
     order: 9,
-    type: "menuNoarraw",
+    type: "subMenu",
     component: "FinancialManagement",
     id: 9,
   },
@@ -95,6 +95,15 @@ export const stuppModules = [
     component: "SmartReporting",
     id: 12,
   },
+  {
+    name: "Evaluation",
+    pathName:"evaluation",
+    order: 13,
+    type: "subMenu",
+    component: "Evaluation",
+    id: 13,
+  },
+
 ];
 
 export const sousModuleEtab = [
@@ -605,4 +614,24 @@ export const sousModuleAdministration = [
   ]
 },
 
+];
+export const sousModuleEvaluation = [
+  {
+    name: "note",
+    pathName: "evaluation/note",
+    icon: "star",
+    id: 1,
+  },
+  {
+    name: "satisfaction-question",
+    pathName: "evaluation/satisfaction-question",
+    icon: "card-membership",
+    id: 3,
+  },
+  {
+    name: "reporting-kpi",
+    pathName: "evaluation/reporting-kpi",
+    icon: "accounts-alt",
+    id: 4,
+  }
 ];
