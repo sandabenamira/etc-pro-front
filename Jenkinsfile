@@ -21,17 +21,6 @@ pipeline {
             }
         }
 
-        stage('build prod') {
-            when {
-                branch 'master'
-            }
-
-            steps {
-                    sh'export NODE_OPTIONS=--max_old_space_size=8192'
-                    sh 'yarn run build:production'
-            }
-        }
-
         stage('Send to s3 bucket') {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
@@ -39,22 +28,15 @@ pipeline {
                      credentialsId: 'awscredentials',
                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
                       {
-                    script {
-                        if (env.BRANCH_NAME == 'master') {
+
                             dir('build')
-                        {
-                                sh 'aws s3 sync . s3://app.educap.io --region eu-west-3'
-                        }
-                        }
-                    else {
-                            dir('build')
-                        {
-                                sh 'aws s3 sync . s3://d-app.educap.io --region eu-west-3'
-                        }
-                    }
-                    }
+
+                                sh 'aws s3 sync . s3://pro.educap.io --region eu-west-3'
                       }
             }
         }
     }
+
 }
+
+
