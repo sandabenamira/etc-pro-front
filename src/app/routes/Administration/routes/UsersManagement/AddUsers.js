@@ -383,7 +383,7 @@ class AddUsers extends React.Component {
   };
   render() {
     const { values } = this.props;
-     return (
+    return (
       <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap align-items-start">
         <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-row flex-wrap  justify-content-between align-items-center">
           <div className="d-flex flex-row ">
@@ -541,13 +541,19 @@ class AddUsers extends React.Component {
                       fontFamily: "Roboto",
                       fontSize: "18px",
                     }}
-                    required
+                     
                   >
-                    {<IntlMessages id="school.year.user" />}
+                    Année
                   </InputLabel>
                   <Select
-                    options={this.props.values.listSchoolYears}
-                    onChange={this.props.handleChangeSchoolYear}
+                    isDisabled
+                    // options={[this.props.userProfile.school_year_name]}
+                    // onChange={this.props.handleChangeSchoolYear}
+                    // defaultValue={this.props.userProfile.school_year_name}
+                    defaultValue={{
+                      label: this.props.userProfile.school_year_name,
+                      id: 0,
+                    }}
                     id="role"
                     name="role"
                     styles={{
@@ -966,7 +972,7 @@ class AddUsers extends React.Component {
                 ) : (
                   ""
                 )}
-                {this.props.values.roleId === roleIdSupervisor ? (
+                {/* {this.props.values.roleId === roleIdSupervisor ? (
                   <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                     <InputLabel
                       htmlFor="nomSelect"
@@ -998,7 +1004,7 @@ class AddUsers extends React.Component {
                   </div>
                 ) : (
                   ""
-                )}
+                )} */}
                 <hr
                   style={{
                     width: "100%",

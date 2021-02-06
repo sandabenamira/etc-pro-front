@@ -25,42 +25,80 @@ import LoaderModal from "./LoaderModal";
 import { getAssignementCourse } from "../../../../../actions/AssignementAction";
 import IntlMessages from "../../../../../util/IntlMessages";
 
+// const listRolesUsers = [
+//   {
+//     id: roleIdAdmin,
+//     label: <IntlMessages id={`role.admin`} />,
+//     value: roleIdAdmin,
+//     labelBackEnd: "Admin",
+//   },
+//   {
+//     id: roleIdDirector,
+//     label: <IntlMessages id={`component.etablishments.info.director`} />,
+//     value: roleIdDirector,
+//     labelBackEnd: "Director",
+//   },
+//   {
+//     id: roleIdSupervisor,
+//     label: <IntlMessages id={`role.supervisor`} />,
+//     value: roleIdSupervisor,
+//     labelBackEnd: "Vie scolaire",
+//   },
+//   {
+//     id: roleIdProfessor,
+//     label: <IntlMessages id={`toDo.professor`} />,
+//     value: roleIdProfessor,
+//     labelBackEnd: "Professor",
+//   },
+//   {
+//     id: roleIdStudent,
+//     label: <IntlMessages id={`userStuppDisplay.Student`} />,
+//     value: roleIdStudent,
+//     labelBackEnd: "Student",
+//   },
+//   {
+//     id: roleIdParent,
+//     label: <IntlMessages id={`userStuppDisplay.Parent`} />,
+//     value: roleIdParent,
+//     labelBackEnd: "Parent",
+//   },
+// ];
 const listRolesUsers = [
   {
     id: roleIdAdmin,
-    label: <IntlMessages id={`role.admin`} />,
+    label: <IntlMessages id="role.admin" />,
     value: roleIdAdmin,
     labelBackEnd: "Admin",
   },
   {
     id: roleIdDirector,
-    label: <IntlMessages id={`component.etablishments.info.director`} />,
+    label: "Directeur Des Ressources Humaines",
     value: roleIdDirector,
     labelBackEnd: "Director",
   },
   {
     id: roleIdSupervisor,
-    label: <IntlMessages id={`role.supervisor`} />,
+    label: "Responsable formation",
     value: roleIdSupervisor,
     labelBackEnd: "Vie scolaire",
+  },
+  {
+    id: roleIdParent,
+    label: "Chef d'agence",
+    value: roleIdParent,
+    labelBackEnd: "Responsable formation",
   },
   {
     id: roleIdProfessor,
     label: <IntlMessages id={`toDo.professor`} />,
     value: roleIdProfessor,
-    labelBackEnd: "Professor",
+    labelBackEnd: "Formateur",
   },
   {
     id: roleIdStudent,
-    label: <IntlMessages id={`userStuppDisplay.Student`} />,
+    label: "Participant",
     value: roleIdStudent,
-    labelBackEnd: "Student",
-  },
-  {
-    id: roleIdParent,
-    label: <IntlMessages id={`userStuppDisplay.Parent`} />,
-    value: roleIdParent,
-    labelBackEnd: "Parent",
+    labelBackEnd: "Participant",
   },
 ];
 class Users extends React.Component {
@@ -236,7 +274,7 @@ class Users extends React.Component {
       subjectIds: [],
     });
   }
-  
+
   openAddModal() {
     this.setState({ roleId: "" });
 
@@ -262,7 +300,7 @@ class Users extends React.Component {
         AssignementIdProf.push(element.subjectId);
       }
     });
-    if (this.state.roleId === null || this.state.schoolyearId === null) {
+    if (this.state.roleId === null ) {
       this.setState({
         missingValue: true,
         alertMessage: "Il faut remplir les champs obligatoires ",
@@ -308,7 +346,7 @@ class Users extends React.Component {
           establishmentId: this.state.establishmentId,
           assignClassSubject: AssignementIdProf,
           studentClass: this.state.studentClass,
-          schoolyearId: this.state.schoolyearId,
+          schoolyearId: this.props.userProfile.school_year_id,
           functionName: this.state.functionName,
           password: "123456",
           login: "login1",
@@ -324,7 +362,7 @@ class Users extends React.Component {
         this.setState({
           roleId: "",
           roleName: "",
-          schoolyearId: "",
+          schoolyearId: this.props.userProfile.school_year_id,
           classRoomId: "",
           subjectId: "",
           parentId: null,
@@ -518,7 +556,7 @@ class Users extends React.Component {
       subjects: [],
       isAdded: false,
       subjectModuleId: 0,
-      levelId:0
+      levelId: 0,
     });
 
     this.setState({ listOfSubjects });
