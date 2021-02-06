@@ -1,27 +1,33 @@
-import React from 'react';
-import IntlMessages from '../../../../../util/IntlMessages';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import RemoveSharpIcon from '@material-ui/icons/RemoveSharp';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-import { connect } from 'react-redux';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/moment';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from 'react-select';
-import AddBox from '@material-ui/icons/AddBox';
-import Typography from '@material-ui/core/Typography';
-import WcIcon from '@material-ui/icons/Wc';
-import { Radio } from '@material-ui/core';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import PrintIcon from '@material-ui/icons/Print';
-import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
-import { getAllRole, importUsersFromFile } from '../../../../../actions/usersAction';
-import PhotoIcon from '@material-ui/icons/Photo';
+import React from "react";
+import IntlMessages from "../../../../../util/IntlMessages";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import ImportExportIcon from "@material-ui/icons/ImportExport";
+import { connect } from "react-redux";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/moment";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "react-select";
+import AddBox from "@material-ui/icons/AddBox";
+import Typography from "@material-ui/core/Typography";
+import WcIcon from "@material-ui/icons/Wc";
+import { Radio } from "@material-ui/core";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import PrintIcon from "@material-ui/icons/Print";
+import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
+import {
+  getAllRole,
+  importUsersFromFile,
+} from "../../../../../actions/usersAction";
+import PhotoIcon from "@material-ui/icons/Photo";
 import {
   roleIdSuperAdmin,
   roleIdAdmin,
@@ -30,59 +36,59 @@ import {
   roleIdDirector,
   roleIdParent,
   roleIdSupervisor,
-} from '../../../../../config/config';
+} from "../../../../../config/config";
 import {
   isEmail,
   isPhonenumber,
   isZipCode,
   isCIN,
   isValidphoneNumber,
-} from '../../../../../constants/validationFunctions';
-import MuiPhoneNumber from 'material-ui-phone-number';
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import moment from 'moment';
-import RemoveIcon from '@material-ui/icons/Remove';
-import ModalImportUser from './ModalImportUser';
-import ModalExportUser from './ModalExportUser';
-import readXlsxFile from 'read-excel-file';
-import { element } from 'prop-types';
-import _ from 'lodash';
-import AlerteImport from './AlerteImport';
+} from "../../../../../constants/validationFunctions";
+import MuiPhoneNumber from "material-ui-phone-number";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+import moment from "moment";
+import RemoveIcon from "@material-ui/icons/Remove";
+import ModalImportUser from "./ModalImportUser";
+import ModalExportUser from "./ModalExportUser";
+import readXlsxFile from "read-excel-file";
+import { element } from "prop-types";
+import _ from "lodash";
+import AlerteImport from "./AlerteImport";
 
-import axios from 'axios';
-import baseUrl from '../../../../../config/config';
-import { exportCsv } from '../../../../../actions/usersAction';
+import axios from "axios";
+import baseUrl from "../../../../../config/config";
+import { exportCsv } from "../../../../../actions/usersAction";
 
 // const { getJsDateFromExcel } = require('excel-date-to-js');
 const correctHeader = [
-  'role',
-  'année scolaire',
-  'nom',
-  'prénom',
-  'nom ar',
-  'prénom ar',
-  'gender',
-  'date de naissance',
-  'lieu de naissance',
-  'nationalité',
-  'E-mail',
-  'telephone',
-  'CIN',
-  'Identifiant unique',
-  'adresse postal',
-  'code postal',
-  'pays',
-  'informations utiles',
-  'classe',
-  'groupe',
+  "role",
+  "année scolaire",
+  "nom",
+  "prénom",
+  "nom ar",
+  "prénom ar",
+  "gender",
+  "date de naissance",
+  "lieu de naissance",
+  "nationalité",
+  "E-mail",
+  "telephone",
+  "CIN",
+  "Identifiant unique",
+  "adresse postal",
+  "code postal",
+  "pays",
+  "informations utiles",
+  "classe",
+  "groupe",
 ];
 const fonctionList = [
   { label: "Agent d'entretien", id: 1, value: 1 },
-  { label: 'Infirmière', id: 2, value: 2 },
-  { label: 'Cuisinier(e)', id: 3, value: 3 },
-  { label: 'Gardien', id: 4, value: 4 },
-  { label: 'surveillant', id: 5, value: 5 },
-  { label: 'surveillant général', id: 6, value: 6 },
+  { label: "Infirmière", id: 2, value: 2 },
+  { label: "Cuisinier(e)", id: 3, value: 3 },
+  { label: "Gardien", id: 4, value: 4 },
+  { label: "surveillant", id: 5, value: 5 },
+  { label: "surveillant général", id: 6, value: 6 },
 ];
 
 class AddUsers extends React.Component {
@@ -95,15 +101,15 @@ class AddUsers extends React.Component {
       FormatedUserList: [],
       errorHeaderColumn: [],
       exportHasOpen: false,
-      userFile: '',
-      inputText: '',
+      userFile: "",
+      inputText: "",
       valeur: [],
-      idRole: '',
-      classId: '',
-      classeName: '',
+      idRole: "",
+      classId: "",
+      classeName: "",
       invalidData: [],
       alerteImportStatus: false,
-      alerteImportMessage: '',
+      alerteImportMessage: "",
       importStatus: [],
       importDone: false,
       fileUploaded: false,
@@ -153,7 +159,10 @@ class AddUsers extends React.Component {
       };
       try {
         let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
-        const response = await axios.post(baseUrl.baseUrl + apiEndpoint, dataUser);
+        const response = await axios.post(
+          baseUrl.baseUrl + apiEndpoint,
+          dataUser
+        );
 
         return data.indexFile;
       } catch (err) {
@@ -168,12 +177,12 @@ class AddUsers extends React.Component {
   handleCancel() {
     this.setState({
       importisOpen: false,
-      idRole: '',
+      idRole: "",
       listUsers: [],
       FormatedUserList: [],
       exportHasOpen: false,
-      classId: '',
-      className: '',
+      classId: "",
+      className: "",
     });
   }
 
@@ -218,16 +227,16 @@ class AddUsers extends React.Component {
       this.state.classId,
       this.state.classeName
     );
-    if (exportReturn == 'error') {
+    if (exportReturn == "error") {
       this.setState({
         alerteImportStatus: true,
         alerteImportMessage: "erreur d'export svp vérifier votre classe",
       });
       setTimeout(() => {
-        this.setState({ alerteImportStatus: false, alerteImportMessage: '' });
+        this.setState({ alerteImportStatus: false, alerteImportMessage: "" });
       }, 3000);
     }
-    this.setState({ classId: '', classeName: '', exportHasOpen: false });
+    this.setState({ classId: "", classeName: "", exportHasOpen: false });
   };
 
   checkDataFile = (event) => {
@@ -264,20 +273,20 @@ class AddUsers extends React.Component {
     });
 
     if (this.state.idRole == 2) {
-      if ('Course' in objs[0]) {
+      if ("Course" in objs[0]) {
         // this.props.importUsersFromFile(objs);
       } else {
       }
     }
     if (this.state.idRole == 3) {
-      if ('Course' in objs[0]) {
+      if ("Course" in objs[0]) {
         // this.props.importUsersFromFile(objs);
       } else {
       }
     }
 
     if (this.state.idRole == 4) {
-      if ('idEnfant' in objs[0]) {
+      if ("idEnfant" in objs[0]) {
         // this.props.importUsersFromFile(objs);
       } else {
       }
@@ -296,19 +305,25 @@ class AddUsers extends React.Component {
             classElement.fk_id_establishment == establishmentId &&
             classElement.fk_id_school_year == school_year_id
         );
-         if (classItem != undefined) {
+        if (classItem != undefined) {
           UserObject.classID = classItem.id;
           UserObject.levelId = classItem.fk_id_level_v4;
           UserObject.sectionId = classItem.fk_id_section_v4;
-          let groupItem = classItem.group.find((groupItem) => groupItem.name == element.groupeID);
-          UserObject.groupId = groupItem  == undefined ? null : groupItem.id;
+          let groupItem = classItem.group.find(
+            (groupItem) => groupItem.name == element.groupeID
+          );
+          UserObject.groupId = groupItem == undefined ? null : groupItem.id;
         } else {
           UserObject.classID = null;
           UserObject.levelId = null;
           UserObject.sectionId = null;
           UserObject.groupId = null;
         }
-        if (element.name == null || element.surname == null || isEmail(element.email) === false) {
+        if (
+          element.name == null ||
+          element.surname == null ||
+          isEmail(element.email) === false
+        ) {
           invalidData.push(element);
         }
         return UserObject;
@@ -350,13 +365,13 @@ class AddUsers extends React.Component {
       let result = this.ImportXLSX(this.state.FormatedUserList);
     } else {
       let alerteImportMessage =
-        'les lignes numéro ' +
-        this.state.invalidData.map((element) => element.indexFile + ' , ') +
-        'sont invalides';
+        "les lignes numéro " +
+        this.state.invalidData.map((element) => element.indexFile + " , ") +
+        "sont invalides";
 
       this.setState({ alerteImportStatus: true, alerteImportMessage });
       setTimeout(() => {
-        this.setState({ alerteImportStatus: false, alerteImportMessage: '' });
+        this.setState({ alerteImportStatus: false, alerteImportMessage: "" });
       }, 4000);
     }
   };
@@ -368,21 +383,26 @@ class AddUsers extends React.Component {
   };
   render() {
     const { values } = this.props;
-    return (
+     return (
       <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap align-items-start">
         <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-row flex-wrap  justify-content-between align-items-center">
           <div className="d-flex flex-row ">
-            <Fab size="small" color="primary" aria-label="Add" onClick={this.props.openAddModal}>
+            <Fab
+              size="small"
+              color="primary"
+              aria-label="Add"
+              onClick={this.props.openAddModal}
+            >
               {this.props.values.isOpen ? <RemoveSharpIcon /> : <AddIcon />}
             </Fab>
             &nbsp;&nbsp;&nbsp;
             <Typography
               variant="h6"
               style={{
-                color: 'black',
-                fontWeight: 'blod',
-                fontFamily: 'Roboto',
-                fontSize: '25px',
+                color: "black",
+                fontWeight: "blod",
+                fontFamily: "Roboto",
+                fontSize: "25px",
               }}
             >
               <IntlMessages id="add.new.user" />
@@ -402,10 +422,10 @@ class AddUsers extends React.Component {
             <Typography
               variant="h6"
               style={{
-                color: 'black',
-                fontWeight: 'blod',
-                fontFamily: 'Roboto',
-                fontSize: '25px',
+                color: "black",
+                fontWeight: "blod",
+                fontFamily: "Roboto",
+                fontSize: "25px",
               }}
             >
               <IntlMessages id="upload.file.user" />
@@ -425,10 +445,10 @@ class AddUsers extends React.Component {
             <Typography
               variant="h6"
               style={{
-                color: 'black',
-                fontWeight: 'blod',
-                fontFamily: 'Roboto',
-                fontSize: '25px',
+                color: "black",
+                fontWeight: "blod",
+                fontFamily: "Roboto",
+                fontSize: "25px",
               }}
             >
               <IntlMessages id="export.file.user" />
@@ -439,7 +459,7 @@ class AddUsers extends React.Component {
             <Fab
               size="small"
               aria-label="Add"
-              style={{ backgroundColor: '#ffbb33', color: '#ffffff' }}
+              style={{ backgroundColor: "#ffbb33", color: "#ffffff" }}
               //   onClick={this.handleOpenImportModal()}
             >
               <DeleteOutlineIcon />
@@ -448,10 +468,10 @@ class AddUsers extends React.Component {
             <Typography
               variant="h6"
               style={{
-                color: 'black',
-                fontWeight: 'blod',
-                fontFamily: 'Roboto',
-                fontSize: '25px',
+                color: "black",
+                fontWeight: "blod",
+                fontFamily: "Roboto",
+                fontSize: "25px",
               }}
             >
               <IntlMessages id="service.button.archives" />
@@ -461,14 +481,14 @@ class AddUsers extends React.Component {
             &nbsp;&nbsp;&nbsp;
             <PrintIcon
               style={{
-                fontSize: '35',
+                fontSize: "35",
               }}
               color="inherit"
             />
             &nbsp;&nbsp;&nbsp;
             <PictureAsPdfIcon
               style={{
-                fontSize: '35',
+                fontSize: "35",
               }}
               color="inherit"
             />
@@ -487,8 +507,8 @@ class AddUsers extends React.Component {
                   <InputLabel
                     htmlFor="nomSelect"
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
                     }}
                     required
                   >
@@ -503,23 +523,23 @@ class AddUsers extends React.Component {
                     styles={{
                       control: (base) => ({
                         ...base,
-                        '&:hover': { borderColor: 'gray' }, // border style on hover
-                        border: '1px solid lightgray', // default border color
-                        boxShadow: 'none', // no box-shadow
-                        borderTopStyle: 'none',
-                        borderRightStyle: 'none',
-                        borderLeftStyle: 'none',
-                        borderRadius: ' none',
+                        "&:hover": { borderColor: "gray" }, // border style on hover
+                        border: "1px solid lightgray", // default border color
+                        boxShadow: "none", // no box-shadow
+                        borderTopStyle: "none",
+                        borderRightStyle: "none",
+                        borderLeftStyle: "none",
+                        borderRadius: " none",
                       }),
                     }}
-                  />{' '}
+                  />{" "}
                 </div>
                 <div className="col-md-6 col-lg-2 col-sm-12 p-0">
                   <InputLabel
                     htmlFor="nomSelect"
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
                     }}
                     required
                   >
@@ -533,16 +553,16 @@ class AddUsers extends React.Component {
                     styles={{
                       control: (base) => ({
                         ...base,
-                        '&:hover': { borderColor: 'gray' }, // border style on hover
-                        border: '1px solid lightgray', // default border color
-                        boxShadow: 'none', // no box-shadow
-                        borderTopStyle: 'none',
-                        borderRightStyle: 'none',
-                        borderLeftStyle: 'none',
-                        borderRadius: ' none',
+                        "&:hover": { borderColor: "gray" }, // border style on hover
+                        border: "1px solid lightgray", // default border color
+                        boxShadow: "none", // no box-shadow
+                        borderTopStyle: "none",
+                        borderRightStyle: "none",
+                        borderLeftStyle: "none",
+                        borderRadius: " none",
                       }),
                     }}
-                  />{' '}
+                  />{" "}
                 </div>
                 {this.props.userProfile.role_id === roleIdSuperAdmin ? (
                   <>
@@ -550,8 +570,8 @@ class AddUsers extends React.Component {
                       <InputLabel
                         htmlFor="nomSelect"
                         style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
+                          fontFamily: "Roboto",
+                          fontSize: "18px",
                         }}
                         required
                       >
@@ -565,20 +585,20 @@ class AddUsers extends React.Component {
                         styles={{
                           control: (base) => ({
                             ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
+                            "&:hover": { borderColor: "gray" }, // border style on hover
+                            border: "1px solid lightgray", // default border color
+                            boxShadow: "none", // no box-shadow
+                            borderTopStyle: "none",
+                            borderRightStyle: "none",
+                            borderLeftStyle: "none",
+                            borderRadius: " none",
                           }),
                         }}
-                      />{' '}
+                      />{" "}
                     </div>
                   </>
                 ) : (
-                  ''
+                  ""
                 )}
                 {this.props.values.roleId === roleIdStudent ? (
                   <>
@@ -586,8 +606,8 @@ class AddUsers extends React.Component {
                       <InputLabel
                         htmlFor="nomSelect"
                         style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
+                          fontFamily: "Roboto",
+                          fontSize: "18px",
                         }}
                       >
                         {<IntlMessages id="parent.couplage.user" />}
@@ -600,25 +620,25 @@ class AddUsers extends React.Component {
                         styles={{
                           control: (base) => ({
                             ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
+                            "&:hover": { borderColor: "gray" }, // border style on hover
+                            border: "1px solid lightgray", // default border color
+                            boxShadow: "none", // no box-shadow
+                            borderTopStyle: "none",
+                            borderRightStyle: "none",
+                            borderLeftStyle: "none",
+                            borderRadius: " none",
                           }),
                         }}
-                      />{' '}
+                      />{" "}
                     </div>
                     <div className="col-md-6 col-lg-2 col-sm-12 p-0">
                       <InputLabel
                         htmlFor="nomSelect"
                         style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
+                          fontFamily: "Roboto",
+                          fontSize: "18px",
                         }}
-                       >
+                      >
                         {<IntlMessages id="classe.couplage.user" />}
                       </InputLabel>
                       <Select
@@ -628,25 +648,25 @@ class AddUsers extends React.Component {
                         styles={{
                           control: (base) => ({
                             ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
+                            "&:hover": { borderColor: "gray" }, // border style on hover
+                            border: "1px solid lightgray", // default border color
+                            boxShadow: "none", // no box-shadow
+                            borderTopStyle: "none",
+                            borderRightStyle: "none",
+                            borderLeftStyle: "none",
+                            borderRadius: " none",
                           }),
                         }}
-                      />{' '}
+                      />{" "}
                     </div>
                     <div className="col-md-6 col-lg-2 col-sm-12 p-0">
                       <InputLabel
                         htmlFor="group"
                         style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
+                          fontFamily: "Roboto",
+                          fontSize: "18px",
                         }}
-                       >
+                      >
                         {<IntlMessages id="assignment.student.group" />}
                       </InputLabel>
                       <Select
@@ -656,20 +676,20 @@ class AddUsers extends React.Component {
                         styles={{
                           control: (base) => ({
                             ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
+                            "&:hover": { borderColor: "gray" }, // border style on hover
+                            border: "1px solid lightgray", // default border color
+                            boxShadow: "none", // no box-shadow
+                            borderTopStyle: "none",
+                            borderRightStyle: "none",
+                            borderLeftStyle: "none",
+                            borderRadius: " none",
                           }),
                         }}
-                      />{' '}
+                      />{" "}
                     </div>
                   </>
                 ) : (
-                  ''
+                  ""
                 )}
                 {this.props.values.roleId === roleIdProfessor ? (
                   <>
@@ -677,36 +697,88 @@ class AddUsers extends React.Component {
                     <div className="col-md-6 col-lg-3 col-sm-12 p-0 "> </div>
                   </>
                 ) : (
-                  ''
+                  ""
                 )}
                 {this.props.values.roleId === roleIdProfessor ? (
                   <>
                     {values.listOfSubjects.map((objSubject, index) => (
-                      <div
-                        className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row justify-content-between p-3"
-                        key={index}
-                      >
-                        <div className="col-md-6 col-lg-3 col-sm-12 p-0 ">
+                      <div className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row justify-content-between p-3">
+                        <div className="col-md-6 col-lg-2 col-sm-12 p-0 ">
                           <InputLabel
                             htmlFor="nomSelect"
                             style={{
-                              fontFamily: 'Roboto',
-                              fontSize: '18px',
+                              fontFamily: "Roboto",
+                              fontSize: "18px",
                             }}
                             required
                           >
-                            {<IntlMessages id="prof.couplage.class" />}
+                            {<IntlMessages id="classe.couplage.level" />}
                           </InputLabel>
                           <Select
-                            options={this.props.values.classRoomList}
-                            onChange={(e) => this.props.handleChangeClassRoom(e, 'classId', index)}
+                            options={this.props.values.levelListParticipant}
+                            onChange={(e) =>
+                              this.props.handleChangeClassRoom(
+                                e,
+                                "levelId",
+                                index
+                              )
+                            }
                             value={
-                              this.props.values.classRoomList.find(
+                              this.props.values.levelListParticipant.find(
+                                (element) => element.id == objSubject.levelId
+                              ) == undefined
+                                ? {}
+                                : this.props.values.levelListParticipant.find(
+                                    (element) =>
+                                      element.id == objSubject.levelId
+                                  )
+                            }
+                            id="levelId"
+                            name="levelId"
+                            styles={{
+                              control: (base) => ({
+                                ...base,
+                                "&:hover": { borderColor: "gray" }, // border style on hover
+                                border: "1px solid lightgray", // default border color
+                                boxShadow: "none", // no box-shadow
+                                borderTopStyle: "none",
+                                borderRightStyle: "none",
+                                borderLeftStyle: "none",
+                                borderRadius: " none",
+                              }),
+                            }}
+                          />{" "}
+                        </div>
+                        <div className="col-md-6 col-lg-3 col-sm-12 mr-1 ">
+                          <InputLabel
+                            htmlFor="nomSelect"
+                            style={{
+                              fontFamily: "Roboto",
+                              fontSize: "18px",
+                            }}
+                            required
+                          >
+                            {<IntlMessages id="classe.couplage.user" />}
+                          </InputLabel>
+                          <Select
+                            options={this.props.values.classForStudent.filter(
+                              (element) => element.levelId == objSubject.levelId
+                            )}
+                            onChange={(e) =>
+                              this.props.handleChangeClassRoom(
+                                e,
+                                "classId",
+                                index
+                              )
+                            }
+                            value={
+                              this.props.values.classForStudent.find(
                                 (element) => element.id == objSubject.classId
                               ) == undefined
                                 ? {}
-                                : this.props.values.classRoomList.find(
-                                    (element) => element.id == objSubject.classId
+                                : this.props.values.classForStudent.find(
+                                    (element) =>
+                                      element.id == objSubject.classId
                                   )
                             }
                             id="classId"
@@ -714,34 +786,97 @@ class AddUsers extends React.Component {
                             styles={{
                               control: (base) => ({
                                 ...base,
-                                '&:hover': { borderColor: 'gray' }, // border style on hover
-                                border: '1px solid lightgray', // default border color
-                                boxShadow: 'none', // no box-shadow
-                                borderTopStyle: 'none',
-                                borderRightStyle: 'none',
-                                borderLeftStyle: 'none',
-                                borderRadius: ' none',
+                                "&:hover": { borderColor: "gray" }, // border style on hover
+                                border: "1px solid lightgray", // default border color
+                                boxShadow: "none", // no box-shadow
+                                borderTopStyle: "none",
+                                borderRightStyle: "none",
+                                borderLeftStyle: "none",
+                                borderRadius: " none",
                               }),
                             }}
-                          />{' '}
+                          />{" "}
                         </div>
-                        <div className="col-md-6 col-lg-3 col-sm-12 p-0">
+                        <div className="col-md-6 col-lg-3 col-sm-12 mr-1 ">
                           <InputLabel
                             htmlFor="nomSelect"
                             style={{
-                              fontFamily: 'Roboto',
-                              fontSize: '18px',
+                              fontFamily: "Roboto",
+                              fontSize: "18px",
+                            }}
+                            required
+                          >
+                            {
+                              <IntlMessages id="classe.couplage.module.formation" />
+                            }
+                          </InputLabel>
+                          <Select
+                            options={values.subjectModulesList}
+                            onChange={(e) =>
+                              this.props.handleChangeClassRoom(
+                                e,
+                                "subjectModuleId",
+                                index
+                              )
+                            }
+                            value={
+                              values.subjectModulesList.find(
+                                (element) =>
+                                  element.value == objSubject.subjectModuleId
+                              ) == undefined
+                                ? {}
+                                : values.subjectModulesList.find(
+                                    (element) =>
+                                      element.value ==
+                                      objSubject.subjectModuleId
+                                  )
+                            }
+                            id="classId"
+                            name="classId"
+                            styles={{
+                              control: (base) => ({
+                                ...base,
+                                "&:hover": { borderColor: "gray" }, // border style on hover
+                                border: "1px solid lightgray", // default border color
+                                boxShadow: "none", // no box-shadow
+                                borderTopStyle: "none",
+                                borderRightStyle: "none",
+                                borderLeftStyle: "none",
+                                borderRadius: " none",
+                              }),
+                            }}
+                          />{" "}
+                        </div>
+                        <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                          <InputLabel
+                            htmlFor="nomSelect"
+                            style={{
+                              fontFamily: "Roboto",
+                              fontSize: "18px",
                             }}
                             required
                           >
                             {<IntlMessages id="prof.couplage.subjects" />}
                           </InputLabel>
                           <Select
+                            // options={objSubject.subjects}
+                            // onChange={(e) =>
+                            //   this.props.handleChangeClassRoom(
+                            //     e,
+                            //     "subjectId",
+                            //     index
+                            //   )
+                            // }
                             options={objSubject.subjects.filter(
-                              (element) => !values.subjectIds.includes(element.id)
+                              (element) =>
+                                !values.subjectIds.includes(element.id)
                             )}
                             onChange={(e) =>
-                              this.props.handleChangeClassRoom(e, 'subjectId', index)
+                              this.props.handleChangeClassRoom(
+                                e,
+                                "subjectId",
+                                index
+                              )
                             }
                             value={
                               objSubject.subjects.find(
@@ -749,7 +884,8 @@ class AddUsers extends React.Component {
                               ) == undefined
                                 ? {}
                                 : objSubject.subjects.find(
-                                    (element) => element.id == objSubject.subjectId
+                                    (element) =>
+                                      element.id == objSubject.subjectId
                                   )
                             }
                             id="subjectId"
@@ -757,16 +893,16 @@ class AddUsers extends React.Component {
                             styles={{
                               control: (base) => ({
                                 ...base,
-                                '&:hover': { borderColor: 'gray' }, // border style on hover
-                                border: '1px solid lightgray', // default border color
-                                boxShadow: 'none', // no box-shadow
-                                borderTopStyle: 'none',
-                                borderRightStyle: 'none',
-                                borderLeftStyle: 'none',
-                                borderRadius: ' none',
+                                "&:hover": { borderColor: "gray" }, // border style on hover
+                                border: "1px solid lightgray", // default border color
+                                boxShadow: "none", // no box-shadow
+                                borderTopStyle: "none",
+                                borderRightStyle: "none",
+                                borderLeftStyle: "none",
+                                borderRadius: " none",
                               }),
                             }}
-                          />{' '}
+                          />{" "}
                         </div>
                         <div className="col-md-6 col-lg-2 col-sm-12 p-0">
                           <Fab
@@ -793,7 +929,7 @@ class AddUsers extends React.Component {
                     ))}
                   </>
                 ) : (
-                  ''
+                  ""
                 )}
                 {this.props.values.roleId === roleIdParent ? (
                   <>
@@ -801,8 +937,8 @@ class AddUsers extends React.Component {
                       <InputLabel
                         htmlFor="nomSelect"
                         style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
+                          fontFamily: "Roboto",
+                          fontSize: "18px",
                         }}
                       >
                         {<IntlMessages id="parent.couplage.student" />}
@@ -815,28 +951,28 @@ class AddUsers extends React.Component {
                         styles={{
                           control: (base) => ({
                             ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
+                            "&:hover": { borderColor: "gray" }, // border style on hover
+                            border: "1px solid lightgray", // default border color
+                            boxShadow: "none", // no box-shadow
+                            borderTopStyle: "none",
+                            borderRightStyle: "none",
+                            borderLeftStyle: "none",
+                            borderRadius: " none",
                           }),
                         }}
-                      />{' '}
+                      />{" "}
                     </div>
                   </>
                 ) : (
-                  ''
+                  ""
                 )}
                 {this.props.values.roleId === roleIdSupervisor ? (
                   <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                     <InputLabel
                       htmlFor="nomSelect"
                       style={{
-                        fontFamily: 'Roboto',
-                        fontSize: '18px',
+                        fontFamily: "Roboto",
+                        fontSize: "18px",
                       }}
                     >
                       {<IntlMessages id="vie.scolaire.fonction" />}
@@ -849,28 +985,28 @@ class AddUsers extends React.Component {
                       styles={{
                         control: (base) => ({
                           ...base,
-                          '&:hover': { borderColor: 'gray' }, // border style on hover
-                          border: '1px solid lightgray', // default border color
-                          boxShadow: 'none', // no box-shadow
-                          borderTopStyle: 'none',
-                          borderRightStyle: 'none',
-                          borderLeftStyle: 'none',
-                          borderRadius: ' none',
+                          "&:hover": { borderColor: "gray" }, // border style on hover
+                          border: "1px solid lightgray", // default border color
+                          boxShadow: "none", // no box-shadow
+                          borderTopStyle: "none",
+                          borderRightStyle: "none",
+                          borderLeftStyle: "none",
+                          borderRadius: " none",
                         }),
                       }}
-                    />{' '}
+                    />{" "}
                   </div>
                 ) : (
-                  ''
+                  ""
                 )}
                 <hr
                   style={{
-                    width: '100%',
-                    margin: 'auto',
-                    marginTop: '40px',
-                    marginBottom: '10px',
-                    border: '1px dashed #979A9A',
-                    paddingLeft: '-100%',
+                    width: "100%",
+                    margin: "auto",
+                    marginTop: "40px",
+                    marginBottom: "10px",
+                    border: "1px dashed #979A9A",
+                    paddingLeft: "-100%",
                   }}
                 />
               </div>
@@ -879,9 +1015,9 @@ class AddUsers extends React.Component {
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <InputLabel
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
-                      marginTop: '-2%',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
+                      marginTop: "-2%",
                     }}
                     required
                   >
@@ -892,10 +1028,10 @@ class AddUsers extends React.Component {
                     // error={values.nameError}
                     id="userName"
                     name="userName"
-                    value={values.userName || ''}
-                    onChange={this.props.handleChange('userName')}
+                    value={values.userName || ""}
+                    onChange={this.props.handleChange("userName")}
                     style={{
-                      marginTop: '3%',
+                      marginTop: "3%",
                     }}
                     fullWidth
                     SelectProps={{
@@ -911,9 +1047,9 @@ class AddUsers extends React.Component {
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <InputLabel
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
-                      marginTop: '-2%',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
+                      marginTop: "-2%",
                     }}
                     required
                   >
@@ -924,10 +1060,10 @@ class AddUsers extends React.Component {
                     // error={values.nameError}
                     id="userLastName"
                     name="userLastName"
-                    value={values.userLastName || ''}
-                    onChange={this.props.handleChange('userLastName')}
+                    value={values.userLastName || ""}
+                    onChange={this.props.handleChange("userLastName")}
                     style={{
-                      marginTop: '3%',
+                      marginTop: "3%",
                     }}
                     fullWidth
                     SelectProps={{
@@ -943,21 +1079,21 @@ class AddUsers extends React.Component {
                 <div className="col-md-6 col-lg-2 col-sm-12 p-0 d-flex justify-content-center">
                   <div className="col-md-2 p-1 d-flex justify-content-center align-items-end ">
                     <Radio
-                      checked={values.userGender == 'Male'}
-                      onChange={this.props.handleChange('userGender')}
+                      checked={values.userGender == "Male"}
+                      onChange={this.props.handleChange("userGender")}
                       value="Male"
                       color="primary"
                       name="radio-button-demo"
-                      inputProps={{ 'aria-label': 'D' }}
+                      inputProps={{ "aria-label": "D" }}
                     />
                     <WcIcon color="primary" style={{ fontSize: 60 }} />
                     <Radio
-                      checked={values.userGender == 'Female'}
-                      onChange={this.props.handleChange('userGender')}
+                      checked={values.userGender == "Female"}
+                      onChange={this.props.handleChange("userGender")}
                       value="Female"
                       color="primary"
                       name="radio-button-demo"
-                      inputProps={{ 'aria-label': 'D' }}
+                      inputProps={{ "aria-label": "D" }}
                     />
                   </div>
                 </div>
@@ -967,11 +1103,11 @@ class AddUsers extends React.Component {
                       label={
                         <InputLabel
                           style={{
-                            backgroundColor: 'white',
-                            fontFamily: 'Roboto',
-                            fontSize: '30px',
-                            marginTop: '-16px',
-                            width: '300px',
+                            backgroundColor: "white",
+                            fontFamily: "Roboto",
+                            fontSize: "30px",
+                            marginTop: "-16px",
+                            width: "300px",
                           }}
                         >
                           {<IntlMessages id="user.birthday.date" />}
@@ -986,19 +1122,19 @@ class AddUsers extends React.Component {
                       format="DD-MM-YYYY"
                       autoOk
                       style={{
-                        marginTop: '4px',
+                        marginTop: "4px",
                       }}
-                      maxDate={moment().year() - 6 + '-01-01'}
+                      maxDate={moment().year() - 6 + "-01-01"}
                     />
                   </MuiPickersUtilsProvider>
                 </div>
                 <div className="col-md-6 col-lg-2 col-sm-12 p-2">
                   <InputLabel
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
-                      marginTop: '-16px',
-                      width: '300px',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
+                      marginTop: "-16px",
+                      width: "300px",
                     }}
                   >
                     {<IntlMessages id="user.birthday.place" />}
@@ -1006,10 +1142,10 @@ class AddUsers extends React.Component {
                   <TextField
                     id="birthdayPlace"
                     name="birthdayPlace"
-                    value={values.birthdayPlace || ''}
-                    onChange={this.props.handleChange('birthdayPlace')}
+                    value={values.birthdayPlace || ""}
+                    onChange={this.props.handleChange("birthdayPlace")}
                     style={{
-                      marginTop: '3%',
+                      marginTop: "3%",
                     }}
                     fullWidth
                     SelectProps={{
@@ -1029,9 +1165,9 @@ class AddUsers extends React.Component {
                   <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                     <InputLabel
                       style={{
-                        fontFamily: 'Roboto',
-                        fontSize: '18px',
-                        marginTop: '-2%',
+                        fontFamily: "Roboto",
+                        fontSize: "18px",
+                        marginTop: "-2%",
                       }}
                       required
                     >
@@ -1041,10 +1177,10 @@ class AddUsers extends React.Component {
                       required
                       id="userNationnality"
                       name="userNationnality"
-                      value={values.userNationnality || ''}
-                      onChange={this.props.handleChange('userNationnality')}
+                      value={values.userNationnality || ""}
+                      onChange={this.props.handleChange("userNationnality")}
                       style={{
-                        marginTop: '3%',
+                        marginTop: "3%",
                       }}
                       fullWidth
                       SelectProps={{
@@ -1056,9 +1192,9 @@ class AddUsers extends React.Component {
                   <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                     <InputLabel
                       style={{
-                        fontFamily: 'Roboto',
-                        fontSize: '18px',
-                        marginTop: '-2%',
+                        fontFamily: "Roboto",
+                        fontSize: "18px",
+                        marginTop: "-2%",
                       }}
                     >
                       {<IntlMessages id="user.nationality" />}
@@ -1066,10 +1202,10 @@ class AddUsers extends React.Component {
                     <TextField
                       id="userNationnality"
                       name="userNationnality"
-                      value={values.userNationnality || ''}
-                      onChange={this.props.handleChange('userNationnality')}
+                      value={values.userNationnality || ""}
+                      onChange={this.props.handleChange("userNationnality")}
                       style={{
-                        marginTop: '3%',
+                        marginTop: "3%",
                       }}
                       fullWidth
                       SelectProps={{
@@ -1082,9 +1218,9 @@ class AddUsers extends React.Component {
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <InputLabel
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
-                      marginTop: '-2%',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
+                      marginTop: "-2%",
                     }}
                     required
                   >
@@ -1095,10 +1231,10 @@ class AddUsers extends React.Component {
                     error={isEmail(values.userMail) === false ? true : false}
                     id="userMail"
                     name="userMail"
-                    value={values.userMail || ''}
-                    onChange={this.props.handleChange('userMail')}
+                    value={values.userMail || ""}
+                    onChange={this.props.handleChange("userMail")}
                     style={{
-                      marginTop: '3%',
+                      marginTop: "3%",
                     }}
                     fullWidth
                     SelectProps={{
@@ -1108,7 +1244,7 @@ class AddUsers extends React.Component {
                       isEmail(values.userMail) === false ? (
                         <IntlMessages id="error.user.message.mail" />
                       ) : (
-                        ''
+                        ""
                       )
                     }
                   />
@@ -1116,8 +1252,8 @@ class AddUsers extends React.Component {
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <MuiPhoneNumber
                     error={
-                      this.isValidphoneNumber(values.userPhoneNumber) === true ||
-                      values.userPhoneNumber.length === 0
+                      this.isValidphoneNumber(values.userPhoneNumber) ===
+                        true || values.userPhoneNumber.length === 0
                         ? false
                         : true
                     }
@@ -1130,9 +1266,9 @@ class AddUsers extends React.Component {
                     label={<IntlMessages id="user.phone.number" />}
                     placeholder="(+XXX) XXX XXX XXX"
                     helperText={
-                      this.isValidphoneNumber(values.userPhoneNumber) === true ||
-                      values.userPhoneNumber.length === 0 ? (
-                        ''
+                      this.isValidphoneNumber(values.userPhoneNumber) ===
+                        true || values.userPhoneNumber.length === 0 ? (
+                        ""
                       ) : (
                         <IntlMessages id="error.user.message.phone" />
                       )
@@ -1144,9 +1280,9 @@ class AddUsers extends React.Component {
                     <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                       <InputLabel
                         style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
-                          marginTop: '-2%',
+                          fontFamily: "Roboto",
+                          fontSize: "18px",
+                          marginTop: "-2%",
                         }}
                       >
                         {<IntlMessages id="user.cin" />}
@@ -1157,10 +1293,10 @@ class AddUsers extends React.Component {
                         id="userCIN"
                         name="userCIN"
                         type="number"
-                        value={values.userCIN || ''}
-                        onChange={this.props.handleChange('userCIN')}
+                        value={values.userCIN || ""}
+                        onChange={this.props.handleChange("userCIN")}
                         style={{
-                          marginTop: '3%',
+                          marginTop: "3%",
                         }}
                         fullWidth
                         SelectProps={{
@@ -1177,7 +1313,7 @@ class AddUsers extends React.Component {
                     </div>
                   </>
                 ) : (
-                  ''
+                  ""
                 )}
                 <div className="col-md-6 col-lg-2 col-sm-12 d-flex flex-row p-1">
                   <input
@@ -1188,14 +1324,14 @@ class AddUsers extends React.Component {
                     onChange={(e) => this.props.uploadPhoto(e)}
                   />
                   <label htmlFor="add-photo" className="d-flex  bd-highlight">
-                    <AddBox fontSize="inherit" style={{ fontSize: '40px' }} />
+                    <AddBox fontSize="inherit" style={{ fontSize: "40px" }} />
                   </label>
                   <div className="p-2 bd-highlight">
                     <Typography
                       variant="h6"
                       style={{
-                        color: 'grey',
-                        fontWeight: 'normal',
+                        color: "grey",
+                        fontWeight: "normal",
                       }}
                     >
                       <IntlMessages id="user.join.photo" />
@@ -1208,9 +1344,9 @@ class AddUsers extends React.Component {
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <InputLabel
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
-                      marginTop: '-2%',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
+                      marginTop: "-2%",
                     }}
                   >
                     {<IntlMessages id="user.id" />}
@@ -1218,10 +1354,10 @@ class AddUsers extends React.Component {
                   <TextField
                     id="userIdentifier"
                     name="userIdentifier"
-                    value={values.userIdentifier || ''}
-                    onChange={this.props.handleChange('userIdentifier')}
+                    value={values.userIdentifier || ""}
+                    onChange={this.props.handleChange("userIdentifier")}
                     style={{
-                      marginTop: '3%',
+                      marginTop: "3%",
                     }}
                     fullWidth
                     SelectProps={{
@@ -1233,9 +1369,9 @@ class AddUsers extends React.Component {
                 <div className="col-md-6 col-lg-3 col-sm-12 p-1">
                   <InputLabel
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
-                      marginTop: '-2%',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
+                      marginTop: "-2%",
                     }}
                   >
                     {<IntlMessages id="user.address.postal" />}
@@ -1243,10 +1379,10 @@ class AddUsers extends React.Component {
                   <TextField
                     id="userAdress"
                     name="userAdress"
-                    value={values.userAdress || ''}
-                    onChange={this.props.handleChange('userAdress')}
+                    value={values.userAdress || ""}
+                    onChange={this.props.handleChange("userAdress")}
                     style={{
-                      marginTop: '3%',
+                      marginTop: "3%",
                     }}
                     fullWidth
                     SelectProps={{
@@ -1257,9 +1393,9 @@ class AddUsers extends React.Component {
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <InputLabel
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
-                      marginTop: '-2%',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
+                      marginTop: "-2%",
                     }}
                   >
                     {<IntlMessages id="zip.code.user" />}
@@ -1268,10 +1404,10 @@ class AddUsers extends React.Component {
                     id="userZipCode"
                     name="userZipCode"
                     type="number"
-                    value={values.userZipCode || ''}
-                    onChange={this.props.handleChange('userZipCode')}
+                    value={values.userZipCode || ""}
+                    onChange={this.props.handleChange("userZipCode")}
                     style={{
-                      marginTop: '3%',
+                      marginTop: "3%",
                     }}
                     fullWidth
                     SelectProps={{
@@ -1283,8 +1419,8 @@ class AddUsers extends React.Component {
                   <InputLabel
                     htmlFor="nomSelect"
                     style={{
-                      fontFamily: 'Roboto',
-                      fontSize: '18px',
+                      fontFamily: "Roboto",
+                      fontSize: "18px",
                     }}
                   >
                     {<IntlMessages id="country.user" />}
@@ -1297,31 +1433,31 @@ class AddUsers extends React.Component {
                     styles={{
                       control: (base) => ({
                         ...base,
-                        '&:hover': { borderColor: 'gray' }, // border style on hover
-                        border: '1px solid lightgray', // default border color
-                        boxShadow: 'none', // no box-shadow
-                        borderTopStyle: 'none',
-                        borderRightStyle: 'none',
-                        borderLeftStyle: 'none',
-                        borderRadius: ' none',
+                        "&:hover": { borderColor: "gray" }, // border style on hover
+                        border: "1px solid lightgray", // default border color
+                        boxShadow: "none", // no box-shadow
+                        borderTopStyle: "none",
+                        borderRightStyle: "none",
+                        borderLeftStyle: "none",
+                        borderRadius: " none",
                       }),
                     }}
-                  />{' '}
+                  />{" "}
                 </div>
-                {values.photoText == '' ? (
-                  ''
+                {values.photoText == "" ? (
+                  ""
                 ) : (
                   <div className="col-md-6 col-lg-2 col-sm-12 p-1 d-flex flex-row-reverse">
                     <div>
-                      {' '}
+                      {" "}
                       <Typography
                         variant="h6"
                         style={{
-                          color: '#3F51B5',
-                          fontWeight: 'normal',
-                          fontFamily: 'Roboto',
-                          fontSize: '15px',
-                          marginTop: '10px',
+                          color: "#3F51B5",
+                          fontWeight: "normal",
+                          fontFamily: "Roboto",
+                          fontSize: "15px",
+                          marginTop: "10px",
                         }}
                       >
                         {values.photoText} &nbsp;
@@ -1329,7 +1465,7 @@ class AddUsers extends React.Component {
                     </div>
                     <PhotoIcon
                       style={{
-                        fontSize: '55',
+                        fontSize: "55",
                       }}
                       color="primary"
                     />
@@ -1340,12 +1476,12 @@ class AddUsers extends React.Component {
               </div>
               <hr
                 style={{
-                  width: '100%',
-                  margin: 'auto',
-                  marginTop: '40px',
-                  marginBottom: '10px',
-                  border: '1px dashed #979A9A',
-                  paddingLeft: '-100%',
+                  width: "100%",
+                  margin: "auto",
+                  marginTop: "40px",
+                  marginBottom: "10px",
+                  border: "1px dashed #979A9A",
+                  paddingLeft: "-100%",
                 }}
               />
               <div className="d-flex col-lg-12 col-md-12 col-sm-12 flex-row flex-wrap pt-3">
@@ -1360,33 +1496,33 @@ class AddUsers extends React.Component {
                       onChange={(e) => this.props.attachFile(e)}
                     />
                     <label htmlFor="add-file" className="d-flex  bd-highlight">
-                      <CheckCircleIcon checked={true} color={'default'} />
+                      <CheckCircleIcon checked={true} color={"default"} />
                     </label>
                     <div className="p-2 bd-highlight">
                       <Typography
                         variant="h6"
                         style={{
-                          color: 'grey',
-                          fontWeight: 'normal',
+                          color: "grey",
+                          fontWeight: "normal",
                         }}
                       >
                         <IntlMessages id="user.join.papiers" />
                       </Typography>
                     </div>
                   </div>
-                  <div className="bd-highlight" style={{ marginTop: '-40px' }}>
+                  <div className="bd-highlight" style={{ marginTop: "-40px" }}>
                     <i className="zmdi zmdi-caret-down zmdi-hc-2x mt-4 ml-1 "></i>
                   </div>
                   <div className="d-flex flex-row bd-highlight ">
                     <div className="p-2 bd-highlight ">
                       <hr
                         style={{
-                          height: '80%',
-                          margin: 'auto',
-                          marginTop: '5%',
-                          marginBottom: '5%',
-                          border: '1px dashed #979A9A',
-                          paddingLeft: '-100%',
+                          height: "80%",
+                          margin: "auto",
+                          marginTop: "5%",
+                          marginBottom: "5%",
+                          border: "1px dashed #979A9A",
+                          paddingLeft: "-100%",
                         }}
                       />
                     </div>
@@ -1412,8 +1548,8 @@ class AddUsers extends React.Component {
                     <Typography
                       variant="h6"
                       style={{
-                        color: 'grey',
-                        fontWeight: 'normal',
+                        color: "grey",
+                        fontWeight: "normal",
                       }}
                     >
                       <IntlMessages id="inforamtions.user" />
@@ -1424,12 +1560,12 @@ class AddUsers extends React.Component {
                     id="usefulInformation"
                     name="usefulInformation"
                     rows="3"
-                    value={values.usefulInformation || ''}
-                    onChange={this.props.handleChange('usefulInformation')}
+                    value={values.usefulInformation || ""}
+                    onChange={this.props.handleChange("usefulInformation")}
                     style={{
-                      borderRadius: '20px',
-                      marginTop: '10px',
-                      width: '100%',
+                      borderRadius: "20px",
+                      marginTop: "10px",
+                      width: "100%",
                     }}
                   ></textarea>
                 </div>
@@ -1440,16 +1576,18 @@ class AddUsers extends React.Component {
                     variant="contained"
                     className="bg-grey text-white pr-2 "
                     style={{
-                      borderBottomLeftRadius: '16px',
-                      borderBottomRightRadius: '16px',
-                      borderTopLeftRadius: '16px',
-                      borderTopRightRadius: '16px',
-                      width: '100px',
-                      height: '30px',
+                      borderBottomLeftRadius: "16px",
+                      borderBottomRightRadius: "16px",
+                      borderTopLeftRadius: "16px",
+                      borderTopRightRadius: "16px",
+                      width: "100px",
+                      height: "30px",
                     }}
                     onClick={this.props.openAddModal}
                   >
-                    {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
+                    {
+                      <IntlMessages id="components.establishments.formadd.buttonCancel" />
+                    }
                   </Button>
                 </div>
                 <div className="p-1">
@@ -1457,12 +1595,12 @@ class AddUsers extends React.Component {
                     // disabled={values.roleId ==="" || values.schoolyearId===""}
                     variant="contained"
                     style={{
-                      borderBottomLeftRadius: '16px',
-                      borderBottomRightRadius: '16px',
-                      borderTopLeftRadius: '16px',
-                      borderTopRightRadius: '16px',
-                      width: '100px',
-                      height: '30px',
+                      borderBottomLeftRadius: "16px",
+                      borderBottomRightRadius: "16px",
+                      borderTopLeftRadius: "16px",
+                      borderTopRightRadius: "16px",
+                      width: "100px",
+                      height: "30px",
                     }}
                     className=" bg-indigo text-white pr-2 "
                     type="submit"
@@ -1473,7 +1611,7 @@ class AddUsers extends React.Component {
               </div>
             </>
           ) : (
-            ''
+            ""
           )}
         </form>
         {this.state.importisOpen ? (
@@ -1502,7 +1640,7 @@ class AddUsers extends React.Component {
             message={this.state.alerteImportMessage}
           />
         ) : (
-          ''
+          ""
         )}
       </div>
     );
@@ -1517,4 +1655,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getAllRole, importUsersFromFile })(AddUsers);
+export default connect(mapStateToProps, { getAllRole, importUsersFromFile })(
+  AddUsers
+);
