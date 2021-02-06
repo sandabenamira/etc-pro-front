@@ -1,10 +1,18 @@
+// const addUserRbac = {
+//   Admin: 'add-admin',
+//   Professor: 'add-prof',
+//   Parent: 'add-parent',
+//   Student: 'add-student',
+//   'Vie scolaire': 'add-school-life',
+//   Director: 'add-direction-membre',
+// };
 const addUserRbac = {
-  Admin: 'add-admin',
-  Professor: 'add-prof',
-  Parent: 'add-parent',
-  Student: 'add-student',
-  'Vie scolaire': 'add-school-life',
-  Director: 'add-direction-membre',
+  Admin: "add-admin",
+  Formateur: "add-prof",
+  "Responsable formation": "add-parent",
+  Participant: "add-student",
+  "Vie scolaire": "add-school-life",
+  Director: "add-direction-membre",
 };
 const deleteUserRbac = {
   Admin: 'delete-admin',
