@@ -8,11 +8,11 @@ import TableRow from "@material-ui/core/TableRow";
 import IntlMessages from "../../../../../util/IntlMessages";
 
 const data =[
-    {id:1, name:"ibtifel", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
-    {id:1, name:"ibtifel", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
-    {id:1, name:"ibtifel", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
-    {id:1, name:"ibtifel", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
-    {id:1, name:"ibtifel", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"}
+    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
+    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
+    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
+    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
+    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"}
 
 ]
 class FinancialReportingList extends React.Component {
