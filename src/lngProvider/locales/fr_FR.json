@@ -1604,5 +1604,6 @@
   "sidebar.components.evaluation": "Evaluation",
   "sidebar.components.note": "Note",
   "sidebar.components.reporting-kpi": "Rapport kpi",
-  "sidebar.components.satisfaction-question": "Enquête de satisfaction"
+  "sidebar.components.satisfaction-question": "Enquête de satisfaction",
+  "survey.satisfaction.list":"QUESTIONNAIRE DE SATISFACTION FORMATION"
 }

@@ -13,7 +13,7 @@ const Evaluation = ({ match, estabModule }) => (
       <Redirect
         exact
         from={`${match.url}/`}
-        to={`${match.url}/educational_calendar`}
+        to={`${match.url}/evaluation`}
       />
    
     
