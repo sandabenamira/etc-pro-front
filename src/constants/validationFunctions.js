@@ -1,42 +1,46 @@
 const addUserRbac = {
-  Admin: "add-admin",
-  Formateur: "add-prof",
-  "Responsable formation": "add-parent",
-  Participant: "add-student",
-  // "Vie scolaire": "add-school-life",
-  Director: "add-direction-membre",
+  Admin: 'add-admin',
+  Professor: 'add-prof',
+  Parent: 'add-parent',
+  Student: 'add-student',
+  'Vie scolaire': 'add-school-life',
+  Director: 'add-direction-membre',
 };
 const deleteUserRbac = {
-  Admin: "delete-admin",
-  Formateur: "delete-prof",
-  "Responsable formation": "delete-parent",
-  Participant: "delete-student",
-  "Vie scolaire": "delete-school-life",
-  Director: "delete-direction-membre",
+  Admin: 'delete-admin',
+  Professor: 'delete-prof',
+  Parent: 'delete-parent',
+  Student: 'delete-student',
+  'Vie scolaire': 'delete-school-life',
+  Director: 'delete-direction-membre',
 };
 const editUserRbac = {
-  Admin: "edit-admin",
-  Formateur: "edit-prof",
-  "Responsable formation": "edit-parent",
-  Participant: "edit-student",
-  "Vie scolaire": "edit-school-life",
-  Director: "edit-direction-membre",
+  Admin: 'edit-admin',
+  Professor: 'edit-prof',
+  Parent: 'edit-parent',
+  Student: 'edit-student',
+  'Vie scolaire': 'edit-school-life',
+  Director: 'edit-direction-membre',
 };
 const getUserRbac = {
-  Admin: "get-admin",
-  Formateur: "get-prof",
-  "Responsable formation": "get-parent",
-  Participant: "get-student",
-  "Vie scolaire": "get-school-life",
-  Director: "get-direction-membre",
+  Admin: 'get-admin',
+  Professor: 'get-prof',
+  Parent: 'get-parent',
+  Student: 'get-student',
+  'Vie scolaire': 'get-school-life',
+  Director: 'get-direction-membre',
 };
 module.exports = {
   isEmail(value) {
-    if (value.length > 0)
-      return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        value
-      );
-    else return true;
+    if (value != null) {
+      if (value.length > 0)
+        return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+          value
+        );
+      else return true;
+    } else {
+      return false;
+    }
   },
 
   isPhonenumber(str) {
@@ -61,9 +65,8 @@ module.exports = {
 
     if (userPermission != undefined) {
       permission =
-        userPermission.findIndex(
-          (element) => element.permission.rbac == addUserRbac[roleLabel]
-        ) > -1;
+        userPermission.findIndex((element) => element.permission.rbac == addUserRbac[roleLabel]) >
+        -1;
     }
 
     return permission;
@@ -85,9 +88,8 @@ module.exports = {
 
     if (userPermission != undefined) {
       permission =
-        userPermission.findIndex(
-          (element) => element.permission.rbac == editUserRbac[roleLabel]
-        ) > -1;
+        userPermission.findIndex((element) => element.permission.rbac == editUserRbac[roleLabel]) >
+        -1;
     }
 
     return permission;
@@ -97,9 +99,8 @@ module.exports = {
 
     if (userPermission != undefined) {
       permission =
-        userPermission.findIndex(
-          (element) => element.permission.rbac == editUserRbac[roleLabel]
-        ) > -1;
+        userPermission.findIndex((element) => element.permission.rbac == editUserRbac[roleLabel]) >
+        -1;
     }
 
     return permission;

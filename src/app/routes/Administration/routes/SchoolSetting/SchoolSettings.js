@@ -4,25 +4,15 @@ import ContainerHeader from '../../../../../components/ContainerHeader/index';
 import Input from '@material-ui/icons/Input';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import AddSchoolSettings from './AddSchoolSettings';
-//import { getEstablishment } from '../../../../../actions/establishmentAction';
 import { connect } from 'react-redux';
-//import ServiceList from './ServiceList';
-// import {
-//   getServices,
-//   getServicesByEstablishmentId,
-// } from '../../../../../actions/ServiceAction';
-//import DeleteService from './DeleteService';
 import { UncontrolledAlert } from 'reactstrap';
-import { roleIdAdmin } from '../../../../../config/config';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
- import CardBox from '../../../../../components/CardBox/index';
-import Box from '@material-ui/core/Box';
+import CardBox from '../../../../../components/CardBox/index';
+
 class schoolSettings extends React.Component {
   constructor(props) {
     super(props);

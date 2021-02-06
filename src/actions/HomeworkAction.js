@@ -88,7 +88,6 @@ export const addNewHomework = (data, homeworkFiles, classesData) => {
                   setTimeout(() => {
                     dispatch({ type: HIDE_SUCCESS_MESSAGE });
                   }, 4000);
-                  // this.dispatch(getHomework)
                 } else {
                 }
               });

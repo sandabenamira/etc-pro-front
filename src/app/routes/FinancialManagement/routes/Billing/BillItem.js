@@ -5,18 +5,15 @@ import Tab from "@material-ui/core/Tab";
 import IntlMessages from "../../../../../util/IntlMessages";
 import "jspdf-autotable";
 import jsPDF from "jspdf";
-import DetailsBill from "./DetailsBill";
 import {
   invoiceNotificationWithMail,
   invoiceNotificationWithSMS,
 } from "../../../../../actions/BillAction";
 import { connect } from "react-redux";
-import PayBill from "../Payment/PayBill";
 import {
   unpaidInvoice,
   partiallyPaidInvoice,
   billPaid,
-  lateInvoice,
 } from "../../../../../config/config";
 import { url } from "../ServiceAllocation/photo";
 import { withStyles } from "@material-ui/core/styles";

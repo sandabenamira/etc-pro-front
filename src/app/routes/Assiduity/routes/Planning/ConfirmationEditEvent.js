@@ -30,14 +30,19 @@ export class ConfirmationEditEvent extends Component {
                 onChange={this.props.handleChangeEvent('eventChecked')}
               >
                 <FormControlLabel
-                  value="thisEvent"
+                  value="all"
+                  control={<Radio color="primary" required />}
+                  label={'Tous les évènement'}
+                />
+                <FormControlLabel
+                  value="uniq"
                   defaultChecked
-                  control={<Radio color="primary" />}
+                  control={<Radio color="primary" required />}
                   label={<IntlMessages id="edit.this.event" />}
                 />
                 <FormControlLabel
-                  value="thisEventAndAllSubsequent"
-                  control={<Radio color="primary" />}
+                  value="future"
+                  control={<Radio color="primary" required />}
                   label={<IntlMessages id="edit.event.and.all.subsequent" />}
                 />
               </RadioGroup>

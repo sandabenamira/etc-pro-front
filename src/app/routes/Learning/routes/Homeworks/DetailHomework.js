@@ -46,7 +46,6 @@ export class DetailHomework extends React.Component {
     const {
       values,
     } = this.props;
-    console.log("valuesvaluesvalues", values);
   
     return (
       <Auxiliary>

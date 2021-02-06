@@ -8,8 +8,6 @@ export * from './subjectAction';
 export * from './classeAction';
 export * from './gradeAction';
 export * from './classLevelAction';
-export * from './presenceAction';
-export * from './parentAction';
 export * from './roomAction';
 
 

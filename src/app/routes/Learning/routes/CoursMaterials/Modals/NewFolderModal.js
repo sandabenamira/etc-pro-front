@@ -5,20 +5,15 @@ import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 import CardBox from "../../../../../../components/CardBox/index";
 import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 
 class NewFolderModal extends Component {
   render() {
-    console.log("cccccccccccccccccccccccccccccccc", this.props.classSettings);
     return (
       <Auxiliary>
         <Modal isOpen={true}>
           <ModalHeader
-            // toggle={this.props.handleCancel}
             className="modal-box-header bg-primary text-white"
           >
             {<IntlMessages id="service.button.new.folder" />}
@@ -28,7 +23,6 @@ class NewFolderModal extends Component {
             <form autoComplete="off">
               <div className="row">
                 <CardBox
-                  // heading={<IntlMessages id="component.student.info.general" />}
                   styleName="col-lg-12 text-primary"
                 >
                   <div className="row">

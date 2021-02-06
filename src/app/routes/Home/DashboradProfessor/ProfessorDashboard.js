@@ -5,9 +5,7 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import BigCalendarCustomized from "./BigCalendarCustomized";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
-import { Badge } from "reactstrap";
 import {
-  AreaChart,
   CartesianGrid,
   ResponsiveContainer,
   Tooltip,
@@ -17,11 +15,8 @@ import {
   Bar,
   Legend,
 } from "recharts";
-import CardBox from "./../../../../components/CardBox";
-import Checkbox from "@material-ui/core/Checkbox";
-import { Card, CardBody, CardSubtitle, CardText, CardHeader } from "reactstrap";
+import { Card, CardBody, CardHeader } from "reactstrap";
 import SolidCards from "./SolidCards";
-import CheckBoxListControl from "./CheckBoxListControl";
 import SimpleCard from "./SimpleCard";
 import NewsletterCard from "./NewsletterCard";
 import { connect } from "react-redux";
@@ -61,14 +56,12 @@ class ProfessorDashboard extends React.Component {
     apiEndpoint = `/course_v4/count?access_token=${localStorage.token}&where={"fk_id_professor":${this.props.userProfile.user.profiles[0].professors[0].id}}`;
     classService.get(apiEndpoint).then((response) => {
       if (response) {
-        console.log(response)
         this.setState({ countesClass: response.data.count });
       }
     });
     
   }
   render() {
-    console.log(this.props.userProfile,"profile")
     const useStyles = makeStyles({
       root: {
         maxWidth: 345,

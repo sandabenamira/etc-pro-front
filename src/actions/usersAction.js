@@ -15,6 +15,7 @@ import {
   SHOW_WARNING_MESSAGE,
   SHOW_LOADER,
   HIDE_LOADER,
+  EDIT_PROFILE,
 } from "../constants/ActionTypes";
 import _ from "lodash";
 import { getError } from "../Error/Error";
@@ -58,7 +59,7 @@ export function importUsersFromFile(ListUsers) {
         groupId: data.groupeID,
         userIdentifier: data.userIdentifier,
       };
-      console.log(dataUser, "dataUser apres action");
+      // console.log(dataUser, 'dataUser apres action');
       let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
       classService
         .post(apiEndpoint, dataUser)
@@ -111,7 +112,6 @@ export function getAllUsersForSuperAdministrator() {
   };
 }
 export const addUsers = (data) => {
-  console.log("data avant", data);
   return (dispatch) => {
     let dataUser = {
       name: data.name,
@@ -148,10 +148,8 @@ export const addUsers = (data) => {
       groupId: data.groupId,
       userIdentifier: data.userIdentifier,
     };
-    console.log(dataUser, "dataUser apres action");
     let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, dataUser).then((response) => {
-      console.log("fffffffffffffffffffffffffffff", response);
       if (!response) {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
@@ -172,9 +170,13 @@ export const addUsers = (data) => {
         let userId = response.data.existe.userData.id;
         if (data.userPhoto.name != undefined) {
           let photoUser = data.userPhoto;
+          const fileExtension = photoUser.name.replace(/^.*\./, "");
+
           var object = {};
           object.file = photoUser;
-          object.fileName = data.name + "-" + data.surname + "-" + userId;
+
+          object.fileName =
+            data.name + "-" + data.surname + "-" + userId + "." + fileExtension;
           const myNewFile = new File([object.file], object.fileName, {
             type: object.file.type,
           });
@@ -236,7 +238,7 @@ export const addUsers = (data) => {
             let userPapiersFile = element;
             const fileExtension = userPapiersFile.name.replace(/^.*\./, "");
             // const fileName = 'userPapiersfile' + userId + index + '.' + fileExtension;
-            const fileName = "user" + userId + userPapiersFile.name;
+            const fileName = "user" + userId + "-" + userPapiersFile.name;
 
             var object = {};
             object.file = userPapiersFile;
@@ -301,3 +303,275 @@ export const addUsers = (data) => {
     });
   };
 };
+export const editUser = (data, estabId, schoolYearId) => {
+  return (dispatch) => {
+    let dataUser = {
+      name: data.name,
+      surname: data.surname,
+      gender: data.gender,
+      dateOfBirth: data.dateOfBirth,
+      address: data.address,
+      phone: data.phone,
+      cin: data.cin,
+      zipCode: data.zipCode,
+      country: data.country,
+      name_ar: data.name_ar,
+      surname_ar: data.surname_ar,
+      nationality: data.nationality,
+      placeOfBirth: data.placeOfBirth,
+      email: data.email,
+      functionName: data.functionName,
+      usefulInformation: data.usefulInformation,
+      uniqueIdentifier: data.uniqueIdentifier,
+    };
+    console.log("action data -----------------------", data);
+
+    console.log("action data formated -----------------------", dataUser);
+
+    let apiEndpoint = `/users/${data.id}/editUserInf?access_token=${localStorage.token}`;
+    classService.put(apiEndpoint, dataUser).then((response) => {
+      if (!response) {
+        console.log("------------------------response", response);
+        dispatch({
+          type: SHOW_ERROR_MESSAGE,
+          payload:
+            "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_ERROR_MESSAGE });
+        }, 4000);
+      } else {
+        console.log("----------error--------response", response);
+
+        dispatch({
+          type: SHOW_SUCCESS_MESSAGE,
+          payload: "La modification d'utilisateur est effectuée avec succès",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+        }, 4000);
+        let userId = data.id;
+
+        if (data.userPhoto.name != undefined) {
+          let photoUser = data.userPhoto;
+          const fileExtension = photoUser.name.replace(/^.*\./, "");
+
+          var object = {};
+          object.file = photoUser;
+          object.fileName =
+            data.name + "-" + data.surname + "-" + userId + "." + fileExtension;
+          const myNewFile = new File([object.file], object.fileName, {
+            type: object.file.type,
+          });
+          let formadata = new FormData();
+          formadata.append("file", myNewFile);
+          dispatch({
+            type: SHOW_LOADER,
+            payload: true,
+          });
+          const photoUrl = `${baseUrl.baseUrl}/containers/classebook.data.storage/upload?access_token=${localStorage.token}`;
+          axios({
+            url: photoUrl,
+            method: "POST",
+            data: formadata,
+          }).then((response) => {
+            let urlPhotoUser =
+              `${baseUrl.baseUrl}/users/` +
+              userId +
+              `?access_token=${localStorage.token}`;
+
+            axios
+              .patch(urlPhotoUser, {
+                id: userId,
+                photo:
+                  response.data.result.files.file[0].providerResponse.location,
+              })
+              .then((response) => {
+                if (response) {
+                  dispatch({
+                    type: HIDE_LOADER,
+                    payload: false,
+                  });
+                  if (data.paperFiles.length == 0) {
+                    dispatch(getAllUsersForAdmin(estabId, schoolYearId));
+                  }
+                } else {
+                  console.log(response.data, "photo not upload");
+                }
+              });
+          });
+        } else {
+          if (data.paperFiles.length == 0) {
+            dispatch(getAllUsersForAdmin(estabId, schoolYearId));
+          }
+        }
+        if (response && data.paperFiles.length > 0) {
+          let formadata = new FormData();
+          data.paperFiles.map((element, index) => {
+            let userPapiersFile = element;
+            const fileExtension = userPapiersFile.name.replace(/^.*\./, "");
+            const fileName = "user" + userId + "-" + userPapiersFile.name;
+
+            var object = {};
+            object.file = userPapiersFile;
+            object.fileName = fileName;
+            const myNewFile = new File([object.file], fileName, {
+              type: object.file.type,
+            });
+            formadata.append("file", myNewFile);
+          });
+
+          let filesURL = data.oldPaperFiles;
+          dispatch({
+            type: SHOW_LOADER,
+            payload: true,
+          });
+          const URLUserPapiersFiles = `${baseUrl.baseUrl}/containers/classebook.data.storage/upload?access_token=${localStorage.token}`;
+          axios({
+            url: URLUserPapiersFiles,
+            method: "POST",
+            data: formadata,
+          })
+            .then((response) => {
+              if (response) {
+                response.data.result.files.file.map((urlFile, index) => {
+                  filesURL.push(urlFile.providerResponse.location);
+                });
+                let urlPhotoUser =
+                  `${baseUrl.baseUrl}/users/` +
+                  userId +
+                  `?access_token=${localStorage.token}`;
+
+                axios
+                  .patch(urlPhotoUser, {
+                    id: userId,
+                    paper_files: filesURL,
+                  })
+                  .then((response) => {
+                    if (response) {
+                      dispatch(getAllUsersForAdmin(estabId, schoolYearId));
+
+                      dispatch({
+                        type: HIDE_LOADER,
+                        payload: false,
+                      });
+                      console.log("response photo", response);
+                    } else {
+                      console.log(response.data, "photo not upload");
+                    }
+                  });
+              }
+            })
+            .catch((err) => {});
+        }
+      }
+    });
+  };
+};
+function objectToCsv(data) {
+  const csvRows = [];
+  const headers = Object.keys(data[0]);
+  csvRows.push(headers.join(","));
+  for (const row of data) {
+    const values = headers.map((header) => {
+      const escaped = ("" + row[header]).replace(/"/g, '//"');
+      return `"${escaped}"`;
+    });
+
+    csvRows.push(values.join(","));
+  }
+  return csvRows.join("\n");
+}
+function downLoadCsv(data, fileName) {
+  const blob = new Blob([data], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.setAttribute("hidden", "");
+  a.setAttribute("href", url);
+  a.setAttribute("download", `${fileName}` + ".csv");
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+export function exportCsv(csvList, classId, className) {
+  const csvListFiltred = csvList.filter(
+    (element) => element.inforamtionsStudent.classInformation.classId == classId
+  );
+  if (!_.isEmpty(csvListFiltred)) {
+    const csvListFormated = csvListFiltred.map((row) => ({
+      nom: row.name,
+      prénom: row.surname,
+      "date de naissance": row.dateOfBirth.substring(0, 10),
+      "lieu de naissance": row.placeOfBirth,
+      email: row.email,
+    }));
+    const csvData = objectToCsv(csvListFormated);
+    downLoadCsv(csvData, className);
+    return "sucess";
+  } else {
+    console.log("document est empty");
+    return "error";
+  }
+}
+export function editProfile(data, photo) {
+  return function(dispatch) {
+    if (photo != "") {
+      let photoUser = photo;
+       var object = {};
+      object.file = photoUser;
+      object.fileName = "user" + data.id + photoUser.name;
+      const myNewFile = new File([object.file], object.fileName, {
+        type: object.file.type,
+      });
+      let formadata = new FormData();
+      formadata.append("file", myNewFile);
+      dispatch({
+        type: SHOW_LOADER,
+        payload: true,
+      });
+      const photoUrl = `${baseUrl.baseUrl}/containers/classebook.data.storage/upload?access_token=${localStorage.token}`;
+      axios({
+        url: photoUrl,
+        method: "POST",
+        data: formadata,
+      }).then((response) => {
+        let urlPhotoUser =
+          `${baseUrl.baseUrl}/users/` +
+          data.id +
+          `?access_token=${localStorage.token}`;
+
+        axios
+          .patch(urlPhotoUser, {
+            id: data.id,
+            photo: response.data.result.files.file[0].providerResponse.location,
+            dateOfBirth: data.dateOfBirth,
+            address: data.address,
+            phone: data.phone,
+            email: data.email,
+          })
+          .then((response) => {
+            if (response) {
+              dispatch({ type: EDIT_PROFILE, payload: response.data });
+              dispatch({
+                type: HIDE_LOADER,
+                payload: false,
+              });
+            }
+          });
+      });
+    } else {
+      axios
+        .patch(
+          `${baseUrl.baseUrl}/users/` +
+            data.id +
+            `?access_token=${localStorage.token}`,
+          data
+        )
+        .then((response) => {
+          console.log("response", response);
+          dispatch({ type: EDIT_PROFILE, payload: response.data });
+        })
+        .catch(function(error) {});
+    }
+  };
+}

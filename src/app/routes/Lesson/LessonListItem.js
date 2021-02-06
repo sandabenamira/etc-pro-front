@@ -13,13 +13,6 @@ export default class LessonListItem extends React.Component {
     this.state = {};
   }
 
-  // onOptionMenuSelect = (event) => {
-  //   this.setState({
-  //     menuState: true,
-  //     anchorEl: event.currentTarget,
-  //   });
-  // };
-
   render() {
     var imageList = [coursStudent, matiereScolaire];
     var imageListItem = imageList[Math.floor(Math.random() * imageList.length)];

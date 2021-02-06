@@ -1,164 +1,174 @@
-import React from 'react';
+import React from "react";
 import IntlMessages from "../../../../../util/IntlMessages";
-import CardBox from "../../../../../components/CardBox/index";
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import languageData from '../../../../../components/LanguageSwitcher/data';
-import MenuItem from '@material-ui/core/MenuItem';
-import { getNameLanguage, getAppLanguage, initCalendar, alertSuccess, alertfailed } from '../../../../../actions/Setting';
-import { TimePicker } from '@material-ui/pickers';
-import { classService } from "../../../../../_services/class.service";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import languageData from "../../../../../components/LanguageSwitcher/data";
+import MenuItem from "@material-ui/core/MenuItem";
+import { getNameLanguage } from "../../../../../actions/Setting";
+import { TimePicker } from "@material-ui/pickers";
 import { connect } from "react-redux";
-
-
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
 class AddOption extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            selectedStartTime: new Date(),
-            selectedEndTime: new Date(),
-            startTime: '',
-            endTime:'',
-            appLang_id:''
-        }
-        this.handleCancel = this.handleCancel.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-    componentDidMount() {
+  render() {
+    const { values } = this.props;
+    return (
+      <div>
+        <form autoComplete="off" onSubmit={this.props.handleSubmit}>
+          <div className="d-flex flex-column justify-content-center align-items-center mb-3">
+            <div className="p-2 ">
+              <IntlMessages id="configuration.of.generic.parameters" />
+            </div>
+            <div className="p-2 col-lg-4 col-md-6 col-sm-6">
+              <TextField
+                required
+                name="appLangId"
+                id="appLangId"
+                select
+                label={<IntlMessages id="list.of.languages" />}
+                value={values.appLangId}
+                onChange={this.props.handleChange("appLangId")}
+                fullWidth
+                SelectProps={{}}
+                margin="normal"
+              >
+                {languageData.map((lang, index) => (
+                  <MenuItem key={index} value={lang.languageId}>
+                    {getNameLanguage(lang.languageId)}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <div className="p-2 ">
+              <div className="d-flex flex-row flex-wrap mb-3">
+                <div className="p-2 picker" key="start_datetime">
+                  <TimePicker
+                    label={<IntlMessages id="start.hour.calendar" />}
+                    fullWidth
+                    value={values.selectedStartTime}
+                    showTabs={false}
+                    ampm={false}
+                    onChange={this.props.handleStartTimeChange}
+                    leftArrowIcon={<i className="zmdi zmdi-arrow-back" />}
+                    rightArrowIcon={<i className="zmdi zmdi-arrow-forward" />}
+                  />
+                </div>
+                <div className="p-2 picker" key="end_datetime">
+                  <TimePicker
+                    label={<IntlMessages id="end.hour.calendar" />}
+                    fullWidth
+                    value={values.selectedEndTime}
+                    showTabs={false}
+                    ampm={false}
+                    onChange={this.props.handleEndTimeChange}
+                    leftArrowIcon={<i className="zmdi zmdi-arrow-back" />}
+                    rightArrowIcon={<i className="zmdi zmdi-arrow-forward" />}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="p-2 ">
+              <FormControl component="fieldset" required>
+                <FormLabel
+                  component="legend"
+                  style={{ fontFamily: "Roboto", fontSize: "14px" }}
+                >
+                  <IntlMessages id="video.conferencing.tool" />
+                </FormLabel>
+                <RadioGroup
+                  className="d-flex flex-row"
+                  aria-label="conferenceTool"
+                  name="conferenceTool"
+                  value={values.conferenceTool}
+                  onChange={this.props.handleChange("conferenceTool")}
+                >
+                
+                  <FormControlLabel
+                    value="Jitsi"
+                    control={<Radio color="primary" />}
+                    label="Jitsi"
+                  />
 
-    }
-
-    handleStartTimeChange = (time) => {
-        this.setState({ selectedStartTime: time , startTime: time.format('LT')});
-    };
-
-    handleEndTimeChange = (time) => {
-        this.setState({ selectedEndTime: time, endTime: time.format('LT') });
-    };
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        let apiEndpoint = `/settings/initLanguageAndTimeCalendar?access_token=${localStorage.token}`;
-       let data ={
-        "app_lang" : this.state.appLang_id,
-        "start_time_calendar": this.state.startTime,
-        "end_time_calendar": this.state.endTime,
-        "establishment_id": this.props.establishment_id
-
-        }
-        classService.post(apiEndpoint, data)
-            .then(response => {
-                if(response){
-                    this.props.dispatch(getAppLanguage(this.state.appLang_id));
-                    this.props.dispatch(initCalendar(this.state.startTime, this.state.endTime))
-                    this.handleCancel()
-                    this.props.dispatch(alertSuccess())
-                }else{
-                    this.props.dispatch(alertfailed())
-                }
-             
-                })
-            
-    }
-
-    handleChange = name => event => {
-        this.setState({ [name]: event.target.value });
-    };
-
-    handleCancel() {
-        this.setState({
-            selectedStartTime: new Date(),
-            selectedEndTime: new Date(),
-            startTime: '',
-            endTime:'',
-            appLang_id:''
-        })
-    };
-    render() {
-        const { selectedEndTime ,selectedStartTime } = this.state;
-        return (
-
-            <form autoComplete="off" onSubmit={this.handleSubmit}>
-                <CardBox
-                    heading={<IntlMessages id="component.etablishments.info.general" />} styleName="col-lg-12 text-primary">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <TextField
-                                    required
-                                    name='appLang_id'
-                                    id="appLang_id"
-                                    select
-                                    label={<IntlMessages id="list.of.languages" />}
-                                    value={this.state.appLang_id}
-                                     onChange={this.handleChange('appLang_id')}
-
-                                    fullWidth
-                                    SelectProps={{}}
-                                    margin="normal"
-                                >
-
-                                    {languageData.map((lang, index) =>
-                                        <MenuItem key={index} value={lang.languageId}>
-                                            {getNameLanguage(lang.languageId)}
-                                        </MenuItem>
-                                    )}
-                                </TextField>
-                            </div>
-                        </div>
-
-                    </div><div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <div key="datetime_default" className="picker">
-
-                                    <TimePicker
-                                        label={<IntlMessages id="start.hour.calendar" />}
-                                        fullWidth
-                                        value={selectedStartTime}
-                                        showTabs={false}
-                                        onChange={this.handleStartTimeChange}
-                                        leftArrowIcon={<i className="zmdi zmdi-arrow-back" />}
-                                        rightArrowIcon={<i className="zmdi zmdi-arrow-forward" />}
-                                    />
-                                </div>
-                            </div></div>
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <div key="datetime_default" className="picker">
-
-                                    <TimePicker
-                                        label={<IntlMessages id="end.hour.calendar" />}
-                                        fullWidth
-                                        value={selectedEndTime}
-                                        showTabs={false}
-                                        onChange={this.handleEndTimeChange}
-                                        leftArrowIcon={<i className="zmdi zmdi-arrow-back" />}
-                                        rightArrowIcon={<i className="zmdi zmdi-arrow-forward" />}
-                                    />
-                                </div>
-
-                            </div></div>
-                            <div className="col-md-12 text-left ">
-                        <br /><br />
-                        <Button variant="contained" className="jr-btn bg-indigo text-white " type="submit" >{<IntlMessages id="components.establishments.formadd.buttonAdd" />}</Button>
-                        <Button variant="contained" className="jr-btn bg-grey text-white " onClick={this.handleCancel}>{<IntlMessages id="components.establishments.formadd.buttonCancel" />}</Button>
-                    </div>
-                    </div>
-                   
-                </CardBox>
-            </form>
-
-
-        );
-    }
+                  <FormControlLabel
+                    value="BBB"
+                    control={<Radio color="primary" />}
+                    label="Big blue button"
+                  />
+                  <FormControlLabel
+                    value="Zoom"
+                    control={<Radio color="primary" />}
+                    label="Zoom"
+                  />
+                  <FormControlLabel
+                    value="Teams"
+                    control={<Radio color="primary" />}
+                    label="Teams"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </div>
+         
+            <div className="p-2 ">
+              <div className="d-flex mt-4 flex-wrap justify-content-end  align-items-start col-md-12 col-lg-12 ">
+                <div className="mr-2">
+                  <Button
+                    variant="contained"
+                    onClick={this.props.handleCancel}
+                    style={{
+                      borderBottomLeftRadius: "13px",
+                      borderBottomRightRadius: "13px",
+                      borderTopLeftRadius: "13px",
+                      borderTopRightRadius: "13px",
+                      width: "100%",
+                      height: "100%",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {
+                      <IntlMessages id="components.establishments.formadd.buttonCancel" />
+                    }
+                  </Button>
+                </div>
+                <div className="mr-2">
+                  <Button
+                    variant="contained"
+                    style={{
+                      borderBottomLeftRadius: "13px",
+                      borderBottomRightRadius: "13px",
+                      borderTopLeftRadius: "13px",
+                      borderTopRightRadius: "13px",
+                      width: "100%",
+                      height: "100%",
+                      textTransform: "capitalize",
+                    }}
+                    className=" text-white "
+                    color="primary"
+                    type="submit"
+                  >
+                    <IntlMessages id="button.save.registreAppel" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </form>
+      </div>
+    );
+  }
 }
-const mapStateToProps = state => {
-    return {
-      userProfile: state.auth.userProfile,
-    };
+const mapStateToProps = (state) => {
+  return {
+    userProfile: state.auth.userProfile,
   };
+};
 
-export default connect(mapStateToProps) (AddOption);
+export default connect(mapStateToProps)(AddOption);

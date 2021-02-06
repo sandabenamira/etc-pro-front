@@ -15,9 +15,6 @@ import {
 import DateFnsUtils from "@date-io/moment";
 import { TimePicker } from "@material-ui/pickers";
 import { connect } from "react-redux";
-import { subjectsByLevelBySection } from "../../../../../actions/subjectAction";
-import moment from "moment";
-import { roleIdProfessor } from "../../../../../config/config";
 import _ from "lodash";
 import Can from "../../../../../can";
 import { RoleContext } from "../../../../../Context";

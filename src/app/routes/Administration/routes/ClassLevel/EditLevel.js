@@ -1,8 +1,6 @@
 
 import React from 'react';
-
 import Button from '@material-ui/core/Button';
-
 import Auxiliary from "util/Auxiliary";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import { connect } from "react-redux";

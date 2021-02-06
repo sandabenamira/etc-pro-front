@@ -7,12 +7,10 @@ import CardBox from '../../../../../components/CardBox/index';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux';
-//import { addService } from '../../../../../actions/ServiceAction.js';
 import moment from 'moment';
 import { UncontrolledAlert } from 'reactstrap';
 import Can from '../../../../../can';
 import { RoleContext } from '../../../../../Context';
-import { roleIdAdmin } from '../../../../../config/config';
 
 const currencies = [
   {

@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import Auxiliary from '../../../../../util/Auxiliary';
 import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux';
-//import { editService } from '../../../../../actions/ServiceAction';
 import CardBox from '../../../../../components/CardBox/index';
 import { UncontrolledAlert } from 'reactstrap';
 import moment from 'moment';

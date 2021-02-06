@@ -10,7 +10,6 @@ import { RoleContext } from '../../../../../Context';
 class HomeworkItem extends Component {
   render() {
      const { homeworkItem } = this.props;
-    //  console.log('homeworkItem', homeworkItem);
     return (
       <div className="card package bg-white shadow">
         <div

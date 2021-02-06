@@ -1,31 +1,30 @@
-import React from 'react';
-import IntlMessages from '../../../../../util/IntlMessages';
-import CardBox from '../../../../../components/CardBox/index';
-import { connect } from 'react-redux';
-import { UncontrolledAlert } from 'reactstrap';
-import AddVirtualClass from './AddVirtualClass';
-import _ from 'lodash';
-import { RoleContext } from '../../../../../Context';
-import Can from '../../../../../can';
+import React from "react";
+import IntlMessages from "../../../../../util/IntlMessages";
+import CardBox from "../../../../../components/CardBox/index";
+import { connect } from "react-redux";
+import { UncontrolledAlert } from "reactstrap";
+import AddVirtualClass from "./AddVirtualClass";
+import _ from "lodash";
+import { RoleContext } from "../../../../../Context";
+import Can from "../../../../../can";
 import {
   roleIdProfessor,
   roleIdAdmin,
   roleIdParent,
   roleIdStudent,
-} from '../../../../../config/config';
-import { fetchProfessorBySubject } from '../../../../../actions/ToDo';
-import VirtualClassList from './VirtualClassList';
-import ArchiveVirtualClass from './ArchiveVirtualClass';
-import JitsiComponent from './JitsiComponent';
-import { addClassVirtual, getClassesVirtual } from '../../../../../actions/VirtualClassAction';
-import axios from 'axios';
-import baseUrl from '../../../../../config/config';
-import Fab from '@material-ui/core/Fab';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import { privateStatus, publicStatus, allStatus } from '../../../../../config/config';
-import moment from 'moment';
-import VirtualClassListItems from './VirtualClassListItems';
-import IconWithTextCard from '../../../FinancialManagement/routes/ServiceAllocation/ServiceAllocationComp/IconWithTextCard';
+} from "../../../../../config/config";
+import VirtualClassList from "./VirtualClassList";
+import ArchiveVirtualClass from "./ArchiveVirtualClass";
+import {
+  addClassVirtual,
+} from "../../../../../actions/VirtualClassAction";
+import axios from "axios";
+import baseUrl from "../../../../../config/config";
+import Fab from "@material-ui/core/Fab";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import moment from "moment";
+import IconWithTextCard from "../../../FinancialManagement/routes/ServiceAllocation/ServiceAllocationComp/IconWithTextCard";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 class VirtualClass extends React.Component {
   constructor(props) {
@@ -34,48 +33,47 @@ class VirtualClass extends React.Component {
     this.state = {
       isOpen: false,
       dateVirtualClass: new Date(),
-      virtualClassName: '',
-      classUrl: '',
-      password: '',
-      description: '',
+      virtualClassName: "",
+      classUrl: "",
+      password: "",
+      description: "",
       startTimeClass: new Date(Date.now() + 60000),
       endTimeClass: new Date(Date.now() + 120000),
-      virtualClassStatus: '',
       accessibility: false,
-      levels: [],
-      sectionsDisable: true,
-      sections: [],
       subjects: [],
       classes: [],
       professors: [],
       classId: null,
       courseId: null,
       subjectId: null,
-      levelId: null,
       professorId: null,
-      class_password: '',
-      call: false,
-      filterValues: 0,
-      roleUserId: 1,
       assignmentClassSubject: [],
       isPublish: false,
       endTimeClassError: true,
       startTimeClassError: true,
-      profName: '',
-      profSurname: '',
-      subjectName: '',
-      classeName: '',
-      subjectColor: '',
-      itemClass: '',
-      itemProfessor: '',
-      itemSubject: '',
+      profName: "",
+      profSurname: "",
+      subjectName: "",
+      classeName: "",
+      subjectColor: "",
+      itemClass: "",
+      itemProfessor: "",
+      itemSubject: "",
       classItem: {},
-      filterStatus: 'all',
+      filterStatus: "all",
       openArchive: false,
       alerteDate: false,
       prog: 0,
       encours: 0,
       terminé: 0,
+      classStudent: null,
+      show: false,
+      classSelected: [],
+      courseAssignment: [],
+      professorsFiltred: [],
+      profSelected: [],
+      coursesIds: [],
+      isOpenAlertParent:false
     };
 
     this.openAddModal = this.openAddModal.bind(this);
@@ -96,40 +94,46 @@ class VirtualClass extends React.Component {
     this.setState({});
   }
 
+  handleCancel() {
+    this.setState({
+      isOpen: false,
+      virtualClassName: "",
+      accessibility: "",
+      classId: null,
+      subjectId: null,
+      itemClass: {},
+      itemSubject: {},
+      itemProfessor: {},
+      dateVirtualClass: new Date(),
+      startTimeClass: new Date(),
+      endTimeClass: new Date(),
+      classUrl: "",
+      password: "",
+      description: "",
+      classSelected: [],
+      courseAssignment: [],
+      professorsFiltred: [],
+      profSelected: [],
+      professorId:null
+    });
+  }
+
   handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.value });
   };
 
-  handleChangeProfessor = (name) => (event) => {
-    let obj = JSON.parse(event.target.value);
-    this.setState({
-      professorId: obj.profId,
-      profName: obj.profName,
-      profSurname: obj.profSurname,
-      itemProfessor: event.target.value,
-    });
-    let apiEndpoint = `${baseUrl.baseUrl}/course_v4?access_token=${localStorage.token}&filter[where][fk_id_professor]=${obj.profId}&filter[include][assignmentClassSubject][subject]`;
-    axios.get(apiEndpoint).then((res) => {
-      let subjects = [];
-      res.data.forEach((element) => {
-        if (element.assignmentClassSubject.fk_id_class_v4 === this.state.classId) {
-          let newObj = {
-            ...element.assignmentClassSubject,
-            courseId: element.id,
-          };
-
-          // subjects.push(element.assignmentClassSubject);
-          subjects.push(newObj);
-        }
-      });
-      this.setState({ subjects });
-    });
+  handleChangeProfessor = (event) => {
+    let profSelected = event.target.value;
+    this.setState({ profSelected });
   };
 
   handleStartTimeChange = (time) => {
     let startTimeClassError;
 
-    if (moment(this.state.dateVirtualClass).format('LL') == moment(new Date()).format('LL')) {
+    if (
+      moment(this.state.dateVirtualClass).format("LL") ==
+      moment(new Date()).format("LL")
+    ) {
       startTimeClassError =
         moment(time._d).isBefore(this.state.endTimeClass) &&
         moment(time._d).isAfter(this.state.dateVirtualClass);
@@ -149,7 +153,10 @@ class VirtualClass extends React.Component {
     let endTimeClassError = moment(time._d).isAfter(this.state.startTimeClass);
     let startTimeClassError;
 
-    if (moment(this.state.dateVirtualClass).format('LL') == moment(new Date()).format('LL')) {
+    if (
+      moment(this.state.dateVirtualClass).format("LL") ==
+      moment(new Date()).format("LL")
+    ) {
       startTimeClassError =
         moment(this.state.startTimeClass).isBefore(time._d) &&
         moment(this.state.startTimeClass).isAfter(this.state.dateVirtualClass);
@@ -167,12 +174,14 @@ class VirtualClass extends React.Component {
   handleChangeDate = (date) => {
     let startTimeClassError;
 
-    if (moment(date._d).format('LL') == moment(new Date()).format('LL')) {
+    if (moment(date._d).format("LL") == moment(new Date()).format("LL")) {
       startTimeClassError =
         moment(this.state.startTimeClass).isBefore(this.state.endTimeClass) &&
         moment(this.state.startTimeClass).isAfter(date._d);
     } else {
-      startTimeClassError = moment(this.state.startTimeClass).isBefore(this.state.endTimeClass);
+      startTimeClassError = moment(this.state.startTimeClass).isBefore(
+        this.state.endTimeClass
+      );
     }
     this.setState({
       dateVirtualClass: date._d,
@@ -183,38 +192,69 @@ class VirtualClass extends React.Component {
   handleChangeSubject = (name) => (event) => {
     let obj = JSON.parse(event.target.value);
 
+    let courseAssignment = [];
+    if (this.props.userProfile.role_id === roleIdProfessor) {
+      this.state.classes.map((element) => {
+        if (element.assignmentClassSubject.fk_id_subject_v4 === obj.subjectId) {
+          let object = {
+            courseId: element.id,
+            ...element.assignmentClassSubject,
+          };
+          courseAssignment.push(object);
+        }
+      });
+    } else {
+      this.props.courseAssignment.forEach(element => {
+        if (element.fk_id_subject_v4 === obj.subjectId && !_.isEmpty(element.course)) {
+          courseAssignment.push(element)
+        }
+        
+      });
+    }
     this.setState({
       itemSubject: event.target.value,
       subjectId: obj.subjectId,
       subjectName: obj.subjectName,
       subjectColor: obj.subjectColor,
-      courseId: obj.courseId,
+      courseAssignment: courseAssignment,
+      classSelected: [],
     });
   };
 
-  handleChangeClass = (name) => (event) => {
-    this.setState({ [name]: event.target.value });
-    let obj = JSON.parse(event.target.value);
-    this.setState({
-      classId: obj.classId,
-      classeName: obj.classeName,
-    });
+  handleChangeClass = (event) => {
+    let classSelected = event.target.value;
+    this.setState({ classSelected });
+    let coursesIds = [];
     if (this.props.userProfile.role_id === roleIdProfessor) {
-      let subjects = this.state.assignmentClassSubject.filter(
-        (element) => element.class.id === obj.classId
-      );
-      this.setState({ subjects });
-    } else {
-      let apiEndpoint = `${baseUrl.baseUrl}/assignment_class_subjects?access_token=${localStorage.token}&filter[where][fk_id_class_v4]=${obj.classId}&filter[include][course][professor][profile][user]`;
-      axios.get(apiEndpoint).then((res) => {
-        let courses = [];
-        res.data.forEach((element) => {
-          courses.push(element.course);
-        });
-        let newCoursesList = _.flatten(courses);
-        let professorsFiltredByID = _.uniqBy(newCoursesList, 'fk_id_professor');
-        this.setState({ professors: professorsFiltredByID, subjects: [] });
+      classSelected.forEach((element) => {
+        let object ={
+          id : element.courseId
+        }
+        coursesIds.push(object);
       });
+      this.setState({coursesIds})
+    } else {
+      let professorsIds = [];
+      classSelected.forEach((element) => {
+        if (!_.isEmpty(element.course)) {
+          var object = {};
+          var courseId = {};
+          object.id = element.course[0].fk_id_professor;
+          courseId.id = element.course[0].id;
+          coursesIds.push(courseId);
+          professorsIds.push(object);
+        }
+      });
+      let professorsUniqIds = _.uniqBy(professorsIds, "id");
+      let professorsFiltred = [];
+      professorsUniqIds.forEach((professor) => {
+        this.props.professors.forEach((element) => {
+          if (professor.id === element.profId) {
+            professorsFiltred.push(element);
+          }
+        });
+      });
+      this.setState({ professorsFiltred, coursesIds });
     }
   };
 
@@ -222,19 +262,21 @@ class VirtualClass extends React.Component {
     e.preventDefault();
 
     if (this.state.endTimeClassError && this.state.startTimeClassError) {
-      let dateClass = moment(this.state.dateVirtualClass).format('LL');
-      let endHourClass = moment(this.state.endTimeClass).format('HH:mm');
-      let startHourClass = moment(this.state.startTimeClass).format('HH:mm');
-      let timedebutAdd = Date.parse(dateClass + ' ' + startHourClass) / 60000;
-      let timefinAdd = Date.parse(dateClass + ' ' + endHourClass) / 60000;
+      let dateClass = moment(this.state.dateVirtualClass).format("LL");
+      let endHourClass = moment(this.state.endTimeClass).format("HH:mm");
+      let startHourClass = moment(this.state.startTimeClass).format("HH:mm");
+      let timedebutAdd = Date.parse(dateClass + " " + startHourClass) / 60000;
+      let timefinAdd = Date.parse(dateClass + " " + endHourClass) / 60000;
 
       const result = this.props.virtualClasses.filter((item) => {
-        let dateClassItem = moment(item.date_virtual_class).format('LL');
-        let endHourClassItem = moment(item.end_time_class).format('HH:mm');
-        let startHourClassItem = moment(item.start_time_class).format('HH:mm');
+        let dateClassItem = moment(item.date_virtual_class).format("LL");
+        let endHourClassItem = moment(item.end_time_class).format("HH:mm");
+        let startHourClassItem = moment(item.start_time_class).format("HH:mm");
 
-        let timedebutItem = Date.parse(dateClassItem + ' ' + startHourClassItem) / 60000;
-        let timefinItem = Date.parse(dateClassItem + ' ' + endHourClassItem) / 60000;
+        let timedebutItem =
+          Date.parse(dateClassItem + " " + startHourClassItem) / 60000;
+        let timefinItem =
+          Date.parse(dateClassItem + " " + endHourClassItem) / 60000;
 
         return (
           item.classeId == this.state.classId &&
@@ -251,211 +293,106 @@ class VirtualClass extends React.Component {
           this.setState({ alerteDate: false });
         }, 3000);
       } else {
-        this.setState({
-          call: true,
-        });
         let data = {
-          virtualClassName: this.state.virtualClassName,
-          accessibility: this.state.accessibility,
-          classId: this.state.classId,
-          subjectId: this.state.subjectId,
-          professorId: this.state.professorId,
-          dateVirtualClass: this.state.dateVirtualClass,
-          startTimeClass: this.state.startTimeClass,
-          endTimeClass: this.state.endTimeClass,
-          classUrl: this.state.classUrl,
-          password: this.state.password,
-          publish: this.state.isPublish,
-          profName: this.state.profName,
-          profSurname: this.state.profSurname,
+        
           subjectName: this.state.subjectName,
-          classeName: this.state.classeName,
           subjectColor: this.state.subjectColor,
-          courseId: this.state.courseId,
+          subjectId: this.state.subjectId,
+          classSelected: this.state.classSelected,
+          coursesIds: this.state.coursesIds,
+        };
+        let dateVirtuelClass = {
+          date_virtual_class: this.state.dateVirtualClass,
+          status: true,
+          virtual_class_name: this.state.virtualClassName,
+          class_url: this.state.classUrl,
+          password: this.state.password,
+          start_time_class: this.state.startTimeClass,
+          end_time_class: this.state.endTimeClass,
+          virtual_class_status: "programée",
+          accessibility: this.state.accessibility,
+          publish: this.state.isPublish,
           description: this.state.description,
         };
-        this.props.dispatch(addClassVirtual(data));
-        this.setState({
-          call: false,
-          isOpen: false,
-          virtualClassName: '',
-          accessibility: '',
-          classId: null,
-          subjectId: null,
-          itemClass: {},
-          itemSubject: {},
-          itemProfessor: {},
-          dateVirtualClass: new Date(),
-          startTimeClass: new Date(),
-          endTimeClass: new Date(),
-          classUrl: '',
-          password: '',
-          description: '',
-        });
+
         if (this.props.userProfile.role_id === roleIdAdmin) {
-          this.setState({ professorId: null });
+          data.professorId = this.state.profSelected[0].profId;
+          data.profName = this.state.profSelected[0].name;
+          data.profSurname = this.state.profSelected[0].surname
+        }else{
+          data.professorId = this.props.userProfile.user.profiles[0].professors[0].id;
+          data.profName = this.props.userProfile.user.name;
+          data.profSurname = this.props.userProfile.user.surname;
         }
+        this.props.dispatch(addClassVirtual(data, dateVirtuelClass));
+        this.handleCancel();
+   
       }
+    } else {
     }
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.virtualClasses !== this.props.virtualClasses) {
-      let prog = 0;
-      let encours = 0;
-      let terminé = 0;
-
-      let VirtualClassListFinal = this.props.virtualClasses.map((elementItem) => {
-        const sys = Date.parse(new Date()) / 60000;
-        const start =
-          Date.parse(
-            elementItem.date_virtual_class.slice(0, 10) +
-              ' ' +
-              moment(elementItem.start_time_class).format('HH:mm')
-          ) / 60000;
-        const end =
-          Date.parse(
-            elementItem.date_virtual_class.slice(0, 10) +
-              ' ' +
-              moment(elementItem.end_time_class).format('HH:mm')
-          ) / 60000;
-
-        if (start > sys && end > sys) {
-          terminé = ++terminé;
-          this.setState({ terminé: terminé });
-        } else if (start < sys && end > sys) {
-          encours = ++encours;
-          this.setState({ encours: encours });
-        } else if (start < sys && end < sys) {
-          prog = ++prog;
-          this.setState({ prog: prog });
-        } else if (this.props.filterStatus == 'all') {
-          return elementItem;
-        }
-      });
-    }
-    if (prevProps.ClassSettings !== this.props.ClassSettings) {
-      if (this.props.userProfile.role_id === roleIdProfessor) {
-      } else {
-        this.setState({ classes: this.props.ClassSettings });
-      }
-    }
-    if (prevProps.userProfile.school_year_id !== this.props.userProfile.school_year_id) {
-      this.props.dispatch(
-        getClassesVirtual(
-          this.props.userProfile.establishment_id,
-          this.props.userProfile.school_year_id,
-          this.props.userProfile.role_id,
-          this.props.userProfile.id
-        )
-      );
-
+    if (
+      prevProps.subjects !== this.props.subjects &&
+      this.props.userProfile.role_id === roleIdAdmin
+    ) {
       this.setState({
-        subjects: [],
-        professors: [],
-        itemClass: '',
-        itemSubject: '',
-        itemProfessor: '',
+        subjects: this.props.subjects,
       });
-      if (this.props.userProfile.role_id === roleIdProfessor) {
-        let apiEndpoint = `${baseUrl.baseUrl}/professors?access_token=${localStorage.token}&filter[where][profile_id]=${this.props.userProfile.id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
-        axios.get(apiEndpoint).then((res) => {
-          let data = _.map(res.data, 'course');
-
-          let classes = [];
-          let assignmentClassSubject = [];
-          data[0].forEach((element) => {
-            if (
-              element.assignmentClassSubject.class.fk_id_school_year ==
-              this.props.userProfile.school_year_id
-            ) {
-              let newObj = {
-                ...element.assignmentClassSubject,
-                courseId: element.id,
-              };
-
-              classes.push(element.assignmentClassSubject.class);
-              // assignmentClassSubject.push(element.assignmentClassSubject);
-              assignmentClassSubject.push(newObj);
-            }
-          });
-          this.setState({
-            classes,
-            professorId: res.data[0].id,
-            assignmentClassSubject,
-            subjects: [],
-            professors: [],
-            itemClass: '',
-            itemSubject: '',
-            itemProfessor: '',
-          });
-        });
-        let apiEndpoint1 = `${baseUrl.baseUrl}/users?access_token=${localStorage.token}&filter[where][id]=${this.props.userProfile.user_id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
-        axios.get(apiEndpoint1).then((res) => {
-          this.setState({
-            profName: res.data.name,
-            profSurname: res.data.surname,
-          });
-        });
-      }
     }
   }
 
   UNSAFE_componentWillMount() {
-    this.props.dispatch(
-      getClassesVirtual(
-        this.props.userProfile.establishment_id,
-        this.props.userProfile.school_year_id,
-        this.props.userProfile.role_id,
-        this.props.userProfile.id
-      )
-    );
-
     if (this.props.userProfile.role_id === roleIdProfessor) {
       let apiEndpoint = `${baseUrl.baseUrl}/professors?access_token=${localStorage.token}&filter[where][profile_id]=${this.props.userProfile.id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
       axios.get(apiEndpoint).then((res) => {
-        let data = _.map(res.data, 'course');
-
-        let classes = [];
-        let assignmentClassSubject = [];
+        let data = _.map(res.data, "course");
+        let subjects = [];
         data[0].forEach((element) => {
           if (
             element.assignmentClassSubject.class.fk_id_school_year ==
             this.props.userProfile.school_year_id
           ) {
-            let newObj = {
-              ...element.assignmentClassSubject,
-              courseId: element.id,
-            };
-            classes.push(element.assignmentClassSubject.class);
-            assignmentClassSubject.push(newObj);
-
-            // assignmentClassSubject.push(element.assignmentClassSubject);
+            subjects.push(element.assignmentClassSubject.subject);
           }
         });
+        let newListSubjects = _.uniqBy(subjects, "id");
         this.setState({
-          classes,
-          professorId: res.data[0].id,
-          assignmentClassSubject,
+          classes: data[0],
+          subjects: newListSubjects,
         });
       });
-      let apiEndpoint1 = `${baseUrl.baseUrl}/users?access_token=${localStorage.token}&filter[where][id]=${this.props.userProfile.user_id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
-      axios.get(apiEndpoint1).then((res) => {
-        this.setState({
-          profName: res.data.name,
-          profSurname: res.data.surname,
-        });
-      });
-    } else {
-      this.props.dispatch(fetchProfessorBySubject(this.props.userProfile.establishment_id));
-      this.setState({ classes: this.props.ClassSettings });
+    } else if (this.props.userProfile.role_id === roleIdStudent) {
+      let classStudent = this.props.userProfile.user.profiles[0].students[0]
+        .inscription[0].fk_id_class_v4;
+      this.setState({ classStudent });
+      if (classStudent === null) {
+        this.setState({ show: true });
+      }
+    } else if (this.props.userProfile.role_id === roleIdParent) {
+    
+      let classStudents = this.props.userProfile.user.profiles[0].parents[0].student_parents;
+      if (_.isEmpty(classStudents)) {
+        this.setState({ isOpenAlertParent: true });
+     
+      }
+
     }
-    if (this.props.userProfile.role_id == 3) {
-      this.setState({
-        roleUserId: this.props.userProfile.user.profiles[0].professors[0].id,
-      });
+    else if (this.props.userProfile.role_id === roleIdAdmin) {
+      this.setState({ subjects: this.props.subjects });
     }
   }
+  onConfirm = () => {
+    this.setState({
+      show: false,
+    });
+  };
+  onConfirmParent = () => {
+    this.setState({
+      isOpenAlertParent: false,
+    });
+  };
 
   openAddModal() {
     this.setState((previousState) => ({
@@ -469,28 +406,29 @@ class VirtualClass extends React.Component {
   }
 
   render() {
+ 
     let detailCards = [
       {
-        cardColor: 'primary',
-        imageIcon: require('../../../FinancialManagement/routes/ServiceAllocation/Icone/project-icon.png'),
+        cardColor: "primary",
+        imageIcon: require("../../../FinancialManagement/routes/ServiceAllocation/Icone/project-icon.png"),
         title: this.props.virtualClasses.length,
         subTitle: <IntlMessages id={`virtual.class.total`} />,
       },
       {
-        cardColor: 'secondary',
-        imageIcon: require('../../../FinancialManagement/routes/ServiceAllocation/Icone/tasks-icon.png'),
+        cardColor: "secondary",
+        imageIcon: require("../../../FinancialManagement/routes/ServiceAllocation/Icone/tasks-icon.png"),
         title: this.state.prog,
         subTitle: <IntlMessages id={`virtual.class.terminée`} />,
       },
       {
-        cardColor: 'info',
-        imageIcon: require('../../../FinancialManagement/routes/ServiceAllocation/Icone/teams-icon.png'),
+        cardColor: "info",
+        imageIcon: require("../../../FinancialManagement/routes/ServiceAllocation/Icone/teams-icon.png"),
         title: this.state.encours,
         subTitle: <IntlMessages id={`virtual.class.encours`} />,
       },
       {
-        cardColor: 'warning',
-        imageIcon: require('../../../FinancialManagement/routes/ServiceAllocation/Icone/files-icon.png'),
+        cardColor: "warning",
+        imageIcon: require("../../../FinancialManagement/routes/ServiceAllocation/Icone/files-icon.png"),
         title: this.state.terminé,
         subTitle: <IntlMessages id={`virtual.class.programmé`} />,
       },
@@ -500,49 +438,55 @@ class VirtualClass extends React.Component {
       <div
         className="app-wrapper col-lg-12 col-md-12"
         style={{
-          marginLeft: '2%',
-          marginRight: 'auto',
+          marginLeft: "2%",
+          marginRight: "auto",
         }}
       >
         <div className="row col-lg-12 col-md-12">
           {detailCards.map((data, index) => (
-            <div key={index} className="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+            <div
+              key={index}
+              className="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12"
+            >
               <IconWithTextCard data={data} />
             </div>
           ))}
         </div>
         <div className="  mb-3">
-          <div className="p-2 bd-highlight" style={{ marginLeft: '4%' }}>
+          <div className="p-2 bd-highlight" style={{ marginLeft: "4%" }}>
             <h1>
               <b>
                 <IntlMessages id="sidebar.components.liste.classes.virtuelles" />
               </b>
             </h1>
           </div>
-          <div className="d-flex flex-row bd-highlight mb-3" style={{ marginLeft: '4%' }}>
+          <div
+            className="d-flex flex-row bd-highlight mb-3"
+            style={{ marginLeft: "4%" }}
+          >
             <div className="p-2 bd-highlight pointer">
-              <h5 onClick={() => this.setState({ filterStatus: 'all' })}>
+              <h5 onClick={() => this.setState({ filterStatus: "all" })}>
                 <IntlMessages id="service.filter.with.all" />
               </h5>
             </div>
             <div className="p-2 bd-highlight">|</div>
 
             <div className="p-2 bd-highlight pointer">
-              <h5 onClick={() => this.setState({ filterStatus: 'progress' })}>
+              <h5 onClick={() => this.setState({ filterStatus: "progress" })}>
                 <IntlMessages id="status.classe.virtual.progrés" />
               </h5>
             </div>
             <div className="p-2 bd-highlight">|</div>
             <div className="p-2 bd-highlight pointer">
-              <h5 onClick={() => this.setState({ filterStatus: 'upcoming' })}>
-                {' '}
+              <h5 onClick={() => this.setState({ filterStatus: "upcoming" })}>
+                {" "}
                 <IntlMessages id="status.classe.virtual.programmé" />
               </h5>
             </div>
 
             <div className="p-2 bd-highlight">|</div>
             <div className="p-2 bd-highlight pointer">
-              <h5 onClick={() => this.setState({ filterStatus: 'past' })}>
+              <h5 onClick={() => this.setState({ filterStatus: "past" })}>
                 <IntlMessages id="status.classe.virtual.términé" />
               </h5>
             </div>
@@ -556,7 +500,7 @@ class VirtualClass extends React.Component {
               <span className="d-inline-block"> {this.props.message} </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
           {this.props.errorStatus ? (
             <UncontrolledAlert className="alert-addon-card bg-danger bg-danger text-white shadow-lg">
@@ -566,10 +510,10 @@ class VirtualClass extends React.Component {
               <span className="d-inline-block"> {this.props.message} </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
 
-          <div className=" bd-highlight" style={{ width: '100%' }}>
+          <div className=" bd-highlight" style={{ width: "100%" }}>
             <CardBox styleName="col-lg-12 col-md-12 ">
               <AddVirtualClass
                 values={this.state}
@@ -583,6 +527,7 @@ class VirtualClass extends React.Component {
                 handleChangeClass={this.handleChangeClass}
                 handleChangeProfessor={this.handleChangeProfessor}
                 handleChangeSubject={this.handleChangeSubject}
+                handleCancel={this.handleCancel.bind(this)}
               />
             </CardBox>
           </div>
@@ -591,8 +536,8 @@ class VirtualClass extends React.Component {
               <div
                 className="  col-lg-12 col-md-12 bd-highlight"
                 style={{
-                  paddingRight: 'auto',
-                  paddingLeft: '2%',
+                  paddingRight: "auto",
+                  paddingLeft: "2%",
                 }}
               >
                 <VirtualClassList
@@ -600,7 +545,6 @@ class VirtualClass extends React.Component {
                   subjectList={this.state.subjectList}
                   editClassShowModal={this.editClassShowModal}
                   filterStatus={this.state.filterStatus}
-                  roleUserId={this.state.roleUserId}
                   classes={this.props.ClassSettings}
                   assignmentClassSubject={this.state.assignmentClassSubject}
                 />
@@ -617,18 +561,18 @@ class VirtualClass extends React.Component {
                   <div
                     className="col-lg-12 col-md-12 bd-highlight"
                     style={{
-                      paddingRight: 'auto',
-                      paddingLeft: '2%',
+                      paddingRight: "auto",
+                      paddingLeft: "2%",
                     }}
                   >
                     <div>
                       <div className="d-flex justify-content-start align-items-center ">
                         <h1>
                           <b>
-                            {' '}
-                            <IntlMessages id="service.button.archive" />{' '}
+                            {" "}
+                            <IntlMessages id="service.button.archive" />{" "}
                           </b>
-                        </h1>{' '}
+                        </h1>{" "}
                         &nbsp;&nbsp;&nbsp;
                         <Fab
                           size="small"
@@ -644,11 +588,13 @@ class VirtualClass extends React.Component {
                       {this.state.openArchive ? (
                         <div>
                           <ArchiveVirtualClass
-                            virtualClassesArchived={this.props.archivedVirtualClass}
+                            virtualClassesArchived={
+                              this.props.archivedVirtualClass
+                            }
                           ></ArchiveVirtualClass>
                         </div>
                       ) : (
-                        ''
+                        ""
                       )}
                     </div>
                   </div>
@@ -657,7 +603,23 @@ class VirtualClass extends React.Component {
             )}
           </RoleContext.Consumer>
         </div>
-        {this.state.call == true ? <JitsiComponent values={this.state} /> : <div></div>}
+
+        {this.props.userProfile.role_id === roleIdStudent &&
+        this.state.classStudent === null ? (
+          <SweetAlert
+            show={this.state.show}
+            title={<IntlMessages id="alert.affect.student" />}
+            onConfirm={this.onConfirm}
+          ></SweetAlert>
+        ) : (
+          ""
+        )}
+        {this.state.isOpenAlertParent &&  <SweetAlert
+            show={this.state.isOpenAlertParent}
+            title={<IntlMessages id="alert.affect.student.to.parent" />}
+            onConfirm={this.onConfirmParent}
+          ></SweetAlert>}
+        
       </div>
     );
   }
@@ -671,10 +633,12 @@ const mapStateToProps = (state) => {
     message: state.alert.message,
     establishmentData: state.subject.establishmentData,
     classes: state.ClassSettingsReducer.classSettings,
-    subjectsProfessors: state.toDo.subjectsProfessors,
     virtualClasses: state.classVirtualReducer.remoteClassVirtual,
     ClassSettings: state.ClassSettingsReducer.classSettings,
     archivedVirtualClass: state.classVirtualReducer.archivedVirtualClass,
+    subjects: state.subject.subjects,
+    courseAssignment: state.AssignementReducer.courseAssignment,
+    professors: state.usersReducer.professors,
   };
 };
 

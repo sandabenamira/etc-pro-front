@@ -592,7 +592,6 @@ class EditSupportCours extends Component {
                       </Button>
                       &nbsp;&nbsp;
                       <Button
-                        // disabled={values.assignmentIds.length == 0}
                         variant="contained"
                         style={{
                           borderBottomLeftRadius: '16px',

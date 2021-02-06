@@ -4,9 +4,6 @@ import {
     EDIT_VIRTUAL_CLASS,
     DELETE_VIRTUAL_CLASS,
     ARCHIVED_VIRTUAL_CLASS,
-    HANDLE_REQUEST_CLOSE,
-    SHOW_ERROR_MESSAGE,
-    HIDE_ERROR_MESSAGE
   } from '../constants/ActionTypes';
   
   const initialState = {
@@ -17,13 +14,13 @@ import {
   export default function(state = initialState, action) {
     if (action.type === FETECHED_ALL_VIRTUAL_CLASS) {
        return Object.assign({}, state, {
-        remoteClassVirtual: action.payload
+        remoteClassVirtual: action.payload.reverse()
       });
     }
   
     if (action.type === ADD_VIRTUAL_CLASS) {
       return Object.assign({}, state, {
-        remoteClassVirtual: state.remoteClassVirtual.concat(action.payload)
+        remoteClassVirtual: [action.payload].concat(state.remoteClassVirtual)
       });
     }
     if (action.type === ARCHIVED_VIRTUAL_CLASS) {

@@ -3,11 +3,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import _ from 'lodash';
-import moment from 'moment';
 import Avatar from '@material-ui/core/Avatar';
 import defaultAvatar from '../../../../../assets/images/default-Avatar.png';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import IntlMessages from '../../../../../util/IntlMessages';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -26,14 +23,8 @@ import {
   deleteUserPermitted,
   editUserPermitted,
 } from '../../../../../constants/validationFunctions';
-const listRole = [
-  // { id: 0, label: <IntlMessages id={`permission.role.all`} /> },
-  { id: roleIdAdmin, label: 'Admin' },
-  { id: roleIdDirector, label: 'Director' },
-  { id: roleIdProfessor, label: 'Formateur' },
-  { id: roleIdStudent, label: 'Participant' },
-  { id: roleIdParent, label: 'Responsable formation' },
-];
+import ModalDetailsUserNameAndPassword from './ModalDetailsUserNameAndPassword';
+
 class UsersListItem extends Component {
   constructor(props) {
     super(props);
@@ -43,27 +34,34 @@ class UsersListItem extends Component {
       menuState: false,
       anchorEl: undefined,
       openDetails: false,
+      openDetailsUsernamePassword : false
     };
     this.handleCancelDetails = this.handleCancelDetails.bind(this);
     this.handleOpenDetails = this.handleOpenDetails.bind(this);
+    this.handleOpenDetailsUsernamePassword = this.handleOpenDetailsUsernamePassword.bind(this);
+    this.handleCancelDetailsUsernamePassword = this.handleCancelDetailsUsernamePassword.bind(this);
+  }
+  handleCancelDetailsUsernamePassword() {
+     this.setState({ openDetailsUsernamePassword: false });
+  }
+  handleOpenDetailsUsernamePassword() {
+      this.setState({ menuState: false, openDetailsUsernamePassword: true });
   }
   handleCancelDetails() {
     this.setState({ openDetails: false });
-  }
-  handleOpenDetails() {
+ }
+ handleOpenDetails() {
     this.setState({ menuState: false, openDetails: true });
-  }
+ }
   render() {
     const { user } = this.props;
     let listSubjectStudent = [];
-    let listClassStudent = [];
+    let listClassProf = [];
 
     if (this.props.roleIdFilter == roleIdProfessor) {
       listSubjectStudent = _.uniqBy(user.inforamtionsProf, 'subjectName');
-      listClassStudent = _.uniqBy(user.inforamtionsProf, 'calssName');
+      listClassProf = _.uniqBy(user.inforamtionsProf, 'classname');
     }
-    let roleUser = listRole.find((element) => element.id == user.roleId);
-    let roleLabel = roleUser != undefined ? roleUser.label : '';
     return (
       <>
         <TableRow key={user.id}>
@@ -77,7 +75,7 @@ class UsersListItem extends Component {
           {/* <TableCell>{user.cin}</TableCell> */}
           <TableCell>{user.name}</TableCell>
           <TableCell>{user.surname}</TableCell>
-          {this.props.roleIdFilter == 0 ? <TableCell>{roleLabel}</TableCell> : null}
+          {this.props.roleIdFilter == 0 ? <TableCell>{user.roleName}</TableCell> : null}
           {/* ------------     affichage classe et matiére pour prof -------------------------------------------*/}
           {this.props.roleIdFilter == roleIdProfessor ? (
             <TableCell>
@@ -85,7 +83,7 @@ class UsersListItem extends Component {
             </TableCell>
           ) : null}
           {this.props.roleIdFilter == roleIdProfessor ? (
-            <TableCell>{listClassStudent.map((element) => element.calssName + ' , ')}</TableCell>
+            <TableCell>{listClassProf.map((element) => element.classname + ' , ')}</TableCell>
           ) : null}
           {/* ------------     affichage classe et parent pour student -------------------------------------------*/}
 
@@ -153,7 +151,7 @@ class UsersListItem extends Component {
                 <IconButton
                   size="meduim"
                   className="icon-btn"
-                  // onClick={(e) => this.props.handleDelete(cours)}
+                  onClick={(e) => this.handleOpenDetailsUsernamePassword(e)}
                 >
                   <i className="zmdi zmdi-lock-outline" style={{ color: 'text-grey' }} />
                 </IconButton>
@@ -185,8 +183,7 @@ class UsersListItem extends Component {
               >
                 <i className="zmdi zmdi-eye" style={{ color: 'text-grey' }} />
               </IconButton>
-              {/* {editUserPermitted(user.roleName, this.props.userPermission) ? ( */}
-              {true ? (
+              {editUserPermitted(user.roleName, this.props.userPermission) ? (
                 <>
                   &nbsp; | &nbsp;
                   <Button
@@ -197,7 +194,7 @@ class UsersListItem extends Component {
                       height: '20px',
                     }}
                     onClick={(e) => {
-                      this.props.handleEdit(user);
+                    this.props.handleEdit(user);
                     }}
                     target="_blank"
                   >
@@ -209,8 +206,7 @@ class UsersListItem extends Component {
               ) : (
                 ''
               )}
-              {/* {deleteUserPermitted(user.roleName, this.props.userPermission) ? ( */}
-              {true ? (
+              {deleteUserPermitted(user.roleName, this.props.userPermission) ? (
                 <>
                   &nbsp; | &nbsp;
                   <IconButton
@@ -234,7 +230,17 @@ class UsersListItem extends Component {
             openDetails={this.state.openDetails}
             userItem={this.props.user}
             userProfile={this.props.userProfile}
-            listRole={listRole}
+          />
+        ) : (
+          ''
+        )}
+         {this.state.openDetailsUsernamePassword ? (
+          <ModalDetailsUserNameAndPassword
+            handleOpenDetailsUsernamePassword={this.handleOpenDetailsUsernamePassword}
+            handleCancelDetailsUsernamePassword={this.handleCancelDetailsUsernamePassword}
+            openDetailsUsernamePassword={this.state.openDetailsUsernamePassword}
+            userItem={this.props.user}
+            userProfile={this.props.userProfile}
           />
         ) : (
           ''

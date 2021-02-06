@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import IntlMessages from '../../../../../util/IntlMessages';
 import CardBox from '../../../../../components/CardBox/index';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import RemoveSharpIcon from '@material-ui/icons/RemoveSharp';
 import AddSupportCours from './AddSupportCours';
 import FolderIcon from '@material-ui/icons/Folder';
 import ListItem from '@material-ui/core/ListItem';
@@ -57,7 +53,6 @@ class SupportCoursList extends Component {
       assignmentIds: [],
       classIndex: '',
       nameError: false,
-      // state edit
       itemEdit: {},
       classEditName: '',
       classEditId: '',
@@ -89,7 +84,6 @@ class SupportCoursList extends Component {
     this.handleSubmitDelete = this.handleSubmitDelete.bind(this);
   }
   handleSubmitDelete = () => {
-    // console.log(this.state.deleteItem, 'deleteItem');
     this.props.dispatch(deleteMaterialCourse(this.state.deleteItem));
     this.setState({
       deleteIsopen: false,
@@ -351,8 +345,7 @@ class SupportCoursList extends Component {
     }
   };
   handleChangeVirtualClassIds = (selectedOption) => {
-    console.log('kkkk',selectedOption);
-    
+     
     if (selectedOption != null) {
       let virtualClassIds = [];
       selectedOption.map((element) => {
@@ -664,13 +657,13 @@ class SupportCoursList extends Component {
                       <IntlMessages id="file.title" />
                     </TableCell>
                     <TableCell>
-                    <IntlMessages id="components.student.formadd.classe" />
+                      <IntlMessages id="todo.labels" />
                     </TableCell>
                     <TableCell>
                       <IntlMessages id="publication.date" />
                     </TableCell>
                     <TableCell>
-                      Formateur
+                      <IntlMessages id="material.professor.name" />
                     </TableCell>
                     <TableCell>
                       <IntlMessages id="associated.files.links" />

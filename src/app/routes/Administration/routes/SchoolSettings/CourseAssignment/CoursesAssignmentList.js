@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import CoursesAssignmentListListItem from './CoursesAssignmentListItem';
 import {
   deleteAssignementCourse,
-  editAssignementCourse,
+  addAssignementCourse,
 } from '../../../../../../actions/AssignementAction';
 
 class CoursesAssignmentList extends React.Component {
@@ -22,45 +22,74 @@ class CoursesAssignmentList extends React.Component {
       isOpen: false,
       deleteIsopen: false,
       deleteItem: {},
-      classId: 0,
-      subjectId: 0,
-      CoficientGlobal: 0,
       itemIdEdit: null,
+      classItemEdit: {},
+      class_id: '',
+      subjectsEdit: [],
+      subjectsSelected: [],
     };
-    this.handleAnnule = this.handleAnnule.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleDeleteAssignment = this.handleDeleteAssignment.bind(this);
+    this.handleChangeClass = this.handleChangeClass.bind(this);
+    this.handleChangeSubject = this.handleChangeSubject.bind(this);
   }
+  handleChangeClass = (selectedOption) => {
+    this.setState({
+      class_id: selectedOption.id,
+      classItemEdit: selectedOption,
+    });
+  };
+  handleChangeSubject = (selectedOption) => {
+    if (selectedOption != null) {
+      let subjectsSelected = selectedOption;
+      this.setState({
+        subjectsSelected,
+      });
+    } else {
+      this.setState({
+        subjectsSelected: [],
+      });
+    }
+  };
   handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.value });
   };
-  handleToggle() {
-    this.handleCancel();
-  }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      global_coefficient: this.state.CoficientGlobal,
-      fk_id_class_v4: this.state.classId,
-      fk_id_subject_v4: this.state.subjectId,
-      id: this.state.itemIdEdit,
-    };
+    let deletedSubjects = [];
+    let newSubjects = [];
 
-    let checkDoubleAssignementCourse = this.props.courseAssignment.filter(
-      (element) =>
-        element.fk_id_class_v4 == this.state.classId &&
-        element.fk_id_subject_v4 == this.state.subjectId &&
-        element.id != this.state.itemIdEdit
-    );
-    if (checkDoubleAssignementCourse.length > 0) {
-      this.props.handleChangeAlerte();
-    } else {
-      this.props.editAssignementCourse(data);
+    deletedSubjects = _.differenceBy(this.state.subjectsEdit, this.state.subjectsSelected, 'id');
+    newSubjects = _.differenceBy(this.state.subjectsSelected, this.state.subjectsEdit, 'id');
+    let newData = newSubjects.map((element) => {
+      return {
+        assignment_date: new Date(),
+        status: true,
+        fk_id_class_v4: this.state.classItemEdit.id,
+        fk_id_subject_v4: element.id,
+        class: this.state.classItemEdit,
+        subject: element,
+        course: [],
+      };
+    });
+
+    let deletedData = deletedSubjects.map((element) => {
+      return {
+        id: element.idAssignment,
+        status: false,
+      };
+    });
+    if(newData.length>0){
+      this.props.addAssignementCourse(newData);
+    }
+    if(deletedData.length>0){
+      this.props.deleteAssignementCourse(deletedData);
+
     }
     this.handleCancel();
   };
@@ -71,22 +100,40 @@ class CoursesAssignmentList extends React.Component {
       deleteIsopen: false,
     });
   };
-  handleAnnule() {
-    this.handleCancel();
-  }
+
   handleCancel() {
-    this.setState({ isOpen: false, deleteIsopen: false, item: {}, deleteItem: {} });
+    this.setState({
+      isOpen: false,
+      deleteIsopen: false,
+      deleteItem: {},
+      itemIdEdit: null,
+      classItemEdit: {},
+      class_id: '',
+      subjectsEdit: [],
+      subjectsSelected: [],
+    });
   }
 
   handleEdit = (item, event) => {
     event.preventDefault();
-
+     let classItemEdit = { ...item.classItem, label: item.classItem.name };
+    let subjectsEdit = item.subjects.map((element) => {
+      return {
+        ...element.subject,
+        label: element.subject.name,
+        value: element.subject.id,
+        idAssignment: element.id,
+      };
+    });
+    let subjectsSelected = item.subjects.map((element) => {
+      return { ...element.subject, label: element.subject.name, value: element.subject.id };
+    });
     this.setState({
       isOpen: true,
-      itemIdEdit: item.id,
-      CoficientGlobal: item.global_coefficient,
-      classId: item.fk_id_class_v4,
-      subjectId: item.fk_id_subject_v4,
+      itemIdEdit: item,
+      classItemEdit,
+      subjectsEdit,
+      subjectsSelected,
     });
   };
   handleDelete = (item, event) => {
@@ -95,7 +142,7 @@ class CoursesAssignmentList extends React.Component {
   };
 
   render() {
-    return (
+     return (
       <div className="table-responsive-material">
         <div>
           <h1>
@@ -122,12 +169,10 @@ class CoursesAssignmentList extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.courseAssignment.map((courseAssignment) => {
+            {this.props.courseAssignmentList.map((courseAssignment) => {
               return (
                 <CoursesAssignmentListListItem
                   courseAssignment={courseAssignment}
-                  ClassSettings={this.props.ClassSettings}
-                  subjects={this.props.subjects}
                   handleEdit={this.handleEdit}
                   handleDelete={this.handleDelete}
                 />
@@ -137,15 +182,14 @@ class CoursesAssignmentList extends React.Component {
         </Table>
         {this.state.isOpen ? (
           <EditCourseAssignment
-            closeModal={this.handleCancel}
+            handleCancel={this.handleCancel}
             isOpen={this.state.isOpen}
             values={this.state}
-            handleAnnule={this.handleAnnule}
-            handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
-            handleToggle={this.handleToggle}
-            ClassSettings={this.props.ClassSettings}
-            subjects={this.props.subjects}
+            ClassSettingsList={this.props.ClassSettingsList}
+            subjectList={this.props.subjectList}
+            handleChangeClass={this.handleChangeClass}
+            handleChangeSubject={this.handleChangeSubject}
           />
         ) : (
           ''
@@ -166,13 +210,10 @@ class CoursesAssignmentList extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    levels: state.levelsReducer.levels,
-    ClassSettings: state.ClassSettingsReducer.classSettings,
-    subjects: state.subject.subjects,
-  };
+  return {};
 }
 
-export default connect(mapStateToProps, { deleteAssignementCourse, editAssignementCourse })(
-  CoursesAssignmentList
-);
+export default connect(mapStateToProps, {
+  deleteAssignementCourse,
+  addAssignementCourse,
+})(CoursesAssignmentList);

@@ -16,7 +16,6 @@ import {
 } from '../constants/ActionTypes';
 import baseUrl from '../config/config';
 import IntlMessages from '../util/IntlMessages';
-import axios from 'axios';
 
 export function getEventsBy2Filters(estab_id, prof_id) {
   let eventsFiltered = [];
@@ -120,30 +119,6 @@ export const addEvent = (itemEvent, itemSuplimentaire) => {
     let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, itemEvent).then((response) => {
       if (response) {
-        var data = {};
-
-        data.start = new Date(itemEvent.start_time);
-        data.end = new Date(itemEvent.end_time);
-        data.title = itemEvent.title;
-        data.frequency = itemEvent.frequency;
-        data.eventType = itemEvent.event_type;
-        data.status = true;
-        data.roomId = itemEvent.fk_id_room;
-        data.profId = itemEvent.fk_id_prof;
-        data.assignClassSubjectId = itemEvent.fk_id_assign_class_subject;
-        data.subjectId = itemSuplimentaire.subjectId;
-        data.classId = itemSuplimentaire.classId;
-        data.classeName = itemSuplimentaire.className;
-        data.creatorName = itemSuplimentaire.creatorName;
-        data.creatorSurname = itemSuplimentaire.creatorSurname;
-
-        data.roomName = itemSuplimentaire.roomName;
-        data.subjectName = itemSuplimentaire.subjectName;
-        data.subjectColor = itemSuplimentaire.subjectColor;
-        data.profName = itemSuplimentaire.profName;
-        data.profSurname = itemSuplimentaire.profSurname;
-
-        dispatch({ type: ADD_EVENT, payload: data });
         dispatch(
           getEventsByEstabAndSchoolYear(
             itemSuplimentaire.establishmentId,
@@ -496,34 +471,50 @@ export const getEventsByEstabAndSchoolYear = (establishementId, schoolYearId, cl
 };
 
 export const editEvent = (itemEvent, itemSuplimentaire) => {
+  console.log('---------itemEvent------', itemEvent);
+  console.log('---------itemSuplimentaire------', itemSuplimentaire);
+
   return (dispatch) => {
     let apiEndpoint = `/planning_events/` + itemEvent.id + `?access_token=${localStorage.token}`;
-    classService.put(apiEndpoint, itemEvent).then((response) => {
+    classService.patch(apiEndpoint, itemEvent).then((response) => {
       if (response) {
-        var data = {};
-        data.id = itemEvent.id;
-        data.start = new Date(itemEvent.start_time);
-        data.end = new Date(itemEvent.end_time);
-        data.title = itemEvent.title;
-        data.frequency = itemEvent.frequency;
-        data.eventType = itemEvent.event_type;
-        data.status = true;
-        data.roomId = itemEvent.fk_id_room;
-        data.profId = itemEvent.fk_id_prof;
-        data.assignClassSubjectId = itemEvent.fk_id_assign_class_subject;
-        data.subjectId = itemSuplimentaire.subjectId;
-        data.classId = itemSuplimentaire.classId;
-        data.classeName = itemSuplimentaire.className;
-        data.creatorName = itemSuplimentaire.creatorName;
-        data.creatorSurname = itemSuplimentaire.creatorSurname;
+        //// notif mail ////---------------------------
+        // let obj = {};
+        // obj.subjectName = itemSuplimentaire.subjectName;
+        // obj.eventType = itemEvent.event_type;
+        // obj.profName = itemSuplimentaire.profName;
+        // obj.profSurname = itemSuplimentaire.profSurname;
+        // obj.roomName = itemSuplimentaire.roomName;
+        // obj.end = new Date(itemEvent.end_time);
+        // obj.start = new Date(itemEvent.start_time);
+        // obj.classId = itemSuplimentaire.classId;
+        // obj.classeName = itemSuplimentaire.className;
+        // let apiEndpoint = `/planning_events/absent-prof-notif?access_token=${localStorage.token}`;
+        // classService.post(apiEndpoint, obj).then((response) => {
+        //   console.log('------response.data-----', response.data);
+        //   // if (response.data.notificationData.length > 0) {
+        //   //   this.setState({
+        //   //     messageAlerte:
+        //   //       response.data.notificationData.length + ' Parents sont notifiés avec succées',
+        //   //     alerteNotif: true,
+        //   //     colorNotif: 'bg-success',
+        //   //   });
+        //   //   setTimeout(() => {
+        //   //     this.setState({ messageAlerte: '', alerteNotif: false });
+        //   //   }, 4000);
+        //   // } else {
+        //   //   this.setState({
+        //   //     messageAlerte: ' Aucun Parent est notifié',
+        //   //     alerteNotif: true,
+        //   //     colorNotif: 'bg-danger',
+        //   //   });
+        //   //   setTimeout(() => {
+        //   //     this.setState({ messageAlerte: '', alerteNotif: false });
+        //   //   }, 4000);
+        //   // }
+        // });
+        // refresh store ////////////////////
 
-        data.roomName = itemSuplimentaire.roomName;
-        data.subjectName = itemSuplimentaire.subjectName;
-        data.subjectColor = itemSuplimentaire.subjectColor;
-        data.profName = itemSuplimentaire.profName;
-        data.profSurname = itemSuplimentaire.profSurname;
-
-        dispatch({ type: EDIT_EVENT, payload: data });
         dispatch(
           getEventsByEstabAndSchoolYear(
             itemSuplimentaire.establishmentId,
@@ -552,19 +543,19 @@ export const deleteEvent = (typeDelete, itemEvent, establishmentId, schoolYearId
           sameDateCallRegister = response.data.callRegister.filter((call) =>
             moment(call.start_date).isSameOrAfter(momentStartData)
           );
-           canDelete = sameDateCallRegister.length == 0;
+          canDelete = sameDateCallRegister.length == 0;
         } else if (typeDelete == 'uniq') {
           let sameDateCallRegister = [];
           sameDateCallRegister = response.data.callRegister.filter((call) =>
             moment(call.start_date).isSame(momentStartData)
           );
-           canDelete = sameDateCallRegister.length == 0;
+          canDelete = sameDateCallRegister.length == 0;
         } else if (typeDelete == 'all') {
           if (response.data.callRegister.length > 0) {
             canDelete = false;
           }
         }
-         if (!canDelete) {
+        if (!canDelete) {
           dispatch({
             type: SHOW_ERROR_MESSAGE,
             payload: "Cet évènement est attaché à un registre d'appel !",
@@ -584,12 +575,12 @@ export const deleteEvent = (typeDelete, itemEvent, establishmentId, schoolYearId
             if (response) {
               dispatch({
                 type: SHOW_SUCCESS_MESSAGE,
-                payload: "Cet évènement est supprimé avec succès",
+                payload: 'Cet évènement est supprimé avec succès',
               });
               setTimeout(() => {
                 dispatch({ type: HIDE_SUCCESS_MESSAGE });
               }, 3000);
-              
+
               dispatch(getEventsByEstabAndSchoolYear(establishmentId, schoolYearId, classId));
             }
           });

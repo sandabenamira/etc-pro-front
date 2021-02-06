@@ -3,11 +3,9 @@ import Button from '@material-ui/core/Button';
 import IntlMessages from '../../../../../util/IntlMessages';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { Card, CardTitle } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import _ from 'lodash';
-import { classService } from '../../../../../_services';
-import Fab from '@material-ui/core/Fab';
+
 
 class VirtualClassDetails extends Component {
   constructor(props) {

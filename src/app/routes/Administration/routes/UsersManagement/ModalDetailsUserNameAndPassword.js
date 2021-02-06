@@ -30,41 +30,59 @@ export class ModalDetailsUser extends React.Component {
   }
 
   render() {
-      return (
+    const { userItem } = this.props;
+    return (
       <Auxiliary>
-        <Modal isOpen={this.props.openDetails}>
+        <Modal isOpen={this.props.handleOpenDetailsUsernamePassword}>
           <ModalHeader className="modal-box-header bg-primary text-white">
-          <IntlMessages id="user.details.connexion" />
+            <IntlMessages id="user.details.connexion" />
             <IconButton className="text-white">
-              <CloseIcon onClick={this.props.handleCancelDetails} />
+              <CloseIcon
+                onClick={this.props.handleCancelDetailsUsernamePassword}
+              />
             </IconButton>
           </ModalHeader>
           <ModalBody style={{ paddingLeft: "5%", paddingRight: "5%" }}>
             <form>
-              <div class="d-flex flex-row col-md-12 col-lg-12 col-sm-12">
-                <div class="form-group col-md-6 col-lg-3 col-sm-12">
-                  <label for="gender">
+              <div className="d-flex flex-row col-md-12 col-lg-12 col-sm-12">
+                <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                  <label htmlFor="userNameModal">
                     {" "}
-                    <IntlMessages id="user.gender" />
+                    <IntlMessages id="user.user.name" />
                   </label>
                   <input
                     disabled={true}
-                    type="gender"
-                    class="form-control"
-                    id="gender"
+                    type="userNameModal"
+                    className="form-control"
+                    id="userNameModal"
+                    value={userItem.login}
+                  />
+                </div>
+                <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                  <label htmlFor="password">
+                    <IntlMessages id="user.password" />
+                  </label>
+                  <input
+                    disabled={true}
+                    type="text"
+                    className="form-control"
+                    id="password"
                     value={""}
                   />
                 </div>
-                <div class="form-group col-md-6 col-lg-3 col-sm-12">
-                  <label for="birthdaydate">
-                    <IntlMessages id="user.birthday.date" />
+              </div>
+              <div className="d-flex flex-row col-md-12 col-lg-12 col-sm-12">
+                <div className="form-group col-md-6 col-lg-6 col-sm-12">
+                  <label htmlFor="userMAil">
+                    {" "}
+                    <IntlMessages id="user.mail" />
                   </label>
                   <input
                     disabled={true}
-                    type="date"
-                    class="form-control"
-                    id="birthdaydate"
-                    value={""}
+                    type="userMAil"
+                    className="form-control"
+                    id="userMAil"
+                    value={userItem.email}
                   />
                 </div>
               </div>

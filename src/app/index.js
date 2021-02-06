@@ -3,26 +3,20 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from '../components/Header/index';
 import Sidebar from '../containers/SideNav/index';
-// import Sidebar from "../containers/SideBar/index";
 import Footer from '../components/Footer';
 import Administration from './routes/Administration/index';
 import RegistreAppel from './routes/RegistreAppel/Registre';
 import Mail from './routes/Mail/Mail';
 import Devoir from './routes/Learning/index';
 import Home from './routes/Home/index';
-import Profile from './routes/Profile/index';
-import userProfile from './routes/userProfile/Profile/index';
+import UserProfile from './routes/UserProfile/index';
 import { getUserProfile, getSchoolYear } from '../actions/Auth';
 import {
-  ABOVE_THE_HEADER,
-  BELOW_THE_HEADER,
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
-  HORIZONTAL_NAVIGATION,
 } from '../constants/ActionTypes';
 import { isIOS, isMobile } from 'react-device-detect';
 import asyncComponent from '../util/asyncComponent';
-import TopNav from '../components/TopNav';
  import Cafeteria from './routes/Cafeteria/index';
 import HealthMonitoring from './routes/HealthMonitoring/HealthMonitoring';
 import Learning from './routes/Learning/index';
@@ -50,7 +44,6 @@ import { getClassSettings } from '../actions/ClassSettingsAction';
 import { getSchoolSession } from '../actions/SchoolSessionAction';
 import { getExamType } from '../actions/ExamTypeAction';
 import { getAssignementCourse } from '../actions/AssignementAction';
-import { getSchoolLicence } from '../actions/SchoolLicenceAction';
 import { getEstablishment } from '../actions/establishmentAction';
 import { getMoocs } from '../actions/MoocsActions';
 import { getClassesVirtual } from '../actions/VirtualClassAction';
@@ -58,15 +51,11 @@ import { getLevelClassSubjectData } from '../actions/MaterialCourseAction';
 import { getEventsByEstabAndSchoolYearForProf } from '../actions/planningActions';
 import { getUserPermissions } from '../actions/PermissionAction';
 import { getGroup } from "../actions/GroupsAction";
+import { getAllUsersForAdmin} from "../actions/usersAction";
+
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import {
   roleIdSuperAdmin,
-  roleIdAdmin,
-  roleIdProfessor,
-  roleIdStudent,
-  roleIdDirector,
-  roleIdParent,
-  roleIdSupervisor,
 } from '../config/config';
 const RouteControl = ({ pathName, estabModule, Component, match }) => {
   return (
@@ -152,6 +141,11 @@ class App extends React.Component {
         )
       );
 
+      this.props.dispatch(getAllUsersForAdmin(
+        localStorage.establishment_id,
+        localStorage.school_year_id
+      ));
+
     }
 
     if (
@@ -195,7 +189,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.userProfile !== this.props.userProfile) {
+    if (prevProps.userProfile.id !== this.props.userProfile.id) {
       if (localStorage.establishment_id != undefined && localStorage.school_year_id != undefined) {
         this.props.dispatch(
           getAssignementCourse(localStorage.establishment_id, localStorage.school_year_id)
@@ -230,7 +224,11 @@ class App extends React.Component {
           )
         );
 
-       
+        this.props.dispatch(getAllUsersForAdmin(
+          localStorage.establishment_id,
+          localStorage.school_year_id
+        ));
+
       }
 
       if (
@@ -309,7 +307,7 @@ class App extends React.Component {
           <main className="app-main-content-wrapper">
             <div className="app-main-content">
               <Switch>
-                <Route path={`${match.url}/profile`} component={userProfile} />
+                <Route path={`${match.url}/profile`} component={UserProfile} />
                 <Route path={`${match.url}/home`} render={(props) => <Home {...props} />} />
                 <Route
                   path={`${match.url}/administration`}

@@ -44,14 +44,14 @@ class ProfileHeader extends Component {
                       this.state.user.user.surname.slice(1)
                     : ""}
                 </h2>
-                <p className="mb-0 jr-fs-lg">
+                {/* <p className="mb-0 jr-fs-lg">
                   {this.state.user.user != undefined
                     ? this.state.user.user.zip_code +
                       " , " +
                       this.state.user.user.address.charAt(0).toUpperCase() +
                       this.state.user.user.address.slice(1)
                     : ""}
-                </p>
+                </p> */}
               </div>
             </div>
             {/* <div className="jr-profile-banner-top-right">

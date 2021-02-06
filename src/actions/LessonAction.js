@@ -17,14 +17,11 @@ export const getLessons = (establishmentId) => {
   return (dispatch) => {
     let apiEndpoint = `/courses?access_token=${localStorage.token}&filter[include][classProfSubject][class]`;
     classService.get(apiEndpoint).then((response) => {
-      console.log('lesson ',response)
-      console.log("establishmentId",establishmentId)
       var filtredLessons = response.data.filter(
         (element) =>
           element.status === true &&
           element.classProfSubject.class.establishment_id == establishmentId
       );
-      console.log("filtredLessons" ,filtredLessons)
       dispatch({ type: GET_ALL_LESSON, payload: filtredLessons });
     });
   };
@@ -48,7 +45,6 @@ export const addLesson = (itemLesson, files, establishmentID) => {
     let apiEndpoint = `/courses?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, itemLesson).then((response) => {
 
-      console.log("response",response)
 
       if (response) {
         var course_id = response.data.id;
@@ -57,7 +53,6 @@ export const addLesson = (itemLesson, files, establishmentID) => {
             let arrayItemCourseFiles = [];
             var formadata = new FormData();
             if (files.length > 0) {
-              console.log("files",files)
               var i=0;
               for (const key of Object.keys(files)) {
                 i++
@@ -75,8 +70,6 @@ export const addLesson = (itemLesson, files, establishmentID) => {
                 object.courseObject = response.data;
 
                 const finalfileName = fileName;
-                console.log("finalfileName",finalfileName)
-                console.log("files[key]",files[key])
 
                 const myNewFile = new File([files[key]], finalfileName, { type: files[key].type });
                 let formadata = new FormData();
@@ -91,26 +84,20 @@ export const addLesson = (itemLesson, files, establishmentID) => {
                     data: formadata,
                   })
                     .then((response2) => {
-                  console.log('Uploaddddddddddddddddd ',response2.data)
                   arrayItemCourseFiles.push(response2.data.result.files.image[0].providerResponse.location);
 
                     })
                     .catch((err) => {
                      });
             
-
-              // dispatch(uploadCourseMedia(object)
-
               
               }
               if(i==files.length) {
-              console.log("arrayItemCourseFiles",arrayItemCourseFiles,"length",arrayItemCourseFiles.length)
-              console.log('i ',i)
+            
               classService.post(
                 `/course_files?access_token=${localStorage.token}`,
                 arrayItemCourseFiles
               ).then((response3) => {
-                console.log('response3 ',response3.data)
                 dispatch({ type: ADD_LESSON, payload: courseObject });
                 dispatch({
                   type: SHOW_SUCCESS_MESSAGE,

@@ -19,9 +19,11 @@ import {
   getLevelClassSubjectData,
   getMaterialCourse,
 } from '../../../../../actions/MaterialCourseAction';
-import moment from 'moment';
-import { roleIdProfessor, roleIdAdmin } from '../../../../../config/config';
-import Button from '@material-ui/core/Button';
+import { roleIdStudent,roleIdAdmin, roleIdParent } from '../../../../../config/config';
+import _ from "lodash";
+import SweetAlert from "react-bootstrap-sweetalert";
+
+
 
 class SupportCours extends React.Component {
   constructor(props) {
@@ -44,9 +46,23 @@ class SupportCours extends React.Component {
       levelNameStudent: 0,
       classIdStudent: 0,
       classNameStudent: 0,
+      isOpenAlertParent:false,
+      show: false,
+
     };
     this.handleChangeFolder = this.handleChangeFolder.bind(this);
   }
+
+  onConfirm = () => {
+    this.setState({
+      show: false,
+    });
+  }; 
+  onConfirmParent = () => {
+    this.setState({
+      isOpenAlertParent: false,
+    });
+  };
 
   handleChangeFolder(id, e, classMaterialCourse) {
     e.preventDefault();
@@ -63,10 +79,7 @@ class SupportCours extends React.Component {
     } else {
       this.setState({ isFolderOpen: false, folderId: 0, classId: 0 });
     }
-    // this.setState((previousState) => ({
-    //   isFolderOpen: !previousState.isFolderOpen,
-    // }));
-    // this.setState({folderId:id})
+
   }
   componentDidUpdate(prevProps) {
     if (prevProps.userProfile !== this.props.userProfile) {
@@ -78,23 +91,21 @@ class SupportCours extends React.Component {
       );
     }
     if (prevProps.listMaterialCourse !== this.props.listMaterialCourse) {
-      let levelIdStudent = this.props.listMaterialCourse[0].levelId;
-      let levelNameStudent = this.props.listMaterialCourse[0].levelName;
-      let classIdStudent = this.props.listMaterialCourse[0].classes[0].classId;
-      let classNameStudent = this.props.listMaterialCourse[0].classes[0].className;
-      // let subjectId = subject.subjectId;
-      // let subjectName = subject.subjectName;
-      // let schoolSessionId = schoolSession.schoolSessionId;
-      // let schoolSessionName = schoolSession.schoolSessionName;
-      // let assignementId = subject.assignementClassSubject;
-      this.setState({
-        listMaterialCourseStudent: this.props.listMaterialCourse[0],
-        SubjectListStudent: this.props.listMaterialCourse[0].classes[0].subject,
-        levelIdStudent,
-        levelNameStudent,
-        classIdStudent,
-        classNameStudent,
-      });
+      if (!_.isEmpty(this.props.listMaterialCourse)) {
+        let levelIdStudent = this.props.listMaterialCourse[0].levelId;
+        let levelNameStudent = this.props.listMaterialCourse[0].levelName;
+        let classIdStudent = this.props.listMaterialCourse[0].classes[0].classId;
+        let classNameStudent = this.props.listMaterialCourse[0].classes[0].className;
+        this.setState({
+          listMaterialCourseStudent: this.props.listMaterialCourse[0],
+          SubjectListStudent: this.props.listMaterialCourse[0].classes[0].subject,
+          levelIdStudent,
+          levelNameStudent,
+          classIdStudent,
+          classNameStudent,
+        });
+      }
+    
     }
   }
   UNSAFE_componentWillMount() {
@@ -104,6 +115,22 @@ class SupportCours extends React.Component {
       this.props.userProfile.role_id,
       this.props.userProfile.id
     );
+   if (this.props.userProfile.role_id === roleIdStudent) {
+      let classStudent = this.props.userProfile.user.profiles[0].students[0]
+        .inscription[0].fk_id_class_v4;
+      this.setState({ classStudent });
+      if (classStudent === null) {
+        this.setState({ show: true });
+      }
+    } else if (this.props.userProfile.role_id === roleIdParent) {
+    
+      let classStudents = this.props.userProfile.user.profiles[0].parents[0].student_parents;
+      if (_.isEmpty(classStudents)) {
+        this.setState({ isOpenAlertParent: true });
+     
+      }
+
+    }
   }
 
   render() {
@@ -531,6 +558,21 @@ class SupportCours extends React.Component {
             </RoleContext.Consumer>
           </div>
         </div>
+        {this.props.userProfile.role_id === roleIdStudent &&
+        this.state.classStudent === null ? (
+          <SweetAlert
+            show={this.state.show}
+            title={<IntlMessages id="alert.affect.student" />}
+            onConfirm={this.onConfirm}
+          ></SweetAlert>
+        ) : (
+          ""
+        )}
+        {this.state.isOpenAlertParent &&  <SweetAlert
+            show={this.state.isOpenAlertParent}
+            title={<IntlMessages id="alert.affect.student.to.parent" />}
+            onConfirm={this.onConfirmParent}
+          ></SweetAlert>}
       </div>
     );
   }

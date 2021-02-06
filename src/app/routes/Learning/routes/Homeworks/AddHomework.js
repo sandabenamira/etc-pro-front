@@ -100,7 +100,7 @@ class HomeworkList extends React.Component {
                   fontSize: "13px",
                 }}
               >
-                {<IntlMessages id="components.exam.subject" />}
+                {<IntlMessages id="material.subject.name" />}
               </InputLabel>
               <Select
                 required
@@ -141,7 +141,7 @@ class HomeworkList extends React.Component {
                   fontSize: "13px",
                 }}
               >
-                {<IntlMessages id="components.student.formadd.classe" />}
+                {<IntlMessages id="sidebar.components.classes" />}
               </InputLabel>
               <Select
                 defaultValue={[]}

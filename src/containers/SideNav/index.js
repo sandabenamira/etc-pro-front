@@ -3,14 +3,13 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import SidenavContent from "./SidenavContent";
-import Logo from "../../components/Logo";
 import {
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
   HORIZONTAL_NAVIGATION,
 } from "../../constants/ActionTypes";
 import { toggleCollapsedNav, updateWindowWidth } from "../../actions/Setting";
-import imageSchool from "../../assets/images/Educap-Pro-logo.png";
+import imageSchool from "../../assets/images/logoEducapGris.png";
 
 class SideNav extends React.PureComponent {
   constructor() {
@@ -84,11 +83,6 @@ class SideNav extends React.PureComponent {
                   ? establishementInformations.logo
                   : imageSchool
               }
-              // src={
-              //   establishementInformations.logo !== null
-              //     ? imageSchool
-              //     : imageSchool
-              // }
               alt="EDUCAP"
               title="EDUCAP"
             />

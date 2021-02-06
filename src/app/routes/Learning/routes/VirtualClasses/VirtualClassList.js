@@ -4,22 +4,12 @@ import EditVitualClass from "./EditVitualClass";
 import { editClassVirtual } from "../../../../../actions/VirtualClassAction";
 import { deleteClassVirtual } from "../../../../../actions/VirtualClassAction";
 import { connect } from "react-redux";
-import { getSectionFromLevel } from "../../../../../actions/sectionAction";
-import { getLevelListFromEstabType } from "../../../../../actions/classLevelAction";
 import axios from "axios";
 import baseUrl from "../../../../../config/config";
 import { getClassesByEstablishmentId } from "../../../../../actions/classeAction";
-import { roleIdAdmin } from "../../../../../config/config";
 import { roleIdProfessor } from "../../../../../config/config";
-import { roleIdParent } from "../../../../../config/config";
-import { roleIdStudent } from "../../../../../config/config";
 import _ from "lodash";
 import DeleteVirtualClass from "./DeleteVirtualClass";
-import {
-  privateStatus,
-  publicStatus,
-  allStatus,
-} from "../../../../../config/config";
 import JitsiComponent from "./JitsiComponent";
 import moment from "moment";
 
@@ -87,11 +77,9 @@ class VirtualClassList extends Component {
       establishmentProfessor: [],
       professorClassesAdd: [],
       profSubjects: [],
-      // showModaldetails: false,
       classItem: {},
       deleteItem: {},
       virtualClasses: [],
-      roleUserId: 1,
       ListPrivateVirtuelClasses: [],
       ListPublicVirtuelClasses: [],
       alerteDate: false,
@@ -227,7 +215,6 @@ class VirtualClassList extends Component {
             courseId: element.id,
           };
 
-          // subjects.push(element.assignmentClassSubject);
           subjects.push(newObj);
         }
       });
@@ -454,9 +441,9 @@ class VirtualClassList extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.virtualClasses !== this.props.virtualClasses) {
-      this.setState({
-        virtualClasses: this.props.virtualClasses,
-      });
+      let newList= filterVirtualClass(this.props.virtualClasses)
+      this.setState({ virtualClasses: newList });
+  
     }
 
     if (prevProps.filterStatus !== this.props.filterStatus) {
@@ -515,7 +502,8 @@ class VirtualClassList extends Component {
     this.props.getClassesByEstablishmentId(
       this.props.userProfile.establishment_id
     );
-    this.setState({ virtualClasses: this.props.virtualClasses });
+    let newList= filterVirtualClass(this.props.virtualClasses)
+    this.setState({ virtualClasses: newList });
     if (this.props.userProfile.role_id === roleIdProfessor) {
       let apiEndpoint = `${baseUrl.baseUrl}/professors?access_token=${localStorage.token}&filter[where][profile_id]=${this.props.userProfile.id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
       axios.get(apiEndpoint).then((res) => {
@@ -542,7 +530,7 @@ class VirtualClassList extends Component {
         <div className="   price-tables row pt-default d-flex justify-content-start ">
           {!_.isEmpty(this.state.virtualClasses) ? (
             this.state.virtualClasses.map((element, index) => (
-              <div className="col-md-6 col-lg-3 col-sm-6 ">
+              <div className="col-md-6 col-lg-3 col-sm-6 " key={index}>
                 <VirtualClassListItems
                   key={index}
                   index={index}
@@ -604,6 +592,34 @@ function mapStateToProps(state) {
     ClassSettings: state.ClassSettingsReducer.classSettings,
   };
 }
+
+function filterVirtualClass(virtualClassList) {
+ let newList= virtualClassList.filter(
+    (elementItem) => {
+      const sys = Date.parse(new Date()) / 60000;
+      const start =
+        Date.parse(
+          elementItem.date_virtual_class.slice(0, 10) +
+            " " +
+            moment(elementItem.start_time_class).format("HH:mm")
+        ) / 60000;
+      const end =
+        Date.parse(
+          elementItem.date_virtual_class.slice(0, 10) +
+            " " +
+            moment(elementItem.end_time_class).format("HH:mm")
+        ) / 60000;
+      if ( (start > sys && end > sys) || ( start < sys && end > sys)
+      ) {
+        return elementItem;
+      }  
+    }
+  );
+
+  return  newList
+  
+}
+
 
 export default connect(
   mapStateToProps,

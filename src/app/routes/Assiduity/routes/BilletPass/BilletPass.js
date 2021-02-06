@@ -15,9 +15,6 @@ import { roleIdSuperAdmin, roleIdAdmin, roleIdSupervisor, roleIdDirector } from 
 import { classService } from '../../../../../_services/class.service';
 import { UncontrolledAlert } from "reactstrap";
 
-function notEmpty(value) {
-  return !(_.isEmpty(value))
-}
 
 function mapStateToProps(state) {
   return {

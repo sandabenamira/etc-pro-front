@@ -83,7 +83,7 @@ class AddClassesSettings extends React.Component {
                                   )}
                                   select
                                   label={
-                                    <IntlMessages id="components.exam.subject" />
+                                    <IntlMessages id="components.moocs.course" />
                                   }
                                   value={JSON.stringify(
                                     this.props.values.itemSubject
@@ -111,7 +111,7 @@ class AddClassesSettings extends React.Component {
                               <div className="col-md-4 ">
                                 <FormControl className="w-100">
                                   <InputLabel htmlFor="name-multiple">
-                                    {<IntlMessages id="components.student.formadd.classe" />}
+                                    {<IntlMessages id="ticket.name.class" />}
                                   </InputLabel>
                                   <Select
                                     required

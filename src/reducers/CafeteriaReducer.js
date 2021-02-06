@@ -3,9 +3,6 @@ import {
     ADD_MENU,
     EDIT_MENU,
     DELETE_MENU,
-    HANDLE_REQUEST_CLOSE,
-    SHOW_ERROR_MESSAGE,
-    HIDE_ERROR_MESSAGE
   } from '../constants/ActionTypes';
   
   const initialState = {

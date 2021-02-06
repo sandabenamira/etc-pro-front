@@ -61,14 +61,7 @@ const schoolSessionList = [
     id: 5,
   },
 ];
-const fonctionList = [
-  { label: "Agent d'entretien", id: 1, value: 1 },
-  { label: 'Infirmière', id: 2, value: 2 },
-  { label: 'Cuisinier(e)', id: 3, value: 3 },
-  { label: 'Gardien', id: 4, value: 4 },
-  { label: 'surveillant', id: 5, value: 5 },
-  { label: 'surveillant général', id: 6, value: 6 },
-];
+
 class EditUsers extends React.Component {
   constructor(props) {
     super(props);
@@ -84,8 +77,6 @@ class EditUsers extends React.Component {
   };
   render() {
     const { values, usefulData } = this.props;
-    console.log(usefulData, 'usefulData');
-    console.log(values, 'values');
 
     return (
       <Auxiliary>
@@ -101,12 +92,12 @@ class EditUsers extends React.Component {
               <form
                 className="d-flex  flex-wrap col-lg-12 col-md-12 col-sm-12 p-4"
                 autoComplete="off"
-                // onSubmit={this.props.handleSubmit}
+                onSubmit={this.props.handleSubmitEdit}
               >
                 {this.props.values.openEdit ? (
                   <>
                     <div className=" d-flex col-lg-12 col-md-12 col-sm-12 flex-row flex-wrap justify-content-around align-items-center">
-                      <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                      <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                         <InputLabel
                           htmlFor="nomSelect"
                           style={{
@@ -121,7 +112,6 @@ class EditUsers extends React.Component {
                           required
                           isDisabled
                           options={usefulData.listRoles}
-                          // onChange={this.props.handleChangeRole}
                           value={values.roleItemEdit}
                           id="role"
                           name="role"
@@ -139,7 +129,7 @@ class EditUsers extends React.Component {
                           }}
                         />{' '}
                       </div>
-                      <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                      <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                         <InputLabel
                           htmlFor="nomSelect"
                           style={{
@@ -152,7 +142,7 @@ class EditUsers extends React.Component {
                         </InputLabel>
                         <Select
                           options={usefulData.listSchoolYears}
-                          // onChange={this.props.handleChangeSchoolYear}
+                          isDisabled
                           value={values.schoolyearEdit}
                           id="role"
                           name="role"
@@ -209,7 +199,9 @@ class EditUsers extends React.Component {
                       )}
                       {values.roleItemEdit.id === roleIdStudent ? (
                         <>
-                          <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-0 "> </div>
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-0 "> </div>
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-1">
                             <InputLabel
                               htmlFor="nomSelect"
                               style={{
@@ -221,8 +213,9 @@ class EditUsers extends React.Component {
                             </InputLabel>
                             <Select
                               options={usefulData.parentsList}
-                              // onChange={this.props.handleChangeParent}
-                              value={values.listParentEdit[0]}
+                              onChange={this.props.handleChangeParent}
+                              defaultValue={values.listParentEdit}
+                              isMulti
                               id="role"
                               name="role"
                               styles={{
@@ -239,7 +232,7 @@ class EditUsers extends React.Component {
                               }}
                             />{' '}
                           </div>
-                          <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                             <InputLabel
                               htmlFor="nomSelect"
                               style={{
@@ -252,7 +245,7 @@ class EditUsers extends React.Component {
                             </InputLabel>
                             <Select
                               options={usefulData.classForStudent}
-                              // onChange={this.props.handleChangeStudentClass}
+                              onChange={this.props.handleChangeStudentClass}
                               value={values.studentClassEdit}
                               id="nomSelect"
                               styles={{
@@ -269,7 +262,7 @@ class EditUsers extends React.Component {
                               }}
                             />{' '}
                           </div>
-                          <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                             <InputLabel
                               htmlFor="group"
                               style={{
@@ -283,7 +276,7 @@ class EditUsers extends React.Component {
                             <Select
                               value={values.studentGroupEdit}
                               options={values.listGroupClass}
-                              // onChange={this.props.handleChangeGroupClassRoom}
+                              onChange={this.props.handleChangeGroupClassRoom}
                               id="group"
                               styles={{
                                 control: (base) => ({
@@ -311,11 +304,11 @@ class EditUsers extends React.Component {
                       ) : (
                         ''
                       )}
-                      {values.roleItemEdit.id  === roleIdProfessor ? (
+                      {values.roleItemEdit.id === roleIdProfessor ? (
                         <>
                           {values.listOfSubjectsEdit.map((objSubject, index) => (
                             <div className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row justify-content-between p-3">
-                              <div className="col-md-6 col-lg-3 col-sm-12 p-0 ">
+                              <div className="col-md-6 col-lg-4 col-sm-12 p-0 ">
                                 <InputLabel
                                   htmlFor="nomSelect"
                                   style={{
@@ -328,9 +321,18 @@ class EditUsers extends React.Component {
                                 </InputLabel>
                                 <Select
                                   options={usefulData.classRoomList}
-                                  // onChange={(e) =>
-                                  //   this.props.handleChangeClassRoom(e, 'classId', index)
-                                  // }
+                                  onChange={(e) =>
+                                    this.props.handleChangeClassRoom(e, 'classId', index)
+                                  }
+                                  value={
+                                    usefulData.classRoomList.find(
+                                      (element) => element.id == objSubject.classId
+                                    ) == undefined
+                                      ? {}
+                                      : usefulData.classRoomList.find(
+                                          (element) => element.id == objSubject.classId
+                                        )
+                                  }
                                   id="classId"
                                   name="classId"
                                   styles={{
@@ -347,7 +349,7 @@ class EditUsers extends React.Component {
                                   }}
                                 />{' '}
                               </div>
-                              <div className="col-md-6 col-lg-3 col-sm-12 p-0">
+                              <div className="col-md-6 col-lg-4 col-sm-12 p-0">
                                 <InputLabel
                                   htmlFor="nomSelect"
                                   style={{
@@ -359,11 +361,22 @@ class EditUsers extends React.Component {
                                   {<IntlMessages id="prof.couplage.subjects" />}
                                 </InputLabel>
                                 <Select
-                                   options={objSubject.subjects}
-                                  // onChange={(e) =>
-                                  //   this.props.handleChangeClassRoom(e, 'subjectId', index)
-                                  // }
-                                   //value={objSubject.subjects}
+                                  options={objSubject.subjects}
+                                  options={objSubject.subjects.filter(
+                                    (element) => !values.subjectIdSelected.includes(element.id)
+                                  )}
+                                  onChange={(e) =>
+                                    this.props.handleChangeClassRoom(e, 'subjectId', index)
+                                  }
+                                  value={
+                                    objSubject.subjects.find(
+                                      (element) => element.id == objSubject.subjectId
+                                    ) == undefined
+                                      ? {}
+                                      : objSubject.subjects.find(
+                                          (element) => element.id == objSubject.subjectId
+                                        )
+                                  }
                                   id="subjectId"
                                   name="subjectId"
                                   styles={{
@@ -380,19 +393,22 @@ class EditUsers extends React.Component {
                                   }}
                                 />{' '}
                               </div>
-                              <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                              <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                                 <Fab
                                   size="small"
                                   value={`${index}`}
                                   color="primary"
                                   aria-label="Add"
-                                  // onClick={() => {
-                                  //   if (objSubject.isAdded) {
-                                  //     this.props.deleteChoice(index);
-                                  //   } else {
-                                  //     this.props.addNewSubject(index + 1);
-                                  //   }
-                                  // }}
+                                  onClick={() => {
+                                    if (!objSubject.isAdded) {
+                                      if (objSubject.subjectId != 0) {
+                                        this.props.addNewSubject(index + 1);
+                                      } else {
+                                      }
+                                    } else {
+                                      this.props.deleteChoice(index);
+                                    }
+                                  }}
                                 >
                                   {objSubject.isAdded ? <RemoveIcon /> : <AddIcon />}
                                 </Fab>
@@ -417,9 +433,11 @@ class EditUsers extends React.Component {
                               {<IntlMessages id="parent.couplage.student" />}
                             </InputLabel>
                             <Select
+                              isMulti
                               options={usefulData.studentsList}
-                              // onChange={this.props.handleChangeStudent}
-                              value={values.listStudentEdit[0]}
+                              onChange={this.props.handleChangeStudent}
+                              defaultValue={values.listStudentEdit}
+                              // value={values.listStudentEdit[0]}
                               id="studentIdAssignement"
                               name="studentIdAssignement"
                               styles={{
@@ -452,8 +470,8 @@ class EditUsers extends React.Component {
                             {<IntlMessages id="vie.scolaire.fonction" />}
                           </InputLabel>
                           <Select
-                           options={fonctionList}
-                            // onChange={this.props.handleChangeFunctions}
+                            options={this.props.fonctionList}
+                            onChange={this.props.handleChangeFunctions}
                             value={values.fonctionEdit}
                             id="function"
                             name="function"
@@ -503,7 +521,7 @@ class EditUsers extends React.Component {
                           id="userName"
                           name="userName"
                           value={values.userNameEdit || ''}
-                          // onChange={this.props.handleChange('userNameEdit')}
+                          onChange={this.props.handleChange('userNameEdit')}
                           style={{
                             marginTop: '3%',
                           }}
@@ -529,7 +547,7 @@ class EditUsers extends React.Component {
                           id="userLastName"
                           name="userLastName"
                           value={values.userLastNameEdit || ''}
-                          // onChange={this.props.handleChange('userLastNameEdit')}
+                          onChange={this.props.handleChange('userLastNameEdit')}
                           style={{
                             marginTop: '3%',
                           }}
@@ -543,7 +561,7 @@ class EditUsers extends React.Component {
                         <div className="col-md-2 p-1 d-flex justify-content-center align-items-end ">
                           <Radio
                             checked={values.userGenderEdit == 'Male'}
-                            // onChange={this.props.handleChange('userGenderEdit')}
+                            onChange={this.props.handleChange('userGenderEdit')}
                             value="Male"
                             color="primary"
                             name="radio-button-demo"
@@ -552,7 +570,7 @@ class EditUsers extends React.Component {
                           <WcIcon color="primary" style={{ fontSize: 60 }} />
                           <Radio
                             checked={values.userGenderEdit == 'Female'}
-                            // onChange={this.props.handleChange('userGenderEdit')}
+                            onChange={this.props.handleChange('userGenderEdit')}
                             value="Female"
                             color="primary"
                             name="radio-button-demo"
@@ -582,7 +600,7 @@ class EditUsers extends React.Component {
                             id="birthdayDate"
                             name="birthdayDate"
                             value={values.birthdayDateEdit}
-                            // onChange={this.props.handleChangeBirthdayDate}
+                            onChange={this.props.handleChangeBirthdayDate}
                             format="DD-MM-YYYY"
                             autoOk
                             style={{
@@ -607,7 +625,7 @@ class EditUsers extends React.Component {
                           id="birthdayPlace"
                           name="birthdayPlace"
                           value={values.birthdayPlaceEdit || ''}
-                          // onChange={this.props.handleChange('birthdayPlaceEdit')}
+                          onChange={this.props.handleChange('birthdayPlaceEdit')}
                           style={{
                             marginTop: '3%',
                           }}
@@ -636,7 +654,7 @@ class EditUsers extends React.Component {
                           id="userNationnality"
                           name="userNationnality"
                           value={values.userNationnalityEdit || ''}
-                          // onChange={this.props.handleChange('userNationnalityEdit')}
+                          onChange={this.props.handleChange('userNationnalityEdit')}
                           style={{
                             marginTop: '3%',
                           }}
@@ -664,7 +682,7 @@ class EditUsers extends React.Component {
                           id="userMail"
                           name="userMail"
                           value={values.userMailEdit || ''}
-                          // onChange={this.props.handleChange('userMailEdit')}
+                          onChange={this.props.handleChange('userMailEdit')}
                           style={{
                             marginTop: '3%',
                           }}
@@ -692,7 +710,7 @@ class EditUsers extends React.Component {
                           id="userPhoneNumber"
                           name="userPhoneNumber"
                           value={values.userPhoneNumberEdit}
-                          // onChange={this.props.handleChangePhone}
+                          onChange={this.props.handleChangePhone}
                           fullWidth={true}
                           label={<IntlMessages id="user.phone.number" />}
                           placeholder="(+XXX) XXX XXX XXX"
@@ -724,7 +742,7 @@ class EditUsers extends React.Component {
                               name="userCIN"
                               type="number"
                               value={values.userCinEdit || ''}
-                              // onChange={this.props.handleChange('userCinEdit')}
+                              onChange={this.props.handleChange('userCinEdit')}
                               style={{
                                 marginTop: '3%',
                               }}
@@ -744,7 +762,7 @@ class EditUsers extends React.Component {
                           className="d-none"
                           accept="image/png, image/jpeg,image/bmp"
                           id="add-photo"
-                          // onChange={(e) => this.props.uploadPhoto(e)}
+                          onChange={(e) => this.props.uploadPhoto(e)}
                         />
                         <label htmlFor="add-photo" className="d-flex  bd-highlight">
                           <AddBox fontSize="inherit" style={{ fontSize: '40px' }} />
@@ -764,7 +782,7 @@ class EditUsers extends React.Component {
                     </div>
 
                     <div className="d-flex col-lg-12 col-md-12 col-sm-12 flex-row flex-wrap justify-content-around align-items-center pt-3">
-                      <div className="col-md-6 col-lg-2 col-sm-12 p-1">
+                      <div className="col-md-6 col-lg-2 col-sm-12 ">
                         <InputLabel
                           style={{
                             fontFamily: 'Roboto',
@@ -778,7 +796,7 @@ class EditUsers extends React.Component {
                           id="userIdentifier"
                           name="userIdentifier"
                           value={values.userIdentifierEdit || ''}
-                          // onChange={this.props.handleChange('userIdentifierEdit')}
+                          onChange={this.props.handleChange('userIdentifierEdit')}
                           style={{
                             marginTop: '3%',
                           }}
@@ -788,8 +806,7 @@ class EditUsers extends React.Component {
                           }}
                         />
                       </div>
-
-                      <div className="col-md-6 col-lg-3 col-sm-12 p-1">
+                      <div className="col-md-6 col-lg-3 col-sm-12 ">
                         <InputLabel
                           style={{
                             fontFamily: 'Roboto',
@@ -803,7 +820,7 @@ class EditUsers extends React.Component {
                           id="userAdress"
                           name="userAdress"
                           value={values.userAdressEdit || ''}
-                          // onChange={this.props.handleChange('userAdressEdit')}
+                          onChange={this.props.handleChange('userAdressEdit')}
                           style={{
                             marginTop: '3%',
                           }}
@@ -813,7 +830,7 @@ class EditUsers extends React.Component {
                           }}
                         />
                       </div>
-                      <div className="col-md-6 col-lg-2 col-sm-12 p-1">
+                      <div className="col-md-6 col-lg-2 col-sm-12 ">
                         <InputLabel
                           style={{
                             fontFamily: 'Roboto',
@@ -828,7 +845,7 @@ class EditUsers extends React.Component {
                           name="userZipCode"
                           type="number"
                           value={values.userZipCodeEdit || ''}
-                          // onChange={this.props.handleChange('userZipCode')}
+                          onChange={this.props.handleChange('userZipCodeEdit')}
                           style={{
                             marginTop: '3%',
                           }}
@@ -838,19 +855,24 @@ class EditUsers extends React.Component {
                           }}
                         />
                       </div>
-                      <div className="col-md-6 col-lg-2 col-sm-12 p-1">
+                      <div className="col-md-6 col-lg-2 col-sm-12 ">
                         <InputLabel
                           htmlFor="nomSelect"
+                          // style={{
+                          //   fontFamily: 'Roboto',
+                          //   fontSize: '18px',
+                          // }}
                           style={{
                             fontFamily: 'Roboto',
                             fontSize: '18px',
+                            marginTop: '-2%',
                           }}
                         >
                           {<IntlMessages id="country.user" />}
                         </InputLabel>
                         <Select
                           options={usefulData.countriesList}
-                          // onChange={this.props.handleChangeCountries}
+                          onChange={this.props.handleChangeCountries}
                           value={values.userCountryEdit}
                           id="userCountry"
                           name="userCountry"
@@ -870,7 +892,7 @@ class EditUsers extends React.Component {
                       </div>
 
                       {values.photoText != '' && (
-                        <div className="col-md-6 col-lg-2 col-sm-12 p-1 d-flex ">
+                        <div className="col-md-6 col-lg-2 col-sm-12   d-flex ">
                           <div>
                             {' '}
                             <Typography
@@ -880,7 +902,7 @@ class EditUsers extends React.Component {
                                 fontWeight: 'normal',
                                 fontFamily: 'Roboto',
                                 fontSize: '15px',
-                                marginTop: '10px',
+                                // marginTop: '10px',
                               }}
                             >
                               {values.photoText} &nbsp;
@@ -915,7 +937,7 @@ class EditUsers extends React.Component {
                             accept="image/png, image/jpeg,image/bmp,application/pdf,application/docx"
                             id="add-file"
                             multiple
-                            // onChange={(e) => this.props.attachFile(e)}
+                            onChange={(e) => this.props.attachFile(e)}
                           />
                           <label htmlFor="add-file" className="d-flex  bd-highlight">
                             <CheckCircleIcon checked={true} color={'default'} />
@@ -978,7 +1000,7 @@ class EditUsers extends React.Component {
                           name="usefulInformation"
                           rows="3"
                           value={values.usefulInformationEdit || ''}
-                          // onChange={this.props.handleChange('usefulInformationEdit')}
+                          onChange={this.props.handleChange('usefulInformationEdit')}
                           style={{
                             borderRadius: '20px',
                             marginTop: '10px',

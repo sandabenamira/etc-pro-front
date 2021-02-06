@@ -6,8 +6,6 @@ import CustomScrollbars from "../../util/CustomScrollbars";
 import { RoleContext } from "../../Context";
 import Can from "../../can";
 import {
-  sousModuleEtab,
-  sousModuleCalendar,
   sousModuleGrades,
   sousModuleLibraries,
   sousModuleFinancialManagement,

@@ -17,8 +17,7 @@ export function addGroup(data, dataClass) {
     classService.post(apiEndpoint, data).then((response) => {
       if (response) {
         let dataStore = { ...dataClass, group: [response.data] };
-console.log('EEEEEEEEEEEEEEEEEEEEEEEE ',dataStore)
-        dispatch({ type: ADD_GROUPS, payload: dataStore });
+         dispatch({ type: ADD_GROUPS, payload: dataStore });
         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
           payload: "La création est effectuée avec succès",

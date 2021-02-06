@@ -114,6 +114,10 @@ export const SEARCH_MAIL = 'search_mail';
 export const ON_DELETE_MAIL = 'on_delete_mail';
 export const SET_CURRENT_MAIL_NULL = 'set_current_mail_null';
 export const ON_COMPOSE_MAIL = 'on_compose_mail';
+export const MAIL_NOT_SEND_ALERT = 'MAIL_NOT_SEND_ALERT';
+
+
+
 
 //// TO-DO Module const
 
@@ -160,7 +164,6 @@ export const ADD_STUDENT = 'ADD_STUDENT';
 export const EDIT_STUDENT = 'EDIT_STUDENT';
 export const GET_ALL_STUDENT = 'GET_ALL_STUDENT';
 export const DELETE_STUDENT = 'DELETE_STUDENT';
-export const GET_ALL_PARENT = 'GET_ALL_PARENT';
 export const GET_STUDENT_BY_ESTABLISHMENT = 'GET_STUDENT_BY_ESTABLISHMENT';
 export const GET_STUDENT = 'GET_STUDENT';
 
@@ -243,9 +246,6 @@ export const GET_ENCOURAGEMENTS = 'GET_ENCOURAGEMENTS';
 export const GET_SANCTION = 'GET_SANCTION';
 export const GET_SETTING_CALL_REGISTER = 'GET_SETTING_CALL_REGISTER';
 
-//// Presence module const
-
-export const GET_ALL_PRESENCE = 'GET_ALL_PRESENCE';
 
 //// Service module const
 export const FETECHED_ALL_SERVICES = 'FETECHED_ALL_SERVICES';
@@ -296,7 +296,6 @@ export const GET_STUDENTS_CLASS = 'GET_STUDENTS_CLASS';
 
 //// Profiles module const
 
-export const GET_ALL_PROFILES = 'GET_ALL_PROFILES';
 export const GET_USER_PROFILE = 'GET_USER_PROFILE';
 
 //// Planning module const
@@ -468,6 +467,7 @@ export const GET_ALL_USERS_FOR_SUPER_ADMIN = 'GET_ALL_USERS_FOR_SUPER_ADMIN';
 export const EDIT_USER = 'EDIT_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const ARCHIVED_USERS = 'ARCHIVED_USERS';
+export const EDIT_PROFILE = 'EDIT_PROFILE';
 
 // Module Permission Setting
 export const GET_PERMISSION_SETTING = 'GET_PERMISSION_SETTING';
@@ -486,7 +486,7 @@ export const EDIT_GROUPS = 'EDIT_GROUPS';
 export const DELETE_GROUPS = 'DELETE_GROUPS';
 export const ARCHIVED_GET_GROUPS = 'ARCHIVED_GET_GROUPS';
 
-
+export const INIT_OPTIONS = 'INIT_OPTIONS';
 
 
 

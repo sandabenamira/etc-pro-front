@@ -1,12 +1,7 @@
-import axios from 'axios';
-import baseUrl from '../config/config';
+
 import { classService } from '../_services/class.service';
 import {
-  ADD_ALLOCATION_SERVICE,
   FETECHED_ALL_ALLOCATION_SERVICE,
-  EDIT_ALLOCATION_SERVICE,
-  DELETE_ALLOCATION_SERVICE,
-  HANDLE_REQUEST_CLOSE,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
@@ -15,13 +10,6 @@ import {
 
 export const editAllocationService = (data, establishmentId, schoolYearId) => {
   return (dispatch) => {
-    // let apiEndpoint = '/allocation_service_v2/' + data.id + `?access_token=${localStorage.token}`;
-
-    // classService.patch(apiEndpoint, data).then((response) => {
-    //   if (response) {
-    //     dispatch(getAllocationServiceByEstablishment(establishmentId, schoolYearId));
-    //   }
-    // });
     let count = data.length;
     data.map((element) => {
       let apiEndpoint =
