@@ -35,7 +35,7 @@ import VirtualClasses from './routes/Learning/index';
 import Community from './routes/Community/index';
 import Dashboard from './routes/Dashboard/index';
 import Libraries from './routes/Libraries/index';
-import FinancialManagement from './routes/FinancialManagement/index';
+import FinancialManagement from './routes/FinancialManagement/routes/FinancialReporting/FinancialReporting';
 import Superadmin from './routes/Superadmin/index';
 import ModalEstablishmentList from './routes/Home/admin/ModalEstablishmentList';
 import { getSubjectModules } from '../actions/SubjectModuleAction';

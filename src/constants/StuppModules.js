@@ -67,7 +67,7 @@ export const stuppModules = [
     name: "Gestion financière",
     pathName: "financial_management",
     order: 9,
-    type: "menuNoarraw",
+    type: "subMenu",
     component: "FinancialManagement",
     id: 9,
   },

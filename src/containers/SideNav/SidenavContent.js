@@ -15,12 +15,10 @@ import {
   sousModuleELearning,
   sousModuleAdministration,
   sousModuleAssiduity,
-  sousModuleCommunity
+  sousModuleCommunity,
 } from "../../constants/StuppModules";
 import Navigation from "../Navigation/index";
 // import CustomScrollbars from '../../util/CustomScrollbars';
-
-
 
 const NavlinkItem = ({ pathName, listMoule }) => {
   return (
@@ -54,7 +52,6 @@ const NavlinkItem = ({ pathName, listMoule }) => {
 };
 
 const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
-  
   return (
     <li className="menu collapse-box">
       <RoleContext.Consumer>
@@ -115,7 +112,7 @@ class SidenavContent extends Component {
     const menuLi = document.getElementsByClassName("menu");
 
     for (let i = 0; i < menuLi.length; i++) {
-      menuLi[i].onclick = function (event) {
+      menuLi[i].onclick = function(event) {
         for (let j = 0; j < menuLi.length; j++) {
           const parentLi = that.closest(this, "li");
           if (
@@ -137,7 +134,7 @@ class SidenavContent extends Component {
       } else {
         this.closest(activeLi, "li").classList.add("open");
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   componentWillReceiveProps(nextProps) {
@@ -151,7 +148,7 @@ class SidenavContent extends Component {
       } else {
         this.closest(activeLi, "li").classList.add("open");
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   closest(el, selector) {
@@ -164,7 +161,7 @@ class SidenavContent extends Component {
         "mozMatchesSelector",
         "msMatchesSelector",
         "oMatchesSelector",
-      ].some(function (fn) {
+      ].some(function(fn) {
         if (typeof document.body[fn] == "function") {
           matchesFn = fn;
           return true;
@@ -182,7 +179,7 @@ class SidenavContent extends Component {
         }
         el = parent;
       }
-    } catch (e) { }
+    } catch (e) {}
 
     return null;
   }
@@ -194,9 +191,9 @@ class SidenavContent extends Component {
         <ul className="nav-menu">
           <li>
             <NavLink className="prepend-icon" to="/app/home">
-              &nbsp;&nbsp;<i className={`zmdi zmdi-home`} />
+              &nbsp;&nbsp;
+              <i className={`zmdi zmdi-home`} />
               <span className="nav-text">
-
                 <IntlMessages id="sidebar.home" />
               </span>
             </NavLink>
@@ -211,10 +208,9 @@ class SidenavContent extends Component {
             <Navigation
               pathName={"administration"}
               listModule={estabModule}
-              menuItems={sousModuleAdministration} />
+              menuItems={sousModuleAdministration}
+            />
           </li>
-
-
 
           {/* <MenuCollapseBoxItem
             pathName={"administration"}
@@ -222,21 +218,20 @@ class SidenavContent extends Component {
             sousModuleStupp={sousModuleEtab}
           /> */}
 
-
-         <MenuCollapseBoxItem
+          <MenuCollapseBoxItem
             pathName={"e-learning"}
             listModule={estabModule}
             sousModuleStupp={sousModuleELearning}
           />
           {/* <li>
             <NavlinkItem pathName={"e-learning"} listMoule={estabModule} />
-          </li> */}  
+          </li> */}
 
-           <MenuCollapseBoxItem
+          <MenuCollapseBoxItem
             pathName={"assiduity"}
             listModule={estabModule}
             sousModuleStupp={sousModuleAssiduity}
-          />   
+          />
           <MenuCollapseBoxItem
             pathName={"community"}
             listModule={estabModule}
@@ -285,26 +280,33 @@ class SidenavContent extends Component {
               listMoule={estabModule}
             />
           </li>
-          <MenuCollapseBoxItem
+          {/* <MenuCollapseBoxItem
             pathName={"financial_management"}
             listModule={estabModule}
             sousModuleStupp={sousModuleFinancialManagement}
-          />
+          /> */}
 
-          
-          
+          <li>
+            <NavLink className="prepend-icon" to="/app/financial_management/ServiceAllocation">
+             
+              <i className={`zmdi zmdi-view-dashboard zmdi-hc-fw`} />
+              <span className="nav-text">
+                <IntlMessages id="sidebar.components.financial_management" />
+              </span>
+            </NavLink>
+          </li>
+
           <MenuCollapseBoxItem
             pathName={"e-libraries"}
             listModule={estabModule}
             sousModuleStupp={sousModuleLibraries}
           />
-         
+
           <li>
             <NavlinkItem pathName={"course-support"} listMoule={estabModule} />
           </li>
         </ul>
       </CustomScrollbars>
-
     );
   }
 }
