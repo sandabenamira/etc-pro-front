@@ -1,20 +1,27 @@
-import React from 'react';
-
+import React from "react";
+import ContainerHeader from "../../../../../components/ContainerHeader/index";
+import IntlMessages from "../../../../../util/IntlMessages";
+import FinancialReportingList from "./FinancialReportingList";
 class FinancialReporting extends React.Component {
-constructor(props) {
+  constructor(props) {
     super(props);
 
-    this.state = {
-    };
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className="app-wrapper">
+        <ContainerHeader
+          match={this.props.match}
+          title={<IntlMessages id="sidebar.components.financial_management" />}
+        />
+        <div>
+            <FinancialReportingList />
+        </div>
+      </div>
+    );
+  }
 }
-
-    render() {
-        return <div>
-            <h1>bonjouuuur</h1>
-        </div>;
-    }
-}
-
-
 
 export default FinancialReporting;
