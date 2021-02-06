@@ -28,15 +28,13 @@ pipeline {
                      credentialsId: 'awscredentials',
                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
                       {
-
-                            dir('build')
-
+                        dir('build')
+                        {
                                 sh 'aws s3 sync . s3://pro.educap.io --region eu-west-3'
+                        }
                       }
             }
         }
     }
-
 }
-
 
