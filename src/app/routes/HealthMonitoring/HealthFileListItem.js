@@ -94,7 +94,6 @@ class HealthFileListItem extends Component {
   }
 
   render() {
-    console.log('Itemmmmm ',this.props.ficheMedicalItem.files    )
     const { theme } = this.props;
     const data = [
       {

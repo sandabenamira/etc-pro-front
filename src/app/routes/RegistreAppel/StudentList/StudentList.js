@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import _ from 'lodash';
 import { UncontrolledAlert } from 'reactstrap';
-import { isObject, isString } from 'formik';
 
 let timeout;
 

@@ -3,11 +3,6 @@ import {
   ADD_SUPPORT_COURS,
   EDIT_SUPPORT_COURS,
   DELETE_SUPPORT_COURS,
-  HANDLE_REQUEST_CLOSE,
-  SHOW_ERROR_MESSAGE,
-  HIDE_ERROR_MESSAGE,
-  HIDE_SUCCESS_MESSAGE,
-  SHOW_SUCCESS_MESSAGE,
   ARCHIVED_SUPPORT_COURS,
   } from '../constants/ActionTypes';
    
@@ -34,7 +29,6 @@ import {
       });
     }
     if (action.type === DELETE_SUPPORT_COURS) {
-       console.log(action.payload.id)
       return Object.assign({}, state, {
         remoteSupportCours: [
           ...state.remoteSupportCours.classeVirtual.virtualClassData.filter((element) => element.id !== action.payload[0].classeVirtual.id),],

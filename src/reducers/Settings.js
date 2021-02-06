@@ -1,7 +1,6 @@
 import {
   CHANGE_DIRECTION,
   CHANGE_NAVIGATION_STYLE,
-  FIXED_DRAWER,
   HORIZONTAL_MENU_POSITION,
   INSIDE_THE_HEADER,
   SWITCH_LANGUAGE,
@@ -9,10 +8,10 @@ import {
   TOGGLE_COLLAPSED_NAV,
   VERTICAL_NAVIGATION,
   WINDOW_WIDTH,
-  COLLAPSED_DRAWER
-} from '../constants/ActionTypes';
-import { DARK_INDIGO } from '../constants/ThemeColors';
-const rltLocale = ['ar'];
+  COLLAPSED_DRAWER,
+  INIT_OPTIONS,
+} from "../constants/ActionTypes";
+const rltLocale = ["ar"];
 
 const initialSettings = {
   navCollapsed: false,
@@ -23,72 +22,74 @@ const initialSettings = {
   isDirectionRTL: false,
   navigationStyle: VERTICAL_NAVIGATION,
   horizontalNavPosition: INSIDE_THE_HEADER,
-  startTime:'',
-  endTime:'',
+  startTime: "",
+  endTime: "",
   locale: {
-    languageId: '',
-    locale: '',
-    name: '',
-    icon: ''
-  }
+    languageId: "",
+    locale: "",
+    name: "",
+    icon: "",
+  },
+  appLang:"",
+  conferenceTool:""
 };
 
 const settings = (state = initialSettings, action) => {
   switch (action.type) {
-
-    case '@@router/LOCATION_CHANGE':
+    case "@@router/LOCATION_CHANGE":
       return {
         ...state,
-        navCollapsed: false
+        navCollapsed: false,
       };
     case TOGGLE_COLLAPSED_NAV:
       return {
         ...state,
-        navCollapsed: action.isNavCollapsed
+        navCollapsed: action.isNavCollapsed,
       };
     case WINDOW_WIDTH:
       return {
         ...state,
-        width: action.width
+        width: action.width,
       };
     case THEME_COLOR:
       return {
         ...state,
         darkTheme: false,
-        themeColor: action.color
+        themeColor: action.color,
       };
     case SWITCH_LANGUAGE:
       return {
         ...state,
         locale: action.payload,
-        isDirectionRTL: rltLocale.includes(action.payload.locale)
-
+        isDirectionRTL: rltLocale.includes(action.payload.locale),
       };
     case CHANGE_DIRECTION:
       return {
         ...state,
-        isDirectionRTL: !state.isDirectionRTL
-
+        isDirectionRTL: !state.isDirectionRTL,
       };
 
     case CHANGE_NAVIGATION_STYLE:
       return {
         ...state,
-        navigationStyle: action.payload
+        navigationStyle: action.payload,
       };
-
 
     case HORIZONTAL_MENU_POSITION:
       return {
         ...state,
-        horizontalNavPosition: action.payload
+        horizontalNavPosition: action.payload,
       };
-      case 'INIT_CALENDAR':
-        return {
-          ...state,
-          startTime: action.payload.startTime,
-          endTime: action.payload.endTime
-        };
+    case INIT_OPTIONS:
+      return {
+        ...state,
+        startTime: action.payload.startTime,
+        endTime: action.payload.endTime,
+        appLang: action.payload.appLang,
+        conferenceTool: action.payload.conferenceTool
+      
+      };
+ 
     default:
       return state;
   }

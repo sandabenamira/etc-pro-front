@@ -1,4 +1,4 @@
-import { classService } from "../_services/class.service";
+import { classService } from '../_services/class.service';
 import {
   SHOW_SUCCESS_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
@@ -9,21 +9,20 @@ import {
   EDIT_ASSIGNEMENT_COURSE,
   DELETE_ASSIGNEMENT_COURSE,
   ARCHIVED_GET_ASSIGNEMENT_COURSE,
-} from "../constants/ActionTypes";
+} from '../constants/ActionTypes';
+import _ from 'lodash';
 
-export function addAssignementCourse(item) {
+export function addAssignementCourse(dataAssignementCourse) {
   return (dispatch) => {
     let apiEndpoint = `/assignment_class_subjects?access_token=${localStorage.token}`;
-    classService.post(apiEndpoint, item).then((response) => {
+    classService.post(apiEndpoint, dataAssignementCourse).then((response) => {
       if (response) {
-        let newObject = {
-          ...response.data,
-          class: item.class,
-        };
-        dispatch({ type: ADD_ASSIGNEMENT_COURSE, payload: newObject });
+        var mergeData = _.merge(response.data, dataAssignementCourse);
+
+        dispatch({ type: ADD_ASSIGNEMENT_COURSE, payload: mergeData });
         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
-          payload: "La création est effectuée avec succès",
+          payload: "L'affectation est effectuée avec succès",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_SUCCESS_MESSAGE });
@@ -31,8 +30,7 @@ export function addAssignementCourse(item) {
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
-          payload:
-            "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+          payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });
@@ -59,6 +57,7 @@ export function getAssignementCourse(establishementId, schoolYearId) {
             element.class.fk_id_establishment == establishementId &&
             element.class.fk_id_school_year == schoolYearId
         );
+
         dispatch({
           type: GET_ASSIGNEMENT_COURSE,
           payload: assignementCourseList,
@@ -72,22 +71,18 @@ export function getAssignementCourse(establishementId, schoolYearId) {
   };
 }
 
-export function deleteAssignementCourse(item) {
+export function deleteAssignementCourse(data) {
+ 
   return (dispatch) => {
-    let apiEndpoint = `/assignment_class_subjects/${item.id}?access_token=${localStorage.token}`;
-
-    classService
-      .patch(apiEndpoint, {
-        status: false,
-      })
-      .then((response) => {
+    data.map((element) => {
+      let apiEndpoint = `/assignment_class_subjects/${element.id}?access_token=${localStorage.token}`;
+      classService.patch(apiEndpoint, element).then((response) => {
         if (response) {
-          const list = response.data;
-
+          console.log('response delete ', response.data);
           dispatch({ type: DELETE_ASSIGNEMENT_COURSE, payload: response.data });
           dispatch({
             type: SHOW_SUCCESS_MESSAGE,
-            payload: "La suppression est effectuée avec succès",
+            payload: "L'affectation est effectuée avec succès",
           });
           setTimeout(() => {
             dispatch({ type: HIDE_SUCCESS_MESSAGE });
@@ -95,45 +90,13 @@ export function deleteAssignementCourse(item) {
         } else {
           dispatch({
             type: SHOW_ERROR_MESSAGE,
-            payload:
-              "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+            payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
           });
           setTimeout(() => {
             dispatch({ type: HIDE_ERROR_MESSAGE });
           }, 4000);
         }
-      })
-      .catch(function(error) {});
-  };
-}
-
-export function editAssignementCourse(data) {
-  return (dispatch) => {
-    let apiEndpoint = `/assignment_class_subjects/${data.id}?access_token=${localStorage.token}`;
-    classService.patch(apiEndpoint, data).then((response) => {
-      if (response) {
-        if (response) {
-          const list = response.data;
-
-          dispatch({ type: EDIT_ASSIGNEMENT_COURSE, payload: response.data });
-          dispatch({
-            type: SHOW_SUCCESS_MESSAGE,
-            payload: "La modification est effectuée avec succès",
-          });
-          setTimeout(() => {
-            dispatch({ type: HIDE_SUCCESS_MESSAGE });
-          }, 4000);
-        } else {
-          dispatch({
-            type: SHOW_ERROR_MESSAGE,
-            payload:
-              "Une erreur est survenue lors de la création merci d'essayer à nouveau",
-          });
-          setTimeout(() => {
-            dispatch({ type: HIDE_ERROR_MESSAGE });
-          }, 4000);
-        }
-      }
+      });
     });
   };
 }

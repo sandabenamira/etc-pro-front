@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem } from '@material-ui/core';
+import { List } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { RoleContext } from '../../Context';
 import Can from '../../can';

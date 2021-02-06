@@ -1,6 +1,6 @@
 {
-  "name": "jumbo-react",
-  "version": "1.19.1",
+  "name": "educap",
+  "version": "1.0.0",
   "private": true,
   "_comment": "material-table ^1.57.2",
   "dependencies": {
@@ -13,6 +13,8 @@
     "@material-ui/lab": "^4.0.0-alpha.52",
     "@material-ui/pickers": "^3.2.8",
     "@material-ui/styles": "^4.0.2",
+    "@sentry/react": "^6.1.0",
+    "@sentry/tracing": "^6.1.0",
     "array-move": "^2.1.0",
     "autosuggest-highlight": "^3.1.1",
     "aws-sdk": "^2.713.0",
@@ -113,16 +115,15 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "env-cmd -f .env.local react-scripts build",
-    "start:development": "env-cmd -f .env.development react-scripts start",
-    "build:development": "env-cmd -f .env.development react-scripts build",
+    "start:local": "env-cmd -f .env.local react-scripts start",
+    "build:local": "env-cmd -f .env.local react-scripts build",
     "start:staging": "env-cmd -f .env.staging react-scripts start",
     "build:staging": "env-cmd -f .env.staging react-scripts build",
     "start:homologation": "env-cmd -f .env.homologation react-scripts start",
     "build:homologation": "env-cmd -f .env.homologation react-scripts build",
     "start:production": "env-cmd -f .env.production react-scripts start",
     "build:production": "env-cmd -f .env.production react-scripts build",
-    "start:local": "env-cmd -f .env.local react-scripts start",
-    "build:local": "env-cmd -f .env.local react-scripts build",
+    
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

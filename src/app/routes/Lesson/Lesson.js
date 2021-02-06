@@ -16,8 +16,6 @@ import { getLessons } from "../../../actions/LessonAction";
 import { roleIdProfessor, roleIdStudent } from "../../../config/config";
 import AddLesson from "./AddLesson";
 import { addLesson } from "../../../actions/LessonAction";
-import { getSectionFromLevel } from "../../../actions/sectionAction";
-import { getLevelListFromEstabType } from "../../../actions/classLevelAction";
 import { UncontrolledAlert } from "reactstrap";
 import _ from "lodash";
 
@@ -40,9 +38,7 @@ class Lesson extends React.Component {
       classeDisabled: true,
       open: false,
       coursefile: {},
-      // studentsectionByLevels: [],
       Disable_studentsection: true,
-      // levelsbyestablishment: [],
       studentClassesByLevelSectionID: [],
       subjectList: [],
       establishmentProfessor: [],
@@ -75,11 +71,7 @@ class Lesson extends React.Component {
     });
     if (!_.isEmpty(sections)) {
       this.setState({ Disable_studentsection: false });
-      // var studentSectionbyLevel = getSectionFromLevel(
-      //   this.props.classSections,
-      //   event.target.value
-      // );
-      // this.setState({ studentsectionByLevels: studentSectionbyLevel });
+    
     } else {
       var studentfiltredClasses = this.props.classes.filter(
         (classe) =>
@@ -153,57 +145,14 @@ class Lesson extends React.Component {
   }
   componentDidMount() {
     if (this.props.userProfile.role_id === roleIdProfessor) {
-      // this.props.getClassesByUserId(this.props.userProfile.user_id);
-      // this.props.getLessons(this.props.userProfile.establishment_id);
-      // axios
-      //   .get(
-      //     `${baseUrl.baseUrl}/classes_professors/getClassesByUserId/${this.props.userProfile.user_id}?access_token=${localStorage.token}`
-      //   )
-      //   .then((res) => {
-      //     var filtredClasses = res.data.classes.filter(
-      //       (classe) => classe.status
-      //     );
-      //     var cache = {};
-      //     let studentClassesByLevelSectionID = filtredClasses.filter(function(
-      //       elem,
-      //       index,
-      //       array
-      //     ) {
-      //       return cache[elem.id] ? 0 : (cache[elem.id] = 1);
-      //     });
-      //     this.setState({
-      //       studentClassesByLevelSectionID: studentClassesByLevelSectionID,
-      //     });
-      //   });
-      // axios
-      //   .get(
-      //     `${baseUrl.baseUrl}/profiles?access_token=${localStorage.token}&filter[where][and][0][id]=` +
-      //       this.props.userProfile.user_id +
-      //       `&filter[include][professors]`
-      //   )
-      //   .then((res) => {
-      //     this.setState({ professor_id: res.data[0].professors[0].id });
-      //     axios
-      //       .get(
-      //         `${baseUrl.baseUrl}/prof_subjects?access_token=${localStorage.token}&filter[where][and][0][professor_id]=` +
-      //           this.state.professor_id +
-      //           `&filter[include][subject]`
-      //       )
-      //       .then((res) => {
-      //         let subjectListinit = [];
-      //         res.data.forEach((element) => {
-      //           subjectListinit.push(element.subject);
-      //         });
-      //         this.setState({ subjectList: subjectListinit });
-      //       });
-      //   });
+     
     } else {
       this.props.getLevels();
       this.props.getSections();
       this.props.getClassesByEstablishmentId(
         this.props.userProfile.establishment_id
       );
-      console.log(this.props.userProfile.establishment_id);
+     
       this.props.getLessons(this.props.userProfile.establishment_id);
       axios
         .get(
@@ -212,14 +161,9 @@ class Lesson extends React.Component {
             `?access_token=${localStorage.token}`
         )
         .then((res) => {
-          console.log(res);
-          // var levelsbyestablishment = getLevelListFromEstabType(
-          //   this.props.levels,
-          //   res.data.estab_type_id
-          // );
+        
           this.setState({
             estabType: res.data.estab_type_id,
-            // levelsbyestablishment: levelsbyestablishment,
             estab_type_id: res.data.estab_type_id,
             divClassName: "col-md-4",
           });
@@ -294,9 +238,6 @@ class Lesson extends React.Component {
       lessons,
       userProfile,
     } = this.props;
-    console.log("levels ", this.props.levels);
-    console.log("sections ", this.props.sections);
-    console.log("lessons ", this.props.lessons);
 
     return (
       <div className="app-wrapper">

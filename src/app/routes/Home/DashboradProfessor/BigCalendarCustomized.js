@@ -314,7 +314,6 @@ class BigCalendarCustomized extends React.Component {
     );
   }
   render() {
-    console.log("rrrrrrrrr", this.state.viewDisplay);
     let startHours = "";
     let startMinutes = "";
     let endHours = "";

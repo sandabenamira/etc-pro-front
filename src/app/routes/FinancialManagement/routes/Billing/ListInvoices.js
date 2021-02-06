@@ -188,21 +188,19 @@ class ListInvoices extends Component {
 
 
   handleOpenInvoiceModal=(item)=> {
-    console.log('MMMMMMMMMMMMMMMMMMMMMMM')
     this.setState({
       invoiceModal:true,
       InvoiceObject:item
-    },()=>console.log('RRRRRRRRRRRRRRR ',this.state.invoiceModal));
+    });
   }
   handleCloseInvoiceModal=()=> {
     this.setState({
       invoiceModal:false,
       InvoiceObject:{}
-    },()=>console.log('RRRRRRRRRRRRRRR ',this.state.invoiceModal));
+    });
   }
   handleSubmitInvoice=(e)=> {
    e.preventDefault()
-   console.log('KKKKKKKKKKKK ',this.state.InvoiceObject)
    var mails={}
    mails.ReceiverMail=this.state.ReceiverMail
    mails.secondMail=this.state.secondMail
@@ -266,13 +264,10 @@ data.object=this.state.InvoiceObject
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("rrrrrrrrr");
     if (this.state.paymentMethode === "") {
       this.setState({ paymentMethodeError: true });
     }
-    // else if (this.state.price > this.props.invoice.bill.total_incl_tax) {
-    //   this.setState({ priceError: true });
-    // }
+
     else {
       let data = {};
       if (this.state.billSelected.statusInvoice === partiallyPaidInvoice) {
@@ -280,13 +275,7 @@ data.object=this.state.InvoiceObject
         if (newPrice > this.state.billSelected.totalPayed) {
           this.setState({ priceError: true });
         }
-        // else {
-        //   data = { price_paid: newPrice };
-        //   this.props.dispatch(
-        //     editBill(data, this.state.idPaymentV2, this.props.invoice)
-        //   );
-        //   this.props.cancelModal();
-        // }
+   
       } else {
         data = {
           payment_day: moment(this.state.paymentDay).format("YYYY-MM-DD"),
@@ -296,8 +285,7 @@ data.object=this.state.InvoiceObject
           price_invoice: this.state.billSelected.totalPayed,
           price_paid: parseInt(this.state.price),
         };
-        console.log(data, "data envoyéééé");
-        // this.props.dispatch(payBill(data, this.props.invoice));
+       
       }
     }
   };

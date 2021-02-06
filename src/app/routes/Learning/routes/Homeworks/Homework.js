@@ -1,30 +1,26 @@
-import React from "react";
-import IconWithTextCard from "../../../CommonComponents/IconWithTextCard";
-import IntlMessages from "../../../../../util/IntlMessages";
-import HomeworkInProgress from "./HomeworkInProgress";
-import CardBox from "../../../../../components/CardBox/index";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
-import { connect } from "react-redux";
-import AddHomework from "./AddHomework";
-import { UncontrolledAlert } from "reactstrap";
-import { classService } from "../../../../../_services/class.service";
-import HomeworkList from "./HomeworkList";
-import _ from "lodash";
-import {
-  addNewHomework,
-  getHomework,
-} from "../../../../../actions/HomeworkAction";
-import ArchivedHomework from "./ArchivedHomework";
-import Can from "../../../../../can";
-import { RoleContext } from "../../../../../Context";
-import TextField from "@material-ui/core/TextField";
-import moment from "moment";
-import { roleIdAdmin, roleIdProfessor } from "../../../../../config/config";
-import MenuItem from "@material-ui/core/MenuItem";
-import { element } from "prop-types";
+import React from 'react';
+import IconWithTextCard from '../../../CommonComponents/IconWithTextCard';
+import IntlMessages from '../../../../../util/IntlMessages';
+import HomeworkInProgress from './HomeworkInProgress';
+import CardBox from '../../../../../components/CardBox/index';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import RemoveSharpIcon from '@material-ui/icons/RemoveSharp';
+import { connect } from 'react-redux';
+import AddHomework from './AddHomework';
+import { UncontrolledAlert } from 'reactstrap';
+import { classService } from '../../../../../_services/class.service';
+import HomeworkList from './HomeworkList';
+import _ from 'lodash';
+import { addNewHomework, getHomework } from '../../../../../actions/HomeworkAction';
+import ArchivedHomework from './ArchivedHomework';
+import Can from '../../../../../can';
+import { RoleContext } from '../../../../../Context';
+import TextField from '@material-ui/core/TextField';
+import { roleIdAdmin, roleIdProfessor, roleIdStudent } from '../../../../../config/config';
+import MenuItem from '@material-ui/core/MenuItem';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 class Homework extends React.Component {
   constructor(props) {
@@ -33,21 +29,21 @@ class Homework extends React.Component {
     this.state = {
       isOpenAddModal: false,
       openArchive: false,
-      nameFile: "",
+      nameFile: '',
       HomeworkTypes: [
         {
           label: <IntlMessages id="toDo.book.exercise" />,
-          value: "book",
+          value: 'book',
           id: 1,
         },
         {
           label: <IntlMessages id="toDo.series.exercise" />,
-          value: "serie",
+          value: 'serie',
           id: 2,
         },
         {
           label: <IntlMessages id="toDo.other.exercise" />,
-          value: "other",
+          value: 'other',
           id: 3,
         },
       ],
@@ -55,47 +51,49 @@ class Homework extends React.Component {
       HomeworkStatus: [
         {
           label: <IntlMessages id="status.classe.virtual.programmé" />,
-          value: "programed",
+          value: 'programed',
           id: 1,
         },
         {
           label: <IntlMessages id="status.classe.virtual.progrés" />,
-          value: "progress",
+          value: 'progress',
           id: 2,
         },
         {
           label: <IntlMessages id="status.classe.virtual.términé" />,
-          value: "finished",
+          value: 'finished',
           id: 3,
         },
       ],
 
-      homeworkType: "",
+      homeworkType: '',
       subjectId: null,
-      subjectColor: "",
-      description: "",
-      courseUrl: "",
+      subjectColor: '',
+      description: '',
+      courseUrl: '',
       homeworkFiles: [],
       nameFiles: [],
       publicationDate: new Date(),
       postTime: new Date(),
       classes: [],
       subjects: [],
-      eventChecked: "",
+      eventChecked: '',
       classesId: [],
       errorClass: false,
       correctionDate: new Date(),
       renderingDate: new Date(),
       isEmptylistClass: false,
       classesData: [],
-      subjectName: "",
+      subjectName: '',
       classId: null,
       classList: [],
       homeworks: [],
       statusHomework: null,
       homeworkClass: [],
-      idType: "",
+      idType: '',
       homeworksListForStudent: [],
+      classStudent: null,
+      show: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeHomeworkType = this.handleChangeHomeworkType.bind(this);
@@ -115,7 +113,7 @@ class Homework extends React.Component {
   }
 
   handleChangeFilterStatus = (name) => (event) => {
-    this.setState({ idType: "" });
+    this.setState({ idType: '' });
     let homeworksList = [];
     if (this.state.classId !== null) {
       homeworksList = this.state.homeworkClass;
@@ -123,15 +121,13 @@ class Homework extends React.Component {
       homeworksList = this.props.homeworks;
     }
 
-    if (event.target.value === "all") {
+    if (event.target.value === 'all') {
       this.setState({
         [name]: event.target.value,
         homeworks: homeworksList,
       });
     } else {
-      let homeworks = homeworksList.filter(
-        (element) => element.status === event.target.value
-      );
+      let homeworks = homeworksList.filter((element) => element.status === event.target.value);
       this.setState({
         [name]: event.target.value,
         homeworks,
@@ -169,7 +165,7 @@ class Homework extends React.Component {
     } else {
       homeworksList = this.props.homeworks;
     }
-    if (event.target.value === "all") {
+    if (event.target.value === 'all') {
       this.setState({
         [name]: event.target.value,
         homeworks: homeworksList,
@@ -183,7 +179,7 @@ class Homework extends React.Component {
   };
 
   handleChangeFilter = (name) => (event) => {
-    if (event.target.value === "all") {
+    if (event.target.value === 'all') {
       this.setState({
         homeworks: this.props.homeworks,
       });
@@ -196,33 +192,33 @@ class Homework extends React.Component {
 
     this.setState({
       [name]: event.target.value,
-      statusHomework: "",
-      idType: "",
+      statusHomework: '',
+      idType: '',
     });
   };
 
   cancelModal() {
     this.setState({
       isOpenAddModal: false,
-      nameFile: "",
-      homeworkType: "",
+      nameFile: '',
+      homeworkType: '',
       subjectId: null,
-      subjectColor: "",
-      description: "",
-      courseUrl: "",
+      subjectColor: '',
+      description: '',
+      courseUrl: '',
       homeworkFiles: [],
       nameFiles: [],
       publicationDate: new Date(),
       postTime: new Date(),
       classes: [],
-      eventChecked: "",
+      eventChecked: '',
       classesId: [],
       errorClass: false,
       correctionDate: new Date(),
       renderingDate: new Date(),
       isEmptylistClass: false,
       classesData: [],
-      subjectName: "",
+      subjectName: '',
     });
   }
 
@@ -247,11 +243,7 @@ class Homework extends React.Component {
       dataHomework.renderingDate = this.state.renderingDate;
       dataHomework.subjectName = this.state.subjectName;
       this.props.dispatch(
-        addNewHomework(
-          dataHomework,
-          this.state.homeworkFiles,
-          this.state.classesData
-        )
+        addNewHomework(dataHomework, this.state.homeworkFiles, this.state.classesData)
       );
       this.cancelModal();
     }
@@ -259,7 +251,7 @@ class Homework extends React.Component {
 
   handleChangeClassList = (selectedOption) => {
     if (selectedOption != null) {
-      let classesId = _.map(selectedOption, "id");
+      let classesId = _.map(selectedOption, 'id');
       this.setState({
         classesId,
         isEmptylistClass: false,
@@ -279,13 +271,9 @@ class Homework extends React.Component {
   };
 
   deleteFile(filename) {
-    let nameFiles = this.state.nameFiles.filter(
-      (element) => element != filename
-    );
+    let nameFiles = this.state.nameFiles.filter((element) => element != filename);
 
-    let homeworkFiles = this.state.homeworkFiles.filter(
-      (element) => element.name != filename
-    );
+    let homeworkFiles = this.state.homeworkFiles.filter((element) => element.name != filename);
 
     this.setState({ nameFiles, homeworkFiles });
   }
@@ -302,11 +290,11 @@ class Homework extends React.Component {
       this.setState({ homeworkFiles: oldFiles, nameFiles });
     } else {
       this.setState({
-        messageAlerte: "Vous avez dépasser 5 fichiers",
+        messageAlerte: 'Vous avez dépasser 5 fichiers',
         alerteStatus: true,
       });
       setTimeout(() => {
-        this.setState({ messageAlerte: "", alerteStatus: false });
+        this.setState({ messageAlerte: '', alerteStatus: false });
       }, 4000);
     }
   }
@@ -322,9 +310,7 @@ class Homework extends React.Component {
       let apiEndpoint = `/assignment_class_subjects?access_token=${localStorage.token}&filter[where][fk_id_subject_v4]=${selectedOption.value}&filter[include]=class&filter[include]=course`;
       classService.get(apiEndpoint).then((response) => {
         if (response) {
-          let classesSubjects = response.data.filter(
-            (element) => element.status
-          );
+          let classesSubjects = response.data.filter((element) => element.status);
           let newList = [];
           classesSubjects.map((element) => {
             let object = {};
@@ -378,8 +364,7 @@ class Homework extends React.Component {
       let subjects = createListSubject(this.props.subjects);
       this.setState({ subjects, classList: this.props.classSettings });
     } else if (this.props.userProfile.role_id === roleIdProfessor) {
-      const professorId = this.props.userProfile.user.profiles[0].professors[0]
-        .id;
+      const professorId = this.props.userProfile.user.profiles[0].professors[0].id;
       let apiEndpoint = `/course_v4?access_token=${localStorage.token}&filter[where][fk_id_professor]=${professorId}&filter[include][assignmentClassSubject]=subject&filter[include][assignmentClassSubject]=class`;
       classService.get(apiEndpoint).then((response) => {
         if (response) {
@@ -398,6 +383,15 @@ class Homework extends React.Component {
           this.setState({ subjects, classList: classes });
         }
       });
+    } else if (this.props.userProfile.role_id === roleIdStudent) {
+      let classStudent = this.props.userProfile.user.profiles[0].students[0].inscription[0]
+        .fk_id_class_v4;
+      this.setState({ classStudent });
+      if (classStudent === null) {
+        this.setState({ show: true });
+      }
+      let subjects = createListSubject(this.props.subjects);
+      this.setState({ subjects });
     } else {
       let subjects = createListSubject(this.props.subjects);
       this.setState({ subjects });
@@ -427,31 +421,36 @@ class Homework extends React.Component {
       this.setState({ homeworks: this.props.homeworks });
     }
   }
+  onConfirm = () => {
+    this.setState({
+      show: false,
+    });
+  };
 
   render() {
     let detailCards = [
       {
-        cardColor: "primary",
-        imageIcon: require("../../../../../assets/images/dashboard/teams-icon.png"),
+        cardColor: 'primary',
+        imageIcon: require('../../../../../assets/images/dashboard/teams-icon.png'),
 
         // title: this.props.virtualClasses.length,
         subTitle: <IntlMessages id={`message.Numbers.of.students`} />,
       },
       {
-        cardColor: "secondary",
-        imageIcon: require("../../../../../assets/images/dashboard/tasks-icon.png"),
+        cardColor: 'secondary',
+        imageIcon: require('../../../../../assets/images/dashboard/tasks-icon.png'),
         // title: this.state.prog,
         subTitle: <IntlMessages id={`homework.file`} />,
       },
       {
-        cardColor: "info",
-        imageIcon: require("../../../../../assets/images/dashboard/project-icon.png"),
+        cardColor: 'info',
+        imageIcon: require('../../../../../assets/images/dashboard/project-icon.png'),
         // title: this.state.encours,
         subTitle: <IntlMessages id={`homework.uncorrected`} />,
       },
       {
-        cardColor: "success",
-        imageIcon: require("../../../../../assets/images/dashboard/files-icon.png"),
+        cardColor: 'success',
+        imageIcon: require('../../../../../assets/images/dashboard/files-icon.png'),
         // title: this.state.encours,
         subTitle: <IntlMessages id={`homework.educational.files`} />,
       },
@@ -461,10 +460,7 @@ class Homework extends React.Component {
         <div className="d-flex flex-column mb-3">
           <div className="row col-lg-12 col-md- col-sm-12  ">
             {detailCards.map((data, index) => (
-              <div
-                key={index}
-                className="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12"
-              >
+              <div key={index} className="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                 <IconWithTextCard data={data} />
               </div>
             ))}
@@ -475,10 +471,7 @@ class Homework extends React.Component {
                 <span className="icon-addon alert-addon">
                   <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
                 </span>
-                <span className="d-inline-block">
-                  {" "}
-                  {this.state.messageAlerte}{" "}
-                </span>
+                <span className="d-inline-block"> {this.state.messageAlerte} </span>
               </UncontrolledAlert>
             )}
 
@@ -513,7 +506,7 @@ class Homework extends React.Component {
                     role={role}
                     perform="user-permission"
                     data={{
-                      permission: "add-homework",
+                      permission: 'add-homework',
                       permissionList: this.props.userPermission,
                     }}
                     yes={() => (
@@ -527,17 +520,10 @@ class Homework extends React.Component {
                                 aria-label="Add"
                                 onClick={this.openAddModal.bind(this)}
                               >
-                                {this.state.isOpenAddModal ? (
-                                  <RemoveSharpIcon />
-                                ) : (
-                                  <AddIcon />
-                                )}
+                                {this.state.isOpenAddModal ? <RemoveSharpIcon /> : <AddIcon />}
                               </Fab>
                             </div>
-                            <div
-                              className="p-2"
-                              style={{ fontFamily: "Roboto", fontSize: "17px" }}
-                            >
+                            <div className="p-2" style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
                               <IntlMessages id="modal.addToDo" />
                             </div>
 
@@ -546,18 +532,15 @@ class Homework extends React.Component {
                                 size="small"
                                 aria-label="Add"
                                 style={{
-                                  backgroundColor: "#ffbb33",
-                                  color: "#ffffff",
+                                  backgroundColor: '#ffbb33',
+                                  color: '#ffffff',
                                 }}
                                 onClick={this.openArchive}
                               >
                                 <DeleteOutlineIcon />
                               </Fab>
                             </div>
-                            <div
-                              className="p-2"
-                              style={{ fontFamily: "Roboto", fontSize: "17px" }}
-                            >
+                            <div className="p-2" style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
                               <IntlMessages id="icon.archives" />
                             </div>
                           </div>
@@ -568,9 +551,7 @@ class Homework extends React.Component {
                             <AddHomework
                               values={this.state}
                               handleChange={this.handleChange}
-                              handleChangeHomeworkType={
-                                this.handleChangeHomeworkType
-                              }
+                              handleChangeHomeworkType={this.handleChangeHomeworkType}
                               subjects={this.state.subjects}
                               handleChangeSubject={this.handleChangeSubject}
                               attachFile={this.attachFile}
@@ -595,19 +576,17 @@ class Homework extends React.Component {
                     role={role}
                     perform="user-permission"
                     data={{
-                      permission: "get-homework",
+                      permission: 'get-homework',
                       permissionList: this.props.userPermission,
                     }}
                     yes={() => (
                       <>
                         {this.state.openArchive ? (
                           <div>
-                            <ArchivedHomework
-                              homeworks={this.props.archivedHomework}
-                            />
+                            <ArchivedHomework homeworks={this.props.archivedHomework} />
                           </div>
                         ) : (
-                          ""
+                          ''
                         )}
                       </>
                     )}
@@ -620,7 +599,7 @@ class Homework extends React.Component {
                     role={role}
                     perform="user-permission"
                     data={{
-                      permission: "get-homework",
+                      permission: 'get-homework',
                       permissionList: this.props.userPermission,
                     }}
                     yes={() => (
@@ -639,32 +618,18 @@ class Homework extends React.Component {
                                         name="idClasse"
                                         select
                                         value={this.state.classId}
-                                        onChange={this.handleChangeFilter(
-                                          "classId"
-                                        )}
+                                        onChange={this.handleChangeFilter('classId')}
                                         SelectProps={{}}
-                                        label={
-                                          <IntlMessages
-                                            id={`components.note.class`}
-                                          />
-                                        }
+                                        label={<IntlMessages id={`components.note.class`} />}
                                         InputProps={{ disableUnderline: true }}
                                         margin="normal"
                                         fullWidth
                                       >
                                         <MenuItem key={0} value="all">
-                                          
-                                          {
-                                            <IntlMessages
-                                              id={`userStuppDisplay.all`}
-                                            />
-                                          }
+                                          {<IntlMessages id={`userStuppDisplay.all`} />}
                                         </MenuItem>
                                         {this.state.classList.map((option) => (
-                                          <MenuItem
-                                            key={option.id}
-                                            value={option.id}
-                                          >
+                                          <MenuItem key={option.id} value={option.id}>
                                             {option.name}
                                           </MenuItem>
                                         ))}
@@ -681,30 +646,19 @@ class Homework extends React.Component {
                                   name="statusHomework"
                                   select
                                   value={this.state.statusHomework}
-                                  onChange={this.handleChangeFilterStatus(
-                                    "statusHomework"
-                                  )}
+                                  onChange={this.handleChangeFilterStatus('statusHomework')}
                                   SelectProps={{}}
-                                  label={
-                                    <IntlMessages id={`components.todo.etat`} />
-                                  }
+                                  label={<IntlMessages id={`components.todo.etat`} />}
                                   InputProps={{ disableUnderline: true }}
                                   margin="normal"
                                   fullWidth
                                 >
                                   <MenuItem key={0} value="all">
-                                    {" "}
-                                    {
-                                      <IntlMessages
-                                        id={`userStuppDisplay.all`}
-                                      />
-                                    }
+                                    {' '}
+                                    {<IntlMessages id={`userStuppDisplay.all`} />}
                                   </MenuItem>
                                   {this.state.HomeworkStatus.map((option) => (
-                                    <MenuItem
-                                      key={option.id}
-                                      value={option.value}
-                                    >
+                                    <MenuItem key={option.id} value={option.value}>
                                       {option.label}
                                     </MenuItem>
                                   ))}
@@ -716,31 +670,20 @@ class Homework extends React.Component {
                                   id="idType"
                                   name="idType"
                                   select
-                                  value={this.state.idType || ""}
-                                  onChange={this.handleChangeFilterType(
-                                    "idType"
-                                  )}
+                                  value={this.state.idType || ''}
+                                  onChange={this.handleChangeFilterType('idType')}
                                   SelectProps={{}}
-                                  label={
-                                    <IntlMessages id={`components.todo.type`} />
-                                  }
+                                  label={<IntlMessages id={`components.todo.type`} />}
                                   InputProps={{ disableUnderline: true }}
                                   margin="normal"
                                   fullWidth
                                 >
                                   <MenuItem key={0} value="all">
-                                    {" "}
-                                    {
-                                      <IntlMessages
-                                        id={`userStuppDisplay.all`}
-                                      />
-                                    }
+                                    {' '}
+                                    {<IntlMessages id={`userStuppDisplay.all`} />}
                                   </MenuItem>
                                   {this.state.HomeworkTypes.map((option) => (
-                                    <MenuItem
-                                      key={option.id}
-                                      value={option.value}
-                                    >
+                                    <MenuItem key={option.id} value={option.value}>
                                       {option.label}
                                     </MenuItem>
                                   ))}
@@ -760,7 +703,7 @@ class Homework extends React.Component {
                             />
                           </div>
                         ) : (
-                          ""
+                          ''
                         )}
                       </>
                     )}
@@ -770,6 +713,15 @@ class Homework extends React.Component {
             </div>
           </div>
         </div>
+        {this.props.userProfile.role_id === roleIdStudent && this.state.classStudent === null ? (
+          <SweetAlert
+            show={this.state.show}
+            title={<IntlMessages id="alert.affect.student" />}
+            onConfirm={this.onConfirm}
+          ></SweetAlert>
+        ) : (
+          ''
+        )}
       </div>
     );
   }

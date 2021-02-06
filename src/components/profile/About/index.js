@@ -137,37 +137,192 @@ class About extends React.Component {
     }
   }
   render() {
+    console.log("profile",this.props.userProfile.user)
     const { value, aboutList } = this.state;
+    const { profileItem } = this.props;
     return (
       <Widget styleName="jr-card-full jr-card-tabs-right jr-card-profile">
         <div className="card-header">
-          <h4 className="card-title mb-0">About</h4>
-        </div>
-        <div className="jr-tabs-classic">
-          <Tabs
-            className="jr-tabs-up"
-            value={value}
-            onChange={this.handleChange}
-          >
-            <Tab className="jr-tabs-label" label="Overview" />
-            <Tab className="jr-tabs-label" label="Work" />
-            <Tab className="jr-tabs-label" label="Education" />
-          </Tabs>
-          <div className="jr-tabs-content jr-task-list">
-            <div className="row">
-              {value === 0 &&
-                aboutList.map((about, index) => (
-                  <div className="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <AboutItem data={about} />
-                  </div>
-                ))}
-              {/* {value === 1 && aboutList.map((about, index) => <div
-                className="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12"><AboutItem data={about}/></div>)} */}
-              {/* {value === 2 && aboutList.map((about, index) => <div
-                className="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12"><AboutItem data={about}/></div>)} */}
+          <h4 className="card-title mb-0">Informations personnelles</h4>
+          <div class="d-flex flex-column">
+            <div class="d-flex flex-column p-3">
+              <h4 className="card-title">Informations générales</h4>
+              <h5>
+                Certaines de ces informations peuvent être vues par le super
+                administrateur d' Educap.
+              </h5>
             </div>
+            <div className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row justify-content-between">
+              <div class="d-flex flex-row justify-content-between">
+                <div className="mr-3">
+                  <i
+                    className={`zmdi zmdi-account-circle jr-fs-xlxl text-orange`}
+                  />
+                </div>
+                <label htmlFor="profileName">
+                  {/* <IntlMessages id="user.id" /> */}
+                </label>
+                <input
+                  // disabled={true}
+                  className="form-control"
+                  id="profileName"
+                  // value={profileItem.name +" "+profileItem.surname}
+                />
+              </div>
+              <div class="d-flex flex-row justify-content-between">
+                <div className="mr-3">
+                  <i className={`zmdi zmdi-cake jr-fs-xlxl text-orange`} />
+                </div>
+                <label htmlFor="birthDayDateProfile">
+                  {/* <IntlMessages id="user.id" /> */}
+                </label>
+                <input
+                  // disabled={true}
+                  className="form-control"
+                  id="birthDayDateProfile"
+                  value={"éalaa"}
+                />
+              </div>
+              <div class="d-flex flex-row justify-content-between">
+                <div className="mr-3">
+                  <i
+                    className={`zmdi zmdi-male-female jr-fs-xlxl text-orange`}
+                  />
+                </div>
+                <label htmlFor="identifier">
+                  {/* <IntlMessages id="user.id" /> */}
+                </label>
+                <input
+                  // disabled={true}
+                  className="form-control"
+                  id="identifier"
+                  value={"éalaa"}
+                />
+              </div>
+              <div class="d-flex flex-row justify-content-between">
+                <div className="mr-3">
+                  <i className={`zmdi zmdi-city jr-fs-xlxl text-orange`} />
+                </div>
+                <label htmlFor="identifier">
+                  {/* <IntlMessages id="user.id" /> */}
+                </label>
+                <input
+                  // disabled={true}
+                  className="form-control"
+                  id="identifier"
+                  value={"éalaa"}
+                />
+              </div>
+            </div>
+
+            {/* ------------------ */}
+            <div className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row justify-content-between p-3">
+              <div class="d-flex flex-row justify-content-between">
+                <div className="mr-3">
+                  <i
+                    className={`zmdi zmdi-account-circle jr-fs-xlxl text-orange`}
+                  />
+                </div>
+                <label htmlFor="profileName">
+                  {/* <IntlMessages id="user.id" /> */}
+                </label>
+                <input
+                  // disabled={true}
+                  className="form-control"
+                  id="profileName"
+                  value={"Alaaeddine OUNI"}
+                />
+              </div>
+              <div class="d-flex flex-row justify-content-between">
+                <div className="mr-3">
+                  <i
+                    className={`zmdi zmdi-account-circle jr-fs-xlxl text-orange`}
+                  />
+                </div>
+                <label htmlFor="profileName">
+                  {/* <IntlMessages id="user.id" /> */}
+                </label>
+                <input
+                  // disabled={true}
+                  className="form-control"
+                  id="profileName"
+                  value={"Alaaeddine OUNI"}
+                />
+              </div>
+              <div class="d-flex flex-row justify-content-between">
+                <div className="mr-3">
+                  <i
+                    className={`zmdi zmdi-account-circle jr-fs-xlxl text-orange`}
+                  />
+                </div>
+                <label htmlFor="profileName">
+                  {/* <IntlMessages id="user.id" /> */}
+                </label>
+                <input
+                  // disabled={true}
+                  className="form-control"
+                  id="profileName"
+                  value={"Alaaeddine OUNI"}
+                />
+              </div>
+              <div class="d-flex flex-row justify-content-between">
+                <div className="mr-3">
+                  <i
+                    className={`zmdi zmdi-account-circle jr-fs-xlxl text-orange`}
+                  />
+                </div>
+                <label htmlFor="profileName">
+                  {/* <IntlMessages id="user.id" /> */}
+                </label>
+                <input
+                  // disabled={true}
+                  className="form-control"
+                  id="profileName"
+                  value={"Alaaeddine OUNI"}
+                />
+              </div>
+            </div>
+
+
+
+
+             {/* ------------------ */}
+            <div class="p-2">Flex item 2</div>
+            <div class="p-2">Flex item 3</div>
+            <div class="p-2">Flex item 2</div>
+            <div class="p-2">Flex item 3</div>
           </div>
         </div>
+
+        {/* <div className="jr-tabs-classic">
+          <div lassName="row">
+            <div className="card-header">
+              <div class="d-flex flex-column">
+                <div class="p-2">
+                  <h4 className="card-title ">Informations générales</h4>
+                </div>
+                <div class="p-1">
+                  <h6>
+                    Certaines de ces informations peuvent être vues par les
+                    autres utilisateurs des services Google
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row bg-red">
+                 <label for="exampleFormControlInput1" class="form-label">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="name@example.com"
+                />
+             
+            </div>
+        </div> */}
       </Widget>
     );
   }

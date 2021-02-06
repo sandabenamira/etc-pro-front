@@ -1,10 +1,8 @@
 import { classService } from "../_services/class.service";
 import {
   FETECHED_ALL_HEALTH,
-  ADD_HEALTH,
   EDIT_HEALTH,
   DELETE_HEALTH,
-  HANDLE_REQUEST_CLOSE,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
@@ -47,66 +45,6 @@ export const addFicheMedical = (data, file) => {
   };
 };
 
-// export const addFicheMedical = (data, file) => {
-//   return (dispatch) => {
-//     let apiEndpoint = `/suivi_medicals?access_token=${localStorage.token}`;
-//     classService.post(apiEndpoint, data).then((response) => {
-//       if (response) {
-//         var suiviObject = response.data;
-
-//         if (file !== null) {
-//           axios
-//             .get(
-//               `${baseUrl.baseUrl}/establishments/` +
-//                 data.establishment_id +
-//                 `?access_token=${localStorage.token}`
-//             )
-//             .then((res) => {
-//               var establishmentName = res.data.name;
-//               let arrayItemCourseFiles = [];
-//               var formadata = new FormData();
-//               const fileExtension = file.name.replace(/^.*\./, "");
-//               const fileName =
-//                 "fiche_medical_" + suiviObject.id + "." + fileExtension;
-
-//               var object = {};
-//               object.file = file;
-//               object.fileName = fileName;
-//               object.establishmentName = establishmentName;
-
-//               axios
-//                 .patch(
-//                   `${baseUrl.baseUrl}/suivi_medicals/` +
-//                     suiviObject.id +
-//                     `?access_token=${localStorage.token}`,
-//                   {
-//                     files: fileName,
-//                   }
-//                 )
-//                 .then((response) => {
-//                   object.suiviObject = response.data;
-
-//                   dispatch(uploadCourseMedia(object));
-//                 })
-//                 .catch(function(error) {
-//                   console.log("error", error);
-//                 });
-//             });
-//         } else {
-//         }
-//       } else {
-//         dispatch({
-//           type: SHOW_ERROR_MESSAGE,
-//           payload:
-//             "Une erreur est survenue lors de la création merci d'essayer à nouveau",
-//         });
-//         setTimeout(() => {
-//           dispatch({ type: HIDE_ERROR_MESSAGE });
-//         }, 4000);
-//       }
-//     });
-//   };
-// };
 
 export function uploadCourseMedia(ObjetFile, ObjetSuiviMedical) {
   const fileName = ObjetFile.fileName;
@@ -134,55 +72,19 @@ export function uploadCourseMedia(ObjetFile, ObjetSuiviMedical) {
             }
           )
           .then((response) => {
-            console.log("updateddddddddddd ", response.data);
-            // dispatch(uploadCourseMedia(object));
+
           })
           .catch(function(error) {
             console.log("error", error);
           });
 
-        // dispatch({ type: ADD_HEALTH, payload: data.suiviObject });
-        // dispatch({
-        //   type: SHOW_SUCCESS_MESSAGE,
-        //   payload: "La création est effectuée avec succès",
-        // });
-        // setTimeout(() => {
-        //   dispatch({ type: HIDE_SUCCESS_MESSAGE });
-        // }, 4000);
+   
       })
       .catch((err) => {});
   };
 }
 
-// export function uploadCourseMedia(data) {
-//   const fileName = data.fileName;
-//   const myNewFile = new File([data.file], fileName, { type: data.file.type });
-//   let formadata = new FormData();
-//   formadata.append("image", myNewFile);
-//   return function(dispatch) {
-//     const establishLogoUrl =
-//       `${baseUrl.baseUrl}/containers/classebook.data.storage/upload?access_token=${localStorage.token}`;
-//     axios({
-//       url: establishLogoUrl,
-//       method: "POST",
-//       data: formadata,
-//     })
-//       .then((response) => {
-//         console.log('resssssssssssss ',response)
-//         dispatch({ type: ADD_HEALTH, payload: data.suiviObject });
-//         dispatch({
-//           type: SHOW_SUCCESS_MESSAGE,
-//           payload: "La création est effectuée avec succès",
-//         });
-//         setTimeout(() => {
-//           dispatch({ type: HIDE_SUCCESS_MESSAGE });
-//         }, 4000);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// }
+
 
 export const getFicheMedical = () => {
   return (dispatch) => {

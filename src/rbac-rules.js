@@ -468,7 +468,7 @@ const rules = {
       'module-nav-book_management',
       'module-nav-text_copybook',
       'homework-filter-class',
-      // 'module-nav-groupes',
+      'module-nav-groupes',
       'module-nav-internal_mail',
       
     ],

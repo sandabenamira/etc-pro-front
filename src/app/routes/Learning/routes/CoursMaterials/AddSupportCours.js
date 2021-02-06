@@ -6,7 +6,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import RemoveSharpIcon from '@material-ui/icons/RemoveSharp';
 import { connect } from 'react-redux';
-import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from 'react-select';
 import AddBox from '@material-ui/icons/AddBox';
@@ -14,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/moment';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
@@ -22,8 +20,6 @@ import { roleIdProfessor } from '../../../../../config/config';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { TimePicker } from '@material-ui/pickers';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { UncontrolledAlert } from 'reactstrap';
-
 
 const optionsListHomeWork = [
   { value: 'Devoir de maison math', label: 'Devoir de maison math' },
@@ -111,7 +107,7 @@ class AddSupportCours extends React.Component {
                         fontSize: '18px',
                       }}
                     >
-                      {<IntlMessages id="components.student.formadd.classe" />}
+                      {<IntlMessages id="material.class.name" />}
                     </InputLabel>
                     {this.props.userProfile.role_id === roleIdProfessor ? (
                       <Select
@@ -201,7 +197,7 @@ class AddSupportCours extends React.Component {
                         fontSize: '18px',
                       }}
                     >
-                      {<IntlMessages id="components.exam.subject" />}
+                      {<IntlMessages id="material.subject.name" />}
                     </InputLabel>
                     <Select
                       value={{
@@ -234,7 +230,7 @@ class AddSupportCours extends React.Component {
                         fontSize: '18px',
                       }}
                     >
-                      {"Formateur"}
+                      {<IntlMessages id="material.professor.name" />}
                     </InputLabel>
                     <Select
                       value={{ label: nameSurnameProf, value: 1 }}
@@ -269,8 +265,6 @@ class AddSupportCours extends React.Component {
                       />
                       <label htmlFor="add-file" className="d-flex  bd-highlight">
                         <AddBox fontSize="inherit" style={{ fontSize: '40px' }} />
-                        {/* {values
-                          .moocsTextFiles} */}
                       </label>
                       <div class="p-2 bd-highlight">
                         <Typography
@@ -313,22 +307,6 @@ class AddSupportCours extends React.Component {
                     </div>
                   </div>
                 </div>
-                
-                
-                
-
-
-
-
-
-
-
-
-
-
-
-
-                
                 <div className="d-flex flex-column bd-highlight mb-4 ">
                   <div className="d-flex flex-row justify-content-start align-items-center bd-highlight mb-4 col-12">
                     <div className="d-flex flex-row justify-content-start align-items-center col-md-12 col-lg-12">
@@ -375,10 +353,6 @@ class AddSupportCours extends React.Component {
                     </div>
                   </div>
                 </div>
-                
-                
-                
-                
                 <div className="d-flex flex-wrap  align-items-start ">
                   <div className="col-md-3 col-lg-3 p-4">
                     <InputLabel
@@ -402,9 +376,9 @@ class AddSupportCours extends React.Component {
                       styles={{
                         control: (base) => ({
                           ...base,
-                          '&:hover': { borderColor: 'gray' }, // border style on hover
-                          border: '1px solid lightgray', // default border color
-                          boxShadow: 'none', // no box-shadow
+                          '&:hover': { borderColor: 'gray' }, 
+                          border: '1px solid lightgray', 
+                          boxShadow: 'none', 
                           borderTopStyle: 'none',
                           borderRightStyle: 'none',
                           borderLeftStyle: 'none',

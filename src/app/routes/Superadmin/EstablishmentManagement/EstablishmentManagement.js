@@ -78,7 +78,6 @@ class EstablishmentManagement extends React.Component {
   }
 
   render() {
-      console.log(this.props.modules)
     return (
       <div className="app-wrapper">
         <ContainerHeader

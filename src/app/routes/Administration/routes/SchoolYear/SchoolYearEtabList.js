@@ -8,9 +8,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import CardBox from '../../../../../components/CardBox';
 
-
-
-
 class SchoolYearEtabList extends React.Component {
 
     constructor(props) {

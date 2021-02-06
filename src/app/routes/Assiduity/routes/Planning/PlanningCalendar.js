@@ -84,35 +84,28 @@ class PlanningCalendar extends React.Component {
 
   render() {
     let startHours = '';
-    let startMinutes = '';
+    let startMunites = '';
     let endHours = '';
     let endMinutes = '';
+    const startDayTime = new Date();
+    const endDayTime = new Date();
     if (this.props.startTime && this.props.endTime) {
-      const startTime = this.props.startTime.split(':');
-      const endTime = this.props.endTime.split(':');
-      startHours = startTime[0];
-      startMinutes = startTime[1];
-      endHours = endTime[0];
-      endMinutes = endTime[1];
+       startHours = this.props.startTime.substr(0, 2);
+       startMunites = this.props.startTime.substr(3, 2);
+       endHours = this.props.endTime.substr(0, 2);
+       endMinutes = this.props.endTime.substr(3, 2);
     } else {
       startHours = '08';
-      startMinutes = '00';
+      startMunites = '00';
       endHours = '21';
       endMinutes = '00';
     }
-
-    const startDayTime = new Date();
-    const endDayTime = new Date();
-    let startHour = this.props.startTime.substr(0, 2);
-    let startMunite = this.props.startTime.substr(3, 2);
-    let endHour = this.props.endTime.substr(0, 2);
-    let endMunite = this.props.endTime.substr(3, 2);
     let events = this.props.events ? this.props.events : [];
 
-    startDayTime.setHours(startHour);
-    startDayTime.setMinutes(startMunite);
-    endDayTime.setHours(endHour);
-    endDayTime.setMinutes(endMunite);
+    startDayTime.setHours(startHours);
+    startDayTime.setMinutes(startMunites);
+    endDayTime.setHours(endHours);
+    endDayTime.setMinutes(endMinutes);
     return (
       <RoleContext.Consumer>
         {({ role, roleId }) => (
@@ -171,6 +164,55 @@ class PlanningCalendar extends React.Component {
                               ) : (
                                 classe.name
                               )}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="col-lg-3 col-sm-6 col-12">
+                      <FormControl className="w-100 mb-2">
+                        <InputLabel htmlFor="age-simple">
+                          {<IntlMessages id="toDo.professor" />}
+                        </InputLabel>
+                        <Select
+                          value={this.props.professorIdList}
+                          onChange={this.props.handleChangeProfessor(
+                            "professorIdList"
+                          )}
+                          input={<Input id="professorIdList" />}
+                        >
+                          <MenuItem key={0} value={0}>
+                            <IntlMessages id={`userStuppDisplay.all`} />
+                          </MenuItem>
+                          {this.props.professorsFiltred.map((professor) => (
+                            <MenuItem
+                              key={professor.profId}
+                              value={professor.profId}
+                            >
+                              {professor.name} {professor.surname}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="col-lg-3 col-sm-6 col-12">
+                      <FormControl className="w-100 mb-2">
+                        <InputLabel htmlFor="age-simple">
+                          {<IntlMessages id="sidebar.components.rooms" />}
+                        </InputLabel>
+                        <Select
+                          value={this.props.classroomId}
+                          onChange={this.props.handleChangeClassroom(
+                            "classroomId"
+                          )}
+                          input={<Input id="classroomId" />}
+                        >
+                          <MenuItem key={0} value={0}>
+                            <IntlMessages id={`userStuppDisplay.all`} />
+                          </MenuItem>
+                          {this.props.classroomsList.map((classroom) => (
+                            <MenuItem key={classroom.id} value={classroom.id}>
+                              {classroom.name}
                             </MenuItem>
                           ))}
                         </Select>

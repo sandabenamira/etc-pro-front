@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AddAssignClassSubject from './AddAssignClassSubject';
 import CoursesAssignmentList from './CoursesAssignmentList';
 import ArchiveCourseAssignment from './ArchiveCourseAssignment';
-
+import _ from 'lodash';
 import { UncontrolledAlert } from 'reactstrap';
 import { addAssignementCourse } from '../../../../../../actions/AssignementAction';
 class CourseAssignment extends React.Component {
@@ -12,12 +12,16 @@ class CourseAssignment extends React.Component {
     super(props);
     this.state = {
       open: false,
-      nameLevel: '',
       class_id: '',
-      subject_id: '',
+      subjectsSelected: [],
       isOpenArchive: false,
       class: '',
       assignementCourseExist: false,
+      subjectList: [],
+      ClassSettingsList: [],
+      CoficientGlobal: null,
+      courseAssignmentList: [],
+      subjectIDselected: [],
     };
     this.openAddModal = this.openAddModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -26,7 +30,7 @@ class CourseAssignment extends React.Component {
     this.handleChangeClass = this.handleChangeClass.bind(this);
     this.handleChangeSubject = this.handleChangeSubject.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleChangeCoficient = this.handleChangeCoficient.bind(this);
+
     this.openArchiveModal = this.openArchiveModal.bind(this);
     this.handleChangeAlerte = this.handleChangeAlerte.bind(this);
   }
@@ -56,54 +60,51 @@ class CourseAssignment extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-     let data = {
-      assignment_date: new Date(),
-      status: true,
-      global_coefficient: this.state.CoficientGlobal,
-      fk_id_class_v4: this.state.class_id,
-      fk_id_subject_v4: this.state.subject_id,
-      class: this.state.class,
-    };
-    let checkDoubleAssignementCourse = this.props.courseAssignment.filter(
-      (element) =>
-        element.fk_id_class_v4 == this.state.class_id &&
-        element.fk_id_subject_v4 == this.state.subject_id
-    );
-    if (checkDoubleAssignementCourse.length > 0) {
-      this.setState({
-        assignementCourseExist: true,
-        messageAlerte: 'cette classe a déja cette matière',
-      });
-      setTimeout(() => {
-        this.setState({ assignementCourseExist: false, messageAlerte: '' });
-      }, 4000);
-    } else {
-      this.props.dispatch(addAssignementCourse(data));
-    }
-
+    let newData = this.state.subjectsSelected.map((element) => {
+      return {
+        assignment_date: new Date(),
+        status: true,
+        global_coefficient: this.state.CoficientGlobal,
+        fk_id_class_v4: this.state.class_id,
+        fk_id_subject_v4: element.id,
+        class: this.state.class,
+        subject: element,
+        course: [],
+      };
+    });
+    this.props.dispatch(addAssignementCourse(newData));
     this.setState({
       open: false,
-      nameLevel: '',
       class_id: '',
-      subject_id: '',
-      class: '',
+      subjectsSelected: [],
     });
   }
 
-  handleChangeCoficient = (name) => (event) => {
-    this.setState({ [name]: event.target.value });
-  };
-  handleChangeClass = (name) => (event) => {
-    let obj = JSON.parse(event.target.value);
- 
+  handleChangeClass = (selectedOption) => {
+    let subjectIDselected = [];
+    this.state.courseAssignmentList.map((element) => {
+      if (element.classItem.id == selectedOption.id) {
+        subjectIDselected = element.subjects.map((subjectItem) => subjectItem.fk_id_subject_v4);
+      }
+    });
     this.setState({
-      [name]: obj.id,
-      class: obj,
+      class_id: selectedOption.id,
+      class: selectedOption,
+      subjectIDselected,
     });
   };
-  handleChangeSubject = (name) => (event) => {
-    let subjects = this.props.subjects;
-    this.setState({ [name]: event.target.value, subjects });
+  handleChangeSubject = (selectedOption) => {
+    if (selectedOption != null) {
+ 
+      let subjectsSelected = selectedOption;
+      this.setState({
+        subjectsSelected,
+      });
+    } else {
+      this.setState({
+        subjectsSelected: [],
+      });
+    }
   };
   handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.value });
@@ -111,9 +112,79 @@ class CourseAssignment extends React.Component {
   handleCancel() {
     this.setState({ open: false });
   }
+  componentDidMount() {
+    if (this.props.subjects != undefined) {
+      let subjectList = [];
+      subjectList = this.props.subjects.map((element) => {
+        var object = element;
+        object.label = element.name;
+        object.value = element.id;
+        delete object.subjectModule;
+        return object;
+      });
+      this.setState({ subjectList });
+    }
+    if (this.props.ClassSettings != undefined) {
+      let ClassSettingsList = [];
+      ClassSettingsList = this.props.ClassSettings.map((element) => {
+        var object = element;
+        object.label = element.name;
+        object.value = element.id;
 
+        return object;
+      });
+      this.setState({ ClassSettingsList });
+    }
+    if (this.props.courseAssignment != undefined) {
+      let groupAssignment = _.groupBy(this.props.courseAssignment, 'class.name');
+      let finalListAssignment = [];
+      for (const property in groupAssignment) {
+        finalListAssignment.push({
+          classItem: groupAssignment[property][0].class,
+          subjects: groupAssignment[property],
+        });
+      }
+      this.setState({ courseAssignmentList: finalListAssignment });
+    }
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.subjects !== this.props.subjects) {
+      let subjectList = [];
+      subjectList = this.props.subjects.map((element) => {
+        var object = element;
+        object.label = element.name;
+        object.value = element.id;
+        delete object.subjectModule;
+
+        return object;
+      });
+      this.setState({ subjectList });
+    }
+    if (prevProps.ClassSettings !== this.props.ClassSettings) {
+      let ClassSettingsList = [];
+      ClassSettingsList = this.props.ClassSettings.map((element) => {
+        var object = element;
+        object.label = element.name;
+        object.value = element.id;
+
+        return object;
+      });
+      this.setState({ ClassSettingsList });
+    }
+    if (prevProps.courseAssignment !== this.props.courseAssignment) {
+      let groupAssignment = _.groupBy(this.props.courseAssignment, 'class.name');
+      let finalListAssignment = [];
+      for (const property in groupAssignment) {
+        finalListAssignment.push({
+          classItem: groupAssignment[property][0].class,
+          subjects: groupAssignment[property],
+        });
+      }
+      this.setState({ courseAssignmentList: finalListAssignment });
+    }
+  }
   render() {
-    return (
+     return (
       <div
         className="app-wrapper"
         style={{
@@ -155,16 +226,13 @@ class CourseAssignment extends React.Component {
           <div className=" bd-highlight" style={{ width: '90%' }}>
             <CardBox styleName="col-lg-12">
               <AddAssignClassSubject
+                courseAssignmentList={this.state.courseAssignmentList}
                 values={this.state}
-                handleChangeCoficient={this.handleChangeCoficient}
                 openAddModal={this.openAddModal}
-                handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
                 handleCancel={this.handleCancel}
-                values={this.state}
-                ClassSettings={this.props.ClassSettings}
-                subjects={this.props.subjects}
-                examTypes={this.props.examTypes}
+                ClassSettingsList={this.state.ClassSettingsList}
+                subjectList={this.state.subjectList}
                 handleChangeClass={this.handleChangeClass}
                 handleChangeSubject={this.handleChangeSubject}
               />
@@ -173,9 +241,9 @@ class CourseAssignment extends React.Component {
           <div className=" bd-highlight" style={{ width: '90%' }}>
             <CardBox styleName="col-lg-12">
               <CoursesAssignmentList
-                courseAssignment={this.props.courseAssignment}
-                ClassSettings={this.props.ClassSettings}
-                subjects={this.props.subjects}
+                courseAssignmentList={this.state.courseAssignmentList}
+                ClassSettingsList={this.state.ClassSettingsList}
+                subjectList={this.state.subjectList}
                 handleChangeAlerte={this.handleChangeAlerte}
               />
             </CardBox>

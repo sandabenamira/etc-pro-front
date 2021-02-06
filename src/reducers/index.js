@@ -12,13 +12,10 @@ import ClassLevel from './ClassLevel';
 import ClassSettingsReducer from './ClassSettingsReducer';
 import Mail from './Mail';
 import Complaint from './Complaint';
-import ToDo from './ToDo';
 import noteReducer from './noteReducer';
 import callRegisterReducer from './callRegisterReducer';
 import subjectReducer from './subjectReducer';
 import examReducer from './examReducer';
-import presenceReducer from './presenceReducer';
-import parentReducer from './parentReducer';
 import ServiceReducer from './ServiceReducer';
 import PaymentReducer from './PaymentReducer';
 import countriesReducer from './countriesReducer';
@@ -26,7 +23,6 @@ import TypeOfEducationReducer from './TypeOfEducationReducer';
 import sectionReducer from './sectionReducer';
 import roomReducer from './roomReducer';
 import stuppUserReducer from './stuppUserReducer';
-import profileReducer from './profileReducer';
 import Alerts from './Alert';
 import LessonReducer from './LessonReducer';
 import classVirtualReducer from './classVirtualReducer';
@@ -50,7 +46,7 @@ import PermissionReducer from './PermissionReducer';
 import usersReducer from "./usersReducer"
 import HomeworkReducer from './HomeworkReducer'
 import GroupsReducer from './GroupsReducer'
-
+import MailReducer from './MailReducer'
 
 export default (history) =>
   combineReducers({
@@ -62,7 +58,6 @@ export default (history) =>
     professor: professorReducer,
     mail: Mail,
     complaint: Complaint,
-    toDo: ToDo,
     classes: classeReducer,
     subject: subjectReducer,
     grade: noteReducer,
@@ -71,14 +66,11 @@ export default (history) =>
     planning: planningReducer,
     exam: examReducer,
     ClassLevels: ClassLevel,
-    presence: presenceReducer,
-    parent: parentReducer,
     service: ServiceReducer,
     payment: PaymentReducer,
     countries: countriesReducer,
     EstabTypes: TypeOfEducationReducer,
     classSections: sectionReducer,
-    profiles: profileReducer,
     stuppUsers: stuppUserReducer,
     rooms: roomReducer,
     alert: Alerts,
@@ -104,5 +96,7 @@ export default (history) =>
     MaterialCourseReducer: MaterialCourseReducer,
     PermissionReducer: PermissionReducer,
     HomeworkReducer: HomeworkReducer,
-    GroupsReducer:GroupsReducer
+    GroupsReducer:GroupsReducer,
+    MailReducer:MailReducer
+
   });

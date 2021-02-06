@@ -18,7 +18,13 @@ import DateFnsUtils from "@date-io/moment";
 import { TimePicker } from "@material-ui/pickers";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { UncontrolledAlert } from "reactstrap";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Input from "@material-ui/core/Input";
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
 const accessibilityList = [
   {
     value: true,
@@ -110,92 +116,6 @@ class AddVirtualClass extends React.Component {
                                   />
                                 </div>
                               </div>
-
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <TextField
-                                    id="classId"
-                                    name="itemClass"
-                                    select
-                                    required
-                                    value={values.itemClass || ""}
-                                    onChange={handleChangeClass("itemClass")}
-                                    SelectProps={{}}
-                                    label={
-                                      <IntlMessages id="components.student.formadd.classe" />
-                                    }
-                                    margin="normal"
-                                    fullWidth
-                                  >
-                                    {values.classes.map((itemClass) => {
-                                      let data = {
-                                        classId: itemClass.id,
-                                        classeName: itemClass.name,
-                                      };
-                                      return (
-                                        <MenuItem
-                                          key={itemClass.id}
-                                          value={JSON.stringify(data)}
-                                        >
-                                          {data.classeName}
-                                        </MenuItem>
-                                      );
-                                    })}
-                                  </TextField>
-                                </div>
-                              </div>
-                              <RoleContext.Consumer>
-                                {({ role }) => (
-                                  <Can
-                                    role={role}
-                                    perform="virtuel-class-input-professor:visit"
-                                    yes={() => (
-                                      <div className="col-md-6">
-                                        <div className="form-group">
-                                          <TextField
-                                            id="professorId"
-                                            name="itemProfessor"
-                                            select
-                                            required
-                                            value={values.itemProfessor || ""}
-                                            onChange={handleChangeProfessor(
-                                              "itemProfessor"
-                                            )}
-                                            SelectProps={{}}
-                                            label={
-                                              <IntlMessages id="toDo.professor" />
-                                            }
-                                            margin="normal"
-                                            fullWidth
-                                          >
-                                            {values.professors.map((option) => {
-                                              let data = {
-                                                profId: option.professor.id,
-                                                profName:
-                                                  option.professor.profile.user
-                                                    .name,
-                                                profSurname:
-                                                  option.professor.profile.user
-                                                    .surname,
-                                              };
-                                              return (
-                                                <MenuItem
-                                                  key={option.id}
-                                                  value={JSON.stringify(data)}
-                                                >
-                                                  {data.profName +
-                                                    " " +
-                                                    data.profSurname}
-                                                </MenuItem>
-                                              );
-                                            })}
-                                          </TextField>
-                                        </div>
-                                      </div>
-                                    )}
-                                  />
-                                )}
-                              </RoleContext.Consumer>
                               <div className="col-md-6">
                                 <div className="form-group">
                                   <TextField
@@ -216,24 +136,125 @@ class AddVirtualClass extends React.Component {
                                   >
                                     {values.subjects.map((item) => {
                                       let data = {
-                                        subjectId: item.subject.id,
-                                        subjectName: item.subject.name,
-                                        subjectColor: item.subject.color,
-                                        courseId: item.courseId,
+                                        subjectId: item.id,
+                                        subjectName: item.name,
+                                        subjectColor: item.color,
                                       };
 
                                       return (
                                         <MenuItem
-                                          key={item.subject.id}
+                                          key={item.id}
                                           value={JSON.stringify(data)}
                                         >
-                                          {data.subjectName}
+                                          {item.name}
                                         </MenuItem>
                                       );
                                     })}
                                   </TextField>
                                 </div>
                               </div>
+
+                              <div className="col-md-6 mt-2">
+                                <div className="form-group">
+                                  <FormControl className="w-100">
+                                    <InputLabel
+                                      htmlFor="name-multiple"
+                                      required
+                                    >
+                                      {<IntlMessages id="ticket.name.class" />}
+                                    </InputLabel>
+                                    <Select
+                                      multiple
+                                      id="classSelected"
+                                      name="classSelected"
+                                      value={values.classSelected}
+                                      onChange={handleChangeClass}
+                                      input={<Input id="name-multiple" />}
+                                      MenuProps={{
+                                        PaperProps: {
+                                          style: {
+                                            maxHeight:
+                                              ITEM_HEIGHT * 4.5 +
+                                              ITEM_PADDING_TOP,
+                                            width: 200,
+                                          },
+                                        },
+                                      }}
+                                    >
+                                      {values.courseAssignment.map(
+                                        (courseAssignmentItem, index) => {
+                                          return (
+                                            <MenuItem
+                                              key={index}
+                                              value={courseAssignmentItem}
+                                            >
+                                              {courseAssignmentItem.class.name}
+                                            </MenuItem>
+                                          );
+                                        }
+                                      )}
+                                    </Select>
+                                  </FormControl>
+                                </div>
+                              </div>
+                              <RoleContext.Consumer>
+                                {({ role }) => (
+                                  <Can
+                                    role={role}
+                                    perform="virtuel-class-input-professor:visit"
+                                    yes={() => (
+                                      <div className="col-md-6">
+                                        <div className="form-group">
+                                          <FormControl className="w-100">
+                                            <InputLabel
+                                              htmlFor="name-multiple"
+                                              required
+                                            >
+                                              {
+                                                <IntlMessages id="toDo.professor" />
+                                              }
+                                            </InputLabel>
+                                            <Select
+                                              multiple
+                                              id="classSelected"
+                                              name="classSelected"
+                                              value={values.profSelected}
+                                              onChange={handleChangeProfessor}
+                                              input={
+                                                <Input id="name-multiple2" />
+                                              }
+                                              MenuProps={{
+                                                PaperProps: {
+                                                  style: {
+                                                    maxHeight:
+                                                      ITEM_HEIGHT * 4.5 +
+                                                      ITEM_PADDING_TOP,
+                                                    width: 200,
+                                                  },
+                                                },
+                                              }}
+                                            >
+                                              {values.professorsFiltred.map(
+                                                (professor, index) => {
+                                                  return (
+                                                    <MenuItem
+                                                      key={index}
+                                                      value={professor}
+                                                    >
+                                                      {professor.name+ ' '+ professor.surname}
+                                                    </MenuItem>
+                                                  );
+                                                }
+                                              )}
+                                            </Select>
+                                          </FormControl>
+                                        </div>
+                                      </div>
+                                    )}
+                                  />
+                                )}
+                              </RoleContext.Consumer>
+
                               <div className="d-flex col-md-12 flex-column">
                                 <label
                                   htmlFor="description"
@@ -452,7 +473,7 @@ class AddVirtualClass extends React.Component {
                         <div className="d-flex flex-wrap justify-content-end ">
                           <Button
                             variant="contained"
-                            onClick={this.props.openAddModal}
+                            onClick={this.props.handleCancel}
                             style={{
                               borderBottomLeftRadius: "16px",
                               borderBottomRightRadius: "16px",

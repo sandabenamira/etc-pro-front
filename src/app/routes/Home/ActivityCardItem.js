@@ -41,7 +41,6 @@ export default class ActivityCardItem extends Component {
 
 
   render() {
-    console.log( this.props.todo,'toppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp');
     return (
       <div className="media user-profile">
         <div className="MuiAvatar-root size-50 mr-3">

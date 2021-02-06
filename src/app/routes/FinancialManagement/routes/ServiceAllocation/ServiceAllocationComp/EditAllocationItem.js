@@ -109,35 +109,11 @@ class EditAllocationItem extends Component {
       SelectedMonthList,
     });
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.item.fk_id_service != this.props.item.fk_id_service) {
-  //     let element = this.props.item;
-  //     var dateStart = moment(element.service_v2.start_date_service);
-  //     var dateEnd = moment(element.service_v2.end_date_service);
-  //     var monthList = [];
-  //     while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
-  //       var month = new Date(dateStart.format('YYYY-MM-01'));
-  //       monthList.push({
-  //         idMonth: parseInt(dateStart.format('MM'), 10),
-  //         label: monthNames[month.getMonth()],
-  //         value: dateStart.format('YYYY-MM-01'),
-  //       });
-
-  //       dateStart.add(1, 'month');
-  //     }
-
-  //     this.setState({
-  //       SelectedMonthList: this.props.item.allocation_month,
-  //       monthList: monthList,
-  //     });
-  //   }
-  // }
+ 
 
   render() {
-    //console.log(this.state.SelectedMonthList,'monthList');
     const { value, monthList } = this.state;
     let element = this.props.item;
-    // console.log(this.props.item.allocation_month, 'this.props.item.allocation_month');
 
     return (
       <>

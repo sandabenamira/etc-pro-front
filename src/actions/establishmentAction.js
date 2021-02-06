@@ -20,7 +20,6 @@ export function getEstablishment() {
           (element) => element.status
         );
         dispatch({ type: "GET_ALL_ESTABLISHMENT", payload: establishmentList });
-        //dispatch(addEstablishmentContainers(establishmentList));
       })
       .catch((error) => {});
   };

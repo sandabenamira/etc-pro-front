@@ -5,7 +5,6 @@ import {
   ADD_VIRTUAL_CLASS,
   EDIT_VIRTUAL_CLASS,
   DELETE_VIRTUAL_CLASS,
-  HANDLE_REQUEST_CLOSE,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
@@ -15,50 +14,48 @@ import {
 import baseUrl from "../config/config";
 import axios from "axios";
 
-export const addClassVirtual = (itemClass) => {
+export const addClassVirtual = (itemClass, dateVirtuelClass) => {
   return (dispatch) => {
-    const classId = itemClass.classId;
-    const subjectId = itemClass.subjectId;
-    const profId = itemClass.professorId;
-    const courseId = itemClass.courseId;
-
-    let dataVirtualClass = {
-      date_virtual_class: itemClass.dateVirtualClass,
-      status: true,
-      virtual_class_name: itemClass.virtualClassName,
-      class_url: itemClass.classUrl,
-      password: itemClass.password,
-      start_time_class: itemClass.startTimeClass,
-      end_time_class: itemClass.endTimeClass,
-      virtual_class_status: "programée",
-      accessibility: itemClass.accessibility,
-      fk_id_course_v4: courseId,
-      publish: itemClass.publish,
-      description: itemClass.description,
-    };
-
     let apiEndpoint = `/virtual_class_v4?access_token=${localStorage.token}`;
-    classService.post(apiEndpoint, dataVirtualClass).then((response) => {
+    classService.post(apiEndpoint, dateVirtuelClass).then((response) => {
       if (response) {
-        let newObject = {
-          ...response.data,
-          classeId: classId,
-          subjectId: subjectId,
-          profId: profId,
-          profName: itemClass.profName,
-          profSurname: itemClass.profSurname,
-          subjectName: itemClass.subjectName,
-          classeName: itemClass.classeName,
-          subjectColor: itemClass.subjectColor,
-        };
-        dispatch({ type: ADD_VIRTUAL_CLASS, payload: newObject });
-        dispatch({
-          type: SHOW_SUCCESS_MESSAGE,
-          payload: "La création est effectuée avec succès",
+        let virtuelClassId = response.data.id;
+        let virtuelClassCourse = [];
+        virtuelClassCourse = itemClass.coursesIds.map((courseId) => {
+          return {
+            status: true,
+            fk_id_course_v4: courseId.id,
+            fk_id_virtual_class_v4: virtuelClassId,
+          };
         });
-        setTimeout(() => {
-          dispatch({ type: HIDE_SUCCESS_MESSAGE });
-        }, 4000);
+        let apiEndpoint2 = `/courses_virtuel_classes?access_token=${localStorage.token}`;
+        classService.post(apiEndpoint2, virtuelClassCourse).then((res) => {
+          if (res) {
+
+            itemClass.classSelected.forEach(element => {
+                let newObject = {
+            ...response.data,
+            profId: itemClass.professorId,
+            profName: itemClass.profName,
+            profSurname: itemClass.profSurname,
+            classeId: element.class.id,
+            classeName: element.class.name,
+            subjectName: itemClass.subjectName,
+            subjectColor: itemClass.subjectColor,
+            subjectId: itemClass.subjectId,
+            };
+            dispatch({ type: ADD_VIRTUAL_CLASS, payload: newObject });
+              
+            });
+            dispatch({
+              type: SHOW_SUCCESS_MESSAGE,
+              payload: "La création est effectuée avec succès",
+            });
+            setTimeout(() => {
+              dispatch({ type: HIDE_SUCCESS_MESSAGE });
+            }, 4000);
+          }
+        });
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
@@ -108,27 +105,6 @@ export function getClassesVirtual(
   };
 }
 
- 
-
-export function getClassVirtualByEstablishmentId(establishmentId) {
-  return (dispatch) => {
-    let apiEndpoint =
-      `/virtual_classes?access_token=${localStorage.token}&filter[where][establishment_id]=` +
-      establishmentId;
-    classService
-      .get(apiEndpoint)
-      .then((response) => {
-        const list = response.data;
-        // const ClassVirtualList = list.filter((element) => element.status);
-
-        // dispatch({
-        //   type: FETECHED_ALL_VIRTUAL_CLASS,
-        //   payload: ClassVirtualList,
-        // });
-      })
-      .catch((err) => {});
-  };
-}
 
 export function deleteClassVirtual(item) {
   return (dispatch) => {
@@ -223,5 +199,4 @@ export const serviceAction = {
   getClassesVirtual,
   deleteClassVirtual,
   editClassVirtual,
-  getClassVirtualByEstablishmentId,
 };

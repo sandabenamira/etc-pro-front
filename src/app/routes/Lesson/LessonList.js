@@ -84,7 +84,6 @@ class LessonList extends React.Component {
 
   handleDeleteLesson = (item, event) => {
     event.preventDefault();
-    console.log("ccccccc", this.state.deleteItem.id);
     this.props.deleteLesson(this.state.deleteItem.id);
     this.setState({ deleteIsopen: false, menuState: false, deleteItem: item });
   };
@@ -93,7 +92,6 @@ class LessonList extends React.Component {
   }
 
   handleShowDownloadModal = (item) => {
-    console.log("download modale", item);
 
     this.setState({
       opendownload: true,
@@ -289,8 +287,6 @@ class LessonList extends React.Component {
     const { levels, lessons } = this.props;
     const { sections } = this.state;
     var CourListByRole = [];
-    console.log("lesson", this.props.lesson);
-    //il faut metre une méthode générique pour else et if
     if (this.props.userProfile.role_id === roleIdProfessor) {
       if (
         this.state.class_id === "" &&

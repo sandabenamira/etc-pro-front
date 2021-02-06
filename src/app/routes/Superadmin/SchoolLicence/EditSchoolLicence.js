@@ -5,12 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Auxiliary from "../../../../util/Auxiliary";
 import { connect } from "react-redux";
-import moment from "moment";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/moment";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";

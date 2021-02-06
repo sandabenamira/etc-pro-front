@@ -394,7 +394,7 @@ class Header extends React.Component {
                   </h4>
                 ) : (
                   <h4 className="mb-0 mr-auto text-white">
-                    {user.surname.toUpperCase()} {user.name}
+                    {user.surname} {user.name}
                   </h4>
                 )}
                 <h5 className="mb-0 mr-auto text-grey">

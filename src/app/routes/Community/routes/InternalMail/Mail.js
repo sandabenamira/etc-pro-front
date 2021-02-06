@@ -20,8 +20,274 @@ import AppModuleHeader from "./AppModuleHeader";
 import MailDetail from "./MailDetail";
 import IntlMessages from "../../../../../util/IntlMessages";
 import CustomScrollbars from "./CustomScrollbars";
+import { classService } from "../../../../../_services/class.service";
+import {
+  roleIdAdmin,
+  roleIdProfessor,
+  roleIdStudent,
+  roleIdDirector,
+  roleIdParent,
+  roleIdSupervisor,
+} from "../../../../../config/config";
+import _ from "lodash";
+import { sendMail } from "../../../../../actions/MailAction";
 
 class Mail extends Component {
+  constructor() {
+    super();
+    this.state = {
+      searchMail: "",
+      noContentFoundMessage: "No mail found in selected folder",
+      alertMessage: "",
+      showMessage: false,
+      drawerState: false,
+      optionName: "None",
+      anchorEl: null,
+      allMail: mails,
+      loader: true,
+      currentMail: null,
+      user: {
+        name: "Robert Johnson",
+        email: "robert@example.com",
+        avatar: "https://via.placeholder.com/150x150",
+      },
+      selectedMails: 0,
+      selectedFolder: 0,
+      composeMail: false,
+      labelMenuState: false,
+      folderMenuState: false,
+      optionMenuState: false,
+      folderMails: mails.filter((mail) => mail.folder === 0),
+
+      classes: [],
+      professorsIds: [],
+      subject: "",
+      roleId: null,
+      classId: null,
+      professorsFiltred: [],
+      adminsIds: [],
+      receivers: [],
+      mailFiles: [],
+      nameFiles: [],
+      users: [],
+      message: "",
+      classStudentFilter: [],
+      studentFiltred: [],
+      studentsIds: [],
+      filterLevelStudentId: null,
+      filterClassStudentId: null,
+      parentsIds: [],
+      parentFiltred: [],
+    };
+  }
+
+  sendMail = () => {
+    let dataMail = {};
+    dataMail.status = true;
+    dataMail.subject = this.state.subject;
+    dataMail.message = this.state.message;
+    dataMail.date_mail = new Date();
+    dataMail.read = false;
+    dataMail.starred = false;
+    dataMail.important = false;
+    dataMail.fk_id_sender_profile = this.props.userProfile.id;
+    this.props.dispatch(
+      sendMail(dataMail, this.state.receivers, this.state.mailFiles)
+    );
+    this.setState({
+      classes: [],
+      professorsIds: [],
+      subject: "",
+      roleId: null,
+      classId: null,
+      professorsFiltred: [],
+      adminsIds: [],
+      receivers: [],
+      mailFiles: [],
+      nameFiles: [],
+      users: [],
+      message: "",
+      classStudentFilter: [],
+      studentFiltred: [],
+      studentsIds: [],
+      filterLevelStudentId: null,
+      filterClassStudentId: null,
+      parentsIds: [],
+      parentFiltred: [],
+
+    });
+  };
+
+  handleChangeRole = (event) => {
+    this.setState({ roleId: event.target.value });
+    if (event.target.value !== 0) {
+      let receivers = [];
+      switch (event.target.value) {
+        case roleIdAdmin:
+          receivers = _.map(this.props.admins, "profileId");
+          this.setState({ receivers, users: this.props.admins });
+          break;
+        case roleIdProfessor:
+          receivers = _.map(this.props.professors, "profileId");
+          this.setState({
+            receivers,
+            professorsFiltred: [],
+            professorsIds: [],
+          });
+          break;
+        case roleIdStudent:
+          receivers = _.map(this.props.students, "profileId");
+          this.setState({
+            receivers,
+            studentsIds: [],
+            filterLevelStudentId: null,
+          });
+          break;
+        case roleIdSupervisor:
+          receivers = _.map(this.props.supervisors, "profileId");
+          this.setState({ receivers, users: this.props.supervisors });
+          break;
+        case roleIdDirector:
+          receivers = _.map(this.props.directors, "profileId");
+          this.setState({ receivers, users: this.props.directors });
+          break;
+        default:
+          break;
+      }
+    } else {
+      this.setState({ receivers: [], adminsIds: [] });
+    }
+  };
+
+  handleChangeClass = (event) => {
+    this.setState({ classId: event.target.value, professorsIds: [] });
+    let professorsFiltred = [];
+    let receivers = [];
+    this.props.professors.forEach((professor) => {
+      professor.inforamtionsProf.forEach((element) => {
+        if (element.ClassId === event.target.value) {
+          professorsFiltred.push(professor);
+          receivers.push(professor.profileId);
+        }
+      });
+    });
+    this.setState({ professorsFiltred, receivers });
+  };
+
+  handleChangeSubject = (event) => {
+    this.setState({ subject: event.target.value });
+  };
+
+  handleChangeEditor = (event) => {
+    let message = "";
+    event.blocks.map((element) => {
+      message = message + " " + element.text;
+    });
+    this.setState({ message });
+  };
+
+  handleChangeProfessorIds = (event) => {
+    this.setState({
+      professorsIds: event.target.value,
+      receivers: event.target.value,
+    });
+  };
+  handleChangeAdminsIds = (event) => {
+    this.setState({
+      adminsIds: event.target.value,
+      receivers: event.target.value,
+    });
+  };
+  handleChangeStudentsIds = (event) => {
+    this.setState({
+      studentsIds: event.target.value,
+      receivers: event.target.value,
+    });
+    if (this.state.roleId === roleIdParent) {
+      let parentFiltred = [];
+      this.props.parents.forEach((element) => {
+        element.inforamtionsParent.forEach((item) => {
+          event.target.value.forEach((id) => {
+            if (id == item.studentProfileId) {
+              parentFiltred.push(element);
+            }
+          });
+        });
+      });
+      this.setState({ parentFiltred });
+    }
+  };
+
+  handleChangeParentsIds = (event) => {
+    this.setState({
+      parentsIds: event.target.value,
+      receivers: event.target.value,
+    });
+  };
+
+  handleChangeFilterStudent = (name) => (event) => {
+    if (name === "filterLevelStudentId") {
+      let classStudentFilter = this.props.classes.filter(
+        (element) => element.fk_id_level_v4 === event.target.value
+      );
+      this.setState({
+        classStudentFilter,
+        studentsIds: [],
+        filterLevelStudentId: event.target.value,
+        filterClassStudentId: null,
+      });
+    }
+    if (name === "filterClassStudentId") {
+      let studentFiltred = [];
+      this.props.students.forEach((student) => {
+        if (
+          student.inforamtionsStudent.classInformation.classId ===
+          event.target.value
+        ) {
+          studentFiltred.push(student);
+        }
+      });
+      this.setState({
+        studentFiltred,
+        studentsIds: [],
+        filterClassStudentId: event.target.value,
+      });
+    }
+  };
+
+  deleteFile(filename) {
+    let nameFiles = this.state.nameFiles.filter(
+      (element) => element != filename
+    );
+
+    let mailFiles = this.state.mailFiles.filter(
+      (element) => element.name != filename
+    );
+
+    this.setState({ nameFiles, mailFiles });
+  }
+
+  attachFile(e) {
+    var oldFiles = this.state.mailFiles;
+    var files = Object.values(e.target.files);
+    var nameFiles = this.state.nameFiles;
+    if (files !== undefined && this.state.nameFiles.length + files.length < 6) {
+      files.map((element) => {
+        nameFiles.push(element.name);
+        oldFiles.push(element);
+      });
+      this.setState({ mailFiles: oldFiles, nameFiles });
+    } else {
+      this.setState({
+        messageAlerte: "Vous avez dépasser 5 fichiers",
+        alerteStatus: true,
+      });
+      setTimeout(() => {
+        this.setState({ messageAlerte: "", alerteStatus: false });
+      }, 4000);
+    }
+  }
+
   MailSideBar = () => {
     return (
       <div className="module-side">
@@ -174,6 +440,26 @@ class Mail extends Component {
       folderMenuState: false,
       labelMenuState: false,
       optionMenuState: false,
+
+      classes: [],
+      professorsIds: [],
+      subject: "",
+      roleId: null,
+      classId: null,
+      professorsFiltred: [],
+      adminsIds: [],
+      receivers: [],
+      mailFiles: [],
+      nameFiles: [],
+      users: [],
+      message: "",
+      classStudentFilter: [],
+      studentFiltred: [],
+      studentsIds: [],
+      filterLevelStudentId: null,
+      filterClassStudentId: null,
+      parentsIds: [],
+      parentFiltred: [],
     });
   };
   getNavFilters = () => {
@@ -533,34 +819,6 @@ class Mail extends Component {
     );
   };
 
-  constructor() {
-    super();
-    this.state = {
-      searchMail: "",
-      noContentFoundMessage: "No mail found in selected folder",
-      alertMessage: "",
-      showMessage: false,
-      drawerState: false,
-      optionName: "None",
-      anchorEl: null,
-      allMail: mails,
-      loader: true,
-      currentMail: null,
-      user: {
-        name: "Robert Johnson",
-        email: "robert@example.com",
-        avatar: "https://via.placeholder.com/150x150",
-      },
-      selectedMails: 0,
-      selectedFolder: 0,
-      composeMail: false,
-      labelMenuState: false,
-      folderMenuState: false,
-      optionMenuState: false,
-      folderMails: mails.filter((mail) => mail.folder === 0),
-    };
-  }
-
   componentDidMount() {
     setTimeout(() => {
       this.setState({ loader: false });
@@ -635,14 +893,14 @@ class Mail extends Component {
     });
   }
 
-  onMailSend(data) {
-    this.setState({
-      alertMessage: "Mail Sent Successfully",
-      showMessage: true,
-      folderMails: this.state.allMail.concat(data),
-      allMail: this.state.allMail.concat(data),
-    });
-  }
+  // onMailSend(data) {
+  //   this.setState({
+  //     alertMessage: "Mail Sent Successfully",
+  //     showMessage: true,
+  //     folderMails: this.state.allMail.concat(data),
+  //     allMail: this.state.allMail.concat(data),
+  //   });
+  // }
 
   onMailSelect(mail) {
     this.setState({
@@ -691,6 +949,7 @@ class Mail extends Component {
       showMessage,
       noContentFoundMessage,
     } = this.state;
+
     return (
       <div className="app-wrapper">
         <div className="animated slideInUpTiny animation-duration-3">
@@ -853,20 +1112,45 @@ class Mail extends Component {
                   open={composeMail}
                   user={user}
                   onClose={this.handleRequestClose.bind(this)}
-                  onMailSend={this.onMailSend.bind(this)}
+                  // onMailSend={this.onMailSend.bind(this)}
+                  handleChangeClass={this.handleChangeClass.bind(this)}
+                  handleChangeSubject={this.handleChangeSubject.bind(this)}
+                  handleChangeEditor={this.handleChangeEditor.bind(this)}
+                  handleChangeRole={this.handleChangeRole.bind(this)}
+                  handleChangeProfessorIds={this.handleChangeProfessorIds.bind(
+                    this
+                  )}
+                  handleChangeAdminsIds={this.handleChangeAdminsIds.bind(this)}
+                  sendMail={this.sendMail.bind(this)}
+                  attachFile={this.attachFile.bind(this)}
+                  deleteFile={this.deleteFile.bind(this)}
+                  values={this.state}
+                  professors={this.props.professors}
+                  admins={this.props.admins}
+                  classes={this.props.classes}
+                  levels={this.props.levels}
+                  handleChangeFilterStudent={this.handleChangeFilterStudent.bind(
+                    this
+                  )}
+                  handleChangeStudentsIds={this.handleChangeStudentsIds.bind(
+                    this
+                  )}
+                  handleChangeParentsIds={this.handleChangeParentsIds.bind(
+                    this
+                  )}
                 />
               </div>
             </div>
           </div>
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            open={showMessage}
+            open={this.props.showMessage}
             autoHideDuration={3000}
             onClose={this.handleRequestClose}
             ContentProps={{
               "aria-describedby": "message-id",
             }}
-            message={<span id="message-id">{alertMessage}</span>}
+            message={<span id="message-id">{this.props.alertMessage}</span>}
           />
         </div>
       </div>
@@ -880,6 +1164,16 @@ const mapStateToProps = (state) => {
     successStatus: state.alert.success,
     errorStatus: state.alert.error,
     message: state.alert.message,
+    professors: state.usersReducer.professors,
+    admins: state.usersReducer.admins,
+    supervisors: state.usersReducer.supervisors,
+    directors: state.usersReducer.directors,
+    classes: state.ClassSettingsReducer.classSettings,
+    students: state.usersReducer.students,
+    levels: state.levelsReducer.levels,
+    alertMessage: state.MailReducer.alertMessage,
+    showMessage: state.MailReducer.showMessage,
+    parents: state.usersReducer.parents,
   };
 };
 export default connect(mapStateToProps)(Mail);

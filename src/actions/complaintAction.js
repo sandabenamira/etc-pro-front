@@ -6,7 +6,6 @@ import {
   GET_RECLAM_RECUES,
   GET_RECLAM_ENVOYÉES,
   EDIT_RECLAM_STATUS,
-  ON_CHANGE_STATUS,
   ON_CHANGE_STATUS_CLOSE,
   DELETE_RECLAM,
 } from "../constants/ActionTypes";
@@ -53,8 +52,7 @@ export function uploadComplaintMedia(ObjetFile, ObjetComplaint) {
             }
           )
           .then((response) => {
-            console.log('updateddddddddddd ', response.data)
-            // dispatch(uploadCourseMedia(object));
+    
           })
           .catch(function (error) {
             console.log("error", error);

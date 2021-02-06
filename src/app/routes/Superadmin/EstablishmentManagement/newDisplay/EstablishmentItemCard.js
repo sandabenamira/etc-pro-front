@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getNameFromID } from '../../../../../actions/countriesAction';
 import { getEstabTypeByID } from '../../../../../actions/estabTypeAction';
-import moment from 'moment';
 import IntlMessages from '../../../../../util/IntlMessages';
 import _ from 'lodash';
-import baseUrl from '../../../../../config/config';
-import { classService } from "../../../../../_services";
 import imageSchool from "../image/school.jpeg"
 //TODO ajouter countries to edit Modal .
 //TODO Ajouter type_établissement a l'affichage de liste ?
@@ -17,7 +14,6 @@ function EstablishmentItemCard(
     phone, website, number_students, number_sms, mode_payment,
     name_director, surname_director, module_id, countries_id, estab_type_id } = data;
   ;
-  console.log(data,"dataa estabbbb");
   const [uri, setUri] = useState("");
   useEffect(() => {
     // if (name) {

@@ -8,8 +8,6 @@ export default class JitsiComponent extends Component {
             <div>
                 <Jitsi
                     roomName={this.props.values.virtualClassName}
-                    // displayName={this.props.values.displayName}
-                    // password={this.props.values.class_password}
                     displayName={this.props.values.classUrl}
                     password={this.props.values.password}
                     containerStyle={{ width: '1200px', height: '800px' }}
