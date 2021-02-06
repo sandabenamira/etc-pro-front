@@ -67,7 +67,7 @@ export const stuppModules = [
     name: "Gestion financière",
     pathName: "financial_management",
     order: 9,
-    type: "menuNoarraw",
+    type: "subMenu",
     component: "FinancialManagement",
     id: 9,
   },
@@ -97,12 +97,13 @@ export const stuppModules = [
   },
   {
     name: "Evaluation",
-    pathName: "evaluation",
+    pathName:"evaluation",
     order: 13,
     type: "subMenu",
     component: "Evaluation",
     id: 13,
   },
+
 ];
 
 export const sousModuleEtab = [
@@ -632,5 +633,5 @@ export const sousModuleEvaluation = [
     pathName: "evaluation/reporting-kpi",
     icon: "accounts-alt",
     id: 4,
-  },
+  }
 ];

@@ -1,37 +1,40 @@
-import React from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import Header from "../components/Header/index";
-import Sidebar from "../containers/SideNav/index";
-import Footer from "../components/Footer";
-import Administration from "./routes/Administration/index";
-import RegistreAppel from "./routes/RegistreAppel/Registre";
-import Mail from "./routes/Mail/Mail";
-import Devoir from "./routes/Learning/index";
-import Home from "./routes/Home/index";
-import UserProfile from "./routes/UserProfile/index";
-import { getUserProfile, getSchoolYear } from "../actions/Auth";
-import { COLLAPSED_DRAWER, FIXED_DRAWER } from "../constants/ActionTypes";
-import { isIOS, isMobile } from "react-device-detect";
-import asyncComponent from "../util/asyncComponent";
-import Cafeteria from "./routes/Cafeteria/index";
-import HealthMonitoring from "./routes/HealthMonitoring/HealthMonitoring";
-import Learning from "./routes/Learning/index";
-import Assiduity from "./routes/Assiduity/index";
-import GradesMenu from "./routes/GradesMenu/index";
-import Can from "../can";
-import { RoleContext } from "../Context";
-import SupportCours from "./routes/Learning/routes/CoursMaterials/SupportCours";
-import VirtualClasses from "./routes/Learning/index";
-import Community from "./routes/Community/index";
-import Dashboard from "./routes/Dashboard/index";
-import Libraries from "./routes/Libraries/index";
-import FinancialManagement from "./routes/FinancialManagement/index";
-import Superadmin from "./routes/Superadmin/index";
-import ModalEstablishmentList from "./routes/Home/admin/ModalEstablishmentList";
-import { getSubjectModules } from "../actions/SubjectModuleAction";
-import { getSection } from "../actions/SectionsAction";
-import { getLevel } from "../actions/LevelAction";
+import React from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Header from '../components/Header/index';
+import Sidebar from '../containers/SideNav/index';
+import Footer from '../components/Footer';
+import Administration from './routes/Administration/index';
+import RegistreAppel from './routes/RegistreAppel/Registre';
+import Mail from './routes/Mail/Mail';
+import Devoir from './routes/Learning/index';
+import Home from './routes/Home/index';
+import UserProfile from './routes/UserProfile/index';
+import { getUserProfile, getSchoolYear } from '../actions/Auth';
+import {
+  COLLAPSED_DRAWER,
+  FIXED_DRAWER,
+} from '../constants/ActionTypes';
+import { isIOS, isMobile } from 'react-device-detect';
+import asyncComponent from '../util/asyncComponent';
+ import Cafeteria from './routes/Cafeteria/index';
+import HealthMonitoring from './routes/HealthMonitoring/HealthMonitoring';
+import Learning from './routes/Learning/index';
+import Assiduity from './routes/Assiduity/index';
+import GradesMenu from './routes/GradesMenu/index';
+import Can from '../can';
+import { RoleContext } from '../Context';
+import SupportCours from './routes/Learning/routes/CoursMaterials/SupportCours';
+import VirtualClasses from './routes/Learning/index';
+import Community from './routes/Community/index';
+import Dashboard from './routes/Dashboard/index';
+import Libraries from './routes/Libraries/index';
+import FinancialManagement from './routes/FinancialManagement/routes/FinancialReporting/FinancialReporting';
+import Superadmin from './routes/Superadmin/index';
+import ModalEstablishmentList from './routes/Home/admin/ModalEstablishmentList';
+import { getSubjectModules } from '../actions/SubjectModuleAction';
+import { getSection } from '../actions/SectionsAction';
+import { getLevel } from '../actions/LevelAction';
 import {
   getSubjectSetting,
   getSubjectByEstablishmentAndSchoolYear,
