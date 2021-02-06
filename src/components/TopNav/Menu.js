@@ -12,9 +12,10 @@ import {
   sousModuleFinancialManagement,
   sousModuleSuperadmin,
   sousModuleCommunity,
-} from "../../constants/StuppModules";
-import { RoleContext } from "../../Context";
-import Can from "../../can";
+  sousModuleEvaluation
+} from '../../constants/StuppModules';
+import { RoleContext } from '../../Context';
+import Can from '../../can';
 
 const NavlinkItem = ({ pathName, listMoule }) => {
   return (
@@ -313,6 +314,14 @@ class Menu extends Component {
                 pathName={"administration"}
                 listModule={estabModule}
                 sousModuleStupp={sousModuleEtab2}
+              />
+            </li>
+            
+            <li className="nav-item">
+              <MenuCollapseBoxItem
+                pathName={'evaluation'}
+                listModule={estabModule}
+                sousModuleStupp={sousModuleEvaluation}
               />
             </li>
 

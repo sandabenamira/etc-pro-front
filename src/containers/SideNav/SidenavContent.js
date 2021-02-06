@@ -14,6 +14,7 @@ import {
   sousModuleAdministration,
   sousModuleAssiduity,
   sousModuleCommunity,
+  sousModuleEvaluation
 } from "../../constants/StuppModules";
 import Navigation from "../Navigation/index";
 // import CustomScrollbars from '../../util/CustomScrollbars';
@@ -220,6 +221,11 @@ class SidenavContent extends Component {
             pathName={"e-learning"}
             listModule={estabModule}
             sousModuleStupp={sousModuleELearning}
+          />
+          <MenuCollapseBoxItem
+            pathName={"evaluation"}
+            listModule={estabModule}
+            sousModuleStupp={sousModuleEvaluation}
           />
           {/* <li>
             <NavlinkItem pathName={"e-learning"} listMoule={estabModule} />
