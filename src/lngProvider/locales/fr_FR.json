@@ -1600,5 +1600,9 @@
   "complaint.action": "Actions",
   "destination": "Destinateur",
   "video.conferencing.tool": "Outil de visioconférence",
-  "configuration.of.generic.parameters": "Configuration des paramètres génériques"
+  "configuration.of.generic.parameters": "Configuration des paramètres génériques",
+  "sidebar.components.evaluation": "Evaluation",
+  "sidebar.components.note": "Note",
+  "sidebar.components.reporting-kpi": "Rapport kpi",
+  "sidebar.components.satisfaction-question": "Enquête de satisfaction"
 }

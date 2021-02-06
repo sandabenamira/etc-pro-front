@@ -13,7 +13,8 @@ import {
   sousModuleELearning,
   sousModuleAdministration,
   sousModuleAssiduity,
-  sousModuleCommunity
+  sousModuleCommunity,
+  sousModuleEvaluation
 } from "../../constants/StuppModules";
 import Navigation from "../Navigation/index";
 // import CustomScrollbars from '../../util/CustomScrollbars';
@@ -52,6 +53,10 @@ const NavlinkItem = ({ pathName, listMoule }) => {
 };
 
 const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
+  console.log("Sub modulessssssssss ",sousModuleEvaluation);
+  console.log("evaluation",pathName);
+  
+  console.log('sousModuleAssiduity',sousModuleAssiduity);
   
   return (
     <li className="menu collapse-box">
@@ -225,6 +230,11 @@ class SidenavContent extends Component {
             pathName={"e-learning"}
             listModule={estabModule}
             sousModuleStupp={sousModuleELearning}
+          />
+          <MenuCollapseBoxItem
+            pathName={"evaluation"}
+            listModule={estabModule}
+            sousModuleStupp={sousModuleEvaluation}
           />
           {/* <li>
             <NavlinkItem pathName={"e-learning"} listMoule={estabModule} />
