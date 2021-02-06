@@ -8,7 +8,15 @@ import { connect } from "react-redux";
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-
+import moment from "moment";
+import DateFnsUtils from "@date-io/moment";
+import { Radio } from '@material-ui/core';
+import { green } from '@material-ui/core/colors';
+import {
+    KeyboardDatePicker,
+    MuiPickersUtilsProvider,
+  } from "@material-ui/pickers";
+  import { withStyles } from '@material-ui/core/styles';
 
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
@@ -17,6 +25,16 @@ import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltO
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+
+const GreenRadio = withStyles({
+    root: {
+      color: green[400],
+      '&$checked': {
+        color: green[600],
+      },
+    },
+    checked: {},
+  })((props) => <Radio color="default" {...props} />);
 function IconContainer(props) {
     const { value, ...other } = props;
     return <span {...other}>{customIcons[value].icon}</span>;
@@ -96,7 +114,6 @@ const customIcons = {
       label: 'Very Satisfied',
     },
   };
-
 class AddSurvey extends React.Component {
   constructor(props) {
     super(props);
@@ -168,8 +185,15 @@ class AddSurvey extends React.Component {
       fonctionEdit: "",
       // counter user
       userCount: "",
+      selectedValue:'a'
     };
+    this.handlechange=this.handlechange.bind(this)
   }
+handlechange=(e)=>{
+this.setState({
+    selectedValue:e.target.value
+})
+}
 
   render() {
     return (
@@ -199,12 +223,12 @@ class AddSurvey extends React.Component {
                     required
                     className="form-control"
                     variant="outlined"
-                    id="profileName"
+                    id="entreprise"
                     variant="outlined"
-                    name="profileName"
+                    name="entreprise"
                     placeholder="Entreprise"
-                    // value={}
-                  />
+                    // value={this.props.values.entreprise}
+                    />
                 </CardBox>
 
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
@@ -212,37 +236,37 @@ class AddSurvey extends React.Component {
                     required
                     className="form-control"
                     variant="outlined"
-                    id="profileName"
+                    id="nom"
                     variant="outlined"
-                    name="profileName"
+                    name="nom"
                     placeholder="Nom"
-                    // value={}
-                  />
+                    // value={this.props.values.nom}
+                    />
                 </CardBox>
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
                   <TextField
                     required
                     className="form-control"
                     variant="outlined"
-                    id="profileName"
+                    id="prenom"
                     variant="outlined"
-                    name="profileName"
+                    name="prenom"
                     placeholder="Prénom"
-                    // value={}
-                  />
+                    // value={this.props.values.prenom}
+                    />
                 </CardBox>
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
                   <TextField
                     required
                     className="form-control"
                     variant="outlined"
-                    id="profileName"
+                    id="formationTitle"
                     variant="outlined"
-                    name="profileName"
+                    name="formationTitle"
                     placeholder="Nom de la formation suivie
                       "
-                    // value={}
-                  />
+                    // value={this.props.values.formationTitle}
+                    />
                 </CardBox>
               </div>
             </CardBox>
@@ -261,7 +285,7 @@ class AddSurvey extends React.Component {
                 <h4>2 ) Merci de renseigner la date de fin de la formation</h4>
                 </div>
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
+                  {/* <TextField
                     required
                     className="form-control"
                     variant="outlined"
@@ -271,7 +295,22 @@ class AddSurvey extends React.Component {
                     placeholder="Nom de la formation suivie
                       "
                     // value={}
-                  />
+                  /> */}
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <KeyboardDatePicker
+                        clearable
+                        fullWidth
+                        inputVariant="outlined"
+                        size="small"
+                        id="birthdayDate"
+                        name="birthdayDate"
+                       // value={this.state.birthDayDateProfile || ""}
+                        //onChange={this.handleChangeBirthdayDate}
+                        format="DD-MM-YYYY"
+                        autoOk
+                        maxDate={moment().year() - 6 + "-01-01"}
+                      />
+                    </MuiPickersUtilsProvider>
                 </CardBox>
               </div>
             </CardBox>
@@ -315,17 +354,45 @@ class AddSurvey extends React.Component {
                 <h4>4 ) Etes-vous satisfait des méthodes utilisées </h4>
                 </div>
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="profileName"
-                    variant="outlined"
-                    name="profileName"
-                    placeholder="Nom de la formation suivie
-                      "
-                    // value={}
-                  />
+                <div>
+      <Radio
+        checked={this.state.selectedValue === 'a'}
+        onChange={(e)=>this.handlechange(e)}
+        value="a"
+        name="radio-button-demo"
+        inputProps={{ 'aria-label': 'A' }}
+      />
+      <Radio
+        checked={this.state.selectedValue === 'b'}
+        onChange={(e)=>this.handlechange(e)}
+        value="b"
+        name="radio-button-demo"
+        inputProps={{ 'aria-label': 'B' }}
+      />
+      <Radio
+        checked={this.state.selectedValue === 'c'}
+        onChange={(e)=>this.handlechange(e)}
+        value="c"
+        name="radio-button-demo"
+        inputProps={{ 'aria-label': 'C' }}
+      />
+      <Radio
+        checked={this.state.selectedValue === 'd'}
+        onChange={(e)=>this.handlechange(e)}
+        value="d"
+        color="default"
+        name="radio-button-demo"
+        inputProps={{ 'aria-label': 'D' }}
+      />
+      <Radio
+        checked={this.state.selectedValue === 'e'}
+        onChange={(e)=>this.handlechange(e)}
+        value="e"
+        color="default"
+        name="radio-button-demo"
+        inputProps={{ 'aria-label': 'E' }}
+      />
+    </div>
                 </CardBox>
               </div>
             </CardBox>
@@ -569,12 +636,12 @@ class AddSurvey extends React.Component {
                     required
                     className="form-control"
                     variant="outlined"
-                    id="profileName"
+                    id="comment"
                     variant="outlined"
-                    name="profileName"
+                    name="comment"
                     placeholder="Nom de la formation suivie
                       "
-                    // value={}
+                    // value={this.props.values.comment}
                   />
 
 
