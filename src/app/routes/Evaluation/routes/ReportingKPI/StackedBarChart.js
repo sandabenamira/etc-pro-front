@@ -12,9 +12,9 @@ const StackedBarChart = () => (
       <CartesianGrid strokeDasharray="3 3"/>
       <Tooltip/>
       <Legend/>
-      <Bar dataKey="Présent" stackId="a" fill="#3367d6"/>
-      <Bar dataKey="Retard" stackId="a" fill="#336755"/>
-      <Bar dataKey="Absent" stackId="a" fill="#FF0000"/>
+      <Bar dataKey="Présent" stackId="a" fill="#1abc9c"/>
+      <Bar dataKey="Retard" stackId="a" fill="#f39c12"/>
+      <Bar dataKey="Absent" stackId="a" fill="#e74c3c"/>
      
     </BarChart>
   </ResponsiveContainer>
