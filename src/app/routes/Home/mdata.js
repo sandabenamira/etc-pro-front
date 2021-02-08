@@ -1,7 +1,7 @@
 import React from "react";
 
 export const growthData = [
-  {name: 'Page A', pv: 1200},
+  {name: 'Page Ahh', pv: 1200},
   {name: 'Page B', pv: 600},
   {name: 'Page C', pv: 1200},
   {name: 'Page D', pv: 600},

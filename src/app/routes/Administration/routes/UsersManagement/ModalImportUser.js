@@ -34,17 +34,17 @@ const listRolesUsers = [
   },
   {
     id: roleIdStudent,
-    label: <IntlMessages id={`userStuppDisplay.Student`} />,
+    label: "Collaborateur",
     value: roleIdStudent,
   },
   {
     id: roleIdParent,
-    label: <IntlMessages id={`userStuppDisplay.Parent`} />,
+    label: "Chef d'agence",
     value: roleIdParent,
   },
   {
     id: roleIdSupervisor,
-    label: <IntlMessages id={`role.supervisor`} />,
+    label: "Responsable formation",
     value: roleIdSupervisor,
   },
 ];

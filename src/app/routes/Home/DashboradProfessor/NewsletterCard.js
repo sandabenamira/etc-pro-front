@@ -21,9 +21,10 @@ const NewsletterCard = ({ headerText, cardStyle }) => {
               position: "absolute",
               marginTop: "10px",
               color: "black",
+              marginLeft:"10px"
             }}
           >
-            <IntlMessages id="dashborad.prof.news.letter" />{" "}
+          {" "}  Évaluation{" "}
           </span>
           <div
             style={{
