@@ -151,7 +151,7 @@ class SignIn extends React.Component {
             <Link className="logo-lg" to="/" title="STUPP">
               <img
                 width={220}
-                src={require("../assets/images/logoEducapGris.png")}
+                src={require("../assets/images/educapProLogo.png")}
                 alt="STUPP"
                 title="STUPP"
               />

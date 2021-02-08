@@ -1,65 +1,101 @@
-import React from 'react';
+import React, { Component } from "react";
 import FinancialReportingItem from "./FinancialReportingItem";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import IntlMessages from "../../../../../util/IntlMessages";
 
-const data =[
-    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
-    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
-    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
-    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"},
-    {id:1, name:"Formation Biat", type:"mejri", formateur :"Linda" , trainingFirm: "ADN", participant: 30, location:"Sousse", cost: "20000 DT", calculateReimbursement: "500"}
+let counter = 0;
 
-]
-class FinancialReportingList extends React.Component {
-constructor(props) {
-    super(props);
-
-    this.state = {
-    };
+function createData(name, Type, Formateur, Cabinet, Participants,Lieu,Prix,Coût,remboursement) {
+  counter += 1;
+  return { id: counter, name, Type, Formateur, Cabinet, Participants,Lieu,Prix,Coût,remboursement };
 }
 
-    render() {
-        return  <div className="table-responsive-material">
+class FinancialReportingList extends Component {
+  state = {
+    data: [
+      createData(
+        "Prise de parole",
+        "Inter Entreprise",
+        "YOUNSSI Sami",
+        "FOPEX",
+        "8",
+        "Tunis",
+        "1000DT",
+        "8000DT",
+        "3840DT"
+      ),
+      createData(
+        "Négociation",
+        "Inter Entreprise",
+        "HAMMEMI Houssem",
+        "FOPEX",
+        "10",
+        "Sousse",
+        "2250DT",
+        "22500DT",
+        "4200DT"
+      ),
+      createData(
+        "Comptabilté bancaire",
+        "Intra Entreprise",
+        "MAHMOUDI Salim",
+        "CIFOC",
+        "13",
+        "Tunis",
+        "3000DT",
+        "39000DT",
+        "8450DT"
+      ),
+      createData(
+        "Management",
+        "Inter Entreprise",
+        "MAHMOUDI Salim",
+        "ABF",
+        "10",
+        "Tunis",
+        "2500DT",
+        "250000DT",
+        "8450DT"
+      ),
+      createData(
+        "E-Learning",
+        "Inter Entreprise",
+        "Sami Salim",
+        "ABF",
+        "5",
+        "Tunis",
+        "800DT",
+        "4000DT",
+        "2200DT"
+      )
+    ],
+  };
 
-        <br />
-        <Table className="default-table table-unbordered table table-sm table-hover">
-          <TableHead className="th-border-b">
-            <TableRow>
-              <TableCell>
-                {" "}
-                {/* <IntlMessages id="components.student.formadd.section" /> */}
-                Nom de formation
-              </TableCell>
-              <TableCell><IntlMessages id="service.type" /></TableCell>
-              <TableCell>Formateur</TableCell>
-              <TableCell>Cabinet de formation</TableCell>
-              <TableCell>Participant</TableCell>
-              <TableCell>Lieu</TableCell>
-              <TableCell>Coût</TableCell>
-              <TableCell>Calcule de remboursement</TableCell>
-
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((item, index) => {
-              return (
-                <FinancialReportingItem
-                archived={true}
-                  key={index}
-                  item={item}
-                />
-              );
+  render() {
+    const { data } = this.state;
+    return (
+      <div className="table-responsive-material">
+        <table className="default-table table table-sm table-hover">
+          <thead>
+            <tr>
+              <th> <span style={{fontSize:"20px",color:"blue"}}>Formation</span > </th>
+              <th> <span style={{fontSize:"20px",color:"blue"}}>Type</span></th>
+              <th><span style={{fontSize:"20px",color:"blue"}}>Formateur</span ></th>
+              <th> <span style={{fontSize:"20px",color:"blue"}}>Cabinet de formation</span></th>
+              <th> <span style={{fontSize:"20px",color:"blue"}}>Participants</span></th>
+              <th> <span style={{fontSize:"20px",color:"blue"}}>Lieu</span></th>
+              <th> <span style={{fontSize:"20px",color:"blue"}}>Prix unitaire</span></th>
+              <th><span style={{fontSize:"20px",color:"blue"}}>Coût</span></th> 
+              <th><span style={{fontSize:"20px",color:"blue"}}>Remboursement</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((data) => {
+              return <FinancialReportingItem key={data.id} data={data} />;
             })}
-          </TableBody>
-        </Table>
-      </div>;
-    }
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 }
-
 
 export default FinancialReportingList;
