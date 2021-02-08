@@ -23,13 +23,13 @@ import { connect } from "react-redux";
 import { classService } from '../../../../_services/class.service';
 
 const data = [
-  { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-  { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-  { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
-  { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
-  { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
-  { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
-  { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
+  { name: "Groupe A", uv: 4000, pv: 2400, amt: 2400 },
+  { name: "Groupe B", uv: 3000, pv: 1398, amt: 2210 },
+  { name: "Groupe C", uv: 2000, pv: 9800, amt: 2290 },
+  { name: "Groupe D", uv: 2780, pv: 3908, amt: 2000 },
+  { name: "Groupe E", uv: 1890, pv: 4800, amt: 2181 },
+  { name: "Groupe F", uv: 2390, pv: 3800, amt: 2500 },
+  { name: "Groupe G", uv: 3490, pv: 4300, amt: 2100 },
 ];
 class ProfessorDashboard extends React.Component {
   constructor(props) {
@@ -82,7 +82,7 @@ class ProfessorDashboard extends React.Component {
         cardColor: "secondary",
         imageIcon: require("../../../../assets/images/dashboard/tasks-icon.png"),
         // title: this.state.countesClass,
-        subTitle: <IntlMessages id="dashborad.prof.classroom" />,
+        subTitle: 'Groupe de formation',
       },
       {
         cardColor: "info",
@@ -96,12 +96,12 @@ class ProfessorDashboard extends React.Component {
         // title: this.state.countesMoocs,
         subTitle: <IntlMessages id="dashborad.prof.moocs" />,
       },
-      {
-        cardColor: "warning",
-        imageIcon: require("../../../../assets/images/dashboard/files-icon.png"),
-        // title: 87,
-        subTitle: <IntlMessages id="dashborad.prof.homework.notebook" />,
-      },
+      // {
+      //   cardColor: "warning",
+      //   imageIcon: require("../../../../assets/images/dashboard/files-icon.png"),
+      //   // title: 87,
+      //   subTitle: <IntlMessages id="dashborad.prof.homework.notebook" />,
+      // },
     ];
     return (
       <div className="app-wrapper d-flex flex-column  col-lg-12 col-md-12 col-sm-12 ">

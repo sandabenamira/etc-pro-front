@@ -60,8 +60,7 @@ export class ModalDetailsUser extends React.Component {
                         marginTop: '10px',
                       }}
                     >
-                     Informations générales
-                      
+                      Informations générales
                     </Typography>
                   </label>
                 </div>
@@ -254,9 +253,7 @@ export class ModalDetailsUser extends React.Component {
                       </div>
                       <div className="col-md-6 col-lg-6 col-sm-12 d-flex flex-row ">
                         <div className="col-md-6 col-lg-6 col-sm-12 d-flex flex-column ">
-                          <label htmlFor="professorClassRoom">
-                            Ces groupes
-                          </label>
+                          <label htmlFor="professorClassRoom">Ces groupes</label>
                           {userItem.inforamtionsProf.map((element) => (
                             <span key={element.id} className="jr-tag bg-primary d-inline-block">
                               {element.classname}
@@ -265,8 +262,7 @@ export class ModalDetailsUser extends React.Component {
                         </div>
 
                         <div className="col-md-6 col-lg-6 col-sm-12 d-flex flex-column">
-                          <label htmlFor="professorClassRoom">
-Ces formations                          </label>
+                          <label htmlFor="professorClassRoom">Ces formations </label>
                           {userItem.inforamtionsProf.map((element) => (
                             <span key={element.id} className="jr-tag bg-primary d-inline-block">
                               {element.subjectName}
