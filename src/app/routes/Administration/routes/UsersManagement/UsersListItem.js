@@ -24,7 +24,44 @@ import {
   editUserPermitted,
 } from '../../../../../constants/validationFunctions';
 import ModalDetailsUserNameAndPassword from './ModalDetailsUserNameAndPassword';
-
+const listRolesUsers = [
+  {
+    id: roleIdAdmin,
+    label: <IntlMessages id="role.admin" />,
+    value: roleIdAdmin,
+    labelBackEnd: 'Admin',
+  },
+  {
+    id: roleIdDirector,
+    label: 'Directeur Des Ressources Humaines',
+    value: roleIdDirector,
+    labelBackEnd: 'Director',
+  },
+  {
+    id: roleIdSupervisor,
+    label: 'Responsable formation',
+    value: roleIdSupervisor,
+    labelBackEnd: 'Vie scolaire',
+  },
+  {
+    id: roleIdParent,
+    label: "Chef d'agence",
+    value: roleIdParent,
+    labelBackEnd: 'Responsable formation',
+  },
+  {
+    id: roleIdProfessor,
+    label: <IntlMessages id={`toDo.professor`} />,
+    value: roleIdProfessor,
+    labelBackEnd: 'Formateur',
+  },
+  {
+    id: roleIdStudent,
+    label: 'Collaborateur',
+    value: roleIdStudent,
+    labelBackEnd: 'Participant',
+  },
+];
 class UsersListItem extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +71,7 @@ class UsersListItem extends Component {
       menuState: false,
       anchorEl: undefined,
       openDetails: false,
-      openDetailsUsernamePassword : false
+      openDetailsUsernamePassword: false,
     };
     this.handleCancelDetails = this.handleCancelDetails.bind(this);
     this.handleOpenDetails = this.handleOpenDetails.bind(this);
@@ -42,21 +79,26 @@ class UsersListItem extends Component {
     this.handleCancelDetailsUsernamePassword = this.handleCancelDetailsUsernamePassword.bind(this);
   }
   handleCancelDetailsUsernamePassword() {
-     this.setState({ openDetailsUsernamePassword: false });
+    this.setState({ openDetailsUsernamePassword: false });
   }
   handleOpenDetailsUsernamePassword() {
-      this.setState({ menuState: false, openDetailsUsernamePassword: true });
+    this.setState({ menuState: false, openDetailsUsernamePassword: true });
   }
   handleCancelDetails() {
     this.setState({ openDetails: false });
- }
- handleOpenDetails() {
+  }
+  handleOpenDetails() {
     this.setState({ menuState: false, openDetails: true });
- }
+  }
   render() {
     const { user } = this.props;
     let listSubjectStudent = [];
     let listClassProf = [];
+    let roleNameUser = '';
+    let roleUser = listRolesUsers.find((element) => element.id == user.roleId) ;
+    if (roleUser != undefined) {
+      roleNameUser = roleUser.label;
+    }
 
     if (this.props.roleIdFilter == roleIdProfessor) {
       listSubjectStudent = _.uniqBy(user.inforamtionsProf, 'subjectName');
@@ -75,7 +117,8 @@ class UsersListItem extends Component {
           {/* <TableCell>{user.cin}</TableCell> */}
           <TableCell>{user.name}</TableCell>
           <TableCell>{user.surname}</TableCell>
-          {this.props.roleIdFilter == 0 ? <TableCell>{user.roleName}</TableCell> : null}
+          {this.props.roleIdFilter == 0 ? <TableCell>{roleNameUser}</TableCell> : null}
+          {/* {this.props.roleIdFilter == 0 ? <TableCell>{user.roleName}</TableCell> : null} */}
           {/* ------------     affichage classe et matiére pour prof -------------------------------------------*/}
           {this.props.roleIdFilter == roleIdProfessor ? (
             <TableCell>
@@ -86,7 +129,6 @@ class UsersListItem extends Component {
             <TableCell>{listClassProf.map((element) => element.classname + ' , ')}</TableCell>
           ) : null}
           {/* ------------     affichage classe et parent pour student -------------------------------------------*/}
-
           {this.props.roleIdFilter == roleIdStudent ? (
             <TableCell>
               {user.inforamtionsStudent.classInformation.classname == null
@@ -104,7 +146,6 @@ class UsersListItem extends Component {
             </TableCell>
           ) : null}
           {/* ------------     affichage enfant et classe pour parent -------------------------------------------*/}
-
           {this.props.roleIdFilter == roleIdParent ? (
             <TableCell align="justify">
               <div className="d-flex flex-column align-items-right">
@@ -134,16 +175,13 @@ class UsersListItem extends Component {
             </TableCell>
           ) : null}
           {/* ------------     éliminer colonne email  -------------------------------------------*/}
-
           {this.props.roleIdFilter == roleIdAdmin ||
           this.props.roleIdFilter == roleIdDirector ||
           this.props.roleIdFilter == roleIdSupervisor ||
           this.props.roleIdFilter == 0 ? (
             <TableCell>{user.email}</TableCell>
           ) : null}
-
           <TableCell>{user.phone}</TableCell>
-
           <TableCell align="justify">
             <div className="d-flex  flex-row align-items-right">
               {this.props.userProfile.role_id === roleIdSuperAdmin ||
@@ -194,7 +232,7 @@ class UsersListItem extends Component {
                       height: '20px',
                     }}
                     onClick={(e) => {
-                    this.props.handleEdit(user);
+                      this.props.handleEdit(user);
                     }}
                     target="_blank"
                   >
@@ -234,7 +272,7 @@ class UsersListItem extends Component {
         ) : (
           ''
         )}
-         {this.state.openDetailsUsernamePassword ? (
+        {this.state.openDetailsUsernamePassword ? (
           <ModalDetailsUserNameAndPassword
             handleOpenDetailsUsernamePassword={this.handleOpenDetailsUsernamePassword}
             handleCancelDetailsUsernamePassword={this.handleCancelDetailsUsernamePassword}

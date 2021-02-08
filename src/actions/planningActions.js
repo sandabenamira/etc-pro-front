@@ -114,11 +114,23 @@ const receiveEvents = (events) => ({
   payload: events,
 });
 
-export const addEvent = (itemEvent, itemSuplimentaire) => {
+export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
+  let objMail = {};
+  objMail.classId = itemSuplimentaire.classId;
+  objMail.notifMsg = notifMsg;
+  objMail.establishmentId = itemSuplimentaire.establishmentId
+
+  console.log('------objMail----', objMail);
   return (dispatch) => {
     let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, itemEvent).then((response) => {
       if (response) {
+        if (notifMsg != undefined && notifMsg != '') {
+          let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
+          classService.post(apiEndpoint1, objMail).then((response) => {
+            //  
+          });
+        }
         dispatch(
           getEventsByEstabAndSchoolYear(
             itemSuplimentaire.establishmentId,
@@ -470,50 +482,26 @@ export const getEventsByEstabAndSchoolYear = (establishementId, schoolYearId, cl
   };
 };
 
-export const editEvent = (itemEvent, itemSuplimentaire) => {
-  console.log('---------itemEvent------', itemEvent);
-  console.log('---------itemSuplimentaire------', itemSuplimentaire);
+export const editEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
+  let objMail = {};
+  objMail.classId = itemSuplimentaire.classId;
+  objMail.notifMsg = notifMsg;
+  objMail.establishmentId = itemSuplimentaire.establishmentId
 
   return (dispatch) => {
     let apiEndpoint = `/planning_events/` + itemEvent.id + `?access_token=${localStorage.token}`;
     classService.patch(apiEndpoint, itemEvent).then((response) => {
       if (response) {
-        //// notif mail ////---------------------------
-        // let obj = {};
-        // obj.subjectName = itemSuplimentaire.subjectName;
-        // obj.eventType = itemEvent.event_type;
-        // obj.profName = itemSuplimentaire.profName;
-        // obj.profSurname = itemSuplimentaire.profSurname;
-        // obj.roomName = itemSuplimentaire.roomName;
-        // obj.end = new Date(itemEvent.end_time);
-        // obj.start = new Date(itemEvent.start_time);
-        // obj.classId = itemSuplimentaire.classId;
-        // obj.classeName = itemSuplimentaire.className;
-        // let apiEndpoint = `/planning_events/absent-prof-notif?access_token=${localStorage.token}`;
-        // classService.post(apiEndpoint, obj).then((response) => {
-        //   console.log('------response.data-----', response.data);
-        //   // if (response.data.notificationData.length > 0) {
-        //   //   this.setState({
-        //   //     messageAlerte:
-        //   //       response.data.notificationData.length + ' Parents sont notifiés avec succées',
-        //   //     alerteNotif: true,
-        //   //     colorNotif: 'bg-success',
-        //   //   });
-        //   //   setTimeout(() => {
-        //   //     this.setState({ messageAlerte: '', alerteNotif: false });
-        //   //   }, 4000);
-        //   // } else {
-        //   //   this.setState({
-        //   //     messageAlerte: ' Aucun Parent est notifié',
-        //   //     alerteNotif: true,
-        //   //     colorNotif: 'bg-danger',
-        //   //   });
-        //   //   setTimeout(() => {
-        //   //     this.setState({ messageAlerte: '', alerteNotif: false });
-        //   //   }, 4000);
-        //   // }
-        // });
-        // refresh store ////////////////////
+        if (notifMsg != undefined && notifMsg != '') {
+          let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
+          classService.post(apiEndpoint1, objMail).then((response) => {
+            // if (response.data.notificationData.length > 0) {
+            //   console.log('--------response.data>0-------', response.data);
+            // } else {
+            //   console.log('--------response.data-------', response.data);
+            // }
+          });
+        }
 
         dispatch(
           getEventsByEstabAndSchoolYear(
@@ -527,7 +515,19 @@ export const editEvent = (itemEvent, itemSuplimentaire) => {
   };
 };
 
-export const deleteEvent = (typeDelete, itemEvent, establishmentId, schoolYearId, classId) => {
+export const deleteEvent = (
+  typeDelete,
+  itemEvent,
+  establishmentId,
+  schoolYearId,
+  classId,
+  messageNotif
+) => {
+  let objMail = {};
+  objMail.classId = classId;
+  objMail.notifMsg = messageNotif;
+  objMail.establishmentId = establishmentId
+
   return (dispatch) => {
     let apiEndpoint =
       `/planning_events/` +
@@ -573,6 +573,16 @@ export const deleteEvent = (typeDelete, itemEvent, establishmentId, schoolYearId
             `/planning_events/` + newData.id + `?access_token=${localStorage.token}`;
           classService.patch(apiEndpoint, newData).then((response) => {
             if (response) {
+              //*************notiif mail delete event */
+
+              let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
+              classService.post(apiEndpoint1, objMail).then((response) => {
+                // if (response.data.notificationData.length > 0) {
+                //   console.log('--------response.data>0-------', response.data);
+                // } else {
+                //   console.log('--------response.data-------', response.data);
+                // }
+              });
               dispatch({
                 type: SHOW_SUCCESS_MESSAGE,
                 payload: 'Cet évènement est supprimé avec succès',
