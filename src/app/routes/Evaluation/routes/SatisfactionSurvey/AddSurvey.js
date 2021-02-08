@@ -212,49 +212,10 @@ this.setState({
             <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start ali p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
-                <h4>1 ) Merci de renseigner les informations suivantes </h4>
+                <h4>1 ) Merci de renseigner la formation suivie </h4>
                 </div>
 
-                <CardBox styleName="col-lg-12 col-sm-12 col-md-12 d-flex flex-column  ">
-                <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
-                        
-                    </div>
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="entreprise"
-                    variant="outlined"
-                    name="entreprise"
-                    placeholder="Entreprise"
-                    // value={this.props.values.entreprise}
-                    />
-                </CardBox>
-
-                <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="nom"
-                    variant="outlined"
-                    name="nom"
-                    placeholder="Nom"
-                    // value={this.props.values.nom}
-                    />
-                </CardBox>
-                <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="prenom"
-                    variant="outlined"
-                    name="prenom"
-                    placeholder="Prénom"
-                    // value={this.props.values.prenom}
-                    />
-                </CardBox>
+             
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
                   <TextField
                     required
@@ -351,48 +312,11 @@ this.setState({
             <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
-                <h4>4 ) Etes-vous satisfait des méthodes utilisées </h4>
+                <h4>4 ) Êtes-vous satisfait des méthodes utilisées </h4>
                 </div>
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                <div>
-      <Radio
-        checked={this.state.selectedValue === 'a'}
-        onChange={(e)=>this.handlechange(e)}
-        value="a"
-        name="radio-button-demo"
-        inputProps={{ 'aria-label': 'A' }}
-      />
-      <Radio
-        checked={this.state.selectedValue === 'b'}
-        onChange={(e)=>this.handlechange(e)}
-        value="b"
-        name="radio-button-demo"
-        inputProps={{ 'aria-label': 'B' }}
-      />
-      <Radio
-        checked={this.state.selectedValue === 'c'}
-        onChange={(e)=>this.handlechange(e)}
-        value="c"
-        name="radio-button-demo"
-        inputProps={{ 'aria-label': 'C' }}
-      />
-      <Radio
-        checked={this.state.selectedValue === 'd'}
-        onChange={(e)=>this.handlechange(e)}
-        value="d"
-        color="default"
-        name="radio-button-demo"
-        inputProps={{ 'aria-label': 'D' }}
-      />
-      <Radio
-        checked={this.state.selectedValue === 'e'}
-        onChange={(e)=>this.handlechange(e)}
-        value="e"
-        color="default"
-        name="radio-button-demo"
-        inputProps={{ 'aria-label': 'E' }}
-      />
-    </div>
+                <Rating name="size-large" defaultValue={2} size="large"  />
+
                 </CardBox>
               </div>
             </CardBox>
@@ -409,20 +333,11 @@ this.setState({
             <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
-                <h4>5 ) Etes-vous satisfait du rythme de la formation </h4>
+                <h4>5 ) Êtes-vous satisfait du rythme de la formation </h4>
                 </div>
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="profileName"
-                    variant="outlined"
-                    name="profileName"
-                    placeholder="Nom de la formation suivie
-                      "
-                    // value={}
-                  />
+                <Rating name="size-large" defaultValue={2} size="large"  />
+
                 </CardBox>
               </div>
             </CardBox>
@@ -439,7 +354,7 @@ this.setState({
             <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
-                <h4>6 ) Etes-vous satisfait des moyens pédagogiques utilisés (documentation, supports)</h4>
+                <h4>6 ) Êtes-vous satisfait des moyens pédagogiques utilisés (documentation, supports)</h4>
                 </div>
                 <CardBox styleName="col-lg-12 col-sm-6 col-md-12">
                 <Box component="fieldset" mb={3} borderColor="transparent">
@@ -470,57 +385,43 @@ this.setState({
             <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
-                <h4>7 ) Etes-vous satisfait de l'animation</h4>
+                <h4>7 ) Êtes-vous satisfait de l'animation</h4>
                 </div>
-                <CardBox styleName="col-lg-12 col-sm-12 col-md-12 d-flex flex-column ">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="profileName"
-                    variant="outlined"
-                    name="profileName"
-                    placeholder="Entreprise"
-                    // value={}
-                  />
+                <CardBox styleName="col-lg-12 col-sm-6 col-md-12">
+                <Box component="fieldset" mb={3} borderColor="transparent">
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => console.log('rating',value)}
+          IconContainerComponent={IconContainer}
+          size="small"
+        />
+      </Box>
                 </CardBox>
 
+               
+           
+              </div>
+            </CardBox>
+          </div>
+        </div>
+
+
+
+
+
+        <div className="d-flex flex-wrap flex-row bd-highlight mb-3">
+          {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
+
+          <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
+              <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
+                <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
+                <h4>8 ) Êtes-vous satisfait de l'organisation matérielle </h4>
+                </div>
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="profileName"
-                    variant="outlined"
-                    name="profileName"
-                    placeholder="Nom"
-                    // value={}
-                  />
-                </CardBox>
-                <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="profileName"
-                    variant="outlined"
-                    name="profileName"
-                    placeholder="Prénom"
-                    // value={}
-                  />
-                </CardBox>
-                <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="profileName"
-                    variant="outlined"
-                    name="profileName"
-                    placeholder="Nom de la formation suivie
-                      "
-                    // value={}
-                  />
+                <Rating name="size-large" defaultValue={2} size="large"  />
+
                 </CardBox>
               </div>
             </CardBox>
@@ -538,51 +439,18 @@ this.setState({
             <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
-                <h4>8 ) Etes-vous satisfait de l'organisation matérielle </h4>
+                <h4>9 ) Êtes-vous satisfait des échanges dans le groupe</h4>
                 </div>
-                <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="profileName"
-                    variant="outlined"
-                    name="profileName"
-                    placeholder="Nom de la formation suivie
-                      "
-                    // value={}
-                  />
-                </CardBox>
-              </div>
-            </CardBox>
-          </div>
-        </div>
-
-
-
-
-
-        <div className="d-flex flex-wrap flex-row bd-highlight mb-3">
-          {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
-
-          <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
-              <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
-                <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
-                <h4>9 ) Etes-vous satisfait des échanges dans le groupe</h4>
-                </div>
-                <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="profileName"
-                    variant="outlined"
-                    name="profileName"
-                    placeholder="Nom de la formation suivie
-                      "
-                    // value={}
-                  />
+                <CardBox styleName="col-lg-12 col-sm-6 col-md-12">
+                <Box component="fieldset" mb={3} borderColor="transparent">
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => console.log('rating',value)}
+          IconContainerComponent={IconContainer}
+          size="small"
+        />
+      </Box>
                 </CardBox>
               </div>
             </CardBox>
@@ -599,20 +467,11 @@ this.setState({
             <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
-                <h4>10 ) Etes-vous satisfait de l'aide reçue lorsque vous avez eu des difficultés</h4>
+                <h4>10 ) Êtes-vous satisfait de l'aide reçue lorsque vous avez eu des difficultés</h4>
                 </div>
                 <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
-                  <TextField
-                    required
-                    className="form-control"
-                    variant="outlined"
-                    id="profileName"
-                    variant="outlined"
-                    name="profileName"
-                    placeholder="Nom de la formation suivie
-                      "
-                    // value={}
-                  />
+                <Rating name="size-large" defaultValue={2} size="large"  />
+
                 </CardBox>
               </div>
             </CardBox>
@@ -639,7 +498,7 @@ this.setState({
                     id="comment"
                     variant="outlined"
                     name="comment"
-                    placeholder="Nom de la formation suivie
+                    placeholder="commentaires
                       "
                     // value={this.props.values.comment}
                   />
