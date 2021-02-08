@@ -28,3 +28,5 @@ module.exports = {
   publicStatus:1,
   allStatus:0
 };
+
+ 

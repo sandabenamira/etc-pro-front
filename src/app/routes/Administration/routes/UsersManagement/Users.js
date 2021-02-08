@@ -96,7 +96,7 @@ const listRolesUsers = [
   },
   {
     id: roleIdStudent,
-    label: "Participant",
+    label: "Collaborateur",
     value: roleIdStudent,
     labelBackEnd: "Participant",
   },
@@ -1038,6 +1038,7 @@ class Users extends React.Component {
                   permissionList={this.state.permissionList}
                   listClassFilter={this.state.classForStudent}
                   usefulData={this.state}
+                  listRolesUsers={listRolesUsers}
                 />
               </CardBox>
             </div>
