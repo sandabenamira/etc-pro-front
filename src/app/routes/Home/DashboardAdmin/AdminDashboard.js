@@ -2,11 +2,46 @@ import React, { Component } from "react";
 import IconWithTextCard from "../IconWithTextCard";
 import IntlMessages from "../../../../util/IntlMessages";
 import CardHeader from "../../../../components/dashboard/default/CardHeader";
-import logo2 from '../../../../assets/images/dashboard/logo2.jpg';
-
-export default class AdminDashboard extends Component {
+import logo2 from "../../../../assets/images/dashboard/logo2.jpg";
+import { connect } from "react-redux";
+import moment from "moment";
+import "moment/locale/fr";
+class AdminDashboard extends Component {
+  componentDidUpdate(prevProps) {
+    if (prevProps.userProfile != this.props.userProfile) {
+      this.setState({
+        user: this.props.userProfile,
+        profileGenre: this.props.userProfile.user.gender,
+        profileAdress: this.props.userProfile.user.address,
+        profilePhoto: this.props.userProfile.user.photo,
+        birthDayDateProfile: this.props.userProfile.user.date_of_birth,
+        profileEstablishment: this.props.userProfile.establishments[0]
+          .establishment.name,
+        profileRole: this.props.userProfile.roleName,
+        // profilePassword:this.props.user.profilePassword,
+        profileEmail: this.props.userProfile.user.email,
+        profilePhone: "+" + this.props.userProfile.user.phone,
+      });
+    }
+  }
+  UNSAFE_componentWillMount() {
+    if (this.props.userProfile.user != undefined) {
+      this.setState({
+        user: this.props.userProfile,
+        profileGenre: this.props.userProfile.user.gender,
+        profileAdress: this.props.userProfile.user.address,
+        profilePhoto: this.props.userProfile.user.photo,
+        birthDayDateProfile: this.props.userProfile.user.date_of_birth,
+        profileEstablishment: this.props.userProfile.establishments[0]
+          .establishment.name,
+        profileRole: this.props.userProfile.roleName,
+        // profilePassword:this.props.user.profilePassword,
+        profileEmail: this.props.userProfile.user.email,
+        profilePhone: "+" + this.props.userProfile.user.phone,
+      });
+    }
+  }
   render() {
-
     const detailCardsRh = [
       {
         cardColor: "primary",
@@ -59,29 +94,33 @@ export default class AdminDashboard extends Component {
         subTitle: "Nombre de collaborateurs absents en formation",
       },
     ];
-
+    var currentDate=moment(new Date()).format("DD/MM/YYYY")
     return (
       <div className="app-wrapper d-flex flex-column   col-lg-12 col-md-12 col-sm-12">
-       <div class="d-flex flex-row flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12 bd-highlight mb-3">
+        <div class="d-flex flex-row flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12 bd-highlight mb-3">
           <div class="p-2 bd-highlight">
-            <img src={logo2} alt="Logo" style={{height:"200px" ,width:"auto"}} />
+            <img
+              src={logo2}
+              alt="Logo"
+              style={{ height: "200px", width: "auto" }}
+            />
           </div>
           <div class="p-2 bd-highlight align-self-center">
-    <h2>Bienvenu <strong style={{color:"#F08429"}}>Sami OUNI</strong>  dans votre espace <strong style={{color:"#03497D"}}>BIAT</strong> <br/>le  <strong>06/02/2021</strong>  </h2>
+            <h2>
+              Bienvenu{" "}
+              <strong style={{ color: "#F08429" }}>
+                {" "}
+                {this.props.userProfile.user.name +
+                  " " +
+                  this.props.userProfile.user.surname || ""}
+              </strong>{" "}
+              dans votre espace{" "}
+              <strong style={{ color: "#03497D" }}>BIAT</strong> <br />
+                le <strong>{currentDate}</strong>{" "}
+            </h2>
           </div>
         </div>
-        <div className="p-2  row d-flex flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12">
-          {/* ChartCard 1 */}
 
-          {detailCardsRh.map((data, index) => (
-            <div
-              key={index}
-              className="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-12" 
-            >
-              <IconWithTextCard data={data}  />
-            </div>
-          ))}
-        </div>
         <div className="p-2 row  d-flex flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12">
           {/* ChartCard 2 */}
           {detailCardsFr.map((data, index) => (
@@ -102,7 +141,7 @@ export default class AdminDashboard extends Component {
                 updatedAt="Cette semaine"
               />
               <div className="stack-order  py-4 px-2">
-                <h1 className="chart-f30 font-weight-light">86,200</h1>
+                <h1 className="chart-f30 font-weight-light">186,200</h1>
                 <span className="h3 text-muted">Dinars</span>
                 <span className="h5 text-primary">
                   <i className="zmdi zmdi-long-arrow-return zmdi-hc-fw zmdi-hc-rotate-90" />
@@ -119,7 +158,7 @@ export default class AdminDashboard extends Component {
                 updatedAt="Cette semaine"
               />
               <div className="stack-order  py-4 px-2">
-                <h1 className="chart-f30 font-weight-light">180,800</h1>
+                <h1 className="chart-f30 font-weight-light">80,800</h1>
                 <span className="h3 text-muted">Dinars</span>
                 <span className="h5 text-primary">
                   <i className="zmdi zmdi-long-arrow-return zmdi-hc-fw zmdi-hc-rotate-90" />
@@ -129,7 +168,29 @@ export default class AdminDashboard extends Component {
             </div>
           </div>
         </div>
+        <div className="p-2  row d-flex flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12">
+          {/* ChartCard 1 */}
+
+          {detailCardsRh.map((data, index) => (
+            <div
+              key={index}
+              className="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-12"
+            >
+              <IconWithTextCard data={data} />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    successStatus: state.alert.success,
+    errorStatus: state.alert.error,
+    message: state.alert.message,
+    userProfile: state.auth.userProfile,
+  };
+}
+export default connect(mapStateToProps)(AdminDashboard);
