@@ -8,15 +8,18 @@ import SimpleRadarChart from "./SimpleRadarChart";
 import TextField from "@material-ui/core/TextField";
 import IntegrationAutosuggest from "../../../Community/routes/Complaint/IntegrationAutosuggest";
 import MenuItem from "@material-ui/core/MenuItem";
+import ContainerHeader from "../../../../../components/ContainerHeader/index";
 
 export default class ReportingKPI extends Component {
   render() {
     return (
       <div className="d-flex flex-wrap justify-content-center flex-column align-items-center">
-        <div>
-          <h1>
-            <strong>Reporting KPI</strong>{" "}
-          </h1>
+        <div className="col-lg-12 col-12">
+      
+        <ContainerHeader
+          match={this.props.match}
+          title={<IntlMessages id="sidebar.components.reporting-kpi" />}
+        />
         </div>
 
         <div class="d-flex flex-wrap flex-row bd-highlight mb-3 col-lg-12 col-12">

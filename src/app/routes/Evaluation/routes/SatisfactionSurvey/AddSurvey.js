@@ -209,7 +209,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start ali p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>1 ) Merci de renseigner les informations suivantes </h4>
@@ -279,7 +279,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>2 ) Merci de renseigner la date de fin de la formation</h4>
@@ -324,7 +324,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>3 ) A l'issue de votre formation, êtes-vous satisfait de la qualité des relations avec le formateur</h4>
@@ -348,7 +348,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>4 ) Etes-vous satisfait des méthodes utilisées </h4>
@@ -406,7 +406,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>5 ) Etes-vous satisfait du rythme de la formation </h4>
@@ -436,7 +436,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>6 ) Etes-vous satisfait des moyens pédagogiques utilisés (documentation, supports)</h4>
@@ -467,7 +467,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>7 ) Etes-vous satisfait de l'animation</h4>
@@ -535,7 +535,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>8 ) Etes-vous satisfait de l'organisation matérielle </h4>
@@ -566,7 +566,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>9 ) Etes-vous satisfait des échanges dans le groupe</h4>
@@ -596,7 +596,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>10 ) Etes-vous satisfait de l'aide reçue lorsque vous avez eu des difficultés</h4>
@@ -625,7 +625,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-start "> 
                 <h4>11 ) Laissez vos commentaires</h4>
@@ -654,7 +654,7 @@ this.setState({
           {/* ------------     affichage liste des établissements pour super admin -------------------------------------------*/}
 
           <div className="p-2 bd-highlight col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-            <CardBox styleName="col-lg-8 col-sm-8 col-md-8  d-flex justify-content-center flex-column ">
+            <CardBox styleName="col-lg-8 col-sm-8 col-md-12  d-flex justify-content-center flex-column ">
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center justify-content-start p-2">
        
                   <div class="col-lg-12 col-sm-12 col-md-12 d-flex flex-wrap flex-row justify-content-center pt-5">
