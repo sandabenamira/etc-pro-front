@@ -6,7 +6,6 @@ import CardHeader from "../../../../../components/dashboard/default/CardHeader";
 import CardBox from "../../../../../components/CardBox";
 import SimpleRadarChart from "./SimpleRadarChart";
 import TextField from "@material-ui/core/TextField";
-import IntegrationAutosuggest from "../../../Community/routes/Complaint/IntegrationAutosuggest";
 import MenuItem from "@material-ui/core/MenuItem";
 import ContainerHeader from "../../../../../components/ContainerHeader/index";
 
@@ -26,7 +25,37 @@ export default class ReportingKPI extends Component {
           <div class="p-2 bd-highlight  col-lg-8 col-md-12">
             <div className="d-flex flex-wrap flex-row bd-highlight justify-content-center  ">
               <div className="p-2 bd-highlight col-lg-2 col-md-5 col-sm-6">
-                <TextField
+              <TextField
+                  id="status"
+                  name="status"
+                  select
+                  // value={this.state.filterClassId}
+                  // onChange={this.handleChangeFilter('filterClassId')}
+                  SelectProps={{}}
+                  label={<IntlMessages id={`Type`} />}
+                  InputProps={{ disableUnderline: true }}
+                  margin="normal"
+                  fullWidth
+                >
+                  {/* {this.state.filterClasses.length > 0 ? (
+                            this.state.filterClasses.map((option) => (
+                              <MenuItem key={option.id} value={option.id}>
+                                {option.name}
+                              </MenuItem>
+                            ))
+                          ) : (
+                            <MenuItem key={0} value={0}>
+                              Pas de classe
+                            </MenuItem>
+                          )} */}
+                  <MenuItem>Intra Entreprise</MenuItem>
+                  <MenuItem>Inter Entreprise</MenuItem>
+                </TextField>
+              </div>
+             
+              <div className="pt-5 ">|</div>
+              <div className="p-2 bd-highlight col-lg-2 col-md-5 col-sm-6">
+              <TextField
                   id="Role"
                   name="Role"
                   select
@@ -54,42 +83,7 @@ export default class ReportingKPI extends Component {
                 </TextField>
               </div>
 
-              <div className="pt-5 ">|</div>
-              <div className="p-2 bd-highlight col-lg-2 col-md-5 col-sm-6">
-                <TextField
-                  id="status"
-                  name="status"
-                  select
-                  // value={this.state.filterClassId}
-                  // onChange={this.handleChangeFilter('filterClassId')}
-                  SelectProps={{}}
-                  label={<IntlMessages id={`Type`} />}
-                  InputProps={{ disableUnderline: true }}
-                  margin="normal"
-                  fullWidth
-                >
-                  {/* {this.state.filterClasses.length > 0 ? (
-                            this.state.filterClasses.map((option) => (
-                              <MenuItem key={option.id} value={option.id}>
-                                {option.name}
-                              </MenuItem>
-                            ))
-                          ) : (
-                            <MenuItem key={0} value={0}>
-                              Pas de classe
-                            </MenuItem>
-                          )} */}
-                  <MenuItem>Intra Entreprise</MenuItem>
-                  <MenuItem>Inter Entreprise</MenuItem>
-                </TextField>
-              </div>
-
-              <div
-                className=" bd-highlight col-lg-3 col-md-6 col-sm-2"
-                style={{ paddingTop: "27px" }}
-              >
-                <IntegrationAutosuggest />
-              </div>
+          
             </div>
           </div>
           <div class="p-2 bd-highlight  col-lg-12 col-md-12">
