@@ -148,12 +148,12 @@ class SignIn extends React.Component {
       <div className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
         <div className="app-login-main-content">
           <div className="app-logo-content d-flex align-items-center justify-content-center">
-            <Link className="logo-lg" to="/" title="STUPP">
+            <Link className="logo-lg" to="/" title="Educap Pro">
               <img
                 width={220}
                 src={require("../assets/images/educapProLogo.png")}
-                alt="STUPP"
-                title="STUPP"
+                alt="Educap Pro"
+                title="Educap Pro"
               />
             </Link>
           </div>
