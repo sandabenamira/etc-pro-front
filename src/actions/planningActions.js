@@ -120,7 +120,6 @@ export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
   objMail.notifMsg = notifMsg;
   objMail.establishmentId = itemSuplimentaire.establishmentId
 
-  console.log('------objMail----', objMail);
   return (dispatch) => {
     let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, itemEvent).then((response) => {
@@ -577,11 +576,7 @@ export const deleteEvent = (
 
               let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
               classService.post(apiEndpoint1, objMail).then((response) => {
-                // if (response.data.notificationData.length > 0) {
-                //   console.log('--------response.data>0-------', response.data);
-                // } else {
-                //   console.log('--------response.data-------', response.data);
-                // }
+              
               });
               dispatch({
                 type: SHOW_SUCCESS_MESSAGE,

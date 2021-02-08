@@ -219,7 +219,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.userProfile.id !== this.props.userProfile.id) {
+    if (prevProps.userProfile !== this.props.userProfile) {
       if (
         localStorage.establishment_id != undefined &&
         localStorage.school_year_id != undefined
