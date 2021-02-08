@@ -1603,7 +1603,9 @@
   "configuration.of.generic.parameters": "Configuration des paramètres génériques",
   "sidebar.components.evaluation": "Evaluation",
   "sidebar.components.note": "Note",
-  "sidebar.components.reporting-kpi": "Rapport kpi",
+  "sidebar.components.reporting-kpi": "Reporting kpi",
   "sidebar.components.satisfaction-question": "Enquête de satisfaction",
-  "survey.satisfaction.list":"QUESTIONNAIRE DE SATISFACTION FORMATION"
+  "survey.satisfaction.list":"QUESTIONNAIRE DE SATISFACTION FORMATION",
+  "Formation":"Formation",
+  "Type":"Type"
 }
