@@ -107,7 +107,7 @@ class AdminDashboard extends Component {
           </div>
           <div class="p-2 bd-highlight align-self-center">
             <h2>
-              Bienvenu{" "}
+              Bienvenue{" "}
               <strong style={{ color: "#F08429" }}>
                 {" "}
                 {this.props.userProfile.user.name +

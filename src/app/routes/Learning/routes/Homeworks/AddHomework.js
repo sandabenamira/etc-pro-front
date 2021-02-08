@@ -141,7 +141,7 @@ class HomeworkList extends React.Component {
                   fontSize: "13px",
                 }}
               >
-                {<IntlMessages id="sidebar.components.classes" />}
+                Groupes
               </InputLabel>
               <Select
                 defaultValue={[]}

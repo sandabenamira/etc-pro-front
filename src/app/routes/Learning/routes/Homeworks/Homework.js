@@ -434,7 +434,7 @@ class Homework extends React.Component {
         imageIcon: require('../../../../../assets/images/dashboard/teams-icon.png'),
 
         // title: this.props.virtualClasses.length,
-        subTitle: <IntlMessages id={`message.Numbers.of.students`} />,
+        subTitle: 'Nombre de Collaborateurs',
       },
       {
         cardColor: 'secondary',
