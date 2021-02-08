@@ -34,8 +34,7 @@ class MainApp extends Component {
   };
 
   render() {
-    console.log('----------process.env.npm_package_version-------------',process.env);
-    return (
+     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <Switch>

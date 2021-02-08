@@ -275,17 +275,17 @@ class Planning extends React.Component {
 
     if (this.state.typeDeleteChecked == 'future') {
       let messageNotif =
-        'C’est à mon grand regret que je vous informe par la présente que les séances de formation ' +
+        'Je vous informe par la présente que les séances de formation ' +
         subjectName +
-        ' pour le groupe ' +
+        ' pour le Groupe ' +
         this.state.deleteItem.classeName +
         ' à partir de ' +
         newDateStart +
         ' dans ' +
         roomLabel +
-        ' avec le Formateur Mr/Mme ' +
+        ' avec le formateur Mr/Mme ' +
         profName +
-        ' ne pourrons avoir lieu . J’espère que vous accepterez nos excuses et que nous parviendrons à nous accorder sur une autre date';
+        ' ne pourra avoir lieu .Nous reviendrons vers vous le plus vite possible';
       let newRepetition = this.state.deleteItem.repetition.filter(
         (element) => element < this.state.deleteItem.idRepetition
       );
@@ -303,7 +303,7 @@ class Planning extends React.Component {
       );
     } else if (this.state.typeDeleteChecked == 'uniq') {
       let messageNotif =
-        'C’est à mon grand regret que je vous informe par la présente que le séance de formation ' +
+        'Je vous informe par la présente que le séance de formation ' +
         subjectName +
         ' pour le groupe ' +
         this.state.deleteItem.classeName +
@@ -313,7 +313,7 @@ class Planning extends React.Component {
         roomLabel +
         ' avec le Formateur Mr/Mme ' +
         profName +
-        ' ne pourra avoir lieu . J’espère que vous accepterez nos excuses et que nous parviendrons à nous accorder sur une autre date';
+        ' ne pourra avoir lieu .Nous reviendrons vers vous le plus vite possible';
       let newRepetition = this.state.deleteItem.repetition.filter(
         (element) => element != this.state.deleteItem.idRepetition
       );
@@ -331,7 +331,7 @@ class Planning extends React.Component {
       );
     } else if (this.state.typeDeleteChecked == 'all') {
       let messageNotif =
-        'C’est à mon grand regret que je vous informe par la présente que les séances de formation ' +
+        'Je vous informe par la présente que les séances de formation ' +
         subjectName +
         ' pour le groupe ' +
         this.state.deleteItem.classeName +
@@ -341,7 +341,7 @@ class Planning extends React.Component {
         roomLabel +
         ' avec le Formateur Mr/Mme ' +
         profName +
-        ' ne pourrons avoir lieu . J’espère que vous accepterez nos excuses et que nous parviendrons à nous accorder sur une autre date';
+        'ne pourra avoir lieu .Nous reviendrons vers vous le plus vite possible';
       data.status = false;
       let classId = this.state.classe.id == undefined ? 0 : this.state.classe.id;
       this.props.dispatch(
@@ -1266,7 +1266,7 @@ class Planning extends React.Component {
       messageNotif =
         'Nous vous prions de bien vouloir noter les modifications suivantes concernant la séance de formation le  ' +
         oldDateStart +
-        ' du groupe' +
+        ' du Groupe ' +
         this.state.className +
         ' : le ' +
         newDateStart +
@@ -1276,26 +1276,9 @@ class Planning extends React.Component {
         subjectName +
         ' avec le formateur Mr/Mme ' +
         profName +
-        ' , Lieu de foramtion : ' +
+        ' , Lieu de formation : ' +
         roomLabel;
-
-      // messageNotif =
-      //   'Par la présente ,nous souhaitons vous informer que la séance de formation du groupe' +
-      //   this.state.className +
-      //   ' programmée le ' +
-      //   oldDateStart +
-      //   ' vers ' +
-      //   oldDateEnd +
-      //   ', est changée le ' +
-      //   newDateStart +
-      //   ' vers ' +
-      //   newDateEnd +
-      //   ' pour la formation ' +
-      //   subjectName +
-      //   ' avec le formateur Mr/Mme ' +
-      //   profName +
-      //   ' à la salle ' +
-      //   roomLabel;
+ 
       this.props.dispatch(addEvent(newEventFutur, dataSup, messageNotif));
     } else if (this.state.eventChecked == 'all') {
       let oldDateStart = moment(this.state.eventToEdited.start)
@@ -1313,7 +1296,7 @@ class Planning extends React.Component {
       messageNotif =
         'Nous vous prions de bien vouloir noter les modifications suivantes concernant les séances de formation qui ont été programmées à partir de ' +
         oldDateStart +
-        ' du groupe' +
+        ' du Groupe ' +
         this.state.className +
         ' : le ' +
         newDateStart +
@@ -1323,26 +1306,10 @@ class Planning extends React.Component {
         subjectName +
         ' avec le formateur Mr/Mme ' +
         profName +
-        ' , Lieu de foramtion : ' +
+        ' , Lieu de formation : ' +
         roomLabel;
 
-      // messageNotif =
-      //   'Par la présente ,nous souhaitons vous informer qu il y a des des changements pour les séances de formation du groupe' +
-      //   this.state.className +
-      //   ' programmées à partir de ' +
-      //   oldDateStart +
-      //   ' vers ' +
-      //   oldDateEnd +
-      //   ', ils deviennent à partir de ' +
-      //   newDateStart +
-      //   ' vers ' +
-      //   newDateEnd +
-      //   ' pour la formation ' +
-      //   subjectName +
-      //   ' avec le formateur Mr/Mme ' +
-      //   profName +
-      //   ' à la salle ' +
-      //   roomLabel;
+       
       data.title = this.state.eventName;
       data.frequency = this.state.frequencyID;
       data.event_type = this.state.eventType;
@@ -1400,8 +1367,7 @@ class Planning extends React.Component {
   }
 
   render() {
-    console.log('-------this.state.deleteItem--------', this.state.deleteItem);
-    return (
+     return (
       <div className="animated slideInUpTiny animation-duration-3">
         {this.state.alerteNotif ? (
           <UncontrolledAlert

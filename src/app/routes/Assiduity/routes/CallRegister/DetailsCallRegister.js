@@ -239,7 +239,7 @@ class DetailsCallRegister extends React.Component {
       roleId: this.props.userProfile.role_id,
       profileId: this.props.userProfile.id,
     };
-    this.props.dispatch(saveCallRegister(callRegister, otherData));
+    this.props.dispatch(saveCallRegister(callRegister, otherData,this.state.title));
     this.setState({ isRedirect: true });
   }
 
@@ -752,6 +752,7 @@ justify-content-around"
   }
 
   render() {
+    console.log('---this.state.callRegister-----',this.state.callRegister);
     let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
       url: this.props.match.url,
