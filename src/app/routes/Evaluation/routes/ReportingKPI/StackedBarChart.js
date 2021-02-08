@@ -13,8 +13,9 @@ const StackedBarChart = () => (
       <Tooltip/>
       <Legend/>
       <Bar dataKey="Présent" stackId="a" fill="#3367d6"/>
-      <Bar dataKey="Absent" stackId="a" fill="#ffc658"/>
       <Bar dataKey="Retard" stackId="a" fill="#336755"/>
+      <Bar dataKey="Absent" stackId="a" fill="#FF0000"/>
+     
     </BarChart>
   </ResponsiveContainer>
 );

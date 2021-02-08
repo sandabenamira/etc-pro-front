@@ -12,9 +12,9 @@ function createData(name, desc, image) {
 class PopularAuthorsTable extends Component {
   state = {
     data: [
-      createData('John Smith commented on 4 keys to make your business unique', 'Thank you for posting such a wonderful content. The writing was outstanding. Subscribed to latest from you as well :)',  'https://via.placeholder.com/150x150', '45'),
-      createData('Alex Dolgove commented on 4 keys to make your business unique', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making ',  'https://via.placeholder.com/150x150', '73'),
-      createData('Domnic Brown commented on 4 keys to make your business unique', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form',  'https://via.placeholder.com/150x150', '13'),
+      createData('LAMAIRI Marwen', 'Cette formation a été très intéressante mais les horaires ont été un peu raccourcis, ce qui est dommage car il y a beaucoup de matière à traiter :)',  'https://via.placeholder.com/150x150', '45'),
+      createData('YOUNSSI Aymen ', 'Très bonne et très complète formation, support parfait. Intervenant très pédagogue. ',  'https://via.placeholder.com/150x150', '73'),
+      createData('KHALIL Khadija', 'Très bonne formation : intéressante, complète, explicite, instructive et a répondu à mes attentes.',  'https://via.placeholder.com/150x150', '13'),
     ],
   };
 
