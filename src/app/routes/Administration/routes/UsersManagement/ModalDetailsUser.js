@@ -1,15 +1,15 @@
-import React from "react";
-import IntlMessages from "../../../../../util/IntlMessages";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import Auxiliary from "../../../../../util/Auxiliary";
-import TextField from "@material-ui/core/TextField";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import Radio from "@material-ui/core/Radio";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Button from "@material-ui/core/Button";
-import { Form, FormGroup, Row, Col } from "reactstrap";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import React from 'react';
+import IntlMessages from '../../../../../util/IntlMessages';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import Auxiliary from '../../../../../util/Auxiliary';
+import TextField from '@material-ui/core/TextField';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
+import { Form, FormGroup, Row, Col } from 'reactstrap';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import {
   roleIdSuperAdmin,
   roleIdAdmin,
@@ -18,13 +18,13 @@ import {
   roleIdDirector,
   roleIdParent,
   roleIdSupervisor,
-} from "../../../../../config/config";
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
-import Typography from "@material-ui/core/Typography";
-import _ from "lodash";
-import moment from "moment";
-import Avatar from "@material-ui/core/Avatar";
-import defaultAvatar from "../../../../../assets/images/default-Avatar.png";
+} from '../../../../../config/config';
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+import Typography from '@material-ui/core/Typography';
+import _ from 'lodash';
+import moment from 'moment';
+import Avatar from '@material-ui/core/Avatar';
+import defaultAvatar from '../../../../../assets/images/default-Avatar.png';
 
 export class ModalDetailsUser extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ export class ModalDetailsUser extends React.Component {
 
   render() {
     let userItem = this.props.userItem;
-    console.log("userItem", userItem);
+    console.log('userItem', userItem);
     return (
       <Auxiliary>
         <Modal isOpen={this.props.openDetails}>
@@ -45,7 +45,7 @@ export class ModalDetailsUser extends React.Component {
               <CloseIcon onClick={this.props.handleCancelDetails} />
             </IconButton>
           </ModalHeader>
-          <ModalBody style={{ paddingLeft: "2%", paddingRight: "2%" }}>
+          <ModalBody style={{ paddingLeft: '2%', paddingRight: '2%' }}>
             <form className="d-flex flex-wrap col-md-12 col-lg-12 col-sm-12">
               <div className="d-flex flex-column flex-wrap col-md-12 col-lg-12 col-sm-12">
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-center p-3">
@@ -53,15 +53,15 @@ export class ModalDetailsUser extends React.Component {
                     <Typography
                       variant="h6"
                       style={{
-                        color: "#3F51B5",
-                        fontWeight: "bold",
-                        fontFamily: "Roboto",
-                        fontSize: "20px",
-                        marginTop: "10px",
+                        color: '#3F51B5',
+                        fontWeight: 'bold',
+                        fontFamily: 'Roboto',
+                        fontSize: '20px',
+                        marginTop: '10px',
                       }}
                     >
-                      {<IntlMessages id="user.public.inforamtions" />}
-                      {this.props.userItem.roleName} &nbsp;
+                     Informations générales
+                      
                     </Typography>
                   </label>
                 </div>
@@ -69,7 +69,7 @@ export class ModalDetailsUser extends React.Component {
                   <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
                     <div className="col-md-4 col-lg-5 col-sm-12">
                       <label htmlFor="user.name">
-                        {" "}
+                        {' '}
                         <IntlMessages id="user.name" />
                       </label>
                       <input
@@ -93,12 +93,7 @@ export class ModalDetailsUser extends React.Component {
                     </div>
                     <div className="col-md-4 col-lg-2 col-sm-12 d-flex justify-content-end ">
                       {userItem.urlPhoto == undefined ? (
-                        <Avatar
-                          align="right"
-                          className="size-90"
-                          alt="..."
-                          src={defaultAvatar}
-                        />
+                        <Avatar align="right" className="size-90" alt="..." src={defaultAvatar} />
                       ) : (
                         <Avatar
                           align="right"
@@ -120,9 +115,7 @@ export class ModalDetailsUser extends React.Component {
                         disabled={true}
                         className="form-control"
                         id="birthdaydate"
-                        value={moment(userItem.dateOfBirth).format(
-                          "YYYY-MM-DD"
-                        )}
+                        value={moment(userItem.dateOfBirth).format('YYYY-MM-DD')}
                       />
                     </div>
                     <div className="col-md-6 col-lg-4 col-sm-12">
@@ -222,14 +215,14 @@ export class ModalDetailsUser extends React.Component {
                     <Typography
                       variant="h6"
                       style={{
-                        color: "#3F51B5",
-                        fontWeight: "bold",
-                        fontFamily: "Roboto",
-                        fontSize: "20px",
-                        marginTop: "10px",
+                        color: '#3F51B5',
+                        fontWeight: 'bold',
+                        fontFamily: 'Roboto',
+                        fontSize: '20px',
+                        marginTop: '10px',
                       }}
                     >
-                      {<IntlMessages id="user.specific.inforamtions" />} &nbsp;{" "}
+                      Informations spécifiques &nbsp;{' '}
                     </Typography>
                   </label>
                 </div>
@@ -262,13 +255,10 @@ export class ModalDetailsUser extends React.Component {
                       <div className="col-md-6 col-lg-6 col-sm-12 d-flex flex-row ">
                         <div className="col-md-6 col-lg-6 col-sm-12 d-flex flex-column ">
                           <label htmlFor="professorClassRoom">
-                            <IntlMessages id="professor.class" />
+                            Ces groupes
                           </label>
                           {userItem.inforamtionsProf.map((element) => (
-                            <span
-                              key={element.id}
-                              className="jr-tag bg-primary d-inline-block"
-                            >
+                            <span key={element.id} className="jr-tag bg-primary d-inline-block">
                               {element.classname}
                             </span>
                           ))}
@@ -276,13 +266,9 @@ export class ModalDetailsUser extends React.Component {
 
                         <div className="col-md-6 col-lg-6 col-sm-12 d-flex flex-column">
                           <label htmlFor="professorClassRoom">
-                            <IntlMessages id="professor.subject" />
-                          </label>
+Ces formations                          </label>
                           {userItem.inforamtionsProf.map((element) => (
-                            <span
-                              key={element.id}
-                              className="jr-tag bg-primary d-inline-block"
-                            >
+                            <span key={element.id} className="jr-tag bg-primary d-inline-block">
                               {element.subjectName}
                             </span>
                           ))}
@@ -291,7 +277,7 @@ export class ModalDetailsUser extends React.Component {
                     </div>
                   </div>
                 ) : (
-                  ""
+                  ''
                 )}
                 {this.props.userItem.roleId == roleIdStudent ? (
                   <>
@@ -323,58 +309,36 @@ export class ModalDetailsUser extends React.Component {
                       </div>
                       <div className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row p-2 ">
                         <div className="col-md-6 col-lg-4 col-sm-12 d-flex flex-column ">
-                          <label htmlFor="studentClass">
-                            <IntlMessages id="student.class" />
-                          </label>
-                          {(
-                            userItem.inforamtionsStudent.classInformation
-                              .classname != null
-                          ) ? (
+                          <label htmlFor="studentClass">Groupe de formation</label>
+                          {userItem.inforamtionsStudent.classInformation.classname != null ? (
                             <span className="jr-tag bg-primary d-inline-block">
-                              {
-                                userItem.inforamtionsStudent.classInformation
-                                  .classname
-                              }
+                              {userItem.inforamtionsStudent.classInformation.classname}
                             </span>
                           ) : (
-                            <IntlMessages id="student.notAffected.class" />
+                            'Non Affecté(e)'
                           )}
                         </div>
 
                         <div class="col-md-6 col-lg-4 col-sm-12 d-flex flex-column">
-                          <label htmlFor="studentLevel">
-                            <IntlMessages id="student.level" />
-                          </label>
-                          {(
-                            userItem.inforamtionsStudent.classInformation
-                              .levelName != null
-                          ) ? (
+                          <label htmlFor="studentLevel">Niveau</label>
+                          {userItem.inforamtionsStudent.classInformation.levelName != null ? (
                             <span className="jr-tag bg-primary d-inline-block">
-                              {
-                                userItem.inforamtionsStudent.classInformation
-                                  .levelName
-                              }
+                              {userItem.inforamtionsStudent.classInformation.levelName}
                             </span>
                           ) : (
-                            <IntlMessages id="student.notAffected.level" />
+                            'Non Affecté(e)'
                           )}
                         </div>
                         <div className="col-md-6 col-lg-4 col-sm-12 d-flex flex-column">
                           <label htmlFor="studentSection">
                             <IntlMessages id="student.section" />
                           </label>
-                          {(
-                            userItem.inforamtionsStudent.classInformation
-                              .sectionname != null
-                          ) ? (
+                          {userItem.inforamtionsStudent.classInformation.sectionname != null ? (
                             <span className="jr-tag bg-primary d-inline-block">
-                              {
-                                userItem.inforamtionsStudent.classInformation
-                                  .sectionname
-                              }
+                              {userItem.inforamtionsStudent.classInformation.sectionname}
                             </span>
                           ) : (
-                            <IntlMessages id="student.notAffected.section" />
+                            'Non Affecté(e)'
                           )}
                         </div>
                       </div>
@@ -385,110 +349,107 @@ export class ModalDetailsUser extends React.Component {
                           <Typography
                             variant="h6"
                             style={{
-                              color: "#3F51B5",
-                              fontWeight: "bold",
-                              fontFamily: "Roboto",
-                              fontSize: "20px",
-                              marginTop: "10px",
+                              color: '#3F51B5',
+                              fontWeight: 'bold',
+                              fontFamily: 'Roboto',
+                              fontSize: '20px',
+                              marginTop: '10px',
                             }}
                           >
-                            {<IntlMessages id="student.inforamtions.parent" />}{" "}
-                            &nbsp;{" "}
+                            Informations du chef d'agence &nbsp;{' '}
                           </Typography>
                         </label>
                       </div>
-                      {userItem.inforamtionsStudent.parentsInformation.map(
-                        (element) => (
-                          <>
-                            <div className="col-md-12 col-lg-12 col-sm-12 p-2">
-                              <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
-                                <div className="col-md-6 col-lg-4 col-sm-12">
-                                  <label htmlFor="nameParent">
-                                    <IntlMessages id="user.name" />
-                                  </label>
-                                  <input
-                                    disabled={true}
-                                    className="form-control"
-                                    id="nameParent"
-                                    value={element.parentLastName}
-                                  />
-                                </div>
-                                <div className="col-md-6 col-lg-4 col-sm-12">
-                                  <label htmlFor="lastNameParent">
-                                    <IntlMessages id="user.last.name" />
-                                  </label>
-                                  <input
-                                    disabled={true}
-                                    type="text"
-                                    className="form-control"
-                                    id="lastNameParent"
-                                    value={element.parentName}
-                                  />
-                                </div>
-                                <div className="col-md-6 col-lg-4 col-sm-12">
-                                  <label htmlFor="mailParent">
-                                    <IntlMessages id="user.mail" />
-                                  </label>
-                                  <input
-                                    disabled={true}
-                                    type="text"
-                                    class="form-control"
-                                    id="mailParent"
-                                    value={element.parentMail}
-                                  />
-                                </div>
+                      {userItem.inforamtionsStudent.parentsInformation.map((element) => (
+                        <>
+                          <div className="col-md-12 col-lg-12 col-sm-12 p-2">
+                            <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
+                              <div className="col-md-6 col-lg-4 col-sm-12">
+                                <label htmlFor="nameParent">
+                                  <IntlMessages id="user.name" />
+                                </label>
+                                <input
+                                  disabled={true}
+                                  className="form-control"
+                                  id="nameParent"
+                                  value={element.parentLastName}
+                                />
                               </div>
-                              <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
-                                <div className="col-md-6 col-lg-4 col-sm-12">
-                                  <label htmlFor="phoneParent">
-                                    <IntlMessages id="user.phone.number" />
-                                  </label>
-                                  <input
-                                    disabled={true}
-                                    className="form-control"
-                                    id="phoneParent"
-                                    value={element.parentPhone}
-                                  />
-                                </div>
-                                <div className="col-md-6 col-lg-4 col-sm-12">
-                                  <label htmlFor="parentZipCode">
-                                    <IntlMessages id="zip.code.user" />
-                                  </label>
-                                  <input
-                                    disabled={true}
-                                    type="text"
-                                    className="form-control"
-                                    id="parentZipCode"
-                                    value={element.parentZipCode}
-                                  />
-                                </div>
-                                <div className="col-md-6 col-lg-4 col-sm-12">
-                                  <label htmlFor="parentAddress">
-                                    <IntlMessages id="user.address.postal" />
-                                  </label>
-                                  <input
-                                    disabled={true}
-                                    className="form-control"
-                                    id="parentAddress"
-                                    value={element.parentAddress}
-                                  />
-                                </div>
+                              <div className="col-md-6 col-lg-4 col-sm-12">
+                                <label htmlFor="lastNameParent">
+                                  <IntlMessages id="user.last.name" />
+                                </label>
+                                <input
+                                  disabled={true}
+                                  type="text"
+                                  className="form-control"
+                                  id="lastNameParent"
+                                  value={element.parentName}
+                                />
+                              </div>
+                              <div className="col-md-6 col-lg-4 col-sm-12">
+                                <label htmlFor="mailParent">
+                                  <IntlMessages id="user.mail" />
+                                </label>
+                                <input
+                                  disabled={true}
+                                  type="text"
+                                  class="form-control"
+                                  id="mailParent"
+                                  value={element.parentMail}
+                                />
                               </div>
                             </div>
+                            <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
+                              <div className="col-md-6 col-lg-4 col-sm-12">
+                                <label htmlFor="phoneParent">
+                                  <IntlMessages id="user.phone.number" />
+                                </label>
+                                <input
+                                  disabled={true}
+                                  className="form-control"
+                                  id="phoneParent"
+                                  value={element.parentPhone}
+                                />
+                              </div>
+                              <div className="col-md-6 col-lg-4 col-sm-12">
+                                <label htmlFor="parentZipCode">
+                                  <IntlMessages id="zip.code.user" />
+                                </label>
+                                <input
+                                  disabled={true}
+                                  type="text"
+                                  className="form-control"
+                                  id="parentZipCode"
+                                  value={element.parentZipCode}
+                                />
+                              </div>
+                              <div className="col-md-6 col-lg-4 col-sm-12">
+                                <label htmlFor="parentAddress">
+                                  <IntlMessages id="user.address.postal" />
+                                </label>
+                                <input
+                                  disabled={true}
+                                  className="form-control"
+                                  id="parentAddress"
+                                  value={element.parentAddress}
+                                />
+                              </div>
+                            </div>
+                          </div>
 
-                            <hr
-                              style={{
-                                width: "100%",
-                                margin: "auto",
-                                marginTop: "5%",
-                                marginBottom: "5%",
-                                border: "1px dashed #979A9A",
-                                paddingLeft: "-100%",
-                              }}
-                            />
-                          </>
-                        )
-                      )}
+                          <hr
+                            style={{
+                              width: '100%',
+                              margin: 'auto',
+                              marginTop: '5%',
+                              marginBottom: '5%',
+                              border: '1px dashed #979A9A',
+                              paddingLeft: '-100%',
+                            }}
+                          />
+                        </>
+                      ))}
                     </div>
                     <div className="d-flex flex-column col-md-12 col-lg-12 col-sm-12">
                       <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-center p-2">
@@ -496,15 +457,14 @@ export class ModalDetailsUser extends React.Component {
                           <Typography
                             variant="h6"
                             style={{
-                              color: "#3F51B5",
-                              fontWeight: "bold",
-                              fontFamily: "Roboto",
-                              fontSize: "20px",
-                              marginTop: "10px",
+                              color: '#3F51B5',
+                              fontWeight: 'bold',
+                              fontFamily: 'Roboto',
+                              fontSize: '20px',
+                              marginTop: '10px',
                             }}
                           >
-                            {<IntlMessages id="student.inforamtions.tiers" />}{" "}
-                            &nbsp;{" "}
+                            Informations sur la personne à contacter en cas d'urgence &nbsp;{' '}
                           </Typography>
                         </label>
                       </div>
@@ -550,7 +510,7 @@ export class ModalDetailsUser extends React.Component {
                     </div>
                   </>
                 ) : (
-                  ""
+                  ''
                 )}
                 {this.props.userItem.roleId == roleIdParent ? (
                   <div className="col-md-12 col-lg-12 col-sm-12 justify-content-center">
@@ -597,24 +557,20 @@ export class ModalDetailsUser extends React.Component {
                           <Typography
                             variant="h6"
                             style={{
-                              color: "#3F51B5",
-                              fontWeight: "bold",
-                              fontFamily: "Roboto",
-                              fontSize: "20px",
-                              marginTop: "10px",
+                              color: '#3F51B5',
+                              fontWeight: 'bold',
+                              fontFamily: 'Roboto',
+                              fontSize: '20px',
+                              marginTop: '10px',
                             }}
                           >
-                            {<IntlMessages id="parent.inforamtions.student" />}{" "}
-                            &nbsp;{" "}
+                            Informations sur les collaborateurs &nbsp;{' '}
                           </Typography>
                         </label>
                       </div>
                       {userItem.inforamtionsParent.map((element, index) => (
                         <>
-                          <div
-                            className="col-md-12 col-lg-12 col-sm-12 p-2"
-                            key={index}
-                          >
+                          <div className="col-md-12 col-lg-12 col-sm-12 p-2" key={index}>
                             <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
                               <div className="col-md-6 col-lg-4 col-sm-12">
                                 <label htmlFor="nameParent">
@@ -693,12 +649,12 @@ export class ModalDetailsUser extends React.Component {
 
                           <hr
                             style={{
-                              width: "100%",
-                              margin: "auto",
-                              marginTop: "5%",
-                              marginBottom: "5%",
-                              border: "1px dashed #979A9A",
-                              paddingLeft: "-100%",
+                              width: '100%',
+                              margin: 'auto',
+                              marginTop: '5%',
+                              marginBottom: '5%',
+                              border: '1px dashed #979A9A',
+                              paddingLeft: '-100%',
                             }}
                           />
                         </>
@@ -706,7 +662,7 @@ export class ModalDetailsUser extends React.Component {
                     </div>
                   </div>
                 ) : (
-                  ""
+                  ''
                 )}
                 {this.props.userItem.roleId == roleIdAdmin ||
                 this.props.userItem.roleId == roleIdDirector ||
@@ -751,7 +707,7 @@ export class ModalDetailsUser extends React.Component {
                     </div>
                   </div>
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
 
@@ -761,14 +717,14 @@ export class ModalDetailsUser extends React.Component {
                     <Typography
                       variant="h6"
                       style={{
-                        color: "#3F51B5",
-                        fontWeight: "bold",
-                        fontFamily: "Roboto",
-                        fontSize: "20px",
-                        marginTop: "10px",
+                        color: '#3F51B5',
+                        fontWeight: 'bold',
+                        fontFamily: 'Roboto',
+                        fontSize: '20px',
+                        marginTop: '10px',
                       }}
                     >
-                      {<IntlMessages id="inforamtions.user" />} &nbsp;{" "}
+                      {<IntlMessages id="inforamtions.user" />} &nbsp;{' '}
                     </Typography>
                   </label>
                 </div>
@@ -781,9 +737,9 @@ export class ModalDetailsUser extends React.Component {
                     rows="3"
                     value={userItem.usefulInformation}
                     style={{
-                      borderRadius: "20px",
-                      marginTop: "10px",
-                      width: "100%",
+                      borderRadius: '20px',
+                      marginTop: '10px',
+                      width: '100%',
                     }}
                   ></textarea>
                 </div>
@@ -794,14 +750,14 @@ export class ModalDetailsUser extends React.Component {
                     <Typography
                       variant="h6"
                       style={{
-                        color: "#3F51B5",
-                        fontWeight: "bold",
-                        fontFamily: "Roboto",
-                        fontSize: "20px",
-                        marginTop: "10px",
+                        color: '#3F51B5',
+                        fontWeight: 'bold',
+                        fontFamily: 'Roboto',
+                        fontSize: '20px',
+                        marginTop: '10px',
                       }}
                     >
-                      {<IntlMessages id="user.adminstratif.papiers" />} &nbsp;{" "}
+                      {<IntlMessages id="user.adminstratif.papiers" />} &nbsp;{' '}
                     </Typography>
                   </label>
                 </div>
@@ -811,24 +767,24 @@ export class ModalDetailsUser extends React.Component {
                       return (
                         <div className="d-flex flex-column" key={index}>
                           <div className="p-2">
-                            {" "}
+                            {' '}
                             <Button href={element} target="_blank">
                               <PictureAsPdfIcon
                                 style={{
-                                  fontSize: "35",
+                                  fontSize: '35',
                                 }}
                               />
                             </Button>
                           </div>
                           <div className="p-2">
-                            {" "}
+                            {' '}
                             <Typography
                               variant="h6"
                               style={{
-                                color: "#3F51B5",
-                                fontWeight: "normal",
-                                fontFamily: "Roboto",
-                                fontSize: "10px",
+                                color: '#3F51B5',
+                                fontWeight: 'normal',
+                                fontFamily: 'Roboto',
+                                fontSize: '10px',
                               }}
                             >
                               {element.slice(59)}
@@ -840,28 +796,27 @@ export class ModalDetailsUser extends React.Component {
                     })}
                 </div>
               </div>
-              {userItem.roleId === roleIdProfessor ||
-              userItem.roleId === roleIdStudent ? (
+              {userItem.roleId === roleIdProfessor || userItem.roleId === roleIdStudent ? (
                 <div className="d-flex flex-column col-md-12 col-lg-12 col-sm-12">
                   <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-center p-2">
                     <label htmlFor="inforamtionsuser">
                       <Typography
                         variant="h6"
                         style={{
-                          color: "#3F51B5",
-                          fontWeight: "bold",
-                          fontFamily: "Roboto",
-                          fontSize: "20px",
-                          marginTop: "10px",
+                          color: '#3F51B5',
+                          fontWeight: 'bold',
+                          fontFamily: 'Roboto',
+                          fontSize: '20px',
+                          marginTop: '10px',
                         }}
                       >
-                        {<IntlMessages id="user.historique" />} &nbsp;{" "}
+                        {<IntlMessages id="user.historique" />} &nbsp;{' '}
                       </Typography>
                     </label>
                   </div>
                 </div>
               ) : (
-                ""
+                ''
               )}
             </form>
           </ModalBody>
