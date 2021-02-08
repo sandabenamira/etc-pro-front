@@ -11,13 +11,17 @@ class FinancialReporting extends React.Component {
 
   render() {
     return (
-      <div className="app-wrapper">
+      <div   className="app-wrapper justify-content-center  align-items-center"
+      style={{
+        marginLeft: "2%",
+      }}>
         <ContainerHeader
           match={this.props.match}
           title={<IntlMessages id="sidebar.components.financial_management" />}
         />
-        <div>
-            <FinancialReportingList />
+        <div className=" bd-highlight " style={{ width: "90%" , marginLeft: "2%",}}>
+          {" "}
+          <FinancialReportingList />
         </div>
       </div>
     );

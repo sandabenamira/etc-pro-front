@@ -325,13 +325,13 @@ export const sousModuleELearning = [
     pathName: "e-learning/homeworks",
     icon: "file-text",
     id: 4,
-  },
-  {
-    name: "book_management",
-    pathName: "e-learning/book_management",
-    icon: "collection-bookmark",
-    id: 5,
-  },
+  }
+  // {
+  //   name: "book_management",
+  //   pathName: "e-learning/book_management",
+  //   icon: "collection-bookmark",
+  //   id: 5,
+  // },
 
 ];
 export const sousModuleCommunity = [
@@ -616,12 +616,12 @@ export const sousModuleAdministration = [
 
 ];
 export const sousModuleEvaluation = [
-  {
-    name: "note",
-    pathName: "evaluation/note",
-    icon: "star",
-    id: 1,
-  },
+  // {
+  //   name: "note",
+  //   pathName: "evaluation/note",
+  //   icon: "star",
+  //   id: 1,
+  // },
   {
     name: "satisfaction-question",
     pathName: "evaluation/satisfaction-question",
