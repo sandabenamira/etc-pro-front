@@ -1537,7 +1537,9 @@
   "sidebar.components.evaluation": "تقييم",
   "sidebar.components.note": "ملحوظة",
   "sidebar.components.reporting-kpi": "المؤهلات",
-  "sidebar.components.satisfaction-question": " مقدار الرضا"
+  "sidebar.components.satisfaction-question": " مقدار الرضا",
+  "survey.satisfaction.list":"استبيان رضا التدريب"
+
 
 
 }

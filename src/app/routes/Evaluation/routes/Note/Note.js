@@ -4,7 +4,7 @@ export default class Note extends Component {
     render() {
         return (
             <div>
-                <h1>kkkkk</h1>
+                <h1>Note</h1>
             </div>
         )
     }
