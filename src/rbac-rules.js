@@ -492,7 +492,9 @@ const rules = {
       'module-nav-evaluation',
       'module-nav-note',
       'module-nav-satisfaction-question',
-      'module-nav-reporting-kpi'
+      'module-nav-reporting-kpi',
+      'module-nav-agenceSetting',
+      
 
       
     ],

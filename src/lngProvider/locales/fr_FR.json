@@ -1605,7 +1605,12 @@
   "sidebar.components.note": "Note",
   "sidebar.components.reporting-kpi": "Reporting kpi",
   "sidebar.components.satisfaction-question": "Enquête de satisfaction",
-  "survey.satisfaction.list":"QUESTIONNAIRE DE SATISFACTION FORMATION",
-  "Formation":"Formation",
-  "Type":"Type"
+  "survey.satisfaction.list": "QUESTIONNAIRE DE SATISFACTION FORMATION",
+  "Formation": "Formation",
+  "Type": "Type",
+  "sidebar.components.agenceSetting": "Gestion des agences",
+  "add.new.agence": "Ajouter une Agence",
+  "component.agence.list": "Liste des agences"
+
+
 }

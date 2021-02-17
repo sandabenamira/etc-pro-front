@@ -1538,7 +1538,13 @@
   "sidebar.components.note": "ملحوظة",
   "sidebar.components.reporting-kpi": "المؤهلات",
   "sidebar.components.satisfaction-question": " مقدار الرضا",
-  "survey.satisfaction.list":"استبيان رضا التدريب"
+  "survey.satisfaction.list":"استبيان رضا التدريب",
+  "sidebar.components.agenceSetting": " تعديل الوكالات",
+  "add.new.agence": "إضافة وكالة جديد",
+  "component.agence.list": "قائمة الوكالات"
+
+
+
 
 
 

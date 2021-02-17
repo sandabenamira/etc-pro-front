@@ -1,25 +1,27 @@
-import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import asyncComponent from "../../../util/asyncComponent";
-import UsersManagement from "./routes/UsersManagement/Users";
-import Rooms from "./routes/Room/Rooms";
-import Can from "../../../can";
-import { RoleContext } from "../../../Context";
-import Option from "./routes/Option/Option";
-import SchoolYearEtab from "./routes/SchoolYear/SchoolYearEtab";
-import SchoolSettings from "./routes/SchoolSetting/SchoolSettings";
-import TypeOfEducation from "./routes/SchoolSettings/TypeOfEducation/TypeOfEducation";
-import Levels from "./routes/SchoolSettings/levels/Levels";
-import Sections from "./routes/SchoolSettings/Sections/Sections";
-import SchoolSession from './routes/SchoolSettings/SchoolSession/SchoolSession'
-import SubjectModule from './routes/SchoolSettings/SubjectModule/SubjectModule'
-import SubjectsSettings from './routes/SchoolSettings/SubjectsSettings/SubjectsSettings'
-import ClassesSettings from './routes/SchoolSettings/ClassesSettings/ClassesSettings'
-import CourseAssignment from './routes/SchoolSettings/CourseAssignment/CourseAssignment'
-import ExamsTypes from './routes/SchoolSettings/ExamsTypes/ExamsTypes'
-import CallRegisterSetting from './routes/CallRegisterSetting/CallRegisterSetting'
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import asyncComponent from '../../../util/asyncComponent';
+import UsersManagement from './routes/UsersManagement/Users';
+import Rooms from './routes/Room/Rooms';
+import Can from '../../../can';
+import { RoleContext } from '../../../Context';
+import Option from './routes/Option/Option';
+import SchoolYearEtab from './routes/SchoolYear/SchoolYearEtab';
+import SchoolSettings from './routes/SchoolSetting/SchoolSettings';
+import TypeOfEducation from './routes/SchoolSettings/TypeOfEducation/TypeOfEducation';
+import Levels from './routes/SchoolSettings/levels/Levels';
+import Sections from './routes/SchoolSettings/Sections/Sections';
+import SchoolSession from './routes/SchoolSettings/SchoolSession/SchoolSession';
+import SubjectModule from './routes/SchoolSettings/SubjectModule/SubjectModule';
+import SubjectsSettings from './routes/SchoolSettings/SubjectsSettings/SubjectsSettings';
+import ClassesSettings from './routes/SchoolSettings/ClassesSettings/ClassesSettings';
+import CourseAssignment from './routes/SchoolSettings/CourseAssignment/CourseAssignment';
+import ExamsTypes from './routes/SchoolSettings/ExamsTypes/ExamsTypes';
+import CallRegisterSetting from './routes/CallRegisterSetting/CallRegisterSetting';
 import PermissionSetting from './routes/PermissionSetting/PermissionSetting';
-import Groupes  from './routes/SchoolSettings/groupes/Groupes'
+import AgenceSetting from './routes/AgenceSetting/AgenceSetting';
+
+import Groupes from './routes/SchoolSettings/groupes/Groupes';
 const Administration = ({ match, estabModule }) => (
   <div className="app-wrapper">
     <Switch>
@@ -282,7 +284,7 @@ const Administration = ({ match, estabModule }) => (
           </RoleContext.Consumer>
         )}
       />
-        <Route
+      <Route
         path={`${match.url}/groupes`}
         render={() => (
           <RoleContext.Consumer>
@@ -634,7 +636,38 @@ const Administration = ({ match, estabModule }) => (
           </RoleContext.Consumer>
         )}
       />
-
+      <Route
+        path={`${match.url}/agenceSetting`}
+        render={() => (
+          <RoleContext.Consumer>
+            {({ role }) => (
+              <Can
+                role={role}
+                perform="module-nav-access"
+                data={{
+                  mod: 'administration',
+                  moduleList: estabModule,
+                }}
+                yes={() => (
+                  <Can
+                    role={role}
+                    perform={`module-nav-agenceSetting`}
+                    yes={() => <AgenceSetting match={match} />}
+                    no={() => (
+                      <Route
+                        component={asyncComponent(() => import('../../../components/Error404'))}
+                      />
+                    )}
+                  />
+                )}
+                no={() => (
+                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                )}
+              />
+            )}
+          </RoleContext.Consumer>
+        )}
+      />
       <Route component={asyncComponent(() => import('../../../components/Error404'))} />
     </Switch>
   </div>
