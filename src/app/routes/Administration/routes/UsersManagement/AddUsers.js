@@ -84,7 +84,10 @@ const fonctionList = [
   { label: 'surveillant', id: 5, value: 5 },
   { label: 'surveillant général', id: 6, value: 6 },
 ];
-
+const TypeContrat = [
+  { label: 'interne', id: 1, value: 1 },
+  { label: 'externe', id: 2, value: 2 },
+];
 class AddUsers extends React.Component {
   constructor(props) {
     super(props);
@@ -621,6 +624,38 @@ class AddUsers extends React.Component {
                         htmlFor="nomSelect"
                         style={{
                           fontFamily: 'Roboto',
+                          fontSize: '16px',
+                        }}
+                      >
+                        Agence
+                      </InputLabel>
+                      <Select
+                        isDisabled
+                        value={{
+                          label: values.agenceCollaborateur,
+                          id: 0,
+                        }}
+                        id="role"
+                        name="role"
+                        styles={{
+                          control: (base) => ({
+                            ...base,
+                            '&:hover': { borderColor: 'gray' }, // border style on hover
+                            border: '1px solid lightgray', // default border color
+                            boxShadow: 'none', // no box-shadow
+                            borderTopStyle: 'none',
+                            borderRightStyle: 'none',
+                            borderLeftStyle: 'none',
+                            borderRadius: ' none',
+                          }),
+                        }}
+                      />{' '}
+                    </div>
+                    {/* <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                      <InputLabel
+                        htmlFor="nomSelect"
+                        style={{
+                          fontFamily: 'Roboto',
                           fontSize: '18px',
                         }}
                       >
@@ -671,20 +706,53 @@ class AddUsers extends React.Component {
                           }),
                         }}
                       />{' '}
-                    </div>
+                    </div> */}
                   </>
                 ) : (
                   ''
                 )}
-                {this.props.values.roleId === roleIdProfessor ? (
+                {this.props.values.roleId === roleIdProfessor && (
+                  <>
+                    <div className="col-md-6 col-lg-3 col-sm-12 p-0">
+                      <InputLabel
+                        htmlFor="nomSelect"
+                        style={{
+                          fontFamily: 'Roboto',
+                          fontSize: '16px',
+                        }}
+                      >
+                        Type
+                      </InputLabel>
+                      <Select
+                        options={TypeContrat}
+                        onChange={this.props.handleChangeTypeContrat}
+                        id="typeContrat"
+                        name="typeContrat"
+                        styles={{
+                          control: (base) => ({
+                            ...base,
+                            '&:hover': { borderColor: 'gray' }, // border style on hover
+                            border: '1px solid lightgray', // default border color
+                            boxShadow: 'none', // no box-shadow
+                            borderTopStyle: 'none',
+                            borderRightStyle: 'none',
+                            borderLeftStyle: 'none',
+                            borderRadius: ' none',
+                          }),
+                        }}
+                      />{' '}
+                    </div>
+                  </>
+                )}
+                {/* {this.props.values.roleId === roleIdProfessor ? (
                   <>
                     <div className="col-md-6 col-lg-3 col-sm-12 p-0 "> </div>
                     <div className="col-md-6 col-lg-3 col-sm-12 p-0 "> </div>
                   </>
                 ) : (
                   ''
-                )}
-                {this.props.values.roleId === roleIdProfessor ? (
+                )} */}
+                {/* {this.props.values.roleId === roleIdProfessor ? (
                   <>
                     {values.listOfSubjects.map((objSubject, index) => (
                       <div className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row justify-content-between p-3">
@@ -886,10 +954,10 @@ class AddUsers extends React.Component {
                   </>
                 ) : (
                   ''
-                )}
-                {this.props.values.roleId === roleIdParent ? (
+                )} */}
+                {this.props.values.roleId === roleIdParent && (
                   <>
-                    <div className="col-md-6 col-lg-3 col-sm-12 p-0">
+                    {/* <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                       <InputLabel
                         htmlFor="nomSelect"
                         style={{
@@ -917,44 +985,38 @@ class AddUsers extends React.Component {
                           }),
                         }}
                       />{' '}
+                    </div> */}
+                    <div className="col-md-6 col-lg-3 col-sm-12 p-0">
+                      <InputLabel
+                        htmlFor="nomSelect"
+                        style={{
+                          fontFamily: 'Roboto',
+                          fontSize: '16px',
+                        }}
+                      >
+                        Agence
+                      </InputLabel>
+                      <Select
+                        options={this.props.agenceList}
+                        onChange={this.props.handleChangeAgence}
+                        id="studentIdAssignement"
+                        name="studentIdAssignement"
+                        styles={{
+                          control: (base) => ({
+                            ...base,
+                            '&:hover': { borderColor: 'gray' }, // border style on hover
+                            border: '1px solid lightgray', // default border color
+                            boxShadow: 'none', // no box-shadow
+                            borderTopStyle: 'none',
+                            borderRightStyle: 'none',
+                            borderLeftStyle: 'none',
+                            borderRadius: ' none',
+                          }),
+                        }}
+                      />{' '}
                     </div>
                   </>
-                ) : (
-                  ''
                 )}
-                {/* {this.props.values.roleId === roleIdSupervisor ? (
-                  <div className="col-md-6 col-lg-3 col-sm-12 p-0">
-                    <InputLabel
-                      htmlFor="nomSelect"
-                      style={{
-                        fontFamily: "Roboto",
-                        fontSize: "18px",
-                      }}
-                    >
-                      {<IntlMessages id="vie.scolaire.fonction" />}
-                    </InputLabel>
-                    <Select
-                      options={fonctionList}
-                      onChange={this.props.handleChangeFunctions}
-                      id="function"
-                      name="function"
-                      styles={{
-                        control: (base) => ({
-                          ...base,
-                          "&:hover": { borderColor: "gray" }, // border style on hover
-                          border: "1px solid lightgray", // default border color
-                          boxShadow: "none", // no box-shadow
-                          borderTopStyle: "none",
-                          borderRightStyle: "none",
-                          borderLeftStyle: "none",
-                          borderRadius: " none",
-                        }),
-                      }}
-                    />{" "}
-                  </div>
-                ) : (
-                  ""
-                )} */}
                 <hr
                   style={{
                     width: '100%',
@@ -1117,57 +1179,30 @@ class AddUsers extends React.Component {
               </div>
 
               <div className="d-flex col-lg-12 col-md-12 col-sm-12 flex-row flex-wrap justify-content-around align-items-center pt-3">
-                {this.props.values.roleId === roleIdStudent ? (
-                  <div className="col-md-6 col-lg-2 col-sm-12 p-1">
-                    <InputLabel
-                      style={{
-                        fontFamily: 'Roboto',
-                        fontSize: '18px',
-                        marginTop: '-2%',
-                      }}
-                    >
-                      {<IntlMessages id="user.nationality" />}
-                    </InputLabel>
-                    <TextField
-                      id="userNationnality"
-                      name="userNationnality"
-                      value={values.userNationnality || ''}
-                      onChange={this.props.handleChange('userNationnality')}
-                      style={{
-                        marginTop: '3%',
-                      }}
-                      fullWidth
-                      SelectProps={{
-                        native: true,
-                      }}
-                    />
-                  </div>
-                ) : (
-                  <div className="col-md-6 col-lg-2 col-sm-12 p-1">
-                    <InputLabel
-                      style={{
-                        fontFamily: 'Roboto',
-                        fontSize: '18px',
-                        marginTop: '-2%',
-                      }}
-                    >
-                      {<IntlMessages id="user.nationality" />}
-                    </InputLabel>
-                    <TextField
-                      id="userNationnality"
-                      name="userNationnality"
-                      value={values.userNationnality || ''}
-                      onChange={this.props.handleChange('userNationnality')}
-                      style={{
-                        marginTop: '3%',
-                      }}
-                      fullWidth
-                      SelectProps={{
-                        native: true,
-                      }}
-                    />
-                  </div>
-                )}
+                <div className="col-md-6 col-lg-2 col-sm-12 p-1">
+                  <InputLabel
+                    style={{
+                      fontFamily: 'Roboto',
+                      fontSize: '18px',
+                      marginTop: '-2%',
+                    }}
+                  >
+                    {<IntlMessages id="user.nationality" />}
+                  </InputLabel>
+                  <TextField
+                    id="userNationnality"
+                    name="userNationnality"
+                    value={values.userNationnality || ''}
+                    onChange={this.props.handleChange('userNationnality')}
+                    style={{
+                      marginTop: '3%',
+                    }}
+                    fullWidth
+                    SelectProps={{
+                      native: true,
+                    }}
+                  />
+                </div>
 
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <InputLabel

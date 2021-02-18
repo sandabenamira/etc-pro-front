@@ -48,11 +48,10 @@ class ClassesSettings extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let data = {
-      name: this.state.nameClassSettings,
       fk_id_establishment: parseInt(this.props.userProfile.establishment_id),
       status: true,
       creation_date: moment(new Date()).format(),
-      nameAgence: this.state.nameAgence,
+      name: this.state.nameAgence,
       typeAgence: this.state.typeAgence,
       gouvernoratAgence: this.state.gouvernoratAgence,
       faxAgence: this.state.faxAgence,
@@ -135,7 +134,7 @@ class ClassesSettings extends React.Component {
         </div>
         <div className=" bd-highlight" style={{ width: '90%' }}>
           <CardBox styleName="col-lg-12">
-            <ArchiveAgence  agenceSettingsArchived={this.props.archivedAgenceSettings}  />
+            <ArchiveAgence agenceSettingsArchived={this.props.archivedAgenceSettings} />
           </CardBox>
         </div>
       </div>
