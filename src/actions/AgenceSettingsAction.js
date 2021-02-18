@@ -11,7 +11,7 @@ import {
   HIDE_ERROR_MESSAGE,
 } from '../constants/ActionTypes';
 export function addAgence(data) {
-  console.log('-----action data-----',data);
+  // console.log('-----action data-----',data);
   return (dispatch) => {
     dispatch({ type: ADD_AGENCE, payload: data });
 

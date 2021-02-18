@@ -15,7 +15,7 @@ import SchoolSession from './routes/SchoolSettings/SchoolSession/SchoolSession';
 import SubjectModule from './routes/SchoolSettings/SubjectModule/SubjectModule';
 import SubjectsSettings from './routes/SchoolSettings/SubjectsSettings/SubjectsSettings';
 import ClassesSettings from './routes/SchoolSettings/ClassesSettings/ClassesSettings';
-import CourseAssignment from './routes/SchoolSettings/CourseAssignment/CourseAssignment';
+import ClassFormation from './routes/SchoolSettings/ClassFormation/ClassFormation';
 import ExamsTypes from './routes/SchoolSettings/ExamsTypes/ExamsTypes';
 import CallRegisterSetting from './routes/CallRegisterSetting/CallRegisterSetting';
 import PermissionSetting from './routes/PermissionSetting/PermissionSetting';
@@ -524,7 +524,7 @@ const Administration = ({ match, estabModule }) => (
                   <Can
                     role={role}
                     perform={`module-nav-courseAssignment`}
-                    yes={() => <CourseAssignment match={match} />}
+                    yes={() => <ClassFormation match={match} />}
                     no={() => (
                       <Route
                         component={asyncComponent(() => import('../../../components/Error404'))}

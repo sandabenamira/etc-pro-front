@@ -9,7 +9,7 @@ export default class AgenceItem extends Component {
     const { agenceItem } = this.props;
     return (
       <TableRow key={agenceItem.id}>
-        <TableCell>{agenceItem.nameAgence}</TableCell>
+        <TableCell>{agenceItem.name}</TableCell>
         <TableCell>{agenceItem.typeAgence}</TableCell>
         <TableCell>{agenceItem.gouvernoratAgence}</TableCell>
         <TableCell>{agenceItem.adresseAgence}</TableCell>
