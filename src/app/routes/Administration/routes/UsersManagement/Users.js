@@ -1,15 +1,15 @@
-import React from "react";
-import CardBox from "../../../../../components/CardBox/index";
-import { connect } from "react-redux";
-import UsersList from "./UsersList";
-import { UncontrolledAlert } from "reactstrap";
-import AddUsers from "./AddUsers";
-import { getAllRole } from "../../../../../actions/usersAction";
-import { getSchoolYearEtabs } from "../../../../../actions/SchoolYearEtabAction";
-import countriesList from "../../../../../constants/const";
-import { addUsers } from "../../../../../actions/usersAction";
-import _ from "lodash";
-import moment from "moment";
+import React from 'react';
+import CardBox from '../../../../../components/CardBox/index';
+import { connect } from 'react-redux';
+import UsersList from './UsersList';
+import { UncontrolledAlert } from 'reactstrap';
+import AddUsers from './AddUsers';
+import { getAllRole } from '../../../../../actions/usersAction';
+import { getSchoolYearEtabs } from '../../../../../actions/SchoolYearEtabAction';
+import countriesList from '../../../../../constants/const';
+import { addUsers } from '../../../../../actions/usersAction';
+import _ from 'lodash';
+import moment from 'moment';
 import {
   roleIdSuperAdmin,
   roleIdAdmin,
@@ -18,87 +18,49 @@ import {
   roleIdDirector,
   roleIdParent,
   roleIdSupervisor,
-} from "../../../../../config/config";
-import { toUpperCaseFirst } from "../../../../../constants/ReactConst";
-import { addUserPermitted } from "../../../../../constants/validationFunctions";
-import LoaderModal from "./LoaderModal";
-import { getAssignementCourse } from "../../../../../actions/AssignementAction";
-import IntlMessages from "../../../../../util/IntlMessages";
+} from '../../../../../config/config';
+import { toUpperCaseFirst } from '../../../../../constants/ReactConst';
+import { addUserPermitted } from '../../../../../constants/validationFunctions';
+import LoaderModal from './LoaderModal';
+import { getAssignementCourse } from '../../../../../actions/AssignementAction';
+import IntlMessages from '../../../../../util/IntlMessages';
 
-// const listRolesUsers = [
-//   {
-//     id: roleIdAdmin,
-//     label: <IntlMessages id={`role.admin`} />,
-//     value: roleIdAdmin,
-//     labelBackEnd: "Admin",
-//   },
-//   {
-//     id: roleIdDirector,
-//     label: <IntlMessages id={`component.etablishments.info.director`} />,
-//     value: roleIdDirector,
-//     labelBackEnd: "Director",
-//   },
-//   {
-//     id: roleIdSupervisor,
-//     label: <IntlMessages id={`role.supervisor`} />,
-//     value: roleIdSupervisor,
-//     labelBackEnd: "Vie scolaire",
-//   },
-//   {
-//     id: roleIdProfessor,
-//     label: <IntlMessages id={`toDo.professor`} />,
-//     value: roleIdProfessor,
-//     labelBackEnd: "Professor",
-//   },
-//   {
-//     id: roleIdStudent,
-//     label: <IntlMessages id={`userStuppDisplay.Student`} />,
-//     value: roleIdStudent,
-//     labelBackEnd: "Student",
-//   },
-//   {
-//     id: roleIdParent,
-//     label: <IntlMessages id={`userStuppDisplay.Parent`} />,
-//     value: roleIdParent,
-//     labelBackEnd: "Parent",
-//   },
-// ];
 const listRolesUsers = [
   {
     id: roleIdAdmin,
     label: <IntlMessages id="role.admin" />,
     value: roleIdAdmin,
-    labelBackEnd: "Admin",
+    labelBackEnd: 'Admin',
   },
   {
     id: roleIdDirector,
-    label: "Directeur Des Ressources Humaines",
+    label: 'Directeur Des Ressources Humaines',
     value: roleIdDirector,
-    labelBackEnd: "Director",
+    labelBackEnd: 'Director',
   },
   {
     id: roleIdSupervisor,
-    label: "Responsable formation",
+    label: 'Responsable formation',
     value: roleIdSupervisor,
-    labelBackEnd: "Vie scolaire",
+    labelBackEnd: 'Vie scolaire',
   },
   {
     id: roleIdParent,
     label: "Chef d'agence",
     value: roleIdParent,
-    labelBackEnd: "Responsable formation",
+    labelBackEnd: 'Responsable formation',
   },
   {
     id: roleIdProfessor,
     label: <IntlMessages id={`toDo.professor`} />,
     value: roleIdProfessor,
-    labelBackEnd: "Formateur",
+    labelBackEnd: 'Formateur',
   },
   {
     id: roleIdStudent,
-    label: "Collaborateur",
+    label: 'Collaborateur',
     value: roleIdStudent,
-    labelBackEnd: "Participant",
+    labelBackEnd: 'Participant',
   },
 ];
 class Users extends React.Component {
@@ -107,46 +69,46 @@ class Users extends React.Component {
     this.state = {
       listRoles: [],
       listSchoolYears: [],
-      roleId: "",
-      roleName: "",
+      roleId: '',
+      roleName: '',
       schoolyearId: null,
       classRoomId: null,
       subjectId: null,
       parentId: null,
       studentId: null,
-      userName: "",
-      userLastName: "",
-      userNationnality: "",
-      userCIN: "",
-      userIdentifier: "",
-      userMail: "",
-      userPhoneNumber: "",
-      userAdress: "",
-      userCountry: "",
-      userZipCode: "",
-      userPhoto: "",
-      userGender: "",
-      birthdayDate: moment().year() - 6 + "-01-01",
-      birthdayPlace: "",
+      userName: '',
+      userLastName: '',
+      userNationnality: '',
+      userCIN: '',
+      userIdentifier: '',
+      userMail: '',
+      userPhoneNumber: '',
+      userAdress: '',
+      userCountry: '',
+      userZipCode: '',
+      userPhoto: '',
+      userGender: '',
+      birthdayDate: moment().year() - 6 + '-01-01',
+      birthdayPlace: '',
       countriesList: [],
-      usefulInformation: "",
+      usefulInformation: '',
       userPapiersFiles: [],
       nameUserPapiersFiles: [],
       isOpen: false,
       openArchive: false,
       isOpenArchive: false,
-      messageAlerte: "",
-      photoText: "",
+      messageAlerte: '',
+      photoText: '',
       nameFiles: [],
       establishmentsList: [],
-      establishmentId: "",
+      establishmentId: '',
       classRoomList: [],
       subjectsList: [],
       classForStudent: [],
       studentClass: null,
-      functionName: "",
+      functionName: '',
       missingValue: false,
-      alertMessage: "",
+      alertMessage: '',
       subjectItem: {},
       listOfSubjects: [
         {
@@ -160,6 +122,8 @@ class Users extends React.Component {
       ],
       parentsList: [],
       studentsList: [],
+      agenceList: [],
+      agenceId: null,
       levelId: null,
       sectionId: null,
       userList: {
@@ -179,6 +143,8 @@ class Users extends React.Component {
       levelListParticipant: [],
       classForStudentFiltred: [],
       subjectModulesList: [],
+      contratType: '',
+      agenceCollaborateur: '',
     };
     this.openAddModal = this.openAddModal.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -197,22 +163,20 @@ class Users extends React.Component {
     this.attachFile = this.attachFile.bind(this);
     this.uploadPhoto = this.uploadPhoto.bind(this);
     this.openArchive = this.openArchive.bind(this);
-    this.handleChangeEstablishments = this.handleChangeEstablishments.bind(
-      this
-    );
+    this.handleChangeEstablishments = this.handleChangeEstablishments.bind(this);
     this.handleChangeStudentClass = this.handleChangeStudentClass.bind(this);
     this.handleChangeFunctions = this.handleChangeFunctions.bind(this);
     this.handleChangePhone = this.handleChangePhone.bind(this);
     this.addNewSubject = this.addNewSubject.bind(this);
     this.deleteChoice = this.deleteChoice.bind(this);
-    this.handleChangeGroupClassRoom = this.handleChangeGroupClassRoom.bind(
-      this
-    );
-    this.handleChangeLevelParticipant = this.handleChangeLevelParticipant.bind(
-      this
-    );
+    this.handleChangeGroupClassRoom = this.handleChangeGroupClassRoom.bind(this);
+    this.handleChangeLevelParticipant = this.handleChangeLevelParticipant.bind(this);
+    this.handleChangeTypeContrat = this.handleChangeTypeContrat.bind(this);
+    this.handleChangeAgence = this.handleChangeAgence.bind(this);
   }
-
+  handleChangeTypeContrat = (selectedOption) => {
+    this.setState({ contratType: selectedOption.id });
+  };
   handleChangeLevelParticipant = (selectedOption) => {
     let classForStudentFiltred = [];
 
@@ -244,10 +208,10 @@ class Users extends React.Component {
   handleChangeAlerte = (name) => {
     this.setState({
       sessionExist: true,
-      messageAlerte: "Il existe déja une licence pour cet etablissement",
+      messageAlerte: 'Il existe déja une licence pour cet etablissement',
     });
     setTimeout(() => {
-      this.setState({ sessionExist: false, messageAlerte: "" });
+      this.setState({ sessionExist: false, messageAlerte: '' });
     }, 4000);
   };
   handleChangeEducationType = (name) => (event) => {
@@ -276,10 +240,11 @@ class Users extends React.Component {
   }
 
   openAddModal() {
-    this.setState({ roleId: "" });
+    this.setState({ roleId: '' });
 
     this.setState((previousState) => ({
       isOpen: !previousState.isOpen,
+      agenceCollaborateur: '',
       listOfSubjects: [
         {
           id: 0,
@@ -303,113 +268,113 @@ class Users extends React.Component {
     if (this.state.roleId === null) {
       this.setState({
         missingValue: true,
-        alertMessage: "Il faut remplir les champs obligatoires ",
+        alertMessage: 'Il faut remplir les champs obligatoires ',
       });
       setTimeout(() => {
-        this.setState({ alertMessage: "", missingValue: false });
+        this.setState({ alertMessage: '', missingValue: false });
       }, 4000);
     } else {
-      if (
-        this.state.roleId === roleIdProfessor &&
-        AssignementIdProf.length === 0
-      ) {
-        this.setState({
-          missingValue: true,
-          alertMessage:
-            "Il faut affecter une classe et une matiére pour le professeur ",
-        });
-        setTimeout(() => {
-          this.setState({ alertMessage: "", missingValue: false });
-        }, 4000);
-      } else {
-        this.openAddModal();
-        let data = {
-          name: this.state.userName.toUpperCase(),
-          surname: toUpperCaseFirst(this.state.userLastName),
-          gender: this.state.userGender,
-          dateOfBirth: this.state.birthdayDate,
-          placeOfBirth: this.state.birthdayPlace,
-          address: this.state.userAdress,
-          nationality: this.state.userNationnality,
-          phone: this.state.userPhoneNumber,
-          status: true,
-          cin: this.state.userCIN,
-          userIdentifier: this.state.userIdentifier,
-          zipCode: this.state.userZipCode,
-          userCountry: this.state.userCountry,
-          userPhoto: this.state.userPhoto,
-          userPapiersFiles: this.state.userPapiersFiles,
-          name_ar: "string",
-          surname_ar: "string",
-          email: this.state.userMail,
-          roleId: this.state.roleId,
-          establishmentId: this.state.establishmentId,
-          assignClassSubject: AssignementIdProf,
-          studentClass: this.state.studentClass,
-          schoolyearId: this.props.userProfile.school_year_id,
-          functionName: this.state.functionName,
-          password: "123456",
-          login: "login1",
-          levelId: this.state.levelId,
-          sectionId: this.state.sectionId,
-          usefulInformation: this.state.usefulInformation,
-          parentId: this.state.parentId,
-          studentId: this.state.studentId,
-          groupId: this.state.groupId,
-        };
-        console.log(data, "data avant action");
-        this.props.addUsers(data);
-        this.setState({
-          roleId: "",
-          roleName: "",
-          schoolyearId: this.props.userProfile.school_year_id,
-          classRoomId: "",
-          subjectId: "",
-          parentId: null,
-          studentId: null,
-          userName: "",
-          userLastName: "",
-          userNationnality: "",
-          userCIN: "",
-          userIdentifier: "",
-          userMail: "",
-          userPhoneNumber: "",
-          userAdress: "",
-          userCountry: "",
-          userZipCode: "",
-          userPhoto: "",
-          userGender: "",
-          birthdayDate: moment().year() - 18 + "-01-01",
-          birthdayPlace: "",
-          usefulInformation: "",
-          userPapiersFiles: [],
-          nameUserPapiersFiles: [],
-          isOpen: false,
-          photoText: "",
-          nameFiles: [],
-          establishmentId: this.props.userProfile.establishment_id,
-          subjectsList: [],
-          studentClass: null,
-          functionName: "",
-          missingValue: false,
-          subjectItem: {},
-          listOfSubjects: [
-            {
-              id: 0,
-              classId: 0,
-              subjectId: 0,
-              subjects: [],
-              subjectModuleId: 0,
-              levelId: 0,
-            },
-          ],
-          levelId: null,
-          sectionId: null,
-          birthdayDateCheck: false,
-          groupId: null,
-          subjectIds: [],
-        });
-      }
+      // if (this.state.roleId === roleIdProfessor && AssignementIdProf.length === 0) {
+      //   this.setState({
+      //     missingValue: true,
+      //     alertMessage: 'Il faut affecter une classe et une matiére pour le professeur ',
+      //   });
+      //   setTimeout(() => {
+      //     this.setState({ alertMessage: '', missingValue: false });
+      //   }, 4000);
+      // } else {
+      this.openAddModal();
+      let data = {
+        name: this.state.userName.toUpperCase(),
+        surname: toUpperCaseFirst(this.state.userLastName),
+        gender: this.state.userGender,
+        dateOfBirth: this.state.birthdayDate,
+        placeOfBirth: this.state.birthdayPlace,
+        address: this.state.userAdress,
+        nationality: this.state.userNationnality,
+        phone: this.state.userPhoneNumber,
+        status: true,
+        cin: this.state.userCIN,
+        userIdentifier: this.state.userIdentifier,
+        zipCode: this.state.userZipCode,
+        userCountry: this.state.userCountry,
+        userPhoto: this.state.userPhoto,
+        userPapiersFiles: this.state.userPapiersFiles,
+        name_ar: 'string',
+        surname_ar: 'string',
+        email: this.state.userMail,
+        roleId: this.state.roleId,
+        establishmentId: this.state.establishmentId,
+        assignClassSubject: AssignementIdProf,
+        studentClass: this.state.studentClass,
+        schoolyearId: this.props.userProfile.school_year_id,
+        functionName: this.state.functionName,
+        password: '123456',
+        login: 'login1',
+        levelId: this.state.levelId,
+        sectionId: this.state.sectionId,
+        usefulInformation: this.state.usefulInformation,
+        parentId: this.state.parentId,
+        studentId: this.state.studentId,
+        groupId: this.state.groupId,
+        agenceId: this.state.agenceId,
+        contratType: this.state.contratType,
+      };
+      console.log(data, 'data avant action');
+      this.props.addUsers(data);
+      this.setState({
+        roleId: '',
+        roleName: '',
+        schoolyearId: this.props.userProfile.school_year_id,
+        classRoomId: '',
+        subjectId: '',
+        parentId: null,
+        studentId: null,
+        userName: '',
+        userLastName: '',
+        userNationnality: '',
+        userCIN: '',
+        userIdentifier: '',
+        userMail: '',
+        userPhoneNumber: '',
+        userAdress: '',
+        userCountry: '',
+        userZipCode: '',
+        userPhoto: '',
+        userGender: '',
+        birthdayDate: moment().year() - 18 + '-01-01',
+        birthdayPlace: '',
+        usefulInformation: '',
+        userPapiersFiles: [],
+        nameUserPapiersFiles: [],
+        isOpen: false,
+        photoText: '',
+        nameFiles: [],
+        establishmentId: this.props.userProfile.establishment_id,
+        subjectsList: [],
+        studentClass: null,
+        functionName: '',
+        missingValue: false,
+        subjectItem: {},
+        listOfSubjects: [
+          {
+            id: 0,
+            classId: 0,
+            subjectId: 0,
+            subjects: [],
+            subjectModuleId: 0,
+            levelId: 0,
+          },
+        ],
+        levelId: null,
+        sectionId: null,
+        birthdayDateCheck: false,
+        groupId: null,
+        subjectIds: [],
+        agenceCollaborateur: '',
+        agenceId: null,
+      });
+      // }
     }
   }
   handleChangePhone = (value) => {
@@ -429,7 +394,7 @@ class Users extends React.Component {
   handleChangeRole = (selectedOption) => {
     if (selectedOption.id == roleIdStudent) {
       this.setState({
-        birthdayDate: moment().year() - 6 + "-01-01",
+        birthdayDate: moment().year() - 6 + '-01-01',
       });
     }
     this.setState({
@@ -453,10 +418,8 @@ class Users extends React.Component {
     this.setState({ schoolyearId: selectedOption.id });
   };
   handleChangeClassRoom = (selectedOption, name, index) => {
-    if (name === "classId") {
-      let subjectIds = this.state.listOfSubjects.map(
-        (element) => element.subjectId
-      );
+    if (name === 'classId') {
+      let subjectIds = this.state.listOfSubjects.map((element) => element.subjectId);
       this.setState({ subjectIds });
       let subjectsList = [];
       this.props.courseAssignment.map((element) => {
@@ -478,7 +441,7 @@ class Users extends React.Component {
           : objSubject
       );
       this.setState({ listOfSubjects: newListSubjects });
-    } else if (name === "subjectId") {
+    } else if (name === 'subjectId') {
       let subjectIds = [selectedOption.value];
       this.state.listOfSubjects.map((element) => {
         if (element.id != index) {
@@ -487,12 +450,10 @@ class Users extends React.Component {
       });
       this.setState({ subjectIds });
       let newListSubjects = this.state.listOfSubjects.map((objSubject, i) =>
-        i === index
-          ? { ...objSubject, [name]: selectedOption.value }
-          : objSubject
+        i === index ? { ...objSubject, [name]: selectedOption.value } : objSubject
       );
       this.setState({ listOfSubjects: newListSubjects });
-    } else if (name === "subjectModuleId") {
+    } else if (name === 'subjectModuleId') {
       let classId = this.state.listOfSubjects[index].classId;
       let subjectsList = [];
       this.props.courseAssignment.map((element) => {
@@ -504,8 +465,7 @@ class Users extends React.Component {
           object.label = element.subject.name;
           object.id = element.id;
           object.value = element.id;
-          object.fk_id_subjects_module_v4 =
-            element.subject.fk_id_subjects_module_v4;
+          object.fk_id_subjects_module_v4 = element.subject.fk_id_subjects_module_v4;
 
           subjectsList.push(object);
         }
@@ -520,7 +480,7 @@ class Users extends React.Component {
           : objSubject
       );
       this.setState({ listOfSubjects: newListSubjects });
-    } else if (name === "levelId") {
+    } else if (name === 'levelId') {
       let newListSubjects = this.state.listOfSubjects.map((objSubject, i) =>
         i === index
           ? {
@@ -581,10 +541,17 @@ class Users extends React.Component {
   };
 
   handleChangeParent = (selectedOption) => {
-    this.setState({ parentId: selectedOption.id });
+    this.setState({
+      parentId: selectedOption.id,
+      agenceCollaborateur: selectedOption.agenceName,
+      agenceId: selectedOption.agenceId,
+    });
   };
   handleChangeStudent = (selectedOption) => {
     this.setState({ studentId: selectedOption.id });
+  };
+  handleChangeAgence = (selectedOption) => {
+    this.setState({ agenceId: selectedOption.id });
   };
   handleChangeCountries = (selectedOption) => {
     this.setState({ userCountry: selectedOption.id });
@@ -609,11 +576,11 @@ class Users extends React.Component {
         this.setState({ userPapiersFiles: oldFiles, nameFiles });
       } else {
         this.setState({
-          messageAlerte: "vous avez dépasser 5 fichiers",
+          messageAlerte: 'vous avez dépasser 5 fichiers',
           alerteStatus: true,
         });
         setTimeout(() => {
-          this.setState({ messageAlerte: "", alerteStatus: false });
+          this.setState({ messageAlerte: '', alerteStatus: false });
         }, 4000);
       }
     }
@@ -628,7 +595,7 @@ class Users extends React.Component {
         alerteFiltre: true,
       });
       setTimeout(() => {
-        this.setState({ messageAlerte: "", alerteFiltre: false });
+        this.setState({ messageAlerte: '', alerteFiltre: false });
       }, 4000);
     }
   };
@@ -685,7 +652,7 @@ class Users extends React.Component {
         object.value = element.class.id;
         return object;
       });
-      let classRoomListFiltredByID = _.uniqBy(classRoomList, "id");
+      let classRoomListFiltredByID = _.uniqBy(classRoomList, 'id');
       this.setState({ classRoomList: classRoomListFiltredByID });
     }
 
@@ -708,10 +675,7 @@ class Users extends React.Component {
           object.value = element.id;
 
           let permitted = false;
-          permitted = addUserPermitted(
-            element.labelBackEnd,
-            this.props.userPermission
-          );
+          permitted = addUserPermitted(element.labelBackEnd, this.props.userPermission);
           if (permitted) {
             listRoles.push(object);
           }
@@ -721,10 +685,7 @@ class Users extends React.Component {
       this.setState({ listRoles: listRoles });
     }
 
-    if (
-      prevProps.userProfile.establishment_id !==
-      this.props.userProfile.establishment_id
-    ) {
+    if (prevProps.userProfile.establishment_id !== this.props.userProfile.establishment_id) {
       this.setState({
         establishmentId: this.props.userProfile.establishment_id,
       });
@@ -766,19 +727,33 @@ class Users extends React.Component {
         countriesList: countriesListUser,
       });
     }
+    if (prevProps.agenceSettings !== this.props.agenceSettings) {
+      let agenceList = [];
+      agenceList = this.props.agenceSettings.map((element) => {
+        var object = {};
+        object.label = element.name;
+        object.id = element.id;
+        object.value = element.id;
+        return object;
+      });
+      this.setState({ agenceList });
+    }
     if (prevProps.usersReducer !== this.props.usersReducer) {
       let parentsList = [];
       parentsList = this.props.usersReducer.parents.map((element) => {
         var object = {};
-        object.label = element.name + " " + element.surname;
+        object.label = element.name + ' ' + element.surname;
         object.id = element.parentId[0];
         object.value = element.parentId[0];
+        object.agenceName = 'Agence rue el Jazira 2';
+        object.agenceId = 1;
+
         return object;
       });
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
         var object = {};
-        object.label = element.name + " " + element.surname;
+        object.label = element.name + ' ' + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
         return object;
@@ -838,10 +813,7 @@ class Users extends React.Component {
           object.value = element.id;
 
           let permitted = false;
-          permitted = addUserPermitted(
-            element.labelBackEnd,
-            this.props.userPermission
-          );
+          permitted = addUserPermitted(element.labelBackEnd, this.props.userPermission);
           if (permitted) {
             listRoles.push(object);
           }
@@ -887,25 +859,39 @@ class Users extends React.Component {
         object.value = element.class.id;
         return object;
       });
-      let classRoomListFiltredByID = _.uniqBy(classRoomList, "id");
+      let classRoomListFiltredByID = _.uniqBy(classRoomList, 'id');
       this.setState({ classRoomList: classRoomListFiltredByID });
     }
-    if (typeof this.props.usersReducer.parents != "undefined") {
+    if (typeof this.props.usersReducer.parents != 'undefined') {
       let parentsList = [];
       parentsList = this.props.usersReducer.parents.map((element) => {
         var object = {};
-        object.label = element.name + " " + element.surname;
+        object.label = element.name + ' ' + element.surname;
+        object.id = element.id;
+        object.value = element.id;
+        object.agenceName = 'Agence rue el Jazira 2';
+        object.agenceId = 1;
+
+        return object;
+      });
+      this.setState({ parentsList });
+    }
+    if (this.props.agenceSettings != undefined) {
+      let agenceList = [];
+      agenceList = this.props.agenceSettings.map((element) => {
+        var object = {};
+        object.label = element.name;
         object.id = element.id;
         object.value = element.id;
         return object;
       });
-      this.setState({ parentsList });
+      this.setState({ agenceList });
     }
     if (this.props.usersReducer.students != undefined) {
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
         var object = {};
-        object.label = element.name + " " + element.surname;
+        object.label = element.name + ' ' + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
         return object;
@@ -928,12 +914,12 @@ class Users extends React.Component {
   }
 
   render() {
-    return (
+     return (
       <div
         className="app-wrapper"
         style={{
-          marginLeft: "5%",
-          marginRight: "10%",
+          marginLeft: '5%',
+          marginRight: '10%',
         }}
       >
         <div className="  d-flex flex-column mb-3">
@@ -942,13 +928,10 @@ class Users extends React.Component {
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
-              <span className="d-inline-block">
-                {" "}
-                {this.state.alertMessage}{" "}
-              </span>
+              <span className="d-inline-block"> {this.state.alertMessage} </span>
             </UncontrolledAlert>
           ) : (
-            ""
+            ''
           )}
           {this.props.errorStatus ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-danger text-white shadow-lg">
@@ -958,7 +941,7 @@ class Users extends React.Component {
               <span className="d-inline-block">{this.props.message} </span>
             </UncontrolledAlert>
           ) : (
-            ""
+            ''
           )}
           {this.props.successStatus ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
@@ -968,10 +951,10 @@ class Users extends React.Component {
               <span className="d-inline-block"> {this.props.message} </span>
             </UncontrolledAlert>
           ) : (
-            ""
+            ''
           )}
           {this.state.listRoles.length > 0 ? (
-            <div className=" bd-highlight" style={{ width: "90%" }}>
+            <div className=" bd-highlight" style={{ width: '90%' }}>
               <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
                 <AddUsers
                   openAddModal={this.openAddModal}
@@ -997,16 +980,17 @@ class Users extends React.Component {
                   deleteChoice={this.deleteChoice}
                   parentsList={this.state.parentsList}
                   studentsList={this.state.studentsList}
+                  agenceList={this.state.agenceList}
                   handleChangeGroupClassRoom={this.handleChangeGroupClassRoom}
                   values={this.state}
-                  handleChangeLevelParticipant={
-                    this.handleChangeLevelParticipant
-                  }
+                  handleChangeLevelParticipant={this.handleChangeLevelParticipant}
+                  handleChangeAgence={this.handleChangeAgence}
+                  handleChangeTypeContrat={this.handleChangeTypeContrat}
                 />
               </CardBox>
             </div>
           ) : (
-            ""
+            ''
           )}
 
           {/* <RoleContext.Consumer>
@@ -1030,7 +1014,7 @@ class Users extends React.Component {
             )}
           </RoleContext.Consumer> */}
           {!this.state.openArchive ? (
-            <div className=" bd-highlight" style={{ width: "90%" }}>
+            <div className=" bd-highlight" style={{ width: '90%' }}>
               <CardBox styleName="col-lg-12 col-sm-12 col-md-12">
                 {/* <UsersList usersList={this.props.usersReducer} /> */}
                 <UsersList
@@ -1043,7 +1027,7 @@ class Users extends React.Component {
               </CardBox>
             </div>
           ) : (
-            ""
+            ''
           )}
         </div>
         {/* <div className=" bd-highlight" style={{ width: '90%' }}>
@@ -1054,7 +1038,7 @@ class Users extends React.Component {
             />
           </CardBox>
         </div> */}
-        {this.props.userLoading ? <LoaderModal /> : ""}
+        {this.props.userLoading ? <LoaderModal /> : ''}
       </div>
     );
   }
@@ -1076,6 +1060,7 @@ const mapStateToProps = (state) => {
     groupsList: state.GroupsReducer.groupsList,
     levels: state.levelsReducer.levels,
     subjectModules: state.subjectModuleReducer.subjectModules,
+    agenceSettings: state.AgenceReducer.agenceSettings,
   };
 };
 

@@ -729,7 +729,6 @@ class UsersList extends React.Component {
     this.props.getAllUsersForAdmin(event.target.value, this.props.userProfile.school_year_id);
   };
   render() {
-    // console.log('state----------------', this.state);
     const { usefulData } = this.props;
 
     return (
