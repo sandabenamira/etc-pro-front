@@ -141,11 +141,11 @@ export const sousModuleEtab = [
     pathName: 'administration/levels',
     id: 7,
   },
-  {
-    name: 'sections',
-    pathName: 'administration/sections',
-    id: 8,
-  },
+  // {
+  //   name: 'sections',
+  //   pathName: 'administration/sections',
+  //   id: 8,
+  // },
   {
     name: 'subjectModule',
     pathName: 'administration/subjectModule',
@@ -398,12 +398,12 @@ export const sousModuleEtab2 = [
         icon: 'trending-up',
         id: 2,
       },
-      {
-        name: 'sections',
-        pathName: 'sections',
-        icon: 'view-week',
-        id: 3,
-      },
+      // {
+      //   name: 'sections',
+      //   pathName: 'sections',
+      //   icon: 'view-week',
+      //   id: 3,
+      // },
       {
         name: 'classesSettings',
         pathName: 'classesSettings',
@@ -514,13 +514,13 @@ export const sousModuleAdministration = [
             icon: 'trending-up',
             id: 2,
           },
-          {
-            name: 'sections',
-            pathName: 'administration/sections',
-            type: 'item',
-            icon: 'view-week',
-            id: 3,
-          },
+          // {
+          //   name: 'sections',
+          //   pathName: 'administration/sections',
+          //   type: 'item',
+          //   icon: 'view-week',
+          //   id: 3,
+          // },
           {
             name: 'classesSettings',
             pathName: 'administration/classesSettings',

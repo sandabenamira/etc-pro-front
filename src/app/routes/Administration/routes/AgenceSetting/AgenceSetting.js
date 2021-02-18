@@ -81,8 +81,7 @@ class ClassesSettings extends React.Component {
   }
 
   render() {
-    console.log('-----state----', this.state);
-    return (
+     return (
       <div
         className="app-wrapper"
         style={{

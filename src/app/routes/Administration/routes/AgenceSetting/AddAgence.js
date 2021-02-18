@@ -67,7 +67,7 @@ export default class AddAgence extends React.Component {w
                         <CardBox styleName=" text-black  ">
                           <div className="d-flex flex-column  ">
                             <div className="d-flex flex-wrap  align-items-center ">
-                              <div className="col-md-4 ">
+                              <div className="col-md-4  col-lg-4 col-sm-4">
                                 <TextField
                                   required
                                   id="Agence"
@@ -78,7 +78,7 @@ export default class AddAgence extends React.Component {w
                                   fullWidth
                                 />
                               </div>
-                              <div className="col-md-4 ">
+                              <div className="col-md-4  col-lg-4 col-sm-4">
                                 <TextField
                                   id="typeAgence"
                                   label="Type Agence"
@@ -95,7 +95,7 @@ export default class AddAgence extends React.Component {w
                                   ))}
                                 </TextField>
                               </div>
-                              <div className="col-md-4 ">
+                              <div className="col-md-4  col-lg-4 col-sm-4">
                                 <TextField
                                   required
                                   id="gouvernoratAgence"
@@ -106,7 +106,7 @@ export default class AddAgence extends React.Component {w
                                   fullWidth
                                 />
                               </div>
-                              <div className="col-md-4 ">
+                              <div className="col-md-4  col-lg-4 col-sm-4">
                                 <TextField
                                   required
                                   id="adresseAgence"
@@ -117,7 +117,7 @@ export default class AddAgence extends React.Component {w
                                   fullWidth
                                 />
                               </div>
-                              <div className="col-md-4 ">
+                              <div className="col-md-4  col-lg-4 col-sm-4">
                                 <TextField
                                   error={
                                     isEmail(this.props.values.emailAgence) === false ? true : false
@@ -138,7 +138,7 @@ export default class AddAgence extends React.Component {w
                                   }
                                 />
                               </div>
-                              <div className="col-md-4 ">
+                              <div className="col-md-4  col-lg-4 col-sm-4">
                                 <MuiPhoneNumber
                                   error={
                                     this.isValidphoneNumber(this.props.values.faxAgence) === true ||
@@ -163,7 +163,7 @@ export default class AddAgence extends React.Component {w
                                   }
                                 />
                               </div>
-                              <div className="col-md-4 ">
+                              <div className="col-md-4  col-lg-4 col-sm-4">
                                 <MuiPhoneNumber
                                   error={
                                     this.isValidphoneNumber(this.props.values.telAgence) === true ||
