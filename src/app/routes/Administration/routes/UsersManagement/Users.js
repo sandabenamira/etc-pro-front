@@ -391,8 +391,8 @@ class Users extends React.Component {
   handleChangeBirthdayDate = (date) => {
     this.setState({ birthdayDate: date, birthdayDateCheck: true });
   };
-  handleChangeRole = (selectedOption) => {
-    if (selectedOption.id == roleIdStudent) {
+  handleChangeRole =   (selectedOption) => {
+     if (selectedOption.id == roleIdStudent) {
       this.setState({
         birthdayDate: moment().year() - 6 + '-01-01',
       });
@@ -862,6 +862,17 @@ class Users extends React.Component {
       let classRoomListFiltredByID = _.uniqBy(classRoomList, 'id');
       this.setState({ classRoomList: classRoomListFiltredByID });
     }
+    if (this.props.agenceSettings != undefined) {
+      let agenceList = [];
+      agenceList = this.props.agenceSettings.map((element) => {
+        var object = {};
+        object.label = element.name;
+        object.id = element.id;
+        object.value = element.id;
+        return object;
+      });
+      this.setState({ agenceList });
+    }
     if (typeof this.props.usersReducer.parents != 'undefined') {
       let parentsList = [];
       parentsList = this.props.usersReducer.parents.map((element) => {
@@ -876,17 +887,7 @@ class Users extends React.Component {
       });
       this.setState({ parentsList });
     }
-    if (this.props.agenceSettings != undefined) {
-      let agenceList = [];
-      agenceList = this.props.agenceSettings.map((element) => {
-        var object = {};
-        object.label = element.name;
-        object.id = element.id;
-        object.value = element.id;
-        return object;
-      });
-      this.setState({ agenceList });
-    }
+
     if (this.props.usersReducer.students != undefined) {
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
@@ -914,7 +915,7 @@ class Users extends React.Component {
   }
 
   render() {
-     return (
+    return (
       <div
         className="app-wrapper"
         style={{
