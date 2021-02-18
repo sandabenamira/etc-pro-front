@@ -10,45 +10,84 @@ class CourseAssignment extends React.Component {
     super(props);
     this.state = {
       open: true,
-      class_id: '',
-      subjectsSelected: [],
+      step2: false,
+      step3: false,
       isOpenArchive: false,
-      class: '',
-      assignementCourseExist: false,
+      agenceList: [],
       subjectList: [],
-      ClassSettingsList: [],
-      CoficientGlobal: null,
-      courseAssignmentList: [],
-      subjectIDselected: [],
-      agenceList:[]
+      levelList: [],
+      studentsList: [],
+      professorList: [],
+      participantList: [{ id: 0, agence: {}, participants: [] }],
+      nameClassFormation: '',
+      levelId: null,
+      subjectId: null,
+      profId: null,
     };
     this.openAddModal = this.openAddModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeParticipant = this.handleChangeParticipant.bind(this);
+    this.addNewListParticipant = this.addNewListParticipant.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.handleChangeClass = this.handleChangeClass.bind(this);
-    this.handleChangeSubject = this.handleChangeSubject.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-
-    this.openArchiveModal = this.openArchiveModal.bind(this);
-    this.handleChangeAlerte = this.handleChangeAlerte.bind(this);
+    this.handleSubmitStep1 = this.handleSubmitStep1.bind(this);
+    this.handleSubmitStep2 = this.handleSubmitStep2.bind(this);
+    this.handleSubmitStep3 = this.handleSubmitStep3.bind(this);
   }
-  handleChangeAlerte = (name) => {
-    this.setState({
-      assignementCourseExist: true,
-      messageAlerte: 'cette classe a déja cette matière',
+  addNewListParticipant = (index) => {
+    let participantList = [];
+    this.state.participantList.map((element) => {
+      participantList.push({
+        agence: element.agence,
+        participants: element.participants,
+        id: element.id,
+        isAdded: true,
+      });
     });
-    setTimeout(() => {
-      this.setState({ assignementCourseExist: false, messageAlerte: '' });
-    }, 4000);
+    participantList.push({
+      agence: {},
+      participants: [],
+      id: index,
+      isAdded: false,
+    });
+
+    this.setState({ participantList });
   };
-  openArchiveModal() {
-    this.setState((previousState) => ({
-      isOpenArchive: !previousState.isOpenArchive,
-    }));
-  }
-  handleChange = (event) => {
-    this.setState({ CoficientGlobal: event.target.value });
+  handleChangeParticipant = (selectedOption, name, index) => {
+    console.log('-----selectedOption------', selectedOption);
+    console.log('-----name------', name);
+    console.log('-----index------', index);
+    if (name === 'agence') {
+      
+      let newParticipantList = this.state.participantList.map((element, i) =>
+        i === index
+          ? {
+              ...element,
+              [name]: selectedOption,
+              // subjects: subjectsList,
+            }
+          : element
+      );
+      this.setState({ participantList: newParticipantList });
+    } else {
+      let newParticipantList = this.state.participantList.map((element, i) =>
+        i === index
+          ? {
+              ...element,
+              [name]: selectedOption,
+              // subjects: subjectsList,
+            }
+          : element
+      );
+      this.setState({ participantList: newParticipantList });
+    }
+    // this.setState({ [name]: selectedOption.id });
+  };
+  handleChange = (name) => (selectedOption) => {
+    this.setState({ [name]: selectedOption.id });
+  };
+  handleChangeName = (name) => (event) => {
+    this.setState({ [name]: event.target.value });
   };
 
   openAddModal() {
@@ -56,58 +95,25 @@ class CourseAssignment extends React.Component {
       open: !previousState.open,
     }));
   }
-
-  handleSubmit(event) {
+  handleSubmitStep1(event) {
     event.preventDefault();
-    let newData = this.state.subjectsSelected.map((element) => {
-      return {
-        assignment_date: new Date(),
-        status: true,
-        global_coefficient: this.state.CoficientGlobal,
-        fk_id_class_v4: this.state.class_id,
-        fk_id_subject_v4: element.id,
-        class: this.state.class,
-        subject: element,
-        course: [],
-      };
+    this.setState({
+      step2: true,
     });
-    this.props.dispatch(addAssignementCourse(newData));
+  }
+  handleSubmitStep2(event) {
+    event.preventDefault();
+    this.setState({
+      step3: true,
+    });
+  }
+  handleSubmitStep3(event) {
+    event.preventDefault();
     this.setState({
       open: false,
-      class_id: '',
-      subjectsSelected: [],
     });
   }
 
-  handleChangeClass = (selectedOption) => {
-    let subjectIDselected = [];
-    this.state.courseAssignmentList.map((element) => {
-      if (element.classItem.id == selectedOption.id) {
-        subjectIDselected = element.subjects.map((subjectItem) => subjectItem.fk_id_subject_v4);
-      }
-    });
-    this.setState({
-      class_id: selectedOption.id,
-      class: selectedOption,
-      subjectIDselected,
-    });
-  };
-  handleChangeSubject = (selectedOption) => {
-    if (selectedOption != null) {
- 
-      let subjectsSelected = selectedOption;
-      this.setState({
-        subjectsSelected,
-      });
-    } else {
-      this.setState({
-        subjectsSelected: [],
-      });
-    }
-  };
-  handleChange = (name) => (event) => {
-    this.setState({ [name]: event.target.value });
-  };
   handleCancel() {
     this.setState({ open: false });
   }
@@ -134,30 +140,59 @@ class CourseAssignment extends React.Component {
       });
       this.setState({ subjectList });
     }
-    if (this.props.ClassSettings != undefined) {
-      let ClassSettingsList = [];
-      ClassSettingsList = this.props.ClassSettings.map((element) => {
-        var object = element;
+    if (this.props.levels != undefined) {
+      let levelList = [];
+      levelList = this.props.levels.map((element) => {
+        var object = {};
         object.label = element.name;
+        object.id = element.id;
         object.value = element.id;
 
         return object;
       });
-      this.setState({ ClassSettingsList });
+      this.setState({ levelList });
     }
-    if (this.props.courseAssignment != undefined) {
-      let groupAssignment = _.groupBy(this.props.courseAssignment, 'class.name');
-      let finalListAssignment = [];
-      for (const property in groupAssignment) {
-        finalListAssignment.push({
-          classItem: groupAssignment[property][0].class,
-          subjects: groupAssignment[property],
-        });
-      }
-      this.setState({ courseAssignmentList: finalListAssignment });
+    if (typeof this.props.usersReducer.professors != 'undefined') {
+      let professorList = [];
+      professorList = this.props.usersReducer.professors.map((element) => {
+        var object = {};
+        object.label = element.name + ' ' + element.surname;
+        object.id = element.profId;
+        object.value = element.profId;
+        object.agenceId = element.agenceId;
+
+        return object;
+      });
+      this.setState({ professorList });
+    }
+
+    if (this.props.usersReducer.students != undefined) {
+      let studentsList = [];
+      studentsList = this.props.usersReducer.students.map((element) => {
+        var object = {};
+        object.label = element.name + ' ' + element.surname;
+        object.id = element.studentId[0];
+        object.value = element.studentId[0];
+        object.agenceId = element.agenceId;
+
+        return object;
+      });
+      this.setState({ studentsList });
     }
   }
   componentDidUpdate(prevProps) {
+    if (prevProps.levels !== this.props.levels) {
+      let levelList = [];
+      levelList = this.props.levels.map((element) => {
+        var object = {};
+        object.label = element.name;
+        object.id = element.id;
+        object.value = element.id;
+
+        return object;
+      });
+      this.setState({ levelList });
+    }
     if (prevProps.agenceSettings !== this.props.agenceSettings) {
       let agenceList = [];
       agenceList = this.props.agenceSettings.map((element) => {
@@ -181,32 +216,33 @@ class CourseAssignment extends React.Component {
       });
       this.setState({ subjectList });
     }
-    if (prevProps.ClassSettings !== this.props.ClassSettings) {
-      let ClassSettingsList = [];
-      ClassSettingsList = this.props.ClassSettings.map((element) => {
-        var object = element;
-        object.label = element.name;
-        object.value = element.id;
+    if (prevProps.usersReducer !== this.props.usersReducer) {
+      let professorList = [];
+      professorList = this.props.usersReducer.professors.map((element) => {
+        var object = {};
+        object.label = element.name + ' ' + element.surname;
+        object.id = element.profId;
+        object.value = element.profId;
+        object.agenceId = element.agenceId;
 
         return object;
       });
-      this.setState({ ClassSettingsList });
-    }
-    if (prevProps.courseAssignment !== this.props.courseAssignment) {
-      let groupAssignment = _.groupBy(this.props.courseAssignment, 'class.name');
-      let finalListAssignment = [];
-      for (const property in groupAssignment) {
-        finalListAssignment.push({
-          classItem: groupAssignment[property][0].class,
-          subjects: groupAssignment[property],
-        });
-      }
-      this.setState({ courseAssignmentList: finalListAssignment });
+      let studentsList = [];
+      studentsList = this.props.usersReducer.students.map((element) => {
+        var object = {};
+        object.label = element.name + ' ' + element.surname;
+        object.id = element.studentId[0];
+        object.value = element.studentId[0];
+        object.agenceId = element.agenceId;
+
+        return object;
+      });
+      this.setState({ professorList, studentsList });
     }
   }
   render() {
-    // console.log('-----state----',this.state);
-     return (
+    console.log('-----state----', this.state.participantList);
+    return (
       <div
         className="app-wrapper"
         style={{
@@ -248,20 +284,19 @@ class CourseAssignment extends React.Component {
           <div className=" bd-highlight" style={{ width: '90%' }}>
             <CardBox styleName="col-lg-12">
               <AddClassFormation
-                courseAssignmentList={this.state.courseAssignmentList}
                 values={this.state}
                 openAddModal={this.openAddModal}
-                handleSubmit={this.handleSubmit}
+                handleSubmitStep1={this.handleSubmitStep1}
+                handleSubmitStep2={this.handleSubmitStep2}
+                handleSubmitStep3={this.handleSubmitStep3}
                 handleCancel={this.handleCancel}
-                ClassSettingsList={this.state.ClassSettingsList}
-                subjectList={this.state.subjectList}
-                handleChangeClass={this.handleChangeClass}
-                handleChangeSubject={this.handleChangeSubject}
-                agenceSettings={this.state.agenceList}
+                handleChange={this.handleChange}
+                handleChangeName={this.handleChangeName}
+                handleChangeParticipant={this.handleChangeParticipant}
+                addNewListParticipant={this.addNewListParticipant}
               />
             </CardBox>
           </div>
-          
         </div>
       </div>
     );
@@ -271,15 +306,13 @@ class CourseAssignment extends React.Component {
 const mapStateToProps = (state) => {
   return {
     userProfile: state.auth.userProfile,
-    ClassSettings: state.ClassSettingsReducer.classSettings,
-    subjects: state.subject.subjects,
-    examTypes: state.ExamTypesReducer.examTypes,
     successStatus: state.alert.success,
     errorStatus: state.alert.error,
     message: state.alert.message,
-    courseAssignment: state.AssignementReducer.courseAssignment,
     agenceSettings: state.AgenceReducer.agenceSettings,
-
+    subjects: state.subject.subjects,
+    levels: state.levelsReducer.levels,
+    usersReducer: state.usersReducer,
   };
 };
 
