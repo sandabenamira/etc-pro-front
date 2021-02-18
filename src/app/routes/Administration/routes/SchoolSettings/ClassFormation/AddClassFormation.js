@@ -39,7 +39,7 @@ class AddClassFormation extends React.Component {
               role={role}
               perform="add-service"
               yes={() => (
-                <div  className="d-flex flex-column bg-red">
+                <div className="d-flex flex-column ">
                   <div className="d-flex justify-content-start align-items-center">
                     <h1>
                       <b>Ajouter une classe de formation</b>
@@ -58,11 +58,11 @@ class AddClassFormation extends React.Component {
                     <br />
                     {this.props.values.open ? (
                       <>
-                        <div >
+                        <div>
                           <h3>Informations générales </h3>
                         </div>
-                        <div className="d-flex flex-wrap flex-row  mt-2">
-                          <div className="col-md-3">
+                        <div className="d-flex flex-wrap flex-row mt-2">
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-2 ">
                             <InputLabel required htmlFor="name-class">
                               Nom
                             </InputLabel>
@@ -80,7 +80,7 @@ class AddClassFormation extends React.Component {
                               }}
                             />
                           </div>
-                          <div className="col-md-3">
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-2 ">
                             <InputLabel required htmlFor="name-multiple">
                               Niveau
                             </InputLabel>
@@ -108,7 +108,7 @@ class AddClassFormation extends React.Component {
                               }}
                             />{' '}
                           </div>
-                          <div className="col-md-3">
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-2 ">
                             <InputLabel required htmlFor="name-multiple">
                               Formation
                             </InputLabel>
@@ -136,7 +136,7 @@ class AddClassFormation extends React.Component {
                               }}
                             />{' '}
                           </div>
-                          <div className="col-md-3">
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-2 ">
                             <InputLabel required htmlFor="name-multiple">
                               Formateur
                             </InputLabel>
@@ -194,12 +194,12 @@ class AddClassFormation extends React.Component {
                         />
                         {values.step2 && (
                           <>
-                            <div className="d-flex flex-row mt-2">
+                            <div className="d-flex  mt-2">
                               <h3>Informations sur les participants </h3>
                             </div>
-                            {[1, 2].map((objParticipants, index) => (
-                              <div className="d-flex flex-row  mt-5">
-                                <div className="col-md-3">
+                            {values.participantList.map((objParticipants, index) => (
+                              <div className="d-flex flex-wrap flex-row mt-2">
+                                <div className="col-md-5 col-lg-3 col-sm-12 p-2 ">
                                   <InputLabel required htmlFor="name-multiple">
                                     Agence
                                   </InputLabel>
@@ -229,7 +229,7 @@ class AddClassFormation extends React.Component {
                                     }}
                                   />{' '}
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-md-5 col-lg-3 col-sm-12 p-2 ">
                                   <InputLabel required htmlFor="name-multiple">
                                     Collaborateurs
                                   </InputLabel>
@@ -239,7 +239,9 @@ class AddClassFormation extends React.Component {
                                     //   (element) =>
                                     //     !this.props.values.subjectIDselected.includes(element.id)
                                     // )}
-                                    // onChange={this.props.handleChangeSubject}
+                                    onChange={(e) =>
+                                      this.props.handleChangeParticipant(e, 'participants', index)
+                                    }
                                     isMulti
                                     id="formation"
                                     name="formation"
@@ -257,22 +259,22 @@ class AddClassFormation extends React.Component {
                                     }}
                                   />{' '}
                                 </div>
-                                <div className="col-md-6 col-lg-2 col-sm-12 mt-3">
+                                <div className="col-md-2 col-lg-2 col-sm-12 mt-3">
                                   <Fab
                                     size="small"
                                     value={`${index}`}
                                     color="primary"
                                     aria-label="Add"
-                                    // onClick={() => {
-                                    //   if (!objSubject.isAdded) {
-                                    //     if (objSubject.subjectId != 0) {
-                                    //       this.props.addNewSubject(index + 1);
-                                    //     } else {
-                                    //     }
-                                    //   } else {
-                                    //     this.props.deleteChoice(index);
-                                    //   }
-                                    // }}
+                                    onClick={() => {
+                                      if (!objParticipants.isAdded) {
+                                        if (objParticipants.subjectId != 0) {
+                                          this.props.addNewListParticipant(index + 1);
+                                        } else {
+                                        }
+                                      } else {
+                                        // this.props.deleteChoice(index);
+                                      }
+                                    }}
                                   >
                                     {objParticipants.isAdded ? <RemoveIcon /> : <AddIcon />}
                                   </Fab>
@@ -311,11 +313,11 @@ class AddClassFormation extends React.Component {
                         )}
                         {values.step3 && (
                           <>
-                            <div className="d-flex flex-row mt-2">
+                            <div className="d-flex  mt-2">
                               <h3>Informations sur les horaires </h3>
                             </div>
                             <div className="d-flex flex-row mt-2">
-                              <div className="col-md-3 d-flex justify-content-center align-items-end">
+                              <div className="col-md-5 col-lg-4 col-sm-12 p-2 d-flex flex-wrap flex-row  justify-content-center align-items-end  ">
                                 <Radio
                                   // checked={values.userGender == 'Male'}
                                   // onChange={this.props.handleChange('userGender')}
@@ -326,7 +328,7 @@ class AddClassFormation extends React.Component {
                                 />
                                 <h3>seule séance </h3>{' '}
                               </div>
-                              <div className="col-md-3 d-flex justify-content-center align-items-end">
+                              <div className="col-md-5 col-lg-4 col-sm-12 p-2  d-flex flex-wrap flex-row justify-content-center align-items-end  ">
                                 <Radio
                                   // checked={values.userGender == 'Female'}
                                   // onChange={this.props.handleChange('userGender')}
@@ -339,8 +341,8 @@ class AddClassFormation extends React.Component {
                               </div>
                             </div>
                             {[1, 2, 3].map((objSubject, index) => (
-                              <div className="d-flex flex-row  mt-5">
-                                <div className="col-md-3">
+                              <div className="d-flex flex-wrap flex-row mt-2">
+                              <div className="col-md-6 col-lg-3 col-sm-12 p-2">
                                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                     <KeyboardDatePicker
                                       label={
@@ -353,7 +355,7 @@ class AddClassFormation extends React.Component {
                                             width: '300px',
                                           }}
                                         >
-                                          {<IntlMessages id="user.birthday.date" />}
+                                         date
                                         </InputLabel>
                                       }
                                       clearable
@@ -370,7 +372,7 @@ class AddClassFormation extends React.Component {
                                     />
                                   </MuiPickersUtilsProvider>
                                 </div>
-                                <div className="col-md-2 mt-1">
+                                <div className="col-md-6 col-lg-2 col-sm-12 p-2 mt-1">
                                   <div key="datetime_default" className="picker">
                                     <TimePicker
                                       required
@@ -389,7 +391,7 @@ class AddClassFormation extends React.Component {
                                     {true ? <IntlMessages id="start.hour.check" /> : ''}
                                   </FormHelperText>
                                 </div>
-                                <div className="col-md-2 mt-1">
+                                <div className="col-md-5 col-lg-2 col-sm-12 p-2 mt-1">
                                   <div key="datetime_default" className="picker">
                                     <TimePicker
                                       required
@@ -408,7 +410,7 @@ class AddClassFormation extends React.Component {
                                     {true ? <IntlMessages id="end.hour.check" /> : ''}
                                   </FormHelperText>
                                 </div>
-                                <div className="col-md-3">
+                                <div className="col-md-5 col-lg-3 col-sm-12 p-2">
                                   <InputLabel required htmlFor="name-multiple">
                                     Lieu
                                   </InputLabel>
@@ -435,7 +437,7 @@ class AddClassFormation extends React.Component {
                                     }}
                                   />{' '}
                                 </div>
-                                <div className="col-md-6 col-lg-2 col-sm-12 mt-3">
+                                <div className="col-md-2 col-lg-2 col-sm-12 mt-3">
                                   <Fab
                                     size="small"
                                     value={`${index}`}

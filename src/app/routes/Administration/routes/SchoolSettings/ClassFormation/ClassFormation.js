@@ -18,12 +18,7 @@ class CourseAssignment extends React.Component {
       levelList: [],
       studentsList: [],
       professorList: [],
-      participantList: [
-        {
-          agence: {},
-          participants: [],
-        },
-      ],
+      participantList: [{ id: 0, agence: {}, participants: [] }],
       nameClassFormation: '',
       levelId: null,
       subjectId: null,
@@ -33,17 +28,59 @@ class CourseAssignment extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeParticipant = this.handleChangeParticipant.bind(this);
+    this.addNewListParticipant = this.addNewListParticipant.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmitStep1 = this.handleSubmitStep1.bind(this);
     this.handleSubmitStep2 = this.handleSubmitStep2.bind(this);
     this.handleSubmitStep3 = this.handleSubmitStep3.bind(this);
   }
+  addNewListParticipant = (index) => {
+    let participantList = [];
+    this.state.participantList.map((element) => {
+      participantList.push({
+        agence: element.agence,
+        participants: element.participants,
+        id: element.id,
+        isAdded: true,
+      });
+    });
+    participantList.push({
+      agence: {},
+      participants: [],
+      id: index,
+      isAdded: false,
+    });
 
+    this.setState({ participantList });
+  };
   handleChangeParticipant = (selectedOption, name, index) => {
-    console.log('-----selectedOption------',selectedOption);
-    console.log('-----name------',name);
-    console.log('-----index------',index);
-
+    console.log('-----selectedOption------', selectedOption);
+    console.log('-----name------', name);
+    console.log('-----index------', index);
+    if (name === 'agence') {
+      
+      let newParticipantList = this.state.participantList.map((element, i) =>
+        i === index
+          ? {
+              ...element,
+              [name]: selectedOption,
+              // subjects: subjectsList,
+            }
+          : element
+      );
+      this.setState({ participantList: newParticipantList });
+    } else {
+      let newParticipantList = this.state.participantList.map((element, i) =>
+        i === index
+          ? {
+              ...element,
+              [name]: selectedOption,
+              // subjects: subjectsList,
+            }
+          : element
+      );
+      this.setState({ participantList: newParticipantList });
+    }
     // this.setState({ [name]: selectedOption.id });
   };
   handleChange = (name) => (selectedOption) => {
@@ -204,7 +241,7 @@ class CourseAssignment extends React.Component {
     }
   }
   render() {
-    // console.log('-----state----', this.state);
+    console.log('-----state----', this.state.participantList);
     return (
       <div
         className="app-wrapper"
@@ -256,6 +293,7 @@ class CourseAssignment extends React.Component {
                 handleChange={this.handleChange}
                 handleChangeName={this.handleChangeName}
                 handleChangeParticipant={this.handleChangeParticipant}
+                addNewListParticipant={this.addNewListParticipant}
               />
             </CardBox>
           </div>
