@@ -64,7 +64,10 @@ const schoolSessionList = [
     id: 5,
   },
 ];
-
+const TypeContrat = [
+  { label: "interne", id: 1, value: 1 },
+  { label: "externe", id: 2, value: 2 },
+];
 class EditUsers extends React.Component {
   constructor(props) {
     super(props);
@@ -163,7 +166,7 @@ class EditUsers extends React.Component {
                           }}
                         />{" "}
                       </div>
-                      {this.props.userProfile.role_id === roleIdSuperAdmin ? (
+                      {values.roleItemEdit.id === roleIdSuperAdmin ? (
                         <>
                           <div className="col-md-6 col-lg-2 col-sm-12 p-0">
                             <InputLabel
@@ -239,7 +242,40 @@ class EditUsers extends React.Component {
                               }}
                             />{" "}
                           </div>
-                          <div className="col-md-6 col-lg-3 col-sm-12 p-1">
+                          
+                    <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                      <InputLabel
+                        htmlFor="nomSelect"
+                        style={{
+                          fontFamily: 'Roboto',
+                          fontSize: '16px',
+                        }}
+                      >
+                        Agence
+                      </InputLabel>
+                      <Select
+                        isDisabled
+                        value={{
+                          label: values.agenceCollaborateur,
+                          id: 0,
+                        }}
+                        id="role"
+                        name="role"
+                        styles={{
+                          control: (base) => ({
+                            ...base,
+                            '&:hover': { borderColor: 'gray' }, // border style on hover
+                            border: '1px solid lightgray', // default border color
+                            boxShadow: 'none', // no box-shadow
+                            borderTopStyle: 'none',
+                            borderRightStyle: 'none',
+                            borderLeftStyle: 'none',
+                            borderRadius: ' none',
+                          }),
+                        }}
+                      />{' '}
+                    </div>
+                          {/* <div className="col-md-6 col-lg-3 col-sm-12 p-1">
                             <InputLabel
                               htmlFor="nomSelect"
                               style={{
@@ -268,8 +304,8 @@ class EditUsers extends React.Component {
                                 }),
                               }}
                             />{" "}
-                          </div>
-                          <div className="col-md-6 col-lg-3 col-sm-12 p-1">
+                          </div> */}
+                          {/* <div className="col-md-6 col-lg-3 col-sm-12 p-1">
                             <InputLabel
                               htmlFor="group"
                               style={{
@@ -298,24 +334,45 @@ class EditUsers extends React.Component {
                                 }),
                               }}
                             />{" "}
-                          </div>
+                          </div> */}
                         </>
                       ) : (
                         ""
                       )}
-                      {values.roleItemEdit.id === roleIdProfessor ? (
+                      {values.roleItemEdit.id === roleIdProfessor   && (
                         <>
-                          <div className="col-md-6 col-lg-3 col-sm-12 p-0 ">
-                            {" "}
-                          </div>
-                          <div className="col-md-6 col-lg-3 col-sm-12 p-0 ">
-                            {" "}
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-0">
+                            <InputLabel
+                              htmlFor="nomSelect"
+                              style={{
+                                fontFamily: "Roboto",
+                                fontSize: "16px",
+                              }}
+                            >
+                              Type
+                            </InputLabel>
+                            <Select
+                              options={TypeContrat}
+                              onChange={this.props.handleChangeTypeContrat}
+                              id="typeContrat"
+                              name="typeContrat"
+                              styles={{
+                                control: (base) => ({
+                                  ...base,
+                                  "&:hover": { borderColor: "gray" }, // border style on hover
+                                  border: "1px solid lightgray", // default border color
+                                  boxShadow: "none", // no box-shadow
+                                  borderTopStyle: "none",
+                                  borderRightStyle: "none",
+                                  borderLeftStyle: "none",
+                                  borderRadius: " none",
+                                }),
+                              }}
+                            />{" "}
                           </div>
                         </>
-                      ) : (
-                        ""
                       )}
-                      {values.roleItemEdit.id === roleIdProfessor ? (
+                      {/* {values.roleItemEdit.id === roleIdProfessor ? (
                         <>
                           {values.listOfSubjectsEdit.map(
                             (objSubject, index) => (
@@ -453,27 +510,27 @@ class EditUsers extends React.Component {
                         </>
                       ) : (
                         ""
-                      )}
+                      )} */}
                       {values.roleItemEdit.id === roleIdParent ? (
                         <>
-                          <div className="col-md-6 col-lg-4 col-sm-12 p-1">
+                          <div className="col-md-6 col-lg-2 col-sm-12 p-0">
                             <InputLabel
                               htmlFor="nomSelect"
                               style={{
                                 fontFamily: "Roboto",
-                                fontSize: "18px",
+                                fontSize: "16px",
                               }}
                             >
-                              {<IntlMessages id="parent.couplage.student" />}
+                              Agence
                             </InputLabel>
                             <Select
-                              isMulti
-                              options={usefulData.studentsList}
-                              onChange={this.props.handleChangeStudent}
-                              defaultValue={values.listStudentEdit}
-                              // value={values.listStudentEdit[0]}
-                              id="studentIdAssignement"
-                              name="studentIdAssignement"
+                              isDisabled
+                              value={{
+                                label: values.agenceCollaborateur,
+                                id: 0,
+                              }}
+                              id="role"
+                              name="role"
                               styles={{
                                 control: (base) => ({
                                   ...base,
@@ -492,7 +549,8 @@ class EditUsers extends React.Component {
                       ) : (
                         ""
                       )}
-                      {values.roleItemEdit.id === roleIdSupervisor ? (
+
+                      {/* {values.roleItemEdit.id === roleIdSupervisor ? (
                         <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                           <InputLabel
                             htmlFor="nomSelect"
@@ -525,7 +583,7 @@ class EditUsers extends React.Component {
                         </div>
                       ) : (
                         ""
-                      )}
+                      )} */}
                       <hr
                         style={{
                           width: "100%",
@@ -905,93 +963,94 @@ class EditUsers extends React.Component {
                       </div>
 
                       <div className="p-2 d-flex flex-wrap flex-row bd-highlight">
-
-                      <div className="col-md-6 col-lg-3 col-sm-12 p-2">
-                      <InputLabel
-                        style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
-                          marginTop: '-2%',
-                        }}
-                      >
-                        {<IntlMessages id="zip.code.user" />}
-                      </InputLabel>
-                      <TextField
-                        id="userZipCode"
-                        name="userZipCode"
-                        type="number"
-                        value={values.userZipCodeEdit || ''}
-                        onChange={this.props.handleChange('userZipCodeEdit')}
-                        style={{
-                          marginTop: '3%',
-                        }}
-                        fullWidth
-                        SelectProps={{
-                          native: true,
-                        }}
-                      />
-                    </div>
-                    <div className="col-md-6 col-lg-4 col-sm-12 p-2">
-                      <InputLabel
-                        htmlFor="nomSelect"
-                        // style={{
-                        //   fontFamily: 'Roboto',
-                        //   fontSize: '18px',
-                        // }}
-                        style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
-                          marginTop: '-2%',
-                        }}
-                      >
-                        {<IntlMessages id="country.user" />}
-                      </InputLabel>
-                      <Select
-                        options={usefulData.countriesList}
-                        onChange={this.props.handleChangeCountries}
-                        value={values.userCountryEdit}
-                        id="userCountry"
-                        name="userCountry"
-                        styles={{
-                          control: (base) => ({
-                            ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
-                          }),
-                        }}
-                      />{' '}
-                    </div>
-
-                    {values.photoText != '' && (
-                      <div className="col-md-6 col-lg-4 col-sm-12   d-flex flex-row flex-wrap p-2">
-                        <div>
-                          {' '}
-                          <Typography
-                            variant="h6"
+                        <div className="col-md-6 col-lg-3 col-sm-12 p-2">
+                          <InputLabel
                             style={{
-                              color: '#3F51B5',
-                              fontWeight: 'normal',
-                              fontFamily: 'Roboto',
-                              fontSize: '15px',
-                              // marginTop: '10px',
+                              fontFamily: "Roboto",
+                              fontSize: "18px",
+                              marginTop: "-2%",
                             }}
                           >
-                            {values.photoText} &nbsp;
-                          </Typography>
+                            {<IntlMessages id="zip.code.user" />}
+                          </InputLabel>
+                          <TextField
+                            id="userZipCode"
+                            name="userZipCode"
+                            type="number"
+                            value={values.userZipCodeEdit || ""}
+                            onChange={this.props.handleChange(
+                              "userZipCodeEdit"
+                            )}
+                            style={{
+                              marginTop: "3%",
+                            }}
+                            fullWidth
+                            SelectProps={{
+                              native: true,
+                            }}
+                          />
                         </div>
-                        <PhotoIcon
-                          style={{
-                            fontSize: '30',
-                          }}
-                          color="primary"
-                        />
-                      </div>
-                    )}
+                        <div className="col-md-6 col-lg-4 col-sm-12 p-2">
+                          <InputLabel
+                            htmlFor="nomSelect"
+                            // style={{
+                            //   fontFamily: 'Roboto',
+                            //   fontSize: '18px',
+                            // }}
+                            style={{
+                              fontFamily: "Roboto",
+                              fontSize: "18px",
+                              marginTop: "-2%",
+                            }}
+                          >
+                            {<IntlMessages id="country.user" />}
+                          </InputLabel>
+                          <Select
+                            options={usefulData.countriesList}
+                            onChange={this.props.handleChangeCountries}
+                            value={values.userCountryEdit}
+                            id="userCountry"
+                            name="userCountry"
+                            styles={{
+                              control: (base) => ({
+                                ...base,
+                                "&:hover": { borderColor: "gray" }, // border style on hover
+                                border: "1px solid lightgray", // default border color
+                                boxShadow: "none", // no box-shadow
+                                borderTopStyle: "none",
+                                borderRightStyle: "none",
+                                borderLeftStyle: "none",
+                                borderRadius: " none",
+                              }),
+                            }}
+                          />{" "}
+                        </div>
+
+                        {values.photoText != "" && (
+                          <div className="col-md-6 col-lg-4 col-sm-12   d-flex flex-row flex-wrap p-2">
+                            <div>
+                              {" "}
+                              <Typography
+                                variant="h6"
+                                style={{
+                                  color: "#3F51B5",
+                                  fontWeight: "normal",
+                                  fontFamily: "Roboto",
+                                  fontSize: "15px",
+                                  // marginTop: '10px',
+                                }}
+                              >
+                                {values.photoText} &nbsp;
+                              </Typography>
+                            </div>
+                            <PhotoIcon
+                              style={{
+                                fontSize: "30",
+                              }}
+                              color="primary"
+                            />
+                          </div>
+                        )}
                       </div>
                     </div>
 
