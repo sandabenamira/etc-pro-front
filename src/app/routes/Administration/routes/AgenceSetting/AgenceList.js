@@ -7,9 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import IntlMessages from '../../../../../util/IntlMessages';
 import AgenceItem from './AgenceItem';
-import DeleteClassSettings from './DeleteAgence';
-import EditClassSettings from './EditAgence';
-import { deleteClassSettings, editClassSettings } from '../../../../../actions/ClassSettingsAction';
+  import { deleteClassSettings, editClassSettings } from '../../../../../actions/ClassSettingsAction';
 import _ from 'lodash';
 class AgenceList extends Component {
   constructor(props) {
