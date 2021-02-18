@@ -67,11 +67,9 @@ export const INIT_URL = 'init_url';
 // Chat Module const
 
 export const FETCH_ALL_CHAT_USER = 'fetch_all_chat_user';
-export const FETCH_ALL_CHAT_USER_CONVERSATION =
-  'fetch_all_chat_user_conversation';
+export const FETCH_ALL_CHAT_USER_CONVERSATION = 'fetch_all_chat_user_conversation';
 export const FETCH_ALL_CHAT_USER_SUCCESS = 'fetch_all_chat_user_success';
-export const FETCH_ALL_CHAT_USER_CONVERSATION_SUCCESS =
-  'fetch_all_chat_user_conversation_success';
+export const FETCH_ALL_CHAT_USER_CONVERSATION_SUCCESS = 'fetch_all_chat_user_conversation_success';
 export const FILTER_USERS = 'filter_users';
 export const ON_SELECT_USER = 'on_select_user';
 export const ON_SHOW_LOADER = 'on_show_loader';
@@ -116,17 +114,13 @@ export const SET_CURRENT_MAIL_NULL = 'set_current_mail_null';
 export const ON_COMPOSE_MAIL = 'on_compose_mail';
 export const MAIL_NOT_SEND_ALERT = 'MAIL_NOT_SEND_ALERT';
 
-
-
-
 //// TO-DO Module const
 
 export const ON_SORTEND = 'on_sortend';
 export const FETCH_ALL_TODO = 'fetch_all_todo';
 export const FETCH_ALL_TODO_SUCCESS = 'fetch_all_todo-success';
 export const FETCH_ALL_TODO_CONVERSATION = 'fetch_all_todo_conversation';
-export const FETCH_ALL_TODO_CONVERSATION_SUCCESS =
-  'fetch_all_todo_conversation_success';
+export const FETCH_ALL_TODO_CONVERSATION_SUCCESS = 'fetch_all_todo_conversation_success';
 export const SELECT_ALL_TODO = 'select_all_todo';
 export const GET_ALL_TODO = 'get_all_todo';
 export const GET_UNSELECTED_ALL_TODO = 'get_unselected_all_todo';
@@ -156,7 +150,6 @@ export const EDIT_ESTABLISHMENT = 'EDIT_ESTABLISHMENT';
 export const GET_ALL_ESTABLISHMENT = 'GET_ALL_ESTABLISHMENT';
 export const DELETE_ESTABLISHMENT = 'DELETE_ESTABLISHMENT';
 export const GET_ESTABLISHMENT_INFORMATIONS = 'GET_ESTABLISHMENT_INFORMATIONS';
-
 
 //// STUDENT Module const
 
@@ -190,27 +183,22 @@ export const GET_SUBJECT_BY_Establishment_AND_SCHOOLYEAR =
 //// Class Module Const
 export const DATA_CLASSES_LOADED = 'DATA_CLASSES_LOADED';
 export const ADD_CLASS = 'ADD_CLASS';
-export const GET_CLASSES_BY_ESTABLISHMENT_ID =
-  'GET_CLASSES_BY_ESTABLISHMENT_ID';
+export const GET_CLASSES_BY_ESTABLISHMENT_ID = 'GET_CLASSES_BY_ESTABLISHMENT_ID';
 
 //// Homework Module const
 
 export const ADD_HOMEWORK = 'ADD_HOMEWORK';
 export const ASSIGN_HOMEWORK = 'ASSIGN_HOMEWORK';
 export const GET_LABELS_FOR_HOMRWORK = 'GET_LABELS_FOR_HOMRWORK';
-export const FETCH_ALL_TODO_SUCCESS_FOR_PARENT =
-  'FETCH_ALL_TODO_SUCCESS_FOR_PARENT';
-export const FETCH_ALL_TODO_SUCCESS_FOR_ADMIN =
-  'FETCH_ALL_TODO_SUCCESS_FOR_ADMIN';
+export const FETCH_ALL_TODO_SUCCESS_FOR_PARENT = 'FETCH_ALL_TODO_SUCCESS_FOR_PARENT';
+export const FETCH_ALL_TODO_SUCCESS_FOR_ADMIN = 'FETCH_ALL_TODO_SUCCESS_FOR_ADMIN';
 export const GET_NAV_LABELS_FOR_ADMIN = 'GET_NAV_LABELS_FOR_ADMIN';
 export const ADD_TODO_CONVERSATION = 'ADD_TODO_CONVERSATION';
 export const FETCH_SUBJECTS_PROFESSORS = 'FETCH_SUBJECTS_PROFESSORS';
 
-
 export const GET_HOMEWORKS = 'GET_HOMEWORKS';
 export const ARCHIVED_GET_HOMEWORKS = 'ARCHIVED_GET_HOMEWORKS';
 export const ADD_NEW_HOMEWORK = 'ADD_NEW_HOMEWORK';
-
 
 //// Grade Module const
 
@@ -245,7 +233,6 @@ export const GET_OBSERVATIONS = 'GET_OBSERVATIONS';
 export const GET_ENCOURAGEMENTS = 'GET_ENCOURAGEMENTS';
 export const GET_SANCTION = 'GET_SANCTION';
 export const GET_SETTING_CALL_REGISTER = 'GET_SETTING_CALL_REGISTER';
-
 
 //// Service module const
 export const FETECHED_ALL_SERVICES = 'FETECHED_ALL_SERVICES';
@@ -354,8 +341,7 @@ export const EDIT_ADMINISTRATION = 'EDIT_ADMINISTRATION';
 export const DELETE_ADMINISTRATION = 'DELETE_ADMINISTRATION';
 
 //// ALLOCATIONService module const
-export const FETECHED_ALL_ALLOCATION_SERVICE =
-  'FETECHED_ALL_ALLOCATION_SERVICE';
+export const FETECHED_ALL_ALLOCATION_SERVICE = 'FETECHED_ALL_ALLOCATION_SERVICE';
 export const ADD_ALLOCATION_SERVICE = 'ADD_ALLOCATION_SERVICE';
 export const EDIT_ALLOCATION_SERVICE = 'EDIT_ALLOCATION_SERVICE';
 export const DELETE_ALLOCATION_SERVICE = 'DELETE_ALLOCATION_SERVICE';
@@ -366,8 +352,7 @@ export const PAY_BILL = 'PAY_BILL';
 
 //////Room Module
 export const FETECHED_ALL_ROOMS = 'FETECHED_ALL_ROOMS';
-export const FETECHED_ALL_ROOMS_BY_ESTABLISHMENET_ID =
-  'FETECHED_ALL_ROOMS_BY_ESTABLISHMENET_ID';
+export const FETECHED_ALL_ROOMS_BY_ESTABLISHMENET_ID = 'FETECHED_ALL_ROOMS_BY_ESTABLISHMENET_ID';
 export const ADD_ROOM = 'ADD_ROOM';
 export const EDIT_ROOM = 'EDIT_ROOM';
 export const DELETE_ROOM = 'DELETE_ROOM';
@@ -428,8 +413,7 @@ export const ADD_ASSIGNEMENT_COURSE = 'ADD_ASSIGNEMENT_COURSE';
 export const GET_ASSIGNEMENT_COURSE = 'GET_ASSIGNEMENT_COURSE';
 export const EDIT_ASSIGNEMENT_COURSE = 'EDIT_ASSIGNEMENT_COURSE';
 export const DELETE_ASSIGNEMENT_COURSE = 'DELETE_ASSIGNEMENT_COURSE';
-export const ARCHIVED_GET_ASSIGNEMENT_COURSE =
-  'ARCHIVED_GET_ASSIGNEMENT_COURSE';
+export const ARCHIVED_GET_ASSIGNEMENT_COURSE = 'ARCHIVED_GET_ASSIGNEMENT_COURSE';
 
 // Module Licence
 
@@ -452,16 +436,15 @@ export const HIDE_LOADER = 'HIDE_LOADER';
 /// Modules Support cours
 
 export const GET_FOLDERS_ARCHITECTURE = 'GET_FOLDERS_ARCHITECTURE';
-export const ADD_MATERIAL_COURSE = 'ADD_MATERIAL_COURSE'; 
+export const ADD_MATERIAL_COURSE = 'ADD_MATERIAL_COURSE';
 export const GET_MATERIAL_COURSE = 'GET_MATERIAL_COURSE';
 export const GET_MATERIAL_COURSE_ARCHIVED = 'GET_MATERIAL_COURSE_ARCHIVED';
 export const DELETE_MATERIAL_COURSE = 'DELETE_MATERIAL_COURSE';
 
-
 /// Modules gestion des utilisateurs
 
 export const FETCH_ALL_ROLE = 'FETCH_ALL_ROLE';
- export const ADD_USER = 'ADD_USER';
+export const ADD_USER = 'ADD_USER';
 export const GET_ALL_USERS_FOR_ADMIN = 'GET_ALL_USERS_FOR_ADMIN';
 export const GET_ALL_USERS_FOR_SUPER_ADMIN = 'GET_ALL_USERS_FOR_SUPER_ADMIN';
 export const EDIT_USER = 'EDIT_USER';
@@ -488,21 +471,15 @@ export const ARCHIVED_GET_GROUPS = 'ARCHIVED_GET_GROUPS';
 
 export const INIT_OPTIONS = 'INIT_OPTIONS';
 
-
 ///////////////Satisfaction Survey Module
 export const ADD_SATIS_SURVEY = 'ADD_SATIS_SURVEY';
 export const EDIT_SATIS_SURVEY = 'EDIT_SATIS_SURVEY';
 export const DELETE_SATIS_SURVEY = 'DELETE_SATIS_SURVEY';
 export const GET_SATIS_SURVEY_LIST = 'GET_SATIS_SURVEY_LIST';
 
-
-
-
-
-
-
-
-
-
-
-
+//////// GESTION DES AGENCES MODULE
+export const ADD_AGENCE = 'ADD_AGENCE';
+export const GET_AGENCE = 'GET_AGENCE';
+export const DELETE_AGENCE = 'DELETE_AGENCE';
+export const ARCHIVED_GET_AGENCE = 'ARCHIVED_GET_AGENCE';
+export const EDIT_AGENCE = 'EDIT_AGENCE';

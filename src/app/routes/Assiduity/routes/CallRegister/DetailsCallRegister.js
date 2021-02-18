@@ -26,7 +26,7 @@ import {
 import { Redirect } from 'react-router-dom';
 import { getStudentsCallRegister } from '../../../../../actions/studentAction';
 import ContainerHeader from '../../../../../components/ContainerHeader';
-import { roleIdProfessor,roleIdAdmin } from '../../../../../config/config';
+import { roleIdProfessor, roleIdAdmin } from '../../../../../config/config';
 import {
   saveCallRegister,
   getObservationList,
@@ -109,9 +109,12 @@ class DetailsCallRegister extends React.Component {
     let TimeDate = dateFormat + 'T' + timeFormat;
     let eventId = event.id;
 
-    // let apiEndpoint = `/call_registers?access_token=${localStorage.token}?filter[where][and][0][fk_id_planning_events]=${124}&filter[where][and][1][start_date]=${TimeDate}`;
-
-    let apiEndpoint = `/call_registers?access_token=${localStorage.token}?filter[where][and][0][fk_id_planning_events]=${eventId}&filter[where][and][1][start_date]=${TimeDate}&filter[include][studentCall][student][profile][user]`;
+    let apiEndpoint =
+      `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+      eventId +
+      `&filter[where][and][1][start_date]=` +
+      TimeDate +
+      `&filter[include][studentCall][student][profile][user]`;
     classService.get(apiEndpoint).then((res) => {
       if (res) {
         if (res.data.length > 0) {
@@ -239,7 +242,7 @@ class DetailsCallRegister extends React.Component {
       roleId: this.props.userProfile.role_id,
       profileId: this.props.userProfile.id,
     };
-    this.props.dispatch(saveCallRegister(callRegister, otherData,this.state.title));
+    this.props.dispatch(saveCallRegister(callRegister, otherData, this.state.title));
     this.setState({ isRedirect: true });
   }
 
@@ -317,7 +320,12 @@ class DetailsCallRegister extends React.Component {
       .format('HH:mm:ss[Z]');
     let TimeDate = dateFormat + 'T' + timeFormat;
     let eventId = this.props.match.params.eventId;
-    let apiEndpoint = `/call_registers?access_token=${localStorage.token}?filter[where][and][0][fk_id_planning_events]=${eventId}&filter[where][and][1][start_date]=${TimeDate}&filter[include][studentCall][student][profile][user]`;
+    let apiEndpoint =
+      `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+      eventId +
+      `&filter[where][and][1][start_date]=` +
+      TimeDate +
+      `&filter[include][studentCall][student][profile][user]`;
     classService.get(apiEndpoint).then((res) => {
       if (res) {
         if (res.data.length > 0) {
@@ -752,7 +760,7 @@ justify-content-around"
   }
 
   render() {
-    console.log('---this.state.callRegister-----',this.state.callRegister);
+    console.log('---this.state.callRegister-----', this.state.callRegister);
     let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
       url: this.props.match.url,

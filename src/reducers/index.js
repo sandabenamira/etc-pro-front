@@ -43,10 +43,12 @@ import SchoolLicenceReducer from './SchoolLicenceReducer';
 import MoocsReducer from './MoocsReducer';
 import MaterialCourseReducer from './MaterialCourseReducer';
 import PermissionReducer from './PermissionReducer';
-import usersReducer from "./usersReducer"
-import HomeworkReducer from './HomeworkReducer'
-import GroupsReducer from './GroupsReducer'
-import MailReducer from './MailReducer'
+import usersReducer from './usersReducer';
+import HomeworkReducer from './HomeworkReducer';
+import GroupsReducer from './GroupsReducer';
+import AgenceReducer from './AgenceSettingsReducer';
+
+import MailReducer from './MailReducer';
 
 export default (history) =>
   combineReducers({
@@ -92,11 +94,11 @@ export default (history) =>
     AssignementReducer: AssignementReducer,
     SchoolLicenceReducer: SchoolLicenceReducer,
     MoocsReducer: MoocsReducer,
-     usersReducer:usersReducer,
+    usersReducer: usersReducer,
     MaterialCourseReducer: MaterialCourseReducer,
     PermissionReducer: PermissionReducer,
     HomeworkReducer: HomeworkReducer,
-    GroupsReducer:GroupsReducer,
-    MailReducer:MailReducer
-
+    GroupsReducer: GroupsReducer,
+    MailReducer: MailReducer,
+    AgenceReducer: AgenceReducer,
   });
