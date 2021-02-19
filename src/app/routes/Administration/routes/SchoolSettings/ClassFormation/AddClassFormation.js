@@ -59,7 +59,7 @@ class AddClassFormation extends React.Component {
                     {this.props.values.open ? (
                       <>
                         <div>
-                          <h3>Informations générales </h3>
+                          <h3> Informations générales </h3>
                         </div>
                         <div className="d-flex flex-wrap flex-row mt-2">
                           <div className="col-md-6 col-lg-3 col-sm-12 p-2 ">
@@ -158,7 +158,7 @@ class AddClassFormation extends React.Component {
                         </div>
                         <div className="d-flex flex-row-reverse mt-2">
                           <Button
-                            disabled={values.step2}
+                            disabled={values.step2  }
                             variant="contained"
                             style={{
                               borderBottomLeftRadius: '16px',
@@ -318,7 +318,7 @@ class AddClassFormation extends React.Component {
                             <div className="d-flex flex-row mt-2">
                               <div className="col-md-5 col-lg-4 col-sm-12 p-2 d-flex flex-wrap flex-row  justify-content-center align-items-end  ">
                                 <Radio
-                                  // checked={values.userGender == 'Male'}
+                                 checked={values.horaireList.length<2}
                                   // onChange={this.props.handleChange('userGender')}
                                   value="Male"
                                   color="primary"
@@ -329,9 +329,9 @@ class AddClassFormation extends React.Component {
                               </div>
                               <div className="col-md-5 col-lg-4 col-sm-12 p-2  d-flex flex-wrap flex-row justify-content-center align-items-end  ">
                                 <Radio
-                                  // checked={values.userGender == 'Female'}
-                                  // onChange={this.props.handleChange('userGender')}
-                                  value="Female"
+                                   checked={false}
+                                   checked={values.horaireList.length>1}
+                                   value="Female"
                                   color="primary"
                                   name="radio-button-demo"
                                   inputProps={{ 'aria-label': 'D' }}
