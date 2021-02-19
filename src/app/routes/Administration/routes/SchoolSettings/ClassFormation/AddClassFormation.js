@@ -59,7 +59,7 @@ class AddClassFormation extends React.Component {
                     {this.props.values.open ? (
                       <>
                         <div>
-                          <h3>Informations générales </h3>
+                          <h3> Informations générales </h3>
                         </div>
                         <div className="d-flex flex-wrap flex-row mt-2">
                           <div className="col-md-6 col-lg-3 col-sm-12 p-2 ">
@@ -67,9 +67,10 @@ class AddClassFormation extends React.Component {
                               Nom
                             </InputLabel>
                             <TextField
+                              disabled={values.step2}
                               id="nameClassFormation"
                               name="nameClassFormation"
-                              // value={values.nameClassFormation || ''}
+                              value={values.nameClassFormation || ''}
                               onChange={this.props.handleChangeName('nameClassFormation')}
                               style={{
                                 marginTop: '2%',
@@ -85,11 +86,8 @@ class AddClassFormation extends React.Component {
                               Niveau
                             </InputLabel>
                             <Select
+                              isDisabled={values.step2}
                               options={values.levelList}
-                              // options={this.props.subjectList.filter(
-                              //   (element) =>
-                              //     !this.props.values.subjectIDselected.includes(element.id)
-                              // )}
                               onChange={this.props.handleChange('levelId')}
                               // isMulti
                               id="levelId"
@@ -113,13 +111,9 @@ class AddClassFormation extends React.Component {
                               Formation
                             </InputLabel>
                             <Select
+                              isDisabled={values.step2}
                               options={values.subjectList}
-                              // options={this.props.subjectList.filter(
-                              //   (element) =>
-                              //     !this.props.values.subjectIDselected.includes(element.id)
-                              // )}
                               onChange={this.props.handleChange('subjectId')}
-                              // isMulti
                               id="formation"
                               name="formation"
                               styles={{
@@ -141,11 +135,8 @@ class AddClassFormation extends React.Component {
                               Formateur
                             </InputLabel>
                             <Select
+                              isDisabled={values.step2}
                               options={values.professorList}
-                              // options={this.props.subjectList.filter(
-                              //   (element) =>
-                              //     !this.props.values.subjectIDselected.includes(element.id)
-                              // )}
                               onChange={this.props.handleChange('profId')}
                               // isMulti
                               id="formateur"
@@ -167,6 +158,7 @@ class AddClassFormation extends React.Component {
                         </div>
                         <div className="d-flex flex-row-reverse mt-2">
                           <Button
+                            disabled={values.step2  }
                             variant="contained"
                             style={{
                               borderBottomLeftRadius: '16px',
@@ -177,7 +169,7 @@ class AddClassFormation extends React.Component {
                               height: '6%',
                             }}
                             color="primary"
-                            onClick={this.props.handleSubmitStep1}
+                            onClick={this.props.handleConfirmStep1}
                           >
                             suivant
                           </Button>
@@ -204,15 +196,14 @@ class AddClassFormation extends React.Component {
                                     Agence
                                   </InputLabel>
                                   <Select
-                                    options={values.agenceList}
+                                    isDisabled={values.step3}
+                                    options={values.agenceList.filter(
+                                      (element) => !values.agenceIds.includes(element.id)
+                                    )}
                                     onChange={(e) =>
                                       this.props.handleChangeParticipant(e, 'agence', index)
                                     }
                                     value={objParticipants.agence}
-                                    // options={this.props.subjectList.filter(
-                                    //   (element) =>
-                                    //     !this.props.values.subjectIDselected.includes(element.id)
-                                    // )}
                                     id="level"
                                     name="level"
                                     styles={{
@@ -234,7 +225,10 @@ class AddClassFormation extends React.Component {
                                     Collaborateurs
                                   </InputLabel>
                                   <Select
+                                    isDisabled={values.step3}
                                     options={values.studentsList}
+                                    value={objParticipants.participants}
+
                                     // options={this.props.subjectList.filter(
                                     //   (element) =>
                                     //     !this.props.values.subjectIDselected.includes(element.id)
@@ -261,18 +255,22 @@ class AddClassFormation extends React.Component {
                                 </div>
                                 <div className="col-md-2 col-lg-2 col-sm-12 mt-3">
                                   <Fab
+                                    disabled={values.step3}
                                     size="small"
                                     value={`${index}`}
                                     color="primary"
                                     aria-label="Add"
                                     onClick={() => {
                                       if (!objParticipants.isAdded) {
-                                        if (objParticipants.subjectId != 0) {
+                                        if (
+                                          objParticipants.agence.id !== undefined &&
+                                          objParticipants.participants.length > 0
+                                        ) {
                                           this.props.addNewListParticipant(index + 1);
                                         } else {
                                         }
                                       } else {
-                                        // this.props.deleteChoice(index);
+                                        this.props.deleteListParticipant(index);
                                       }
                                     }}
                                   >
@@ -293,8 +291,9 @@ class AddClassFormation extends React.Component {
                                   width: '10%',
                                   height: '6%',
                                 }}
+                                disabled={values.step3}
                                 color="primary"
-                                onClick={this.props.handleSubmitStep2}
+                                onClick={this.props.handleConfirmStep2}
                               >
                                 suivant
                               </Button>
@@ -319,7 +318,7 @@ class AddClassFormation extends React.Component {
                             <div className="d-flex flex-row mt-2">
                               <div className="col-md-5 col-lg-4 col-sm-12 p-2 d-flex flex-wrap flex-row  justify-content-center align-items-end  ">
                                 <Radio
-                                  // checked={values.userGender == 'Male'}
+                                 checked={values.horaireList.length<2}
                                   // onChange={this.props.handleChange('userGender')}
                                   value="Male"
                                   color="primary"
@@ -330,9 +329,9 @@ class AddClassFormation extends React.Component {
                               </div>
                               <div className="col-md-5 col-lg-4 col-sm-12 p-2  d-flex flex-wrap flex-row justify-content-center align-items-end  ">
                                 <Radio
-                                  // checked={values.userGender == 'Female'}
-                                  // onChange={this.props.handleChange('userGender')}
-                                  value="Female"
+                                   checked={false}
+                                   checked={values.horaireList.length>1}
+                                   value="Female"
                                   color="primary"
                                   name="radio-button-demo"
                                   inputProps={{ 'aria-label': 'D' }}
@@ -340,9 +339,9 @@ class AddClassFormation extends React.Component {
                                 <h3>Plusieurs séances</h3>{' '}
                               </div>
                             </div>
-                            {[1, 2, 3].map((objSubject, index) => (
+                            {values.horaireList.map((horaireItem, index) => (
                               <div className="d-flex flex-wrap flex-row mt-2">
-                              <div className="col-md-6 col-lg-3 col-sm-12 p-2">
+                                <div className="col-md-6 col-lg-3 col-sm-12 p-2">
                                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                     <KeyboardDatePicker
                                       label={
@@ -355,15 +354,17 @@ class AddClassFormation extends React.Component {
                                             width: '300px',
                                           }}
                                         >
-                                         date
+                                          date
                                         </InputLabel>
                                       }
                                       clearable
                                       fullWidth
                                       id="birthdayDate"
                                       name="birthdayDate"
-                                      // value={values.birthdayDate}
-                                      // onChange={this.props.handleChangeBirthdayDate}
+                                      value={horaireItem.dateFormation}
+                                      onChange={(e) =>
+                                        this.props.handleChangeHoraire(e, 'dateFormation', index)
+                                      }
                                       format="DD-MM-YYYY"
                                       autoOk
                                       style={{
@@ -378,17 +379,27 @@ class AddClassFormation extends React.Component {
                                       required
                                       label={<IntlMessages id="start.hour.class" />}
                                       fullWidth
-                                      // value={values.startTimeClass}
+                                      value={horaireItem.startHour}
                                       showTabs={false}
-                                      // onChange={handleStartTimeChange}
+                                      onChange={(e) =>
+                                        this.props.handleChangeHoraire(e, 'startHour', index)
+                                      }
                                       ampm={false}
                                       minDate={new Date()}
                                       leftArrowIcon={<i className="zmdi zmdi-arrow-back" />}
                                       rightArrowIcon={<i className="zmdi zmdi-arrow-forward" />}
                                     />
                                   </div>
-                                  <FormHelperText error={true}>
-                                    {true ? <IntlMessages id="start.hour.check" /> : ''}
+                                  <FormHelperText
+                                    error={moment(horaireItem.startHour).isAfter(
+                                      horaireItem.endHour
+                                    )}
+                                  >
+                                    {moment(horaireItem.startHour).isAfter(horaireItem.endHour) ? (
+                                      <IntlMessages id="start.hour.check" />
+                                    ) : (
+                                      ''
+                                    )}
                                   </FormHelperText>
                                 </div>
                                 <div className="col-md-5 col-lg-2 col-sm-12 p-2 mt-1">
@@ -397,17 +408,27 @@ class AddClassFormation extends React.Component {
                                       required
                                       label={<IntlMessages id="end.hour.class" />}
                                       fullWidth
-                                      // value={values.startTimeClass}
+                                      value={horaireItem.endHour}
                                       showTabs={false}
-                                      // onChange={handleStartTimeChange}
+                                      onChange={(e) =>
+                                        this.props.handleChangeHoraire(e, 'endHour', index)
+                                      }
                                       ampm={false}
-                                      minDate={new Date()}
+                                      minDate={horaireItem.startHour}
                                       leftArrowIcon={<i className="zmdi zmdi-arrow-back" />}
                                       rightArrowIcon={<i className="zmdi zmdi-arrow-forward" />}
                                     />
                                   </div>
-                                  <FormHelperText error={true}>
-                                    {true ? <IntlMessages id="end.hour.check" /> : ''}
+                                  <FormHelperText
+                                    error={moment(horaireItem.startHour).isAfter(
+                                      horaireItem.endHour
+                                    )}
+                                  >
+                                    {moment(horaireItem.startHour).isAfter(horaireItem.endHour) ? (
+                                      <IntlMessages id="end.hour.check" />
+                                    ) : (
+                                      ''
+                                    )}
                                   </FormHelperText>
                                 </div>
                                 <div className="col-md-5 col-lg-3 col-sm-12 p-2">
@@ -415,12 +436,11 @@ class AddClassFormation extends React.Component {
                                     Lieu
                                   </InputLabel>
                                   <Select
-                                    // options={this.props.subjectList.filter(
-                                    //   (element) =>
-                                    //     !this.props.values.subjectIDselected.includes(element.id)
-                                    // )}
-                                    // onChange={this.props.handleChangeSubject}
-                                    // isMulti
+                                    options={values.roomsList}
+                                    onChange={(e) =>
+                                      this.props.handleChangeHoraire(e, 'room', index)
+                                    }
+                                    value={horaireItem.room}
                                     id="formation"
                                     name="formation"
                                     styles={{
@@ -443,18 +463,19 @@ class AddClassFormation extends React.Component {
                                     value={`${index}`}
                                     color="primary"
                                     aria-label="Add"
-                                    // onClick={() => {
-                                    //   if (!objSubject.isAdded) {
-                                    //     if (objSubject.subjectId != 0) {
-                                    //       this.props.addNewSubject(index + 1);
-                                    //     } else {
-                                    //     }
-                                    //   } else {
-                                    //     this.props.deleteChoice(index);
-                                    //   }
-                                    // }}
+                                    onClick={() => {
+                                      if (!horaireItem.isAdded) {
+                                        // if (horaireItem.subjectId != 0) {
+                                        if (true) {
+                                          this.props.addNewHoraire(index + 1);
+                                        } else {
+                                        }
+                                      } else {
+                                         this.props.deleteHoraire(index);
+                                      }
+                                    }}
                                   >
-                                    {objSubject.isAdded ? <RemoveIcon /> : <AddIcon />}
+                                    {horaireItem.isAdded ? <RemoveIcon /> : <AddIcon />}
                                   </Fab>
                                 </div>
                                 <div className="col-md-6 col-lg-3 col-sm-12 p-0"></div>
@@ -505,6 +526,7 @@ class AddClassFormation extends React.Component {
                                   height: '6%',
                                 }}
                                 color="primary"
+                                type="submit"
                               >
                                 <IntlMessages id="service.button.publish" />
                               </Button>

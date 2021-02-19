@@ -6,7 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
-export default class DeleteAssignment extends Component {
+export default class SubmitStep extends Component {
   constructor(props) {
     super(props);
 
@@ -15,17 +15,17 @@ export default class DeleteAssignment extends Component {
 
   render() {
     return (
-      <Dialog open={this.props.deleteIsopen} TransitionComponent={Slide}>
+      <Dialog open={this.props.openConfirm} TransitionComponent={Slide}>
         <DialogContent>
           <DialogContentText>
-            {<IntlMessages id="message.confirm.modal" />}
+          Êtes-vous sûr de confirmer cette étape ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.handleCancel} color="secondary">
             {<IntlMessages id="button.no" />}
           </Button>
-          <Button onClick={this.props.handleDeleteAssignment} color="primary">
+          <Button onClick={this.props.handleSubmitStep} color="primary">
             {<IntlMessages id="button.yes" />}
           </Button>
         </DialogActions>
