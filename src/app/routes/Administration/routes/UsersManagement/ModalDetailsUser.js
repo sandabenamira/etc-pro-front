@@ -354,7 +354,7 @@ export class ModalDetailsUser extends React.Component {
                   <>
                     <div className="col-md-12 col-lg-12 col-sm-12 justify-content-center align-items-center">
                       <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
-                        <div className="col-md-6 col-lg-3 col-sm-12">
+                        <div className="col-md-6 col-lg-6 col-sm-12">
                           <label htmlFor="identifier">
                             <IntlMessages id="user.id" />
                           </label>
@@ -365,7 +365,7 @@ export class ModalDetailsUser extends React.Component {
                             value={userItem.uniqueIdentifier}
                           />
                         </div>
-                        <div className="col-md-6 col-lg-3 col-sm-12">
+                        <div className="col-md-6 col-lg-6 col-sm-12">
                           <label htmlFor="cin">
                             <IntlMessages id="user.cin" />
                           </label>
@@ -377,6 +377,8 @@ export class ModalDetailsUser extends React.Component {
                             value={userItem.cin}
                           />
                         </div>
+                      </div>
+                      <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
                         <div className="col-md-6 col-lg-6 col-sm-12">
                           <label htmlFor="function">
                             <IntlMessages id="vie.scolaire.fonction" />
@@ -387,6 +389,16 @@ export class ModalDetailsUser extends React.Component {
                             className="form-control"
                             id="function"
                             value={roleNameUser}
+                          />
+                        </div>
+                        <div className="col-md-6 col-lg-6 col-sm-12">
+                          <label htmlFor="function">Agence</label>
+                          <input
+                            disabled={true}
+                            type="text"
+                            className="form-control"
+                            id="function"
+                            value="Biat lac 1"
                           />
                         </div>
                       </div>
@@ -613,7 +625,7 @@ export class ModalDetailsUser extends React.Component {
                 {this.props.userItem.roleId == roleIdParent ? (
                   <div className="col-md-12 col-lg-12 col-sm-12 justify-content-center">
                     <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
-                      <div className="col-md-6 col-lg-4 col-sm-12">
+                      <div className="col-md-6 col-lg-6 col-sm-12">
                         <label htmlFor="user.id">
                           <IntlMessages id="user.id" />
                         </label>
@@ -624,7 +636,7 @@ export class ModalDetailsUser extends React.Component {
                           value={userItem.uniqueIdentifier}
                         />
                       </div>
-                      <div className="col-md-6 col-lg-4 col-sm-12">
+                      <div className="col-md-6 col-lg-6 col-sm-12">
                         <label htmlFor="cin">
                           <IntlMessages id="user.cin" />
                         </label>
@@ -636,19 +648,32 @@ export class ModalDetailsUser extends React.Component {
                           value={userItem.cin}
                         />
                       </div>
-                      <div className="col-md-6 col-lg-4 col-sm-12">
-                        <label htmlFor="function">
-                          <IntlMessages id="vie.scolaire.fonction" />
-                        </label>
-                        <input
-                          disabled={true}
-                          type="text"
-                          className="form-control"
-                          id="function"
-                          value={roleNameUser}
-                        />
-                      </div>
+                      
                     </div>
+                    <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
+                        <div className="col-md-6 col-lg-6 col-sm-12">
+                          <label htmlFor="function">
+                            <IntlMessages id="vie.scolaire.fonction" />
+                          </label>
+                          <input
+                            disabled={true}
+                            type="text"
+                            className="form-control"
+                            id="function"
+                            value={roleNameUser}
+                          />
+                        </div>
+                        <div className="col-md-6 col-lg-6 col-sm-12">
+                          <label htmlFor="function">Agence</label>
+                          <input
+                            disabled={true}
+                            type="text"
+                            className="form-control"
+                            id="function"
+                            value="Biat lac 1"
+                          />
+                        </div>
+                      </div>
                     <div className="d-flex flex-column col-md-12 col-lg-12 col-sm-12">
                       <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-center p-2">
                         <label htmlFor="inforamtionsuser">
