@@ -44,16 +44,15 @@ class EstablishmentsCard extends React.Component {
     const { listEstablishment, editEstablishment, moduleList, countries, estabTypes } = this.props;
 
     return (
-      <Widget>
+      <>
         <div className="d-flex flex-row justify-content-between mb-2">
           <h4 className="mr-2">{<IntlMessages id="sidebar.dashboard.listing" />}</h4>
 
           <span className="ml-2 pointer"><i className="zmdi zmdi-search text-primary jr-fs-xl" onClick={() => this.setState({ searchInput: true })} />
-            {this.state.searchInput ? <h2>hello</h2> : ""}
+            {this.state.searchInput ? <h2></h2> : ""}
           </span>
         </div>
-        <div className="jr-news-action jr-tabs-classic jr-tabs-classic-no-border">
-          <div className="jr-tabs-up jr-tabs-up-no-border">
+           {/* <div className="jr-tabs-up jr-tabs-up-no-border">
             <Nav className="jr-tabs-pills-ctr" pills>
               <NavItem>
                 <NavLink
@@ -79,7 +78,7 @@ class EstablishmentsCard extends React.Component {
                 </NavItem>
               ))}
             </Nav>
-          </div>
+          </div> */}
 
           <TabContent className="jr-tabs-content" activeTab={this.state.activeTab}>
             <TabPane tabId={0}>
@@ -95,8 +94,7 @@ class EstablishmentsCard extends React.Component {
               </TabPane>
             )}
           </TabContent>
-        </div>
-      </Widget>
+       </>
     );
   }
 }
