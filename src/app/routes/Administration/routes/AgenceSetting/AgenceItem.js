@@ -10,12 +10,12 @@ export default class AgenceItem extends Component {
     return (
       <TableRow key={agenceItem.id}>
         <TableCell>{agenceItem.name}</TableCell>
-        <TableCell>{agenceItem.typeAgence}</TableCell>
-        <TableCell>{agenceItem.gouvernoratAgence}</TableCell>
-        <TableCell>{agenceItem.adresseAgence}</TableCell>
-        <TableCell>{agenceItem.emailAgence}</TableCell>
-        <TableCell>{agenceItem.faxAgence}</TableCell>
-        <TableCell>{agenceItem.telAgence}</TableCell>
+        <TableCell>{agenceItem.agency_type}</TableCell>
+        <TableCell>{agenceItem.agency_gouvernorat}</TableCell>
+        <TableCell>{agenceItem.agency_address}</TableCell>
+        <TableCell>{agenceItem.agency_mail}</TableCell>
+        <TableCell>{agenceItem.agency_fax}</TableCell>
+        <TableCell>{agenceItem.agency_tel}</TableCell>
         {this.props.archived == false ? (
           <TableCell>
             <IconButton

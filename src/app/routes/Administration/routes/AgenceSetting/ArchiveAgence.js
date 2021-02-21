@@ -52,7 +52,7 @@ class ArchiveAgence extends React.Component {
                 <AgenceItem
                   archived={true}
                   key={index}
-                  classItem={Item}
+                  agenceItem={Item}
                   handleEdit={this.handleEdit}
                   levels={this.props.levels}
                   sections={this.props.sections}

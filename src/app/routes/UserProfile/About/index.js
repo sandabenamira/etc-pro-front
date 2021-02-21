@@ -16,7 +16,12 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/moment";
-import InputLabel from "@material-ui/core/InputLabel";
+import ModaleChangePassword from "./ModaleChangePassword";
+import axios from 'axios';
+import { baseUrl } from '../../../../config/config';
+
+
+
 class About extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +36,14 @@ class About extends React.Component {
       messageAlerte: "",
       alerteFiltre: false,
       photoText: "",
-      profileNewPhoto:""
+      profileNewPhoto:"",
+      profilAgence:"",
+      isOpen: false,
+      resetPassword:"",
+      confirmresetPassword:"",
+      oldPassword:"",
+      errorAlert: false,
+      succedAlert: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.uploadPhoto = this.uploadPhoto.bind(this);
@@ -39,8 +51,17 @@ class About extends React.Component {
     this.handleChangePhone = this.handleChangePhone.bind(this);
     this.handleChangeBirthdayDate = this.handleChangeBirthdayDate.bind(this);
     this.handleSubmitEditProfile = this.handleSubmitEditProfile.bind(this);
+    this.openModalChangePassword = this.openModalChangePassword.bind(this);
+    this.closeModalChangePassword = this.closeModalChangePassword.bind(this);
+    this.ResetPassword = this.ResetPassword.bind(this);
 
-    
+  }
+  openModalChangePassword() {
+    console.log("openModalChangePassword")
+    this.setState({ isOpen: true });
+  }
+  closeModalChangePassword() {
+    this.setState({ isOpen: false });
   }
   handleChange = (name) => (event) => {
     console.log(event.target.value, "event");
@@ -57,7 +78,7 @@ class About extends React.Component {
         profileEstablishment: this.props.userProfile.establishments[0]
           .establishment.name,
         profileRole: this.props.userProfile.roleName,
-        // profilePassword:this.props.user.profilePassword,
+        // profilAgence:this.props.user.profilePassword,
         profileEmail: this.props.userProfile.user.email,
         profilePhone: '+' + this.props.userProfile.user.phone,
       });
@@ -74,7 +95,7 @@ class About extends React.Component {
         profileEstablishment: this.props.userProfile.establishments[0]
           .establishment.name,
         profileRole: this.props.userProfile.roleName,
-        // profilePassword:this.props.user.profilePassword,
+        // profilAgence:this.props.user.profilePassword,
         profileEmail: this.props.userProfile.user.email,
         profilePhone: '+' + this.props.userProfile.user.phone,
       });
@@ -125,8 +146,87 @@ class About extends React.Component {
     console.log("data", data);
     this.props.editProfile(data, this.state.profileNewPhoto);
   }
+  ResetPassword() {
+    var data = {};
+    data.password = this.state.resetPassword;
+    data.oldpassword = this.state.oldPassword;
+    data.userId = this.props.userProfile.user_id;
+    var token = localStorage.getItem('token');
+    axios
+      .post(`${baseUrl}/users/change-password?access_token=` + token, {
+        oldPassword: data.oldpassword,
+        newPassword: data.password,
+      })
+      .then((response) => {
+        axios
+          .post(`${baseUrl}/users/reset-initial-password?access_token=${token}`, data, {
+            headers: { 'content-type': 'application/json' },
+          })
+          .then((res) => {
+            if (res.data.existe === true) {
+              this.setState({
+                succedAlert: true,
+                resetPassword: '',
+                confirmresetPassword: '',
+                oldPassword: '',
+              });
+              setTimeout(
+                function() {
+                  this.setState({ succedAlert: false, isOpen: false });
+                }.bind(this),
+                2000
+              );
+            } else {
+              this.setState({
+                errorAlert: true,
+                resetPassword: '',
+                confirmresetPassword: '',
+                oldPassword: '',
+              });
+              setTimeout(
+                function() {
+                  this.setState({ errorAlert: false });
+                }.bind(this),
+                2000
+              );
+            }
+          })
+          .catch((error) => {
+            if (error.response.status === 400) {
+              this.setState({
+                errorAlert: true,
+                resetPassword: '',
+                confirmresetPassword: '',
+                oldPassword: '',
+              });
+              setTimeout(
+                function() {
+                  this.setState({ errorAlert: false });
+                }.bind(this),
+                2000
+              );
+            }
+          });
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          this.setState({
+            errorAlert: true,
+            resetPassword: '',
+            confirmresetPassword: '',
+            oldPassword: '',
+          });
+          setTimeout(
+            function() {
+              this.setState({ errorAlert: false });
+            }.bind(this),
+            2000
+          );
+        }
+      });
+  }
   render() {
-    console.log(this.state.user, "profile");
+    console.log(this.props.userProfile.user, "user");
     return (
       <>
         {this.state.user.user == undefined ? (
@@ -331,7 +431,7 @@ class About extends React.Component {
                   <div className="col-md-12 col-lg-10 col-sm-6 d-flex flex-row  mb-2 mb-sm-0 mt-md-2 ">
                     <div className="mr-3">
                       <i
-                        className={`zmdi zmdi-lock-open jr-fs-xlxl text-orange`}
+                        className={`zmdi zmdi-city-alt jr-fs-xlxl text-orange`}
                       />
                     </div>
 
@@ -339,24 +439,39 @@ class About extends React.Component {
                       required
                       className="form-control"
                       variant="outlined"
-                      // error={isEmail(this.state.profileEmail) === false ? true : false}
-                      id="profilePassword"
-                      name="profilePassword"
-                      value={this.state.profilePassword || ""}
-                      onChange={this.handleChange("profilePassword")}
-                      size="small"
+                       id="profilAgence"
+                      name="profilAgence"
+                      // value={this.state.profilAgence || ""}
+                      value="Agence Biat Lac 1"
+                       size="small"
                       fullWidth
                       SelectProps={{
                         native: true,
-                      }}
-                      // helperText={
-                      //   isEmail(this.state.profileEmail) === false ? (
-                      //     <IntlMessages id="error.user.message.mail" />
-                      //   ) : (
-                      //     ''
-                      //   )
-                      // }
+                      }}   
                     />
+                  </div>
+                  <div className="col-md-12 col-lg-10 col-sm-6 d-flex flex-row  mb-2 mb-sm-0 mt-md-2 ">
+                    <div className="mr-3">
+                      <i className={`zmdi zmdi-lock-open jr-fs-xlxl text-orange`} />
+                    </div>
+                    <Button
+                      variant="contained"
+                      className=" text-white pr-2 "
+                      style={{
+                        borderBottomLeftRadius: "16px",
+                        borderBottomRightRadius: "16px",
+                        borderTopLeftRadius: "16px",
+                        borderTopRightRadius: "16px",
+                        width: "300px",
+                        height: "30px",
+                        marginTop: "10px",
+                        marginLeft: "20%",
+                        backgroundColor: "#F8A363",
+                      }}
+                      onClick={this.openModalChangePassword}
+                    >
+                      {<IntlMessages id="profile.change.password" />}
+                    </Button>
                   </div>
                 </div>
               </Widget>
@@ -458,6 +573,16 @@ class About extends React.Component {
               </div>
             </div>
           </Widget>
+        )}{this.state.isOpen ? (
+          <ModaleChangePassword
+            closeModalChangePassword={this.closeModalChangePassword}
+            handleChange={this.handleChange}
+            ResetPassword={this.ResetPassword}
+            isOpen={this.state.isOpen}
+            values={this.state}
+          />
+        ) : (
+          ''
         )}
       </>
     );
