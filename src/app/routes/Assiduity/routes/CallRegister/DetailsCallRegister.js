@@ -760,8 +760,7 @@ justify-content-around"
   }
 
   render() {
-    console.log('---this.state.callRegister-----', this.state.callRegister);
-    let newMatch = {
+     let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
       url: this.props.match.url,
       isExact: this.props.match.isExact,

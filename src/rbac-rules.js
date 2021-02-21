@@ -218,6 +218,8 @@ const rules = {
       'module-nav-note',
       'module-nav-satisfaction-question',
       'module-nav-reporting-kpi',
+      'module-nav-call_register',
+
 
     ],
     dynamic: {
