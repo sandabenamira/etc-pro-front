@@ -52,12 +52,12 @@ class ClassesSettings extends React.Component {
       status: true,
       creation_date: moment(new Date()).format(),
       name: this.state.nameAgence,
-      typeAgence: this.state.typeAgence,
-      gouvernoratAgence: this.state.gouvernoratAgence,
-      faxAgence: this.state.faxAgence,
-      telAgence: this.state.telAgence,
-      emailAgence: this.state.emailAgence,
-      adresseAgence: this.state.adresseAgence,
+      agency_type: this.state.typeAgence,
+      agency_gouvernorat: this.state.gouvernoratAgence,
+      agency_fax: this.state.faxAgence,
+      agency_tel: this.state.telAgence,
+      agency_mail: this.state.emailAgence,
+      agency_address: this.state.adresseAgence,
     };
     this.props.dispatch(addAgence(data));
     this.openAddModal();

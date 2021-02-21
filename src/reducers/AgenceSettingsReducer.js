@@ -7,56 +7,7 @@ import {
 } from '../constants/ActionTypes';
 
 const initialState = {
-  agenceSettings: [
-    {
-      id:1,
-      name: 'Agence tunis medina',
-      fk_id_establishment: 6,
-      status: true,
-      typeAgence: 'Particuliers et Professionnels',
-      gouvernoratAgence: 'Tunis',
-      faxAgence: 713256478,
-      telAgence: 712014785,
-      emailAgence: 'biat78@biat.com.tn',
-      adresseAgence: 'Imm hamrouni 32 rue el jazira . 1000',
-    },
-    {
-      id:2,
-      name: 'Agence Montplaisir',
-      fk_id_establishment: 6,
-      status: true,
-      typeAgence: 'Particuliers et Professionnels',
-      gouvernoratAgence: 'Tunis',
-      faxAgence: 713256478,
-      telAgence: 712014785,
-      emailAgence: 'biat78@biat.com.tn',
-      adresseAgence: 'Imm hamrouni 32 rue el jazira . 1000',
-    },
-    {
-      id:3,
-      name: 'Agence le Bardo',
-      fk_id_establishment: 6,
-      status: true,
-      typeAgence: 'Particuliers et Professionnels',
-      gouvernoratAgence: 'Tunis',
-      faxAgence: 713256478,
-      telAgence: 712014785,
-      emailAgence: 'biat78@biat.com.tn',
-      adresseAgence: 'Imm hamrouni 32 rue el jazira . 1000',
-    },
-    {
-      id:3,
-      name: 'Agence BIAT LAC 1',
-      fk_id_establishment: 6,
-      status: true,
-      typeAgence: 'Particuliers et Professionnels',
-      gouvernoratAgence: 'Tunis',
-      faxAgence: 713256478,
-      telAgence: 712014785,
-      emailAgence: 'biat78@biat.com.tn',
-      adresseAgence: 'Imm hamrouni 32 rue el jazira . 1000',
-    },
-  ],
+  agenceSettings: [],
   archivedAgenceSettings: [],
 };
 
