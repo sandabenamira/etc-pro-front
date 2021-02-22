@@ -20,6 +20,7 @@ import ExamsTypes from './routes/SchoolSettings/ExamsTypes/ExamsTypes';
 import CallRegisterSetting from './routes/CallRegisterSetting/CallRegisterSetting';
 import PermissionSetting from './routes/PermissionSetting/PermissionSetting';
 import AgenceSetting from './routes/AgenceSetting/AgenceSetting';
+// import CourseAssignment from './routes/SchoolSettings/CourseAssignment/CourseAssignment';
 
 import Groupes from './routes/SchoolSettings/groupes/Groupes';
 const Administration = ({ match, estabModule }) => (

@@ -424,7 +424,7 @@ class VirtualClassList extends Component {
           subjectId: ClassObjectEdit.subjectId,
           subjectName: ClassObjectEdit.subjectName,
           subjectColor: ClassObjectEdit.subjectColor,
-          courseId: ClassObjectEdit.fk_id_course_v4,
+          // courseId: ClassObjectEdit.fk_id_course_v4,
         }),
       });
     }
