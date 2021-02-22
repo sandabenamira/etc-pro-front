@@ -107,7 +107,7 @@ class AddSupportCours extends React.Component {
                         fontSize: '18px',
                       }}
                     >
-                      {<IntlMessages id="material.class.name" />}
+                      {"Classe de formation"}
                     </InputLabel>
                     {this.props.userProfile.role_id === roleIdProfessor ? (
                       <Select
@@ -230,7 +230,7 @@ class AddSupportCours extends React.Component {
                         fontSize: '18px',
                       }}
                     >
-                      {<IntlMessages id="material.professor.name" />}
+                      {"Formateur"}
                     </InputLabel>
                     <Select
                       value={{ label: nameSurnameProf, value: 1 }}

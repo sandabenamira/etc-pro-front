@@ -48,6 +48,7 @@ class EditVitualClass extends Component {
       handleStartTimeChange,
       handleChangeClass,
     } = this.props;
+    console.log("values",this.props.values)
     return (
       <Auxiliary>
         <Modal isOpen={this.props.editIsopen}>
@@ -55,7 +56,7 @@ class EditVitualClass extends Component {
             toggle={this.props.handleCancel}
             className="modal-box-header bg-primary text-white"
           >
-            {<IntlMessages id="edit.class.virtual.header" />}
+            {"Modifier formation en ligne"}
           </ModalHeader>
           <br />
           <ModalBody>
@@ -94,7 +95,7 @@ class EditVitualClass extends Component {
                             value={"" || values.itemClass}
                             onChange={handleChangeClass("itemClass")}
                             SelectProps={{}}
-                            label={<IntlMessages id="ticket.name.class" />}
+                            label={"Classe de formation"}
                             margin="normal"
                             fullWidth
                           >
@@ -184,7 +185,7 @@ class EditVitualClass extends Component {
                                 subjectId: item.subject.id,
                                 subjectName: item.subject.name,
                                 subjectColor: item.subject.color,
-                                courseId: item.courseId,
+                                // courseId: item.courseId,
                               };
 
                               return (
