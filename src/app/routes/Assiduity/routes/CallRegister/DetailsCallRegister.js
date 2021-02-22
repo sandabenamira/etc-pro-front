@@ -22,16 +22,21 @@ import _ from 'lodash';
 import {
   getEventCallRegisterForAdmin,
   getEventCallRegisterForProf,
+  getEventCallRegisterForParent,
 } from '../../../../../actions/planningActions';
 import { Redirect } from 'react-router-dom';
-import { getStudentsCallRegister } from '../../../../../actions/studentAction';
+import {
+  getStudentsCallRegister,
+  getStudentsCallRegisterForParent,
+} from '../../../../../actions/studentAction';
 import ContainerHeader from '../../../../../components/ContainerHeader';
-import { roleIdProfessor, roleIdAdmin } from '../../../../../config/config';
+import { roleIdProfessor, roleIdAdmin, roleIdParent } from '../../../../../config/config';
 import {
   saveCallRegister,
   getObservationList,
   getEncouragementList,
   getSanctionList,
+  saveCallRegisterParent,
 } from '../../../../../actions/RegistreAction';
 import { classService } from '../../../../../_services/class.service';
 import OtherPopover from './OtherPopover';
@@ -55,7 +60,14 @@ var options1 = {
   day: 'numeric',
   month: 'long',
 };
-
+var callRegisterParent = {
+  delay: true,
+  encouragement: true,
+  observation: true,
+  presence: true,
+  sanction: true,
+  status: true,
+};
 class DetailsCallRegister extends React.Component {
   constructor(props) {
     super(props);
@@ -242,7 +254,11 @@ class DetailsCallRegister extends React.Component {
       roleId: this.props.userProfile.role_id,
       profileId: this.props.userProfile.id,
     };
-    this.props.dispatch(saveCallRegister(callRegister, otherData, this.state.title));
+    if (this.props.userProfile.role_id === roleIdParent) {
+      this.props.dispatch(saveCallRegisterParent(callRegister, otherData));
+    } else {
+      this.props.dispatch(saveCallRegister(callRegister, otherData, this.state.title));
+    }
     this.setState({ isRedirect: true });
   }
 
@@ -289,119 +305,6 @@ class DetailsCallRegister extends React.Component {
     });
   }
 
-  componentDidMount() {
-    // this.props.dispatch(
-    //   getEventCallRegisterForAdmin(
-    //     this.props.userProfile.establishment_id,
-    //     this.props.userProfile.school_year_id,
-    //     this.props.match.params.classId
-    //   )
-    // );
-    if (this.props.userProfile.role_id === roleIdProfessor) {
-      this.props.dispatch(
-        getEventCallRegisterForProf(
-          this.props.userProfile.establishment_id,
-          this.props.userProfile.school_year_id,
-          this.props.userProfile.id
-        )
-      );
-    } else if (this.props.userProfile.role_id === roleIdAdmin) {
-      this.props.dispatch(
-        getEventCallRegisterForAdmin(
-          this.props.userProfile.establishment_id,
-          this.props.userProfile.school_year_id,
-          this.props.match.params.classId
-        )
-      );
-    }
-    let dateFormat = moment(this.props.match.params.startDate).format('YYYY-MM-DD');
-    let timeFormat = moment(this.props.match.params.startDate)
-      .add(-1, 'h')
-      .format('HH:mm:ss[Z]');
-    let TimeDate = dateFormat + 'T' + timeFormat;
-    let eventId = this.props.match.params.eventId;
-    let apiEndpoint =
-      `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
-      eventId +
-      `&filter[where][and][1][start_date]=` +
-      TimeDate +
-      `&filter[include][studentCall][student][profile][user]`;
-    classService.get(apiEndpoint).then((res) => {
-      if (res) {
-        if (res.data.length > 0) {
-          let historiqRegistre = res.data[0].studentCall.map((element) => {
-            return {
-              name: element.student.profile.user.name,
-              surname: element.student.profile.user.surname,
-              presence: element.presence,
-              delay: element.delay,
-              sanction: element.sanction,
-              description_sanction: element.description_sanction,
-              observation: element.observation,
-              description_observation: element.description_observation,
-              encouragement: element.encouragement,
-              description_encouragement: element.description_encouragement,
-              studentId: element.fk_id_student,
-              photo: element.student.profile.user.photo,
-            };
-          });
-
-          this.setState({ callRegister: historiqRegistre });
-        } else {
-          this.setState({ callRegister: this.props.students });
-        }
-      }
-    });
-    const startDateEvent = moment(this.props.match.params.startDate).format('DD/MM/YYYY HH:mm');
-    let eventSelected = this.props.events.filter(
-      (element) =>
-        element.id === parseInt(this.props.match.params.eventId, 10) &&
-        moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
-    );
-
-    if (!_.isEmpty(eventSelected)) {
-      const classId = eventSelected[0].classId;
-      let apiEndpoint = `/class_v4/${classId}?access_token=${localStorage.token}&filter[include][level][educationType][callRegisterSetting]`;
-      classService.get(apiEndpoint).then((res) => {
-        if (res) {
-          let callRegisterSetting = res.data.level.educationType.callRegisterSetting;
-          if (!_.isEmpty(callRegisterSetting)) {
-            let callRegisterSetting = res.data.level.educationType.callRegisterSetting[0];
-            this.setState({ callRegisterSetting });
-            if (callRegisterSetting.observation) {
-              this.props.dispatch(getObservationList());
-            }
-            if (callRegisterSetting.encouragement) {
-              this.props.dispatch(getEncouragementList());
-            }
-            if (callRegisterSetting.sanction) {
-              this.props.dispatch(getSanctionList());
-            }
-          } else {
-            this.setState({ isOpenAlert: true });
-          }
-        }
-      });
-      let title =
-        eventSelected[0].classeName +
-        '/' +
-        eventSelected[0].subjectName +
-        '/' +
-        new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
-
-      let curentDay = new Date();
-      let checkDate = moment(eventSelected[0].start).isAfter(curentDay);
-      if (!checkDate) {
-        this.setState({ colorSelected: '#0000CD' });
-      }
-      this.setState({
-        title: title,
-        dateEvent: new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options1),
-        event: eventSelected[0],
-      });
-    }
-  }
-
   event({ event }) {
     if (this.props.userProfile.role_id === roleIdProfessor) {
       return (
@@ -446,7 +349,7 @@ class DetailsCallRegister extends React.Component {
           </span>
         </div>
       );
-    } else {
+    } else if (this.props.userProfile.role_id === roleIdAdmin) {
       return (
         <div id={'Popover-' + event.id}>
           <span>
@@ -529,121 +432,31 @@ class DetailsCallRegister extends React.Component {
           </span>
         </div>
       );
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.userProfile !== this.props.userProfile) {
-      if (this.props.userProfile.role_id === roleIdProfessor) {
-        this.props.dispatch(
-          getEventCallRegisterForProf(
-            this.props.userProfile.establishment_id,
-            this.props.userProfile.school_year_id,
-            this.props.userProfile.id
-          )
-        );
-      } else if (this.props.userProfile.role_id === roleIdAdmin) {
-        this.props.dispatch(
-          getEventCallRegisterForAdmin(
-            this.props.userProfile.establishment_id,
-            this.props.userProfile.school_year_id,
-            this.props.match.params.classId
-          )
-        );
-      }
-
-      this.props.dispatch(
-        getStudentsCallRegister(
-          this.props.match.params.classId,
-          this.props.userProfile.school_year_id
-        )
+    } else if (this.props.userProfile.role_id === roleIdParent) {
+      return (
+        <div id={'Popover-' + event.id}>
+          <span>
+            <div style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
+              {' '}
+              {event.tagCallRegister ? <b>{'appel fait'}</b> : <b>{'appel non fait'}</b>}
+              <br />{' '}
+              <p>
+                {event.tagCallRegister ? (
+                  <i
+                    className="zmdi zmdi-circle zmdi-hc-lg "
+                    style={{ color: 'green', float: 'right' }}
+                  ></i>
+                ) : (
+                  <i
+                    className="zmdi zmdi-circle zmdi-hc-lg "
+                    style={{ color: 'red', float: 'right' }}
+                  ></i>
+                )}
+              </p>
+            </div>
+          </span>
+        </div>
       );
-    }
-    if (prevProps.students !== this.props.students && this.state.callRegister.length == 0) {
-      this.setState({ callRegister: this.props.students });
-    }
-
-    if (prevProps.events !== this.props.events) {
-      const startDateEvent = moment(this.props.match.params.startDate).format('DD/MM/YYYY HH:mm');
-      let eventSelected = this.props.events.filter(
-        (element) =>
-          element.id === parseInt(this.props.match.params.eventId, 10) &&
-          moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
-      );
-
-      if (!_.isEmpty(eventSelected)) {
-        const classId = eventSelected[0].classId;
-
-        let apiEndpoint = `/class_v4/${classId}?access_token=${localStorage.token}&filter[include][level][educationType][callRegisterSetting]`;
-        classService.get(apiEndpoint).then((res) => {
-          if (res) {
-            let callRegisterSetting = res.data.level.educationType.callRegisterSetting;
-            if (!_.isEmpty(callRegisterSetting)) {
-              let callRegisterSetting = res.data.level.educationType.callRegisterSetting[0];
-              this.setState({ callRegisterSetting });
-              if (callRegisterSetting.observation) {
-                this.props.dispatch(getObservationList());
-              }
-              if (callRegisterSetting.encouragement) {
-                this.props.dispatch(getEncouragementList());
-              }
-              if (callRegisterSetting.sanction) {
-                this.props.dispatch(getSanctionList());
-              }
-            } else {
-              this.setState({ isOpenAlert: true });
-            }
-          }
-        });
-        let title =
-          eventSelected[0].classeName +
-          '/' +
-          eventSelected[0].subjectName +
-          '/' +
-          new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
-        this.setState({
-          title: title,
-          dateEvent: new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options1),
-          event: eventSelected[0],
-        });
-      }
-    }
-
-    if (prevProps.observations !== this.props.observations) {
-      let options = [];
-      this.props.observations.forEach((element, index) => {
-        let option = {
-          label: element.name_fr,
-          value: element.value,
-          key: index,
-        };
-        options.push(option);
-      });
-      this.setState({ observations: options });
-    }
-    if (prevProps.encouragements !== this.props.encouragements) {
-      let options = [];
-      this.props.encouragements.forEach((element, index) => {
-        let option = {
-          label: element.name_fr,
-          value: element.value,
-          key: index,
-        };
-        options.push(option);
-      });
-      this.setState({ encouragements: options });
-    }
-    if (prevProps.sanctions !== this.props.sanctions) {
-      let options = [];
-      this.props.sanctions.forEach((element, index) => {
-        let option = {
-          label: element.name_fr,
-          value: element.value,
-          key: index,
-        };
-        options.push(option);
-      });
-      this.setState({ sanctions: options });
     }
   }
 
@@ -652,12 +465,15 @@ class DetailsCallRegister extends React.Component {
     const goToBack = () => {
       toolbar.onNavigate('PREV');
       dayCall.setDate(dayCall.getDate() + -1);
+
       let title =
-        this.state.event.classeName +
-        '/' +
-        this.state.event.subjectName +
-        '/' +
-        new Date(dayCall).toLocaleDateString('fr-FR', options);
+        this.props.userProfile.role_id === roleIdParent
+          ? 'Agence Biat sousse 1' + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options)
+          : this.state.event.classeName +
+            '/' +
+            this.state.event.subjectName +
+            '/' +
+            new Date(dayCall).toLocaleDateString('fr-FR', options);
       this.setState({
         title: title,
         dateEvent: new Date(dayCall).toLocaleDateString('fr-FR', options1),
@@ -670,12 +486,15 @@ class DetailsCallRegister extends React.Component {
       let checkDate = moment(dayCall).isAfter(curentDay);
       if (!checkDate) {
         toolbar.onNavigate('NEXT');
+
         let title =
-          this.state.event.classeName +
-          '/' +
-          this.state.event.subjectName +
-          '/' +
-          new Date(dayCall).toLocaleDateString('fr-FR', options);
+          this.props.userProfile.role_id === roleIdParent
+            ? 'Agence Biat sousse 1' + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options)
+            : this.state.event.classeName +
+              '/' +
+              this.state.event.subjectName +
+              '/' +
+              new Date(dayCall).toLocaleDateString('fr-FR', options);
         this.setState({
           title: title,
           dateEvent: new Date(dayCall).toLocaleDateString('fr-FR', options1),
@@ -687,10 +506,7 @@ class DetailsCallRegister extends React.Component {
     };
 
     return (
-      <div
-        className="d-flex flex-row bd-highlight mb-3 d-flex 
-justify-content-around"
-      >
+      <div className="d-flex flex-row bd-highlight mb-3 d-flex justify-content-around">
         <div className="p-2 bd-highlight"></div>
         <div className="p-2 bd-highlight">
           <ButtonGroup vertical={false}>
@@ -758,7 +574,281 @@ justify-content-around"
       style: style,
     };
   }
+  componentDidMount() {
+    // this.props.dispatch(
+    //   getEventCallRegisterForAdmin(
+    //     this.props.userProfile.establishment_id,
+    //     this.props.userProfile.school_year_id,
+    //     this.props.match.params.classId
+    //   )
+    // );
+    if (this.props.userProfile.role_id === roleIdProfessor) {
+      this.props.dispatch(
+        getEventCallRegisterForProf(
+          this.props.userProfile.establishment_id,
+          this.props.userProfile.school_year_id,
+          this.props.userProfile.id
+        )
+      );
+    } else if (this.props.userProfile.role_id === roleIdAdmin) {
+      this.props.dispatch(
+        getEventCallRegisterForAdmin(
+          this.props.userProfile.establishment_id,
+          this.props.userProfile.school_year_id,
+          this.props.match.params.classId
+        )
+      );
+    } else if (this.props.userProfile.role_id === roleIdParent) {
+      this.props.dispatch(
+        getEventCallRegisterForParent(
+         
+          this.props.userProfile.id
+        )
+      );
+    }
+    let dateFormat = moment(this.props.match.params.startDate).format('YYYY-MM-DD');
+    let timeFormat = moment(this.props.match.params.startDate)
+      .add(-1, 'h')
+      .format('HH:mm:ss[Z]');
+    let TimeDate = dateFormat + 'T' + timeFormat;
+    let eventId = this.props.match.params.eventId;
+    let apiEndpoint =
+      `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+      eventId +
+      `&filter[where][and][1][start_date]=` +
+      TimeDate +
+      `&filter[include][studentCall][student][profile][user]`;
+    classService.get(apiEndpoint).then((res) => {
+      if (res) {
+        if (res.data.length > 0) {
+          let historiqRegistre = res.data[0].studentCall.map((element) => {
+            return {
+              name: element.student.profile.user.name,
+              surname: element.student.profile.user.surname,
+              presence: element.presence,
+              delay: element.delay,
+              sanction: element.sanction,
+              description_sanction: element.description_sanction,
+              observation: element.observation,
+              description_observation: element.description_observation,
+              encouragement: element.encouragement,
+              description_encouragement: element.description_encouragement,
+              studentId: element.fk_id_student,
+              photo: element.student.profile.user.photo,
+            };
+          });
 
+          this.setState({ callRegister: historiqRegistre });
+        } else {
+          this.setState({ callRegister: this.props.students });
+        }
+      }
+    });
+    const startDateEvent = moment(this.props.match.params.startDate).format('DD/MM/YYYY HH:mm');
+    let eventSelected = this.props.events.filter(
+      (element) =>
+        element.id === parseInt(this.props.match.params.eventId, 10) &&
+        moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
+    );
+
+    if (!_.isEmpty(eventSelected)) {
+      if (this.props.userProfile.role_id !== roleIdParent) {
+        const classId = eventSelected[0].classId;
+        let apiEndpoint = `/class_v4/${classId}?access_token=${localStorage.token}&filter[include][level][educationType][callRegisterSetting]`;
+        classService.get(apiEndpoint).then((res) => {
+          if (res) {
+            let callRegisterSetting = res.data.level.educationType.callRegisterSetting;
+            if (!_.isEmpty(callRegisterSetting)) {
+              let callRegisterSetting = res.data.level.educationType.callRegisterSetting[0];
+              this.setState({ callRegisterSetting });
+              if (callRegisterSetting.observation) {
+                this.props.dispatch(getObservationList());
+              }
+              if (callRegisterSetting.encouragement) {
+                this.props.dispatch(getEncouragementList());
+              }
+              if (callRegisterSetting.sanction) {
+                this.props.dispatch(getSanctionList());
+              }
+            } else {
+              this.setState({ isOpenAlert: true });
+            }
+          }
+        });
+      } else {
+        this.props.dispatch(getObservationList());
+
+        this.props.dispatch(getEncouragementList());
+
+        this.props.dispatch(getSanctionList());
+        this.setState({ callRegisterSetting: callRegisterParent });
+      }
+
+      let title =
+        this.props.userProfile.role_id === roleIdParent
+          ? 'Agence Biat sousse 1/' +
+            '/' +
+            new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
+          : eventSelected[0].classeName +
+            '/' +
+            eventSelected[0].subjectName +
+            '/' +
+            new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
+
+      let curentDay = new Date();
+      let checkDate = moment(eventSelected[0].start).isAfter(curentDay);
+      if (!checkDate) {
+        this.setState({ colorSelected: '#0000CD' });
+      }
+      this.setState({
+        title: title,
+        dateEvent: new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options1),
+        event: eventSelected[0],
+      });
+    }
+  }
+  componentDidUpdate(prevProps) {
+    let title = '';
+    if (prevProps.userProfile !== this.props.userProfile) {
+      if (this.props.userProfile.role_id === roleIdProfessor) {
+        this.props.dispatch(
+          getEventCallRegisterForProf(
+            this.props.userProfile.establishment_id,
+            this.props.userProfile.school_year_id,
+            this.props.userProfile.id
+          )
+        );
+      } else if (this.props.userProfile.role_id === roleIdAdmin) {
+        this.props.dispatch(
+          getEventCallRegisterForAdmin(
+            this.props.userProfile.establishment_id,
+            this.props.userProfile.school_year_id,
+            this.props.match.params.classId
+          )
+        );
+      } else if (this.props.userProfile.role_id === roleIdParent) {
+        this.props.dispatch(
+          getEventCallRegisterForParent(
+          
+            this.props.userProfile.id
+          )
+        );
+      }
+      if (this.props.userProfile.role_id === roleIdParent) {
+        this.props.dispatch(getStudentsCallRegisterForParent(this.props.userProfile.id));
+      } else {
+        this.props.dispatch(
+          getStudentsCallRegister(
+            this.props.match.params.classId,
+            this.props.userProfile.school_year_id
+          )
+        );
+      }
+    }
+    if (prevProps.students !== this.props.students && this.state.callRegister.length == 0) {
+      this.setState({ callRegister: this.props.students });
+    }
+
+    if (prevProps.events !== this.props.events) {
+      const startDateEvent = moment(this.props.match.params.startDate).format('DD/MM/YYYY HH:mm');
+      let eventSelected = this.props.events.filter(
+        (element) =>
+          element.id === parseInt(this.props.match.params.eventId, 10) &&
+          moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
+      );
+      this.setState({
+        event: eventSelected[0],
+      });
+      if (!_.isEmpty(eventSelected)) {
+        if (this.props.userProfile.role_id !== roleIdParent) {
+          const classId = eventSelected[0].classId;
+
+          let apiEndpoint = `/class_v4/${classId}?access_token=${localStorage.token}&filter[include][level][educationType][callRegisterSetting]`;
+          classService.get(apiEndpoint).then((res) => {
+            if (res) {
+              let callRegisterSetting = res.data.level.educationType.callRegisterSetting;
+              if (!_.isEmpty(callRegisterSetting)) {
+                let callRegisterSetting = res.data.level.educationType.callRegisterSetting[0];
+                this.setState({ callRegisterSetting });
+                if (callRegisterSetting.observation) {
+                  this.props.dispatch(getObservationList());
+                }
+                if (callRegisterSetting.encouragement) {
+                  this.props.dispatch(getEncouragementList());
+                }
+                if (callRegisterSetting.sanction) {
+                  this.props.dispatch(getSanctionList());
+                }
+              } else {
+                this.setState({ isOpenAlert: true });
+              }
+            }
+          });
+        } else {
+          this.props.dispatch(getObservationList());
+
+          this.props.dispatch(getEncouragementList());
+
+          this.props.dispatch(getSanctionList());
+          this.setState({ callRegisterSetting: callRegisterParent });
+        }
+
+        title =
+          this.props.userProfile.role_id === roleIdParent
+            ? 'Agence Biat sousse 1' +
+              '/' +
+              new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
+            : eventSelected[0].classeName +
+              '/' +
+              eventSelected[0].subjectName +
+              '/' +
+              new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
+
+        this.setState({
+          title: title,
+          dateEvent: new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options1),
+          event: eventSelected[0],
+        });
+      }
+    }
+
+    if (prevProps.observations !== this.props.observations) {
+      let options = [];
+      this.props.observations.forEach((element, index) => {
+        let option = {
+          label: element.name_fr,
+          value: element.value,
+          key: index,
+        };
+        options.push(option);
+      });
+      this.setState({ observations: options });
+    }
+    if (prevProps.encouragements !== this.props.encouragements) {
+      let options = [];
+      this.props.encouragements.forEach((element, index) => {
+        let option = {
+          label: element.name_fr,
+          value: element.value,
+          key: index,
+        };
+        options.push(option);
+      });
+      this.setState({ encouragements: options });
+    }
+    if (prevProps.sanctions !== this.props.sanctions) {
+      let options = [];
+      this.props.sanctions.forEach((element, index) => {
+        let option = {
+          label: element.name_fr,
+          value: element.value,
+          key: index,
+        };
+        options.push(option);
+      });
+      this.setState({ sanctions: options });
+    }
+  }
   render() {
      let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
@@ -901,7 +991,7 @@ justify-content-around"
                         {element.name} {element.surname}
                       </h5>
                     </div>
-                    {this.state.callRegisterSetting.presence ? (
+                    {this.state.callRegisterSetting.presence && (
                       <div className=" bd-highlight">
                         <div className="d-flex flex-column bd-highlight ">
                           <div className=" bd-highlight">
@@ -921,8 +1011,6 @@ justify-content-around"
                           </div>
                         </div>
                       </div>
-                    ) : (
-                      ''
                     )}
                     {this.state.callRegisterSetting.delay ? (
                       <div className="p-2 bd-highlight">

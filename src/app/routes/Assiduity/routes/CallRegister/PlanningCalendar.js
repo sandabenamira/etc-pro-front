@@ -44,7 +44,6 @@ class PlanningCalendar extends React.Component {
     let endHour = this.props.endTime.substr(0, 2);
     let endMunite = this.props.endTime.substr(3, 2);
     let events = this.props.events ? this.props.events : [];
-
     startDayTime.setHours(startHour);
     startDayTime.setMinutes(startMunite);
     endDayTime.setHours(endHour);
@@ -56,33 +55,39 @@ class PlanningCalendar extends React.Component {
             <div className="d-flex flex-column bd-highlight mb-3">
               <div className="p-2 bd-highlight">
                 <div className="d-flex flex-row bd-highlight mb-3">
-                  <div className="p-2 bd-highlight col-md-1">
-                    <TextField
-                      id="itemClass"
-                      name="itemClass"
-                      select
-                      value={this.props.values.itemClass || ''}
-                      onChange={this.props.handleChangeClass('itemClass')}
-                      SelectProps={{}}
-                      label={<IntlMessages id={`components.note.class`} />}
-                      InputProps={{ disableUnderline: true }}
-                      margin="normal"
-                      fullWidth
-                    >
-                      {classes.map((itemClass) => {
-                        let data = {
-                          classId: itemClass.id,
-                          classeName: itemClass.name,
-                        };
+                  <Can
+                    role={role}
+                    perform="call-register-filter-class:visit"
+                    yes={() => (
+                      <div className="p-2 bd-highlight col-md-1">
+                        <TextField
+                          id="itemClass"
+                          name="itemClass"
+                          select
+                          value={this.props.values.itemClass || ''}
+                          onChange={this.props.handleChangeClass('itemClass')}
+                          SelectProps={{}}
+                          label={<IntlMessages id={`components.note.class`} />}
+                          InputProps={{ disableUnderline: true }}
+                          margin="normal"
+                          fullWidth
+                        >
+                          {classes.map((itemClass) => {
+                            let data = {
+                              classId: itemClass.id,
+                              classeName: itemClass.name,
+                            };
 
-                        return (
-                          <MenuItem key={itemClass.id} value={JSON.stringify(data)}>
-                            {data.classeName}
-                          </MenuItem>
-                        );
-                      })}
-                    </TextField>
-                  </div>
+                            return (
+                              <MenuItem key={itemClass.id} value={JSON.stringify(data)}>
+                                {data.classeName}
+                              </MenuItem>
+                            );
+                          })}
+                        </TextField>
+                      </div>
+                    )}
+                  />
 
                   <div
                     className="d-flex mt-5 mr-1"

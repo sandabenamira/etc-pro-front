@@ -5,16 +5,20 @@ import PlanningCalendar from './PlanningCalendar';
 import {
   getEventCallRegisterForAdmin,
   getEventCallRegisterForProf,
+  getEventCallRegisterForParent,
 } from '../../../../../actions/planningActions';
 import { ButtonGroup } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import IntlMessages from '../../../../../util/IntlMessages';
 import moment from 'moment';
-import { roleIdProfessor, roleIdAdmin } from '../../../../../config/config';
+import { roleIdProfessor, roleIdAdmin, roleIdParent } from '../../../../../config/config';
 import { classService } from '../../../../../_services/class.service';
 import _ from 'lodash';
 import { Redirect } from 'react-router-dom';
-import { getStudentsCallRegister } from '../../../../../actions/studentAction';
+import {
+  getStudentsCallRegister,
+  getStudentsCallRegisterForParent,
+} from '../../../../../actions/studentAction';
 import ContainerHeader from '../../../../../components/ContainerHeader';
 import { UncontrolledAlert } from 'reactstrap';
 import SweetAlert from 'react-bootstrap-sweetalert';
@@ -59,9 +63,14 @@ class Registre extends Component {
     let curentDate = moment()._d;
     let checkDate = moment(event.start).isAfter(curentDate);
     if (!checkDate) {
-      this.props.dispatch(
-        getStudentsCallRegister(event.classId, this.props.userProfile.school_year_id)
-      );
+      if (this.props.userProfile.role_id === roleIdParent) {
+        this.props.dispatch(getStudentsCallRegisterForParent(this.props.userProfile.id));
+      } else {
+        this.props.dispatch(
+          getStudentsCallRegister(event.classId, this.props.userProfile.school_year_id)
+        );
+      }
+
       this.setState({
         isRedirect: true,
         eventId: event.id,
@@ -241,8 +250,12 @@ class Registre extends Component {
       }
     }
   };
+  componentDidMount() {
+   
+    this.setState({ events: this.props.events });
+  }
   componentDidUpdate(prevProps) {
-     if (this.props.match.params.classId !== undefined && this.state.itemClass == '') {
+    if (this.props.match.params.classId !== undefined && this.state.itemClass == '') {
       if (this.props.userProfile.role_id === roleIdAdmin) {
         this.setState({
           itemClass: `{"classId":${this.props.match.params.classId},"classeName":"${this.props.match.params.classeName}"}`,
@@ -275,6 +288,17 @@ class Registre extends Component {
     }
     if (prevProps.events !== this.props.events) {
       this.setState({ events: this.props.events });
+    }
+    if (
+      prevProps.userProfile.role_id !== this.props.userProfile.role_id &&
+      this.props.userProfile.role_id === roleIdParent
+    ) {
+      this.props.dispatch(
+        getEventCallRegisterForParent(
+        
+          this.props.userProfile.id
+        )
+      );
     }
     if (prevProps.classes !== this.props.classes) {
       if (this.props.userProfile.role_id === roleIdAdmin) {
@@ -367,6 +391,13 @@ class Registre extends Component {
           )
         );
       }
+    } else if (this.props.userProfile.role_id === roleIdParent) {
+      this.props.dispatch(
+        getEventCallRegisterForParent(
+       
+          this.props.userProfile.id
+        )
+      );
     }
   }
   event({ event }) {
@@ -413,7 +444,7 @@ class Registre extends Component {
           </span>
         </div>
       );
-    } else {
+    } else if (this.props.userProfile.role_id === roleIdAdmin) {
       return (
         <div id={'Popover-' + event.id}>
           <span>
@@ -493,6 +524,31 @@ class Registre extends Component {
             ) : (
               ''
             )}
+          </span>
+        </div>
+      );
+    } else if (this.props.userProfile.role_id === roleIdParent) {
+      return (
+        <div id={'Popover-' + event.id}>
+          <span>
+            <div style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
+              {' '}
+              {event.tagCallRegister ? <b>{'appel fait'}</b> : <b>{'appel non fait'}</b>}
+              <br />{' '}
+              <p>
+                {event.tagCallRegister ? (
+                  <i
+                    className="zmdi zmdi-circle zmdi-hc-lg "
+                    style={{ color: 'green', float: 'right' }}
+                  ></i>
+                ) : (
+                  <i
+                    className="zmdi zmdi-circle zmdi-hc-lg "
+                    style={{ color: 'red', float: 'right' }}
+                  ></i>
+                )}
+              </p>
+            </div>
           </span>
         </div>
       );
@@ -608,8 +664,7 @@ class Registre extends Component {
   };
 
   render() {
-   
-    if (this.state.isRedirect == true) {
+     if (this.state.isRedirect == true) {
       return (
         <Redirect
           to={`/app/assiduity/DetailsCallRegister/${this.state.eventId}/${this.state.classId}/${this.state.startDate}`}
