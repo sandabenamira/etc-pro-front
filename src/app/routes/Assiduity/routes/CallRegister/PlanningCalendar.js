@@ -57,37 +57,89 @@ class PlanningCalendar extends React.Component {
                 <div className="d-flex flex-row bd-highlight mb-3">
                   <Can
                     role={role}
-                    perform="call-register-filter-class:visit"
+                    perform="call-register-filter-type:visit"
                     yes={() => (
                       <div className="p-2 bd-highlight col-md-1">
                         <TextField
-                          id="itemClass"
-                          name="itemClass"
+                          id="typeCall"
+                          name="typeCall"
                           select
-                          value={this.props.values.itemClass || ''}
-                          onChange={this.props.handleChangeClass('itemClass')}
+                          value={this.props.values.typeCallRegister || ''}
+                          onChange={this.props.handleChangeTypeCall('typeCallRegister')}
                           SelectProps={{}}
-                          label={<IntlMessages id={`components.note.class`} />}
+                          label={'Type Registre'}
                           InputProps={{ disableUnderline: true }}
                           margin="normal"
                           fullWidth
                         >
-                          {classes.map((itemClass) => {
-                            let data = {
-                              classId: itemClass.id,
-                              classeName: itemClass.name,
-                            };
-
-                            return (
-                              <MenuItem key={itemClass.id} value={JSON.stringify(data)}>
-                                {data.classeName}
-                              </MenuItem>
-                            );
-                          })}
+                          <MenuItem key={0} value={'formation'}>
+                            {'Formation'}
+                          </MenuItem>
+                          <MenuItem key={0} value={'journalier'}>
+                            {'Journalier'}
+                          </MenuItem>
                         </TextField>
                       </div>
                     )}
                   />
+                  <Can
+                    role={role}
+                    perform="call-register-filter-class:visit"
+                    yes={() =>
+                      this.props.values.typeCallRegister === 'formation' && (
+                        <div className="p-2 bd-highlight col-md-1">
+                          <TextField
+                            id="itemClass"
+                            name="itemClass"
+                            select
+                            value={this.props.values.itemClass || ''}
+                            onChange={this.props.handleChangeClass('itemClass')}
+                            SelectProps={{}}
+                            label={<IntlMessages id={`components.note.class`} />}
+                            InputProps={{ disableUnderline: true }}
+                            margin="normal"
+                            fullWidth
+                          >
+                            {classes.map((itemClass) => {
+                              let data = {
+                                classId: itemClass.id,
+                                classeName: itemClass.name,
+                              };
+
+                              return (
+                                <MenuItem key={itemClass.id} value={JSON.stringify(data)}>
+                                  {data.classeName}
+                                </MenuItem>
+                              );
+                            })}
+                          </TextField>
+                        </div>
+                      )
+                    }
+                  />
+
+                  {this.props.values.typeCallRegister === 'journalier' && (
+                    <div className="p-2 bd-highlight col-md-1">
+                      <TextField
+                        id="itemAgence"
+                        name="itemAgence"
+                        select
+                        value={this.props.values.itemAgence || ''}
+                        onChange={this.props.handleChangeAgence('itemAgence')}
+                        SelectProps={{}}
+                        label={'Agence'}
+                        InputProps={{ disableUnderline: true }}
+                        margin="normal"
+                        fullWidth
+                      >
+                        {this.props.agenceSettings.map((itemAgence) => (
+                          <MenuItem key={itemAgence.id} value={itemAgence.id}>
+                            {itemAgence.name}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </div>
+                  )}
 
                   <div
                     className="d-flex mt-5 mr-1"
@@ -123,48 +175,52 @@ class PlanningCalendar extends React.Component {
                       </MenuItem>
                     </TextField>
                   </div>
-
                   <Can
                     role={role}
                     perform="call-register-filter:visit"
-                    yes={() => (
-                      <>
-                        <div
-                          className="d-flex mt-5 mr-1"
-                          style={{
-                            borderWidth: 'thin',
-                            borderStyle: 'solid',
-                            borderColor: '#979A9A',
-                            height: '16px',
-                          }}
-                        ></div>
-                        <div className="p-2 bd-highlight col-md-2">
-                          <TextField
-                            id="idProf"
-                            name="idProf"
-                            select
-                            value={values.profId}
-                            onChange={this.props.handleChangeProf('profId')}
-                            SelectProps={{}}
-                            label={<IntlMessages id={`professor.call`} />}
-                            InputProps={{ disableUnderline: true }}
-                            margin="normal"
-                            fullWidth
-                          >
-                            <MenuItem key={0} value={0}>
-                              <IntlMessages id={`userStuppDisplay.all`} />
-                            </MenuItem>
-                            {values.professors.map((option) => (
-                              <MenuItem key={option.fk_id_professor} value={option.fk_id_professor}>
-                                {option.professor.profile.user.name +
-                                  ' ' +
-                                  option.professor.profile.user.surname}
+                    yes={() =>
+                      this.props.values.typeCallRegister === 'formation' && (
+                        <>
+                          <div
+                            className="d-flex mt-5 mr-1"
+                            style={{
+                              borderWidth: 'thin',
+                              borderStyle: 'solid',
+                              borderColor: '#979A9A',
+                              height: '16px',
+                            }}
+                          ></div>
+                          <div className="p-2 bd-highlight col-md-2">
+                            <TextField
+                              id="idProf"
+                              name="idProf"
+                              select
+                              value={values.profId}
+                              onChange={this.props.handleChangeProf('profId')}
+                              SelectProps={{}}
+                              label={<IntlMessages id={`professor.call`} />}
+                              InputProps={{ disableUnderline: true }}
+                              margin="normal"
+                              fullWidth
+                            >
+                              <MenuItem key={0} value={0}>
+                                <IntlMessages id={`userStuppDisplay.all`} />
                               </MenuItem>
-                            ))}
-                          </TextField>
-                        </div>
-                      </>
-                    )}
+                              {values.professors.map((option) => (
+                                <MenuItem
+                                  key={option.fk_id_professor}
+                                  value={option.fk_id_professor}
+                                >
+                                  {option.professor.profile.user.name +
+                                    ' ' +
+                                    option.professor.profile.user.surname}
+                                </MenuItem>
+                              ))}
+                            </TextField>
+                          </div>
+                        </>
+                      )
+                    }
                   />
                 </div>
               </div>

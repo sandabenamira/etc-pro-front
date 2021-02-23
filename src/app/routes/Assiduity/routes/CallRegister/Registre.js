@@ -44,6 +44,8 @@ class Registre extends Component {
       isOpen: false,
       professors: [],
       profId: '',
+      typeCallRegister: 'formation',
+      itemAgence: '',
     };
 
     this.handleChangeClass = this.handleChangeClass.bind(this);
@@ -53,7 +55,16 @@ class Registre extends Component {
     this.displayEventCallregister = this.displayEventCallregister.bind(this);
     this.handleChangeType = this.handleChangeType.bind(this);
     this.handleChangeProf = this.handleChangeProf.bind(this);
+    this.handleChangeTypeCall = this.handleChangeTypeCall.bind(this);
+    this.handleChangeAgence = this.handleChangeAgence.bind(this);
   }
+  handleChangeAgence = (name) => (event) => {
+    this.setState({ [name]: event.target.value });
+    this.props.dispatch(getEventCallRegisterForParent(231));
+  };
+  handleChangeTypeCall = (name) => (event) => {
+    this.setState({ [name]: event.target.value });
+  };
   onConfirm = () => {
     this.setState({
       isOpen: false,
@@ -221,7 +232,10 @@ class Registre extends Component {
           }
         }
       }
-    } else if (this.props.userProfile.role_id === roleIdProfessor || this.props.userProfile.role_id === roleIdParent) {
+    } else if (
+      this.props.userProfile.role_id === roleIdProfessor ||
+      this.props.userProfile.role_id === roleIdParent
+    ) {
       if (this.state.classIdFilter == 0) {
         if (event.target.value == 'all') {
           this.setState({ events: this.props.events });
@@ -251,7 +265,6 @@ class Registre extends Component {
     }
   };
   componentDidMount() {
-   
     this.setState({ events: this.props.events });
   }
   componentDidUpdate(prevProps) {
@@ -293,12 +306,7 @@ class Registre extends Component {
       prevProps.userProfile.role_id !== this.props.userProfile.role_id &&
       this.props.userProfile.role_id === roleIdParent
     ) {
-      this.props.dispatch(
-        getEventCallRegisterForParent(
-        
-          this.props.userProfile.id
-        )
-      );
+      this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
     }
     if (prevProps.classes !== this.props.classes) {
       if (this.props.userProfile.role_id === roleIdAdmin) {
@@ -392,12 +400,7 @@ class Registre extends Component {
         );
       }
     } else if (this.props.userProfile.role_id === roleIdParent) {
-      this.props.dispatch(
-        getEventCallRegisterForParent(
-       
-          this.props.userProfile.id
-        )
-      );
+      this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
     }
   }
   event({ event }) {
@@ -664,7 +667,7 @@ class Registre extends Component {
   };
 
   render() {
-     if (this.state.isRedirect == true) {
+    if (this.state.isRedirect == true) {
       return (
         <Redirect
           to={`/app/assiduity/DetailsCallRegister/${this.state.eventId}/${this.state.classId}/${this.state.startDate}`}
@@ -713,6 +716,9 @@ class Registre extends Component {
             customToolbar={this.customToolbar}
             event={this.event}
             displayEventCallregister={this.displayEventCallregister}
+            handleChangeTypeCall={this.handleChangeTypeCall}
+            handleChangeAgence={this.handleChangeAgence}
+            agenceSettings={this.props.agenceSettings}
           />
 
           <SweetAlert
@@ -736,6 +742,7 @@ const mapStateToProps = (state) => {
     successStatus: state.alert.success,
     errorStatus: state.alert.error,
     message: state.alert.message,
+    agenceSettings: state.AgenceReducer.agenceSettings,
   };
 };
 export default connect(mapStateToProps)(Registre);
