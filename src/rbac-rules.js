@@ -499,7 +499,8 @@ const rules = {
       'module-nav-satisfaction-question',
       'module-nav-reporting-kpi',
       'module-nav-agenceSetting',
-      "call-register-filter-class:visit"
+      "call-register-filter-class:visit",
+      "call-register-filter-type:visit"
 
       
     ],

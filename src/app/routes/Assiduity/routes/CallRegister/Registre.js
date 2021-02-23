@@ -44,6 +44,9 @@ class Registre extends Component {
       isOpen: false,
       professors: [],
       profId: '',
+      typeCallRegister: 'formation',
+      itemAgence: '',
+      events: [],
     };
 
     this.handleChangeClass = this.handleChangeClass.bind(this);
@@ -53,7 +56,16 @@ class Registre extends Component {
     this.displayEventCallregister = this.displayEventCallregister.bind(this);
     this.handleChangeType = this.handleChangeType.bind(this);
     this.handleChangeProf = this.handleChangeProf.bind(this);
+    this.handleChangeTypeCall = this.handleChangeTypeCall.bind(this);
+    this.handleChangeAgence = this.handleChangeAgence.bind(this);
   }
+  handleChangeAgence = (name) => (event) => {
+    this.setState({ [name]: event.target.value });
+    this.props.dispatch(getEventCallRegisterForParent(231));
+  };
+  handleChangeTypeCall = (name) => (event) => {
+    this.setState({ [name]: event.target.value, events: [], itemClass: '', itemAgence: '' });
+  };
   onConfirm = () => {
     this.setState({
       isOpen: false,
@@ -66,9 +78,15 @@ class Registre extends Component {
       if (this.props.userProfile.role_id === roleIdParent) {
         this.props.dispatch(getStudentsCallRegisterForParent(this.props.userProfile.id));
       } else {
-        this.props.dispatch(
-          getStudentsCallRegister(event.classId, this.props.userProfile.school_year_id)
-        );
+        if (this.state.typeCallRegister === 'formation') {
+          this.props.dispatch(
+            getStudentsCallRegister(event.classId, this.props.userProfile.school_year_id)
+          );
+        } else {
+          this.props.dispatch(getStudentsCallRegisterForParent(231));
+
+        }
+       
       }
 
       this.setState({
@@ -221,7 +239,10 @@ class Registre extends Component {
           }
         }
       }
-    } else if (this.props.userProfile.role_id === roleIdProfessor || this.props.userProfile.role_id === roleIdParent) {
+    } else if (
+      this.props.userProfile.role_id === roleIdProfessor ||
+      this.props.userProfile.role_id === roleIdParent
+    ) {
       if (this.state.classIdFilter == 0) {
         if (event.target.value == 'all') {
           this.setState({ events: this.props.events });
@@ -250,12 +271,14 @@ class Registre extends Component {
       }
     }
   };
-  componentDidMount() {
-   
-    this.setState({ events: this.props.events });
-  }
+ 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.classId !== undefined && this.state.itemClass == '') {
+    if (
+      this.props.match.params.classId !== 'undefined' &&
+      this.props.match.params.classId !== undefined &&
+      this.state.itemClass == '' &&
+      this.props.match.params != prevProps.match.params
+    ) {
       if (this.props.userProfile.role_id === roleIdAdmin) {
         this.setState({
           itemClass: `{"classId":${this.props.match.params.classId},"classeName":"${this.props.match.params.classeName}"}`,
@@ -267,14 +290,16 @@ class Registre extends Component {
         });
         let apiEndpoint = `/assignment_class_subjects?access_token=${localStorage.token}&filter[where][fk_id_class_v4]=${this.props.match.params.classId}&filter[include][course][professor][profile][user]`;
         classService.get(apiEndpoint).then((res) => {
-          let courses = [];
-          res.data.forEach((element) => {
-            courses.push(element.course);
-          });
-          let newCoursesList = _.flatten(courses);
-          let profFiltredByID = _.uniqBy(newCoursesList, 'fk_id_professor');
+          if (res) {
+            let courses = [];
+            res.data.forEach((element) => {
+              courses.push(element.course);
+            });
+            let newCoursesList = _.flatten(courses);
+            let profFiltredByID = _.uniqBy(newCoursesList, 'fk_id_professor');
 
-          this.setState({ professors: profFiltredByID, profId: '', typeCall: 'all' });
+            this.setState({ professors: profFiltredByID, profId: '', typeCall: 'all' });
+          }
         });
 
         this.props.dispatch(
@@ -284,7 +309,7 @@ class Registre extends Component {
             this.props.match.params.classId
           )
         );
-      }
+       }
     }
     if (prevProps.events !== this.props.events) {
       this.setState({ events: this.props.events });
@@ -293,12 +318,7 @@ class Registre extends Component {
       prevProps.userProfile.role_id !== this.props.userProfile.role_id &&
       this.props.userProfile.role_id === roleIdParent
     ) {
-      this.props.dispatch(
-        getEventCallRegisterForParent(
-        
-          this.props.userProfile.id
-        )
-      );
+       this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
     }
     if (prevProps.classes !== this.props.classes) {
       if (this.props.userProfile.role_id === roleIdAdmin) {
@@ -362,7 +382,10 @@ class Registre extends Component {
       });
     } else if (this.props.userProfile.role_id === roleIdAdmin) {
       this.setState({ classes: this.props.classes });
-      if (this.props.match.params.classId != undefined) {
+      if (
+        this.props.match.params.classId != 'undefined' &&
+        this.props.match.params.classId != undefined
+      ) {
         this.setState({
           itemClass: `{"classId":${this.props.match.params.classId},"classeName":"${this.props.match.params.classeName}"}`,
         });
@@ -392,12 +415,7 @@ class Registre extends Component {
         );
       }
     } else if (this.props.userProfile.role_id === roleIdParent) {
-      this.props.dispatch(
-        getEventCallRegisterForParent(
-       
-          this.props.userProfile.id
-        )
-      );
+      this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
     }
   }
   event({ event }) {
@@ -445,88 +463,115 @@ class Registre extends Component {
         </div>
       );
     } else if (this.props.userProfile.role_id === roleIdAdmin) {
-      return (
-        <div id={'Popover-' + event.id}>
-          <span>
-            {event.eventType === 'lesson' ? (
+      if (this.state.typeCallRegister === 'formation') {
+        return (
+          <div id={'Popover-' + event.id}>
+            <span>
+              {event.eventType === 'lesson' ? (
+                <div style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
+                  {' '}
+                  <b>{event.subjectName}</b>
+                  <br />{' '}
+                  {event.profGender === 'Féminin' ? (
+                    <p>
+                      Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
+                      {event.tagCallRegister ? (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'green', float: 'right' }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'red', float: 'right' }}
+                        ></i>
+                      )}{' '}
+                    </p>
+                  ) : (
+                    <p>
+                      M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
+                      {event.tagCallRegister ? (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'green', float: 'right' }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'red', float: 'right' }}
+                        ></i>
+                      )}{' '}
+                    </p>
+                  )}{' '}
+                </div>
+              ) : event.eventType === 'exam' ? (
+                <p style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
+                  {' '}
+                  <IntlMessages id="components.note.exam" />: <b>{event.subjectName}</b> <br />
+                  {event.profGender === 'Féminin' ? (
+                    <p>
+                      Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
+                      {event.tagCallRegister ? (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'green', float: 'right' }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'red', float: 'right' }}
+                        ></i>
+                      )}{' '}
+                    </p>
+                  ) : (
+                    <p>
+                      M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
+                      {event.tagCallRegister ? (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'green', float: 'right' }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'red', float: 'right' }}
+                        ></i>
+                      )}{' '}
+                    </p>
+                  )}
+                </p>
+              ) : (
+                ''
+              )}
+            </span>
+          </div>
+        );
+      } else {
+        return (
+          <div id={'Popover-' + event.id}>
+            <span>
               <div style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
                 {' '}
-                <b>{event.subjectName}</b>
+                {event.tagCallRegister ? <b>{'appel fait'}</b> : <b>{'appel non fait'}</b>}
                 <br />{' '}
-                {event.profGender === 'Féminin' ? (
-                  <p>
-                    Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
-                    {event.tagCallRegister ? (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'green', float: 'right' }}
-                      ></i>
-                    ) : (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'red', float: 'right' }}
-                      ></i>
-                    )}{' '}
-                  </p>
-                ) : (
-                  <p>
-                    M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
-                    {event.tagCallRegister ? (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'green', float: 'right' }}
-                      ></i>
-                    ) : (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'red', float: 'right' }}
-                      ></i>
-                    )}{' '}
-                  </p>
-                )}{' '}
+                <p>
+                  {event.tagCallRegister ? (
+                    <i
+                      className="zmdi zmdi-circle zmdi-hc-lg "
+                      style={{ color: 'green', float: 'right' }}
+                    ></i>
+                  ) : (
+                    <i
+                      className="zmdi zmdi-circle zmdi-hc-lg "
+                      style={{ color: 'red', float: 'right' }}
+                    ></i>
+                  )}
+                </p>
               </div>
-            ) : event.eventType === 'exam' ? (
-              <p style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
-                {' '}
-                <IntlMessages id="components.note.exam" />: <b>{event.subjectName}</b> <br />
-                {event.profGender === 'Féminin' ? (
-                  <p>
-                    Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
-                    {event.tagCallRegister ? (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'green', float: 'right' }}
-                      ></i>
-                    ) : (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'red', float: 'right' }}
-                      ></i>
-                    )}{' '}
-                  </p>
-                ) : (
-                  <p>
-                    M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
-                    {event.tagCallRegister ? (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'green', float: 'right' }}
-                      ></i>
-                    ) : (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'red', float: 'right' }}
-                      ></i>
-                    )}{' '}
-                  </p>
-                )}
-              </p>
-            ) : (
-              ''
-            )}
-          </span>
-        </div>
-      );
+            </span>
+          </div>
+        );
+      }
     } else if (this.props.userProfile.role_id === roleIdParent) {
       return (
         <div id={'Popover-' + event.id}>
@@ -664,12 +709,35 @@ class Registre extends Component {
   };
 
   render() {
+  
+
+
      if (this.state.isRedirect == true) {
-      return (
-        <Redirect
-          to={`/app/assiduity/DetailsCallRegister/${this.state.eventId}/${this.state.classId}/${this.state.startDate}`}
-        />
-      );
+      if (this.props.userProfile.role_id === roleIdParent) {
+        return (
+          <Redirect
+            to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${
+              this.state.eventId
+            }/${0}/${this.state.startDate}`}
+          />
+        );
+      } else {
+        if (this.state.typeCallRegister === 'formation') {
+          return (
+            <Redirect
+              to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${this.state.eventId}/${this.state.classId}/${this.state.startDate}`}
+            />
+          );
+        } else {
+          return (
+            <Redirect
+              to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${
+                this.state.eventId
+              }/${0}/${this.state.startDate}`}
+            />
+          );
+        }
+      }
     } else {
       let newMatch = {
         path: '/app/assiduity/call_register',
@@ -713,6 +781,9 @@ class Registre extends Component {
             customToolbar={this.customToolbar}
             event={this.event}
             displayEventCallregister={this.displayEventCallregister}
+            handleChangeTypeCall={this.handleChangeTypeCall}
+            handleChangeAgence={this.handleChangeAgence}
+            agenceSettings={this.props.agenceSettings}
           />
 
           <SweetAlert
@@ -736,6 +807,7 @@ const mapStateToProps = (state) => {
     successStatus: state.alert.success,
     errorStatus: state.alert.error,
     message: state.alert.message,
+    agenceSettings: state.AgenceReducer.agenceSettings,
   };
 };
 export default connect(mapStateToProps)(Registre);
