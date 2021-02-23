@@ -2,14 +2,10 @@ import React from "react";
 import ContainerHeader from "../../../components/ContainerHeader/index";
 import IntlMessages from "../../../util/IntlMessages";
 import { connect } from "react-redux";
-import { getLevels } from "../../../actions/classLevelAction";
 import { getUserProfile } from "../../../actions/Auth";
 import axios from "axios";
 import baseUrl from "../../../config/config";
-import { getSections } from "../../../actions/sectionAction";
-import {
-  getClassesByUserId,
-} from "../../../actions/classeAction";
+import { getClassesByUserId } from "../../../actions/classeAction";
 import LessonList from "./LessonList";
 import { getLessons } from "../../../actions/LessonAction";
 import { roleIdProfessor, roleIdStudent } from "../../../config/config";
@@ -70,7 +66,6 @@ class Lesson extends React.Component {
     });
     if (!_.isEmpty(sections)) {
       this.setState({ Disable_studentsection: false });
-    
     } else {
       var studentfiltredClasses = this.props.classes.filter(
         (classe) =>
@@ -144,12 +139,7 @@ class Lesson extends React.Component {
   }
   componentDidMount() {
     if (this.props.userProfile.role_id === roleIdProfessor) {
-     
     } else {
-      this.props.getLevels();
-      this.props.getSections();
- 
-     
       this.props.getLessons(this.props.userProfile.establishment_id);
       axios
         .get(
@@ -158,7 +148,6 @@ class Lesson extends React.Component {
             `?access_token=${localStorage.token}`
         )
         .then((res) => {
-        
           this.setState({
             estabType: res.data.estab_type_id,
             estab_type_id: res.data.estab_type_id,
@@ -296,10 +285,7 @@ class Lesson extends React.Component {
 }
 function mapStateToProps(state) {
   return {
-    // classes: state.classes,
     userProfile: state.auth.userProfile,
-    // levels: state.ClassLevels.remoteLevels,
-    // sections: state.classSections.remoteSections,
     lessons: state.lessons.remoteLessons,
     successStatus: state.alert.success,
     errorStatus: state.alert.error,
@@ -310,14 +296,9 @@ function mapStateToProps(state) {
     subjects: state.subject.subjects,
   };
 }
-export default connect(
-  mapStateToProps,
-  {
-    getLevels,
-    getUserProfile,
-    getSections,
-     getLessons,
-    getClassesByUserId,
-    addLesson,
-  }
-)(Lesson);
+export default connect(mapStateToProps, {
+  getUserProfile,
+  getLessons,
+  getClassesByUserId,
+  addLesson,
+})(Lesson);

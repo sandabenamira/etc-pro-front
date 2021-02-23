@@ -13,8 +13,7 @@ import {
 } from '../../../../../actions/professorAction';
 import {
   addEvent,
-  handleEventRequestClose,
-  getEventsByEstabAndSchoolYear,
+   getEventsByEstabAndSchoolYear,
   editEvent,
   deleteEvent,
 } from '../../../../../actions/planningActions';
@@ -23,8 +22,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { classService } from '../../../../../_services/class.service';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import IntlMessages from '../../../../../util/IntlMessages';
-import { removeEventList } from '../../../../../actions/planningActions';
-import EditEvent from './EditEvent';
+ import EditEvent from './EditEvent';
 import { roleIdSuperAdmin } from '../../../../../config/config';
 import EventDetails from './EventDetails';
 import ConfirmationEditEvent from './ConfirmationEditEvent';
@@ -1359,12 +1357,10 @@ class Planning extends React.Component {
   };
 
   handleRequestClose = () => {
-    this.props.dispatch(handleEventRequestClose());
-  };
+   };
 
   componentWillUnmount() {
-    this.props.dispatch(removeEventList());
-  }
+   }
 
   render() {
      return (
