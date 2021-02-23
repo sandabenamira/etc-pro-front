@@ -161,7 +161,7 @@ class AddVirtualClass extends React.Component {
                                       htmlFor="name-multiple"
                                       required
                                     >
-                                      {<IntlMessages id="ticket.name.class" />}
+                                      {"Classe de formation"}
                                     </InputLabel>
                                     <Select
                                       multiple
