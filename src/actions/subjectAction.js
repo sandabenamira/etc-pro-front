@@ -292,7 +292,7 @@ export function getSubjectSetting(establishementId, schoolYearId) {
 
 export function deleteSubjectSetting(itemId) {
   return (dispatch) => {
-    let apiEndpoint = `/subject_v4/${itemId.id}?access_token=${localStorage.token}&filter[where][and][0][fk_id_establishment]=${localStorage.establishment_id}&filter[where][and][1][fk_id_school_year]=${localStorage.school_year_id}`;
+    let apiEndpoint = `/subject_v4/${itemId.id}?access_token=${localStorage.token}`;
     classService.patch(apiEndpoint, { status: false }).then((response) => {
       if (response) {
         dispatch({ type: DELETE_SUBJECT_SETTING, payload: response.data });
@@ -301,31 +301,7 @@ export function deleteSubjectSetting(itemId) {
   };
 }
 
-export function assignSubjectSetting(data) {
-  return (dispatch) => {
-    let apiEndpoint = `/subject_level_sections?access_token=${localStorage.token}`;
-    classService.post(apiEndpoint, data).then((response) => {
-      if (response) {
-        dispatch({
-          type: SHOW_SUCCESS_MESSAGE,
-          payload: "L'affectation du matière est effectuée avec succès",
-        });
-        setTimeout(() => {
-          dispatch({ type: HIDE_SUCCESS_MESSAGE });
-        }, 4000);
-      } else {
-        dispatch({
-          type: SHOW_ERROR_MESSAGE,
-          payload:
-            "Une erreur est survenue lors d'affctation merci d'essayer à nouveau",
-        });
-        setTimeout(() => {
-          dispatch({ type: HIDE_ERROR_MESSAGE });
-        }, 4000);
-      }
-    });
-  };
-}
+ 
 
 export function getSubjectByEstablishmentAndSchoolYear(
   establishementId,

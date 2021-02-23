@@ -1,33 +1,28 @@
-import React from 'react';
-import IntlMessages from '../../../../../util/IntlMessages';
-import { UncontrolledAlert } from 'reactstrap';
-import TextField from '@material-ui/core/TextField';
-import CardBox from '../../../../../components/CardBox/index';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListGrade from './ListGrade.js';
-import { connect } from 'react-redux';
+import React from "react";
+import IntlMessages from "../../../../../util/IntlMessages";
+import { UncontrolledAlert } from "reactstrap";
+import TextField from "@material-ui/core/TextField";
+import CardBox from "../../../../../components/CardBox/index";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListGrade from "./ListGrade.js";
+import { connect } from "react-redux";
 import {
   addGrade,
   getGrades,
   updateGrade,
   updateAlerte,
   resetAlerte,
-} from '../../../../../actions/noteActions';
+} from "../../../../../actions/noteActions";
 
-import { getSubject } from '../../../../../actions/subjectAction';
-import { getExam } from '../../../../../actions/examAction';
-import { getClasses } from '../../../../../actions/classeAction';
-import { getLevelsVirtualClass } from '../../../../../actions/classLevelAction';
-import { getEstablishment } from '../../../../../actions/establishmentAction';
-import {
-  getSections,
-  getSectionFromLevel,
-} from '../../../../../actions/sectionAction';
-import { getStudentClass } from '../../../../../actions/RegistreAction';
-import { subjectsByLevelBySection } from '../../../../../actions/subjectAction';
-import axios from 'axios';
-import baseUrl from '../../../../../config/config';
-import _ from 'lodash';
+import { getSubject } from "../../../../../actions/subjectAction";
+import { getExam } from "../../../../../actions/examAction";
+ import { getEstablishment } from "../../../../../actions/establishmentAction";
+import { getSectionFromLevel } from "../../../../../actions/sectionAction";
+import { getStudentClass } from "../../../../../actions/RegistreAction";
+import { subjectsByLevelBySection } from "../../../../../actions/subjectAction";
+import axios from "axios";
+import baseUrl from "../../../../../config/config";
+import _ from "lodash";
 
 function mapStateToProps(state) {
   return {
@@ -47,19 +42,19 @@ function mapStateToProps(state) {
 }
 const periodExam = [
   {
-    value: '1er Trimestre',
+    value: "1er Trimestre",
     label: <IntlMessages id="first.trimester" />,
   },
   {
-    value: '2eme Trimestre',
+    value: "2eme Trimestre",
     label: <IntlMessages id="second.trimester" />,
   },
   {
-    value: '3eme Trimestre',
+    value: "3eme Trimestre",
     label: <IntlMessages id="third.trimester" />,
   },
   {
-    value: 'Session Controle',
+    value: "Session Controle",
     label: <IntlMessages id="controlSession" />,
   },
 ];
@@ -68,12 +63,12 @@ class Grades extends React.Component {
     super(props);
     this.state = {
       Disable_section: true,
-      examen: '',
-      classe: '',
-      level: '',
-      section: '',
-      subject: '',
-      period: '',
+      examen: "",
+      classe: "",
+      level: "",
+      section: "",
+      subject: "",
+      period: "",
       studentList: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -86,7 +81,7 @@ class Grades extends React.Component {
     var newData = [];
     var oldData = [];
     this.state.studentList.map((grade, index) => {
-      if (grade.id == '') {
+      if (grade.id == "") {
         newData.push({
           student_id: grade.student_id,
           note: grade.note,
@@ -118,12 +113,12 @@ class Grades extends React.Component {
 
     this.setState({
       studentList: [],
-      subject: '',
-      period: '',
-      examen: '',
-      level: '',
-      section: '',
-      classe: '',
+      subject: "",
+      period: "",
+      examen: "",
+      level: "",
+      section: "",
+      classe: "",
     });
   };
 
@@ -134,7 +129,7 @@ class Grades extends React.Component {
       data.push({
         student_id: option.student_id,
         id: option.id,
-        note: '',
+        note: "",
         class_id: this.state.classe,
         exam_id: this.state.examen,
         status: true,
@@ -144,7 +139,7 @@ class Grades extends React.Component {
       grades.push({
         student_id: option.student_id,
         id: option.id,
-        note: '',
+        note: "",
         studentInfo: option.studentInfo,
       })
     );
@@ -159,56 +154,53 @@ class Grades extends React.Component {
     });
   };
   componentWillMount() {
-    this.props.getSections();
-    this.props.getEstablishment();
-    this.props.getLevelsVirtualClass();
-    this.props.getSubject();
+     this.props.getEstablishment();
+     this.props.getSubject();
     this.props.getExam();
-    this.props.getClasses();
   }
 
   handleBlur = (event) => {};
 
   handleChange = (name) => (event) => {
-    if (name === 'level') {
+    if (name === "level") {
       if (event.target.value > 10) {
         this.setState({
           [name]: event.target.value,
           Disable_section: false,
-          classe: '',
+          classe: "",
           section: 0,
           studentList: [],
-          subject: '',
-          period: '',
-          examen: '',
+          subject: "",
+          period: "",
+          examen: "",
         });
       } else {
         this.setState({
           [name]: event.target.value,
           Disable_section: true,
-          classe: '',
+          classe: "",
           section: 0,
-          subject: '',
+          subject: "",
           studentList: [],
-          period: '',
-          examen: '',
+          period: "",
+          examen: "",
         });
       }
-    } else if (name === 'section') {
+    } else if (name === "section") {
       this.setState({
-        classe: '',
+        classe: "",
         studentList: [],
         [name]: event.target.value,
-        period: '',
-        examen: '',
+        period: "",
+        examen: "",
       });
-    } else if (name === 'classe') {
+    } else if (name === "classe") {
       var studentGrades = [];
       this.setState({
         [name]: event.target.value,
-        period: '',
-        subject: '',
-        examen: '',
+        period: "",
+        subject: "",
+        examen: "",
       });
       axios
 
@@ -221,9 +213,9 @@ class Grades extends React.Component {
           res.data.classData.map((option) => {
             if (option.profile.user.status) {
               studentGrades.push({
-                id: '',
+                id: "",
                 student_id: option.id,
-                note: '',
+                note: "",
                 studentInfo: option,
               });
             }
@@ -233,45 +225,45 @@ class Grades extends React.Component {
             studentList: studentGrades,
           });
         });
-    } else if (name === 'subject') {
+    } else if (name === "subject") {
       let studentGrades = [];
       this.state.studentList.map((option) => {
         studentGrades.push({
-          id: '',
+          id: "",
           student_id: option.student_id,
-          note: '',
+          note: "",
           studentInfo: option.studentInfo,
         });
       });
       this.setState({
         [name]: event.target.value,
-        period: '',
-        examen: '',
+        period: "",
+        examen: "",
         studentList: studentGrades,
       });
-    } else if (name === 'period') {
+    } else if (name === "period") {
       let studentGrades = [];
       this.state.studentList.map((option) => {
         studentGrades.push({
-          id: '',
+          id: "",
           student_id: option.student_id,
-          note: '',
+          note: "",
           studentInfo: option.studentInfo,
         });
       });
 
       this.setState({
         [name]: event.target.value,
-        examen: '',
+        examen: "",
         studentList: studentGrades,
       });
-    } else if (name === 'examen') {
+    } else if (name === "examen") {
       let studentGrades = [];
       this.state.studentList.map((option) => {
         studentGrades.push({
-          id: '',
+          id: "",
           student_id: option.student_id,
-          note: '',
+          note: "",
           studentInfo: option.studentInfo,
         });
       });
@@ -358,7 +350,7 @@ class Grades extends React.Component {
             <span className="d-inline-block"> {this.props.message} </span>
           </UncontrolledAlert>
         ) : (
-          ''
+          ""
         )}
         {this.props.errorStatus ? (
           <UncontrolledAlert className="alert-addon-card bg-danger bg-danger text-white shadow-lg">
@@ -368,7 +360,7 @@ class Grades extends React.Component {
             <span className="d-inline-block"> {this.props.message}</span>
           </UncontrolledAlert>
         ) : (
-          ''
+          ""
         )}
         <div className="row">
           <CardBox
@@ -382,7 +374,7 @@ class Grades extends React.Component {
                   select
                   helperText={<IntlMessages id="components.note.niveau" />}
                   value={this.state.level}
-                  onChange={this.handleChange('level')}
+                  onChange={this.handleChange("level")}
                   SelectProps={{}}
                   variant="outlined"
                   margin="normal"
@@ -391,14 +383,14 @@ class Grades extends React.Component {
                   {levels.map((option) =>
                     option.estab_type_id === estab_typeId ? (
                       <MenuItem key={option.id} value={option.id}>
-                        {this.props.settings.languageId == 'tunisia'
+                        {this.props.settings.languageId == "tunisia"
                           ? option.name_AR
-                          : this.props.settings.languageId == 'french'
+                          : this.props.settings.languageId == "french"
                           ? option.name_FR
                           : option.name_EN}
                       </MenuItem>
                     ) : (
-                      ''
+                      ""
                     )
                   )}
                 </TextField>
@@ -413,7 +405,7 @@ class Grades extends React.Component {
                     <IntlMessages id="components.class.level.input.label.section" />
                   }
                   value={this.state.section}
-                  onChange={this.handleChange('section')}
+                  onChange={this.handleChange("section")}
                   SelectProps={{}}
                   variant="outlined"
                   margin="normal"
@@ -435,7 +427,7 @@ class Grades extends React.Component {
                   select
                   helperText={<IntlMessages id="components.note.class" />}
                   value={this.state.classe}
-                  onChange={this.handleChange('classe')}
+                  onChange={this.handleChange("classe")}
                   SelectProps={{}}
                   margin="normal"
                   variant="outlined"
@@ -448,12 +440,12 @@ class Grades extends React.Component {
                         option.establishment_id === estab_typeId &&
                         option.status ? (
                           <MenuItem key={option.id} value={option.id}>
-                            {this.props.settings.languageId == 'tunisia'
+                            {this.props.settings.languageId == "tunisia"
                               ? option.ar_name
                               : option.name}
                           </MenuItem>
                         ) : (
-                          ''
+                          ""
                         )
                       )
                     : classes.map((option) =>
@@ -461,12 +453,12 @@ class Grades extends React.Component {
                         option.establishment_id === estab_typeId &&
                         option.status ? (
                           <MenuItem key={option.id} value={option.id}>
-                            {this.props.settings.languageId == 'tunisia'
+                            {this.props.settings.languageId == "tunisia"
                               ? option.ar_name
-                              : option.name}{' '}
+                              : option.name}{" "}
                           </MenuItem>
                         ) : (
-                          ''
+                          ""
                         )
                       )}
                 </TextField>
@@ -484,7 +476,7 @@ class Grades extends React.Component {
                   select
                   helperText={<IntlMessages id="components.note.subject" />}
                   value={this.state.subject}
-                  onChange={this.handleChange('subject')}
+                  onChange={this.handleChange("subject")}
                   SelectProps={{}}
                   margin="normal"
                   variant="outlined"
@@ -496,9 +488,9 @@ class Grades extends React.Component {
                     this.state.section
                   ).map((subject) => (
                     <MenuItem key={subject.id} value={subject.id}>
-                      {this.props.settings.languageId == 'tunisia'
+                      {this.props.settings.languageId == "tunisia"
                         ? subject.name_AR
-                        : this.props.settings.languageId == 'french'
+                        : this.props.settings.languageId == "french"
                         ? subject.name_FR
                         : subject.name_EN}
                     </MenuItem>
@@ -512,7 +504,7 @@ class Grades extends React.Component {
                   id="period"
                   select
                   helperText={<IntlMessages id="components.note.période" />}
-                  onChange={this.handleChange('period')}
+                  onChange={this.handleChange("period")}
                   value={this.state.period}
                   fullWidth
                   variant="outlined"
@@ -532,7 +524,7 @@ class Grades extends React.Component {
                   select
                   helperText={<IntlMessages id="components.note.exam" />}
                   value={this.state.examen}
-                  onChange={this.handleChange('examen')}
+                  onChange={this.handleChange("examen")}
                   margin="normal"
                   variant="outlined"
                   fullWidth
@@ -546,7 +538,7 @@ class Grades extends React.Component {
                         {exam.type}
                       </MenuItem>
                     ) : (
-                      ''
+                      ""
                     )
                   )}
                 </TextField>
@@ -567,21 +559,15 @@ class Grades extends React.Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    getSubject,
-    getExam,
-    getClasses,
-    getLevelsVirtualClass,
-    getEstablishment,
-    getSections,
-    getSectionFromLevel,
-    getStudentClass,
-    addGrade,
-    getGrades,
-    updateGrade,
-    updateAlerte,
-    resetAlerte,
-  }
-)(Grades);
+export default connect(mapStateToProps, {
+  getSubject,
+  getExam,
+   getEstablishment,
+   getSectionFromLevel,
+  getStudentClass,
+  addGrade,
+  getGrades,
+  updateGrade,
+  updateAlerte,
+  resetAlerte,
+})(Grades);

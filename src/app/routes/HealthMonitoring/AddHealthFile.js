@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
-import IntlMessages from '../../../util/IntlMessages';
-import Auxiliary from '../../../util/Auxiliary';
-import { Modal, ModalBody, ModalHeader } from 'reactstrap';
-import TextField from '@material-ui/core/TextField';
-import CardBox from '../../../components/CardBox/index';
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import { connect } from 'react-redux';
-import { getSections } from '../../../actions/sectionAction';
-import { getLevels } from '../../../actions/classLevelAction';
-import { getClassesByEstablishmentId } from '../../../actions/classeAction';
-
+import React, { Component } from "react";
+import IntlMessages from "../../../util/IntlMessages";
+import Auxiliary from "../../../util/Auxiliary";
+import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import TextField from "@material-ui/core/TextField";
+import CardBox from "../../../components/CardBox/index";
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import { connect } from "react-redux";
 
 class AddHealthFile extends Component {
   render() {
@@ -55,7 +51,7 @@ class AddHealthFile extends Component {
                           select
                           value={values.levelId}
                           defaultValue=" "
-                          onChange={handleChangesLevel('levelId')}
+                          onChange={handleChangesLevel("levelId")}
                           SelectProps={{}}
                           helperText={
                             <IntlMessages id="components.class.level.input.label.level" />
@@ -65,9 +61,9 @@ class AddHealthFile extends Component {
                         >
                           {this.props.classLevels.map((level) => (
                             <MenuItem key={level.id} value={level.id}>
-                              {this.props.settings.languageId == 'tunisia'
+                              {this.props.settings.languageId == "tunisia"
                                 ? level.name_AR
-                                : this.props.settings.languageId == 'french'
+                                : this.props.settings.languageId == "french"
                                 ? level.name_FR
                                 : level.name_EN}
                             </MenuItem>
@@ -83,7 +79,7 @@ class AddHealthFile extends Component {
                           name="sectionId"
                           select
                           value={values.sectionId}
-                          onChange={handleChangeSection('sectionId')}
+                          onChange={handleChangeSection("sectionId")}
                           disabled={values.Disable_studentsection}
                           SelectProps={{}}
                           helperText={
@@ -108,7 +104,7 @@ class AddHealthFile extends Component {
                           name="class_id"
                           select
                           value={values.class_id}
-                          onChange={handleChangeClassStudent('class_id')}
+                          onChange={handleChangeClassStudent("class_id")}
                           SelectProps={{}}
                           helperText={<IntlMessages id="ticket.name.class" />}
                           margin="normal"
@@ -131,7 +127,7 @@ class AddHealthFile extends Component {
                           name="professor_id"
                           select
                           value={values.student_id}
-                          onChange={handleChangeStudent('student_id')}
+                          onChange={handleChangeStudent("student_id")}
                           SelectProps={{}}
                           helperText={
                             <IntlMessages id="userStuppDisplay.Student" />
@@ -142,7 +138,7 @@ class AddHealthFile extends Component {
                           {values.studentByclassID.map((student) => (
                             <MenuItem key={student.id} value={student.id}>
                               {student.profile.user.name +
-                                ' ' +
+                                " " +
                                 student.profile.user.surname}
                             </MenuItem>
                           ))}
@@ -157,7 +153,7 @@ class AddHealthFile extends Component {
                           name="blood_type"
                           select
                           value={values.blood_type}
-                          onChange={handleChange('blood_type')}
+                          onChange={handleChange("blood_type")}
                           SelectProps={{}}
                           helperText={
                             <IntlMessages id="new.health.blood.type" />
@@ -181,9 +177,9 @@ class AddHealthFile extends Component {
                           name="poids"
                           id="poids"
                           type="number"
-                          inputProps={{min: 0}}
+                          inputProps={{ min: 0 }}
                           label={<IntlMessages id="new.health.poids" />}
-                          onChange={handleChange('poids')}
+                          onChange={handleChange("poids")}
                           value={values.poids}
                           margin="normal"
                           fullWidth
@@ -198,9 +194,9 @@ class AddHealthFile extends Component {
                           name="hauteur"
                           id="hauteur"
                           type="number"
-                          inputProps={{min: 0}}
+                          inputProps={{ min: 0 }}
                           label={<IntlMessages id="new.health.hauteur" />}
-                          onChange={handleChange('hauteur')}
+                          onChange={handleChange("hauteur")}
                           value={values.hauteur}
                           margin="normal"
                           fullWidth
@@ -249,7 +245,7 @@ class AddHealthFile extends Component {
                           label={
                             <IntlMessages id="components.establishments.formadd.name" />
                           }
-                          onChange={handleChange('nom_doctor')}
+                          onChange={handleChange("nom_doctor")}
                           value={values.nom_doctor}
                           margin="normal"
                           fullWidth
@@ -266,7 +262,7 @@ class AddHealthFile extends Component {
                           label={
                             <IntlMessages id="components.establishments.formadd.surname_director" />
                           }
-                          onChange={handleChange('prenom_doctor')}
+                          onChange={handleChange("prenom_doctor")}
                           value={values.prenom_doctor}
                           margin="normal"
                           fullWidth
@@ -281,7 +277,7 @@ class AddHealthFile extends Component {
                           name="phone_doctor"
                           id="phone_doctor"
                           label={<IntlMessages id="stuppUser.formadd.phone" />}
-                          onChange={handleChange('phone_doctor')}
+                          onChange={handleChange("phone_doctor")}
                           value={values.phone_doctor}
                           margin="normal"
                           type="number"
@@ -296,7 +292,7 @@ class AddHealthFile extends Component {
                           name="mail_doctor"
                           id="mail_doctor"
                           label={<IntlMessages id="appModule.email" />}
-                          onChange={handleChange('mail_doctor')}
+                          onChange={handleChange("mail_doctor")}
                           value={values.mail_doctor}
                           margin="normal"
                           fullWidth
@@ -319,7 +315,7 @@ class AddHealthFile extends Component {
                           label={
                             <IntlMessages id="components.note.student.comment" />
                           }
-                          onChange={handleChange('remarque')}
+                          onChange={handleChange("remarque")}
                           value={values.class_object}
                           margin="normal"
                           fullWidth
@@ -340,22 +336,22 @@ class AddHealthFile extends Component {
                           htmlFor="files"
                           className="btn"
                           style={{
-                            cursor: 'pointer',
-                            color: 'white',
-                            fontWeight: 'bold',
-                            backgroundColor: '#4C19A9',
-                            borderRadius: '4rem',
+                            cursor: "pointer",
+                            color: "white",
+                            fontWeight: "bold",
+                            backgroundColor: "#4C19A9",
+                            borderRadius: "4rem",
                           }}
                         >
                           <strong>{<IntlMessages id="course.file" />}</strong>
-                        </label>{' '}
+                        </label>{" "}
                         <label htmlFor="files" className="btn">
                           {values.inputText}
                         </label>
                         <input
                           id="files"
                           type="file"
-                          style={{ visibility: 'hidden' }}
+                          style={{ visibility: "hidden" }}
                           onChange={this.props.onDrop}
                           accept="application/pdf,image/*"
                           multiple
@@ -404,11 +400,4 @@ function mapStateToProps(state) {
     settings: state.settings.locale,
   };
 }
-export default connect(
-  mapStateToProps,
-  {
-    getSections,
-    getLevels,
-    getClassesByEstablishmentId,
-  }
-)(AddHealthFile);
+export default connect(mapStateToProps, {})(AddHealthFile);

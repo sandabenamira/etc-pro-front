@@ -1,31 +1,34 @@
-import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import asyncComponent from '../../../util/asyncComponent';
-import UsersManagement from './routes/UsersManagement/Users';
-import Rooms from './routes/Room/Rooms';
-import Can from '../../../can';
-import { RoleContext } from '../../../Context';
-import Option from './routes/Option/Option';
-import SchoolYearEtab from './routes/SchoolYear/SchoolYearEtab';
-import SchoolSettings from './routes/SchoolSetting/SchoolSettings';
-import TypeOfEducation from './routes/SchoolSettings/TypeOfEducation/TypeOfEducation';
-import Levels from './routes/SchoolSettings/levels/Levels';
-import Sections from './routes/SchoolSettings/Sections/Sections';
-import SchoolSession from './routes/SchoolSettings/SchoolSession/SchoolSession';
-import SubjectModule from './routes/SchoolSettings/SubjectModule/SubjectModule';
-import SubjectsSettings from './routes/SchoolSettings/SubjectsSettings/SubjectsSettings';
-import ClassesSettings from './routes/SchoolSettings/ClassesSettings/ClassesSettings';
-import ClassFormation from './routes/SchoolSettings/ClassFormation/ClassFormation';
-import ExamsTypes from './routes/SchoolSettings/ExamsTypes/ExamsTypes';
-import CallRegisterSetting from './routes/CallRegisterSetting/CallRegisterSetting';
-import PermissionSetting from './routes/PermissionSetting/PermissionSetting';
-import AgenceSetting from './routes/AgenceSetting/AgenceSetting';
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import asyncComponent from "../../../util/asyncComponent";
+import UsersManagement from "./routes/UsersManagement/Users";
+import Rooms from "./routes/Room/Rooms";
+import Can from "../../../can";
+import { RoleContext } from "../../../Context";
+import Option from "./routes/Option/Option";
+import SchoolYearEtab from "./routes/SchoolYear/SchoolYearEtab";
+import TypeOfEducation from "./routes/SchoolSettings/TypeOfEducation/TypeOfEducation";
+import Levels from "./routes/SchoolSettings/levels/Levels";
+import Sections from "./routes/SchoolSettings/Sections/Sections";
+import SchoolSession from "./routes/SchoolSettings/SchoolSession/SchoolSession";
+import SubjectModule from "./routes/SchoolSettings/SubjectModule/SubjectModule";
+import SubjectsSettings from "./routes/SchoolSettings/SubjectsSettings/SubjectsSettings";
+import ClassesSettings from "./routes/SchoolSettings/ClassesSettings/ClassesSettings";
+import ClassFormation from "./routes/SchoolSettings/ClassFormation/ClassFormation";
+import ExamsTypes from "./routes/SchoolSettings/ExamsTypes/ExamsTypes";
+import CallRegisterSetting from "./routes/CallRegisterSetting/CallRegisterSetting";
+import PermissionSetting from "./routes/PermissionSetting/PermissionSetting";
+import AgenceSetting from "./routes/AgenceSetting/AgenceSetting";
 // import CourseAssignment from './routes/SchoolSettings/CourseAssignment/CourseAssignment';
-import Groupes from './routes/SchoolSettings/groupes/Groupes';
+import Groupes from "./routes/SchoolSettings/groupes/Groupes";
 const Administration = ({ match, estabModule }) => (
   <div className="app-wrapper">
     <Switch>
-      <Redirect exact from={`${match.url}/`} to={`${match.url}/establishment`} />
+      <Redirect
+        exact
+        from={`${match.url}/`}
+        to={`${match.url}/establishment`}
+      />
       <Route
         path={`${match.url}/rooms`}
         render={() => (
@@ -35,7 +38,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -45,13 +48,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <Rooms match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -68,7 +77,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -78,13 +87,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <UsersManagement match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -101,7 +116,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -111,13 +126,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <Option match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -133,7 +154,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -143,45 +164,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <SchoolYearEtab match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
-                )}
-              />
-            )}
-          </RoleContext.Consumer>
-        )}
-      />
-      <Route
-        path={`${match.url}/schoolSettings`}
-        render={() => (
-          <RoleContext.Consumer>
-            {({ role }) => (
-              <Can
-                role={role}
-                perform="module-nav-access"
-                data={{
-                  mod: 'administration',
-                  moduleList: estabModule,
-                }}
-                yes={() => (
-                  <Can
-                    role={role}
-                    perform={`module-nav-schoolSettings`}
-                    yes={() => <SchoolSettings match={match} />}
-                    no={() => (
-                      <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
-                      />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
                     )}
                   />
-                )}
-                no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
                 )}
               />
             )}
@@ -197,7 +192,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -207,13 +202,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <TypeOfEducation match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -229,7 +230,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -239,13 +240,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <Levels match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -261,7 +268,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -271,13 +278,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <Sections match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -293,7 +306,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -303,13 +316,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <Groupes match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -325,7 +344,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -335,13 +354,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <SchoolSession match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -357,7 +382,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -367,13 +392,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <SubjectModule match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -389,7 +420,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -399,13 +430,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <SubjectsSettings match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -421,7 +458,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -431,13 +468,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <ClassesSettings match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -453,7 +496,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -463,13 +506,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <ClassesSettings match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -485,7 +534,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -495,13 +544,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <Groupes match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -517,7 +572,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -527,13 +582,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <ClassFormation match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -549,7 +610,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -559,13 +620,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <ExamsTypes match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -581,7 +648,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -591,13 +658,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <CallRegisterSetting match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -613,7 +686,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -623,13 +696,19 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <PermissionSetting match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -645,7 +724,7 @@ const Administration = ({ match, estabModule }) => (
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'administration',
+                  mod: "administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -655,20 +734,28 @@ const Administration = ({ match, estabModule }) => (
                     yes={() => <AgenceSetting match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
           </RoleContext.Consumer>
         )}
       />
-      <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+      <Route
+        component={asyncComponent(() => import("../../../components/Error404"))}
+      />
     </Switch>
   </div>
 );

@@ -5,8 +5,7 @@ import CardBox from '../../../../../components/CardBox/index';
 import MenuItem from '@material-ui/core/MenuItem';
 import StudentList from './StudentList';
 import { connect } from "react-redux";
-import { getClasses, getClassesByEstablishmentId } from "../../../../../actions/classeAction";
-import { getEstablishment } from "../../../../../actions/establishmentAction";
+ import { getEstablishment } from "../../../../../actions/establishmentAction";
 import _ from 'lodash';
 import ContainerHeader from '../../../../../components/ContainerHeader/index';
 import { RoleContext } from '../../../../../Context';
@@ -49,14 +48,12 @@ class BilletPass extends React.Component {
     switch (parseInt(localStorage.roles_id)) {
       case roleIdSuperAdmin:
         this.props.getEstablishment();
-        this.props.getClasses();
-        break;
+         break;
 
       case roleIdAdmin:
       case roleIdSupervisor:
       case roleIdDirector:
-        this.props.getClassesByEstablishmentId(localStorage.establishment_id);
-        break;
+         break;
 
       default:
         break;
@@ -214,4 +211,4 @@ class BilletPass extends React.Component {
 }
 
 
-export default connect(mapStateToProps, { getEstablishment, getClasses, getClassesByEstablishmentId })(BilletPass);
+export default connect(mapStateToProps, { getEstablishment })(BilletPass);

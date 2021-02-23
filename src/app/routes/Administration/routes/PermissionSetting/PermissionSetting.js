@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PermissionList from './PermissionList';
-import { getEducationType } from '../../../../../actions/estabTypeAction';
-import { connect } from 'react-redux';
-import { getPermissionSetting, getUserPermissions } from '../../../../../actions/PermissionAction';
+ import { connect } from 'react-redux';
+import { getPermissionSetting } from '../../../../../actions/PermissionAction';
 import { UncontrolledAlert } from 'reactstrap';
 import _ from 'lodash';
-import SweetAlert from 'react-bootstrap-sweetalert';
-import IntlMessages from '../../../../../util/IntlMessages';
+ 
 
 export class PermissionSetting extends Component {
   constructor(props) {

@@ -10,14 +10,11 @@ import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import { getLevelByEstablishmentId } from "../../../../../actions/classLevelAction";
-import { getClassesByEstablishmentId } from "../../../../../actions/classeAction";
 import { classService } from "../../../../../_services/class.service";
 import { getSchoolYearEtabs } from "../../../../../actions/SchoolYearEtabAction";
 import ListInvoices from "./ListInvoices";
 import _ from "lodash";
-import { UncontrolledAlert } from 'reactstrap';
-
+import { UncontrolledAlert } from "reactstrap";
 
 const idHighSchool = 2;
 
@@ -43,12 +40,6 @@ class Billing extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.dispatch(
-    //   getLevelByEstablishmentId(this.props.userProfile.establishment_id)
-    // );
-    this.props.dispatch(
-      getClassesByEstablishmentId(this.props.userProfile.establishment_id)
-    );
     this.props.dispatch(getSchoolYearEtabs());
     this.props.dispatch(
       getInvoicesByEstablishmentId(this.props.userProfile.establishment_id)
@@ -183,7 +174,6 @@ class Billing extends React.Component {
   };
 
   render() {
-    
     let { classLevels, classes, schoolYears } = this.props;
     let { classesList, listBills, sections } = this.state;
     let detailCards = [
@@ -224,10 +214,9 @@ class Billing extends React.Component {
               <BillIconWithTextCard data={data} />
             </div>
           ))}
-           
+
           <CardBox styleName="col-lg-12">
             <div>
-          
               <div className="jr-btn-group">
                 <Button
                   id="1"
@@ -489,16 +478,16 @@ class Billing extends React.Component {
           </div>
         </div>
         {this.props.successStatus ? (
-            <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
-              <span className="icon-addon alert-addon">
-                <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
-              </span>
-              <span className="d-inline-block"> {this.props.message} </span>
-            </UncontrolledAlert>
-          ) : (
-            ""
-          )}
-           {this.props.errorStatus ? (
+          <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
+            <span className="icon-addon alert-addon">
+              <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
+            </span>
+            <span className="d-inline-block"> {this.props.message} </span>
+          </UncontrolledAlert>
+        ) : (
+          ""
+        )}
+        {this.props.errorStatus ? (
           <UncontrolledAlert className="alert-addon-card bg-danger bg-danger text-white shadow-lg">
             <span className="icon-addon alert-addon">
               <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
@@ -506,11 +495,11 @@ class Billing extends React.Component {
             <span className="d-inline-block"> {this.props.message} </span>
           </UncontrolledAlert>
         ) : (
-          ''
+          ""
         )}
         <br />
         <div className="row">
-          <ListInvoices bills={listBills} month={this.state.month} />        
+          <ListInvoices bills={listBills} month={this.state.month} />
         </div>
       </div>
     );

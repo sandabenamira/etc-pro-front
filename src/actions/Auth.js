@@ -23,10 +23,10 @@ import {
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
   GET_ESTABLISHMENT_INFORMATIONS,
+  GET_PROFILE,
 } from "../constants/ActionTypes";
 import { isEmail } from "../constants/validationFunctions";
 import cst from "../config/config";
-import { getError } from "../Error/Error";
 import { getThemeColor, getAppLanguage, initOptions } from "./Setting";
 import _ from "lodash";
 import { roleIdAdmin, roleIdSuperAdmin } from "../config/config";
@@ -43,23 +43,24 @@ export const userSignIn = (user) => {
   if (isEmail(login)) {
     var User = {
       email: login,
-      password : password,
+      password: password,
     };
   } else {
     var User = {
       username: login,
-      password : password,
+      password: password,
     };
   }
 
   return (dispatch) => {
+    console.log("authhh action");
     axios
       .post(`${cst.baseUrl}/users/login`, User)
       .then((res) => {
         // let id = res.data.id;
         localStorage.setItem("token", res.data.id);
-        localStorage.setItem("user_id", res.data.userId);
-        dispatch(getProfile(res.data.userId));
+        localStorage.setItem("rtvrx_tgfsaju_G0loik", res.data.userId);
+        dispatch(getProfile(res.data.id, res.data.userId));
       })
       .catch((err) =>
         dispatch(
@@ -69,93 +70,60 @@ export const userSignIn = (user) => {
   };
 };
 
-export const getProfile = (userId) => {
-  let user = {};
-
-  return function(dispatch) {
-    var token = localStorage.getItem("token");
+export const getProfile = (token, userId) => {
+  return function (dispatch) {
     axios
       .get(`${cst.baseUrl}/profiles/getprofile/${userId}?access_token=${token}`)
       .then((res) => {
+        dispatch({
+          type: GET_PROFILE,
+          payload: res.data.profile[0],
+        });
         let result = res.data.profile[0];
-        user = result.user;
-        dispatch(getThemeColor(result.setting.theme_color));
-        dispatch(getAppLanguage(result.setting.app_lang));
+        let status =
+          result.establishments[0].establishment.licence[0].situation;
+        let modules =
+          result.establishments[0].establishment.licence[0].licenceModule;
+        let user = result.user;
+        let settings = result.setting;
         let dataOption = {
-          "startTime":  result.setting.start_time_calendar,
-          "endTime":  result.setting.end_time_calendar,
-          "appLang": result.setting.app_lang,
-          "conferenceTool": result.setting.conference_tool
-      }
-        dispatch(initOptions(dataOption)
-        );
-        localStorage.setItem("profileId", result.id);
-        localStorage.setItem("roles_id", result.role_id);
-        localStorage.setItem("appLang", result.app_lang);
-        localStorage.setItem(
-          "first_connexion",
-          JSON.stringify(result.user.first_connexion)
-        );
-        dispatch(userSignInSuccess(result.user));
-        if (result.establishments.length > 1) {
-          dispatch({
-            type: "SOW_MODAL_SELECT_ESTABLISHMENT",
-            payload: result,
-          });
-        } else {
-          if (_.isEmpty(result.establishments[0].establishment.licence)) {
-            dispatch(userSignOut());
-            if (result.role_id === roleIdAdmin) {
-              dispatch(
-                showLicenceMessage(
-                  "Votre licence a expiré, Merci de contacter le super admin Educap"
-                )
-              );
-            } else if (result.role_id === roleIdSuperAdmin) {
-              dispatch(showLicenceMessage("Votre licence a expiré"));
-            } else {
-              dispatch(
-                showLicenceMessage(
-                  "Vous avez un problème de paiement, merci de contacter l'administrateur de votre école"
-                )
-              );
-            }
-          } else {
-            const userProfile = Object.assign({}, result, {
-              establishment_id: result.establishments[0].establishment_id,
-            });
-            dispatch({
-              type: GET_USER_PROFILE,
-              payload: userProfile,
-            });
-            localStorage.setItem(
-              "establishment_id",
-              result.establishments[0].establishment_id
-            );
-            localStorage.setItem(
-              "school_year_id",
-              result.establishments[0].establishment.fk_id_school_year_current
-            );
-
-            dispatch(
-              getEstablishmentsModules(
-                result.establishments[0].establishment.licence[0].licenceModule
-              )
-            );
-            dispatch(
-              getEstablishmentsInformations(
-                result.establishments[0].establishment
-              )
-            );
-          }
-        }
-
-        dispatch(getSchoolYear());
-      })
-      .catch((err) => {});
+          startTime: result.setting.start_time_calendar,
+          endTime: result.setting.end_time_calendar,
+          appLang: result.setting.app_lang,
+          conferenceTool: result.setting.conference_tool,
+        };
+        let establishmentInfomations = result.establishments[0].establishment;
+        dispatch(chekLicence(status, modules, user, settings, dataOption,establishmentInfomations));
+      });
   };
 };
 
+const chekLicence = (status, modules, user, settings, dataOption,establishmentInfomations) => {
+  return (dispatch) => {
+    if (status !== "Actif") {
+      dispatch(userSignOut());
+      dispatch(
+        showLicenceMessage(
+          "Votre licence a expiré, Merci de contacter le super admin Educap"
+        )
+      );
+    } else {
+      dispatch(getEstablishmentsModules(modules));
+      dispatch(initSessionApp(settings, dataOption,establishmentInfomations));
+      dispatch(userSignInSuccess(user));
+    }
+  };
+};
+
+const initSessionApp = (settings, dataOption,establishmentInfomations) => {
+  return (dispatch) => {
+    dispatch(getThemeColor(settings.theme_color));
+    dispatch(getAppLanguage(settings.app_lang));
+    dispatch(initOptions(dataOption));
+    dispatch(getSchoolYear());
+    dispatch(getEstablishmentsInformations(establishmentInfomations));
+  };
+}
 export const getSchoolYear = () => {
   return (dispatch) => {
     axios
@@ -187,7 +155,7 @@ export const getEstablishmentsInformations = (data) => {
 };
 
 export const resetAccountPassword = (data) => {
-  return function(dispatch) {
+  return function (dispatch) {
     var token = localStorage.getItem("token");
     axios
       .post(
@@ -203,81 +171,11 @@ export const resetAccountPassword = (data) => {
       .catch((error) => {});
   };
 };
-
-export function getUserProfile(userId) {
-  return function(dispatch) {
-    axios
-      .get(
-        `${cst.baseUrl}/profiles/getprofile/${userId}?access_token=${localStorage.token}`
-      )
-      .then((res) => {
-        const result = res.data.profile[0];
-        let userProfileEstab = {
-          ...result,
-          establishment_id: localStorage.establishment_id,
-          school_year_id:
-            result.establishments[0].establishment.fk_id_school_year_current,
-          current_school_year_id:
-            result.establishments[0].establishment.fk_id_school_year_current,
-          school_year_name:
-            result.establishments[0].establishment.licence[0].schoolYear.name,
-        };
-        dispatch({
-          type: GET_USER_PROFILE,
-          payload: userProfileEstab,
-        });
-        /////
-        axios
-          .get(
-            `${cst.baseUrl}/settings/${res.data.profile[0].setting_id}?access_token=${localStorage.token}`
-          )
-          .then((res) => {
-            dispatch(getThemeColor(res.data.theme_color));
-            dispatch(getAppLanguage(res.data.app_lang));
-            let dataOption = {
-              "startTime": res.data.start_time_calendar,
-              "endTime":  res.data.end_time_calendar,
-              "appLang": res.data.app_lang,
-              "conferenceTool": res.data.conference_tool
-          }
-          
-            dispatch(
-              initOptions(dataOption)
-            );
-          });
-        /////////////
-      })
-      .catch((err) => {});
-  };
-}
-
-function getprofile(userId, dispatch) {
-  axios
-    .get(
-      `${cst.baseUrl}/profiles/findOne?access_token=${localStorage.token}&filter={"where":{"user_id":` +
-        userId +
-        `}}`
-    )
-    .then((res) => {
-      const profiles = res.data;
-      localStorage.setItem("profileId", profiles.id);
-      localStorage.setItem("roles_id", profiles.role_id);
-      localStorage.setItem("establishment_id", profiles.establishment_id);
-    })
-    .catch((err) => {
-      if (err.response.status === 401) {
-        dispatch(userSignOut());
-      }
-    });
-}
-
 export const userSignOut = () => {
   axios.post(`${cst.baseUrl}/users/logout?access_token=${localStorage.token}`);
   localStorage.removeItem("token");
-  localStorage.removeItem("profileId");
-  localStorage.removeItem("roles_id");
-  localStorage.removeItem("user_id");
-  localStorage.removeItem("establishment_id");
+  localStorage.removeItem("rtvrx_tgfsaju_G0loik");
+
 
   return {
     type: SIGNOUT_USER,

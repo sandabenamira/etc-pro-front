@@ -442,8 +442,7 @@ export function editStuppUser(stuppUser, file, establishmentName) {
         )
         .then((response) => {
           dispatch({ type: "EDIT_STUPPUSER", payload: response.data });
-          dispatch(editServices(stuppUser));
-        })
+         })
         .catch(function(error) {});
     };
   }

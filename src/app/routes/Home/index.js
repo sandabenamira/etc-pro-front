@@ -70,8 +70,7 @@ class Home extends React.Component {
     }
   }
   componentWillMount() {
-    // this.props.getAllUsersByEstablishmentId(localStorage.establishment_id);
-    var first_connexion = localStorage.getItem("first_connexion");
+     var first_connexion = localStorage.getItem("first_connexion");
     if (first_connexion === "false") {
       this.setState({
         isopen: false,

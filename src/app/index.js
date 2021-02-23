@@ -5,12 +5,10 @@ import Header from '../components/Header/index';
 import Sidebar from '../containers/SideNav/index';
 import Footer from '../components/Footer';
 import Administration from './routes/Administration/index';
-import RegistreAppel from './routes/RegistreAppel/Registre';
-import Mail from './routes/Mail/Mail';
 import Devoir from './routes/Learning/index';
 import Home from './routes/Home/index';
 import UserProfile from './routes/UserProfile/index';
-import { getUserProfile, getSchoolYear } from '../actions/Auth';
+import { getSchoolYear, getProfile } from '../actions/Auth';
 import { COLLAPSED_DRAWER, FIXED_DRAWER } from '../constants/ActionTypes';
 import { isIOS, isMobile } from 'react-device-detect';
 import asyncComponent from '../util/asyncComponent';
@@ -24,18 +22,14 @@ import { RoleContext } from '../Context';
 import SupportCours from './routes/Learning/routes/CoursMaterials/SupportCours';
 import VirtualClasses from './routes/Learning/index';
 import Community from './routes/Community/index';
-import Dashboard from './routes/Dashboard/index';
 import Libraries from './routes/Libraries/index';
-import FinancialManagement from './routes/FinancialManagement/routes/FinancialReporting/FinancialReporting';
+import FinancialManagement from './routes/FinancialManagement/index';
 import Superadmin from './routes/Superadmin/index';
 import ModalEstablishmentList from './routes/Home/admin/ModalEstablishmentList';
 import { getSubjectModules } from '../actions/SubjectModuleAction';
 import { getSection } from '../actions/SectionsAction';
 import { getLevel } from '../actions/LevelAction';
-import {
-  getSubjectSetting,
-  getSubjectByEstablishmentAndSchoolYear,
-} from '../actions/subjectAction';
+import { getSubjectSetting } from '../actions/subjectAction';
 import _ from 'lodash';
 import { getClassSettings } from '../actions/ClassSettingsAction';
 import { getSchoolSession } from '../actions/SchoolSessionAction';
@@ -47,13 +41,20 @@ import { getClassesVirtual } from '../actions/VirtualClassAction';
 import { getLevelClassSubjectData } from '../actions/MaterialCourseAction';
 import { getEventsByEstabAndSchoolYearForProf } from '../actions/planningActions';
 import { getUserPermissions } from '../actions/PermissionAction';
-import { getGroup } from '../actions/GroupsAction';
 import { getAllUsersForAdmin } from '../actions/usersAction';
+import { getHomework } from '../actions/HomeworkAction';
 import { getAgence } from '../actions/AgenceSettingsAction';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import { roleIdSuperAdmin } from '../config/config';
-import Evaluation from './routes/Evaluation/index';
+import {
+  roleIdSuperAdmin,
+  roleIdProfessor,
+  roleIdAdmin,
+  roleIdParent,
+  roleIdStudent,
+  roleIdDirector,
+} from '../config/config';
+
 const RouteControl = ({ pathName, estabModule, Component, match }) => {
   return (
     <RoleContext.Consumer>
@@ -82,195 +83,119 @@ const RouteControl = ({ pathName, estabModule, Component, match }) => {
   );
 };
 class App extends React.Component {
-  state = {
-    load: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      load: false,
+    };
+    this.initModules = this.initModules.bind(this);
+  }
+  initModules(userProfile) {
+    console.log('userProfile', userProfile);
+    console.log('initModules');
+
+    this.props.dispatch(getUserPermissions(userProfile.establishment_id, userProfile.role_id));
+    this.props.dispatch(
+      getAssignementCourse(userProfile.establishment_id, userProfile.school_year_id)
+    );
+    this.props.dispatch(
+      getMoocs(
+        userProfile.establishment_id,
+        userProfile.school_year_id,
+        userProfile.role_id,
+        userProfile.id
+      )
+    );
+    this.props.dispatch(
+      getClassesVirtual(
+        userProfile.establishment_id,
+        userProfile.school_year_id,
+        userProfile.role_id,
+        userProfile.id
+      )
+    );
+    this.props.dispatch(
+      getLevelClassSubjectData(
+        userProfile.establishment_id,
+        userProfile.school_year_id,
+        userProfile.role_id,
+        userProfile.id
+      )
+    );
+
+    this.props.dispatch(
+      getHomework(
+        this.props.userProfile.establishment_id,
+        this.props.userProfile.school_year_id,
+        this.props.userProfile.id,
+        this.props.userProfile.role_id
+      )
+    );
+    switch (userProfile.role_id) {
+      case roleIdSuperAdmin:
+        this.props.dispatch(getEstablishment(userProfile.school_year_id));
+        break;
+      case roleIdAdmin:
+      case roleIdDirector:
+        this.props.dispatch(getAgence(userProfile.establishment_id));
+        this.props.dispatch(
+          getSubjectModules(userProfile.establishment_id, userProfile.school_year_id)
+        );
+        this.props.dispatch(
+          getClassSettings(userProfile.establishment_id, userProfile.school_year_id)
+        );
+        this.props.dispatch(getSection(userProfile.establishment_id, userProfile.school_year_id));
+        this.props.dispatch(getLevel(userProfile.establishment_id, userProfile.school_year_id));
+        this.props.dispatch(
+          getSubjectSetting(userProfile.establishment_id, userProfile.school_year_id)
+        );
+
+        this.props.dispatch(
+          getSchoolSession(userProfile.establishment_id, userProfile.school_year_id)
+        );
+
+        this.props.dispatch(
+          getAllUsersForAdmin(userProfile.establishment_id, userProfile.school_year_id)
+        );
+        this.props.dispatch(getExamType(userProfile.establishment_id, userProfile.school_year_id));
+        break;
+      case roleIdProfessor:
+        this.props.dispatch(
+          getEventsByEstabAndSchoolYearForProf(
+            userProfile.establishment_id,
+            userProfile.school_year_id,
+            userProfile.id
+          )
+        );
+        break;
+      case roleIdStudent:
+      case roleIdParent:
+        break;
+      default:
+        break;
+    }
+  }
+
   UNSAFE_componentWillMount() {
-    const user = localStorage.getItem('user_id');
-    this.props.dispatch(getUserProfile(parseInt(user)));
-
-    if (_.isEmpty(this.props.schoolYear)) {
-      this.props.dispatch(getSchoolYear());
-    }
-    if (localStorage.establishment_id != undefined && localStorage.school_year_id != undefined) {
+    if (_.isEmpty(this.props.userProfile)) {
       this.props.dispatch(
-        getAgence(localStorage.establishment_id)
+        getProfile(localStorage.token, parseInt(localStorage.getItem('rtvrx_tgfsaju_G0loik')))
       );
-      this.props.dispatch(
-        getSubjectModules(localStorage.establishment_id, localStorage.school_year_id)
-      );
-      this.props.dispatch(
-        getClassSettings(localStorage.establishment_id, localStorage.school_year_id)
-      );
-      this.props.dispatch(getSection(localStorage.establishment_id, localStorage.school_year_id));
-      this.props.dispatch(getLevel(localStorage.establishment_id, localStorage.school_year_id));
-      this.props.dispatch(
-        getSubjectSetting(localStorage.establishment_id, localStorage.school_year_id)
-      );
-      this.props.dispatch(
-        getSubjectByEstablishmentAndSchoolYear(
-          localStorage.establishment_id,
-          localStorage.school_year_id
-        )
-      );
-      this.props.dispatch(
-        getSchoolSession(localStorage.establishment_id, localStorage.school_year_id)
-      );
-      this.props.dispatch(getExamType(localStorage.establishment_id, localStorage.school_year_id));
-
-      this.props.dispatch(
-        getSchoolSession(localStorage.establishment_id, localStorage.school_year_id)
-      );
-      this.props.dispatch(
-        getAssignementCourse(localStorage.establishment_id, localStorage.school_year_id)
-      );
-      this.props.dispatch(
-        getEventsByEstabAndSchoolYearForProf(
-          localStorage.establishment_id,
-          localStorage.school_year_id,
-          localStorage.profileId
-        )
-      );
-
-      this.props.dispatch(getGroup(localStorage.establishment_id, localStorage.school_year_id));
-
-      this.props.dispatch(
-        getAllUsersForAdmin(localStorage.establishment_id, localStorage.school_year_id)
-      );
-    }
-
-    if (
-      localStorage.establishment_id != undefined &&
-      localStorage.school_year_id != undefined &&
-      localStorage.role_id != undefined &&
-      localStorage.profileId != undefined
-    ) {
-      if (localStorage.role_id === roleIdSuperAdmin) {
-        this.props.dispatch(getEstablishment(localStorage.school_year_id));
-      }
-      this.props.dispatch(getUserPermissions(localStorage.establishment_id, localStorage.role_id));
-
-      this.props.dispatch(
-        getMoocs(
-          localStorage.establishment_id,
-          localStorage.school_year_id,
-          localStorage.role_id,
-          localStorage.profileId
-        )
-      );
-      this.props.dispatch(
-        getClassesVirtual(
-          localStorage.establishment_id,
-          localStorage.school_year_id,
-          localStorage.role_id,
-          localStorage.profileId
-        )
-      );
-      this.props.dispatch(
-        getLevelClassSubjectData(
-          localStorage.establishment_id,
-          localStorage.school_year_id,
-          localStorage.role_id,
-          localStorage.profileId
-        )
-      );
+    } else {
+      this.initModules(this.props.userProfile);
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.userProfile !== this.props.userProfile) {
-      if (localStorage.establishment_id != undefined && localStorage.school_year_id != undefined) {
-        this.props.dispatch(
-          getAgence(localStorage.establishment_id)
-        );
-        this.props.dispatch(
-          getAssignementCourse(localStorage.establishment_id, localStorage.school_year_id)
-        );
-        this.props.dispatch(
-          getSubjectSetting(localStorage.establishment_id, localStorage.school_year_id)
-        );
-        this.props.dispatch(getSection(localStorage.establishment_id, localStorage.school_year_id));
-        this.props.dispatch(
-          getClassSettings(localStorage.establishment_id, localStorage.school_year_id)
-        );
-        this.props.dispatch(
-          getSubjectByEstablishmentAndSchoolYear(
-            localStorage.establishment_id,
-            localStorage.school_year_id
-          )
-        );
-        this.props.dispatch(getLevel(localStorage.establishment_id, localStorage.school_year_id));
-        this.props.dispatch(
-          getSchoolSession(localStorage.establishment_id, localStorage.school_year_id)
-        );
-        this.props.dispatch(
-          getExamType(localStorage.establishment_id, localStorage.school_year_id)
-        );
-
-        this.props.dispatch(getLevel(localStorage.establishment_id, localStorage.school_year_id));
-        this.props.dispatch(
-          getEventsByEstabAndSchoolYearForProf(
-            localStorage.establishment_id,
-            localStorage.school_year_id,
-            localStorage.profileId
-          )
-        );
-
-        this.props.dispatch(
-          getAllUsersForAdmin(localStorage.establishment_id, localStorage.school_year_id)
-        );
-      }
-
-      if (
-        this.props.userProfile.establishment_id != undefined &&
-        this.props.userProfile.school_year_id != undefined &&
-        this.props.userProfile.role_id != undefined &&
-        this.props.userProfile.id != undefined
-      ) {
-        this.props.dispatch(
-          getUserPermissions(
-            this.props.userProfile.establishment_id,
-            this.props.userProfile.role_id
-          )
-        );
-
-        this.props.dispatch(
-          getMoocs(
-            this.props.userProfile.establishment_id,
-            this.props.userProfile.school_year_id,
-            this.props.userProfile.role_id,
-            this.props.userProfile.id
-          )
-        );
-        this.props.dispatch(
-          getClassesVirtual(
-            this.props.userProfile.establishment_id,
-            this.props.userProfile.school_year_id,
-            this.props.userProfile.role_id,
-            this.props.userProfile.id
-          )
-        );
-        this.props.dispatch(
-          getLevelClassSubjectData(
-            this.props.userProfile.establishment_id,
-            this.props.userProfile.school_year_id,
-            this.props.userProfile.role_id,
-            this.props.userProfile.id
-          )
-        );
-
-        this.props.dispatch(
-          getGroup(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id)
-        );
-        if (this.props.userProfile.role_id === roleIdSuperAdmin) {
-          this.props.dispatch(getEstablishment(this.props.userProfile.school_year_id));
-        }
-      }
+      let { userProfile } = this.props;
+      this.initModules(userProfile);
     }
   }
 
   render() {
-    const { match, drawerType, navigationStyle, horizontalNavPosition, estabModule } = this.props;
+    const { match, drawerType, estabModule } = this.props;
 
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'fixed-drawer'
@@ -320,28 +245,7 @@ class App extends React.Component {
                     <FinancialManagement match={match} estabModule={estabModule} {...props} />
                   )}
                 />
-                {/* <Route
-                  path={`${match.url}/complaints`}
-                  render={() => (
-                    <RouteControl
-                      pathName={'complaints'}
-                      estabModule={estabModule}
-                      Component={Complaint}
-                      match={match}
-                    />
-                  )}
-                /> */}
-                <Route
-                  path={`${match.url}/call_register`}
-                  render={(props) => (
-                    <RouteControl
-                      pathName={'call_register'}
-                      estabModule={estabModule}
-                      Component={RegistreAppel}
-                      match={props.match}
-                    />
-                  )}
-                />
+
                 <Route
                   path={`${match.url}/Cafeteria`}
                   render={() => (
@@ -364,17 +268,7 @@ class App extends React.Component {
                     />
                   )}
                 />
-                <Route
-                  path={`${match.url}/mail`}
-                  render={() => (
-                    <RouteControl
-                      pathName={'mail'}
-                      estabModule={estabModule}
-                      Component={Mail}
-                      match={match}
-                    />
-                  )}
-                />
+
                 <Route
                   path={`${match.url}/e-learning`}
                   render={(props) => (
@@ -421,18 +315,6 @@ class App extends React.Component {
                     />
                   )}
                 />
-
-                <Route
-                  path={`${match.url}/dashboard`}
-                  render={() => (
-                    <RouteControl
-                      pathName={'dashboard'}
-                      estabModule={estabModule}
-                      Component={Dashboard}
-                      match={match}
-                    />
-                  )}
-                />
                 <Route
                   path={`${match.url}/e-libraries`}
                   render={(props) => (
@@ -445,13 +327,6 @@ class App extends React.Component {
                     <Assiduity match={match} estabModule={estabModule} {...props} />
                   )}
                 />
-                <Route
-                  path={`${match.url}/evaluation`}
-                  render={(props) => (
-                    <Evaluation match={match} estabModule={estabModule} {...props} />
-                  )}
-                />
-
                 <Route
                   path={`${match.url}/course-support`}
                   render={(props) => (
@@ -481,8 +356,8 @@ const mapStateToProps = ({ settings, establishment, auth, schoolYearEtab }) => {
     horizontalNavPosition,
     estabModule,
     multiple,
-    userProfile,
     schoolYear,
+    userProfile,
   };
 };
 export default withRouter(connect(mapStateToProps)(App));

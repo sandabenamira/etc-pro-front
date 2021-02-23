@@ -1,54 +1,49 @@
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-import Settings from './Settings';
-import Auth from './Auth';
-import establishmentReducer from './establishmentReducer';
-import StudentReducer from './StudentReducer';
-import professorReducer from './professorReducer';
-import classeReducer from './classeReducer';
-import ModuleReducer from './ModuleReducer';
-import planningReducer from './planningReducer';
-import ClassLevel from './ClassLevel';
-import ClassSettingsReducer from './ClassSettingsReducer';
-import Mail from './Mail';
-import Complaint from './Complaint';
-import noteReducer from './noteReducer';
-import callRegisterReducer from './callRegisterReducer';
-import subjectReducer from './subjectReducer';
-import examReducer from './examReducer';
-import ServiceReducer from './ServiceReducer';
-import PaymentReducer from './PaymentReducer';
-import countriesReducer from './countriesReducer';
-import TypeOfEducationReducer from './TypeOfEducationReducer';
-import sectionReducer from './sectionReducer';
-import roomReducer from './roomReducer';
-import stuppUserReducer from './stuppUserReducer';
-import Alerts from './Alert';
-import LessonReducer from './LessonReducer';
-import classVirtualReducer from './classVirtualReducer';
-import HealthReducer from './HealthReducer';
-import CafeteriaReducer from './CafeteriaReducer';
-import SchoolYearEtabReducer from './SchoolYearEtabReducer';
-import SuperadministrationReducer from './SuperadministrationReducer';
-import AllocationServiceReducer from './AllocationServiceReducer';
-import BillReducer from './BillReducer';
-import SubjectModuleReducer from './SubjectModuleReducer';
-import SectionsReducer from './SectionsReducer';
-import levelsReducer from './levelReducer';
-import SchoolSessionReducer from './SchoolSessionReducer';
-import ExamTypesReducer from './ExamTypesReducer';
-import SupportCoursReducer from './SupportCoursReducer';
-import AssignementReducer from './AssignementReducer';
-import SchoolLicenceReducer from './SchoolLicenceReducer';
-import MoocsReducer from './MoocsReducer';
-import MaterialCourseReducer from './MaterialCourseReducer';
-import PermissionReducer from './PermissionReducer';
-import usersReducer from './usersReducer';
-import HomeworkReducer from './HomeworkReducer';
-import GroupsReducer from './GroupsReducer';
-import AgenceReducer from './AgenceSettingsReducer';
-
-import MailReducer from './MailReducer';
+import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
+import Settings from "./Settings";
+import Auth from "./Auth";
+import establishmentReducer from "./establishmentReducer";
+import StudentReducer from "./StudentReducer";
+import professorReducer from "./professorReducer";
+import ModuleReducer from "./ModuleReducer";
+import planningReducer from "./planningReducer";
+import ClassLevel from "./ClassLevel";
+import ClassSettingsReducer from "./ClassSettingsReducer";
+import Complaint from "./Complaint";
+import noteReducer from "./noteReducer";
+import callRegisterReducer from "./callRegisterReducer";
+import subjectReducer from "./subjectReducer";
+import examReducer from "./examReducer";
+import ServiceReducer from "./ServiceReducer";
+import PaymentReducer from "./PaymentReducer";
+import countriesReducer from "./countriesReducer";
+import TypeOfEducationReducer from "./TypeOfEducationReducer";
+import sectionReducer from "./sectionReducer";
+import roomReducer from "./roomReducer";
+import stuppUserReducer from "./stuppUserReducer";
+import Alerts from "./Alert";
+import classVirtualReducer from "./classVirtualReducer";
+import HealthReducer from "./HealthReducer";
+import CafeteriaReducer from "./CafeteriaReducer";
+import SchoolYearEtabReducer from "./SchoolYearEtabReducer";
+import SuperadministrationReducer from "./SuperadministrationReducer";
+import AllocationServiceReducer from "./AllocationServiceReducer";
+import BillReducer from "./BillReducer";
+import SubjectModuleReducer from "./SubjectModuleReducer";
+import SectionsReducer from "./SectionsReducer";
+import levelsReducer from "./levelReducer";
+import SchoolSessionReducer from "./SchoolSessionReducer";
+import ExamTypesReducer from "./ExamTypesReducer";
+import SupportCoursReducer from "./SupportCoursReducer";
+import AssignementReducer from "./AssignementReducer";
+import SchoolLicenceReducer from "./SchoolLicenceReducer";
+import MoocsReducer from "./MoocsReducer";
+import MaterialCourseReducer from "./MaterialCourseReducer";
+import PermissionReducer from "./PermissionReducer";
+import usersReducer from "./usersReducer";
+import HomeworkReducer from "./HomeworkReducer";
+import GroupsReducer from "./GroupsReducer";
+import AgenceReducer from "./AgenceSettingsReducer";
 
 export default (history) =>
   combineReducers({
@@ -58,9 +53,7 @@ export default (history) =>
     establishment: establishmentReducer,
     student: StudentReducer,
     professor: professorReducer,
-    mail: Mail,
     complaint: Complaint,
-    classes: classeReducer,
     subject: subjectReducer,
     grade: noteReducer,
     callRegister: callRegisterReducer,
@@ -76,7 +69,6 @@ export default (history) =>
     stuppUsers: stuppUserReducer,
     rooms: roomReducer,
     alert: Alerts,
-    lessons: LessonReducer,
     classVirtualReducer: classVirtualReducer,
     HealthReducer: HealthReducer,
     CafeteriaReducer: CafeteriaReducer,
@@ -99,6 +91,5 @@ export default (history) =>
     PermissionReducer: PermissionReducer,
     HomeworkReducer: HomeworkReducer,
     GroupsReducer: GroupsReducer,
-    MailReducer: MailReducer,
     AgenceReducer: AgenceReducer,
   });

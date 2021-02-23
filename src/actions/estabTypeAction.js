@@ -58,9 +58,9 @@ export function addEducationType(data) {
     };
 }
 
-export function getEducationType() {
+export function getEducationType(establishmentId,schoolYearId) {
     return dispatch => {
-        let apiEndpoint = `/education_type_v4?access_token=${localStorage.token}&filter[where][and][0][fk_id_establishment]=${localStorage.establishment_id}&filter[where][and][1][fk_id_school_year]=${localStorage.school_year_id}`;
+        let apiEndpoint = `/education_type_v4?access_token=${localStorage.token}&filter[where][and][0][fk_id_establishment]=${establishmentId}&filter[where][and][1][fk_id_school_year]=${schoolYearId}`;
         classService.get(apiEndpoint)
             .then(response => {
                 if (response) {
