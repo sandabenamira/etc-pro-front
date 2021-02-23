@@ -12,9 +12,7 @@ import { getSectionFromLevel } from '../../../actions/sectionAction';
 import { getLevelListFromEstabType } from '../../../actions/classLevelAction';
 import axios from 'axios';
 import baseUrl from '../../../config/config';
-import { getSections } from '../../../actions/sectionAction';
-import { getLevels } from '../../../actions/classLevelAction';
-import { getLevelsVirtualClass } from '../../../actions/classLevelAction';
+ import { getLevelsVirtualClass } from '../../../actions/classLevelAction';
  import { UncontrolledAlert } from 'reactstrap';
 import Can from '../../../can';
 import { RoleContext } from '../../../Context';
@@ -367,8 +365,7 @@ componentDidMount(){
   };
 
   componentWillMount() {
-    this.props.getSections();
-     this.props.getLevelsVirtualClass();
+      this.props.getLevelsVirtualClass();
      this.props.getFicheMedicalByEstablishmentId(this.props.userProfile.establishment_id);
 this.setState({levelsbyestablishment: this.props.ClassLevels})
    
@@ -586,9 +583,7 @@ export default connect(
   mapStateToProps,
   {
     addFicheMedical,
-    getSections,
-    getLevels,
-    getLevelsVirtualClass,
+     getLevelsVirtualClass,
      getFicheMedicalByEstablishmentId,
   }
 )(HealthMonitoring);
