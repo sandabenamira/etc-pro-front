@@ -21,6 +21,8 @@ export const INSIDE_THE_HEADER = 'inside_the_header';
 export const BELOW_THE_HEADER = 'below_the_header';
 export const DARK_GREEN = 'dark-green';
 
+export const GET_PROFILE = 'GET_PROFILE';
+
 //Contact Module const
 
 export const SHOW_MESSAGE = 'show_message';

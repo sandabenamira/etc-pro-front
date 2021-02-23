@@ -15,6 +15,7 @@ import {
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
   EDIT_PROFILE,
+  GET_PROFILE
 } from "../constants/ActionTypes";
 
 const INIT_STATE = {
@@ -22,12 +23,13 @@ const INIT_STATE = {
   alertMessage: "",
   showMessage: false,
   initURL: "",
-  authUser: localStorage.getItem("user_id"),
+  authUser: localStorage.getItem("rtvrx_tgfsaju_G0loik"),
   userProfile: [],
   multiple: false,
   profile: [],
   showLicenceMessage: false,
   alertLicenceMessage: "",
+  
 };
 
 export default (state = INIT_STATE, action) => {
@@ -157,6 +159,12 @@ export default (state = INIT_STATE, action) => {
         userProfile: {...state.userProfile,user:action.payload},
       });
     }
+    case GET_PROFILE: {
+      return Object.assign({}, state, {
+        userProfile: action.payload,
+      });
+    }
+    
 
     default:
       return state;

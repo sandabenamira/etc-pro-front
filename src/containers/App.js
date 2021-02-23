@@ -1,30 +1,26 @@
-import React, { Component } from 'react';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import MomentUtils from '@date-io/moment';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { IntlProvider } from 'react-intl';
-import '../assets/vendors/style';
-import greenTheme from './themes/greenTheme';
-import indigoTheme from './themes/indigoTheme';
-import cyanTheme from './themes/cyanTheme';
-import orangeTheme from './themes/orangeTheme';
-import amberTheme from './themes/amberTheme';
-import pinkTheme from './themes/pinkTheme';
-import blueTheme from './themes/blueTheme';
-import purpleTheme from './themes/purpleTheme';
-import darkTheme from './themes/darkTheme';
-import AppLocale from '../lngProvider';
-import { getUserProfile } from '../actions/Auth';
-import { RoleContext } from '../Context';
-import languageData from '../components/LanguageSwitcher/data';
-import IntlMessages from '../util/IntlMessages';
-import { roleIdAdmin } from '..//config/config';
-import cst from '../config/config';
-import axios from 'axios';
+import React, { Component } from "react";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import MomentUtils from "@date-io/moment";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { Redirect, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import { IntlProvider } from "react-intl";
+import "../assets/vendors/style";
+import greenTheme from "./themes/greenTheme";
+import indigoTheme from "./themes/indigoTheme";
+import cyanTheme from "./themes/cyanTheme";
+import orangeTheme from "./themes/orangeTheme";
+import amberTheme from "./themes/amberTheme";
+import pinkTheme from "./themes/pinkTheme";
+import blueTheme from "./themes/blueTheme";
+import purpleTheme from "./themes/purpleTheme";
+import darkTheme from "./themes/darkTheme";
+import AppLocale from "../lngProvider";
+import { RoleContext } from "../Context";
+import IntlMessages from "../util/IntlMessages";
+import _ from "lodash";
 
-import '@material-ui/core/TextField';
+import "@material-ui/core/TextField";
 import {
   AMBER,
   BLUE,
@@ -42,19 +38,17 @@ import {
   GREEN,
   INDIGO,
   PINK,
-} from '../constants/ThemeColors';
+} from "../constants/ThemeColors";
 
-import MainApp from '../app/index';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
-import { setInitUrl } from '../actions/Auth';
-import RTL from '../util/RTL';
-import asyncComponent from '../util/asyncComponent';
-import { classService } from '../_services';
-import { getEstablishmentsModules } from '../actions/Auth';
-import { getClassesByEstablishmentId } from '../actions/classeAction';
-import { getEstablishmentsInformations } from '../actions/Auth';
-
+import MainApp from "../app/index";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import { setInitUrl } from "../actions/Auth";
+import RTL from "../util/RTL";
+import asyncComponent from "../util/asyncComponent";
+import { classService } from "../_services";
+import { getEstablishmentsModules } from "../actions/Auth";
+import { getEstablishmentsInformations } from "../actions/Auth";
 
 const RestrictedRoute = ({ component: Component, authUser, ...rest }) => (
   <Route
@@ -65,7 +59,7 @@ const RestrictedRoute = ({ component: Component, authUser, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: '/signin',
+            pathname: "/signin",
             state: { from: props.location },
           }}
         />
@@ -77,36 +71,53 @@ const RestrictedRoute = ({ component: Component, authUser, ...rest }) => (
 class App extends Component {
   state = {
     user: {
-      role: 'visitor',
+      role: "visitor",
     },
-    accessToken: '',
+    accessToken: "",
+    contextValue: {},
+    currentAppLocale: AppLocale["fr"],
   };
 
   componentWillMount() {
-    axios
-      .get(
-        `${cst.baseUrl}/establishments/${localStorage.establishment_id}?access_token=${localStorage.token}&filter[include][licence][licenceModule][module]=suBmodule`
-        // `${cst.baseUrl}/establishments/${localStorage.establishment_id}?access_token=${localStorage.token}&filter[include][licence][licenceModule]=module`
-      )
-      .then((res) => {
-        this.props.getEstablishmentsModules(res.data.licence[0].licenceModule);
-        this.props.getEstablishmentsInformations(res.data);
-        
-      })
-      .catch((error) => {});
     window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
-    if (this.props.initURL === '') {
+    if (this.props.initURL === "") {
       this.props.setInitUrl(this.props.history.location.pathname);
     }
   }
 
   componentDidUpdate(previous) {
-    if (this.props.userProfile === previous.userProfile) {
-      this.props.getClassesByEstablishmentId(this.props.userProfile.establishment_id);
-    }
-
     if (this.props.themeColor !== previous.themeColor) {
       document.body.classList.add(this.props.themeColor);
+    }
+    if (this.props.userProfile !== previous.userProfile) {
+      const role =
+        this.props.userProfile.role_id === 1
+          ? "superadmin"
+          : this.props.userProfile.role_id === 2
+          ? "admin"
+          : this.props.userProfile.role_id === 3
+          ? "professor"
+          : this.props.userProfile.role_id === 4
+          ? "parent"
+          : this.props.userProfile.role_id === 5
+          ? "student"
+          : this.props.userProfile.role_id === 6
+          ? "supervisor"
+          : this.props.userProfile.role_id === 7
+          ? "director"
+          : "";
+      const contextValue = {
+        role: role,
+        roleId: this.props.userProfile.role_id,
+      };
+      if (!_.isEmpty(this.props.userProfile)) {
+        let appLang = this.props.userProfile.setting.app_lang;
+        let data = getLanguage(appLang);
+        let currentAppLocale = AppLocale[data.locale];
+        this.setState({ currentAppLocale });
+      }
+
+      this.setState({ contextValue });
     }
   }
 
@@ -183,6 +194,8 @@ class App extends Component {
   }
 
   render() {
+    // console.log("je suis dans le render APP.js et voila ", this.props);
+
     const {
       match,
       location,
@@ -197,66 +210,30 @@ class App extends Component {
 
     let applyTheme = createMuiTheme(indigoTheme);
     if (isDarkTheme) {
-      document.body.classList.add('dark-theme');
+      document.body.classList.add("dark-theme");
       applyTheme = createMuiTheme(darkTheme);
     } else {
       applyTheme = this.getColorTheme(themeColor, applyTheme);
     }
 
-    if (location.pathname === '/') {
+    if (location.pathname === "/") {
       if (authUser === null) {
-        return <Redirect to={'/signin'} />;
-      } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
-        return <Redirect to={'/app/home'} />;
+        return <Redirect to={"/signin"} />;
+      } else if (initURL === "" || initURL === "/" || initURL === "/signin") {
+        return <Redirect to={"/app/home"} />;
       } else {
         return <Redirect to={initURL} />;
       }
     }
 
-    if (localStorage.appLang === 'tunisia' || isDirectionRTL) {
-      applyTheme.direction = 'rtl';
-      document.body.classList.add('rtl');
-    } else {
-      document.body.classList.remove('rtl');
-      applyTheme.direction = 'ltr';
-    }
-
-    let currentAppLocale = {};
-    if (locale.languageId) {
-      currentAppLocale = AppLocale[locale.locale];
-    } else {
-      var appLang = localStorage.getItem(appLang);
-      let data = getLanguage(localStorage.appLang);
-      currentAppLocale = AppLocale[data.locale];
-    }
-    const role =
-      this.props.userProfile.role_id === 1
-        ? 'superadmin'
-        : this.props.userProfile.role_id === 2
-        ? 'admin'
-        : this.props.userProfile.role_id === 3
-        ? 'professor'
-        : this.props.userProfile.role_id === 4
-        ? 'parent'
-        : this.props.userProfile.role_id === 5
-        ? 'student'
-        : this.props.userProfile.role_id === 6
-        ? 'supervisor'
-        : this.props.userProfile.role_id === 7
-        ? 'director'
-        : '';
-
-    const contextValue = {
-      role: role,
-      roleId: this.props.userProfile.role_id,
-      // store all the user details
-    };
-
     return (
-      <RoleContext.Provider value={contextValue}>
+      <RoleContext.Provider value={this.state.contextValue}>
         <MuiThemeProvider theme={applyTheme}>
           <MuiPickersUtilsProvider utils={MomentUtils}>
-            <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
+            <IntlProvider
+              locale={this.state.currentAppLocale.locale}
+              messages={this.state.currentAppLocale.messages}
+            >
               <RTL>
                 <div className="app-main">
                   <Switch>
@@ -268,7 +245,11 @@ class App extends Component {
                     />
                     <Route path="/signin" component={SignIn} />
                     <Route path="/signup" component={SignUp} />
-                    <Route component={asyncComponent(() => import('../components/Error404'))} />
+                    <Route
+                      component={asyncComponent(() =>
+                        import("../components/Error404")
+                      )}
+                    />
                   </Switch>
                 </div>
               </RTL>
@@ -281,7 +262,13 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ settings, auth, establishment }) => {
-  const { themeColor, sideNavColor, darkTheme, locale, isDirectionRTL } = settings;
+  const {
+    themeColor,
+    sideNavColor,
+    darkTheme,
+    locale,
+    isDirectionRTL,
+  } = settings;
   const { authUser, initURL, userProfile } = auth;
   const { estabModule } = establishment;
 
@@ -293,47 +280,45 @@ const mapStateToProps = ({ settings, auth, establishment }) => {
     isDirectionRTL,
     authUser,
     initURL,
-    userProfile,
     estabModule,
+    userProfile,
   };
 };
 
 function getLanguage(appLang) {
   switch (appLang) {
-    case 'french':
+    case "french":
       return {
-        languageId: 'french',
-        locale: 'fr',
+        languageId: "french",
+        locale: "fr",
         name: <IntlMessages id="languageData.french" />,
-        icon: 'fr',
+        icon: "fr",
       };
-    case 'english':
+    case "english":
       return {
-        languageId: 'english',
-        locale: 'en',
+        languageId: "english",
+        locale: "en",
         name: <IntlMessages id="languageData.english" />,
-        icon: 'us',
+        icon: "us",
       };
-    case 'tunisia':
+    case "tunisia":
       return {
-        languageId: 'tunisia',
-        locale: 'ar',
+        languageId: "tunisia",
+        locale: "ar",
         name: <IntlMessages id="languageData.arabic" />,
-        icon: 'tn',
+        icon: "tn",
       };
     default:
       return {
-        languageId: 'french',
-        locale: 'fr',
+        languageId: "french",
+        locale: "fr",
         name: <IntlMessages id="languageData.french" />,
-        icon: 'fr',
+        icon: "fr",
       };
   }
 }
 export default connect(mapStateToProps, {
   setInitUrl,
-  getUserProfile,
   getEstablishmentsModules,
-  getClassesByEstablishmentId,
-  getEstablishmentsInformations
+  getEstablishmentsInformations,
 })(App);
