@@ -225,7 +225,7 @@ class DetailsCallRegister extends React.Component {
   }
 
   handleChangeSanction(event, id, student) {
-    let sanctionSelected = this.state.sanctions.filter(
+     let sanctionSelected = this.state.sanctions.filter(
       (sanction) => sanction.value == student.sanction
     );
     event.preventDefault();
@@ -1046,7 +1046,6 @@ class DetailsCallRegister extends React.Component {
                               onClick={(event) =>
                                 this.handleChangeSanction(
                                   event,
-
                                   element.studentId,
                                   element
                                 )

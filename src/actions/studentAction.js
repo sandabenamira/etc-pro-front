@@ -55,8 +55,7 @@ export function getStudentsCallRegister(idClass, idSchoolYear) {
 }
 export function getStudentsCallRegisterForParent(parentId) {
   return (dispatch) => {
-    // let apiEndpoint = `/students_parents?access_token=${localStorage.token}&filter[where][parent_id]=${parentId}&filter[include][student][profile][user]`;
-    let apiEndpoint = `/parents?access_token=${localStorage.token}&filter[where][profile_id]=${parentId}&filter[include][student_parents][student][profile][user]`;
+     let apiEndpoint = `/parents?access_token=${localStorage.token}&filter[where][profile_id]=${parentId}&filter[include][student_parents][student][profile][user]`;
 
     
     classService.get(apiEndpoint).then((res) => {

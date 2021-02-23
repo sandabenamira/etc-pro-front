@@ -221,7 +221,7 @@ class Registre extends Component {
           }
         }
       }
-    } else if (this.props.userProfile.role_id === roleIdProfessor) {
+    } else if (this.props.userProfile.role_id === roleIdProfessor || this.props.userProfile.role_id === roleIdParent) {
       if (this.state.classIdFilter == 0) {
         if (event.target.value == 'all') {
           this.setState({ events: this.props.events });
