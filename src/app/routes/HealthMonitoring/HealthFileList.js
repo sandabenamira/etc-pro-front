@@ -6,8 +6,7 @@ import { getLevelListFromEstabType } from "../../../actions/classLevelAction";
 import axios from "axios";
 import baseUrl from "../../../config/config";
 import { editFicheMedical } from "../../../actions/HealthAction";
- import { getLevelsVirtualClass } from "../../../actions/classLevelAction";
-import { connect } from "react-redux";
+ import { connect } from "react-redux";
 import { roleIdSuperAdmin } from "../../../config/config";
 import { roleIdAdmin } from "../../../config/config";
 import { roleIdProfessor } from "../../../config/config";
@@ -351,6 +350,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-   getLevelsVirtualClass,
-  editFicheMedical,
+   editFicheMedical,
 })(HealthFileList);

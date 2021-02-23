@@ -16,8 +16,7 @@ import {
 
 import { getSubject } from "../../../../../actions/subjectAction";
 import { getExam } from "../../../../../actions/examAction";
-import { getLevelsVirtualClass } from "../../../../../actions/classLevelAction";
-import { getEstablishment } from "../../../../../actions/establishmentAction";
+ import { getEstablishment } from "../../../../../actions/establishmentAction";
 import { getSectionFromLevel } from "../../../../../actions/sectionAction";
 import { getStudentClass } from "../../../../../actions/RegistreAction";
 import { subjectsByLevelBySection } from "../../../../../actions/subjectAction";
@@ -156,8 +155,7 @@ class Grades extends React.Component {
   };
   componentWillMount() {
      this.props.getEstablishment();
-    this.props.getLevelsVirtualClass();
-    this.props.getSubject();
+     this.props.getSubject();
     this.props.getExam();
   }
 
@@ -564,8 +562,7 @@ class Grades extends React.Component {
 export default connect(mapStateToProps, {
   getSubject,
   getExam,
-  getLevelsVirtualClass,
-  getEstablishment,
+   getEstablishment,
    getSectionFromLevel,
   getStudentClass,
   addGrade,

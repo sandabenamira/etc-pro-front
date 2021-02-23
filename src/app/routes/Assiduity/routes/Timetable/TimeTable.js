@@ -24,7 +24,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
 import _ from "lodash";
-import { removeEventList } from "../../../../../actions/planningActions";
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -36,9 +35,7 @@ class TimeTable extends React.Component {
     this.state = {};
   }
 
-  componentWillUnmount() {
-    this.props.dispatch(removeEventList());
-  }
+  componentWillUnmount() {}
 
   eventStyleGetter(event, start, end, isSelected) {
     let diff = moment

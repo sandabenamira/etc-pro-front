@@ -285,10 +285,7 @@ class Lesson extends React.Component {
 }
 function mapStateToProps(state) {
   return {
-    // classes: state.classes,
     userProfile: state.auth.userProfile,
-    // levels: state.ClassLevels.remoteLevels,
-    // sections: state.classSections.remoteSections,
     lessons: state.lessons.remoteLessons,
     successStatus: state.alert.success,
     errorStatus: state.alert.error,

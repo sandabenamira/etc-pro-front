@@ -51,21 +51,6 @@ export function getSupportCours() {
     });
   };
 }
-
-export function getSupportCoursByEstablishmentId(establishmentId) {
-  return (dispatch) => {
-    let apiEndpoint =
-      `/virtual_classes?access_token=${localStorage.token}&filter[where][establishment_id]=` +
-      establishmentId;
-    classService
-      .get(apiEndpoint)
-      .then((response) => {
-        const list = response.data;
-      })
-      .catch((err) => {});
-  };
-}
-
 export function deleteSupportCours(item) {
   console.log("delete", item);
   return (dispatch) => {
@@ -82,7 +67,7 @@ export function deleteSupportCours(item) {
         console.log("deleteddddddddddddddddddddddv ", response.data);
         dispatch({ type: DELETE_SUPPORT_COURS, payload: response.data });
       })
-      .catch(function(error) {});
+      .catch(function (error) {});
   };
 }
 
@@ -110,5 +95,4 @@ export const serviceAction = {
   getSupportCours,
   deleteSupportCours,
   editSupportCours,
-  getSupportCoursByEstablishmentId,
-};
+ };

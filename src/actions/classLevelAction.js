@@ -23,48 +23,6 @@ function getLevelListFromEstabType(levels, idType) {
   }
   return levelList;
 }
-function getLevelsVirtualClass() {
-  return (dispatch) => {
-    let apiEndpoint = `/levels?access_token=${localStorage.token}`;
-    classService
-      .get(apiEndpoint)
-      .then((response) => {
-        let levelsList = [];
-        response.data.forEach((element) => {
-          levelsList.push({
-            id: element.id,
-            name_AR: element.name_AR,
-            name_FR: element.name_FR,
-            name_EN: element.name_EN,
-            estab_type_id: element.estab_type_id,
-          });
-        });
-        dispatch({ type: "DATA_LOADED_LEVELS", payload: levelsList });
-      })
-      .catch((err) => {});
-  };
-}
-
-export function getLevelByEstablishmentId(id) {
-  let apiEndpoint = "";
-  return (dispatch) => {
-    apiEndpoint = `/establishments/${id}?access_token=${localStorage.token}`;
-    classService.get(apiEndpoint).then((response) => {
-      if (response) {
-        const establishmentType = response.data.estab_type_id;
-        // apiEndpoint = `/levels?access_token=${localStorage.token}&filter[where][estab_type_id]=${establishmentType}`;
-        // classService.get(apiEndpoint).then((response) => {
-        //   let levelsList = [];
-        //   response.data.forEach(element => {
-        //     levelsList.push({ "id": element.id, "name": getName(element), "estab_type_id": element.estab_type_id, "name_AR":element.name_AR, "name_FR": element.name_FR, "name_EN":element.name_EN })
-        //   });
-        //   dispatch({ type: "DATA_LOADED_LEVELS", payload: levelsList });
-        // })
-      }
-    });
-  };
-}
-
 export function getlevelsForProf(id) {
   return (dispatch, getState) => {
     const state = getState();
@@ -112,8 +70,4 @@ export function getLevelsAndSubjectsForProf(id) {
   };
 }
 
-export {
-  getLevelName,
-   getLevelListFromEstabType,
-  getLevelsVirtualClass,
-};
+export { getLevelName, getLevelListFromEstabType };

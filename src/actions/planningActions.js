@@ -65,66 +65,12 @@ export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
   };
 };
 
-export const handleEventRequestClose = () => {
-  return {
-    type: "HANDLE_EVENT_REQUEST_CLOSE",
-  };
-};
+ 
 
 export const PlanningAction = {
   addEvent,
-  handleEventRequestClose,
-};
-export const getProfessorTimeTable = (profileId) => {
-  return (dispatch, getState) => {
-    const state = getState();
-    const subjects = state.subject.remoteSubjects;
-    let rooms = [];
-    let apiEndpoint1 = `/rooms?access_token=${localStorage.token}&filter[where][establishment_id]=${state.auth.userProfile.establishment_id}`;
-    classService.get(apiEndpoint1).then((response) => {
-      rooms = response.data;
-    });
-    let apiEndpoint = `/professors/get-professor-calendar/${profileId}?access_token=${localStorage.token}`;
-    classService
-      .get(apiEndpoint)
-      .then((res) => {
-        let genericEvents = res.data.calendar;
-        let timeTableEvents = [];
-        for (var i = 0; i < genericEvents.length; i++) {
-          const lessonRooms = rooms.filter(
-            (element) => element.id === genericEvents[i].room_id
-          );
-          const lessonSubject = subjects.filter(
-            (element) => element.id === genericEvents[i].subject_id
-          );
-          genericEvents[i].contextualEvents.map((event) => {
-            const container = {};
-            container["start"] = new Date(event.start_lesson);
-            container["end"] = new Date(event.end_lesson);
-            container["title"] = genericEvents[i].title;
-            container["room_id"] = genericEvents[i].room_id;
-            container["room_name"] = lessonRooms[0].name;
-            container["class_id"] = genericEvents[i].class_id;
-            container["subject_id"] = genericEvents[i].subject_id;
-            container["subject_name"] = lessonSubject[0].name;
-            container["frequency"] = genericEvents[i].frequency;
-            container["id"] = event.id;
-            container["hexa_color"] = lessonSubject[0].hexa_color;
-            container["professor_profile"] = genericEvents[i].professor_id;
-            timeTableEvents.push(container);
-          });
-        }
-        dispatch({ type: "GET_EVENTS_PROFESSOR", payload: timeTableEvents });
-      })
-      .catch((err) => {});
-  };
-};
-
-export const removeEventList = () => {
-  return (dispatch) => {
-    dispatch({ type: "REMOVE_EVENTS_LIST" });
-  };
-};
+ };
+ 
 export const getEventsByEstabAndSchoolYear = (
   establishementId,
   schoolYearId,

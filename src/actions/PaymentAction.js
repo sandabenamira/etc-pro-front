@@ -1,32 +1,7 @@
 
-import { EDIT_PAYMENT, GET_PAYMENTS, CLEAR_LIST_PAYMENTS, PAY_BILL } from "../constants/ActionTypes";
+import {GET_PAYMENTS, CLEAR_LIST_PAYMENTS, PAY_BILL } from "../constants/ActionTypes";
 import { classService } from "../_services/class.service";
-
-export function editPayments(dataPayment, dataLinePayment) {
-
-    return dispatch => {
-        let apiEndpoint = `/payments/payService?access_token=${localStorage.token}`;
-        classService
-            .post(apiEndpoint, dataPayment)
-            .then(response => {
-
-                let obj = {
-                    "name": dataLinePayment.name,
-                    "surname": dataLinePayment.surname,
-                    "service": {
-                        "name": dataLinePayment.service.name,
-                        "price": response.data.payment.price,
-                        "currency": dataLinePayment.service.currency,
-                        "payment_periodicity": dataLinePayment.service.payment_periodicity
-                    },
-                    "linesPayments": [response.data.payment]
-                }
-                dispatch({ type: EDIT_PAYMENT, payload: obj });
-            })
-            .catch(error => {
-            });
-    };
-}
+ 
 export function editBill(data,idPaymentV2, dataInvoice) {
     return dispatch => {
         let apiEndpoint = '';
