@@ -83,7 +83,7 @@ export default class EditMoocs extends React.Component {
                       <div className="col-md-4 ">
                         <FormControl className="w-100">
                           <InputLabel htmlFor="name-multiple">
-                            {<IntlMessages id="ticket.name.class" />}
+                            {"Classe de formation"}
                           </InputLabel>
                           <Select
                             required

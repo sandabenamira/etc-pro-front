@@ -21,7 +21,6 @@ import CallRegisterSetting from './routes/CallRegisterSetting/CallRegisterSettin
 import PermissionSetting from './routes/PermissionSetting/PermissionSetting';
 import AgenceSetting from './routes/AgenceSetting/AgenceSetting';
 // import CourseAssignment from './routes/SchoolSettings/CourseAssignment/CourseAssignment';
- 
 import Groupes from './routes/SchoolSettings/groupes/Groupes';
 const Administration = ({ match, estabModule }) => (
   <div className="app-wrapper">

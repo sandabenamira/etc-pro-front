@@ -90,7 +90,7 @@ export default class AddClassesSettings extends React.Component {
                                   ))}
                                 </TextField>
                               </div>
-                              <div className="col-md-4 ">
+                              {/* <div className="col-md-4 ">
                                 <TextField
                                   id="section_id"
                                   onChange={this.props.handleChange(
@@ -114,7 +114,7 @@ export default class AddClassesSettings extends React.Component {
                                     </MenuItem>
                                   ))}
                                 </TextField>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </CardBox>
@@ -155,8 +155,7 @@ export default class AddClassesSettings extends React.Component {
                           <Button
                             variant="contained"
                             disabled={
-                              this.props.values.section_id == null ||
-                              this.props.values.level_id == null ||
+                               this.props.values.level_id == null ||
                               this.props.values.nameClassSettings == ""
                                 ? true
                                 : false
