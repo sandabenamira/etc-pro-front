@@ -16,8 +16,7 @@ import {
 
 import { getSubject } from '../../../../../actions/subjectAction';
 import { getExam } from '../../../../../actions/examAction';
-import { getClasses } from '../../../../../actions/classeAction';
-import { getLevelsVirtualClass } from '../../../../../actions/classLevelAction';
+ import { getLevelsVirtualClass } from '../../../../../actions/classLevelAction';
 import { getEstablishment } from '../../../../../actions/establishmentAction';
 import {
   getSections,
@@ -164,8 +163,7 @@ class Grades extends React.Component {
     this.props.getLevelsVirtualClass();
     this.props.getSubject();
     this.props.getExam();
-    this.props.getClasses();
-  }
+   }
 
   handleBlur = (event) => {};
 
@@ -572,8 +570,7 @@ export default connect(
   {
     getSubject,
     getExam,
-    getClasses,
-    getLevelsVirtualClass,
+     getLevelsVirtualClass,
     getEstablishment,
     getSections,
     getSectionFromLevel,

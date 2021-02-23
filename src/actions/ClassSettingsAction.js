@@ -73,7 +73,7 @@ export function deleteClassSettings(itemId) {
     let apiEndpoint =
       `/class_v4/` +
       itemId.id +
-      `?access_token=${localStorage.token}&filter[where][and][0][fk_id_establishment]=${localStorage.establishment_id}&filter[where][and][1][fk_id_school_year]=${localStorage.school_year_id}`;
+      `?access_token=${localStorage.token}`;
     classService.patch(apiEndpoint, { status: false }).then((response) => {
       if (response) {
         dispatch({ type: DELETE_CLASS_SETTINGS, payload: response.data });

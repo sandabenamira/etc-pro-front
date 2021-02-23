@@ -8,8 +8,7 @@ import DeleteExam from './DeleteExam';
 import { getSubject } from '../../../../../actions/subjectAction';
 import { getExam } from '../../../../../actions/examAction';
 import { getEstablishment } from '../../../../../actions/establishmentAction';
-import { getClasses } from '../../../../../actions/classeAction';
-import { connect } from 'react-redux';
+ import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
   return {
@@ -50,8 +49,7 @@ class Exams extends React.Component {
     this.props.getExam();
     this.props.getEstablishment();
     this.props.getSubject();
-    this.props.getClasses();
-  }
+   }
 
   handleCancelModal() {
     this.setState({ edit: false });
@@ -106,5 +104,5 @@ class Exams extends React.Component {
 }
 export default connect(
   mapStateToProps,
-  { getClasses, getSubject, getExam, getEstablishment }
+  {getSubject, getExam, getEstablishment }
 )(Exams);

@@ -8,7 +8,6 @@ import axios from "axios";
 import baseUrl from "../../../config/config";
 import { getSections } from "../../../actions/sectionAction";
 import {
-  getClassesByEstablishmentId,
   getClassesByUserId,
 } from "../../../actions/classeAction";
 import LessonList from "./LessonList";
@@ -149,9 +148,7 @@ class Lesson extends React.Component {
     } else {
       this.props.getLevels();
       this.props.getSections();
-      this.props.getClassesByEstablishmentId(
-        this.props.userProfile.establishment_id
-      );
+ 
      
       this.props.getLessons(this.props.userProfile.establishment_id);
       axios
@@ -319,8 +316,7 @@ export default connect(
     getLevels,
     getUserProfile,
     getSections,
-    getClassesByEstablishmentId,
-    getLessons,
+     getLessons,
     getClassesByUserId,
     addLesson,
   }

@@ -1,22 +1,22 @@
-import React from 'react';
-import CardBox from '../../../../../../components/CardBox/index';
-import { connect } from 'react-redux';
-import ArchiveSchoolSession from './ArchiveSchoolSession';
-import SchoolSessionList from './SchoolSessionList';
-import { UncontrolledAlert } from 'reactstrap';
+import React from "react";
+import CardBox from "../../../../../../components/CardBox/index";
+import { connect } from "react-redux";
+import ArchiveSchoolSession from "./ArchiveSchoolSession";
+import SchoolSessionList from "./SchoolSessionList";
+import { UncontrolledAlert } from "reactstrap";
 import {
   addSchoolSession,
   getSchoolSession,
-} from '../../../../../../actions/SchoolSessionAction';
-import AddSchoolSession from './AddSchoolSession';
-import { getEducationType } from '../../../../../../actions/estabTypeAction';
+} from "../../../../../../actions/SchoolSessionAction";
+import AddSchoolSession from "./AddSchoolSession";
+import { getEducationType } from "../../../../../../actions/estabTypeAction";
 
 class SchoolSession extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
-      nameSchoolSession: '',
+      nameSchoolSession: "",
       start_date: new Date(),
       end_date: new Date(),
       isOpenArchive: false,
@@ -35,9 +35,8 @@ class SchoolSession extends React.Component {
     this.openArchiveModal = this.openArchiveModal.bind(this);
     this.handleChangeEducationType = this.handleChangeEducationType.bind(this);
     this.handleChangeAlerte = this.handleChangeAlerte.bind(this);
-
   }
-  handleChangeAlerte = (name)  => {
+  handleChangeAlerte = (name) => {
     this.setState({
       sessionExist: true,
       messageAlerte: "Il existe déja une licence pour cet etablissement",
@@ -86,18 +85,19 @@ class SchoolSession extends React.Component {
     if (checkDoubleSession.length > 0) {
       this.setState({
         sessionExist: true,
-        messageAlerte: 'cette session scolaire déja existe pour cet etablissement',
+        messageAlerte:
+          "cette session scolaire déja existe pour cet etablissement",
       });
       setTimeout(() => {
-        this.setState({ sessionExist: false, messageAlerte: '' });
+        this.setState({ sessionExist: false, messageAlerte: "" });
       }, 4000);
     } else {
       this.props.addSchoolSession(data);
     }
 
-     this.openAddModal();
+    this.openAddModal();
     this.setState({
-      nameSchoolSession: '',
+      nameSchoolSession: "",
       start_date: new Date(),
       end_date: new Date(),
       educationTypeId: null,
@@ -121,11 +121,17 @@ class SchoolSession extends React.Component {
   };
   componentDidUpdate(prevProps) {
     if (prevProps.userProfile !== this.props.userProfile) {
-      this.props.getEducationType();
+      this.props.getEducationType(
+        this.props.userProfile.establishment_id,
+        this.props.userProfile.school_year_id
+      );
     }
   }
   UNSAFE_componentWillMount() {
-    this.props.getEducationType();
+    this.props.getEducationType(
+      this.props.userProfile.establishment_id,
+      this.props.userProfile.school_year_id
+    );
 
     this.props.getSchoolSession(
       parseInt(this.props.userProfile.establishment_id, 10),
@@ -137,20 +143,23 @@ class SchoolSession extends React.Component {
       <div
         className="app-wrapper"
         style={{
-          marginLeft: '5%',
-          marginRight: '10%',
+          marginLeft: "5%",
+          marginRight: "10%",
         }}
       >
         <div className="  d-flex flex-column mb-3">
-        {this.state.sessionExist ? (
+          {this.state.sessionExist ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-danger text-white shadow-lg">
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
-              <span className="d-inline-block"> {this.state.messageAlerte} </span>
+              <span className="d-inline-block">
+                {" "}
+                {this.state.messageAlerte}{" "}
+              </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
           {this.props.successStatus ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
@@ -160,7 +169,7 @@ class SchoolSession extends React.Component {
               <span className="d-inline-block"> {this.props.message} </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
           {this.state.alerteFiltre ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
@@ -168,14 +177,14 @@ class SchoolSession extends React.Component {
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
               <span className="d-inline-block">
-                {' '}
-                {this.state.messageAlerte}{' '}
+                {" "}
+                {this.state.messageAlerte}{" "}
               </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
-          <div className=" bd-highlight" style={{ width: '90%' }}>
+          <div className=" bd-highlight" style={{ width: "90%" }}>
             <CardBox styleName="col-lg-12">
               <AddSchoolSession
                 openAddModal={this.openAddModal}
@@ -191,18 +200,17 @@ class SchoolSession extends React.Component {
               />
             </CardBox>
           </div>
-          <div className=" bd-highlight" style={{ width: '90%' }}>
+          <div className=" bd-highlight" style={{ width: "90%" }}>
             <CardBox styleName="col-lg-12">
               <SchoolSessionList
                 schoolSessions={this.props.schoolSessions}
                 educationTypes={this.props.educationTypes}
                 handleChangeAlerte={this.handleChangeAlerte}
-
               />
             </CardBox>
           </div>
         </div>
-        <div className=" bd-highlight" style={{ width: '90%' }}>
+        <div className=" bd-highlight" style={{ width: "90%" }}>
           <CardBox styleName="col-lg-12">
             <ArchiveSchoolSession
               isOpenArchive={this.state.isOpenArchive}

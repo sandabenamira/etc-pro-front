@@ -9,8 +9,7 @@ import {editFicheMedical} from '../../../actions/HealthAction'
 import { getSections } from '../../../actions/sectionAction';
 import { getLevels } from '../../../actions/classLevelAction';
 import { getLevelsVirtualClass } from '../../../actions/classLevelAction';
-import { getClassesByEstablishmentId } from '../../../actions/classeAction';
-import { connect } from 'react-redux';
+ import { connect } from 'react-redux';
 import { roleIdSuperAdmin } from '../../../config/config';
 import { roleIdAdmin } from '../../../config/config';
 import { roleIdProfessor } from '../../../config/config';
@@ -365,7 +364,6 @@ function mapStateToProps(state) {
       getSections,
       getLevels,
       getLevelsVirtualClass,
-      getClassesByEstablishmentId,
-      editFicheMedical
+       editFicheMedical
     }
   )(HealthFileList);

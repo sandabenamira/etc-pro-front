@@ -11,8 +11,7 @@ import IntlMessages from "../../../../../util/IntlMessages";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { getLevelByEstablishmentId } from "../../../../../actions/classLevelAction";
-import { getClassesByEstablishmentId } from "../../../../../actions/classeAction";
-import { classService } from "../../../../../_services/class.service";
+ import { classService } from "../../../../../_services/class.service";
 import { getSchoolYearEtabs } from "../../../../../actions/SchoolYearEtabAction";
 import ListInvoices from "./ListInvoices";
 import _ from "lodash";
@@ -43,12 +42,6 @@ class Billing extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.dispatch(
-    //   getLevelByEstablishmentId(this.props.userProfile.establishment_id)
-    // );
-    this.props.dispatch(
-      getClassesByEstablishmentId(this.props.userProfile.establishment_id)
-    );
     this.props.dispatch(getSchoolYearEtabs());
     this.props.dispatch(
       getInvoicesByEstablishmentId(this.props.userProfile.establishment_id)

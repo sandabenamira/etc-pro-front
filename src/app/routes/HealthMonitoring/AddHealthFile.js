@@ -12,8 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux';
 import { getSections } from '../../../actions/sectionAction';
 import { getLevels } from '../../../actions/classLevelAction';
-import { getClassesByEstablishmentId } from '../../../actions/classeAction';
-
+ 
 
 class AddHealthFile extends Component {
   render() {
@@ -409,6 +408,5 @@ export default connect(
   {
     getSections,
     getLevels,
-    getClassesByEstablishmentId,
-  }
+   }
 )(AddHealthFile);

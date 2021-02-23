@@ -15,7 +15,7 @@ class TypeOfEducation extends React.Component {
     this.state = {
       isOpen: false,
       nameTypeEducation: "",
-      isOpenArchive:false
+      isOpenArchive: false,
     };
     this.openAddModal = this.openAddModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -61,11 +61,21 @@ class TypeOfEducation extends React.Component {
   };
 
   UNSAFE_componentWillMount() {
-    this.props.dispatch(getEducationType());
+    this.props.dispatch(
+      getEducationType(
+        this.props.userProfile.establishment_id,
+        this.props.userProfile.school_year_id
+      )
+    );
   }
   componentDidUpdate(prevProps) {
     if (prevProps.userProfile !== this.props.userProfile) {
-      this.props.dispatch(getEducationType());
+      this.props.dispatch(
+        getEducationType(
+          this.props.userProfile.establishment_id,
+          this.props.userProfile.school_year_id
+        )
+      );
     }
   }
   render() {
@@ -117,8 +127,9 @@ class TypeOfEducation extends React.Component {
         </div>
         <div className=" bd-highlight" style={{ width: "90%" }}>
           <CardBox styleName="col-lg-12">
-            <ArchiveTypeOfEducation isOpenArchive={this.state.isOpenArchive}
-            openArchiveModal={this.openArchiveModal}
+            <ArchiveTypeOfEducation
+              isOpenArchive={this.state.isOpenArchive}
+              openArchiveModal={this.openArchiveModal}
             ></ArchiveTypeOfEducation>
           </CardBox>
         </div>
