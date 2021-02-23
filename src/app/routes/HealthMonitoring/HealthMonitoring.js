@@ -15,8 +15,7 @@ import baseUrl from '../../../config/config';
 import { getSections } from '../../../actions/sectionAction';
 import { getLevels } from '../../../actions/classLevelAction';
 import { getLevelsVirtualClass } from '../../../actions/classLevelAction';
-import { getClassesByEstablishmentId } from '../../../actions/classeAction';
-import { UncontrolledAlert } from 'reactstrap';
+ import { UncontrolledAlert } from 'reactstrap';
 import Can from '../../../can';
 import { RoleContext } from '../../../Context';
 import TextField from '@material-ui/core/TextField';
@@ -369,25 +368,10 @@ componentDidMount(){
 
   componentWillMount() {
     this.props.getSections();
-    // this.props.getLevels();
-    this.props.getLevelsVirtualClass();
-    this.props.getClassesByEstablishmentId(this.props.userProfile.establishment_id);
-    this.props.getFicheMedicalByEstablishmentId(this.props.userProfile.establishment_id);
+     this.props.getLevelsVirtualClass();
+     this.props.getFicheMedicalByEstablishmentId(this.props.userProfile.establishment_id);
 this.setState({levelsbyestablishment: this.props.ClassLevels})
-    // axios
-    //   .get(
-    //     `${baseUrl.baseUrl}/establishments/` +
-    //       this.props.userProfile.establishment_id +
-    //       `?access_token=${localStorage.token}`
-    //   )
-    //   .then((res) => {
-    //     var levelsbyestablishment = getLevelListFromEstabType(this.props.classLevels,res.data.estab_type_id);
-    //     this.setState({
-    //       estabType: res.data.estab_type_id,
-    //       levelsbyestablishment: levelsbyestablishment,
-    //     });
-    //   });
-       
+   
   }
 
   render() {
@@ -605,7 +589,6 @@ export default connect(
     getSections,
     getLevels,
     getLevelsVirtualClass,
-    getClassesByEstablishmentId,
-    getFicheMedicalByEstablishmentId,
+     getFicheMedicalByEstablishmentId,
   }
 )(HealthMonitoring);

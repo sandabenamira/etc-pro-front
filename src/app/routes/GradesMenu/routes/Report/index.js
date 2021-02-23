@@ -12,8 +12,7 @@ import { getGrades } from "../../../../../actions/gradeAction";
 import { getSubject } from "../../../../../actions/subjectAction";
 import { getExam } from "../../../../../actions/examAction";
 import { getEstablishment } from "../../../../../actions/establishmentAction";
-import { getClasses } from "../../../../../actions/classeAction";
-import Table from '@material-ui/core/Table';
+ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -65,8 +64,7 @@ class Report extends React.Component {
     this.props.getSubject();
     this.props.getExam();
     this.props.getEstablishment();
-    this.props.getClasses();
-
+ 
     if (roleId === roleIdParent) {
        apiEndpoint = `/parents/findOne?access_token=${localStorage.token}&filter={"where":{"profile_id":` + localStorage.profileId + `}}`
       classService.get(apiEndpoint)
@@ -297,4 +295,4 @@ class Report extends React.Component {
 
 }
 
-export default connect(mapStateToProps, { getEstablishment, getGrades, getSubject, getExam, getClasses })(Report);
+export default connect(mapStateToProps, { getEstablishment, getGrades, getSubject, getExam })(Report);

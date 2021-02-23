@@ -6,8 +6,7 @@ import { deleteClassVirtual } from "../../../../../actions/VirtualClassAction";
 import { connect } from "react-redux";
 import axios from "axios";
 import baseUrl from "../../../../../config/config";
-import { getClassesByEstablishmentId } from "../../../../../actions/classeAction";
-import { roleIdProfessor } from "../../../../../config/config";
+ import { roleIdProfessor } from "../../../../../config/config";
 import _ from "lodash";
 import DeleteVirtualClass from "./DeleteVirtualClass";
 import JitsiComponent from "./JitsiComponent";
@@ -499,9 +498,7 @@ class VirtualClassList extends Component {
     });
   };
   UNSAFE_componentWillMount() {
-    this.props.getClassesByEstablishmentId(
-      this.props.userProfile.establishment_id
-    );
+    
     let newList= filterVirtualClass(this.props.virtualClasses)
     this.setState({ virtualClasses: newList });
     if (this.props.userProfile.role_id === roleIdProfessor) {
@@ -625,7 +622,6 @@ export default connect(
   mapStateToProps,
   {
     editClassVirtual,
-    getClassesByEstablishmentId,
-    deleteClassVirtual,
+     deleteClassVirtual,
   }
 )(VirtualClassList);

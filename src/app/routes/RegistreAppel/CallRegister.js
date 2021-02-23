@@ -18,8 +18,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CardBox from '../../../components/CardBox/index';
 import moment from 'moment';
-import { getClassesByEstablishmentId } from '../../../actions/classeAction';
-import { getSubjectName, getSubject } from '../../../actions/subjectAction';
+ import { getSubjectName, getSubject } from '../../../actions/subjectAction';
 import DateFnsUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
@@ -83,15 +82,13 @@ class CallRegister extends React.Component {
 
     componentDidMount() {
         if (!(_.isEmpty(this.props.userProfile))) {
-            this.props.dispatch(getClassesByEstablishmentId(this.props.userProfile.establishment_id))
-        }
+         }
         this.props.dispatch(getSubject())
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.userProfile !== this.props.userProfile && _.isEmpty(this.props.classesList.classes)) {
-            this.props.dispatch(getClassesByEstablishmentId(this.props.userProfile.establishment_id))
-        }
+         }
     }
 
     handleChangeClasse = name => event => {

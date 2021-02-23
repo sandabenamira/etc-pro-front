@@ -2,8 +2,7 @@ import React from "react";
 import IntlMessages from '../../../../../util/IntlMessages';
 import { connect } from "react-redux";
 import { getEstablishment } from "../../../../../actions/establishmentAction";
-import { getClasses, getClassesByEstablishmentId } from "../../../../../actions/classeAction";
-import { getPaymentsForParent, getPaymentsForStudent } from "../../../../../actions/PaymentAction";
+ import { getPaymentsForParent, getPaymentsForStudent } from "../../../../../actions/PaymentAction";
 import PaymentFilter from './PaymentFilter';
 import ContainerHeader from '../../../../../components/ContainerHeader/index';
 import { roleIdSuperAdmin, roleIdAdmin, roleIdParent, roleIdStudent, roleIdDirector } from '../../../../../config/config';
@@ -40,14 +39,12 @@ class PropertiesPayment extends React.Component {
     switch (parseInt(localStorage.roles_id)) {
       case roleIdSuperAdmin:
         this.props.dispatch(getEstablishment());
-        this.props.dispatch(getClasses());
-        break;
+         break;
 
       case roleIdAdmin:
       case roleIdDirector:
 
-        this.props.dispatch(getClassesByEstablishmentId(localStorage.establishment_id));
-        break;
+         break;
 
       case roleIdParent:
         this.props.dispatch(getPaymentsForParent(localStorage.profileId))

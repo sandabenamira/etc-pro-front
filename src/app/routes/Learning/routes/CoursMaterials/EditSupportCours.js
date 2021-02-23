@@ -10,8 +10,7 @@ import { UncontrolledAlert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getSections } from '../../../../../actions/sectionAction';
 import { getLevels } from '../../../../../actions/classLevelAction';
-import { getClassesByEstablishmentId } from '../../../../../actions/classeAction';
-import moment from 'moment';
+ import moment from 'moment';
 import _ from 'lodash';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -630,5 +629,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   getSections,
   getLevels,
-  getClassesByEstablishmentId,
-})(EditSupportCours);
+ })(EditSupportCours);
