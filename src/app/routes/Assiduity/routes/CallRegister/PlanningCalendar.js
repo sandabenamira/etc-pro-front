@@ -75,7 +75,7 @@ class PlanningCalendar extends React.Component {
                           <MenuItem key={0} value={'formation'}>
                             {'Formation'}
                           </MenuItem>
-                          <MenuItem key={0} value={'journalier'}>
+                          <MenuItem key={1} value={'journalier'}>
                             {'Journalier'}
                           </MenuItem>
                         </TextField>

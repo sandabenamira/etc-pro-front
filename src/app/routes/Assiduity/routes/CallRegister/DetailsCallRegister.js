@@ -121,12 +121,24 @@ class DetailsCallRegister extends React.Component {
     let TimeDate = dateFormat + 'T' + timeFormat;
     let eventId = event.id;
 
-    let apiEndpoint =
-      `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
-      eventId +
-      `&filter[where][and][1][start_date]=` +
-      TimeDate +
-      `&filter[include][studentCall][student][profile][user]`;
+    let apiEndpoint = '';
+    if (this.props.userProfile.role_id === roleIdParent) {
+      apiEndpoint =
+        `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+        eventId +
+        `&filter[where][and][1][start_date]=` +
+        TimeDate +
+        `&filter[where][fk_id_creator_profile]=` +
+        this.props.userProfile.id +
+        `&filter[include][studentCall][student][profile][user]`;
+    } else {
+      apiEndpoint =
+        `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+        eventId +
+        `&filter[where][and][1][start_date]=` +
+        TimeDate +
+        `&filter[include][studentCall][student][profile][user]`;
+    }
     classService.get(apiEndpoint).then((res) => {
       if (res) {
         if (res.data.length > 0) {
@@ -225,7 +237,7 @@ class DetailsCallRegister extends React.Component {
   }
 
   handleChangeSanction(event, id, student) {
-     let sanctionSelected = this.state.sanctions.filter(
+    let sanctionSelected = this.state.sanctions.filter(
       (sanction) => sanction.value == student.sanction
     );
     event.preventDefault();
@@ -350,88 +362,115 @@ class DetailsCallRegister extends React.Component {
         </div>
       );
     } else if (this.props.userProfile.role_id === roleIdAdmin) {
-      return (
-        <div id={'Popover-' + event.id}>
-          <span>
-            {event.eventType === 'lesson' ? (
+      if (false) {
+        return (
+          <div id={'Popover-' + event.id}>
+            <span>
+              {event.eventType === 'lesson' ? (
+                <div style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
+                  {' '}
+                  <b>{event.subjectName}</b>
+                  <br />{' '}
+                  {event.profGender === 'Féminin' ? (
+                    <p>
+                      Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
+                      {event.tagCallRegister ? (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'green', float: 'right' }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'red', float: 'right' }}
+                        ></i>
+                      )}{' '}
+                    </p>
+                  ) : (
+                    <p>
+                      M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
+                      {event.tagCallRegister ? (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'green', float: 'right' }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'red', float: 'right' }}
+                        ></i>
+                      )}{' '}
+                    </p>
+                  )}{' '}
+                </div>
+              ) : event.eventType === 'exam' ? (
+                <div style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
+                  {' '}
+                  <IntlMessages id="components.note.exam" />: <b>{event.subjectName}</b> <br />
+                  {event.profGender === 'Féminin' ? (
+                    <p>
+                      Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
+                      {event.tagCallRegister ? (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'green', float: 'right' }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'red', float: 'right' }}
+                        ></i>
+                      )}{' '}
+                    </p>
+                  ) : (
+                    <p>
+                      M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
+                      {event.tagCallRegister ? (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'green', float: 'right' }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="zmdi zmdi-circle zmdi-hc-lg "
+                          style={{ color: 'red', float: 'right' }}
+                        ></i>
+                      )}{' '}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                ''
+              )}
+            </span>
+          </div>
+        );
+      } else {
+        return (
+          <div id={'Popover-' + event.id}>
+            <span>
               <div style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
                 {' '}
-                <b>{event.subjectName}</b>
+                {event.tagCallRegister ? <b>{'appel fait'}</b> : <b>{'appel non fait'}</b>}
                 <br />{' '}
-                {event.profGender === 'Féminin' ? (
-                  <p>
-                    Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
-                    {event.tagCallRegister ? (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'green', float: 'right' }}
-                      ></i>
-                    ) : (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'red', float: 'right' }}
-                      ></i>
-                    )}{' '}
-                  </p>
-                ) : (
-                  <p>
-                    M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
-                    {event.tagCallRegister ? (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'green', float: 'right' }}
-                      ></i>
-                    ) : (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'red', float: 'right' }}
-                      ></i>
-                    )}{' '}
-                  </p>
-                )}{' '}
+                <p>
+                  {event.tagCallRegister ? (
+                    <i
+                      className="zmdi zmdi-circle zmdi-hc-lg "
+                      style={{ color: 'green', float: 'right' }}
+                    ></i>
+                  ) : (
+                    <i
+                      className="zmdi zmdi-circle zmdi-hc-lg "
+                      style={{ color: 'red', float: 'right' }}
+                    ></i>
+                  )}
+                </p>
               </div>
-            ) : event.eventType === 'exam' ? (
-              <div style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
-                {' '}
-                <IntlMessages id="components.note.exam" />: <b>{event.subjectName}</b> <br />
-                {event.profGender === 'Féminin' ? (
-                  <p>
-                    Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
-                    {event.tagCallRegister ? (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'green', float: 'right' }}
-                      ></i>
-                    ) : (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'red', float: 'right' }}
-                      ></i>
-                    )}{' '}
-                  </p>
-                ) : (
-                  <p>
-                    M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
-                    {event.tagCallRegister ? (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'green', float: 'right' }}
-                      ></i>
-                    ) : (
-                      <i
-                        className="zmdi zmdi-circle zmdi-hc-lg "
-                        style={{ color: 'red', float: 'right' }}
-                      ></i>
-                    )}{' '}
-                  </p>
-                )}
-              </div>
-            ) : (
-              ''
-            )}
-          </span>
-        </div>
-      );
+            </span>
+          </div>
+        );
+      }
     } else if (this.props.userProfile.role_id === roleIdParent) {
       return (
         <div id={'Popover-' + event.id}>
@@ -575,13 +614,6 @@ class DetailsCallRegister extends React.Component {
     };
   }
   componentDidMount() {
-    // this.props.dispatch(
-    //   getEventCallRegisterForAdmin(
-    //     this.props.userProfile.establishment_id,
-    //     this.props.userProfile.school_year_id,
-    //     this.props.match.params.classId
-    //   )
-    // );
     if (this.props.userProfile.role_id === roleIdProfessor) {
       this.props.dispatch(
         getEventCallRegisterForProf(
@@ -591,20 +623,19 @@ class DetailsCallRegister extends React.Component {
         )
       );
     } else if (this.props.userProfile.role_id === roleIdAdmin) {
-      this.props.dispatch(
-        getEventCallRegisterForAdmin(
-          this.props.userProfile.establishment_id,
-          this.props.userProfile.school_year_id,
-          this.props.match.params.classId
-        )
-      );
+      if (this.props.match.params.type === 'formation') {
+        this.props.dispatch(
+          getEventCallRegisterForAdmin(
+            this.props.userProfile.establishment_id,
+            this.props.userProfile.school_year_id,
+            this.props.match.params.classId
+          )
+        );
+      } else {
+        this.props.dispatch(getEventCallRegisterForParent(231));
+      }
     } else if (this.props.userProfile.role_id === roleIdParent) {
-      this.props.dispatch(
-        getEventCallRegisterForParent(
-         
-          this.props.userProfile.id
-        )
-      );
+      this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
     }
     let dateFormat = moment(this.props.match.params.startDate).format('YYYY-MM-DD');
     let timeFormat = moment(this.props.match.params.startDate)
@@ -612,12 +643,24 @@ class DetailsCallRegister extends React.Component {
       .format('HH:mm:ss[Z]');
     let TimeDate = dateFormat + 'T' + timeFormat;
     let eventId = this.props.match.params.eventId;
-    let apiEndpoint =
-      `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
-      eventId +
-      `&filter[where][and][1][start_date]=` +
-      TimeDate +
-      `&filter[include][studentCall][student][profile][user]`;
+    let apiEndpoint = '';
+    if (this.props.userProfile.role_id === roleIdParent) {
+      apiEndpoint =
+        `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+        eventId +
+        `&filter[where][and][1][start_date]=` +
+        TimeDate +
+        `&filter[where][fk_id_creator_profile]=` +
+        this.props.userProfile.id +
+        `&filter[include][studentCall][student][profile][user]`;
+    } else {
+      apiEndpoint =
+        `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+        eventId +
+        `&filter[where][and][1][start_date]=` +
+        TimeDate +
+        `&filter[include][studentCall][student][profile][user]`;
+    }
     classService.get(apiEndpoint).then((res) => {
       if (res) {
         if (res.data.length > 0) {
@@ -652,7 +695,10 @@ class DetailsCallRegister extends React.Component {
     );
 
     if (!_.isEmpty(eventSelected)) {
-      if (this.props.userProfile.role_id !== roleIdParent) {
+      if (
+        this.props.userProfile.role_id !== roleIdParent &&
+        this.props.match.params.type === 'formation'
+      ) {
         const classId = eventSelected[0].classId;
         let apiEndpoint = `/class_v4/${classId}?access_token=${localStorage.token}&filter[include][level][educationType][callRegisterSetting]`;
         classService.get(apiEndpoint).then((res) => {
@@ -719,20 +765,19 @@ class DetailsCallRegister extends React.Component {
           )
         );
       } else if (this.props.userProfile.role_id === roleIdAdmin) {
-        this.props.dispatch(
-          getEventCallRegisterForAdmin(
-            this.props.userProfile.establishment_id,
-            this.props.userProfile.school_year_id,
-            this.props.match.params.classId
-          )
-        );
+        if (this.props.match.params.type === 'formation') {
+          this.props.dispatch(
+            getEventCallRegisterForAdmin(
+              this.props.userProfile.establishment_id,
+              this.props.userProfile.school_year_id,
+              this.props.match.params.classId
+            )
+          );
+        } else {
+          this.props.dispatch(getEventCallRegisterForParent(231));
+        }
       } else if (this.props.userProfile.role_id === roleIdParent) {
-        this.props.dispatch(
-          getEventCallRegisterForParent(
-          
-            this.props.userProfile.id
-          )
-        );
+        this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
       }
       if (this.props.userProfile.role_id === roleIdParent) {
         this.props.dispatch(getStudentsCallRegisterForParent(this.props.userProfile.id));
@@ -756,9 +801,7 @@ class DetailsCallRegister extends React.Component {
           element.id === parseInt(this.props.match.params.eventId, 10) &&
           moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
       );
-      this.setState({
-        event: eventSelected[0],
-      });
+
       if (!_.isEmpty(eventSelected)) {
         if (this.props.userProfile.role_id !== roleIdParent) {
           const classId = eventSelected[0].classId;
@@ -850,7 +893,7 @@ class DetailsCallRegister extends React.Component {
     }
   }
   render() {
-     let newMatch = {
+    let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
       url: this.props.match.url,
       isExact: this.props.match.isExact,
@@ -861,11 +904,19 @@ class DetailsCallRegister extends React.Component {
     const endDayTime = new Date('2020-11-30T17:00:00.000Z');
     let events = this.props.events ? this.props.events : [];
     if (this.state.isRedirect == true) {
-      return (
-        <Redirect
-          to={`/app/assiduity/call_register/${this.props.match.params.classId}/${this.state.event.classeName}`}
-        />
-      );
+      if (this.props.userProfile.role_id === roleIdParent) {
+        return <Redirect to={`/app/assiduity/call_register`} />;
+      } else {
+        if (this.props.match.params.type === 'formation') {
+          return (
+            <Redirect
+              to={`/app/assiduity/call_register/${this.props.match.params.classId}/${this.state.event.classeName}`}
+            />
+          );
+        } else {
+          return <Redirect to={`/app/assiduity/call_register`} />;
+        }
+      }
     } else {
       return (
         <div
@@ -1044,11 +1095,7 @@ class DetailsCallRegister extends React.Component {
                                 color: element.sanction ? 'pink' : 'Grey',
                               }}
                               onClick={(event) =>
-                                this.handleChangeSanction(
-                                  event,
-                                  element.studentId,
-                                  element
-                                )
+                                this.handleChangeSanction(event, element.studentId, element)
                               }
                             />
                           </div>
@@ -1200,25 +1247,27 @@ class DetailsCallRegister extends React.Component {
                     )}
                   </div>
                 ))}
-              <div className="d-flex justify-content-end mt-5">
-                <Button
-                  disabled={this.state.callRegister.length == 0}
-                  variant="contained"
-                  style={{
-                    borderBottomLeftRadius: '16px',
-                    borderBottomRightRadius: '16px',
-                    borderTopLeftRadius: '16px',
-                    borderTopRightRadius: '16px',
-                    width: '100px',
-                    height: '40px',
-                    marginRight: '10%',
-                  }}
-                  className=" bg-indigo text-white "
-                  onClick={this.handleSubmit}
-                >
-                  <IntlMessages id="button.save.registreAppel" />
-                </Button>
-              </div>
+              {this.props.match.params.type === 'formation' && (
+                <div className="d-flex justify-content-end mt-5">
+                  <Button
+                    disabled={this.state.callRegister.length == 0}
+                    variant="contained"
+                    style={{
+                      borderBottomLeftRadius: '16px',
+                      borderBottomRightRadius: '16px',
+                      borderTopLeftRadius: '16px',
+                      borderTopRightRadius: '16px',
+                      width: '100px',
+                      height: '40px',
+                      marginRight: '10%',
+                    }}
+                    className=" bg-indigo text-white "
+                    onClick={this.handleSubmit}
+                  >
+                    <IntlMessages id="button.save.registreAppel" />
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
 
