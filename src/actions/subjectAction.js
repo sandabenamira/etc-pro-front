@@ -301,31 +301,7 @@ export function deleteSubjectSetting(itemId) {
   };
 }
 
-export function assignSubjectSetting(data) {
-  return (dispatch) => {
-    let apiEndpoint = `/subject_level_sections?access_token=${localStorage.token}`;
-    classService.post(apiEndpoint, data).then((response) => {
-      if (response) {
-        dispatch({
-          type: SHOW_SUCCESS_MESSAGE,
-          payload: "L'affectation du matière est effectuée avec succès",
-        });
-        setTimeout(() => {
-          dispatch({ type: HIDE_SUCCESS_MESSAGE });
-        }, 4000);
-      } else {
-        dispatch({
-          type: SHOW_ERROR_MESSAGE,
-          payload:
-            "Une erreur est survenue lors d'affctation merci d'essayer à nouveau",
-        });
-        setTimeout(() => {
-          dispatch({ type: HIDE_ERROR_MESSAGE });
-        }, 4000);
-      }
-    });
-  };
-}
+ 
 
 export function getSubjectByEstablishmentAndSchoolYear(
   establishementId,
