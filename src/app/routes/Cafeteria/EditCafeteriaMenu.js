@@ -11,9 +11,7 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/moment';
 import { connect } from 'react-redux';
-import { getSections } from '../../../actions/sectionAction';
-import { getLevels } from '../../../actions/classLevelAction';
- import moment from 'moment';
+  import moment from 'moment';
 import { UncontrolledAlert } from 'reactstrap';
 
 class EditCafeteriaMenu extends Component {
@@ -244,7 +242,5 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
-    getSections,
-    getLevels,
-   }
+    }
 )(EditCafeteriaMenu);

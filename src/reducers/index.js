@@ -5,11 +5,10 @@ import Auth from "./Auth";
 import establishmentReducer from "./establishmentReducer";
 import StudentReducer from "./StudentReducer";
 import professorReducer from "./professorReducer";
- import ModuleReducer from "./ModuleReducer";
+import ModuleReducer from "./ModuleReducer";
 import planningReducer from "./planningReducer";
 import ClassLevel from "./ClassLevel";
 import ClassSettingsReducer from "./ClassSettingsReducer";
-import Mail from "./Mail";
 import Complaint from "./Complaint";
 import noteReducer from "./noteReducer";
 import callRegisterReducer from "./callRegisterReducer";
@@ -46,8 +45,6 @@ import HomeworkReducer from "./HomeworkReducer";
 import GroupsReducer from "./GroupsReducer";
 import AgenceReducer from "./AgenceSettingsReducer";
 
-import MailReducer from "./MailReducer";
-
 export default (history) =>
   combineReducers({
     router: connectRouter(history),
@@ -56,9 +53,8 @@ export default (history) =>
     establishment: establishmentReducer,
     student: StudentReducer,
     professor: professorReducer,
-    mail: Mail,
     complaint: Complaint,
-     subject: subjectReducer,
+    subject: subjectReducer,
     grade: noteReducer,
     callRegister: callRegisterReducer,
     module: ModuleReducer,
@@ -95,6 +91,5 @@ export default (history) =>
     PermissionReducer: PermissionReducer,
     HomeworkReducer: HomeworkReducer,
     GroupsReducer: GroupsReducer,
-    MailReducer: MailReducer,
     AgenceReducer: AgenceReducer,
   });
