@@ -143,9 +143,13 @@ export const addUsers = (data) => {
       studentId: data.studentId,
       groupId: data.groupId,
       userIdentifier: data.userIdentifier,
-      // agenceId: data.agenceId,
+      agencyId: data.agenceId,
+      statusBelongTo: true,
+      activityUserBelongAgency: true,
+
       // contratType:data.contratType
     };
+    console.log('--------dataUser----------',dataUser);
     let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, dataUser).then((response) => {
       if (!response) {
