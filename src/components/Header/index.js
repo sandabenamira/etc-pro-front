@@ -5,9 +5,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Avatar from "@material-ui/core/Avatar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Popper from "@material-ui/core/Popper";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import { NavLink } from "react-router-dom";
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
@@ -15,18 +12,12 @@ import { userSignOut } from "../../actions/Auth";
 import ColorOption from "../../containers/Customizer/ColorOption";
 import imageStudent from "../../assets/images/supAdmin.png";
 import {
-  BELOW_THE_HEADER,
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
   HORIZONTAL_NAVIGATION,
-  INSIDE_THE_HEADER,
 } from "../../constants/ActionTypes";
 import SearchBox from "../../components/SearchBox";
-import MailNotification from "../MailNotification/index";
-import AppNotification from "../AppNotification/index";
-import CardHeader from "../../components/dashboard/Common/CardHeader/index";
 import { switchLanguage, toggleCollapsedNav } from "../../actions/Setting";
-import baseUrl from "../../config/config";
 import { classService } from "../../_services/class.service";
 import IntlMessages from "../../util/IntlMessages";
 import LanguageSwitcher from "../../components/LanguageSwitcher/index";
@@ -34,20 +25,21 @@ import Menu from "@material-ui/core/Menu";
 import UserInfoPopup from "../../components/UserInfo/UserInfoPopup";
 import SchoolYearModal from "../../app/routes/Administration/routes/SchoolYear/SchoolYearModal";
 import MenuHeader from "../../components/TopNav/Menu";
+import _ from "lodash";
 
 function getRoleNameByID(roleId) {
   switch (roleId) {
-    case "1":
+    case 1:
       return <IntlMessages id="role.superAdmin" />;
-    case "2":
+    case 2:
       return <IntlMessages id="role.admin" />;
-    case "3":
+    case 3:
       return <IntlMessages id="toDo.professor" />;
-    case "4":
+    case 4:
       return <IntlMessages id="userStuppDisplay.Parent" />;
-    case "5":
+    case 5:
       return <IntlMessages id="userStuppDisplay.Student" />;
-    case "6":
+    case 6:
       return <IntlMessages id="role.supervisor" />;
     default:
       return "";
@@ -55,6 +47,29 @@ function getRoleNameByID(roleId) {
 }
 
 class Header extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      openProfile: false,
+      anchorElProfile: undefined,
+      roleName: "",
+      colorOption: false,
+      establishmentName: "",
+      uri: "",
+      establishmentName_ar: "",
+
+      anchorEl: undefined,
+      searchBox: false,
+      searchText: "",
+      mailNotification: false,
+      userInfo: false,
+      langSwitcher: false,
+      appNotification: false,
+      schoolyear: "2019/2020",
+      openSchoolYearModal: false,
+      schoolYearName: "",
+    };
+  }
   activePanel = () => {
     this.setState({ colorOption: true });
     this.setState({ openProfile: false });
@@ -73,6 +88,7 @@ class Header extends React.Component {
     this.setState({
       openProfile: false,
       roleName: "",
+      anchorElProfile: undefined,
     });
   };
 
@@ -82,29 +98,24 @@ class Header extends React.Component {
   handleCancelModal() {
     this.setState({ openSchoolYearModal: false });
   }
+  UNSAFE_componentWillMount() {
+    if (!_.isEmpty(this.props.userProfile)) {
+      this.setState({
+        establishmentName: this.props.userProfile.establishments[0]
+          .establishment.name,
+        schoolYearName: this.props.userProfile.establishments[0].establishment
+          .licence[0].schoolYear.name,
+      });
+    }
+  }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.userProfile.establishment_id !==
-      this.props.userProfile.establishment_id
-    ) {
-      let apiEndpoint =
-        `/establishments/` +
-        this.props.userProfile.establishment_id +
-        `?access_token=${localStorage.token}`;
-      classService.get(apiEndpoint).then((res) => {
-        if (res) {
-          const establishmentName = res.data.name;
-          const establishmentName_ar = res.data.ar_name;
-          this.setState({
-            establishmentName,
-            establishmentName_ar: establishmentName_ar,
-            uri: res.data.logo,
-            // `${baseUrl.baseUrl}/containers/` +
-            // establishmentName +
-            // `/download?access_token=${localStorage.token}`,
-          });
-        }
+    if (prevProps.userProfile !== this.props.userProfile) {
+      this.setState({
+        establishmentName: this.props.userProfile.establishments[0]
+          .establishment.name,
+        schoolYearName: this.props.userProfile.establishments[0].establishment
+          .licence[0].schoolYear.name,
       });
     }
   }
@@ -155,29 +166,6 @@ class Header extends React.Component {
     this.props.toggleCollapsedNav(val);
   };
 
-  constructor() {
-    super();
-    this.state = {
-      openProfile: false,
-      anchorElProfile: undefined,
-      roleName: "",
-      colorOption: false,
-      establishmentName: "",
-      uri: "",
-      establishmentName_ar: "",
-
-      anchorEl: undefined,
-      searchBox: false,
-      searchText: "",
-      mailNotification: false,
-      userInfo: false,
-      langSwitcher: false,
-      appNotification: false,
-      schoolyear: "2019/2020",
-      openSchoolYearModal: false,
-    };
-  }
-
   updateSearchText(evt) {
     this.setState({
       searchText: evt.target.value,
@@ -187,7 +175,7 @@ class Header extends React.Component {
     const roleIdSuperAdmin = 1;
     const roleIdAdmin = 2;
     const roleIdProfessor = 3;
-    const roleId = parseInt(localStorage.roles_id);
+    const roleId = parseInt(this.props.userProfile.roles_id);
     return (
       <ul className="jr-list jr-list-half">
         {(() => {
@@ -267,8 +255,9 @@ class Header extends React.Component {
       ? "d-block"
       : "d-none";
     const establishmentName = this.state.establishmentName;
-    const user = this.props.userProfile.user;
-     // const schoolyear = JSON.parse(localStorage.getItem("school_year_name"));
+    const user = this.props.userProfile.user; 
+
+    // const schoolyear = JSON.parse(localStorage.getItem("school_year_name"));
     return (
       <AppBar className="app-main-header jr-border-radius" position="relative">
         {user != undefined && (
@@ -291,28 +280,28 @@ class Header extends React.Component {
                 <span className="menu-icon" />
               </IconButton>
             )}
-            {/* <li className="list-inline-item"> */}
-            {languageId === "tunisia" ? (
+            <h4 className="mb-0 mr-auto text-white">
+              {establishmentName.toUpperCase() +
+                "   " +
+                "(" +
+                " " +
+                this.state.schoolYearName +
+                " " +
+                ")"}
+            </h4>
+            {/* {languageId === 'tunisia' ? (
               <h4 className="mb-0 mr-auto text-white">
                 {this.state.establipaddshmentName_ar +
-                  "   " +
-                  "(" +
-                  " " +
+                  '   ' +
+                  '(' +
+                  ' ' +
                   this.props.userProfile.school_year_name +
-                  " " +
-                  ")"}
+                  ' ' +
+                  ')'}
               </h4>
             ) : (
-              <h4 className="mb-0 mr-auto text-white">
-                {establishmentName.toUpperCase() +
-                  "   " +
-                  "(" +
-                  " " +
-                  this.props.userProfile.school_year_name +
-                  " " +
-                  ")"}
-              </h4>
-            )}
+      
+            )} */}
 
             <MenuHeader estabModule={this.props.estabModule} />
 
@@ -388,18 +377,12 @@ class Header extends React.Component {
               </li>
 
               <li className="list-inline-item">
-                {languageId === "tunisia" ? (
-                  <h4 className="mb-0 mr-auto text-white">
-                    {user.name_ar} {user.surname_ar}
-                  </h4>
-                ) : (
-                  <h4 className="mb-0 mr-auto text-white">
-                    {user.surname} {user.name}
-                  </h4>
-                )}
+                <h4 className="mb-0 mr-auto text-white">
+                {user.name.charAt(0).toUpperCase() + user.name.slice(1)} {user.surname.toUpperCase()}
+               
+                </h4>
                 <h5 className="mb-0 mr-auto text-grey">
-                  {" "}
-                  {getRoleNameByID(localStorage.roles_id)}
+                  {getRoleNameByID(this.props.userProfile.role_id)}
                 </h5>
               </li>
               {navigationStyle === HORIZONTAL_NAVIGATION && (
@@ -426,7 +409,7 @@ class Header extends React.Component {
             </ul>
             <div
               className="user-detail"
-              onClick={this.handleClick}
+              // onClick={this.handleClick}
               onBlur={this.handleRequestCloseMenuProfile}
             >
               {user.photo != null ? (
@@ -434,12 +417,14 @@ class Header extends React.Component {
                   alt="..."
                   src={user.photo}
                   className="ml-2 ml-lg-4 d-none d-sm-block"
+                  onClick={this.handleClick}
                 />
               ) : (
                 <Avatar
                   alt="..."
                   src={imageStudent}
                   className="ml-2 ml-lg-4 d-none d-sm-block"
+                  onClick={this.handleClick}
                 />
               )}
               <Menu

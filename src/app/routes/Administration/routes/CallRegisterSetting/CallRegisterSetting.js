@@ -94,7 +94,8 @@ export class CallRegisterSetting extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.props.dispatch(getEducationType());
+    this.props.dispatch(getEducationType(this.props.userProfile.establishment_id,
+      this.props.userProfile.school_year_id,));
     this.props.dispatch(getObservationList());
     this.props.dispatch(getEncouragementList());
     this.props.dispatch(getSanctionList());

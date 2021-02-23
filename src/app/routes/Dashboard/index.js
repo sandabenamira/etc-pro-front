@@ -95,32 +95,32 @@ class Dashboard extends React.Component {
   componentDidMount() {
 
     let apiEndpoint = "";
-    apiEndpoint = `/profiles/count?access_token=${localStorage.token}&where={"establishment_id":${localStorage.establishment_id},"role_id":${roleIdStudent}}`;
+    apiEndpoint = `/profiles/count?access_token=${localStorage.token}&where={"establishment_id":${this.props.userProfile.establishment_id},"role_id":${roleIdStudent}}`;
     classService.get(apiEndpoint).then(response => {
       if (response) {
         this.setState({ countesStudents: response.data.count });
       }
     });
-    apiEndpoint = `/profiles/count?access_token=${localStorage.token}&where={"establishment_id":${localStorage.establishment_id},"role_id":${roleIdProfessor}}`;
+    apiEndpoint = `/profiles/count?access_token=${localStorage.token}&where={"establishment_id":${this.props.userProfile.establishment_id},"role_id":${roleIdProfessor}}`;
     classService.get(apiEndpoint).then(response => {
       if (response) {
         this.setState({ countesProfessors: response.data.count });
       }
     });
-    apiEndpoint = `/profiles/count?access_token=${localStorage.token}&where={"establishment_id":${localStorage.establishment_id},"role_id":${roleIdParent}}`;
+    apiEndpoint = `/profiles/count?access_token=${localStorage.token}&where={"establishment_id":${this.props.userProfile.establishment_id},"role_id":${roleIdParent}}`;
     classService.get(apiEndpoint).then(response => {
       if (response) {
         this.setState({ countesParents: response.data.count });
       }
     });
-    apiEndpoint = `/complaints/count?access_token=${localStorage.token}&where={"establishment_id":${localStorage.establishment_id}}`;
+    apiEndpoint = `/complaints/count?access_token=${localStorage.token}&where={"establishment_id":${this.props.userProfile.establishment_id}}`;
     classService.get(apiEndpoint).then(response => {
       if (response) {
         this.setState({ countesComplaints: response.data.count });
       }
     });
     // card4
-    apiEndpoint = `/profiles?access_token=${localStorage.token}&filter[include]=user&filter[where][and][0][establishment_id]=${localStorage.establishment_id}&filter[where][and][1][role_id]=${roleIdStudent}`;
+    apiEndpoint = `/profiles?access_token=${localStorage.token}&filter[include]=user&filter[where][and][0][establishment_id]=${this.props.userProfile.establishment_id}&filter[where][and][1][role_id]=${roleIdStudent}`;
 
     classService.get(apiEndpoint).then(response => {
       if (response) {
@@ -134,7 +134,7 @@ class Dashboard extends React.Component {
     let classId = 0
     const status = 'Non payé'
     const month = moment(currentDate)._d.getMonth() + 1
-    apiEndpoint = `/classes?access_token=${localStorage.token}&filter[where][establishment_id]=${localStorage.establishment_id}`;
+    apiEndpoint = `/classes?access_token=${localStorage.token}&filter[where][establishment_id]=${lthis.props.userProfile.establishment_id}`;
     classService.get(apiEndpoint).then(response => {
       if (response) {
         let arr = response.data
