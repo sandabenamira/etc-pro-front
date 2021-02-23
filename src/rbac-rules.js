@@ -74,6 +74,7 @@ const rules = {
       'module-nav-note',
       'module-nav-satisfaction-question',
       'module-nav-reporting-kpi',
+      "call-register-filter-class:visit"
     ],
     dynamic: {
       'module-nav-access': ({ mod, moduleList }) => {
@@ -218,6 +219,8 @@ const rules = {
       'module-nav-note',
       'module-nav-satisfaction-question',
       'module-nav-reporting-kpi',
+      'module-nav-call_register',
+
 
     ],
     dynamic: {
@@ -254,6 +257,7 @@ const rules = {
       'module-nav-note',
       'module-nav-satisfaction-question',
       'module-nav-reporting-kpi',
+      "call-register-filter-class:visit"
 
       
     ],
@@ -350,6 +354,7 @@ const rules = {
       'module-nav-note',
       'module-nav-satisfaction-question',
       'module-nav-reporting-kpi',
+      "call-register-filter-class:visit"
 
     ],
 
@@ -494,7 +499,7 @@ const rules = {
       'module-nav-satisfaction-question',
       'module-nav-reporting-kpi',
       'module-nav-agenceSetting',
-      
+      "call-register-filter-class:visit"
 
       
     ],
@@ -622,6 +627,7 @@ const rules = {
       'module-nav-internal_mail',
       'module-nav-note',
       'module-nav-satisfaction-question',
+      "call-register-filter-class:visit"
     ],
 
     dynamic: {
