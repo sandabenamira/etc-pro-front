@@ -118,7 +118,7 @@ export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
   let objMail = {};
   objMail.classId = itemSuplimentaire.classId;
   objMail.notifMsg = notifMsg;
-  objMail.establishmentId = itemSuplimentaire.establishmentId
+  objMail.establishmentId = itemSuplimentaire.establishmentId;
 
   return (dispatch) => {
     let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
@@ -127,7 +127,7 @@ export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
         if (notifMsg != undefined && notifMsg != '') {
           let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
           classService.post(apiEndpoint1, objMail).then((response) => {
-            //  
+            //
           });
         }
         dispatch(
@@ -485,7 +485,7 @@ export const editEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
   let objMail = {};
   objMail.classId = itemSuplimentaire.classId;
   objMail.notifMsg = notifMsg;
-  objMail.establishmentId = itemSuplimentaire.establishmentId
+  objMail.establishmentId = itemSuplimentaire.establishmentId;
 
   return (dispatch) => {
     let apiEndpoint = `/planning_events/` + itemEvent.id + `?access_token=${localStorage.token}`;
@@ -525,7 +525,7 @@ export const deleteEvent = (
   let objMail = {};
   objMail.classId = classId;
   objMail.notifMsg = messageNotif;
-  objMail.establishmentId = establishmentId
+  objMail.establishmentId = establishmentId;
 
   return (dispatch) => {
     let apiEndpoint =
@@ -575,9 +575,7 @@ export const deleteEvent = (
               //*************notiif mail delete event */
 
               let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
-              classService.post(apiEndpoint1, objMail).then((response) => {
-              
-              });
+              classService.post(apiEndpoint1, objMail).then((response) => {});
               dispatch({
                 type: SHOW_SUCCESS_MESSAGE,
                 payload: 'Cet évènement est supprimé avec succès',
@@ -717,6 +715,31 @@ export const getEventCallRegisterForProf = (establishementId, schoolYearId, prof
             };
             newListEvents.push(newEvent);
           }
+        });
+
+        dispatch({ type: GET_EVENTS_call_REGISTER, payload: newListEvents });
+      }
+    });
+  };
+};
+export const getEventCallRegisterForParent = (profileId) => {
+  return (dispatch) => {
+    let apiEndpoint = `/planning_events/fetchScheduleParent/${profileId}?access_token=${localStorage.token}`;
+    classService.get(apiEndpoint).then((response) => {
+      if (response) {
+        let listEvents = response.data.parentSchedule;
+        let newListEvents = [];
+        let newEvent = {};
+
+        listEvents.forEach((event) => {
+          newEvent = {
+            id: event.id,
+            start: new Date(event.start),
+            end: new Date(event.end),
+            status: event.status,
+            tagCallRegister: event.tagCallRegister,
+          };
+          newListEvents.push(newEvent);
         });
 
         dispatch({ type: GET_EVENTS_call_REGISTER, payload: newListEvents });

@@ -35,14 +35,16 @@ function getRoleNameByID(roleId) {
       return <IntlMessages id="role.admin" />;
     case 3:
       return <IntlMessages id="toDo.professor" />;
-    case 4:
-      return <IntlMessages id="userStuppDisplay.Parent" />;
-    case 5:
-      return <IntlMessages id="userStuppDisplay.Student" />;
-    case 6:
-      return <IntlMessages id="role.supervisor" />;
+      case 4:
+        return "Chef d'agence";
+      case 5:
+        return 'Collaborateur';
+      case 6:
+        return 'Responsable formation';
+      case '7':
+        return 'Directeur Des Ressources Humaines';
     default:
-      return "";
+      return '';
   }
 }
 
@@ -182,10 +184,7 @@ class Header extends React.Component {
           if (roleId === roleIdSuperAdmin || roleId === roleIdAdmin) {
             return (
               <li className="jr-list-item">
-                <Link
-                  className="jr-list-link"
-                  to="/app/administration/establishment"
-                >
+                <Link className="jr-list-link" to="/app/administration/establishment">
                   <i className="zmdi zmdi-graduation-cap" />
                   <span className="jr-list-text">
                     <IntlMessages id="sidebar.administration" />
@@ -197,11 +196,7 @@ class Header extends React.Component {
         })()}
 
         {(() => {
-          if (
-            roleId === roleIdProfessor ||
-            roleId === roleIdAdmin ||
-            roleId === roleIdSuperAdmin
-          ) {
+          if (roleId === roleIdProfessor || roleId === roleIdAdmin || roleId === roleIdSuperAdmin) {
             return (
               <li className="jr-list-item">
                 <Link className="jr-list-link" to="/app/call_register">
@@ -242,18 +237,12 @@ class Header extends React.Component {
   };
 
   render() {
-    const {
-      drawerType,
-      locale,
-      navigationStyle,
-      horizontalNavPosition,
-      languageId,
-    } = this.props;
+    const { drawerType, locale, navigationStyle, horizontalNavPosition, languageId } = this.props;
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
-      ? "d-block d-xl-none"
+      ? 'd-block d-xl-none'
       : drawerType.includes(COLLAPSED_DRAWER)
-      ? "d-block"
-      : "d-none";
+      ? 'd-block'
+      : 'd-none';
     const establishmentName = this.state.establishmentName;
     const user = this.props.userProfile.user; 
 
@@ -263,10 +252,7 @@ class Header extends React.Component {
         {user != undefined && (
           <Toolbar>
             {navigationStyle === HORIZONTAL_NAVIGATION ? (
-              <div
-                className="d-block d-md-none pointer mr-3"
-                onClick={this.onToggleCollapsedNav}
-              >
+              <div className="d-block d-md-none pointer mr-3" onClick={this.onToggleCollapsedNav}>
                 <span className="jr-menu-icon">
                   <span className="menu-icon" />
                 </span>
@@ -316,11 +302,7 @@ class Header extends React.Component {
                 isOpen={this.state.searchBox}
                 toggle={this.onSearchBoxSelect.bind(this)}
               >
-                <DropdownToggle
-                  className="d-inline-block"
-                  tag="span"
-                  data-toggle="dropdown"
-                >
+                <DropdownToggle className="d-inline-block" tag="span" data-toggle="dropdown">
                   <IconButton className="icon-btn size-30">
                     <i className="zmdi zmdi-search zmdi-hc-fw" />
                   </IconButton>
@@ -351,15 +333,11 @@ class Header extends React.Component {
                   isOpen={this.state.langSwitcher}
                   toggle={this.onLangSwitcherSelect.bind(this)}
                 >
-                  <DropdownToggle
-                    className="d-inline-block"
-                    tag="span"
-                    data-toggle="dropdown"
-                  >
+                  <DropdownToggle className="d-inline-block" tag="span" data-toggle="dropdown">
                     <IconButton className="icon-btn ">
-                      {locale.languageId === "tunisia" ? (
+                      {locale.languageId === 'tunisia' ? (
                         <i className="tn flag"></i>
-                      ) : locale.languageId === "english" ? (
+                      ) : locale.languageId === 'english' ? (
                         <i className="us flag"></i>
                       ) : (
                         <i className="fr flag"></i>
@@ -392,11 +370,7 @@ class Header extends React.Component {
                     isOpen={this.state.userInfo}
                     toggle={this.onUserInfoSelect.bind(this)}
                   >
-                    <DropdownToggle
-                      className="d-inline-block"
-                      tag="span"
-                      data-toggle="dropdown"
-                    >
+                    <DropdownToggle className="d-inline-block" tag="span" data-toggle="dropdown">
                       <IconButton className="icon-btn size-30"></IconButton>
                     </DropdownToggle>
 
@@ -457,13 +431,13 @@ class Header extends React.Component {
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    this.setState({ roleName: "" });
+                    this.setState({ roleName: '' });
                     this.handleRequestCloseMenuProfile();
                     this.props.userSignOut();
                   }}
                 >
                   <i className="zmdi zmdi-sign-in zmdi-hc-fw mr-2" />
-                  <IntlMessages id="user.signOut" />{" "}
+                  <IntlMessages id="user.signOut" />{' '}
                 </MenuItem>
               </Menu>
             </div>
@@ -473,7 +447,7 @@ class Header extends React.Component {
         {this.state.colorOption ? (
           <ColorOption cancelPanel={this.handleCancelPanel.bind(this)} />
         ) : (
-          ""
+          ''
         )}
         {this.state.openSchoolYearModal ? (
           <SchoolYearModal
@@ -481,7 +455,7 @@ class Header extends React.Component {
             openSchoolYearModal={this.state.openSchoolYearModal}
           />
         ) : (
-          ""
+          ''
         )}
       </AppBar>
     );
@@ -489,13 +463,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = ({ settings, auth, establishment }) => {
-  const {
-    drawerType,
-    locale,
-    navigationStyle,
-    horizontalNavPosition,
-    languageId,
-  } = settings;
+  const { drawerType, locale, navigationStyle, horizontalNavPosition, languageId } = settings;
   return {
     drawerType,
     locale,
@@ -508,7 +476,5 @@ const mapStateToProps = ({ settings, auth, establishment }) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, { toggleCollapsedNav, switchLanguage, userSignOut })(
-    Header
-  )
+  connect(mapStateToProps, { toggleCollapsedNav, switchLanguage, userSignOut })(Header)
 );

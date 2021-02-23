@@ -60,7 +60,6 @@ class CourseAssignment extends React.Component {
   deleteHoraire = (index) => {
     let newHoraireList = [];
     let newIndex = 0;
-
     this.state.horaireList.map((element) => {
       if (element.id !== index) {
         newHoraireList.push({ ...element, id: newIndex });
