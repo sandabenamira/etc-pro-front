@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import IconWithTextCard from "../IconWithTextCard";
 import IntlMessages from "../../../../util/IntlMessages";
 import CardHeader from "../../../../components/dashboard/default/CardHeader";
-import logo2 from "../../../../assets/images/dashboard/logo2.jpg";
+import logoBiat from "../../../../assets/images/dashboard/logoBiat.png";
 import { connect } from "react-redux";
 import moment from "moment";
 import "moment/locale/fr";
@@ -100,9 +100,9 @@ class AdminDashboard extends Component {
         <div class="d-flex flex-row flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12 bd-highlight mb-3">
           <div class="p-2 bd-highlight">
             <img
-              src={logo2}
+              src={logoBiat}
               alt="Logo"
-              style={{ height: "200px", width: "auto" }}
+              style={{ height: "100px", width: "300px" }}
             />
           </div>
           <div class="p-2 bd-highlight align-self-center">
