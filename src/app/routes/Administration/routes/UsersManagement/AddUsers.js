@@ -533,7 +533,9 @@ class AddUsers extends React.Component {
                     // onChange={this.props.handleChangeSchoolYear}
                     // defaultValue={this.props.userProfile.school_year_name}
                     defaultValue={{
-                      label: this.props.userProfile.school_year_name,
+                      // label: this.props.userProfile.school_year_name,
+                      label:this.props.userProfile.establishments[0].establishment
+                      .licence[0].schoolYear.name,
                       id: 0,
                     }}
                     id="role"
@@ -651,62 +653,7 @@ class AddUsers extends React.Component {
                         }}
                       />{' '}
                     </div>
-                    {/* <div className="col-md-6 col-lg-2 col-sm-12 p-0">
-                      <InputLabel
-                        htmlFor="nomSelect"
-                        style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
-                        }}
-                      >
-                        {<IntlMessages id="classe.couplage.user" />}
-                      </InputLabel>
-                      <Select
-                        options={this.props.values.classForStudent}
-                        onChange={this.props.handleChangeStudentClass}
-                        id="nomSelect"
-                        styles={{
-                          control: (base) => ({
-                            ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
-                          }),
-                        }}
-                      />{' '}
-                    </div>
-                    <div className="col-md-6 col-lg-2 col-sm-12 p-0">
-                      <InputLabel
-                        htmlFor="group"
-                        style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
-                        }}
-                      >
-                        {<IntlMessages id="assignment.student.group" />}
-                      </InputLabel>
-                      <Select
-                        options={this.props.values.listGroupClass}
-                        onChange={this.props.handleChangeGroupClassRoom}
-                        id="group"
-                        styles={{
-                          control: (base) => ({
-                            ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
-                          }),
-                        }}
-                      />{' '}
-                    </div> */}
+                     
                   </>
                 ) : (
                   ''
@@ -744,248 +691,11 @@ class AddUsers extends React.Component {
                     </div>
                   </>
                 )}
-                {/* {this.props.values.roleId === roleIdProfessor ? (
-                  <>
-                    <div className="col-md-6 col-lg-3 col-sm-12 p-0 "> </div>
-                    <div className="col-md-6 col-lg-3 col-sm-12 p-0 "> </div>
-                  </>
-                ) : (
-                  ''
-                )} */}
-                {/* {this.props.values.roleId === roleIdProfessor ? (
-                  <>
-                    {values.listOfSubjects.map((objSubject, index) => (
-                      <div className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row justify-content-between p-3">
-                        <div className="col-md-6 col-lg-2 col-sm-12 p-0 ">
-                          <InputLabel
-                            htmlFor="nomSelect"
-                            style={{
-                              fontFamily: 'Roboto',
-                              fontSize: '18px',
-                            }}
-                            required
-                          >
-                            {<IntlMessages id="classe.couplage.level" />}
-                          </InputLabel>
-                          <Select
-                            options={this.props.values.levelListParticipant}
-                            onChange={(e) => this.props.handleChangeClassRoom(e, 'levelId', index)}
-                            value={
-                              this.props.values.levelListParticipant.find(
-                                (element) => element.id == objSubject.levelId
-                              ) == undefined
-                                ? {}
-                                : this.props.values.levelListParticipant.find(
-                                    (element) => element.id == objSubject.levelId
-                                  )
-                            }
-                            id="levelId"
-                            name="levelId"
-                            styles={{
-                              control: (base) => ({
-                                ...base,
-                                '&:hover': { borderColor: 'gray' }, // border style on hover
-                                border: '1px solid lightgray', // default border color
-                                boxShadow: 'none', // no box-shadow
-                                borderTopStyle: 'none',
-                                borderRightStyle: 'none',
-                                borderLeftStyle: 'none',
-                                borderRadius: ' none',
-                              }),
-                            }}
-                          />{' '}
-                        </div>
-                        <div className="col-md-6 col-lg-3 col-sm-12 mr-1 ">
-                          <InputLabel
-                            htmlFor="nomSelect"
-                            style={{
-                              fontFamily: 'Roboto',
-                              fontSize: '18px',
-                            }}
-                            required
-                          >
-                            {<IntlMessages id="classe.couplage.user" />}
-                          </InputLabel>
-                          <Select
-                            options={this.props.values.classForStudent.filter(
-                              (element) => element.levelId == objSubject.levelId
-                            )}
-                            onChange={(e) => this.props.handleChangeClassRoom(e, 'classId', index)}
-                            value={
-                              this.props.values.classForStudent.find(
-                                (element) => element.id == objSubject.classId
-                              ) == undefined
-                                ? {}
-                                : this.props.values.classForStudent.find(
-                                    (element) => element.id == objSubject.classId
-                                  )
-                            }
-                            id="classId"
-                            name="classId"
-                            styles={{
-                              control: (base) => ({
-                                ...base,
-                                '&:hover': { borderColor: 'gray' }, // border style on hover
-                                border: '1px solid lightgray', // default border color
-                                boxShadow: 'none', // no box-shadow
-                                borderTopStyle: 'none',
-                                borderRightStyle: 'none',
-                                borderLeftStyle: 'none',
-                                borderRadius: ' none',
-                              }),
-                            }}
-                          />{' '}
-                        </div>
-                        <div className="col-md-6 col-lg-3 col-sm-12 mr-1 ">
-                          <InputLabel
-                            htmlFor="nomSelect"
-                            style={{
-                              fontFamily: 'Roboto',
-                              fontSize: '18px',
-                            }}
-                            required
-                          >
-                            {<IntlMessages id="classe.couplage.module.formation" />}
-                          </InputLabel>
-                          <Select
-                            options={values.subjectModulesList}
-                            onChange={(e) =>
-                              this.props.handleChangeClassRoom(e, 'subjectModuleId', index)
-                            }
-                            value={
-                              values.subjectModulesList.find(
-                                (element) => element.value == objSubject.subjectModuleId
-                              ) == undefined
-                                ? {}
-                                : values.subjectModulesList.find(
-                                    (element) => element.value == objSubject.subjectModuleId
-                                  )
-                            }
-                            id="classId"
-                            name="classId"
-                            styles={{
-                              control: (base) => ({
-                                ...base,
-                                '&:hover': { borderColor: 'gray' }, // border style on hover
-                                border: '1px solid lightgray', // default border color
-                                boxShadow: 'none', // no box-shadow
-                                borderTopStyle: 'none',
-                                borderRightStyle: 'none',
-                                borderLeftStyle: 'none',
-                                borderRadius: ' none',
-                              }),
-                            }}
-                          />{' '}
-                        </div>
-                        <div className="col-md-6 col-lg-2 col-sm-12 p-0">
-                          <InputLabel
-                            htmlFor="nomSelect"
-                            style={{
-                              fontFamily: 'Roboto',
-                              fontSize: '18px',
-                            }}
-                            required
-                          >
-                            {<IntlMessages id="prof.couplage.subjects" />}
-                          </InputLabel>
-                          <Select
-                            // options={objSubject.subjects}
-                            // onChange={(e) =>
-                            //   this.props.handleChangeClassRoom(
-                            //     e,
-                            //     "subjectId",
-                            //     index
-                            //   )
-                            // }
-                            options={objSubject.subjects.filter(
-                              (element) => !values.subjectIds.includes(element.id)
-                            )}
-                            onChange={(e) =>
-                              this.props.handleChangeClassRoom(e, 'subjectId', index)
-                            }
-                            value={
-                              objSubject.subjects.find(
-                                (element) => element.id == objSubject.subjectId
-                              ) == undefined
-                                ? {}
-                                : objSubject.subjects.find(
-                                    (element) => element.id == objSubject.subjectId
-                                  )
-                            }
-                            id="subjectId"
-                            name="subjectId"
-                            styles={{
-                              control: (base) => ({
-                                ...base,
-                                '&:hover': { borderColor: 'gray' }, // border style on hover
-                                border: '1px solid lightgray', // default border color
-                                boxShadow: 'none', // no box-shadow
-                                borderTopStyle: 'none',
-                                borderRightStyle: 'none',
-                                borderLeftStyle: 'none',
-                                borderRadius: ' none',
-                              }),
-                            }}
-                          />{' '}
-                        </div>
-                        <div className="col-md-6 col-lg-2 col-sm-12 p-0">
-                          <Fab
-                            size="small"
-                            value={`${index}`}
-                            color="primary"
-                            aria-label="Add"
-                            onClick={() => {
-                              if (!objSubject.isAdded) {
-                                if (objSubject.subjectId != 0) {
-                                  this.props.addNewSubject(index + 1);
-                                } else {
-                                }
-                              } else {
-                                this.props.deleteChoice(index);
-                              }
-                            }}
-                          >
-                            {objSubject.isAdded ? <RemoveIcon /> : <AddIcon />}
-                          </Fab>
-                        </div>
-                        <div className="col-md-6 col-lg-3 col-sm-12 p-0"></div>
-                      </div>
-                    ))}
-                  </>
-                ) : (
-                  ''
-                )} */}
+                 
+                 
                 {this.props.values.roleId === roleIdParent && (
                   <>
-                    {/* <div className="col-md-6 col-lg-3 col-sm-12 p-0">
-                      <InputLabel
-                        htmlFor="nomSelect"
-                        style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '18px',
-                        }}
-                      >
-                        {<IntlMessages id="parent.couplage.student" />}
-                      </InputLabel>
-                      <Select
-                        options={this.props.studentsList}
-                        onChange={this.props.handleChangeStudent}
-                        id="studentIdAssignement"
-                        name="studentIdAssignement"
-                        styles={{
-                          control: (base) => ({
-                            ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
-                          }),
-                        }}
-                      />{' '}
-                    </div> */}
+                     
                     <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                       <InputLabel
                         htmlFor="nomSelect"
@@ -1056,11 +766,7 @@ class AddUsers extends React.Component {
                       native: true,
                     }}
                   />
-                  {/* <FormHelperText
-                    error={values.nameError}
-                    >
-                      {values.nameError ? 'Nom de support de cours déja existe' : ''}
-                    </FormHelperText> */}
+               
                 </div>
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <InputLabel
@@ -1088,11 +794,7 @@ class AddUsers extends React.Component {
                       native: true,
                     }}
                   />
-                  {/* <FormHelperText
-                    error={values.nameError}
-                    >
-                      {values.nameError ? 'Nom de support de cours déja existe' : ''}
-                    </FormHelperText> */}
+               
                 </div>
                 <div className="col-md-6 col-lg-2 col-sm-12 p-0 d-flex justify-content-center">
                   <div className="col-md-2 p-1 d-flex justify-content-center align-items-end ">
@@ -1170,11 +872,7 @@ class AddUsers extends React.Component {
                       native: true,
                     }}
                   />
-                  {/* <FormHelperText
-                    error={values.nameError}
-                    >
-                      {values.nameError ? 'Nom de support de cours déja existe' : ''}
-                    </FormHelperText> */}
+              
                 </div>
               </div>
 
