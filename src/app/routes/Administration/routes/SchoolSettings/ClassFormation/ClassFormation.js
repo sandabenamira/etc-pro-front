@@ -8,8 +8,10 @@ import { UncontrolledAlert } from 'reactstrap';
 import {
   addClassFormation,
   addCollaboratorFormation,
+  addPlanningFormation,
 } from '../../../../../../actions/AffectaionClassFormation';
 import { getRoomsByEstablshment } from '../../../../../../actions/roomAction';
+import moment from 'moment';
 
 class CourseAssignment extends React.Component {
   constructor(props) {
@@ -245,7 +247,7 @@ class CourseAssignment extends React.Component {
         insciptionsFormation.push(objInscription);
       });
     });
-    
+
     this.props.dispatch(addCollaboratorFormation(insciptionsFormation));
 
     this.setState({
@@ -255,7 +257,34 @@ class CourseAssignment extends React.Component {
   }
   handleSubmitStep3(event) {
     event.preventDefault();
-    this.setState({
+    let listEvents = [];
+    this.state.horaireList.map((horaireElement) => {
+      let objHoraire = {
+        start_time: moment(
+          moment(horaireElement.dateFormation).format('YYYY/MM/DD') +
+            moment(horaireElement.startHour).format('HH:mm:ss'),
+          'YYYY-MM-DDLT'
+        ),
+        end_time: moment(
+          moment(horaireElement.dateFormation).format('YYYY/MM/DD') +
+            moment(horaireElement.endHour).format('HH:mm:ss'),
+          'YYYY-MM-DDLT'
+        ),
+        title: '',
+        frequency: 'annual',
+        event_type: 'lesson',
+        status: true,
+        repetition: [0],
+        fk_id_room: horaireElement.room.id === undefined ? null : horaireElement.room.id,
+        fk_id_prof: this.state.profId,
+        fk_id_assign_class_subject: this.props.assignmentFormationToClass,
+        fk_id_profile_creator: this.props.userProfile.id,
+      };
+      listEvents.push(objHoraire);
+    });
+    this.props.dispatch(addPlanningFormation(listEvents));
+
+     this.setState({
       open: false,
     });
   }
@@ -416,7 +445,7 @@ class CourseAssignment extends React.Component {
     }
   }
   render() {
-    console.log('-----participantList----', this.state.participantList);
+ 
     return (
       <div
         className="app-wrapper"

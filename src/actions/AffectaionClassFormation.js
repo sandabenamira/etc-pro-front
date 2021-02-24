@@ -57,3 +57,21 @@ export function addCollaboratorFormation(data) {
     });
   };
 }
+export function addPlanningFormation(data) {
+    return (dispatch) => {
+      let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
+      classService.post(apiEndpoint, data).then((response) => {
+        if (response) {
+          console.log(response.data, 'response addPlanningFormation');
+        } else {
+          dispatch({
+            type: SHOW_ERROR_MESSAGE,
+            payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+          });
+          setTimeout(() => {
+            dispatch({ type: HIDE_ERROR_MESSAGE });
+          }, 4000);
+        }
+      });
+    };
+  }
