@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
-import Table from '@material-ui/core/Table';
-import { connect } from 'react-redux';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import IntlMessages from '../../../../../util/IntlMessages';
-import AgenceItem from './AgenceItem';
-  import { deleteClassSettings, editClassSettings } from '../../../../../actions/ClassSettingsAction';
-import _ from 'lodash';
+import React, { Component } from "react";
+import Table from "@material-ui/core/Table";
+import { connect } from "react-redux";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import IntlMessages from "../../../../../util/IntlMessages";
+import AgenceItem from "./AgenceItem";
+import {
+  deleteAgence,
+  editAgence,
+} from "../../../../../actions/AgenceSettingsAction";
+import _ from "lodash";
+import EditAgence from "./EditAgence";
 class AgenceList extends Component {
   constructor(props) {
     super(props);
@@ -17,11 +21,13 @@ class AgenceList extends Component {
       item: {},
       deleteIsopen: false,
       deleteItem: {},
-      nameClassSettings: '',
-      id: null,
-      levelId: '',
-      sectionId: '',
-      sectionsByLevelId: [],
+      nameAgence: "",
+      typeAgence: "",
+      gouvernoratAgence: "",
+      faxAgence: "",
+      telAgence: "",
+      emailAgence: "",
+      adresseAgence: "",
     };
     this.handleEdit = this.handleEdit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -30,6 +36,8 @@ class AgenceList extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeLevel = this.handleChangeLevel.bind(this);
+    this.handleChangePhone = this.handleChangePhone.bind(this);
+    this.handleChangeFax = this.handleChangeFax.bind(this);
   }
 
   handleChangeLevel = (name) => (event) => {
@@ -52,16 +60,19 @@ class AgenceList extends Component {
   }
 
   handleEdit = (item, event) => {
+    console.log("item", item);
     event.preventDefault();
-    let sectionsByLevelId = this.props.sections;
     this.setState({
       isOpen: true,
       item: item,
-      nameClassSettings: item.name,
       id: item.id,
-      levelId: item.fk_id_level_v4,
-      sectionId: item.fk_id_section_v4,
-      sectionsByLevelId,
+      nameAgence: item.name,
+      typeAgence: item.agency_type,
+      gouvernoratAgence: item.agency_gouvernorat,
+      faxAgence: item.agency_fax == null ? "" : "+" + item.agency_fax,
+      telAgence: item.agency_tel == null ? "" : "+" + item.agency_tel,
+      emailAgence: item.agency_mail,
+      adresseAgence: item.agency_address,
     });
   };
   handleDelete = (item, event) => {
@@ -74,15 +85,26 @@ class AgenceList extends Component {
   handleToggle() {
     this.handleCancel();
   }
-
+  handleChangePhone = (value) => {
+    this.setState({ telAgence: value });
+  };
+  handleChangeFax = (value) => {
+    this.setState({ faxAgence: value });
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      name: this.state.nameClassSettings,
-      fk_id_level_v4: this.state.levelId,
-      fk_id_section_v4: this.state.sectionId,
+      name: this.state.nameAgence,
+      agency_type: this.state.typeAgence,
+      agency_gouvernorat: this.state.adresseAgence,
+      agency_fax: this.state.faxAgence,
+      agency_tel: this.state.telAgence,
+      agency_mail: this.state.emailAgence,
+      agency_address: this.state.adresseAgence,
     };
-    this.props.editClassSettings(data, this.state.id);
+    console.log("data", data);
+    console.log("id", this.state.id);
+    this.props.editAgence(data, this.state.id);
     this.handleCancel();
   };
   render() {
@@ -125,22 +147,22 @@ class AgenceList extends Component {
             })}
           </TableBody>
         </Table>
-        {/* {this.state.isOpen ? (
-          <EditClassSettings
-            moduleSubject={this.state.item}
+        {this.state.isOpen ? (
+          <EditAgence
+            agenceItem={this.state.item}
             closeModal={this.handleCancel}
             values={this.state}
             handleAnnule={this.handleCancel}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             handleToggle={this.handleToggle}
-            levels={this.props.levels}
-            handleChangeLevel={this.handleChangeLevel}
+            handleChangePhone={this.handleChangePhone}
+            handleChangeFax={this.handleChangeFax}
           />
         ) : (
-          ''
+          ""
         )}
-        {this.state.deleteIsopen === true ? (
+        {/* {this.state.deleteIsopen === true ? (
           <DeleteClassSettings
             handleDeleteClassSettings={this.handleDeleteClassSettings}
             deleteItem={this.state.deleteItem}
@@ -159,6 +181,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  deleteClassSettings,
-  editClassSettings,
+  deleteAgence,
+  editAgence,
 })(AgenceList);

@@ -1,27 +1,27 @@
-import React from 'react';
-import CardBox from '../../../../../components/CardBox/index';
-import AddAgence from './AddAgence';
-import { connect } from 'react-redux';
-import AgenceList from './AgenceList';
-import ArchiveAgence from './ArchiveAgence';
-import { UncontrolledAlert } from 'reactstrap';
-import { addAgence } from '../../../../../actions/AgenceSettingsAction';
-import moment from 'moment';
+import React from "react";
+import CardBox from "../../../../../components/CardBox/index";
+import AddAgence from "./AddAgence";
+import { connect } from "react-redux";
+import AgenceList from "./AgenceList";
+import ArchiveAgence from "./ArchiveAgence";
+import { UncontrolledAlert } from "reactstrap";
+import { addAgence } from "../../../../../actions/AgenceSettingsAction";
+import moment from "moment";
 
 class ClassesSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      nameAgence: '',
-      typeAgence: '',
-      gouvernoratAgence: '',
-      faxAgence: '',
-      telAgence: '',
-      emailAgence: '',
-      adresseAgence: '',
+      nameAgence: "",
+      typeAgence: "",
+      gouvernoratAgence: "",
+      faxAgence: "",
+      telAgence: "",
+      emailAgence: "",
+      adresseAgence: "",
       alerteFiltre: false,
-      messageAlerte: '',
+      messageAlerte: "",
     };
     this.openAddModal = this.openAddModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -62,13 +62,13 @@ class ClassesSettings extends React.Component {
     this.props.dispatch(addAgence(data));
     this.openAddModal();
     this.setState({
-      nameAgence: '',
-      typeAgence: '',
-      gouvernoratAgence: '',
-      faxAgence: '',
-      telAgence: '',
-      emailAgence: '',
-      adresseAgence: '',
+      nameAgence: "",
+      typeAgence: "",
+      gouvernoratAgence: "",
+      faxAgence: "",
+      telAgence: "",
+      emailAgence: "",
+      adresseAgence: "",
     });
   }
   handleArchive(event) {
@@ -76,17 +76,17 @@ class ClassesSettings extends React.Component {
 
     this.openAddModal();
     this.setState({
-      nameClassSettings: '',
+      nameClassSettings: "",
     });
   }
 
   render() {
-     return (
+    return (
       <div
         className="app-wrapper"
         style={{
-          marginLeft: '5%',
-          marginRight: '10%',
+          marginLeft: "5%",
+          marginRight: "10%",
         }}
       >
         <div className="  d-flex flex-column mb-3">
@@ -98,19 +98,22 @@ class ClassesSettings extends React.Component {
               <span className="d-inline-block"> {this.props.message} </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
           {this.state.alerteFiltre ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
-              <span className="d-inline-block"> {this.state.messageAlerte} </span>
+              <span className="d-inline-block">
+                {" "}
+                {this.state.messageAlerte}{" "}
+              </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
-          <div className=" bd-highlight" style={{ width: '90%' }}>
+          <div className=" bd-highlight" style={{ width: "90%" }}>
             <CardBox styleName="col-lg-12">
               <AddAgence
                 openAddModal={this.openAddModal}
@@ -119,21 +122,22 @@ class ClassesSettings extends React.Component {
                 handleArchive={this.handleArchive}
                 values={this.state}
                 levels={this.props.levels}
-                sections={this.props.sections}
                 handleChangePhone={this.handleChangePhone}
                 handleChangeFax={this.handleChangeFax}
               />
             </CardBox>
           </div>
-          <div className=" bd-highlight" style={{ width: '90%' }}>
+          <div className=" bd-highlight" style={{ width: "90%" }}>
             <CardBox styleName="col-lg-12">
               <AgenceList agenceSettings={this.props.agenceSettings} />
             </CardBox>
           </div>
         </div>
-        <div className=" bd-highlight" style={{ width: '90%' }}>
+        <div className=" bd-highlight" style={{ width: "90%" }}>
           <CardBox styleName="col-lg-12">
-            <ArchiveAgence agenceSettingsArchived={this.props.archivedAgenceSettings} />
+            <ArchiveAgence
+              agenceSettingsArchived={this.props.archivedAgenceSettings}
+            />
           </CardBox>
         </div>
       </div>
