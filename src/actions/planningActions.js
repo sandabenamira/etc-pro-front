@@ -135,11 +135,7 @@ export const editEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
         if (notifMsg != undefined && notifMsg != "") {
           let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
           classService.post(apiEndpoint1, objMail).then((response) => {
-            // if (response.data.notificationData.length > 0) {
-            //   console.log('--------response.data>0-------', response.data);
-            // } else {
-            //   console.log('--------response.data-------', response.data);
-            // }
+             
           });
         }
 
@@ -402,8 +398,7 @@ export const getEventCallRegisterForParent = (profileId) => {
           };
           newListEvents.push(newEvent);
         });
-
-        dispatch({ type: GET_EVENTS_call_REGISTER, payload: newListEvents });
+         dispatch({ type: GET_EVENTS_call_REGISTER, payload: newListEvents });
       }
     });
   };

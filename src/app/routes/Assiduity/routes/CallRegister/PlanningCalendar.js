@@ -125,6 +125,11 @@ class PlanningCalendar extends React.Component {
                         name="itemAgence"
                         select
                         value={this.props.values.itemAgence || ''}
+                        value={
+                          this.props.values.itemAgence == ''
+                            ? ''
+                            : JSON.stringify(this.props.values.itemAgence)
+                        }
                         onChange={this.props.handleChangeAgence('itemAgence')}
                         SelectProps={{}}
                         label={'Agence'}
@@ -133,7 +138,8 @@ class PlanningCalendar extends React.Component {
                         fullWidth
                       >
                         {this.props.agenceSettings.map((itemAgence) => (
-                          <MenuItem key={itemAgence.id} value={itemAgence.id}>
+                          // <MenuItem key={itemAgence.id} value={itemAgence.id}>
+                          <MenuItem key={itemAgence.id} value={JSON.stringify(itemAgence)}>
                             {itemAgence.name}
                           </MenuItem>
                         ))}
