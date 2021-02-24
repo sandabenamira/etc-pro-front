@@ -24,7 +24,7 @@ export default class DeleteClassSettings extends Component {
             {<IntlMessages id="button.no" />}
           </Button>
           <Button
-            onClick={this.props.handleDeleteClassSettings}
+            onClick={this.props.handleDeleteAgence}
             color="primary"
           >
             {<IntlMessages id="button.yes" />}

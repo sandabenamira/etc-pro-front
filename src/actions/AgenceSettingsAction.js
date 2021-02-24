@@ -96,6 +96,13 @@ export function deleteAgence(itemId) {
     classService.patch(apiEndpoint, { status: false }).then((response) => {
       if (response) {
         dispatch({ type: DELETE_AGENCE, payload: response.data });
+        dispatch({
+          type: SHOW_SUCCESS_MESSAGE,
+          payload: "La suppression d'agence est effectuée avec succès",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+        }, 4000);
       }
     });
   };

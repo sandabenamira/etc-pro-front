@@ -13,6 +13,9 @@ import {
 } from "../../../../../actions/AgenceSettingsAction";
 import _ from "lodash";
 import EditAgence from "./EditAgence";
+import DeleteAgence from "./DeleteAgence";
+
+
 class AgenceList extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +35,7 @@ class AgenceList extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleDeleteClassSettings = this.handleDeleteClassSettings.bind(this);
+    this.handleDeleteAgence = this.handleDeleteAgence.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeLevel = this.handleChangeLevel.bind(this);
@@ -47,9 +50,9 @@ class AgenceList extends Component {
     });
   };
 
-  handleDeleteClassSettings = (event) => {
+  handleDeleteAgence = (event) => {
     event.preventDefault();
-    this.props.deleteClassSettings(this.state.deleteItem);
+    this.props.deleteAgence(this.state.deleteItem);
     this.setState({
       deleteIsopen: false,
     });
@@ -162,16 +165,16 @@ class AgenceList extends Component {
         ) : (
           ""
         )}
-        {/* {this.state.deleteIsopen === true ? (
-          <DeleteClassSettings
-            handleDeleteClassSettings={this.handleDeleteClassSettings}
+        {this.state.deleteIsopen === true ? (
+          <DeleteAgence
+            handleDeleteAgence={this.handleDeleteAgence}
             deleteItem={this.state.deleteItem}
             handleCancel={this.handleCancel}
             deleteIsopen={this.state.deleteIsopen}
           />
         ) : (
           ''
-        )} */}
+        )}
       </div>
     );
   }
