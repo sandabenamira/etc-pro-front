@@ -62,10 +62,10 @@ var options1 = {
 };
 var callRegisterParent = {
   delay: true,
-  encouragement: true,
-  observation: true,
+  encouragement: false,
+  observation: false,
   presence: true,
-  sanction: true,
+  sanction: false,
   status: true,
 };
 class DetailsCallRegister extends React.Component {
@@ -132,12 +132,23 @@ class DetailsCallRegister extends React.Component {
         this.props.userProfile.id +
         `&filter[include][studentCall][student][profile][user]`;
     } else {
-      apiEndpoint =
-        `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
-        eventId +
-        `&filter[where][and][1][start_date]=` +
-        TimeDate +
-        `&filter[include][studentCall][student][profile][user]`;
+      if (this.props.match.params.type === 'formation') {
+        apiEndpoint =
+          `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+          eventId +
+          `&filter[where][and][1][start_date]=` +
+          TimeDate +
+          `&filter[include][studentCall][student][profile][user]`;
+      } else {
+        apiEndpoint =
+          `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+          eventId +
+          `&filter[where][and][1][start_date]=` +
+          TimeDate +
+          `&filter[where][fk_id_creator_profile]=` +
+          this.props.match.params.profileId +
+          `&filter[include][studentCall][student][profile][user]`;
+      }
     }
     classService.get(apiEndpoint).then((res) => {
       if (res) {
@@ -362,7 +373,7 @@ class DetailsCallRegister extends React.Component {
         </div>
       );
     } else if (this.props.userProfile.role_id === roleIdAdmin) {
-      if (false) {
+      if (this.props.match.params.type === 'formation') {
         return (
           <div id={'Popover-' + event.id}>
             <span>
@@ -504,15 +515,21 @@ class DetailsCallRegister extends React.Component {
     const goToBack = () => {
       toolbar.onNavigate('PREV');
       dayCall.setDate(dayCall.getDate() + -1);
-
       let title =
         this.props.userProfile.role_id === roleIdParent
-          ? 'Agence Biat sousse 1' + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options)
-          : this.state.event.classeName +
+          ? this.props.match.params.classId +
+            '/' +
+            new Date(dayCall).toLocaleDateString('fr-FR', options)
+          : this.props.match.params.type === 'formation'
+          ? this.state.event.classeName +
             '/' +
             this.state.event.subjectName +
             '/' +
+            new Date(dayCall).toLocaleDateString('fr-FR', options)
+          : this.props.match.params.classId +
+            '/' +
             new Date(dayCall).toLocaleDateString('fr-FR', options);
+       
       this.setState({
         title: title,
         dateEvent: new Date(dayCall).toLocaleDateString('fr-FR', options1),
@@ -525,15 +542,21 @@ class DetailsCallRegister extends React.Component {
       let checkDate = moment(dayCall).isAfter(curentDay);
       if (!checkDate) {
         toolbar.onNavigate('NEXT');
-
         let title =
-          this.props.userProfile.role_id === roleIdParent
-            ? 'Agence Biat sousse 1' + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options)
-            : this.state.event.classeName +
-              '/' +
-              this.state.event.subjectName +
-              '/' +
-              new Date(dayCall).toLocaleDateString('fr-FR', options);
+        this.props.userProfile.role_id === roleIdParent
+          ? this.props.match.params.classId +
+            '/' +
+            new Date(dayCall).toLocaleDateString('fr-FR', options)
+          : this.props.match.params.type === 'formation'
+          ? this.state.event.classeName +
+            '/' +
+            this.state.event.subjectName +
+            '/' +
+            new Date(dayCall).toLocaleDateString('fr-FR', options)
+          : this.props.match.params.classId +
+            '/' +
+            new Date(dayCall).toLocaleDateString('fr-FR', options);
+         
         this.setState({
           title: title,
           dateEvent: new Date(dayCall).toLocaleDateString('fr-FR', options1),
@@ -613,7 +636,9 @@ class DetailsCallRegister extends React.Component {
       style: style,
     };
   }
+
   componentDidMount() {
+    ///////////// get events //////////////////
     if (this.props.userProfile.role_id === roleIdProfessor) {
       this.props.dispatch(
         getEventCallRegisterForProf(
@@ -632,11 +657,12 @@ class DetailsCallRegister extends React.Component {
           )
         );
       } else {
-        this.props.dispatch(getEventCallRegisterForParent(231));
+        this.props.dispatch(getEventCallRegisterForParent(this.props.match.params.profileId));
       }
     } else if (this.props.userProfile.role_id === roleIdParent) {
       this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
     }
+    ///////// get call register   ///////////////
     let dateFormat = moment(this.props.match.params.startDate).format('YYYY-MM-DD');
     let timeFormat = moment(this.props.match.params.startDate)
       .add(-1, 'h')
@@ -654,12 +680,23 @@ class DetailsCallRegister extends React.Component {
         this.props.userProfile.id +
         `&filter[include][studentCall][student][profile][user]`;
     } else {
-      apiEndpoint =
-        `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
-        eventId +
-        `&filter[where][and][1][start_date]=` +
-        TimeDate +
-        `&filter[include][studentCall][student][profile][user]`;
+      if (this.props.match.params.type === 'formation') {
+        apiEndpoint =
+          `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+          eventId +
+          `&filter[where][and][1][start_date]=` +
+          TimeDate +
+          `&filter[include][studentCall][student][profile][user]`;
+      } else {
+        apiEndpoint =
+          `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+          eventId +
+          `&filter[where][and][1][start_date]=` +
+          TimeDate +
+          `&filter[where][fk_id_creator_profile]=` +
+          this.props.match.params.profileId +
+          `&filter[include][studentCall][student][profile][user]`;
+      }
     }
     classService.get(apiEndpoint).then((res) => {
       if (res) {
@@ -687,13 +724,14 @@ class DetailsCallRegister extends React.Component {
         }
       }
     });
+
     const startDateEvent = moment(this.props.match.params.startDate).format('DD/MM/YYYY HH:mm');
     let eventSelected = this.props.events.filter(
       (element) =>
         element.id === parseInt(this.props.match.params.eventId, 10) &&
         moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
     );
-
+    /////////////// get  call register setting //////////////////////
     if (!_.isEmpty(eventSelected)) {
       if (
         this.props.userProfile.role_id !== roleIdParent &&
@@ -729,15 +767,19 @@ class DetailsCallRegister extends React.Component {
         this.props.dispatch(getSanctionList());
         this.setState({ callRegisterSetting: callRegisterParent });
       }
-
+      /////   title a afficher /////////////////
       let title =
         this.props.userProfile.role_id === roleIdParent
-          ? 'Agence Biat sousse 1/' +
+          ? this.props.match.params.classId +
             '/' +
             new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
-          : eventSelected[0].classeName +
+          : this.props.match.params.type === 'formation'
+          ? eventSelected[0].classeName +
             '/' +
             eventSelected[0].subjectName +
+            '/' +
+            new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
+          : this.props.match.params.classId +
             '/' +
             new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
 
@@ -756,6 +798,7 @@ class DetailsCallRegister extends React.Component {
   componentDidUpdate(prevProps) {
     let title = '';
     if (prevProps.userProfile !== this.props.userProfile) {
+      ///////////// get events //////////////////
       if (this.props.userProfile.role_id === roleIdProfessor) {
         this.props.dispatch(
           getEventCallRegisterForProf(
@@ -774,26 +817,95 @@ class DetailsCallRegister extends React.Component {
             )
           );
         } else {
-          this.props.dispatch(getEventCallRegisterForParent(231));
+          this.props.dispatch(getEventCallRegisterForParent(this.props.match.params.profileId));
         }
       } else if (this.props.userProfile.role_id === roleIdParent) {
         this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
       }
+
+      ///////// get student list   ///////////////
+
       if (this.props.userProfile.role_id === roleIdParent) {
         this.props.dispatch(getStudentsCallRegisterForParent(this.props.userProfile.id));
       } else {
-        this.props.dispatch(
-          getStudentsCallRegister(
-            this.props.match.params.classId,
-            this.props.userProfile.school_year_id
-          )
-        );
+        if (this.props.match.params.type === 'formation') {
+          this.props.dispatch(
+            getStudentsCallRegister(
+              this.props.match.params.classId,
+              this.props.userProfile.school_year_id
+            )
+          );
+        } else {
+          this.props.dispatch(getStudentsCallRegisterForParent(this.props.match.params.profileId));
+        }
       }
     }
-    if (prevProps.students !== this.props.students && this.state.callRegister.length == 0) {
-      this.setState({ callRegister: this.props.students });
-    }
+    ///////// get call register   ///////////////
 
+    if (prevProps.students !== this.props.students) {
+      let dateFormat = moment(this.props.match.params.startDate).format('YYYY-MM-DD');
+      let timeFormat = moment(this.props.match.params.startDate)
+        .add(-1, 'h')
+        .format('HH:mm:ss[Z]');
+      let TimeDate = dateFormat + 'T' + timeFormat;
+      let eventId = this.props.match.params.eventId;
+      let apiEndpoint = '';
+      if (this.props.userProfile.role_id === roleIdParent) {
+        apiEndpoint =
+          `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+          eventId +
+          `&filter[where][and][1][start_date]=` +
+          TimeDate +
+          `&filter[where][fk_id_creator_profile]=` +
+          this.props.userProfile.id +
+          `&filter[include][studentCall][student][profile][user]`;
+      } else {
+        if (this.props.match.params.type === 'formation') {
+          apiEndpoint =
+            `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+            eventId +
+            `&filter[where][and][1][start_date]=` +
+            TimeDate +
+            `&filter[include][studentCall][student][profile][user]`;
+        } else {
+          apiEndpoint =
+            `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+            eventId +
+            `&filter[where][and][1][start_date]=` +
+            TimeDate +
+            `&filter[where][fk_id_creator_profile]=` +
+            this.props.match.params.profileId +
+            `&filter[include][studentCall][student][profile][user]`;
+        }
+      }
+      classService.get(apiEndpoint).then((res) => {
+        if (res) {
+          if (res.data.length > 0) {
+            let historiqRegistre = res.data[0].studentCall.map((element) => {
+              return {
+                name: element.student.profile.user.name,
+                surname: element.student.profile.user.surname,
+                presence: element.presence,
+                delay: element.delay,
+                sanction: element.sanction,
+                description_sanction: element.description_sanction,
+                observation: element.observation,
+                description_observation: element.description_observation,
+                encouragement: element.encouragement,
+                description_encouragement: element.description_encouragement,
+                studentId: element.fk_id_student,
+                photo: element.student.profile.user.photo,
+              };
+            });
+
+            this.setState({ callRegister: historiqRegistre });
+          } else {
+            this.setState({ callRegister: this.props.students });
+          }
+        }
+      });
+    }
+    //// get call register setting /////////////////
     if (prevProps.events !== this.props.events) {
       const startDateEvent = moment(this.props.match.params.startDate).format('DD/MM/YYYY HH:mm');
       let eventSelected = this.props.events.filter(
@@ -803,7 +915,10 @@ class DetailsCallRegister extends React.Component {
       );
 
       if (!_.isEmpty(eventSelected)) {
-        if (this.props.userProfile.role_id !== roleIdParent) {
+        if (
+          this.props.userProfile.role_id !== roleIdParent &&
+          this.props.match.params.type === 'formation'
+        ) {
           const classId = eventSelected[0].classId;
 
           let apiEndpoint = `/class_v4/${classId}?access_token=${localStorage.token}&filter[include][level][educationType][callRegisterSetting]`;
@@ -838,12 +953,16 @@ class DetailsCallRegister extends React.Component {
 
         title =
           this.props.userProfile.role_id === roleIdParent
-            ? 'Agence Biat sousse 1' +
+            ? this.props.match.params.classId +
               '/' +
               new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
-            : eventSelected[0].classeName +
+            : this.props.match.params.type === 'formation'
+            ? eventSelected[0].classeName +
               '/' +
               eventSelected[0].subjectName +
+              '/' +
+              new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
+            : this.props.match.params.classId +
               '/' +
               new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
 
@@ -920,14 +1039,14 @@ class DetailsCallRegister extends React.Component {
     } else {
       return (
         <div
-          className="d-flex flex-column    col-lg-12 col-md-12 col-sm-6 bd-highlight "
+          className="d-flex flex-column col-lg-12 col-md-12 col-sm-6  "
           style={{
             paddingRight: 'auto',
             paddingLeft: '2%',
           }}
         >
           <ContainerHeader title={<IntlMessages id="call_register" />} match={newMatch} />
-          <div className="d-flex flex-column    col-lg-12 col-md-12 col-sm-6 bd-highlight ">
+          <div className="d-flex flex-column    col-lg-12 col-md-12 col-sm-6  ">
             <div className="pointer">
               <h5
                 style={{
@@ -1051,15 +1170,31 @@ class DetailsCallRegister extends React.Component {
                               classes={{
                                 checked: 'text-success',
                               }}
+                              inputProps={{ 'aria-label': 'success checkbox' }}
                               onChange={(event) =>
                                 this.handleChangePresence(event, 'presence', element.studentId)
                               }
                               checked={element.presence}
                             />
                           </div>
-                          <div className=" bd-highlight" style={{ fontSize: '9px' }}>
-                            <IntlMessages id="timetable.presence" />
-                          </div>
+                          {/* <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+                              {element.presence ? 'présent' : 'absent'}
+                            </div> */}
+                          {element.presence ? (
+                            <div
+                              className=" bd-highlight"
+                              style={{ fontSize: '9px', color: 'green' }}
+                            >
+                              présent
+                            </div>
+                          ) : (
+                            <div
+                              className=" bd-highlight"
+                              style={{ fontSize: '9px', color: 'red' }}
+                            >
+                              absent
+                            </div>
+                          )}
                         </div>
                       </div>
                     )}
@@ -1070,14 +1205,17 @@ class DetailsCallRegister extends React.Component {
                             {' '}
                             <AccessAlarmsIcon
                               style={{
-                                color: element.delay ? 'black' : 'Grey',
+                                color: element.delay ? 'red' : 'Grey',
                               }}
                               onClick={(event) =>
                                 this.handleChangeDelay(event, 'delay', element.studentId)
                               }
                             />
                           </div>
-                          <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+                          <div
+                            className=" bd-highlight"
+                            style={{ fontSize: '9px', color: element.delay ? 'red' : 'Grey' }}
+                          >
                             <IntlMessages id="timetable.retard" />
                           </div>
                         </div>
@@ -1166,15 +1304,31 @@ class DetailsCallRegister extends React.Component {
                               classes={{
                                 checked: 'text-success',
                               }}
+                              inputProps={{ 'aria-label': 'success checkbox' }}
                               onChange={(event) =>
                                 this.handleChangePresence(event, 'presence', element.studentId)
                               }
                               checked={element.presence}
                             />
                           </div>
-                          <div className=" bd-highlight" style={{ fontSize: '9px' }}>
-                            <IntlMessages id="timetable.presence" />
-                          </div>
+                          {/* <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+                              {element.presence ? 'présent' : 'absent'}
+                            </div> */}
+                          {element.presence ? (
+                            <div
+                              className=" bd-highlight"
+                              style={{ fontSize: '9px', color: 'green' }}
+                            >
+                              présent
+                            </div>
+                          ) : (
+                            <div
+                              className=" bd-highlight"
+                              style={{ fontSize: '9px', color: 'red' }}
+                            >
+                              absent
+                            </div>
+                          )}
                         </div>
                       </div>
                     ) : (
@@ -1187,14 +1341,17 @@ class DetailsCallRegister extends React.Component {
                             {' '}
                             <AccessAlarmsIcon
                               style={{
-                                color: element.delay ? 'black' : 'Grey',
+                                color: element.delay ? 'red' : 'Grey',
                               }}
                               onClick={(event) =>
                                 this.handleChangeDelay(event, 'delay', element.studentId)
                               }
                             />
                           </div>
-                          <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+                          <div
+                            className=" bd-highlight"
+                            style={{ fontSize: '9px', color: element.delay ? 'red' : 'Grey' }}
+                          >
                             <IntlMessages id="timetable.retard" />
                           </div>
                         </div>

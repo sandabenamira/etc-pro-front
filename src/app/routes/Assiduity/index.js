@@ -113,9 +113,13 @@ const Assiduity = ({ match, estabModule }) => (
         )}
       />
       {
+        // <Route
+        //   path="/app/assiduity/DetailsCallRegister/:type/:eventId/:classId/:profileId/:startDate"
+        //   component={DetailsCallRegister}
+        // />
         <Route
-          path="/app/assiduity/DetailsCallRegister/:type/:eventId/:classId/:startDate"
-          component={DetailsCallRegister}
+          path="/app/assiduity/DetailsCallRegister/:type/:eventId/:classId/:profileId/:startDate"
+          render={(props) => <DetailsCallRegister  {...props} />}
         />
       }
     </Switch>

@@ -46,7 +46,10 @@ class Registre extends Component {
       profId: '',
       typeCallRegister: 'formation',
       itemAgence: '',
+      agenceId: '',
+      agenceName: '',
       events: [],
+      chefAgenceId: '',
     };
 
     this.handleChangeClass = this.handleChangeClass.bind(this);
@@ -60,8 +63,16 @@ class Registre extends Component {
     this.handleChangeAgence = this.handleChangeAgence.bind(this);
   }
   handleChangeAgence = (name) => (event) => {
-    this.setState({ [name]: event.target.value });
-    this.props.dispatch(getEventCallRegisterForParent(231));
+    let chefAgence = {};
+    let obj = JSON.parse(event.target.value);
+    this.setState({ [name]: obj, agenceId: obj.id, agenceName: obj.name });
+
+    chefAgence = this.props.listParents.find((element) => element.agencyId === obj.id);
+    if (chefAgence !== undefined) {
+      this.setState({ chefAgenceId: chefAgence.profileId });
+
+      this.props.dispatch(getEventCallRegisterForParent(chefAgence.profileId));
+    }
   };
   handleChangeTypeCall = (name) => (event) => {
     this.setState({ [name]: event.target.value, events: [], itemClass: '', itemAgence: '' });
@@ -83,10 +94,8 @@ class Registre extends Component {
             getStudentsCallRegister(event.classId, this.props.userProfile.school_year_id)
           );
         } else {
-          this.props.dispatch(getStudentsCallRegisterForParent(231));
-
+          this.props.dispatch(getStudentsCallRegisterForParent(this.state.chefAgenceId));
         }
-       
       }
 
       this.setState({
@@ -271,7 +280,7 @@ class Registre extends Component {
       }
     }
   };
- 
+
   componentDidUpdate(prevProps) {
     if (
       this.props.match.params.classId !== 'undefined' &&
@@ -309,7 +318,7 @@ class Registre extends Component {
             this.props.match.params.classId
           )
         );
-       }
+      }
     }
     if (prevProps.events !== this.props.events) {
       this.setState({ events: this.props.events });
@@ -318,7 +327,7 @@ class Registre extends Component {
       prevProps.userProfile.role_id !== this.props.userProfile.role_id &&
       this.props.userProfile.role_id === roleIdParent
     ) {
-       this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
+      this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
     }
     if (prevProps.classes !== this.props.classes) {
       if (this.props.userProfile.role_id === roleIdAdmin) {
@@ -350,6 +359,7 @@ class Registre extends Component {
   }
 
   UNSAFE_componentWillMount() {
+    ///// get events for different roles ////////////
     if (this.props.userProfile.role_id === roleIdProfessor) {
       this.props.dispatch(
         getEventCallRegisterForProf(
@@ -709,31 +719,27 @@ class Registre extends Component {
   };
 
   render() {
-  
-
-
-     if (this.state.isRedirect == true) {
+    //chefAgenceId
+    if (this.state.isRedirect == true) {
       if (this.props.userProfile.role_id === roleIdParent) {
         return (
           <Redirect
             to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${
               this.state.eventId
-            }/${0}/${this.state.startDate}`}
+            }/${'ATB sousse sahloul'}/${this.props.userProfile.id}/${this.state.startDate}`}
           />
         );
       } else {
         if (this.state.typeCallRegister === 'formation') {
           return (
             <Redirect
-              to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${this.state.eventId}/${this.state.classId}/${this.state.startDate}`}
+              to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${this.state.eventId}/${this.state.classId}/${this.state.chefAgenceId}/${this.state.startDate}`}
             />
           );
         } else {
           return (
             <Redirect
-              to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${
-                this.state.eventId
-              }/${0}/${this.state.startDate}`}
+              to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${this.state.eventId}/${this.state.agenceName}/${this.state.chefAgenceId}/${this.state.startDate}`}
             />
           );
         }
@@ -808,6 +814,7 @@ const mapStateToProps = (state) => {
     errorStatus: state.alert.error,
     message: state.alert.message,
     agenceSettings: state.AgenceReducer.agenceSettings,
+    listParents: state.usersReducer.parents,
   };
 };
 export default connect(mapStateToProps)(Registre);

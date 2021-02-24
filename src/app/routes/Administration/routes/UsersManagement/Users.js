@@ -539,9 +539,9 @@ class Users extends React.Component {
     });
     this.setState({ listOfSubjects: listOfSubjectsClasses, subjectIds });
   };
-
+ 
   handleChangeParent = (selectedOption) => {
-    this.setState({
+     this.setState({
       parentId: selectedOption.id,
       agenceCollaborateur: selectedOption.agenceName,
       agenceId: selectedOption.agenceId,
@@ -745,8 +745,8 @@ class Users extends React.Component {
         object.label = element.name + ' ' + element.surname;
         object.id = element.parentId[0];
         object.value = element.parentId[0];
-        object.agenceName = 'Agence rue el Jazira 2';
-        object.agenceId = 1;
+        object.agenceName = element.agencyName;
+        object.agenceId =element.agencyId;
 
         return object;
       });
@@ -880,8 +880,8 @@ class Users extends React.Component {
         object.label = element.name + ' ' + element.surname;
         object.id = element.id;
         object.value = element.id;
-        object.agenceName = 'Agence rue el Jazira 2';
-        object.agenceId = 1;
+        object.agenceName = element.agencyName;
+        object.agenceId =element.agencyId;
 
         return object;
       });
