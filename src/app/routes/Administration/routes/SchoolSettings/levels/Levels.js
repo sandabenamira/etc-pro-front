@@ -37,7 +37,7 @@ class Levels extends React.Component {
       name: this.state.nameLevel,
       status: true,
       fk_id_education_type_v4: this.state.educationTypeId,
-      fk_id_school_year: localStorage.school_year_id,
+      fk_id_school_year: this.props.userProfile.school_year_id,
     };
     this.props.dispatch(addlevel(data));
     this.openAddModal();
