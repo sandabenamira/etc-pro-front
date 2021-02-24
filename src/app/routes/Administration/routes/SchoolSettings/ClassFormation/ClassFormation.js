@@ -5,8 +5,13 @@ import AddClassFormation from './AddClassFormation';
 import SubmitStep from './SubmitStep';
 import _ from 'lodash';
 import { UncontrolledAlert } from 'reactstrap';
-import { addAssignementCourse } from '../../../../../../actions/AssignementAction';
+import {
+  addClassFormation,
+  addCollaboratorFormation,
+  addPlanningFormation,
+} from '../../../../../../actions/AffectaionClassFormation';
 import { getRoomsByEstablshment } from '../../../../../../actions/roomAction';
+import moment from 'moment';
 
 class CourseAssignment extends React.Component {
   constructor(props) {
@@ -207,6 +212,16 @@ class CourseAssignment extends React.Component {
     });
   }
   handleSubmitStep1(event) {
+    let objStep1 = {
+      classFormationName: this.state.nameClassFormation,
+      establishmentId: this.props.userProfile.establishment_id,
+      schoolYearId: this.props.userProfile.school_year_id,
+      levelId: this.state.levelId,
+      formationId: this.state.subjectId,
+      profId: this.state.profId,
+    };
+    this.props.dispatch(addClassFormation(objStep1));
+
     event.preventDefault();
     this.setState({
       step2: true,
@@ -215,6 +230,26 @@ class CourseAssignment extends React.Component {
   }
   handleSubmitStep2(event) {
     event.preventDefault();
+
+    let insciptionsFormation = [];
+    this.state.participantList.map((participantAgency) => {
+      participantAgency.participants.map((collaborator) => {
+        let objInscription = {
+          assignment_date: new Date(),
+          status: true,
+          fk_id_class_v4: this.props.classFormationId,
+          fk_id_school_year: this.props.userProfile.school_year_id,
+          fk_id_level_v4: this.state.levelId,
+          fk_id_section_v4: null,
+          fk_id_student: collaborator.id,
+          fk_id_group: null,
+        };
+        insciptionsFormation.push(objInscription);
+      });
+    });
+
+    this.props.dispatch(addCollaboratorFormation(insciptionsFormation));
+
     this.setState({
       step3: true,
       confirmStep2: false,
@@ -222,7 +257,34 @@ class CourseAssignment extends React.Component {
   }
   handleSubmitStep3(event) {
     event.preventDefault();
-    this.setState({
+    let listEvents = [];
+    this.state.horaireList.map((horaireElement) => {
+      let objHoraire = {
+        start_time: moment(
+          moment(horaireElement.dateFormation).format('YYYY/MM/DD') +
+            moment(horaireElement.startHour).format('HH:mm:ss'),
+          'YYYY-MM-DDLT'
+        ),
+        end_time: moment(
+          moment(horaireElement.dateFormation).format('YYYY/MM/DD') +
+            moment(horaireElement.endHour).format('HH:mm:ss'),
+          'YYYY-MM-DDLT'
+        ),
+        title: '',
+        frequency: 'annual',
+        event_type: 'lesson',
+        status: true,
+        repetition: [0],
+        fk_id_room: horaireElement.room.id === undefined ? null : horaireElement.room.id,
+        fk_id_prof: this.state.profId,
+        fk_id_assign_class_subject: this.props.assignmentFormationToClass,
+        fk_id_profile_creator: this.props.userProfile.id,
+      };
+      listEvents.push(objHoraire);
+    });
+    this.props.dispatch(addPlanningFormation(listEvents));
+
+     this.setState({
       open: false,
     });
   }
@@ -303,7 +365,7 @@ class CourseAssignment extends React.Component {
         object.label = element.name + ' ' + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
-        object.agenceId = element.agenceId;
+        object.agenceId = element.agencyId;
 
         return object;
       });
@@ -375,7 +437,7 @@ class CourseAssignment extends React.Component {
         object.label = element.name + ' ' + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
-        object.agenceId = element.agenceId;
+        object.agenceId = element.agencyId;
 
         return object;
       });
@@ -383,7 +445,7 @@ class CourseAssignment extends React.Component {
     }
   }
   render() {
-    // console.log('-----state----', this.state);
+ 
     return (
       <div
         className="app-wrapper"
@@ -478,6 +540,8 @@ const mapStateToProps = (state) => {
     levels: state.levelsReducer.levels,
     usersReducer: state.usersReducer,
     rooms: state.rooms.rooms,
+    classFormationId: state.ClassSettingsReducer.classFormationId,
+    assignmentFormationToClass: state.AssignementReducer.assignmentFormationToClass,
   };
 };
 
