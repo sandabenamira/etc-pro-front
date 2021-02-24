@@ -59,3 +59,51 @@ export function getAgence(establishmentId) {
     });
   };
 }
+
+export function editAgence(data, id) {
+  return (dispatch) => {
+    let apiEndpoint = `/agencies/${id}?access_token=${localStorage.token}`;
+    classService.patch(apiEndpoint, data).then((response) => {
+      if (response) {
+        dispatch({ type: EDIT_AGENCE, payload: response.data });
+        dispatch({
+          type: SHOW_SUCCESS_MESSAGE,
+          payload: "La modification d'agence est effectuée avec succès",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+        }, 4000);
+      }
+      else {
+        dispatch({
+          type: SHOW_SUCCESS_MESSAGE,
+          payload: "Une erreur est survenue lors de la modification",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+        }, 4000);
+      }
+    });
+  };
+}
+
+export function deleteAgence(itemId) {
+  return (dispatch) => {
+    let apiEndpoint =
+      `/agencies/` +
+      itemId.id +
+      `?access_token=${localStorage.token}`;
+    classService.patch(apiEndpoint, { status: false }).then((response) => {
+      if (response) {
+        dispatch({ type: DELETE_AGENCE, payload: response.data });
+        dispatch({
+          type: SHOW_SUCCESS_MESSAGE,
+          payload: "La suppression d'agence est effectuée avec succès",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+        }, 4000);
+      }
+    });
+  };
+}

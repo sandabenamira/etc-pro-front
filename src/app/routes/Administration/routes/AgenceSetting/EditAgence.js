@@ -4,14 +4,32 @@ import IntlMessages from "../../../../../util/IntlMessages";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Auxiliary from "../../../../../util/Auxiliary";
- import MenuItem from "@material-ui/core/MenuItem";
+import MenuItem from "@material-ui/core/MenuItem";
+import { isEmail } from "../../../../../constants/validationFunctions";
+import MuiPhoneNumber from "material-ui-phone-number";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+const fonctionList = [
+  { label: "Siège social", id: 1, value: 1 },
+  { label: "Entreprises", id: 2, value: 2 },
+  { label: "Particuliers et Professionnels", id: 3, value: 3 },
+  { label: "Mixte", id: 4, value: 4 },
+];
 export default class EditClassSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+  isValidphoneNumber = (number) => {
+    const tel = parsePhoneNumberFromString(number);
+    let res = false;
+    if (tel) {
+      res = tel.isValid();
+    }
+
+    return res;
+  };
   render() {
-    console.log(this.props.values);
+    console.log("values",this.props.values);
     return (
       <Auxiliary>
         <Modal
@@ -19,37 +37,34 @@ export default class EditClassSettings extends React.Component {
           toggle={this.props.handleAnnule}
         >
           <ModalHeader className="modal-box-header bg-primary text-white">
-            {<IntlMessages id="modal.modif.module.class" />}
+            Modifier les informations des agences
           </ModalHeader>
           <ModalBody>
             <form className="row" onSubmit={this.props.handleSubmit}>
-              <div className="col-sm-4">
+              <div className="col-sm-3">
                 <TextField
                   required
-                  id="namesubjectModule"
-                  label={
-                    <IntlMessages id="components.student.formadd.classe" />
-                  }
-                  value={this.props.values.nameClassSettings}
-                  onChange={this.props.handleChange("nameClassSettings")}
+                  id="Agence"
+                  label="Agence"
+                  value={this.props.values.nameAgence}
+                  onChange={this.props.handleChange("nameAgence")}
                   margin="normal"
                   fullWidth
                 />
               </div>
-              <div className="col-sm-4">
+              <div className="col-sm-3">
                 <TextField
-                  required
-                  select
-                  id="levelId"
-                  label={<IntlMessages id="components.note.niveau" />}
-                  value={this.props.values.levelId}
-                  onChange={this.props.handleChangeLevel("levelId")}
+                  id="typeAgence"
+                  label="Type Agence"
+                  value={this.props.values.typeAgence}
+                  onChange={this.props.handleChange("typeAgence")}
                   margin="normal"
                   fullWidth
+                  select
                 >
-                  {this.props.levels.map((level) => (
-                    <MenuItem key={level.id} value={level.id}>
-                      {level.name}
+                  {fonctionList.map((typeAgence) => (
+                    <MenuItem key={typeAgence.id} value={typeAgence.label}>
+                      {typeAgence.label}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -57,29 +72,98 @@ export default class EditClassSettings extends React.Component {
               <div className="col-sm-3">
                 <TextField
                   required
-                  select
-                  id="sectionId"
-                  label={
-                    <IntlMessages id="components.class.level.input.label.section" />
-                  }
-                  value={this.props.values.sectionId}
-                  onChange={this.props.handleChange("sectionId")}
+                  id="gouvernoratAgence"
+                  label="Gouvernorat"
+                  value={this.props.values.gouvernoratAgence}
+                  onChange={this.props.handleChange("gouvernoratAgence")}
                   margin="normal"
                   fullWidth
-                >
-                  {this.props.values.sectionsByLevelId.map((section) => (
-                    <MenuItem key={section.id} value={section.id}>
-                      {section.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                />
+              </div>
+              <div className="col-sm-3">
+                <TextField
+                  required
+                  id="adresseAgence"
+                  label="Adresse"
+                  value={this.props.values.adresseAgence}
+                  onChange={this.props.handleChange("adresseAgence")}
+                  margin="normal"
+                  fullWidth
+                />
               </div>
 
-              <div className="col-sm-12">
-                <h4>
-                  <font color="red">*</font>{" "}
-                  {<IntlMessages id="component.required_fields" />}
-                </h4>
+              <div className="col-sm-3">
+                <TextField
+                  error={
+                    isEmail(this.props.values.emailAgence) === false
+                      ? true
+                      : false
+                  }
+                  required
+                  id="emailAgence"
+                  label="Email"
+                  value={this.props.values.emailAgence}
+                  onChange={this.props.handleChange("emailAgence")}
+                  margin="normal"
+                  fullWidth={true}
+                  helperText={
+                    isEmail(this.props.values.emailAgence) === false ? (
+                      <IntlMessages id="error.user.message.mail" />
+                    ) : (
+                      ""
+                    )
+                  }
+                />
+              </div>
+              <div className="col-sm-3 mt-3">
+                <MuiPhoneNumber
+                  // error={
+                  //   this.isValidphoneNumber(this.props.values.faxAgence) ===
+                  //     true || this.props.values.faxAgence.length === 0
+                  //     ? false
+                  //     : true
+                  // }
+                  id="faxAgence"
+                  name="faxAgence"
+                  value={this.props.values.faxAgence}
+                  onChange={this.props.handleChangeFax}
+                  fullWidth={true}
+                  label="Fax"
+                  placeholder="(+XXX) XXX XXX XXX"
+                  // helperText={
+                  //   this.isValidphoneNumber(this.props.values.faxAgence) ===
+                  //     true || this.props.values.faxAgence.length === 0 ? (
+                  //     ""
+                  //   ) : (
+                  //     <IntlMessages id="error.user.message.phone" />
+                  //   )
+                  // }
+                />
+              </div>
+              <div className="col-sm-3 mt-3">
+                <MuiPhoneNumber
+                  // error={
+                  //   this.isValidphoneNumber(this.props.values.telAgence) ===
+                  //     true || this.props.values.telAgence.length === 0
+                  //     ? false
+                  //     : true
+                  // }
+                  id="telAgence"
+                  name="telAgence"
+                  value={this.props.values.telAgence}
+                  onChange={this.props.handleChangePhone}
+                  fullWidth={true}
+                  label={<IntlMessages id="user.phone.number" />}
+                  placeholder="(+XXX) XXX XXX XXX"
+                  // helperText={
+                  //   this.isValidphoneNumber(this.props.values.telAgence) ===
+                  //     true || this.props.values.telAgence.length === 0 ? (
+                  //     ""
+                  //   ) : (
+                  //     <IntlMessages id="error.user.message.phone" />
+                  //   )
+                  // }
+                />
               </div>
               <div className="col-md-12 text-left d-flex flex-wrap justify-content-end">
                 <br />
@@ -96,6 +180,7 @@ export default class EditClassSettings extends React.Component {
                   }}
                   className=" bg-indigo text-white "
                   type="submit"
+                  onClick={this.props.handleSubmit}
                 >
                   <IntlMessages id="components.establishments.formModify.buttonModify" />
                 </Button>
@@ -112,6 +197,7 @@ export default class EditClassSettings extends React.Component {
                   }}
                   className=" bg-grey text-white "
                   type="submit"
+                  onClick={this.props.handleAnnule}
                 >
                   <IntlMessages id="components.establishments.formadd.buttonCancel" />
                 </Button>
