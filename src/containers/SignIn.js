@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 import {
   NotificationContainer,
@@ -68,7 +68,7 @@ class SignIn extends React.Component {
   _handleKeyPress = (e) => {
     if (e.key === "Enter") {
       this.props.showAuthLoader();
-      const login = this.state.login;
+      const login = this.state.login.trim();
       const password = this.state.password;
       this.props.userSignIn({ login, password });
     }
@@ -78,15 +78,13 @@ class SignIn extends React.Component {
     this.setState({ [name]: event.target.value });
   };
 
-  
-  handleMouseDownPassword = event => {
+  handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
   handleClickShowPasssword = () => {
-    this.setState({showPassword: !this.state.showPassword});
+    this.setState({ showPassword: !this.state.showPassword });
   };
-
 
   ResetPassword() {
     var email1 = this.state.forgotPassword;
@@ -108,7 +106,7 @@ class SignIn extends React.Component {
             forgotPassword: "",
           });
           setTimeout(
-            function() {
+            function () {
               this.setState({ succedAlert: false, isopen: false });
             }.bind(this),
             2000
@@ -119,7 +117,7 @@ class SignIn extends React.Component {
             forgotPassword: "",
           });
           setTimeout(
-            function() {
+            function () {
               this.setState({ errorAlert: false });
             }.bind(this),
             2000
@@ -133,10 +131,7 @@ class SignIn extends React.Component {
   };
 
   render() {
-    const {
-      login,
-      password,
-    } = this.state;
+    const { login, password } = this.state;
     const {
       showMessage,
       loader,
@@ -197,7 +192,10 @@ class SignIn extends React.Component {
                       id="password-1"
                       type={this.state.showPassword ? "text" : "password"}
                       value={this.state.password}
-                      onChange={(event) => this.setState({ password: event.target.value })}
+                      onChange={(event) =>
+                        this.setState({ password: event.target.value })
+                      }
+                      onKeyPress={(event) => this._handleKeyPress(event)}
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
