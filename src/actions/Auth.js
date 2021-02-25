@@ -53,8 +53,7 @@ export const userSignIn = (user) => {
   }
 
   return (dispatch) => {
-    console.log("authhh action");
-    axios
+     axios
       .post(`${cst.baseUrl}/users/login`, User)
       .then((res) => {
         // let id = res.data.id;

@@ -49,7 +49,7 @@ class Registre extends Component {
       agenceId: '',
       agenceName: '',
       events: [],
-      chefAgenceId: '',
+      chefAgenceId: 0,
     };
 
     this.handleChangeClass = this.handleChangeClass.bind(this);
@@ -722,21 +722,23 @@ class Registre extends Component {
     //chefAgenceId
     if (this.state.isRedirect == true) {
       if (this.props.userProfile.role_id === roleIdParent) {
-        return (
+         return (
           <Redirect
-            to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${
+            to={`/app/assiduity/DetailsCallRegister/${'journalier'}/${
               this.state.eventId
-            }/${'ATB sousse sahloul'}/${this.props.userProfile.id}/${this.state.startDate}`}
+            }/${' '}/${this.props.userProfile.id}/${this.state.startDate}`}
           />
         );
       } else {
         if (this.state.typeCallRegister === 'formation') {
+ 
           return (
             <Redirect
               to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${this.state.eventId}/${this.state.classId}/${this.state.chefAgenceId}/${this.state.startDate}`}
             />
           );
         } else {
+ 
           return (
             <Redirect
               to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${this.state.eventId}/${this.state.agenceName}/${this.state.chefAgenceId}/${this.state.startDate}`}
