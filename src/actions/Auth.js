@@ -53,7 +53,7 @@ export const userSignIn = (user) => {
   }
 
   return (dispatch) => {
-     axios
+    axios
       .post(`${cst.baseUrl}/users/login`, User)
       .then((res) => {
         // let id = res.data.id;
@@ -70,7 +70,7 @@ export const userSignIn = (user) => {
 };
 
 export const getProfile = (token, userId) => {
-  return function (dispatch) {
+  return function(dispatch) {
     axios
       .get(`${cst.baseUrl}/profiles/getprofile/${userId}?access_token=${token}`)
       .then((res) => {
@@ -92,12 +92,33 @@ export const getProfile = (token, userId) => {
           conferenceTool: result.setting.conference_tool,
         };
         let establishmentInfomations = result.establishments[0].establishment;
-        dispatch(chekLicence(status, modules, user, settings, dataOption,establishmentInfomations));
+        dispatch(
+          chekLicence(
+            status,
+            modules,
+            user,
+            settings,
+            dataOption,
+            establishmentInfomations
+          )
+        );
+        console.log('first_connexion',result.user.first_connexion);
+        localStorage.setItem(
+          "first_connexion",
+          JSON.stringify(result.user.first_connexion)
+        );
       });
   };
 };
 
-const chekLicence = (status, modules, user, settings, dataOption,establishmentInfomations) => {
+const chekLicence = (
+  status,
+  modules,
+  user,
+  settings,
+  dataOption,
+  establishmentInfomations
+) => {
   return (dispatch) => {
     if (status !== "Actif") {
       dispatch(userSignOut());
@@ -108,13 +129,13 @@ const chekLicence = (status, modules, user, settings, dataOption,establishmentIn
       );
     } else {
       dispatch(getEstablishmentsModules(modules));
-      dispatch(initSessionApp(settings, dataOption,establishmentInfomations));
+      dispatch(initSessionApp(settings, dataOption, establishmentInfomations));
       dispatch(userSignInSuccess(user));
     }
   };
 };
 
-const initSessionApp = (settings, dataOption,establishmentInfomations) => {
+const initSessionApp = (settings, dataOption, establishmentInfomations) => {
   return (dispatch) => {
     dispatch(getThemeColor(settings.theme_color));
     dispatch(getAppLanguage(settings.app_lang));
@@ -122,7 +143,7 @@ const initSessionApp = (settings, dataOption,establishmentInfomations) => {
     dispatch(getSchoolYear());
     dispatch(getEstablishmentsInformations(establishmentInfomations));
   };
-}
+};
 export const getSchoolYear = () => {
   return (dispatch) => {
     axios
@@ -154,7 +175,7 @@ export const getEstablishmentsInformations = (data) => {
 };
 
 export const resetAccountPassword = (data) => {
-  return function (dispatch) {
+  return function(dispatch) {
     var token = localStorage.getItem("token");
     axios
       .post(
@@ -174,7 +195,6 @@ export const userSignOut = () => {
   axios.post(`${cst.baseUrl}/users/logout?access_token=${localStorage.token}`);
   localStorage.removeItem("token");
   localStorage.removeItem("rtvrx_tgfsaju_G0loik");
-
 
   return {
     type: SIGNOUT_USER,

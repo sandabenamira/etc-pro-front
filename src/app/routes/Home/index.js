@@ -70,8 +70,8 @@ class Home extends React.Component {
     }
   }
   componentWillMount() {
-     var first_connexion = localStorage.getItem("first_connexion");
-    if (first_connexion === "false") {
+    var first_connexion = localStorage.getItem("first_connexion");
+    if (first_connexion === false) {
       this.setState({
         isopen: false,
       });
@@ -208,6 +208,7 @@ class Home extends React.Component {
 
   render() {
     const first_connexion = localStorage.getItem("first_connexion");
+    console.log("first_connexion render", first_connexion);
     const { anchorEl, menuState } = this.state;
     return (
       <RoleContext.Consumer>
@@ -219,7 +220,7 @@ class Home extends React.Component {
               yes={() => (
                 <div>
                   <AdminDashboard />
-                  {first_connexion === "true" ? (
+                  {first_connexion === true ? (
                     <ResetPasswordModal
                       isopen={this.state.isopen}
                       handleCancel={this.handleCancel}
@@ -239,7 +240,7 @@ class Home extends React.Component {
               yes={() => (
                 <div>
                   <StudentDashborad />
-                  {first_connexion === "true" ? (
+                  {first_connexion === true ? (
                     <ResetPasswordModal
                       isopen={this.state.isopen}
                       handleCancel={this.handleCancel}
