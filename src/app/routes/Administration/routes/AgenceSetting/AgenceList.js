@@ -98,7 +98,7 @@ class AgenceList extends Component {
     const data = {
       name: this.state.nameAgence,
       agency_type: this.state.typeAgence,
-      agency_gouvernorat: this.state.adresseAgence,
+      agency_gouvernorat: this.state.gouvernoratAgence,
       agency_fax: this.state.faxAgence,
       agency_tel: this.state.telAgence,
       agency_mail: this.state.emailAgence,

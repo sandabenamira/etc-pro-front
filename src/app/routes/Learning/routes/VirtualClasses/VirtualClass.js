@@ -15,9 +15,7 @@ import {
 } from "../../../../../config/config";
 import VirtualClassList from "./VirtualClassList";
 import ArchiveVirtualClass from "./ArchiveVirtualClass";
-import {
-  addClassVirtual,
-} from "../../../../../actions/VirtualClassAction";
+import { addClassVirtual } from "../../../../../actions/VirtualClassAction";
 import axios from "axios";
 import baseUrl from "../../../../../config/config";
 import Fab from "@material-ui/core/Fab";
@@ -73,7 +71,7 @@ class VirtualClass extends React.Component {
       professorsFiltred: [],
       profSelected: [],
       coursesIds: [],
-      isOpenAlertParent:false
+      isOpenAlertParent: false,
     };
 
     this.openAddModal = this.openAddModal.bind(this);
@@ -114,7 +112,7 @@ class VirtualClass extends React.Component {
       courseAssignment: [],
       professorsFiltred: [],
       profSelected: [],
-      professorId:null
+      professorId: null,
     });
   }
 
@@ -204,11 +202,13 @@ class VirtualClass extends React.Component {
         }
       });
     } else {
-      this.props.courseAssignment.forEach(element => {
-        if (element.fk_id_subject_v4 === obj.subjectId && !_.isEmpty(element.course)) {
-          courseAssignment.push(element)
+      this.props.courseAssignment.forEach((element) => {
+        if (
+          element.fk_id_subject_v4 === obj.subjectId &&
+          !_.isEmpty(element.course)
+        ) {
+          courseAssignment.push(element);
         }
-        
       });
     }
     this.setState({
@@ -227,12 +227,12 @@ class VirtualClass extends React.Component {
     let coursesIds = [];
     if (this.props.userProfile.role_id === roleIdProfessor) {
       classSelected.forEach((element) => {
-        let object ={
-          id : element.courseId
-        }
+        let object = {
+          id: element.courseId,
+        };
         coursesIds.push(object);
       });
-      this.setState({coursesIds})
+      this.setState({ coursesIds });
     } else {
       let professorsIds = [];
       classSelected.forEach((element) => {
@@ -294,7 +294,6 @@ class VirtualClass extends React.Component {
         }, 3000);
       } else {
         let data = {
-        
           subjectName: this.state.subjectName,
           subjectColor: this.state.subjectColor,
           subjectId: this.state.subjectId,
@@ -318,15 +317,14 @@ class VirtualClass extends React.Component {
         if (this.props.userProfile.role_id === roleIdAdmin) {
           data.professorId = this.state.profSelected[0].profId;
           data.profName = this.state.profSelected[0].name;
-          data.profSurname = this.state.profSelected[0].surname
-        }else{
+          data.profSurname = this.state.profSelected[0].surname;
+        } else {
           data.professorId = this.props.userProfile.user.profiles[0].professors[0].id;
           data.profName = this.props.userProfile.user.name;
           data.profSurname = this.props.userProfile.user.surname;
         }
         this.props.dispatch(addClassVirtual(data, dateVirtuelClass));
         this.handleCancel();
-   
       }
     } else {
     }
@@ -371,15 +369,12 @@ class VirtualClass extends React.Component {
         this.setState({ show: true });
       }
     } else if (this.props.userProfile.role_id === roleIdParent) {
-    
-      let classStudents = this.props.userProfile.user.profiles[0].parents[0].student_parents;
+      let classStudents = this.props.userProfile.user.profiles[0].parents[0]
+        .student_parents;
       if (_.isEmpty(classStudents)) {
         this.setState({ isOpenAlertParent: true });
-     
       }
-
-    }
-    else if (this.props.userProfile.role_id === roleIdAdmin) {
+    } else if (this.props.userProfile.role_id === roleIdAdmin) {
       this.setState({ subjects: this.props.subjects });
     }
   }
@@ -406,7 +401,6 @@ class VirtualClass extends React.Component {
   }
 
   render() {
- 
     let detailCards = [
       {
         cardColor: "primary",
@@ -455,9 +449,7 @@ class VirtualClass extends React.Component {
         <div className="  mb-3">
           <div className="p-2 bd-highlight" style={{ marginLeft: "4%" }}>
             <h1>
-              <b>
-                <IntlMessages id="sidebar.components.liste.classes.virtuelles" />
-              </b>
+              <b>Liste des formations en ligne </b>
             </h1>
           </div>
           <div
@@ -614,12 +606,13 @@ class VirtualClass extends React.Component {
         ) : (
           ""
         )}
-        {this.state.isOpenAlertParent &&  <SweetAlert
+        {this.state.isOpenAlertParent && (
+          <SweetAlert
             show={this.state.isOpenAlertParent}
             title={<IntlMessages id="alert.affect.student.to.parent" />}
             onConfirm={this.onConfirmParent}
-          ></SweetAlert>}
-        
+          ></SweetAlert>
+        )}
       </div>
     );
   }

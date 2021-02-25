@@ -13,9 +13,6 @@ export default class ClassSettingsItem extends Component {
         <TableCell>
           {getNameFromID(this.props.levels, classItem.fk_id_level_v4)}
         </TableCell>
-        <TableCell>
-          {getNameFromID(this.props.sections, classItem.fk_id_section_v4)}
-        </TableCell>
         {this.props.archived == false ? (
           <TableCell>
             <IconButton

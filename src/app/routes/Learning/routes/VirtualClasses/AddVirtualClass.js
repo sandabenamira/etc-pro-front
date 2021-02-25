@@ -69,9 +69,7 @@ class AddVirtualClass extends React.Component {
                   >
                     <div className="d-flex justify-content-start align-items-center">
                       <h1>
-                        <b>
-                          <IntlMessages id="new.class.virtual" />
-                        </b>
+                        <b>Nouvelle formation en ligne</b>
                       </h1>
                       &nbsp;&nbsp;&nbsp;
                       <Fab
@@ -241,7 +239,9 @@ class AddVirtualClass extends React.Component {
                                                       key={index}
                                                       value={professor}
                                                     >
-                                                      {professor.name+ ' '+ professor.surname}
+                                                      {professor.name +
+                                                        " " +
+                                                        professor.surname}
                                                     </MenuItem>
                                                   );
                                                 }
