@@ -71,6 +71,9 @@ export class ModalDetailsUser extends React.Component {
   }
 
   render() {
+    console.log("userItem", this.props.userItem);
+    console.log("establishments", this.props.establishments);
+
     let userItem = this.props.userItem;
     let roleNameUser = "";
     let roleUser = listRolesUsers.find(
@@ -398,7 +401,7 @@ export class ModalDetailsUser extends React.Component {
                             type="text"
                             className="form-control"
                             id="function"
-                            value="Biat lac 1"
+                            value={userItem.agencyName}
                           />
                         </div>
                       </div>
@@ -648,32 +651,31 @@ export class ModalDetailsUser extends React.Component {
                           value={userItem.cin}
                         />
                       </div>
-                      
                     </div>
                     <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
-                        <div className="col-md-6 col-lg-6 col-sm-12">
-                          <label htmlFor="function">
-                            <IntlMessages id="vie.scolaire.fonction" />
-                          </label>
-                          <input
-                            disabled={true}
-                            type="text"
-                            className="form-control"
-                            id="function"
-                            value={roleNameUser}
-                          />
-                        </div>
-                        <div className="col-md-6 col-lg-6 col-sm-12">
-                          <label htmlFor="function">Agence</label>
-                          <input
-                            disabled={true}
-                            type="text"
-                            className="form-control"
-                            id="function"
-                            value="Biat lac 1"
-                          />
-                        </div>
+                      <div className="col-md-6 col-lg-6 col-sm-12">
+                        <label htmlFor="function">
+                          <IntlMessages id="vie.scolaire.fonction" />
+                        </label>
+                        <input
+                          disabled={true}
+                          type="text"
+                          className="form-control"
+                          id="function"
+                          value={roleNameUser}
+                        />
                       </div>
+                      <div className="col-md-6 col-lg-6 col-sm-12">
+                        <label htmlFor="function">Agence</label>
+                        <input
+                          disabled={true}
+                          type="text"
+                          className="form-control"
+                          id="function"
+                          value={userItem.agencyName}
+                        />
+                      </div>
+                    </div>
                     <div className="d-flex flex-column col-md-12 col-lg-12 col-sm-12">
                       <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-center p-2">
                         <label htmlFor="inforamtionsuser">
@@ -833,13 +835,13 @@ export class ModalDetailsUser extends React.Component {
                         />
                       </div>
                       <div className="col-md-6 col-lg-6 col-sm-12">
-                        <label htmlFor="function">Agence</label>
+                        <label htmlFor="function">Banque</label>
                         <input
                           disabled={true}
                           type="text"
                           className="form-control"
                           id="function"
-                          value="Biat lac 1"
+                          value={this.props.establishments.name || ""}
                         />
                       </div>
                     </div>

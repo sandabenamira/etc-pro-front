@@ -1,4 +1,4 @@
-import { classService } from '../_services/class.service';
+import { classService } from "../_services/class.service";
 import {
   ADD_AGENCE,
   GET_AGENCE,
@@ -9,7 +9,7 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
-} from '../constants/ActionTypes';
+} from "../constants/ActionTypes";
 export function addAgence(data) {
   return (dispatch) => {
     let apiEndpoint = `/agencies?access_token=${localStorage.token}`;
@@ -18,7 +18,7 @@ export function addAgence(data) {
         dispatch({ type: ADD_AGENCE, payload: response.data });
         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
-          payload: 'La création est effectuée avec succès',
+          payload: "La création est effectuée avec succès",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_SUCCESS_MESSAGE });
@@ -26,7 +26,8 @@ export function addAgence(data) {
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
-          payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+          payload:
+            "Une erreur est survenue lors de la création merci d'essayer à nouveau",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });
@@ -36,7 +37,6 @@ export function addAgence(data) {
   };
 }
 export function getAgence(establishmentId) {
-  // console.log('-----action data-----',data);
   return (dispatch) => {
     let apiEndpoint =
       `/agencies?access_token=${localStorage.token}&filter[where][fk_id_establishment]=` +
@@ -44,13 +44,16 @@ export function getAgence(establishmentId) {
     classService.get(apiEndpoint).then((response) => {
       if (response) {
         let listAgence = response.data.filter((element) => element.status);
-        let listAgenceArchived = response.data.filter((element) => !element.status);
+        let listAgenceArchived = response.data.filter(
+          (element) => !element.status
+        );
         dispatch({ type: GET_AGENCE, payload: listAgence });
         dispatch({ type: ARCHIVED_GET_AGENCE, payload: listAgenceArchived });
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
-          payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+          payload:
+            "Une erreur est survenue lors de la création merci d'essayer à nouveau",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });
@@ -73,8 +76,7 @@ export function editAgence(data, id) {
         setTimeout(() => {
           dispatch({ type: HIDE_SUCCESS_MESSAGE });
         }, 4000);
-      }
-      else {
+      } else {
         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
           payload: "Une erreur est survenue lors de la modification",
@@ -90,9 +92,7 @@ export function editAgence(data, id) {
 export function deleteAgence(itemId) {
   return (dispatch) => {
     let apiEndpoint =
-      `/agencies/` +
-      itemId.id +
-      `?access_token=${localStorage.token}`;
+      `/agencies/` + itemId.id + `?access_token=${localStorage.token}`;
     classService.patch(apiEndpoint, { status: false }).then((response) => {
       if (response) {
         dispatch({ type: DELETE_AGENCE, payload: response.data });

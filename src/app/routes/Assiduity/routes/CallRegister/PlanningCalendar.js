@@ -204,7 +204,7 @@ class PlanningCalendar extends React.Component {
                               value={values.profId}
                               onChange={this.props.handleChangeProf('profId')}
                               SelectProps={{}}
-                              label={<IntlMessages id={`professor.call`} />}
+                              label={"Formateur"}
                               InputProps={{ disableUnderline: true }}
                               margin="normal"
                               fullWidth
