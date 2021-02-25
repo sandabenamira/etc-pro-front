@@ -70,7 +70,7 @@ class Home extends React.Component {
     }
   }
   componentWillMount() {
-     var first_connexion = localStorage.getItem("first_connexion");
+    var first_connexion = localStorage.getItem("first_connexion");
     if (first_connexion === "false") {
       this.setState({
         isopen: false,
@@ -208,6 +208,7 @@ class Home extends React.Component {
 
   render() {
     const first_connexion = localStorage.getItem("first_connexion");
+    console.log("first_connexion render", first_connexion);
     const { anchorEl, menuState } = this.state;
     return (
       <RoleContext.Consumer>

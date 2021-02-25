@@ -17,7 +17,7 @@ export function addAssignementCourse(dataAssignementCourse) {
     let apiEndpoint = `/assignment_class_subjects?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, dataAssignementCourse).then((response) => {
       if (response) {
-        var mergeData = _.merge(response.data, dataAssignementCourse);
+        let mergeData = _.merge(response.data, dataAssignementCourse);
 
         dispatch({ type: ADD_ASSIGNEMENT_COURSE, payload: mergeData });
         dispatch({

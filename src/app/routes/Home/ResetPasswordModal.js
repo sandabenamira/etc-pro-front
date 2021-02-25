@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import IntlMessages from '../../../util/IntlMessages';
-import Auxiliary from '../../../util/Auxiliary';
-import { Modal, ModalBody, ModalHeader } from 'reactstrap';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { UncontrolledAlert } from 'reactstrap';
+import React, { Component } from "react";
+import IntlMessages from "../../../util/IntlMessages";
+import Auxiliary from "../../../util/Auxiliary";
+import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { UncontrolledAlert } from "reactstrap";
 export default class ResetPasswordModal extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +32,7 @@ export default class ResetPasswordModal extends Component {
               </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
           {this.props.values.errorAlert === true ? (
             <UncontrolledAlert className="alert-addon-card bg-danger bg-danger text-white shadow-lg">
@@ -44,7 +44,7 @@ export default class ResetPasswordModal extends Component {
               </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
           <ModalBody>
             <form autoComplete="off">
@@ -61,7 +61,7 @@ export default class ResetPasswordModal extends Component {
                       value={this.props.values.oldPassword}
                       margin="normal"
                       fullWidth
-                      onChange={this.props.handleChange('oldPassword')}
+                      onChange={this.props.handleChange("oldPassword")}
                     />
                     <TextField
                       variant="outlined"
@@ -73,7 +73,7 @@ export default class ResetPasswordModal extends Component {
                       value={this.props.values.resetPassword}
                       margin="normal"
                       fullWidth
-                      onChange={this.props.handleChange('resetPassword')}
+                      onChange={this.props.handleChange("resetPassword")}
                     />
                     <TextField
                       variant="outlined"
@@ -85,9 +85,10 @@ export default class ResetPasswordModal extends Component {
                       value={this.props.values.confirmresetPassword}
                       margin="normal"
                       fullWidth
-                      onChange={this.props.handleChange('confirmresetPassword')}
+                      onChange={this.props.handleChange("confirmresetPassword")}
                       error={
-                        this.props.values.confirmresetPassword !== this.props.values.resetPassword
+                        this.props.values.confirmresetPassword !==
+                        this.props.values.resetPassword
                           ? true
                           : false
                       }
@@ -102,7 +103,8 @@ export default class ResetPasswordModal extends Component {
                   variant="contained"
                   className="jr-btn bg-indigo text-white "
                   disabled={
-                    this.props.values.confirmresetPassword !== this.props.values.resetPassword ||
+                    this.props.values.confirmresetPassword !==
+                      this.props.values.resetPassword ||
                     (this.props.values.confirmresetPassword.length === 0 &&
                       this.props.values.resetPassword.length === 0)
                   }
