@@ -18,7 +18,7 @@ class ArchiveClassesSettings extends React.Component {
   render() {
     return (
       <div>
-        <div className="d-flex justify-content-start align-items-center ">
+        <div className="d-flex justify-content-start align-items-start " >
           <h1>
             <b>
               {" "}

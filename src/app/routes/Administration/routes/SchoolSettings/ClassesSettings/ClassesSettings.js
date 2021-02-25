@@ -6,7 +6,7 @@ import ClassesSettingsList from "./ClassesSettingsList";
 import ArchiveClassesSettings from "./ArchiveClassesSettings";
 import { UncontrolledAlert } from "reactstrap";
 import { addClassSetting } from "../../../../../../actions/ClassSettingsAction";
-import moment from 'moment';
+import moment from "moment";
 
 class ClassesSettings extends React.Component {
   constructor(props) {
@@ -18,8 +18,8 @@ class ClassesSettings extends React.Component {
       messageAlerte: "",
       level_id: null,
       section_id: null,
-      sections:[]
-     };
+      sections: [],
+    };
     this.openAddModal = this.openAddModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,7 +43,6 @@ class ClassesSettings extends React.Component {
       status: true,
       fk_id_section_v4: this.state.section_id,
       creation_date: moment(new Date()).format(),
-
     };
     this.props.dispatch(addClassSetting(data));
     this.openAddModal();
@@ -63,21 +62,14 @@ class ClassesSettings extends React.Component {
   };
 
   handleChangeLevel = (name) => (event) => {
-    let sections = this.props.sections
+    let sections = this.props.sections;
     this.setState({ [name]: event.target.value, sections });
   };
 
   render() {
-  
     return (
-      <div
-        className="app-wrapper"
-        style={{
-          marginLeft: "5%",
-          marginRight: "10%",
-        }}
-      >
-        <div className="  d-flex flex-column mb-3">
+      <div>
+        <div className=" d-flex flex-wrap flex-column mb-3">
           {this.props.successStatus ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
               <span className="icon-addon alert-addon">
@@ -86,7 +78,7 @@ class ClassesSettings extends React.Component {
               <span className="d-inline-block"> {this.props.message} </span>
             </UncontrolledAlert>
           ) : (
-            "" 
+            ""
           )}
           {this.state.alerteFiltre ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
@@ -101,7 +93,7 @@ class ClassesSettings extends React.Component {
           ) : (
             ""
           )}
-           <div className=" bd-highlight" style={{ width: "90%" }}>
+          {/* <div className=" bd-highlight" style={{ width: "90%" }}>
           <CardBox styleName="col-lg-12">
             <AddClassesSettings
               openAddModal={this.openAddModal}
@@ -114,16 +106,16 @@ class ClassesSettings extends React.Component {
               handleChangeLevel={this.handleChangeLevel}
             />
           </CardBox>
+        </div> */}
         </div>
-          <div className=" bd-highlight" style={{ width: "90%" }}>
-            <CardBox styleName="col-lg-12">
-              <ClassesSettingsList
-                ClassSettings={this.props.ClassSettings}
-                levels={this.props.levels}
-                sections={this.props.sections}
-              />
-            </CardBox>
-          </div>
+        <div className=" bd-highlight" style={{ width: "90%" }}>
+          <CardBox styleName="col-lg-12">
+            <ClassesSettingsList
+              ClassSettings={this.props.ClassSettings}
+              levels={this.props.levels}
+              sections={this.props.sections}
+            />
+          </CardBox>
         </div>
         <div className=" bd-highlight" style={{ width: "90%" }}>
           <CardBox styleName="col-lg-12">
@@ -132,7 +124,7 @@ class ClassesSettings extends React.Component {
               sections={this.props.sections}
             />
           </CardBox>
-        </div>    
+        </div>
       </div>
     );
   }

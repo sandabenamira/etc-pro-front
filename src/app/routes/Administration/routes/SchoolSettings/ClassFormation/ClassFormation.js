@@ -1,17 +1,18 @@
-import React from 'react';
-import CardBox from '../../../../../../components/CardBox/index';
-import { connect } from 'react-redux';
-import AddClassFormation from './AddClassFormation';
-import SubmitStep from './SubmitStep';
-import _ from 'lodash';
-import { UncontrolledAlert } from 'reactstrap';
+import React from "react";
+import CardBox from "../../../../../../components/CardBox/index";
+import { connect } from "react-redux";
+import AddClassFormation from "./AddClassFormation";
+import SubmitStep from "./SubmitStep";
+import _ from "lodash";
+import { UncontrolledAlert } from "reactstrap";
 import {
   addClassFormation,
   addCollaboratorFormation,
   addPlanningFormation,
-} from '../../../../../../actions/AffectaionClassFormation';
-import { getRoomsByEstablshment } from '../../../../../../actions/roomAction';
-import moment from 'moment';
+} from "../../../../../../actions/AffectaionClassFormation";
+import { getRoomsByEstablshment } from "../../../../../../actions/roomAction";
+import moment from "moment";
+import ClassesSettingsList from "../ClassesSettings/ClassesSettings";
 
 class CourseAssignment extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class CourseAssignment extends React.Component {
         },
       ],
 
-      nameClassFormation: '',
+      nameClassFormation: "",
       levelId: null,
       subjectId: null,
       profId: null,
@@ -115,7 +116,7 @@ class CourseAssignment extends React.Component {
     this.setState({ horaireList });
   };
   handleChangeHoraire = (selectedOption, name, index) => {
-    if (name === 'room') {
+    if (name === "room") {
       let newHoraireList = this.state.horaireList.map((element, i) =>
         i === index
           ? {
@@ -157,7 +158,7 @@ class CourseAssignment extends React.Component {
     this.setState({ participantList });
   };
   handleChangeParticipant = (selectedOption, name, index) => {
-    if (name === 'agence') {
+    if (name === "agence") {
       let agenceIds = [selectedOption.value];
       this.state.participantList.map((element) => {
         if (element.id != index) {
@@ -174,7 +175,7 @@ class CourseAssignment extends React.Component {
           : element
       );
       this.setState({ participantList: newParticipantList });
-    } else if (name === 'participants') {
+    } else if (name === "participants") {
       let newParticipantList = this.state.participantList.map((element, i) =>
         i === index
           ? {
@@ -261,21 +262,22 @@ class CourseAssignment extends React.Component {
     this.state.horaireList.map((horaireElement) => {
       let objHoraire = {
         start_time: moment(
-          moment(horaireElement.dateFormation).format('YYYY/MM/DD') +
-            moment(horaireElement.startHour).format('HH:mm:ss'),
-          'YYYY-MM-DDLT'
+          moment(horaireElement.dateFormation).format("YYYY/MM/DD") +
+            moment(horaireElement.startHour).format("HH:mm:ss"),
+          "YYYY-MM-DDLT"
         ),
         end_time: moment(
-          moment(horaireElement.dateFormation).format('YYYY/MM/DD') +
-            moment(horaireElement.endHour).format('HH:mm:ss'),
-          'YYYY-MM-DDLT'
+          moment(horaireElement.dateFormation).format("YYYY/MM/DD") +
+            moment(horaireElement.endHour).format("HH:mm:ss"),
+          "YYYY-MM-DDLT"
         ),
-        title: '',
-        frequency: 'annual',
-        event_type: 'lesson',
+        title: "",
+        frequency: "annual",
+        event_type: "lesson",
         status: true,
         repetition: [0],
-        fk_id_room: horaireElement.room.id === undefined ? null : horaireElement.room.id,
+        fk_id_room:
+          horaireElement.room.id === undefined ? null : horaireElement.room.id,
         fk_id_prof: this.state.profId,
         fk_id_assign_class_subject: this.props.assignmentFormationToClass,
         fk_id_profile_creator: this.props.userProfile.id,
@@ -284,7 +286,7 @@ class CourseAssignment extends React.Component {
     });
     this.props.dispatch(addPlanningFormation(listEvents));
 
-     this.setState({
+    this.setState({
       open: false,
     });
   }
@@ -344,11 +346,11 @@ class CourseAssignment extends React.Component {
       });
       this.setState({ levelList });
     }
-    if (typeof this.props.usersReducer.professors != 'undefined') {
+    if (typeof this.props.usersReducer.professors != "undefined") {
       let professorList = [];
       professorList = this.props.usersReducer.professors.map((element) => {
         var object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.profId;
         object.value = element.profId;
         object.agenceId = element.agenceId;
@@ -362,7 +364,7 @@ class CourseAssignment extends React.Component {
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
         var object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
         object.agenceId = element.agencyId;
@@ -424,7 +426,7 @@ class CourseAssignment extends React.Component {
       let professorList = [];
       professorList = this.props.usersReducer.professors.map((element) => {
         var object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.profId;
         object.value = element.profId;
         object.agenceId = element.agenceId;
@@ -434,7 +436,7 @@ class CourseAssignment extends React.Component {
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
         var object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
         object.agenceId = element.agencyId;
@@ -445,13 +447,12 @@ class CourseAssignment extends React.Component {
     }
   }
   render() {
- 
     return (
       <div
         className="app-wrapper"
         style={{
-          marginLeft: '5%',
-          marginRight: '10%',
+          marginLeft: "5%",
+          marginRight: "10%",
         }}
       >
         <div className="  d-flex flex-column mb-3">
@@ -460,10 +461,13 @@ class CourseAssignment extends React.Component {
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
-              <span className="d-inline-block"> {this.state.messageAlerte} </span>
+              <span className="d-inline-block">
+                {" "}
+                {this.state.messageAlerte}{" "}
+              </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
           {this.props.successStatus ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
@@ -473,38 +477,56 @@ class CourseAssignment extends React.Component {
               <span className="d-inline-block"> {this.props.message} </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
           {this.state.alerteFiltre ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
-              <span className="d-inline-block"> {this.state.messageAlerte} </span>
+              <span className="d-inline-block">
+                {" "}
+                {this.state.messageAlerte}{" "}
+              </span>
             </UncontrolledAlert>
           ) : (
-            ''
+            ""
           )}
-          <div className=" bd-highlight" style={{ width: '90%' }}>
-            <CardBox styleName="col-lg-12">
-              <AddClassFormation
-                values={this.state}
-                openAddModal={this.openAddModal}
-                handleConfirmStep1={this.handleConfirmStep1}
-                handleConfirmStep2={this.handleConfirmStep2}
-                handleSubmitStep3={this.handleSubmitStep3}
-                handleCancel={this.handleCancel}
-                handleChange={this.handleChange}
-                handleChangeName={this.handleChangeName}
-                handleChangeParticipant={this.handleChangeParticipant}
-                addNewListParticipant={this.addNewListParticipant}
-                handleChangeHoraire={this.handleChangeHoraire}
-                addNewHoraire={this.addNewHoraire}
-                deleteListParticipant={this.deleteListParticipant}
-                deleteHoraire={this.deleteHoraire}
+          <div class="d-flex flex-wrap flex-column">
+            <div className=" bd-highlight" style={{ width: "90%" }}>
+              <CardBox styleName="col-lg-12">
+                <AddClassFormation
+                  values={this.state}
+                  openAddModal={this.openAddModal}
+                  handleConfirmStep1={this.handleConfirmStep1}
+                  handleConfirmStep2={this.handleConfirmStep2}
+                  handleSubmitStep3={this.handleSubmitStep3}
+                  handleCancel={this.handleCancel}
+                  handleChange={this.handleChange}
+                  handleChangeName={this.handleChangeName}
+                  handleChangeParticipant={this.handleChangeParticipant}
+                  addNewListParticipant={this.addNewListParticipant}
+                  handleChangeHoraire={this.handleChangeHoraire}
+                  addNewHoraire={this.addNewHoraire}
+                  deleteListParticipant={this.deleteListParticipant}
+                  deleteHoraire={this.deleteHoraire}
+                />
+              </CardBox>
+            </div>
+               <ClassesSettingsList
+                ClassSettings={this.props.ClassSettings}
+                levels={this.props.levels}
+                sections={this.props.sections}
               />
-            </CardBox>
-          </div>
+           </div>
+
+          {/* <div className=" bd-highlight" style={{ width: "90%" }}>
+               <ClassesSettingsList
+                ClassSettings={this.props.ClassSettings}
+                levels={this.props.levels}
+                sections={this.props.sections}
+              />
+           </div> */}
         </div>
         {this.state.confirmStep1 === true ? (
           <SubmitStep
@@ -513,7 +535,7 @@ class CourseAssignment extends React.Component {
             handleSubmitStep={this.handleSubmitStep1}
           />
         ) : (
-          ''
+          ""
         )}
         {this.state.confirmStep2 === true ? (
           <SubmitStep
@@ -522,7 +544,7 @@ class CourseAssignment extends React.Component {
             handleSubmitStep={this.handleSubmitStep2}
           />
         ) : (
-          ''
+          ""
         )}
       </div>
     );
@@ -541,7 +563,10 @@ const mapStateToProps = (state) => {
     usersReducer: state.usersReducer,
     rooms: state.rooms.rooms,
     classFormationId: state.ClassSettingsReducer.classFormationId,
-    assignmentFormationToClass: state.AssignementReducer.assignmentFormationToClass,
+    assignmentFormationToClass:
+      state.AssignementReducer.assignmentFormationToClass,
+    sections: state.SectionsReducer.Section,
+    ClassSettings: state.ClassSettingsReducer.classSettings,
   };
 };
 

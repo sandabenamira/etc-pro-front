@@ -110,11 +110,7 @@ class ClassesSettingsList extends Component {
               </TableCell>
               <TableCell>
                 <IntlMessages id="components.note.niveau" />
-              </TableCell>
-              <TableCell>
-                {" "}
-                <IntlMessages id="components.class.level.input.label.section" />
-              </TableCell>
+              </TableCell>            
               <TableCell>
                 <IntlMessages id="action.type.of.education" />
               </TableCell>
