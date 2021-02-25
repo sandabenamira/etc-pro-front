@@ -92,8 +92,7 @@ class App extends React.Component {
     this.initModules = this.initModules.bind(this);
   }
   initModules(userProfile) {
-    console.log('userProfile', userProfile);
-    console.log('initModules');
+    
 
     this.props.dispatch(getUserPermissions(userProfile.establishment_id, userProfile.role_id));
     this.props.dispatch(

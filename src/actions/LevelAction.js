@@ -54,8 +54,7 @@ export function getLevel(establishementId, schoolYearId) {
     let apiEndpoint = `/level_v4?access_token=${localStorage.token}&filter[where][fk_id_school_year]=${schoolYearId}&filter[include][educationType]`;
     classService.get(apiEndpoint).then((response) => {
       if (response) {
-        console.log(response.data,'---------response.data------------');
-
+ 
         let levelsListByEstab = [];
         response.data.forEach((element) => {
           if (element.educationType.fk_id_establishment == establishementId) {
@@ -67,8 +66,7 @@ export function getLevel(establishementId, schoolYearId) {
         const ArchivedLevelsList = list.filter(
           (element) => element.status == false
         );
-        console.log(LevelList,'---------GET_LEVELS------------');
-        dispatch({ type: GET_LEVELS, payload: LevelList });
+         dispatch({ type: GET_LEVELS, payload: LevelList });
         dispatch({ type: ARCHIVED_GET_LEVELS, payload: ArchivedLevelsList });
       }
     });

@@ -529,7 +529,7 @@ class DetailsCallRegister extends React.Component {
           : this.props.match.params.classId +
             '/' +
             new Date(dayCall).toLocaleDateString('fr-FR', options);
-       
+
       this.setState({
         title: title,
         dateEvent: new Date(dayCall).toLocaleDateString('fr-FR', options1),
@@ -543,20 +543,20 @@ class DetailsCallRegister extends React.Component {
       if (!checkDate) {
         toolbar.onNavigate('NEXT');
         let title =
-        this.props.userProfile.role_id === roleIdParent
-          ? this.props.match.params.classId +
-            '/' +
-            new Date(dayCall).toLocaleDateString('fr-FR', options)
-          : this.props.match.params.type === 'formation'
-          ? this.state.event.classeName +
-            '/' +
-            this.state.event.subjectName +
-            '/' +
-            new Date(dayCall).toLocaleDateString('fr-FR', options)
-          : this.props.match.params.classId +
-            '/' +
-            new Date(dayCall).toLocaleDateString('fr-FR', options);
-         
+          this.props.userProfile.role_id === roleIdParent
+            ? this.props.match.params.classId +
+              '/' +
+              new Date(dayCall).toLocaleDateString('fr-FR', options)
+            : this.props.match.params.type === 'formation'
+            ? this.state.event.classeName +
+              '/' +
+              this.state.event.subjectName +
+              '/' +
+              new Date(dayCall).toLocaleDateString('fr-FR', options)
+            : this.props.match.params.classId +
+              '/' +
+              new Date(dayCall).toLocaleDateString('fr-FR', options);
+
         this.setState({
           title: title,
           dateEvent: new Date(dayCall).toLocaleDateString('fr-FR', options1),
@@ -1404,7 +1404,10 @@ class DetailsCallRegister extends React.Component {
                     )}
                   </div>
                 ))}
-              {this.props.match.params.type === 'formation' && (
+              {this.props.match.params.type === 'journalier' &&
+              this.props.userProfile.role_id === roleIdAdmin ? (
+                ''
+              ) : (
                 <div className="d-flex justify-content-end mt-5">
                   <Button
                     disabled={this.state.callRegister.length == 0}
@@ -1425,6 +1428,28 @@ class DetailsCallRegister extends React.Component {
                   </Button>
                 </div>
               )}
+              {/* {this.props.match.params.type === 'journalier' &&
+                this.props.userProfile.role_id === roleIdAdmin && (
+                  <div className="d-flex justify-content-end mt-5">
+                    <Button
+                      disabled={this.state.callRegister.length == 0}
+                      variant="contained"
+                      style={{
+                        borderBottomLeftRadius: '16px',
+                        borderBottomRightRadius: '16px',
+                        borderTopLeftRadius: '16px',
+                        borderTopRightRadius: '16px',
+                        width: '100px',
+                        height: '40px',
+                        marginRight: '10%',
+                      }}
+                      className=" bg-indigo text-white "
+                      onClick={this.handleSubmit}
+                    >
+                      <IntlMessages id="button.save.registreAppel" />
+                    </Button>
+                  </div>
+                )} */}
             </div>
           </div>
 
