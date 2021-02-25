@@ -6,13 +6,20 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
-  ADD_CLASS_SETTINGS
+  ADD_CLASS_SETTINGS,
+  ADD_ASSIGNEMENT_COURSE,
 } from '../constants/ActionTypes';
-export function addClassFormation(data) {
+export function addClassFormation(data, subjectSelected) {
   return (dispatch) => {
     let apiEndpoint = `/class_v4/affectClassFormation?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, data).then((response) => {
       if (response) {
+        let assignmentClassToFormation = {
+          ...response.data.affectation.result[0].assignClassToFormation,
+          class: response.data.affectation.result[0].classFormation,
+          subject: subjectSelected,
+          course: [response.data.affectation.result[0].assignFormationToProf],
+        };
         if (response.data.affectation.affectation) {
           dispatch({
             type: ADD_CLASS_FORMATION,
@@ -26,6 +33,7 @@ export function addClassFormation(data) {
             type: ADD_CLASS_SETTINGS,
             payload: { ...response.data.affectation.result[0].classFormation, group: [] },
           });
+           dispatch({ type: ADD_ASSIGNEMENT_COURSE, payload: assignmentClassToFormation });
         }
       } else {
         dispatch({
@@ -58,20 +66,20 @@ export function addCollaboratorFormation(data) {
   };
 }
 export function addPlanningFormation(data) {
-    return (dispatch) => {
-      let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
-      classService.post(apiEndpoint, data).then((response) => {
-        if (response) {
-          console.log(response.data, 'response addPlanningFormation');
-        } else {
-          dispatch({
-            type: SHOW_ERROR_MESSAGE,
-            payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
-          });
-          setTimeout(() => {
-            dispatch({ type: HIDE_ERROR_MESSAGE });
-          }, 4000);
-        }
-      });
-    };
-  }
+  return (dispatch) => {
+    let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
+    classService.post(apiEndpoint, data).then((response) => {
+      if (response) {
+        console.log(response.data, 'response addPlanningFormation');
+      } else {
+        dispatch({
+          type: SHOW_ERROR_MESSAGE,
+          payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_ERROR_MESSAGE });
+        }, 4000);
+      }
+    });
+  };
+}
