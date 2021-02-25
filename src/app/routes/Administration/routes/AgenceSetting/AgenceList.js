@@ -63,8 +63,7 @@ class AgenceList extends Component {
   }
 
   handleEdit = (item, event) => {
-    console.log("item", item);
-    event.preventDefault();
+     event.preventDefault();
     this.setState({
       isOpen: true,
       item: item,
@@ -105,8 +104,7 @@ class AgenceList extends Component {
       agency_mail: this.state.emailAgence,
       agency_address: this.state.adresseAgence,
     };
-    console.log("data", data);
-    console.log("id", this.state.id);
+    
     this.props.editAgence(data, this.state.id);
     this.handleCancel();
   };

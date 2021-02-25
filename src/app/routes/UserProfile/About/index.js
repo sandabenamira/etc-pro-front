@@ -226,8 +226,7 @@ class About extends React.Component {
       });
   }
   render() {
-    console.log(this.props.userProfile.user, "user");
-    return (
+     return (
       <>
         {this.state.user.user == undefined ? (
           " "

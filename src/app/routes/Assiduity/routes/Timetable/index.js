@@ -172,6 +172,8 @@ class ALMANACH extends React.Component {
       );
       if (!_.isEmpty(currentInscription)) {
         const classId = currentInscription[0].fk_id_class_v4;
+         
+
         this.props.dispatch(
           getEventsByEstabAndSchoolYear(
             this.props.userProfile.establishment_id,

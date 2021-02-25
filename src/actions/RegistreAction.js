@@ -20,7 +20,7 @@ import _ from 'lodash';
 import {
   getEventCallRegisterForAdmin,
   getEventCallRegisterForProf,
-  getEventCallRegisterForParent
+  getEventCallRegisterForParent,
 } from '../actions/planningActions';
 import moment from 'moment';
 
@@ -100,58 +100,6 @@ export const giveTicket = (data) => {
     });
   };
 };
-export function saveCallRegister(data, otherData, mailInfo) {
-  let objMail = {};
-  objMail.classId = otherData.classId;
-  objMail.notifMsg = 'messageNotif';
-  objMail.establishmentId = otherData.establishementId;
-  objMail.callRegister = data;
-  objMail.callRegisterInfo = mailInfo.split('/');
-  objMail.dateCallRegister = moment().format('LLLL');
-
-  return (dispatch) => {
-    let apiEndpoint = `/call_registers/create-call-register?access_token=${localStorage.token}`;
-    classService.post(apiEndpoint, data).then((response) => {
-      if (response) {
-        let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
-        classService.post(apiEndpoint1, objMail).then((response) => {});
-        if (otherData.roleId === roleIdAdmin) {
-          dispatch(
-            getEventCallRegisterForAdmin(
-              otherData.establishementId,
-              otherData.schoolYearId,
-              otherData.classId
-            )
-          );
-        } else {
-          dispatch(
-            getEventCallRegisterForProf(
-              otherData.establishementId,
-              otherData.schoolYearId,
-              otherData.profileId
-            )
-          );
-        }
-        // dispatch({ type: , payload: response.data });
-        dispatch({
-          type: SHOW_SUCCESS_MESSAGE,
-          payload: "L'enregistrement de l'appel est effectuée avec succès",
-        });
-        setTimeout(() => {
-          dispatch({ type: HIDE_SUCCESS_MESSAGE });
-        }, 4000);
-      } else {
-        dispatch({
-          type: SHOW_ERROR_MESSAGE,
-          payload: "Une erreur est survenue lors de l'enregistrement merci d'essayer à nouveau",
-        });
-        setTimeout(() => {
-          dispatch({ type: HIDE_ERROR_MESSAGE });
-        }, 4000);
-      }
-    });
-  };
-}
 
 export function addCallRegisterSetting(data) {
   return (dispatch) => {
@@ -246,20 +194,65 @@ export function editCallRegisterSetting(data) {
   };
 }
 export function saveCallRegisterParent(data, otherData) {
-  
+  return (dispatch) => {
+    let apiEndpoint = `/call_registers/create-call-register?access_token=${localStorage.token}`;
+    classService.post(apiEndpoint, data).then((response) => {
+      if (response) {
+        dispatch(getEventCallRegisterForParent(otherData.profileId));
+        dispatch({
+          type: SHOW_SUCCESS_MESSAGE,
+          payload: "L'enregistrement de l'appel est effectuée avec succès",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+        }, 4000);
+      } else {
+        dispatch({
+          type: SHOW_ERROR_MESSAGE,
+          payload: "Une erreur est survenue lors de l'enregistrement merci d'essayer à nouveau",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_ERROR_MESSAGE });
+        }, 4000);
+      }
+    });
+  };
+}
+export function saveCallRegister(data, otherData, mailInfo) {
+  let objMail = {};
+  objMail.classId = otherData.classId;
+  objMail.notifMsg = 'messageNotif';
+  objMail.establishmentId = otherData.establishementId;
+  objMail.callRegister = data;
+  objMail.callRegisterInfo = mailInfo.split('/');
+  objMail.dateCallRegister = moment().format('LLLL');
+  objMail.logoEstab =otherData.logoEstab;
+
 
   return (dispatch) => {
     let apiEndpoint = `/call_registers/create-call-register?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, data).then((response) => {
       if (response) {
-        dispatch(
-          getEventCallRegisterForParent(
-         
-            otherData.profileId
-          )
-        );
-        // dispatch({ type: , payload: response.data });
-        dispatch({
+        let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
+        classService.post(apiEndpoint1, objMail).then((response) => {});
+        if (otherData.roleId === roleIdAdmin) {
+          dispatch(
+            getEventCallRegisterForAdmin(
+              otherData.establishementId,
+              otherData.schoolYearId,
+              otherData.classId
+            )
+          );
+        } else {
+          dispatch(
+            getEventCallRegisterForProf(
+              otherData.establishementId,
+              otherData.schoolYearId,
+              otherData.profileId
+            )
+          );
+        }
+         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
           payload: "L'enregistrement de l'appel est effectuée avec succès",
         });

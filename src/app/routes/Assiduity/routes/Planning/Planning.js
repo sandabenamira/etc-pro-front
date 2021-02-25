@@ -13,7 +13,7 @@ import {
 } from '../../../../../actions/professorAction';
 import {
   addEvent,
-   getEventsByEstabAndSchoolYear,
+  getEventsByEstabAndSchoolYear,
   editEvent,
   deleteEvent,
 } from '../../../../../actions/planningActions';
@@ -22,7 +22,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { classService } from '../../../../../_services/class.service';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import IntlMessages from '../../../../../util/IntlMessages';
- import EditEvent from './EditEvent';
+import EditEvent from './EditEvent';
 import { roleIdSuperAdmin } from '../../../../../config/config';
 import EventDetails from './EventDetails';
 import ConfirmationEditEvent from './ConfirmationEditEvent';
@@ -255,6 +255,10 @@ class Planning extends React.Component {
     let profName = this.state.deleteItem.profName;
     let subjectName = this.state.deleteItem.subjectName;
     let newDateStart = moment(this.state.deleteItem.start).format('LLLL');
+    let logoEstab =
+      this.props.establishementInformations.logo === undefined
+        ? ''
+        : this.props.establishementInformations.logo;
     //this.state.className
 
     let startTimeDate =
@@ -296,7 +300,8 @@ class Planning extends React.Component {
           this.props.userProfile.establishment_id,
           this.props.userProfile.school_year_id,
           this.state.classe.id,
-          messageNotif
+          messageNotif,
+          logoEstab
         )
       );
     } else if (this.state.typeDeleteChecked == 'uniq') {
@@ -324,7 +329,8 @@ class Planning extends React.Component {
           this.props.userProfile.establishment_id,
           this.props.userProfile.school_year_id,
           this.state.classe.id,
-          messageNotif
+          messageNotif,
+          logoEstab
         )
       );
     } else if (this.state.typeDeleteChecked == 'all') {
@@ -349,7 +355,8 @@ class Planning extends React.Component {
           this.props.userProfile.establishment_id,
           this.props.userProfile.school_year_id,
           classId,
-          messageNotif
+          messageNotif,
+          logoEstab
         )
       );
     }
@@ -370,6 +377,10 @@ class Planning extends React.Component {
     obj.start = moment(this.state.detailsMailNotif.start).format('LLLL');
     obj.classId = this.state.detailsMailNotif.classId;
     obj.classeName = this.state.detailsMailNotif.classeName;
+    obj.logoEstab =
+      this.props.establishementInformations.logo === undefined
+        ? ''
+        : this.props.establishementInformations.logo;
     let apiEndpoint = `/planning_events/absent-prof-notif?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, obj).then((response) => {
       if (response.data.notificationData.length > 0) {
@@ -994,11 +1005,15 @@ class Planning extends React.Component {
       newDateEnd +
       ') avec le formateur ' +
       profName +
-      'Espérant vivement vous compter parmi nous, nous vous prions d’agréer, chers partenaires / chers collègues, l’expression de nos salutations les plus cordiales.';
+      ' Espérant vivement vous compter parmi nous, nous vous prions d’agréer, chers partenaires / chers collègues, l’expression de nos salutations les plus cordiales.';
     var dataSup = {};
     dataSup.classId = this.state.classe.id;
     dataSup.establishmentId = this.props.userProfile.establishment_id;
     dataSup.schoolYearId = this.props.userProfile.school_year_id;
+    dataSup.logoEstab =
+      this.props.establishementInformations.logo === undefined
+        ? ''
+        : this.props.establishementInformations.logo;
     switch (expr) {
       case 'lesson':
         data.start_time = moment(this.state.startHours).format();
@@ -1182,7 +1197,10 @@ class Planning extends React.Component {
     dataSup.classId = this.state.classe.id;
     dataSup.establishmentId = this.props.userProfile.establishment_id;
     dataSup.schoolYearId = this.props.userProfile.school_year_id;
-
+    dataSup.logoEstab =
+      this.props.establishementInformations.logo === undefined
+        ? ''
+        : this.props.establishementInformations.logo;
     if (this.state.eventChecked == 'future') {
       //*-***************notif mail -------***********
 
@@ -1276,7 +1294,7 @@ class Planning extends React.Component {
         profName +
         ' , Lieu de formation : ' +
         roomLabel;
- 
+
       this.props.dispatch(addEvent(newEventFutur, dataSup, messageNotif));
     } else if (this.state.eventChecked == 'all') {
       let oldDateStart = moment(this.state.eventToEdited.start)
@@ -1307,7 +1325,6 @@ class Planning extends React.Component {
         ' , Lieu de formation : ' +
         roomLabel;
 
-       
       data.title = this.state.eventName;
       data.frequency = this.state.frequencyID;
       data.event_type = this.state.eventType;
@@ -1356,14 +1373,10 @@ class Planning extends React.Component {
     });
   };
 
-  handleRequestClose = () => {
-   };
-
-  componentWillUnmount() {
-   }
+  handleRequestClose = () => {};
 
   render() {
-     return (
+    return (
       <div className="animated slideInUpTiny animation-duration-3">
         {this.state.alerteNotif ? (
           <UncontrolledAlert
@@ -1544,6 +1557,7 @@ const mapStateToProps = (state) => {
     message: state.alert.message,
     classrooms: state.rooms.rooms,
     professorsList: state.usersReducer.professors,
+    establishementInformations: state.establishment.establishementInformations,
   };
 };
 
