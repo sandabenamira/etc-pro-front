@@ -276,6 +276,10 @@ class DetailsCallRegister extends React.Component {
       schoolYearId: this.props.userProfile.school_year_id,
       roleId: this.props.userProfile.role_id,
       profileId: this.props.userProfile.id,
+      logoEstab:
+        this.props.establishementInformations.logo === undefined
+          ? ''
+          : this.props.establishementInformations.logo,
     };
     if (this.props.userProfile.role_id === roleIdParent) {
       this.props.dispatch(saveCallRegisterParent(callRegister, otherData));
@@ -1012,6 +1016,7 @@ class DetailsCallRegister extends React.Component {
     }
   }
   render() {
+    
     let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
       url: this.props.match.url,
@@ -1167,6 +1172,10 @@ class DetailsCallRegister extends React.Component {
                           <div className=" bd-highlight">
                             {' '}
                             <Switch
+                              disabled={
+                                this.props.match.params.type === 'journalier' &&
+                                this.props.userProfile.role_id === roleIdAdmin
+                              }
                               classes={{
                                 checked: 'text-success',
                               }}
@@ -1208,7 +1217,10 @@ class DetailsCallRegister extends React.Component {
                                 color: element.delay ? 'red' : 'Grey',
                               }}
                               onClick={(event) =>
-                                this.handleChangeDelay(event, 'delay', element.studentId)
+                                this.props.match.params.type === 'journalier' &&
+                                this.props.userProfile.role_id === roleIdAdmin
+                                  ? ''
+                                  : this.handleChangeDelay(event, 'delay', element.studentId)
                               }
                             />
                           </div>
@@ -1301,6 +1313,10 @@ class DetailsCallRegister extends React.Component {
                           <div className=" bd-highlight">
                             {' '}
                             <Switch
+                              disabled={
+                                this.props.match.params.type === 'journalier' &&
+                                this.props.userProfile.role_id === roleIdAdmin
+                              }
                               classes={{
                                 checked: 'text-success',
                               }}
@@ -1344,7 +1360,10 @@ class DetailsCallRegister extends React.Component {
                                 color: element.delay ? 'red' : 'Grey',
                               }}
                               onClick={(event) =>
-                                this.handleChangeDelay(event, 'delay', element.studentId)
+                                this.props.match.params.type === 'journalier' &&
+                                this.props.userProfile.role_id === roleIdAdmin
+                                  ? ''
+                                  : this.handleChangeDelay(event, 'delay', element.studentId)
                               }
                             />
                           </div>
@@ -1428,28 +1447,6 @@ class DetailsCallRegister extends React.Component {
                   </Button>
                 </div>
               )}
-              {/* {this.props.match.params.type === 'journalier' &&
-                this.props.userProfile.role_id === roleIdAdmin && (
-                  <div className="d-flex justify-content-end mt-5">
-                    <Button
-                      disabled={this.state.callRegister.length == 0}
-                      variant="contained"
-                      style={{
-                        borderBottomLeftRadius: '16px',
-                        borderBottomRightRadius: '16px',
-                        borderTopLeftRadius: '16px',
-                        borderTopRightRadius: '16px',
-                        width: '100px',
-                        height: '40px',
-                        marginRight: '10%',
-                      }}
-                      className=" bg-indigo text-white "
-                      onClick={this.handleSubmit}
-                    >
-                      <IntlMessages id="button.save.registreAppel" />
-                    </Button>
-                  </div>
-                )} */}
             </div>
           </div>
 
@@ -1496,6 +1493,7 @@ const mapStateToProps = (state) => {
     observations: state.callRegister.observations,
     encouragements: state.callRegister.encouragements,
     sanctions: state.callRegister.sanctions,
+    establishementInformations: state.establishment.establishementInformations,
   };
 };
 export default withStyles(styles)(connect(mapStateToProps)(DetailsCallRegister));

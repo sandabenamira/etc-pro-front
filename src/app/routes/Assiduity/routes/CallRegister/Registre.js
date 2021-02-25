@@ -726,7 +726,7 @@ class Registre extends Component {
           <Redirect
             to={`/app/assiduity/DetailsCallRegister/${'journalier'}/${
               this.state.eventId
-            }/${' '}/${this.props.userProfile.id}/${this.state.startDate}`}
+            }/${this.props.userProfile.agencyName}/${this.props.userProfile.id}/${this.state.startDate}`}
           />
         );
       } else {

@@ -1,6 +1,6 @@
-import React from "react";
-import moment from "moment";
-import { classService } from "../_services";
+import React from 'react';
+import moment from 'moment';
+import { classService } from '../_services';
 import {
   ADD_EVENT,
   EDIT_EVENT,
@@ -13,20 +13,18 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
   GET_EVENTS_call_REGISTER,
-} from "../constants/ActionTypes";
-import baseUrl from "../config/config";
-import IntlMessages from "../util/IntlMessages";
+} from '../constants/ActionTypes';
+import baseUrl from '../config/config';
+import IntlMessages from '../util/IntlMessages';
 
 export const getProessorssByClass = (id) => {
   return (dispatch) => {
     let apiEndpoint =
-      `/classes_professors/getProfessorByClassId/` +
-      id +
-      `?access_token=${localStorage.token}`;
+      `/classes_professors/getProfessorByClassId/` + id + `?access_token=${localStorage.token}`;
     classService
       .get(apiEndpoint)
       .then((response) => {
-        dispatch({ type: "GET_PROFESSORS_BY_CLASS", payload: response.data });
+        dispatch({ type: 'GET_PROFESSORS_BY_CLASS', payload: response.data });
       })
       .catch((err) => {});
   };
@@ -42,12 +40,13 @@ export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
   objMail.classId = itemSuplimentaire.classId;
   objMail.notifMsg = notifMsg;
   objMail.establishmentId = itemSuplimentaire.establishmentId;
+  objMail.logoEstab = itemSuplimentaire.logoEstab;
 
   return (dispatch) => {
     let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, itemEvent).then((response) => {
       if (response) {
-        if (notifMsg != undefined && notifMsg != "") {
+        if (notifMsg != undefined && notifMsg != '') {
           let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
           classService.post(apiEndpoint1, objMail).then((response) => {
             //
@@ -65,17 +64,11 @@ export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
   };
 };
 
- 
-
 export const PlanningAction = {
   addEvent,
- };
- 
-export const getEventsByEstabAndSchoolYear = (
-  establishementId,
-  schoolYearId,
-  classId
-) => {
+};
+
+export const getEventsByEstabAndSchoolYear = (establishementId, schoolYearId, classId) => {
   return (dispatch) => {
     let apiEndpoint = `/planning_events/fetchPlanningEvents/${establishementId}/${schoolYearId}/${classId}?access_token=${localStorage.token}`;
     classService.get(apiEndpoint).then((response) => {
@@ -124,19 +117,14 @@ export const editEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
   objMail.classId = itemSuplimentaire.classId;
   objMail.notifMsg = notifMsg;
   objMail.establishmentId = itemSuplimentaire.establishmentId;
-
+  objMail.logoEstab =  itemSuplimentaire.logoEstab;
   return (dispatch) => {
-    let apiEndpoint =
-      `/planning_events/` +
-      itemEvent.id +
-      `?access_token=${localStorage.token}`;
+    let apiEndpoint = `/planning_events/` + itemEvent.id + `?access_token=${localStorage.token}`;
     classService.patch(apiEndpoint, itemEvent).then((response) => {
       if (response) {
-        if (notifMsg != undefined && notifMsg != "") {
+        if (notifMsg != undefined && notifMsg != '') {
           let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
-          classService.post(apiEndpoint1, objMail).then((response) => {
-             
-          });
+          classService.post(apiEndpoint1, objMail).then((response) => {});
         }
 
         dispatch(
@@ -157,12 +145,14 @@ export const deleteEvent = (
   establishmentId,
   schoolYearId,
   classId,
-  messageNotif
+  messageNotif,
+  logoEstab
 ) => {
   let objMail = {};
   objMail.classId = classId;
   objMail.notifMsg = messageNotif;
   objMail.establishmentId = establishmentId;
+  objMail.logoEstab = logoEstab;
 
   return (dispatch) => {
     let apiEndpoint =
@@ -174,19 +164,19 @@ export const deleteEvent = (
 
       if (response) {
         let canDelete = true;
-        if (typeDelete == "future") {
+        if (typeDelete == 'future') {
           let sameDateCallRegister = [];
           sameDateCallRegister = response.data.callRegister.filter((call) =>
             moment(call.start_date).isSameOrAfter(momentStartData)
           );
           canDelete = sameDateCallRegister.length == 0;
-        } else if (typeDelete == "uniq") {
+        } else if (typeDelete == 'uniq') {
           let sameDateCallRegister = [];
           sameDateCallRegister = response.data.callRegister.filter((call) =>
             moment(call.start_date).isSame(momentStartData)
           );
           canDelete = sameDateCallRegister.length == 0;
-        } else if (typeDelete == "all") {
+        } else if (typeDelete == 'all') {
           if (response.data.callRegister.length > 0) {
             canDelete = false;
           }
@@ -206,9 +196,7 @@ export const deleteEvent = (
           newData.repetition = itemEvent.repetition;
 
           let apiEndpoint =
-            `/planning_events/` +
-            newData.id +
-            `?access_token=${localStorage.token}`;
+            `/planning_events/` + newData.id + `?access_token=${localStorage.token}`;
           classService.patch(apiEndpoint, newData).then((response) => {
             if (response) {
               //*************notiif mail delete event */
@@ -217,19 +205,13 @@ export const deleteEvent = (
               classService.post(apiEndpoint1, objMail).then((response) => {});
               dispatch({
                 type: SHOW_SUCCESS_MESSAGE,
-                payload: "Cet évènement est supprimé avec succès",
+                payload: 'Cet évènement est supprimé avec succès',
               });
               setTimeout(() => {
                 dispatch({ type: HIDE_SUCCESS_MESSAGE });
               }, 3000);
 
-              dispatch(
-                getEventsByEstabAndSchoolYear(
-                  establishmentId,
-                  schoolYearId,
-                  classId
-                )
-              );
+              dispatch(getEventsByEstabAndSchoolYear(establishmentId, schoolYearId, classId));
             }
           });
         }
@@ -238,11 +220,7 @@ export const deleteEvent = (
   };
 };
 
-export const getEventsByEstabAndSchoolYearForProf = (
-  establishementId,
-  schoolYearId,
-  profileId
-) => {
+export const getEventsByEstabAndSchoolYearForProf = (establishementId, schoolYearId, profileId) => {
   return (dispatch) => {
     let apiEndpoint = `/planning_events/fetchScheduleProf/${establishementId}/${schoolYearId}/${profileId}?access_token=${localStorage.token}`;
     classService.get(apiEndpoint).then((response) => {
@@ -283,11 +261,7 @@ export const getEventsByEstabAndSchoolYearForProf = (
   };
 };
 
-export const getEventCallRegisterForAdmin = (
-  establishementId,
-  schoolYearId,
-  classId
-) => {
+export const getEventCallRegisterForAdmin = (establishementId, schoolYearId, classId) => {
   return (dispatch) => {
     let apiEndpoint = `/planning_events/fetchPlanningEvents/${establishementId}/${schoolYearId}/${classId}?access_token=${localStorage.token}`;
     classService.get(apiEndpoint).then((response) => {
@@ -296,7 +270,7 @@ export const getEventCallRegisterForAdmin = (
         let newListEvents = [];
         let newEvent = {};
         listEvents.forEach((event) => {
-          if (event.eventType === "lesson" || event.eventType === "exam") {
+          if (event.eventType === 'lesson' || event.eventType === 'exam') {
             newEvent = {
               id: event.id,
               start: new Date(event.start),
@@ -331,11 +305,7 @@ export const getEventCallRegisterForAdmin = (
   };
 };
 
-export const getEventCallRegisterForProf = (
-  establishementId,
-  schoolYearId,
-  profileId
-) => {
+export const getEventCallRegisterForProf = (establishementId, schoolYearId, profileId) => {
   return (dispatch) => {
     let apiEndpoint = `/planning_events/fetchScheduleProf/${establishementId}/${schoolYearId}/${profileId}?access_token=${localStorage.token}`;
     classService.get(apiEndpoint).then((response) => {
@@ -345,7 +315,7 @@ export const getEventCallRegisterForProf = (
         let newEvent = {};
 
         listEvents.forEach((event) => {
-          if (event.eventType === "lesson" || event.eventType === "exam") {
+          if (event.eventType === 'lesson' || event.eventType === 'exam') {
             newEvent = {
               id: event.id,
               start: new Date(event.start),
@@ -398,7 +368,7 @@ export const getEventCallRegisterForParent = (profileId) => {
           };
           newListEvents.push(newEvent);
         });
-         dispatch({ type: GET_EVENTS_call_REGISTER, payload: newListEvents });
+        dispatch({ type: GET_EVENTS_call_REGISTER, payload: newListEvents });
       }
     });
   };
