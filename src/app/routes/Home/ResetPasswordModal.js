@@ -12,7 +12,6 @@ export default class ResetPasswordModal extends Component {
     this.state = {};
   }
   render() {
-    console.log("rest password");
     return (
       <Auxiliary>
         <Modal isOpen={this.props.values.isopen}>
