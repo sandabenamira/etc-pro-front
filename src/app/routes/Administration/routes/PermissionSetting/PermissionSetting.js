@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PermissionList from './PermissionList';
- import { connect } from 'react-redux';
-import { getPermissionSetting } from '../../../../../actions/PermissionAction';
+import { connect } from 'react-redux';
+import { getPermissionSetting, getUserPermissions } from '../../../../../actions/PermissionAction';
 import { UncontrolledAlert } from 'reactstrap';
 import _ from 'lodash';
- 
 
 export class PermissionSetting extends Component {
   constructor(props) {
@@ -20,12 +19,26 @@ export class PermissionSetting extends Component {
   }
   componentDidMount() {
     this.props.dispatch(getPermissionSetting(this.props.userProfile.establishment_id));
- 
+
     this.setState({ listPermissions: this.props.permissionSetting });
   }
   componentDidUpdate(prevProps) {
     if (prevProps.permissionSetting !== this.props.permissionSetting) {
-      this.setState({ listPermissions: this.props.permissionSetting });
+      if (this.state.moduleId > 0) {
+        if (this.state.subModuleId > 0) {
+          let listPermissions = this.props.permissionSetting.filter(
+            (element) => element.subModuleId == this.state.subModuleId
+          );
+          this.setState({ listPermissions });
+        } else {
+          let listPermissions = this.props.permissionSetting.filter(
+            (element) => element.moduleId == this.state.moduleId
+          );
+          this.setState({ listPermissions });
+        }
+      } else {
+        this.setState({ listPermissions: this.props.permissionSetting });
+      }
     }
   }
   handleChange = (name) => (event) => {
@@ -33,7 +46,10 @@ export class PermissionSetting extends Component {
     if (name == 'moduleId') {
       if (event.target.value > 0) {
         let moduleChecked = _.find(this.props.estabModule, { fk_id_module: event.target.value });
-        this.setState({ subModuleList: moduleChecked.module.suBmodule });
+        let listPermissions = this.props.permissionSetting.filter(
+          (element) => element.moduleId == event.target.value
+        );
+        this.setState({ subModuleList: moduleChecked.module.suBmodule, listPermissions });
       } else {
         this.setState({
           subModuleList: [],
@@ -49,7 +65,7 @@ export class PermissionSetting extends Component {
     }
   };
   render() {
-     return (
+    return (
       <div>
         {this.props.successStatus ? (
           <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">

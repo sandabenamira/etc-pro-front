@@ -219,9 +219,13 @@ export class PermissionList extends Component {
                     <IntlMessages id={`action.type.of.education`} />
                   </TableCell>
 
-                  {values.filtreRole > -1
-                    ? listRole[values.filtreRole].label
-                    : listRole.map((element) => <TableCell>{element.label}</TableCell>)}
+                  {values.filtreRole > -1 ? (
+                    <TableCell>{listRole[values.filtreRole].label}</TableCell>
+                  ) : (
+                    listRole.map((element, index) => (
+                      <TableCell key={index}>{element.label}</TableCell>
+                    ))
+                  )}
                 </TableRow>
               </TableHead>
               <TableBody>

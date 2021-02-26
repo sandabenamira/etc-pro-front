@@ -166,7 +166,7 @@ class SignIn extends React.Component {
                     fullWidth
                     // onChange={(event) => this.setState({ email: event.target.value })}
                     onChange={(event) =>
-                      this.setState({ login: event.target.value })
+                      this.setState({ login: event.target.value.trim() })
                     }
                     // defaultValue={email}
                     defaultValue={login}
@@ -174,16 +174,7 @@ class SignIn extends React.Component {
                     className="mt-1 my-sm-3"
                     onKeyPress={(event) => this._handleKeyPress(event)}
                   />
-                  {/* <TextField
-                    type="password"
-                    label={<IntlMessages id="appModule.password" />}
-                    fullWidth
-                    onChange={(event) => this.setState({ password: event.target.value })}
-                    defaultValue={password}
-                    margin="normal"
-                    className="mt-1 my-sm-3"
-                    onKeyPress={(event) => this._handleKeyPress(event)}
-                  /> */}
+                   
                   <FormControl className="mb-3" fullWidth>
                     <InputLabel htmlFor="password-1">
                       <IntlMessages id="appModule.password" />
@@ -193,7 +184,7 @@ class SignIn extends React.Component {
                       type={this.state.showPassword ? "text" : "password"}
                       value={this.state.password}
                       onChange={(event) =>
-                        this.setState({ password: event.target.value })
+                        this.setState({ password: event.target.value.trim() })
                       }
                       onKeyPress={(event) => this._handleKeyPress(event)}
                       endAdornment={
