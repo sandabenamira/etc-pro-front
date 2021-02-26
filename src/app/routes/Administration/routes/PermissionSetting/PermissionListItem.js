@@ -70,8 +70,8 @@ class PermissionListItem extends Component {
         {filtreRole > -1 ? (
           <TableCell> {this.havePermission(listRole[filtreRole].id, permission.id)} </TableCell>
         ) : (
-          listRole.map((element) => (
-            <TableCell> {this.havePermission(element.id, permission.id)} </TableCell>
+          listRole.map((element,index) => (
+            <TableCell key={index}> {this.havePermission(element.id, permission.id)} </TableCell>
           ))
         )}
 

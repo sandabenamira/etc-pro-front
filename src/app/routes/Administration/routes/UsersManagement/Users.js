@@ -34,19 +34,19 @@ const listRolesUsers = [
   },
   {
     id: roleIdDirector,
-    label: 'Directeur Des Ressources Humaines',
+    label: <IntlMessages id={`component.etablishments.info.director`} />,
     value: roleIdDirector,
     labelBackEnd: 'Director',
   },
   {
     id: roleIdSupervisor,
-    label: 'Responsable formation',
+    label: <IntlMessages id={`role.supervisor`} />,
     value: roleIdSupervisor,
     labelBackEnd: 'Vie scolaire',
   },
   {
     id: roleIdParent,
-    label: "Chef d'agence",
+    label: <IntlMessages id={`userStuppDisplay.Parent`} />,
     value: roleIdParent,
     labelBackEnd: 'Responsable formation',
   },
@@ -58,7 +58,7 @@ const listRolesUsers = [
   },
   {
     id: roleIdStudent,
-    label: 'Collaborateur',
+    label:<IntlMessages id={`userStuppDisplay.Student`} />,
     value: roleIdStudent,
     labelBackEnd: 'Participant',
   },

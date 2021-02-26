@@ -10,13 +10,11 @@ const initialState = {
   userPermission: [],
 };
 
-export default function(state = initialState, action) {
-  
+export default function (state = initialState, action) {
   if (action.type === EDIT_PERMISSION_SETTING) {
- 
     let oldPermissions = _.differenceBy(state.permissionSetting, action.payload, 'id');
-    let newPermissions = oldPermissions.concat(action.payload);
-     
+    // let newPermissions = oldPermissions.concat(action.payload);
+    let newPermissions = action.payload.concat(oldPermissions);
 
     return Object.assign({}, state, {
       permissionSetting: newPermissions,
