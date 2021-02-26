@@ -15,7 +15,8 @@ import {
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
   EDIT_PROFILE,
-  GET_PROFILE
+  GET_PROFILE,
+  SWITCH_APP_LANGUAGE,
 } from "../constants/ActionTypes";
 
 const INIT_STATE = {
@@ -29,7 +30,6 @@ const INIT_STATE = {
   profile: [],
   showLicenceMessage: false,
   alertLicenceMessage: "",
-  
 };
 
 export default (state = INIT_STATE, action) => {
@@ -156,7 +156,7 @@ export default (state = INIT_STATE, action) => {
     }
     case EDIT_PROFILE: {
       return Object.assign({}, state, {
-        userProfile: {...state.userProfile,user:action.payload},
+        userProfile: { ...state.userProfile, user: action.payload },
       });
     }
     case GET_PROFILE: {
@@ -164,7 +164,11 @@ export default (state = INIT_STATE, action) => {
         userProfile: action.payload,
       });
     }
-    
+    case SWITCH_APP_LANGUAGE: {
+      return Object.assign({}, state, {
+        userProfile: action.payload,
+      });
+    }
 
     default:
       return state;

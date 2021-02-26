@@ -14,6 +14,7 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
   INIT_OPTIONS,
+  SWITCH_APP_LANGUAGE,
 } from "../constants/ActionTypes";
 import baseUrl from "../config/config";
 import axios from "axios";
@@ -79,16 +80,23 @@ export function setHorizontalMenuPosition(navigationPosition) {
     payload: navigationPosition,
   };
 }
-
 export function switchLanguage(language) {
   return (dispatch, getState) => {
-    localStorage.setItem("appLang", language.languageId);
     const state = getState();
     let settingId = state.auth.userProfile.setting_id;
     let data = {
       app_lang: language.languageId,
       id: settingId,
     };
+    let newDataUserProfile = {
+      ...state.auth.userProfile,
+      setting: {
+        ...state.auth.userProfile.setting,
+        app_lang: language.languageId,
+      },
+    };
+
+    dispatch({ type: SWITCH_APP_LANGUAGE, payload: newDataUserProfile });
     axios
       .patch(
         `${baseUrl.baseUrl}/settings/` +
@@ -164,7 +172,7 @@ export function alertfailed() {
 }
 
 export function getAllCountry() {
-  return function(dispatch) {
+  return function (dispatch) {
     axios
       .get(`${baseUrl.baseUrl}/countries/?access_token=${localStorage.token}`)
       .then((res) => {
