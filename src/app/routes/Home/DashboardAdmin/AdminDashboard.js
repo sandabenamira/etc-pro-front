@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import IconWithTextCard from "../IconWithTextCard";
 import IntlMessages from "../../../../util/IntlMessages";
 import CardHeader from "../../../../components/dashboard/default/CardHeader";
-import logoBiat from "../../../../assets/images/dashboard/logoBiat.png";
+import bancLogo from "../../../../assets/images/dashboard/bancLogo.jpg";
 import { connect } from "react-redux";
 import moment from "moment";
 import "moment/locale/fr";
@@ -42,6 +42,12 @@ class AdminDashboard extends Component {
     }
   }
   render() {
+    console.log("establishments logo", this.props.establishments.logo);
+    console.log("establishments name ", this.props.establishments.name);
+    let estabName =
+      this.props.establishments.name == undefined
+        ? ""
+        : this.props.establishments.name;
     const detailCardsRh = [
       {
         cardColor: "primary",
@@ -94,16 +100,24 @@ class AdminDashboard extends Component {
         subTitle: "Nombre de collaborateurs absents en formation",
       },
     ];
-    var currentDate=moment(new Date()).format("DD/MM/YYYY")
+    var currentDate = moment(new Date()).format("DD/MM/YYYY");
     return (
       <div className="app-wrapper d-flex flex-column   col-lg-12 col-md-12 col-sm-12">
         <div class="d-flex flex-row flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12 bd-highlight mb-3">
           <div class="p-2 bd-highlight">
-            <img
-              src={logoBiat}
-              alt="Logo"
-              style={{ height: "100px", width: "300px" }}
-            />
+            {this.props.establishments.logo == undefined ? (
+              <img
+                src={bancLogo}
+                alt="Logo"
+                style={{ height: "200px", width: "400px" }}
+              />
+            ) : (
+              <img
+                src={this.props.establishments.logo}
+                alt="Logo"
+                style={{ height: "200px", width: "400px" }}
+              />
+            )}
           </div>
           <div class="p-2 bd-highlight align-self-center">
             <h2>
@@ -115,8 +129,11 @@ class AdminDashboard extends Component {
                   this.props.userProfile.user.surname || ""}
               </strong>{" "}
               dans votre espace{" "}
-              <strong style={{ color: "#03497D" }}>BIAT</strong> <br />
-                le <strong>{currentDate}</strong>{" "}
+              <strong style={{ color: "#03497D" }}>
+                {estabName.toUpperCase()}
+              </strong>{" "}
+              <br />
+              le <strong>{currentDate}</strong>{" "}
             </h2>
           </div>
         </div>
@@ -191,6 +208,7 @@ function mapStateToProps(state) {
     errorStatus: state.alert.error,
     message: state.alert.message,
     userProfile: state.auth.userProfile,
+    establishments: state.establishment.establishementInformations,
   };
 }
 export default connect(mapStateToProps)(AdminDashboard);

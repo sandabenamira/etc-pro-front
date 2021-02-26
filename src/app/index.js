@@ -25,7 +25,7 @@ import Community from './routes/Community/index';
 import Libraries from './routes/Libraries/index';
 import FinancialManagement from './routes/FinancialManagement/index';
 import Superadmin from './routes/Superadmin/index';
-import ModalEstablishmentList from './routes/Home/admin/ModalEstablishmentList';
+import ModalEstablishmentList from './routes/Home/DashboardAdmin/ModalEstablishmentList';
 import { getSubjectModules } from '../actions/SubjectModuleAction';
 import { getSection } from '../actions/SectionsAction';
 import { getLevel } from '../actions/LevelAction';

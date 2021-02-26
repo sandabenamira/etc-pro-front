@@ -85,7 +85,7 @@ class ClassesSettingsList extends Component {
     const data = {
       name: this.state.nameClassSettings,
       fk_id_level_v4: this.state.levelId,
-      fk_id_section_v4: this.state.sectionId,
+      fk_id_section_v4: null,
     };
     this.props.editClassSettings(data, this.state.id);
     this.handleCancel();
