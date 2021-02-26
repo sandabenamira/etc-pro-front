@@ -55,27 +55,6 @@ export default class EditClassSettings extends React.Component {
                   ))}
                 </TextField>
               </div>
-              <div className="col-sm-3">
-                <TextField
-                  required
-                  select
-                  id="sectionId"
-                  label={
-                    <IntlMessages id="components.class.level.input.label.section" />
-                  }
-                  value={this.props.values.sectionId}
-                  onChange={this.props.handleChange("sectionId")}
-                  margin="normal"
-                  fullWidth
-                >
-                  {this.props.values.sectionsByLevelId.map((section) => (
-                    <MenuItem key={section.id} value={section.id}>
-                      {section.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </div>
-
               <div className="col-sm-12">
                 <h4>
                   <font color="red">*</font>{" "}
