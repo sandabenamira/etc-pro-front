@@ -1,18 +1,22 @@
-import React, { Component } from "react";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import IconButton from "@material-ui/core/IconButton";
-import _ from "lodash";
-import { getNameFromID } from "../../../../../../actions/countriesAction";
+import React, { Component } from 'react';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import _ from 'lodash';
+import { getNameFromID } from '../../../../../../actions/countriesAction';
 export default class ClassSettingsItem extends Component {
   render() {
     const { classItem } = this.props;
-    return (
+     return (
       <TableRow key={classItem.id}>
+        <TableCell>{classItem.class.name}</TableCell>
+        <TableCell>{getNameFromID(this.props.levels, classItem.class.fk_id_level_v4)}</TableCell>
+        <TableCell>{classItem.subject.name}</TableCell>
+        {/* <TableCell>{classItem.name}</TableCell>
+
+        <TableCell>{getNameFromID(this.props.levels, classItem.fk_id_level_v4)}</TableCell>
         <TableCell>{classItem.name}</TableCell>
-        <TableCell>
-          {getNameFromID(this.props.levels, classItem.fk_id_level_v4)}
-        </TableCell>
+        <TableCell>{classItem.name}</TableCell> */}
         {this.props.archived == false ? (
           <TableCell>
             <IconButton
@@ -21,7 +25,7 @@ export default class ClassSettingsItem extends Component {
               onClick={(e) => this.props.handleEdit(classItem, e)}
               value={classItem.id}
             >
-              <i className="zmdi zmdi-edit " style={{ color: "text-grey" }} />
+              <i className="zmdi zmdi-edit " style={{ color: 'text-grey' }} />
             </IconButton>
             &nbsp; | &nbsp;
             <IconButton
@@ -29,7 +33,7 @@ export default class ClassSettingsItem extends Component {
               className="icon-btn"
               onClick={(e) => this.props.handleDelete(classItem, e)}
             >
-              <i className="zmdi zmdi-delete" style={{ color: "text-grey" }} />
+              <i className="zmdi zmdi-delete" style={{ color: 'text-grey' }} />
             </IconButton>
           </TableCell>
         ) : (
