@@ -91,9 +91,7 @@ class Moocs extends React.Component {
             subjects.push(element.assignmentClassSubject.subject);
             assignmentClassSubjectProf.push(element.assignmentClassSubject);
             let level = this.props.levels.find(
-              (levelItem) =>
-                levelItem.id ==
-                element.assignmentClassSubject.class.fk_id_level_v4
+              (levelItem) => levelItem.id == element.assignmentClassSubject.class.fk_id_level_v4
             );
             if (level != undefined) {
               levelProf.push(level);
@@ -120,12 +118,9 @@ class Moocs extends React.Component {
       listMoocs: this.props.listMoocs,
     });
   }
-  
+
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.userProfile.school_year_id !==
-      this.props.userProfile.school_year_id
-    ) {
+    if (prevProps.userProfile.school_year_id !== this.props.userProfile.school_year_id) {
       this.props.dispatch(
         getMoocs(
           this.props.userProfile.establishment_id,
@@ -374,10 +369,7 @@ class Moocs extends React.Component {
       >
         <div className="row col-lg-12 col-md-12 ">
           {detailCards.map((data, index) => (
-            <div
-              key={index}
-              className="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12"
-            >
+            <div key={index} className="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
               <IconWithTextCard data={data} />
             </div>
           ))}
@@ -409,29 +401,40 @@ class Moocs extends React.Component {
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
-              <span className="d-inline-block">
-                {' '}
-                {this.state.messageAlerte}{' '}
-              </span>
+              <span className="d-inline-block"> {this.state.messageAlerte} </span>
             </UncontrolledAlert>
           ) : (
             ''
           )}
-          <div className=" bd-highlight " style={{ width: '99%' }}>
-            <CardBox styleName="col-lg-12 col-md-12">
-              <AddMoocs
-                openAddModal={this.openAddModal}
-                handleChange={this.handleChange}
-                handleChangeSubject={this.handleChangeSubject}
-                handleChangeClass={this.handleChangeClass}
-                handleSubmit={this.handleSubmit}
-                onDrop={this.onDrop}
-                values={this.state}
-                courseAssignment={this.state.courseAssignment}
-                subjects={this.state.subjects}
+          <RoleContext.Consumer>
+            {({ role }) => (
+              <Can
+                role={role}
+                perform="user-permission"
+                data={{
+                  permission: 'add-moocs',
+                  permissionList: this.props.userPermission,
+                }}
+                yes={() => (
+                  <div className=" bd-highlight " style={{ width: '99%' }}>
+                    <CardBox styleName="col-lg-12 col-md-12">
+                      <AddMoocs
+                        openAddModal={this.openAddModal}
+                        handleChange={this.handleChange}
+                        handleChangeSubject={this.handleChangeSubject}
+                        handleChangeClass={this.handleChangeClass}
+                        handleSubmit={this.handleSubmit}
+                        onDrop={this.onDrop}
+                        values={this.state}
+                        courseAssignment={this.state.courseAssignment}
+                        subjects={this.state.subjects}
+                      />
+                    </CardBox>
+                  </div>
+                )}
               />
-            </CardBox>
-          </div>
+            )}
+          </RoleContext.Consumer>
           <RoleContext.Consumer>
             {({ role }) => (
               <Can
@@ -511,22 +514,13 @@ class Moocs extends React.Component {
                           name="idSection"
                           select
                           value={this.state.filterAssignmentId}
-                          onChange={this.handleChangeFilter(
-                            'filterAssignmentId'
-                          )}
+                          onChange={this.handleChangeFilter('filterAssignmentId')}
                           SelectProps={{}}
-                          label={
-                            <IntlMessages id={`components.note.subject`} />
-                          }
+                          label={<IntlMessages id={`components.note.subject`} />}
                           InputProps={{ disableUnderline: true }}
                           margin="normal"
                           fullWidth
                         >
-                          {/* {this.state.filterCourseAssignment.map((option) => (
-                            <MenuItem key={option.id} value={option.id}>
-                              {option.subject.name}
-                            </MenuItem>
-                          ))} */}
                           {this.state.filterCourseAssignment.length > 0 ? (
                             <MenuItem key={0} value={0}>
                               all
@@ -553,26 +547,39 @@ class Moocs extends React.Component {
               />
             )}
           </RoleContext.Consumer>
-
-          <div
-            className="col-lg-12 col-md-12 bd-highlight"
-            style={{
-              paddingRight: 'auto',
-              paddingLeft: '2%',
-            }}
-          >
-            <MoocsList
-              listMoocs={this.state.listMoocs}
-              handleChangeSubject={this.handleChangeSubject}
-              handleChangeClass={this.handleChangeClass}
-              handleSubmit={this.handleSubmit}
-              onDrop={this.onDrop}
-              values={this.state}
-              courseAssignment={this.props.courseAssignment}
-              assignmentClassSubjectProf={this.state.assignmentClassSubjectProf}
-              subjects={this.state.subjects}
-            />
-          </div>
+          <RoleContext.Consumer>
+            {({ role }) => (
+              <Can
+                role={role}
+                perform="user-permission"
+                data={{
+                  permission: 'get-moocs',
+                  permissionList: this.props.userPermission,
+                }}
+                yes={() => (
+                  <div
+                    className="col-lg-12 col-md-12 bd-highlight"
+                    style={{
+                      paddingRight: 'auto',
+                      paddingLeft: '2%',
+                    }}
+                  >
+                    <MoocsList
+                      listMoocs={this.state.listMoocs}
+                      handleChangeSubject={this.handleChangeSubject}
+                      handleChangeClass={this.handleChangeClass}
+                      handleSubmit={this.handleSubmit}
+                      onDrop={this.onDrop}
+                      values={this.state}
+                      courseAssignment={this.props.courseAssignment}
+                      assignmentClassSubjectProf={this.state.assignmentClassSubjectProf}
+                      subjects={this.state.subjects}
+                    />
+                  </div>
+                )}
+              />
+            )}
+          </RoleContext.Consumer>
         </div>
         <RoleContext.Consumer>
           {({ role }) => (
@@ -609,9 +616,7 @@ class Moocs extends React.Component {
 
                     {this.state.openArchive ? (
                       <div>
-                        <ArchiveMoocs
-                          listMoocsArchived={this.props.listMoocsArchived}
-                        />
+                        <ArchiveMoocs listMoocsArchived={this.props.listMoocsArchived} />
                       </div>
                     ) : (
                       ''
@@ -641,6 +646,7 @@ const mapStateToProps = (state) => {
     listMoocsArchived: state.MoocsReducer.archivedMoocs,
     levels: state.levelsReducer.levels,
     ClassSettings: state.ClassSettingsReducer.classSettings,
+    userPermission: state.PermissionReducer.userPermission,
   };
 };
 export default connect(mapStateToProps)(Moocs);
