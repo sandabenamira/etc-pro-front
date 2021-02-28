@@ -19,6 +19,7 @@ import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import { ButtonGroup } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import _ from 'lodash';
+import defaultAvatar from '../../../../../assets/images/default-Avatar.png';
 import {
   getEventCallRegisterForAdmin,
   getEventCallRegisterForProf,
@@ -1016,8 +1017,7 @@ class DetailsCallRegister extends React.Component {
     }
   }
   render() {
-    
-    let newMatch = {
+     let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
       url: this.props.match.url,
       isExact: this.props.match.isExact,
@@ -1155,7 +1155,11 @@ class DetailsCallRegister extends React.Component {
                   >
                     <div className="mr-2 mt-2 bd-highlight">
                       {' '}
-                      <Avatar alt="..." src={element.photo} className="size-40" />
+                      <Avatar
+                        alt="..."
+                        src={element.photo === null ? defaultAvatar : element.photo}
+                        className="size-40"
+                      />
                     </div>
                     <div
                       className="mr-2  bd-highlight description"
@@ -1296,7 +1300,11 @@ class DetailsCallRegister extends React.Component {
                   >
                     <div className="mr-2 mt-2 bd-highlight">
                       {' '}
-                      <Avatar alt="..." src={element.photo} className="size-40" />
+                      <Avatar
+                        alt="..."
+                        src={element.photo === null ? defaultAvatar : element.photo}
+                        className="size-40"
+                      />
                     </div>
                     <div
                       className="mr-2  bd-highlight description"
