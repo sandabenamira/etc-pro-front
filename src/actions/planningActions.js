@@ -46,7 +46,7 @@ export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
     let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, itemEvent).then((response) => {
       if (response) {
-        if (notifMsg != undefined && notifMsg != '') {
+        if (notifMsg !== undefined && notifMsg !== '') {
           let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
           classService.post(apiEndpoint1, objMail).then((response) => {
             //

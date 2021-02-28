@@ -112,19 +112,20 @@ class ClassesSettings extends React.Component {
           <CardBox styleName="col-lg-12">
             <ClassesSettingsList
               ClassSettings={this.props.ClassSettings}
+              courseAssignment={this.props.courseAssignment}
               levels={this.props.levels}
               sections={this.props.sections}
             />
           </CardBox>
         </div>
-        <div className=" bd-highlight" style={{ width: "90%" }}>
+        {/* <div className=" bd-highlight" style={{ width: "90%" }}>
           <CardBox styleName="col-lg-12">
             <ArchiveClassesSettings
               levels={this.props.levels}
               sections={this.props.sections}
             />
           </CardBox>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -139,6 +140,8 @@ const mapStateToProps = (state) => {
     levels: state.levelsReducer.levels,
     sections: state.SectionsReducer.Section,
     userProfile: state.auth.userProfile,
+    courseAssignment: state.AssignementReducer.courseAssignment,
+
   };
 };
 export default connect(mapStateToProps)(ClassesSettings);
