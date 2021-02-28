@@ -345,7 +345,6 @@ class SupportCoursList extends Component {
     }
   };
   handleChangeVirtualClassIds = (selectedOption) => {
-     
     if (selectedOption != null) {
       let virtualClassIds = [];
       selectedOption.map((element) => {
@@ -619,7 +618,11 @@ class SupportCoursList extends Component {
             {({ role }) => (
               <Can
                 role={role}
-                perform="add-service"
+                perform="user-permission"
+                data={{
+                  permission: 'add-course-material',
+                  permissionList: this.props.userPermission,
+                }}
                 yes={() => (
                   <CardBox styleName="col-lg-12">
                     <AddSupportCours
@@ -643,66 +646,78 @@ class SupportCoursList extends Component {
               />
             )}
           </RoleContext.Consumer>
-          <CardBox styleName="col-lg-12">
-            <div className="table-responsive-material">
-              <Table>
-                <TableHead className="th-border-b">
-                  <TableRow>
-                    <TableCell>
-                      {' '}
-                      <IntlMessages id="file.type" />
-                    </TableCell>
-
-                    <TableCell>
-                      <IntlMessages id="file.title" />
-                    </TableCell>
-                    <TableCell>
-                     Classes de formation
-                    </TableCell>
-                    <TableCell>
-                      <IntlMessages id="publication.date" />
-                    </TableCell>
-                    <TableCell>
-                      Formateur
-                    </TableCell>
-                    <TableCell>
-                      <IntlMessages id="associated.files.links" />
-                    </TableCell>
-                    <TableCell>
-                      <IntlMessages id="dashboard.comments" />
-                    </TableCell>
-
-                    <RoleContext.Consumer>
-                      {({ role }) => (
-                        <Can
-                          role={role}
-                          perform="add-service"
-                          yes={() => (
+          <RoleContext.Consumer>
+            {({ role }) => (
+              <Can
+                role={role}
+                perform="user-permission"
+                data={{
+                  permission: 'get-course-material',
+                  permissionList: this.props.userPermission,
+                }}
+                yes={() => (
+                  <CardBox styleName="col-lg-12">
+                    <div className="table-responsive-material">
+                      <Table>
+                        <TableHead className="th-border-b">
+                          <TableRow>
                             <TableCell>
-                              <IntlMessages id="action.type.of.education" />
+                              {' '}
+                              <IntlMessages id="file.type" />
                             </TableCell>
-                          )}
-                        />
-                      )}
-                    </RoleContext.Consumer>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {this.props.listSupportCourse.map((cours) => {
-                    return (
-                      <SupportCoursListItems
-                        cours={cours}
-                        editShowModal={this.editShowModal}
-                        pathAttached={this.props.match}
-                        archived={false}
-                        handleDelete={this.handleDelete}
-                      />
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </div>
-          </CardBox>
+
+                            <TableCell>
+                              <IntlMessages id="file.title" />
+                            </TableCell>
+                            <TableCell>Classes de formation</TableCell>
+                            <TableCell>
+                              <IntlMessages id="publication.date" />
+                            </TableCell>
+                            <TableCell>Formateur</TableCell>
+                            <TableCell>
+                              <IntlMessages id="associated.files.links" />
+                            </TableCell>
+                            <TableCell>
+                              <IntlMessages id="dashboard.comments" />
+                            </TableCell>
+
+                            <RoleContext.Consumer>
+                              {({ role }) => (
+                                <Can
+                                  role={role}
+                                  perform="add-service"
+                                  yes={() => (
+                                    <TableCell>
+                                      <IntlMessages id="action.type.of.education" />
+                                    </TableCell>
+                                  )}
+                                />
+                              )}
+                            </RoleContext.Consumer>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {this.props.listSupportCourse.map((cours) => {
+                            return (
+                              <SupportCoursListItems
+                                cours={cours}
+                                editShowModal={this.editShowModal}
+                                pathAttached={this.props.match}
+                                archived={false}
+                                handleDelete={this.handleDelete}
+                                userPermission={this.props.userPermission}
+
+                              />
+                            );
+                          })}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </CardBox>
+                )}
+              />
+            )}
+          </RoleContext.Consumer>
 
           <RoleContext.Consumer>
             {({ role }) => (
@@ -830,6 +845,7 @@ function mapStateToProps(state) {
     listMoocs: state.MoocsReducer.remoteMoocs,
     listSupportCourse: state.MaterialCourseReducer.remoteMaterialCourse,
     listSupportCourseArchived: state.MaterialCourseReducer.remoteMaterialCourseArchived,
+    userPermission: state.PermissionReducer.userPermission,
   };
 }
 
