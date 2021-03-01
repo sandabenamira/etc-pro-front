@@ -189,11 +189,14 @@ class CourseAssignment extends React.Component {
     }
   };
   handleChange = (name) => (selectedOption) => {
-    if (name === 'subjectId') {
-      delete selectedOption.value;
-      delete selectedOption.label;
+    console.log("selction option", selectedOption);
+    if (name === "subjectId" && name === "levelId" && name === "profId") {
+      // delete selectedOption.value;
+      // delete selectedOption.label;
 
-      this.setState({ subjectSelected: selectedOption });
+      this.setState({ subjectSelected: selectedOption }, () =>
+        console.log("selectedOption in set state", selectedOption)
+      );
     }
     this.setState({ [name]: selectedOption.id });
   };
@@ -209,6 +212,7 @@ class CourseAssignment extends React.Component {
 
   handleConfirmStep1(event) {
     event.preventDefault();
+
     this.setState({
       confirmStep1: true,
     });
@@ -228,7 +232,9 @@ class CourseAssignment extends React.Component {
       formationId: this.state.subjectId,
       profId: this.state.profId,
     };
-    this.props.dispatch(addClassFormation(objStep1,this.state.subjectSelected));
+    this.props.dispatch(
+      addClassFormation(objStep1, this.state.subjectSelected)
+    );
 
     event.preventDefault();
     this.setState({
@@ -357,7 +363,7 @@ class CourseAssignment extends React.Component {
       let professorList = [];
       professorList = this.props.usersReducer.professors.map((element) => {
         let object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.profId;
         object.value = element.profId;
         object.agenceId = element.agenceId;
@@ -371,7 +377,7 @@ class CourseAssignment extends React.Component {
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
         let object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
         object.agenceId = element.agencyId;
@@ -433,7 +439,7 @@ class CourseAssignment extends React.Component {
       let professorList = [];
       professorList = this.props.usersReducer.professors.map((element) => {
         let object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.profId;
         object.value = element.profId;
         object.agenceId = element.agenceId;
@@ -443,7 +449,7 @@ class CourseAssignment extends React.Component {
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
         let object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
         object.agenceId = element.agencyId;
@@ -520,12 +526,12 @@ class CourseAssignment extends React.Component {
                 />
               </CardBox>
             </div>
-               <ClassesSettingsList
-                ClassSettings={this.props.ClassSettings}
-                levels={this.props.levels}
-                sections={this.props.sections}
-              />
-           </div>
+            <ClassesSettingsList
+              ClassSettings={this.props.ClassSettings}
+              levels={this.props.levels}
+              sections={this.props.sections}
+            />
+          </div>
 
           {/* <div className=" bd-highlight" style={{ width: "90%" }}>
                <ClassesSettingsList

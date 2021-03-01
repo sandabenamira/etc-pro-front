@@ -102,11 +102,6 @@ export const getProfile = (token, userId) => {
             establishmentInfomations
           )
         );
-        console.log('first_connexion',result.user.first_connexion);
-        localStorage.setItem(
-          "first_connexion",
-          JSON.stringify(result.user.first_connexion)
-        );
       });
   };
 };
