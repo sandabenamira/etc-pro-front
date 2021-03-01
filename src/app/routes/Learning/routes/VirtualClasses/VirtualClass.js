@@ -531,27 +531,36 @@ class VirtualClass extends React.Component {
               />
             )}
           </RoleContext.Consumer>
-          <div>
-            <div>
-              <div
-                className="  col-lg-12 col-md-12 bd-highlight"
-                style={{
-                  paddingRight: 'auto',
-                  paddingLeft: '2%',
+          <RoleContext.Consumer>
+            {({ role }) => (
+              <Can
+                role={role}
+                perform="user-permission"
+                data={{
+                  permission: 'get-online-course',
+                  permissionList: this.props.userPermission,
                 }}
-              >
-                <VirtualClassList
-                  virtualClasses={this.props.virtualClasses}
-                  subjectList={this.state.subjectList}
-                  editClassShowModal={this.editClassShowModal}
-                  filterStatus={this.state.filterStatus}
-                  classes={this.props.ClassSettings}
-                  assignmentClassSubject={this.state.assignmentClassSubject}
-                />
-              </div>
-            </div>
-          </div>
-
+                yes={() => (
+                  <div
+                    className="  col-lg-12 col-md-12 bd-highlight"
+                    style={{
+                      paddingRight: 'auto',
+                      paddingLeft: '2%',
+                    }}
+                  >
+                    <VirtualClassList
+                      virtualClasses={this.props.virtualClasses}
+                      subjectList={this.state.subjectList}
+                      editClassShowModal={this.editClassShowModal}
+                      filterStatus={this.state.filterStatus}
+                      classes={this.props.ClassSettings}
+                      assignmentClassSubject={this.state.assignmentClassSubject}
+                    />
+                  </div>
+                )}
+              />
+            )}
+          </RoleContext.Consumer>
           <RoleContext.Consumer>
             {({ role }) => (
               <Can

@@ -56,13 +56,7 @@ class SupportCoursListItems extends Component {
         <TableCell>{moment(cours.creationDate).format('DD/MM/YYYY')}</TableCell>
         <TableCell>{cours.professor.profName}</TableCell>
         <TableCell>
-          <RadioGroup
-            row
-            aria-label="typeCours"
-            name="typeCours"
-            // value={typeCours}
-            // onChange={this.handleChange('typeCours')}
-          >
+          <RadioGroup row aria-label="typeCours" name="typeCours">
             <FormControlLabel
               value="Moocs"
               control={
@@ -95,46 +89,68 @@ class SupportCoursListItems extends Component {
           </RadioGroup>
         </TableCell>
         <TableCell>{cours.comment}</TableCell>
-        {! this.props.archived ? (
-          <RoleContext.Consumer>
-            {({ role }) => (
-              <Can
-                role={role}
-                perform="add-service"
-                yes={() => (
-                  <TableCell>
-                    <Button
-                      style={{
-                        backgroundColor: 'white',
-                        color: '#7C7C7C',
-                        width: '50px',
-                        height: '20px',
-                      }}
-                      onClick={(e) => {
-                        this.props.editShowModal(cours);
-                      }}
-                      target="_blank"
-                    >
-                      <span style={{ fontSize: '12px', color: '#7C7C7C' }}>
-                        <IntlMessages id="button.modify" />
-                      </span>
-                    </Button>
-                    &nbsp; | &nbsp;
-                    <IconButton
-                      size="large"
-                      className="icon-btn"
-                      onClick={(e) => this.props.handleDelete(cours)}
-                    >
-                      <i className="zmdi zmdi-delete" style={{ color: 'text-grey' }} />
-                    </IconButton>
-                  </TableCell>
+        <TableCell>
+          {!this.props.archived ? (
+            <>
+              <RoleContext.Consumer>
+                {({ role }) => (
+                  <Can
+                    role={role}
+                    perform="user-permission"
+                    data={{
+                      permission: 'edit-course-material',
+                      permissionList: this.props.userPermission,
+                    }}
+                    yes={() => (
+                      <>
+                        <Button
+                          style={{
+                            backgroundColor: 'white',
+                            color: '#7C7C7C',
+                            width: '50px',
+                            height: '20px',
+                          }}
+                          onClick={(e) => {
+                            this.props.editShowModal(cours);
+                          }}
+                          target="_blank"
+                        >
+                          <span style={{ fontSize: '12px', color: '#7C7C7C' }}>
+                            <IntlMessages id="button.modify" />
+                          </span>
+                        </Button>
+                        &nbsp; | &nbsp;
+                      </>
+                    )}
+                  />
                 )}
-              />
-            )}
-          </RoleContext.Consumer>
-        ) : (
-          ''
-        )}
+              </RoleContext.Consumer>
+              <RoleContext.Consumer>
+                {({ role }) => (
+                  <Can
+                    role={role}
+                    perform="user-permission"
+                    data={{
+                      permission: 'delete-course-material',
+                      permissionList: this.props.userPermission,
+                    }}
+                    yes={() => (
+                      <IconButton
+                        size="large"
+                        className="icon-btn"
+                        onClick={(e) => this.props.handleDelete(cours)}
+                      >
+                        <i className="zmdi zmdi-delete" style={{ color: 'text-grey' }} />
+                      </IconButton>
+                    )}
+                  />
+                )}
+              </RoleContext.Consumer>
+            </>
+          ) : (
+            ''
+          )}
+        </TableCell>
       </TableRow>
     );
   }

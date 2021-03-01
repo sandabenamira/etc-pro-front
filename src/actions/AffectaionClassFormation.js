@@ -33,7 +33,7 @@ export function addClassFormation(data, subjectSelected) {
             type: ADD_CLASS_SETTINGS,
             payload: { ...response.data.affectation.result[0].classFormation, group: [] },
           });
-           dispatch({ type: ADD_ASSIGNEMENT_COURSE, payload: assignmentClassToFormation });
+          dispatch({ type: ADD_ASSIGNEMENT_COURSE, payload: assignmentClassToFormation });
         }
       } else {
         dispatch({
@@ -65,12 +65,17 @@ export function addCollaboratorFormation(data) {
     });
   };
 }
-export function addPlanningFormation(data) {
+export function addPlanningFormation(data, objMail) {
   return (dispatch) => {
     let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, data).then((response) => {
       if (response) {
-        console.log(response.data, 'response addPlanningFormation');
+        if (objMail !== undefined) {
+          let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
+          classService.post(apiEndpoint1, objMail).then((response) => {
+            //
+          });
+        }
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,

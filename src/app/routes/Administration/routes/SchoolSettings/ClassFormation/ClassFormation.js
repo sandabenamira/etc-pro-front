@@ -1,18 +1,18 @@
-import React from "react";
-import CardBox from "../../../../../../components/CardBox/index";
-import { connect } from "react-redux";
-import AddClassFormation from "./AddClassFormation";
-import SubmitStep from "./SubmitStep";
-import _ from "lodash";
-import { UncontrolledAlert } from "reactstrap";
+import React from 'react';
+import CardBox from '../../../../../../components/CardBox/index';
+import { connect } from 'react-redux';
+import AddClassFormation from './AddClassFormation';
+import SubmitStep from './SubmitStep';
+import _ from 'lodash';
+import { UncontrolledAlert } from 'reactstrap';
 import {
   addClassFormation,
   addCollaboratorFormation,
   addPlanningFormation,
-} from "../../../../../../actions/AffectaionClassFormation";
-import { getRoomsByEstablshment } from "../../../../../../actions/roomAction";
-import moment from "moment";
-import ClassesSettingsList from "../ClassesSettings/ClassesSettings";
+} from '../../../../../../actions/AffectaionClassFormation';
+import { getRoomsByEstablshment } from '../../../../../../actions/roomAction';
+import moment from 'moment';
+import ClassesSettingsList from '../ClassesSettings/ClassesSettings';
 
 class CourseAssignment extends React.Component {
   constructor(props) {
@@ -40,13 +40,15 @@ class CourseAssignment extends React.Component {
         },
       ],
 
-      nameClassFormation: "",
+      nameClassFormation: '',
       levelId: null,
       subjectId: null,
       profId: null,
       agenceIds: [],
       roomsList: [],
       subjectSelected: {},
+      requiredInputs: false,
+      profSelected: {},
     };
     this.openAddModal = this.openAddModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -117,7 +119,7 @@ class CourseAssignment extends React.Component {
     this.setState({ horaireList });
   };
   handleChangeHoraire = (selectedOption, name, index) => {
-    if (name === "room") {
+    if (name === 'room') {
       let newHoraireList = this.state.horaireList.map((element, i) =>
         i === index
           ? {
@@ -159,7 +161,7 @@ class CourseAssignment extends React.Component {
     this.setState({ participantList });
   };
   handleChangeParticipant = (selectedOption, name, index) => {
-    if (name === "agence") {
+    if (name === 'agence') {
       let agenceIds = [selectedOption.value];
       this.state.participantList.map((element) => {
         if (element.id != index) {
@@ -176,7 +178,7 @@ class CourseAssignment extends React.Component {
           : element
       );
       this.setState({ participantList: newParticipantList });
-    } else if (name === "participants") {
+    } else if (name === 'participants') {
       let newParticipantList = this.state.participantList.map((element, i) =>
         i === index
           ? {
@@ -189,14 +191,14 @@ class CourseAssignment extends React.Component {
     }
   };
   handleChange = (name) => (selectedOption) => {
-    console.log("selction option", selectedOption);
-    if (name === "subjectId" && name === "levelId" && name === "profId") {
-      // delete selectedOption.value;
-      // delete selectedOption.label;
+    if (name === 'subjectId') {
+      let subjectSelected = Object.assign({}, selectedOption);
+      delete subjectSelected.value;
+      delete subjectSelected.label;
 
-      this.setState({ subjectSelected: selectedOption }, () =>
-        console.log("selectedOption in set state", selectedOption)
-      );
+      this.setState({ subjectSelected: subjectSelected });
+    } else if (name === 'profId') {
+      this.setState({ profSelected: selectedOption });
     }
     this.setState({ [name]: selectedOption.id });
   };
@@ -212,10 +214,25 @@ class CourseAssignment extends React.Component {
 
   handleConfirmStep1(event) {
     event.preventDefault();
-
-    this.setState({
-      confirmStep1: true,
-    });
+    if (
+      this.state.nameClassFormation === '' ||
+      this.state.levelId === null ||
+      this.state.subjectId === null ||
+      this.state.profId === null
+    ) {
+      this.setState({
+        requiredInputs: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          requiredInputs: false,
+        });
+      }, 2000);
+    } else {
+      this.setState({
+        confirmStep1: true,
+      });
+    }
   }
   handleConfirmStep2(event) {
     event.preventDefault();
@@ -224,23 +241,37 @@ class CourseAssignment extends React.Component {
     });
   }
   handleSubmitStep1(event) {
-    let objStep1 = {
-      classFormationName: this.state.nameClassFormation,
-      establishmentId: this.props.userProfile.establishment_id,
-      schoolYearId: this.props.userProfile.school_year_id,
-      levelId: this.state.levelId,
-      formationId: this.state.subjectId,
-      profId: this.state.profId,
-    };
-    this.props.dispatch(
-      addClassFormation(objStep1, this.state.subjectSelected)
-    );
+    if (
+      this.state.nameClassFormation === '' ||
+      this.state.levelId === null ||
+      this.state.subjectId === null ||
+      this.state.profId === null
+    ) {
+      this.setState({
+        requiredInputs: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          requiredInputs: false,
+        });
+      }, 2000);
+    } else {
+      let objStep1 = {
+        classFormationName: this.state.nameClassFormation,
+        establishmentId: this.props.userProfile.establishment_id,
+        schoolYearId: this.props.userProfile.school_year_id,
+        levelId: this.state.levelId,
+        formationId: this.state.subjectId,
+        profId: this.state.profId,
+      };
+      this.props.dispatch(addClassFormation(objStep1, this.state.subjectSelected));
 
-    event.preventDefault();
-    this.setState({
-      step2: true,
-      confirmStep1: false,
-    });
+      event.preventDefault();
+      this.setState({
+        step2: true,
+        confirmStep1: false,
+      });
+    }
   }
   handleSubmitStep2(event) {
     event.preventDefault();
@@ -271,33 +302,54 @@ class CourseAssignment extends React.Component {
   }
   handleSubmitStep3(event) {
     event.preventDefault();
+    let MsgNotifPlanning =
+      'Par la présente, nous avons le plaisir de vous inviter au Foramtion  ' +
+      this.state.subjectSelected.name +
+      ' avec le formateur  M/Mme  ' +
+      this.state.profSelected.label +
+      ' ,qui aura lieu le ' +
+      this.state.horaireList.map(
+        (dateElement) => moment(dateElement.dateFormation).format('YYYY/MM/DD') + '__'
+      );
+    let MsgNotif = MsgNotifPlanning + ' , Vous pouvez visiter la plateforme pour plus de détails';
+    // +' Espérant vivement vous compter parmi nous, nous vous prions d’agréer, chers partenaires / chers collègues, l’expression de nos salutations les plus cordiales.';
+
+    console.log('--------MsgNotif--------', MsgNotif);
     let listEvents = [];
     this.state.horaireList.map((horaireElement) => {
       let objHoraire = {
         start_time: moment(
-          moment(horaireElement.dateFormation).format("YYYY/MM/DD") +
-            moment(horaireElement.startHour).format("HH:mm:ss"),
-          "YYYY-MM-DDLT"
+          moment(horaireElement.dateFormation).format('YYYY/MM/DD') +
+            moment(horaireElement.startHour).format('HH:mm:ss'),
+          'YYYY-MM-DDLT'
         ),
         end_time: moment(
-          moment(horaireElement.dateFormation).format("YYYY/MM/DD") +
-            moment(horaireElement.endHour).format("HH:mm:ss"),
-          "YYYY-MM-DDLT"
+          moment(horaireElement.dateFormation).format('YYYY/MM/DD') +
+            moment(horaireElement.endHour).format('HH:mm:ss'),
+          'YYYY-MM-DDLT'
         ),
-        title: "",
-        frequency: "annual",
-        event_type: "lesson",
+        title: '',
+        frequency: 'annual',
+        event_type: 'lesson',
         status: true,
         repetition: [0],
-        fk_id_room:
-          horaireElement.room.id === undefined ? null : horaireElement.room.id,
+        fk_id_room: horaireElement.room.id === undefined ? null : horaireElement.room.id,
         fk_id_prof: this.state.profId,
         fk_id_assign_class_subject: this.props.assignmentFormationToClass,
         fk_id_profile_creator: this.props.userProfile.id,
       };
       listEvents.push(objHoraire);
     });
-    this.props.dispatch(addPlanningFormation(listEvents));
+    let logoEstab =
+      this.props.establishementInformations.logo === undefined
+        ? ''
+        : this.props.establishementInformations.logo;
+    let objMail = {};
+    objMail.classId = this.props.classFormationId;
+    objMail.notifMsg = MsgNotif;
+    objMail.establishmentId = this.props.userProfile.establishment_id;
+    objMail.logoEstab = logoEstab;
+    this.props.dispatch(addPlanningFormation(listEvents, objMail));
 
     this.setState({
       open: false,
@@ -359,7 +411,7 @@ class CourseAssignment extends React.Component {
       });
       this.setState({ levelList });
     }
-    if (typeof this.props.usersReducer.professors != "undefined") {
+    if (typeof this.props.usersReducer.professors != 'undefined') {
       let professorList = [];
       professorList = this.props.usersReducer.professors.map((element) => {
         let object = {};
@@ -464,23 +516,20 @@ class CourseAssignment extends React.Component {
       <div
         className="app-wrapper"
         style={{
-          marginLeft: "5%",
-          marginRight: "10%",
+          marginLeft: '5%',
+          marginRight: '10%',
         }}
       >
         <div className="  d-flex flex-column mb-3">
-          {this.state.assignementCourseExist ? (
+          {this.state.requiredInputs ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-danger text-white shadow-lg">
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
-              <span className="d-inline-block">
-                {" "}
-                {this.state.messageAlerte}{" "}
-              </span>
+              <span className="d-inline-block"> Il faut remplir les champs obligatoires </span>
             </UncontrolledAlert>
           ) : (
-            ""
+            ''
           )}
           {this.props.successStatus ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
@@ -490,23 +539,20 @@ class CourseAssignment extends React.Component {
               <span className="d-inline-block"> {this.props.message} </span>
             </UncontrolledAlert>
           ) : (
-            ""
+            ''
           )}
           {this.state.alerteFiltre ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
-              <span className="d-inline-block">
-                {" "}
-                {this.state.messageAlerte}{" "}
-              </span>
+              <span className="d-inline-block"> {this.state.messageAlerte} </span>
             </UncontrolledAlert>
           ) : (
-            ""
+            ''
           )}
           <div class="d-flex flex-wrap flex-column">
-            <div className=" bd-highlight" style={{ width: "90%" }}>
+            <div className=" bd-highlight" style={{ width: '90%' }}>
               <CardBox styleName="col-lg-12">
                 <AddClassFormation
                   values={this.state}
@@ -527,9 +573,15 @@ class CourseAssignment extends React.Component {
               </CardBox>
             </div>
             <ClassesSettingsList
+<<<<<<< HEAD
               ClassSettings={this.props.ClassSettings}
               levels={this.props.levels}
               sections={this.props.sections}
+=======
+            // ClassSettings={this.props.ClassSettings}
+            // levels={this.props.levels}
+            // sections={this.props.sections}
+>>>>>>> develop
             />
           </div>
 
@@ -548,7 +600,7 @@ class CourseAssignment extends React.Component {
             handleSubmitStep={this.handleSubmitStep1}
           />
         ) : (
-          ""
+          ''
         )}
         {this.state.confirmStep2 === true ? (
           <SubmitStep
@@ -557,7 +609,7 @@ class CourseAssignment extends React.Component {
             handleSubmitStep={this.handleSubmitStep2}
           />
         ) : (
-          ""
+          ''
         )}
       </div>
     );
@@ -576,10 +628,10 @@ const mapStateToProps = (state) => {
     usersReducer: state.usersReducer,
     rooms: state.rooms.rooms,
     classFormationId: state.ClassSettingsReducer.classFormationId,
-    assignmentFormationToClass:
-      state.AssignementReducer.assignmentFormationToClass,
+    assignmentFormationToClass: state.AssignementReducer.assignmentFormationToClass,
     sections: state.SectionsReducer.Section,
     ClassSettings: state.ClassSettingsReducer.classSettings,
+    establishementInformations: state.establishment.establishementInformations,
   };
 };
 

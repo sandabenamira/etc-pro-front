@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import Table from "@material-ui/core/Table";
-import { connect } from "react-redux";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import IntlMessages from "../../../../../../util/IntlMessages";
-import ClassSettingsItem from "./ClassSettingsItem";
-import DeleteClassSettings from "./DeleteClassSettings";
-import EditClassSettings from "./EditClassSettings";
+import React, { Component } from 'react';
+import Table from '@material-ui/core/Table';
+import { connect } from 'react-redux';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import IntlMessages from '../../../../../../util/IntlMessages';
+import ClassSettingsItem from './ClassSettingsItem';
+import DeleteClassSettings from './DeleteClassSettings';
+import EditClassSettings from './EditClassSettings';
 import {
   deleteClassSettings,
   editClassSettings,
-} from "../../../../../../actions/ClassSettingsAction";
-import _ from "lodash";
+} from '../../../../../../actions/ClassSettingsAction';
+import _ from 'lodash';
 class ClassesSettingsList extends Component {
   constructor(props) {
     super(props);
@@ -22,10 +22,10 @@ class ClassesSettingsList extends Component {
       item: {},
       deleteIsopen: false,
       deleteItem: {},
-      nameClassSettings: "",
+      nameClassSettings: '',
       id: null,
-      levelId: "",
-      sectionId: "",
+      levelId: '',
+      sectionId: '',
       sectionsByLevelId: [],
     };
     this.handleEdit = this.handleEdit.bind(this);
@@ -91,7 +91,7 @@ class ClassesSettingsList extends Component {
     this.handleCancel();
   };
   render() {
-    return (
+     return (
       <div className="table-responsive-material">
         <div>
           <h1>
@@ -105,19 +105,25 @@ class ClassesSettingsList extends Component {
           <TableHead className="th-border-b">
             <TableRow>
               <TableCell>
-                {" "}
+                {' '}
                 <IntlMessages id="components.student.formadd.classe" />
               </TableCell>
               <TableCell>
                 <IntlMessages id="components.note.niveau" />
-              </TableCell>            
+              </TableCell>
+              <TableCell>
+               Formation
+              </TableCell>{' '}
+              {/* <TableCell>
+                Formateur
+              </TableCell> */}
               <TableCell>
                 <IntlMessages id="action.type.of.education" />
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.ClassSettings.map((Item, index) => {
+            {this.props.courseAssignment.map((Item, index) => {
               return (
                 <ClassSettingsItem
                   archived={false}
@@ -145,7 +151,7 @@ class ClassesSettingsList extends Component {
             handleChangeLevel={this.handleChangeLevel}
           />
         ) : (
-          ""
+          ''
         )}
         {this.state.deleteIsopen === true ? (
           <DeleteClassSettings
@@ -155,7 +161,7 @@ class ClassesSettingsList extends Component {
             deleteIsopen={this.state.deleteIsopen}
           />
         ) : (
-          ""
+          ''
         )}
       </div>
     );
