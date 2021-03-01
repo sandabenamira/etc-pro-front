@@ -573,15 +573,9 @@ class CourseAssignment extends React.Component {
               </CardBox>
             </div>
             <ClassesSettingsList
-<<<<<<< HEAD
-              ClassSettings={this.props.ClassSettings}
-              levels={this.props.levels}
-              sections={this.props.sections}
-=======
             // ClassSettings={this.props.ClassSettings}
             // levels={this.props.levels}
             // sections={this.props.sections}
->>>>>>> develop
             />
           </div>
 
