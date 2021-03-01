@@ -381,10 +381,22 @@ export const sousModuleAssiduity = [
 
 export const sousModuleEtab2 = [
   {
+    name: 'agenceSetting',
+    pathName: 'administration/agenceSetting',
+    icon: 'settings-square',
+    id: 1,
+  },
+  {
+    name: 'usersManagement',
+    pathName: 'administration/usersManagement',
+    icon: 'accounts-alt',
+    id: 2,
+  },
+  {
     name: 'schoolSettings',
     pathName: 'administration',
     icon: 'settings',
-    id: 1,
+    id: 3,
     sousSousModules: [
       {
         name: 'typeOfEducation',
@@ -450,18 +462,6 @@ export const sousModuleEtab2 = [
     ],
   },
   {
-    name: 'usersManagement',
-    pathName: 'administration/usersManagement',
-    icon: 'accounts-alt',
-    id: 2,
-  },
-  {
-    name: 'agenceSetting',
-    pathName: 'administration/agenceSetting',
-    icon: 'settings-square',
-    id: 3,
-  },
-  {
     name: 'permissionSetting',
     pathName: 'administration/permissionSetting',
     icon: 'block-alt',
@@ -488,12 +488,27 @@ export const sousModuleEtab2 = [
   },
 ];
 export const sousModuleAdministration = [
+  
   {
     name: 'administration',
     icon: 'device-hub',
     pathName: 'administration',
     type: 'collapse',
     children: [
+      {
+        name: 'agenceSetting',
+        pathName: 'administration/agenceSetting',
+        icon: 'settings-square',
+        type: 'item',
+        id: 1,
+      },
+      {
+        name: 'usersManagement',
+        pathName: 'administration/usersManagement',
+        icon: 'accounts-alt',
+        type: 'item',
+        id: 2,
+      },
       {
         name: 'schoolSettings',
         pathName: 'administration',
@@ -573,20 +588,7 @@ export const sousModuleAdministration = [
           },
         ],
       },
-      {
-        name: 'usersManagement',
-        pathName: 'administration/usersManagement',
-        icon: 'accounts-alt',
-        type: 'item',
-        id: 2,
-      },
-      {
-        name: 'agenceSetting',
-        pathName: 'administration/agenceSetting',
-        icon: 'settings-square',
-        type: 'item',
-        id: 3,
-      },
+      
       {
         name: 'permissionSetting',
         pathName: 'administration/permissionSetting',

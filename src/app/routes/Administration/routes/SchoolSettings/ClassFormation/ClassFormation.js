@@ -415,7 +415,7 @@ class CourseAssignment extends React.Component {
       let professorList = [];
       professorList = this.props.usersReducer.professors.map((element) => {
         let object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.profId;
         object.value = element.profId;
         object.agenceId = element.agenceId;
@@ -429,7 +429,7 @@ class CourseAssignment extends React.Component {
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
         let object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
         object.agenceId = element.agencyId;
@@ -491,7 +491,7 @@ class CourseAssignment extends React.Component {
       let professorList = [];
       professorList = this.props.usersReducer.professors.map((element) => {
         let object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.profId;
         object.value = element.profId;
         object.agenceId = element.agenceId;
@@ -501,7 +501,7 @@ class CourseAssignment extends React.Component {
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
         let object = {};
-        object.label = element.name + ' ' + element.surname;
+        object.label = element.name + " " + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
         object.agenceId = element.agencyId;

@@ -69,39 +69,9 @@ class Home extends React.Component {
       this.setState({ nbreGirls: nbreGirls.length, nbreBoys: nbreBoys.length });
     }
   }
-  componentWillMount() {
-    var first_connexion = localStorage.getItem("first_connexion");
-    if (first_connexion === "false") {
-      this.setState({
-        isopen: false,
-      });
-    } else {
-      this.setState({
-        isopen: true,
-      });
-    }
-  }
+ 
 
-  componentDidMount() {
-    const establishment_id = localStorage.getItem("establishment_id");
-
-    //let apiEndpoint = "";
-
-    // apiEndpoint = `/complaints/count?access_token=${localStorage.token}&where={"establishment_id":${establishment_id}}`;
-    // classService.get(apiEndpoint).then((response) => {
-    //   if (response) {
-    //     this.setState({ countesComplaints: response.data.count });
-    //   }
-    // });
-    // card4
-    // apiEndpoint = `/profiles?access_token=${localStorage.token}&filter[include]=user&filter[where][and][0][establishment_id]=${establishment_id}&filter[where][and][1][role_id]=${roleIdStudent}`;
-
-    //card7
-    // let classId = 0;
-    // const status = "Non payé";
-    // const month = moment(currentDate)._d.getMonth() + 1;
-    // apiEndpoint = `/classes?access_token=${localStorage.token}&filter[where][establishment_id]=${establishment_id}`;
-  }
+   
 
   onOptionMenuSelect = (event) => {
     this.setState({ menuState: true, anchorEl: event.currentTarget });
@@ -142,8 +112,7 @@ class Home extends React.Component {
           )
           .then((res) => {
             if (res.data.existe === true) {
-              localStorage.setItem("first_connexion", false);
-
+ 
               this.setState({
                 succedAlert: true,
                 resetPassword: "",
@@ -151,7 +120,7 @@ class Home extends React.Component {
                 oldPassword: "",
               });
               setTimeout(
-                function() {
+                function () {
                   this.setState({ succedAlert: false, isopen: false });
                 }.bind(this),
                 2000
@@ -164,7 +133,7 @@ class Home extends React.Component {
                 oldPassword: "",
               });
               setTimeout(
-                function() {
+                function () {
                   this.setState({ errorAlert: false });
                 }.bind(this),
                 2000
@@ -180,7 +149,7 @@ class Home extends React.Component {
                 oldPassword: "",
               });
               setTimeout(
-                function() {
+                function () {
                   this.setState({ errorAlert: false });
                 }.bind(this),
                 2000
@@ -197,7 +166,7 @@ class Home extends React.Component {
             oldPassword: "",
           });
           setTimeout(
-            function() {
+            function () {
               this.setState({ errorAlert: false });
             }.bind(this),
             2000
@@ -207,9 +176,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const first_connexion = localStorage.getItem("first_connexion");
-    console.log("first_connexion render", first_connexion);
-    const { anchorEl, menuState } = this.state;
+      const { anchorEl, menuState } = this.state;
     return (
       <RoleContext.Consumer>
         {({ role }) => (
@@ -220,7 +187,7 @@ class Home extends React.Component {
               yes={() => (
                 <div>
                   <AdminDashboard />
-                  {first_connexion === "true" ? (
+                  {this.props.userProfile.user.first_connexion === true ? (
                     <ResetPasswordModal
                       isopen={this.state.isopen}
                       handleCancel={this.handleCancel}
@@ -240,7 +207,7 @@ class Home extends React.Component {
               yes={() => (
                 <div>
                   <StudentDashborad />
-                  {first_connexion === "true" ? (
+                  {this.props.userProfile.user.first_connexion === true ? (
                     <ResetPasswordModal
                       isopen={this.state.isopen}
                       handleCancel={this.handleCancel}
@@ -260,7 +227,7 @@ class Home extends React.Component {
               yes={() => (
                 <div>
                   <ProfessorDashborad />
-                  {first_connexion === "true" ? (
+                  {this.props.userProfile.user.first_connexion === true ? (
                     <ResetPasswordModal
                       isopen={this.state.isopen}
                       handleCancel={this.handleCancel}
