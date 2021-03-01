@@ -1217,7 +1217,7 @@
   "message.error.cafeteria.date": "Il y a un menu qui est programmé pour cette date",
   "message.error.cafeteria": "Merci de remplir tous les champs",
   "list.school.year": "Liste des années scolaires",
-  "sidebar.components.schoolSettings": "Paramètres de parcours formation",
+  "sidebar.components.schoolSettings": "Référentiel de formation",
   "new.type.ofEducation": " Ajouter un cycle de formation",
   "sidebar.components.levels": "Niveaux",
   "sidebar.components.sections": "Sections",
