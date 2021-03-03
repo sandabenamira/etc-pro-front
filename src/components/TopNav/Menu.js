@@ -367,13 +367,13 @@ class Menu extends Component {
             </li> */}
           
 
-            <li className="nav-item ">
+            {/* <li className="nav-item ">
               <NavLink className="prepend-icon" to="/app/financial_management/ServiceAllocation">
                 <span className="nav-text">
                 <IntlMessages id="sidebar.components.financial_management" />
                 </span>
               </NavLink>
-            </li>
+            </li> */}
             <li className="nav-item">
               <MenuCollapseBoxItem
                 pathName={"e-libraries"}
