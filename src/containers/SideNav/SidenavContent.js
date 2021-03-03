@@ -290,7 +290,7 @@ class SidenavContent extends Component {
             sousModuleStupp={sousModuleFinancialManagement}
           /> */}
 
-          <li>
+          {/* <li>
             <NavLink className="prepend-icon" to="/app/financial_management/ServiceAllocation">
              
               <i className={`zmdi zmdi-view-dashboard zmdi-hc-fw`} />
@@ -298,7 +298,7 @@ class SidenavContent extends Component {
                 <IntlMessages id="sidebar.components.financial_management" />
               </span>
             </NavLink>
-          </li>
+          </li> */}
 
           <MenuCollapseBoxItem
             pathName={"e-libraries"}
