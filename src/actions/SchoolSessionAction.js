@@ -87,14 +87,14 @@ export function getSchoolSession(establishementId, schoolYearId) {
         const list = response.data;
         const SchoolSessionList = list.filter(
           (element) =>
-            element.status && element.educationType.fk_id_establishment == establishementId && element.educationType.fk_id_school_year == schoolYearId
+            element.status && element.educationType.fk_id_establishment === establishementId && element.educationType.fk_id_school_year === schoolYearId
         );
 
         const ArchivedSchoolSessionListList = list.filter(
           (element) =>
-            element.status == false &&
-            element.educationType.fk_id_establishment == establishementId &&
-            element.educationType.fk_id_school_year == schoolYearId
+            element.status === false &&
+            element.educationType.fk_id_establishment === establishementId &&
+            element.educationType.fk_id_school_year === schoolYearId
         );
 
         dispatch({ type: GET_SCHOOL_SESSION, payload: SchoolSessionList });

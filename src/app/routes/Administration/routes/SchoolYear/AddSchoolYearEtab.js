@@ -6,8 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { addSchoolYearEtab } from '../../../../../actions/SchoolYearEtabAction';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import { array } from 'prop-types';
-
+ 
 class AddSchoolYearEtab extends React.Component {
   constructor(props) {
     super(props);
@@ -86,7 +85,7 @@ class AddSchoolYearEtab extends React.Component {
                             key={establishment.id}
                             value={establishment.id}
                           >
-                            {this.props.settings == 'tunisia'
+                            {this.props.settings === 'tunisia'
                               ? establishment.ar_name
                               : establishment.name}
                           </option>

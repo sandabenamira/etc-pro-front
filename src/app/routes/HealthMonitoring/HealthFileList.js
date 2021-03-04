@@ -1,19 +1,12 @@
-import React, { Component } from "react";
-import HealthFileListItem from "./HealthFileListItem";
-import EditHealthFile from "./EditHealthFile";
-import { getSectionFromLevel } from "../../../actions/sectionAction";
-import { getLevelListFromEstabType } from "../../../actions/classLevelAction";
-import axios from "axios";
-import baseUrl from "../../../config/config";
-import { editFicheMedical } from "../../../actions/HealthAction";
- import { connect } from "react-redux";
-import { roleIdSuperAdmin } from "../../../config/config";
-import { roleIdAdmin } from "../../../config/config";
-import { roleIdProfessor } from "../../../config/config";
-import { roleIdParent } from "../../../config/config";
-import { roleIdStudent } from "../../../config/config";
-import { roleIdSupervisor } from "../../../config/config";
-import { roleIdDirector } from "../../../config/config";
+import React, { Component } from 'react';
+import HealthFileListItem from './HealthFileListItem';
+import EditHealthFile from './EditHealthFile';
+import { getSectionFromLevel } from '../../../actions/sectionAction';
+import { getLevelListFromEstabType } from '../../../actions/classLevelAction';
+import axios from 'axios';
+import baseUrl from '../../../config/config';
+import { editFicheMedical } from '../../../actions/HealthAction';
+import { connect } from 'react-redux';
 
 class HealthFileList extends Component {
   constructor(props) {
@@ -21,99 +14,99 @@ class HealthFileList extends Component {
 
     this.state = {
       editIsopen: false,
-      level_id: "",
-      section_id: "",
+      level_id: '',
+      section_id: '',
       Disable_studentsection: true,
-      establishment_id: "",
-      student_id: "",
-      class_id: "",
-      nom_doctor: "",
-      prenom_doctor: "",
-      phone_doctor: "",
-      mail_doctor: "",
-      blood_type: "",
-      poids: "",
-      hauteur: "",
+      establishment_id: '',
+      student_id: '',
+      class_id: '',
+      nom_doctor: '',
+      prenom_doctor: '',
+      phone_doctor: '',
+      mail_doctor: '',
+      blood_type: '',
+      poids: '',
+      hauteur: '',
       problems: [],
-      remarque: "",
-      files: "",
+      remarque: '',
+      files: '',
       studentsectionByLevels: [],
       studentClassesByLevelSectionID: [],
       studentByclassID: [],
       userPhotos: null,
-      inputText: "",
+      inputText: '',
       checkedValues: [],
-      id: "",
+      id: '',
       blood_group: [
         {
           id: 1,
-          type: "A+",
+          type: 'A+',
         },
         {
           id: 2,
-          type: "A-",
+          type: 'A-',
         },
         {
           id: 3,
-          type: "B+",
+          type: 'B+',
         },
         {
           id: 4,
-          type: "B-",
+          type: 'B-',
         },
         {
           id: 5,
-          type: "AB+",
+          type: 'AB+',
         },
         {
           id: 6,
-          type: "AB-",
+          type: 'AB-',
         },
         {
           id: 7,
-          type: "O+",
+          type: 'O+',
         },
         {
           id: 8,
-          type: "O-",
+          type: 'O-',
         },
       ],
       data: [
         {
           id: 1,
-          name: "Des yeux",
+          name: 'Des yeux',
         },
         {
           id: 2,
-          name: "Coeur",
+          name: 'Coeur',
         },
         {
           id: 3,
-          name: "CUTANÉ",
+          name: 'CUTANÉ',
         },
         {
           id: 4,
-          name: "Système respiratoire",
+          name: 'Système respiratoire',
         },
         {
           id: 5,
-          name: "Des oreilles",
+          name: 'Des oreilles',
         },
         {
           id: 6,
-          name: "Tension",
+          name: 'Tension',
         },
         {
           id: 7,
-          name: "Système musculo-squelettique",
+          name: 'Système musculo-squelettique',
         },
         {
           id: 8,
-          name: "Système respiratoire",
+          name: 'Système respiratoire',
         },
         {
           id: 9,
-          name: "Système nerveux",
+          name: 'Système nerveux',
         },
       ],
     };
@@ -147,31 +140,29 @@ class HealthFileList extends Component {
     this.props.editFicheMedical(data, this.state.userPhotos);
     this.setState({
       editIsopen: false,
-      level_id: "",
-      section_id: "",
-      class_id: "",
-      student_id: "",
-      blood_type: "",
-      poids: "",
-      hauteur: "",
-      prenom_doctor: "",
-      nom_doctor: "",
-      phone_doctor: "",
-      mail_doctor: "",
-      remarque: "",
+      level_id: '',
+      section_id: '',
+      class_id: '',
+      student_id: '',
+      blood_type: '',
+      poids: '',
+      hauteur: '',
+      prenom_doctor: '',
+      nom_doctor: '',
+      phone_doctor: '',
+      mail_doctor: '',
+      remarque: '',
       userPhotos: null,
       checkedBox: true,
-      inputText: "",
+      inputText: '',
       checkedValues: [],
-      id: "",
+      id: '',
     });
   };
 
   handleCheck = (event) => {
     var tab = this.state.checkedValues;
-    var test = this.state.checkedValues.findIndex(
-      (element) => element == event.target.value
-    );
+    var test = this.state.checkedValues.findIndex((element) => element == event.target.value);
     if (test == -1) {
       tab.push(parseInt(event.target.value, 10));
       this.setState({ checkedValues: tab });
@@ -211,89 +202,55 @@ class HealthFileList extends Component {
       id: FicheObjectEdit.id,
     });
 
-    axios
-      .get(
-        `${baseUrl.baseUrl}/students/` +
-          FicheObjectEdit.student_id +
-          `?access_token=${localStorage.token}`
-      )
-      .then((response) => {
-        axios
-          .get(
-            `${baseUrl.baseUrl}/classes/` +
-              response.data.class_id +
-              `?access_token=${localStorage.token}`
-          )
-          .then((response) => {
-            var ClassID = response.data.id;
-            this.setState({
-              level_id: response.data.level_id,
-              section_id: response.data.section_id,
-              class_id: response.data.id,
-            });
+    axios.get(`${baseUrl.baseUrl}/students/` + FicheObjectEdit.student_id + `?access_token=${localStorage.token}`).then((response) => {
+      axios.get(`${baseUrl.baseUrl}/classes/` + response.data.class_id + `?access_token=${localStorage.token}`).then((response) => {
+        var ClassID = response.data.id;
+        this.setState({
+          level_id: response.data.level_id,
+          section_id: response.data.section_id,
+          class_id: response.data.id,
+        });
 
-            if (response.data.level_id > 10) {
-              this.setState({ Disable_studentsection: false });
-              var studentSectionbyLevel = getSectionFromLevel(
-                response.data.section_id,
-                response.data.level_id
-              );
-              this.setState({ studentsectionByLevels: studentSectionbyLevel });
-            } else {
-              this.setState({
-                Disable_studentsection: true,
-                section_id: 0,
-              });
-              const levelID = response.data.level_id;
-              var studentfiltredClasses = this.props.classes.filter(
-                (classe) => classe.level_id === levelID && classe.status
-              );
-              this.setState({
-                studentClassesByLevelSectionID: studentfiltredClasses,
-              });
-            }
-            axios
-              .get(
-                `${baseUrl.baseUrl}/students/fetchAllStudentsDataByClassID/` +
-                  ClassID +
-                  `?access_token=${localStorage.token}`
-              )
-              .then((res) => {
-                this.setState({
-                  studentByclassID: res.data.classData,
-                });
-              });
+        if (response.data.level_id > 10) {
+          this.setState({ Disable_studentsection: false });
+          var studentSectionbyLevel = getSectionFromLevel(response.data.section_id, response.data.level_id);
+          this.setState({ studentsectionByLevels: studentSectionbyLevel });
+        } else {
+          this.setState({
+            Disable_studentsection: true,
+            section_id: 0,
           });
+          const levelID = response.data.level_id;
+          var studentfiltredClasses = this.props.classes.filter((classe) => classe.level_id === levelID && classe.status);
+          this.setState({
+            studentClassesByLevelSectionID: studentfiltredClasses,
+          });
+        }
+        axios.get(`${baseUrl.baseUrl}/students/fetchAllStudentsDataByClassID/` + ClassID + `?access_token=${localStorage.token}`).then((res) => {
+          this.setState({
+            studentByclassID: res.data.classData,
+          });
+        });
       });
+    });
   };
 
   componentWillMount() {
-    axios
-      .get(
-        `${baseUrl.baseUrl}/establishments/` +
-          this.props.userProfile.establishment_id +
-          `?access_token=${localStorage.token}`
-      )
-      .then((res) => {
-        var levelsbyestablishment = getLevelListFromEstabType(
-          this.props.classLevels,
-          res.data.estab_type_id
-        );
-        this.setState({
-          estabType: res.data.estab_type_id,
-          levelsbyestablishment: levelsbyestablishment,
-        });
+    axios.get(`${baseUrl.baseUrl}/establishments/` + this.props.userProfile.establishment_id + `?access_token=${localStorage.token}`).then((res) => {
+      var levelsbyestablishment = getLevelListFromEstabType(this.props.classLevels, res.data.estab_type_id);
+      this.setState({
+        estabType: res.data.estab_type_id,
+        levelsbyestablishment: levelsbyestablishment,
       });
+    });
   }
 
   render() {
     var finalList;
-    if (this.props.class_id === "") {
+    if (this.props.class_id === '') {
       finalList = this.props.ficheMedicalList;
     } else {
-      finalList = this.props.ficheMedicalList.filter(
-        (element) => element.class_id == this.props.class_id
-      );
+      finalList = this.props.ficheMedicalList.filter((element) => element.class_id == this.props.class_id);
     }
     return (
       <div>
@@ -301,15 +258,12 @@ class HealthFileList extends Component {
           <div className="row animated slideInUpTiny animation-duration-3">
             {finalList.map((element) => (
               <div className="col-md-4">
-                <HealthFileListItem
-                  ficheMedicalItem={element}
-                  editFicheMedicalShowModal={this.editFicheMedicalShowModal}
-                />
+                <HealthFileListItem ficheMedicalItem={element} editFicheMedicalShowModal={this.editFicheMedicalShowModal} />
               </div>
             ))}
           </div>
         ) : (
-          ""
+          ''
         )}
         {this.state.editIsopen === true ? (
           <EditHealthFile
@@ -327,7 +281,7 @@ class HealthFileList extends Component {
             editHealthFile={this.editHealthFile}
           />
         ) : (
-          ""
+          ''
         )}
       </div>
     );
@@ -350,5 +304,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-   editFicheMedical,
+  editFicheMedical,
 })(HealthFileList);

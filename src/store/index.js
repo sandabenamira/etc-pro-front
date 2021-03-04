@@ -5,22 +5,14 @@ import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from '../sagas/index';
 import thunk from 'redux-thunk';
-import * as Sentry from '@sentry/react';
-// ...
-// const sentryReduxEnhancer = Sentry.createReduxEnhancer({
-//   // Optionally pass options
-// });
+
 const history = createBrowserHistory();
 const routeMiddleware = routerMiddleware(history);
 const sagaMiddleware = createSagaMiddleware();
 
 const middlewares = [sagaMiddleware, routeMiddleware, thunk];
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const composedEnhancers = compose(
-  applyMiddleware(...middlewares)
-  // ,
-  // sentryReduxEnhancer
-);
+const composedEnhancers = compose(applyMiddleware(...middlewares));
 
 export default function configureStore(initialState) {
   var store;

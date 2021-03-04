@@ -6,7 +6,6 @@ import {
   HIDE_ERROR_MESSAGE,
   GET_ASSIGNEMENT_COURSE,
   ADD_ASSIGNEMENT_COURSE,
-  EDIT_ASSIGNEMENT_COURSE,
   DELETE_ASSIGNEMENT_COURSE,
   ARCHIVED_GET_ASSIGNEMENT_COURSE,
 } from '../constants/ActionTypes';
@@ -46,16 +45,11 @@ export function getAssignementCourse(establishementId, schoolYearId) {
     classService.get(apiEndpoint).then((response) => {
       if (response) {
         const assignementCourseList = response.data.filter(
-          (element) =>
-            element.status &&
-            element.class.fk_id_establishment == establishementId &&
-            element.class.fk_id_school_year == schoolYearId
+          (element) => element.status && element.class.fk_id_establishment == establishementId && element.class.fk_id_school_year == schoolYearId
         );
         const ArchivedAssignementCourseList = response.data.filter(
           (element) =>
-            element.status == false &&
-            element.class.fk_id_establishment == establishementId &&
-            element.class.fk_id_school_year == schoolYearId
+            element.status == false && element.class.fk_id_establishment == establishementId && element.class.fk_id_school_year == schoolYearId
         );
 
         dispatch({
@@ -72,7 +66,6 @@ export function getAssignementCourse(establishementId, schoolYearId) {
 }
 
 export function deleteAssignementCourse(data) {
- 
   return (dispatch) => {
     data.map((element) => {
       let apiEndpoint = `/assignment_class_subjects/${element.id}?access_token=${localStorage.token}`;

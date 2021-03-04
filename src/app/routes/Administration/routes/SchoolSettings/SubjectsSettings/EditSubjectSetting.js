@@ -5,8 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Auxiliary from "../../../../../../util/Auxiliary";
 import MenuItem from "@material-ui/core/MenuItem";
-import { connect } from "react-redux";
-import InputLabel from "@material-ui/core/InputLabel";
+ import InputLabel from "@material-ui/core/InputLabel";
 export default class EditSubjectSetting extends React.Component {
   constructor(props) {
     super(props);

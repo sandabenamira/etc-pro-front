@@ -16,8 +16,7 @@ import Cafeteria from './routes/Cafeteria/index';
 import HealthMonitoring from './routes/HealthMonitoring/HealthMonitoring';
 import Learning from './routes/Learning/index';
 import Assiduity from './routes/Assiduity/index';
-import GradesMenu from './routes/GradesMenu/index';
-import Can from '../can';
+ import Can from '../can';
 import { RoleContext } from '../Context';
 import SupportCours from './routes/Learning/routes/CoursMaterials/SupportCours';
 import VirtualClasses from './routes/Learning/index';
@@ -232,12 +231,7 @@ class App extends React.Component {
                     <Superadmin match={match} estabModule={estabModule} {...props} />
                   )}
                 />
-                <Route
-                  path={`${match.url}/gradesmenu`}
-                  render={(props) => (
-                    <GradesMenu match={match} estabModule={estabModule} {...props} />
-                  )}
-                />
+                 
                 <Route
                   path={`${match.url}/financial_management`}
                   render={(props) => (

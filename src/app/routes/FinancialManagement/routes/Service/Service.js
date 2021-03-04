@@ -93,7 +93,7 @@ class Service extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    if (this.state.pathImgService == '') {
+    if (this.state.pathImgService === '') {
       this.setState({ alerte: true });
       setTimeout(() => {
         this.setState({ alerte: false });
@@ -135,7 +135,7 @@ class Service extends React.Component {
 
   handleArchive(event) {
     event.preventDefault();
-    if (this.state.pathImgService == '') {
+    if (this.state.pathImgService === '') {
       this.setState({ alerte: true });
       setTimeout(() => {
         this.setState({ alerte: false });
@@ -174,12 +174,9 @@ class Service extends React.Component {
   }
 
   handleChange = (name) => (event) => {
-    if (name == 'nameFrService') {
+    if (name === 'nameFrService') {
       let nameError = false;
-      nameError =
-        this.props.services.filter(
-          (element) => element.name_fr_service === event.target.value.trim()
-        ).length > 0;
+      nameError = this.props.services.filter((element) => element.name_fr_service === event.target.value.trim()).length > 0;
 
       this.setState({ [name]: event.target.value, nameError: nameError });
     } else {
@@ -188,9 +185,7 @@ class Service extends React.Component {
   };
 
   handleChangeRadio = (name) => (event) => {
-    let item = this.state.frequency.filter(
-      (element) => element.name_fr_frequency === event.target.value
-    );
+    let item = this.state.frequency.filter((element) => element.name_fr_frequency === event.target.value);
     this.setState({
       idFrequency: item[0].id,
       frequencyVal: event.target.value,
@@ -259,9 +254,7 @@ class Service extends React.Component {
   }
   componentWillMount() {
     this.setState({ services: this.props.services });
-    this.props.dispatch(
-      getServiceV2(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id)
-    );
+    this.props.dispatch(getServiceV2(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id));
     let apiEndpoint = '';
 
     apiEndpoint = `/currency_v2?access_token=${localStorage.token}`;
@@ -283,9 +276,7 @@ class Service extends React.Component {
       this.setState({ services: this.props.services });
     }
     if (prevProps.userProfile.school_year_id !== this.props.userProfile.school_year_id) {
-      this.props.dispatch(
-        getServiceV2(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id)
-      );
+      this.props.dispatch(getServiceV2(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id));
     }
   }
 
@@ -303,9 +294,7 @@ class Service extends React.Component {
   }
 
   handleCategory() {
-    const sortedServices = this.state.services.sort((a, b) =>
-      a.type_service > b.type_service ? 1 : b.type_service > a.type_service ? -1 : 0
-    );
+    const sortedServices = this.state.services.sort((a, b) => (a.type_service > b.type_service ? 1 : b.type_service > a.type_service ? -1 : 0));
     this.setState({
       services: sortedServices,
       alerteFiltre: true,
@@ -340,7 +329,7 @@ class Service extends React.Component {
   render() {
     let { archives } = this.props;
 
-    const { anchorEl, menuState, services } = this.state;
+    const { services } = this.state;
 
     return (
       <div
