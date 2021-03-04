@@ -135,7 +135,7 @@ class SchoolSession extends React.Component {
 
     this.props.getSchoolSession(
       parseInt(this.props.userProfile.establishment_id, 10),
-      parseInt(localStorage.school_year_id, 10)
+      parseInt(this.props.userProfile.school_year_id, 10)
     );
   }
   render() {

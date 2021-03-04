@@ -39,8 +39,7 @@ export function addSchoolSession(data) {
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
-          payload:
-            "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+          payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });
@@ -70,8 +69,7 @@ export function editSchoolSession(data) {
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
-          payload:
-            "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+          payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });
@@ -89,16 +87,16 @@ export function getSchoolSession(establishementId, schoolYearId) {
         const list = response.data;
         const SchoolSessionList = list.filter(
           (element) =>
-            element.status &&
-            element.educationType.fk_id_establishment == establishementId &&
-            element.educationType.fk_id_school_year == schoolYearId
+            element.status && element.educationType.fk_id_establishment == establishementId && element.educationType.fk_id_school_year == schoolYearId
         );
+
         const ArchivedSchoolSessionListList = list.filter(
           (element) =>
             element.status == false &&
             element.educationType.fk_id_establishment == establishementId &&
             element.educationType.fk_id_school_year == schoolYearId
         );
+
         dispatch({ type: GET_SCHOOL_SESSION, payload: SchoolSessionList });
         dispatch({
           type: ARCHIVED_GET_SCHOOL_SESSION,
@@ -111,8 +109,7 @@ export function getSchoolSession(establishementId, schoolYearId) {
 
 export function deleteSchoolSession(itemId) {
   return (dispatch) => {
-    let apiEndpoint =
-      `/school_session_v4/` + itemId.id + `?access_token=${localStorage.token}`;
+    let apiEndpoint = `/school_session_v4/` + itemId.id + `?access_token=${localStorage.token}`;
     classService
       .patch(apiEndpoint, {
         status: false,

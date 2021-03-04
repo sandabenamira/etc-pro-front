@@ -22,16 +22,15 @@ class SupportCoursListItems extends Component {
   render() {
     const { cours } = this.props;
     let pathMoocs =
-      cours.moocsList[0] == undefined
+      cours.moocsList[0] === undefined
         ? this.props.pathAttached.url
         : `/app/e-learning/moocs_details/${cours.moocsList[0].id}/${cours.moocsList[0].moocs_topic}`;
-
+    // eslint-disable-next-line
     let pathVituel =
       cours.virtualClassList[0] == undefined
         ? this.props.pathAttached.url
         : `/app/e-learning/virtual_classes_details/${cours.virtualClassList[0].id}/${cours.virtualClassList[0].virtual_class_name}`;
 
-    // console.log(this.props.pathAttached.url);
     return (
       <TableRow key={cours.id}>
         <TableCell style={{ color: '#FF69B4' }}>
@@ -43,7 +42,7 @@ class SupportCoursListItems extends Component {
               </Button>
             );
           })}
-          {cours.urlCourse == '' ? (
+          {cours.urlCourse === '' ? (
             ''
           ) : (
             <Button href={cours.urlCourse} target="_blank">
@@ -135,11 +134,7 @@ class SupportCoursListItems extends Component {
                       permissionList: this.props.userPermission,
                     }}
                     yes={() => (
-                      <IconButton
-                        size="large"
-                        className="icon-btn"
-                        onClick={(e) => this.props.handleDelete(cours)}
-                      >
+                      <IconButton size="large" className="icon-btn" onClick={(e) => this.props.handleDelete(cours)}>
                         <i className="zmdi zmdi-delete" style={{ color: 'text-grey' }} />
                       </IconButton>
                     )}

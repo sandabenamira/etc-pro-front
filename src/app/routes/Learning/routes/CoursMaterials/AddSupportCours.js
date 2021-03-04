@@ -34,6 +34,7 @@ class AddSupportCours extends React.Component {
   }
 
   render() {
+    // eslint-disable-next-line
     const { values } = this.props;
     let name =
       this.props.informationsAdd.surnameProf == '0'
@@ -157,7 +158,7 @@ class AddSupportCours extends React.Component {
                       />
                     )}
                   </div>
-                  <div className="col-md-4 p-4">
+                  {/* <div className="col-md-4 p-4">
                     <InputLabel
                       htmlFor="nomSelect"
                       style={{
@@ -188,7 +189,7 @@ class AddSupportCours extends React.Component {
                         }),
                       }}
                     />{' '}
-                  </div>
+                  </div> */}
                   <div className="col-md-4 p-4">
                     <InputLabel
                       htmlFor="nomSelect"
