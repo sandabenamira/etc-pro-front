@@ -4,8 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import moment from 'moment';
@@ -27,7 +26,7 @@ class SupportCoursListItems extends Component {
         : `/app/e-learning/moocs_details/${cours.moocsList[0].id}/${cours.moocsList[0].moocs_topic}`;
     // eslint-disable-next-line
     let pathVituel =
-      cours.virtualClassList[0] == undefined
+      cours.virtualClassList[0] === undefined
         ? this.props.pathAttached.url
         : `/app/e-learning/virtual_classes_details/${cours.virtualClassList[0].id}/${cours.virtualClassList[0].virtual_class_name}`;
 

@@ -7,8 +7,7 @@ import EducationalCalendar from './routes/EducationalCalendar/EducationalCalenda
 import Timetable from './routes/Timetable/index';
 import Planning from './routes/Planning/Planning';
 import CallRegister from './routes/CallRegister/Registre';
-import BilletPass from './routes/BilletPass/BilletPass';
-import DetailsCallRegister from './routes/CallRegister/DetailsCallRegister';
+ import DetailsCallRegister from './routes/CallRegister/DetailsCallRegister';
 
 const Assiduity = ({ match, estabModule }) => (
   <div className="app-wrapper">

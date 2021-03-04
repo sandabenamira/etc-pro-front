@@ -92,7 +92,7 @@ export class PermissionList extends Component {
         permission.id === parseInt(idPermission)
           ? {
               ...permission,
-              roles: permission.roles.filter((role) => role != idRole),
+              roles: permission.roles.filter((role) => role !== idRole),
               modified: true,
             }
           : permission;

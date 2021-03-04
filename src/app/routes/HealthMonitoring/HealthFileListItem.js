@@ -1,24 +1,21 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import SwipeableViews from "react-swipeable-views";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import AppBar from "@material-ui/core/AppBar";
-import { Card, CardBody, CardFooter, CardSubtitle, CardText } from "reactstrap";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import DeleteIcon from "@material-ui/icons/Delete";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import { classService } from "../../../_services/class.service";
-import _ from "lodash";
-import { deleteFicheMedical } from "../../../actions/HealthAction";
-import { getBlodType } from "../../../actions/HealthAction";
-import DeleteHealthFile from "./DeleteHealthFile";
-import { connect } from "react-redux";
-import axios from "axios";
-import baseUrl from "../../../config/config";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import SwipeableViews from 'react-swipeable-views';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import AppBar from '@material-ui/core/AppBar';
+import { Card, CardBody, CardFooter, CardSubtitle } from 'reactstrap';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { deleteFicheMedical } from '../../../actions/HealthAction';
+import { getBlodType } from '../../../actions/HealthAction';
+import DeleteHealthFile from './DeleteHealthFile';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../config/config';
 function TabContainer({ children, dir }) {
   return <div dir={dir}>{children}</div>;
 }
@@ -34,12 +31,12 @@ class HealthFileListItem extends Component {
 
     this.state = {
       value: 0,
-      url: "",
-      establishmentName: "",
+      url: '',
+      establishmentName: '',
       deleteIsopen: false,
       editIsopen: false,
-      student_Name: "",
-      className: "",
+      student_Name: '',
+      className: '',
     };
     this.cancelModal = this.cancelModal.bind(this);
     this.handleDeleteFicheMedical = this.handleDeleteFicheMedical.bind(this);
@@ -66,31 +63,18 @@ class HealthFileListItem extends Component {
   };
 
   componentWillMount() {
+    axios.get(`${baseUrl.baseUrl}/classes/` + this.props.ficheMedicalItem.class_id + `?access_token=${localStorage.token}`).then((res) => {
+      this.setState({ className: res.data.name });
+    });
     axios
       .get(
-        `${baseUrl.baseUrl}/classes/` +
-          this.props.ficheMedicalItem.class_id +
-          `?access_token=${localStorage.token}`
+        `${baseUrl.baseUrl}/students/fetchAllStudentsDataByClassID/` + this.props.ficheMedicalItem.class_id + `?access_token=${localStorage.token}`
       )
       .then((res) => {
-        this.setState({ className: res.data.name });
-      });
-    axios
-      .get(
-        `${baseUrl.baseUrl}/students/fetchAllStudentsDataByClassID/` +
-          this.props.ficheMedicalItem.class_id +
-          `?access_token=${localStorage.token}`
-      )
-      .then((res) => {
-        var student = res.data.classData.find(
-          (element) => element.id == this.props.ficheMedicalItem.student_id
-        );
-        var studentName =
-          student.profile.user.name + " " + student.profile.user.surname;
+        var student = res.data.classData.find((element) => element.id === this.props.ficheMedicalItem.student_id);
+        var studentName = student.profile.user.name + ' ' + student.profile.user.surname;
         this.setState({ student_Name: studentName });
       });
-
-   
   }
 
   render() {
@@ -98,63 +82,56 @@ class HealthFileListItem extends Component {
     const data = [
       {
         id: 1,
-        name: "Des yeux",
+        name: 'Des yeux',
       },
       {
         id: 2,
-        name: "Coeur",
+        name: 'Coeur',
       },
       {
         id: 3,
-        name: "CUTANÉ",
+        name: 'CUTANÉ',
       },
       {
         id: 4,
-        name: "Système respiratoire",
+        name: 'Système respiratoire',
       },
       {
         id: 5,
-        name: "Des oreilles",
+        name: 'Des oreilles',
       },
       {
         id: 6,
-        name: "Tension",
+        name: 'Tension',
       },
       {
         id: 7,
-        name: "Système musculo-squelettique",
+        name: 'Système musculo-squelettique',
       },
       {
         id: 8,
-        name: "Système respiratoire",
+        name: 'Système respiratoire',
       },
       {
         id: 9,
-        name: "Système nerveux",
+        name: 'Système nerveux',
       },
     ];
-    var problems = data.filter((element) =>
-      this.props.ficheMedicalItem.problems.includes(element.id)
-    );
+    var problems = data.filter((element) => this.props.ficheMedicalItem.problems.includes(element.id));
     return (
       <Card className="shadow border-0">
-        <AppBar
-          className="bg-primary card-header"
-          position="static"
-          style={{ paddingTop: 5, height: 55 }}
-          className=""
-        >
+        <AppBar className="bg-primary card-header" position="static" style={{ paddingTop: 5, height: 55 }} className="">
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
             variant="fullWidth"
             className=" d-flex"
-            style={{ paddingTop: "1%", height: 55 }}
+            style={{ paddingTop: '1%', height: 55 }}
           >
             <Tab
               className="tab  justify-content-start"
               label={
-                <h6 style={{ color: "#fff" }}>
+                <h6 style={{ color: '#fff' }}>
                   <b>Info élève</b>
                 </h6>
               }
@@ -163,7 +140,7 @@ class HealthFileListItem extends Component {
             <Tab
               className="tab  justify-content-start"
               label={
-                <h6 style={{ color: "#fff" }}>
+                <h6 style={{ color: '#fff' }}>
                   <b>Médecin</b>
                 </h6>
               }
@@ -172,7 +149,7 @@ class HealthFileListItem extends Component {
             <Tab
               className="tab  justify-content-start"
               label={
-                <h6 style={{ color: "#fff" }}>
+                <h6 style={{ color: '#fff' }}>
                   <b>Plus d'info</b>
                 </h6>
               }
@@ -180,11 +157,7 @@ class HealthFileListItem extends Component {
           </Tabs>
         </AppBar>
 
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={this.state.value}
-          onChangeIndex={this.handleChangeIndex}
-        >
+        <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={this.state.value} onChangeIndex={this.handleChangeIndex}>
           <TabContainer dir={theme.direction}>
             <div className="d-flex align-items-center ">
               <CardBody>
@@ -198,46 +171,33 @@ class HealthFileListItem extends Component {
                   <div className="col-md-8   pt-3 ">
                     <p>
                       <CardSubtitle>
-                        <b style={{ color: "gray" }}>
-                          {" "}
-                          {this.state.student_Name}
-                        </b>
+                        <b style={{ color: 'gray' }}> {this.state.student_Name}</b>
                       </CardSubtitle>
                       <CardSubtitle>
-                        {" "}
-                        <b style={{ color: "gray" }}>
-                          {" "}
-                          {this.state.className}
-                        </b>{" "}
+                        {' '}
+                        <b style={{ color: 'gray' }}> {this.state.className}</b>{' '}
                       </CardSubtitle>
                     </p>
                   </div>
                 </div>
                 <CardSubtitle>
-                  <b style={{ color: "blue" }}>Groupe sanguin :</b>{" "}
-                  {getBlodType(this.props.ficheMedicalItem.blood_type)}
+                  <b style={{ color: 'blue' }}>Groupe sanguin :</b> {getBlodType(this.props.ficheMedicalItem.blood_type)}
                 </CardSubtitle>
                 <CardSubtitle>
-                  <b style={{ color: "blue" }}>Poids :</b>{" "}
-                  {this.props.ficheMedicalItem.poids + " KG"}
+                  <b style={{ color: 'blue' }}>Poids :</b> {this.props.ficheMedicalItem.poids + ' KG'}
                 </CardSubtitle>
                 <CardSubtitle>
-                  <b style={{ color: "blue" }}>Hauteur :</b>{" "}
-                  {this.props.ficheMedicalItem.hauteur + " CM"}
+                  <b style={{ color: 'blue' }}>Hauteur :</b> {this.props.ficheMedicalItem.hauteur + ' CM'}
                 </CardSubtitle>
                 <CardSubtitle>
-                  <b style={{ color: "blue" }}>J'ai un problème au niveau :</b>{" "}
-                  {problems.map((problem) => problem.name + " ,")}
+                  <b style={{ color: 'blue' }}>J'ai un problème au niveau :</b> {problems.map((problem) => problem.name + ' ,')}
                 </CardSubtitle>
               </CardBody>
             </div>
-            <div
-              className="d-flex align-items-end w-100 "
-              style={{ paddingTop: "18%", marginRight: "0%" }}
-            >
+            <div className="d-flex align-items-end w-100 " style={{ paddingTop: '18%', marginRight: '0%' }}>
               <CardFooter className="d-flex align-items-center w-100 ">
                 <CardSubtitle>
-                  <b>Modifié :</b> 21/05/2020{" "}
+                  <b>Modifié :</b> 21/05/2020{' '}
                 </CardSubtitle>
               </CardFooter>
             </div>
@@ -247,30 +207,23 @@ class HealthFileListItem extends Component {
             <div className="d-flex align-items-center  pt-5">
               <CardBody>
                 <CardSubtitle>
-                  <b style={{ color: "blue" }}>Nom :</b>{" "}
-                  {this.props.ficheMedicalItem.nom_doctor}
+                  <b style={{ color: 'blue' }}>Nom :</b> {this.props.ficheMedicalItem.nom_doctor}
                 </CardSubtitle>
                 <CardSubtitle>
-                  <b style={{ color: "blue" }}>Prénom :</b>{" "}
-                  {this.props.ficheMedicalItem.prenom_doctor}
+                  <b style={{ color: 'blue' }}>Prénom :</b> {this.props.ficheMedicalItem.prenom_doctor}
                 </CardSubtitle>
                 <CardSubtitle>
-                  <b style={{ color: "blue" }}>Télèphone :</b>{" "}
-                  {this.props.ficheMedicalItem.phone_doctor}
+                  <b style={{ color: 'blue' }}>Télèphone :</b> {this.props.ficheMedicalItem.phone_doctor}
                 </CardSubtitle>
                 <CardSubtitle>
-                  <b style={{ color: "blue" }}>Email :</b>{" "}
-                  {this.props.ficheMedicalItem.mail_doctor}
+                  <b style={{ color: 'blue' }}>Email :</b> {this.props.ficheMedicalItem.mail_doctor}
                 </CardSubtitle>
               </CardBody>
             </div>
-            <div
-              className="d-flex align-items-end w-100 "
-              style={{ paddingTop: "25%", marginRight: "0%" }}
-            >
+            <div className="d-flex align-items-end w-100 " style={{ paddingTop: '25%', marginRight: '0%' }}>
               <CardFooter className="d-flex align-items-center w-100 ">
                 <CardSubtitle>
-                  <b>Modifié :</b> 21/05/2020{" "}
+                  <b>Modifié :</b> 21/05/2020{' '}
                 </CardSubtitle>
               </CardFooter>
             </div>
@@ -280,7 +233,7 @@ class HealthFileListItem extends Component {
             <div className="d-flex align-items-center  ">
               <CardBody>
                 <CardSubtitle>
-                  <b style={{ color: "blue" }}>Remarque </b>{" "}
+                  <b style={{ color: 'blue' }}>Remarque </b>{' '}
                 </CardSubtitle>
                 <CardSubtitle>
                   <p>{this.props.ficheMedicalItem.remarque}</p>
@@ -288,9 +241,9 @@ class HealthFileListItem extends Component {
                     <Button
                       variant="contained"
                       style={{
-                        backgroundColor: "#009D88",
-                        color: "#fff",
-                        marginTop: "3%",
+                        backgroundColor: '#009D88',
+                        color: '#fff',
+                        marginTop: '3%',
                       }}
                       startIcon={<CloudUploadIcon />}
                       href={this.props.ficheMedicalItem.files}
@@ -302,13 +255,11 @@ class HealthFileListItem extends Component {
                     <Button
                       variant="contained"
                       color="primary"
-                      style={{ color: "#fff", marginTop: "3%" }}
+                      style={{ color: '#fff', marginTop: '3%' }}
                       startIcon={<CloudUploadIcon />}
                       onClick={(e) => {
                         this.setState({ menuState: false });
-                        this.props.editFicheMedicalShowModal(
-                          this.props.ficheMedicalItem
-                        );
+                        this.props.editFicheMedicalShowModal(this.props.ficheMedicalItem);
                       }}
                     >
                       Modifier
@@ -316,9 +267,9 @@ class HealthFileListItem extends Component {
                     <Button
                       variant="contained"
                       style={{
-                        backgroundColor: "#FF4500",
-                        color: "#fff",
-                        marginTop: "3%",
+                        backgroundColor: '#FF4500',
+                        color: '#fff',
+                        marginTop: '3%',
                       }}
                       startIcon={<DeleteIcon />}
                       onClick={this.handleShowDeleteModal}
@@ -329,13 +280,10 @@ class HealthFileListItem extends Component {
                 </CardSubtitle>
               </CardBody>
             </div>
-            <div
-              className="d-flex align-items-end w-100 "
-              style={{ paddingTop: "15%", marginRight: "0%" }}
-            >
+            <div className="d-flex align-items-end w-100 " style={{ paddingTop: '15%', marginRight: '0%' }}>
               <CardFooter className="d-flex align-items-center w-100 ">
                 <CardSubtitle>
-                  <b>Modifié :</b> 21/05/2020{" "}
+                  <b>Modifié :</b> 21/05/2020{' '}
                 </CardSubtitle>
               </CardFooter>
             </div>
@@ -348,7 +296,7 @@ class HealthFileListItem extends Component {
             cancelModal={this.cancelModal}
           />
         ) : (
-          ""
+          ''
         )}
       </Card>
     );
@@ -375,7 +323,4 @@ function mapStateToProps(state) {
 }
 
 // export default withStyles(null, { withTheme: true })(HealthFileListItem);
-export default connect(
-  mapStateToProps,
-  { deleteFicheMedical }
-)(withStyles(null, { withTheme: true })(HealthFileListItem));
+export default connect(mapStateToProps, { deleteFicheMedical })(withStyles(null, { withTheme: true })(HealthFileListItem));

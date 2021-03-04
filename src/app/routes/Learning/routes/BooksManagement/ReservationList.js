@@ -5,11 +5,8 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import IntlMessages from "../../../../../util/IntlMessages";
-import _ from "lodash";
-import ReservationItem from "./ReservationItem"
-import { connect } from "react-redux";
-import moment from "moment";
-import PrintIcon from "@material-ui/icons/Print";
+ import ReservationItem from "./ReservationItem"
+ import PrintIcon from "@material-ui/icons/Print";
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 
 export default class ReservationList extends Component {

@@ -1,16 +1,15 @@
-import React from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import IntlMessages from "../../../../util/IntlMessages";
-import EditSchoolLicence from "./EditSchoolLicence";
-import _ from "lodash";
-import SchoolLicenceListItem from "./SchoolLicenceListItem";
-import { connect } from "react-redux";
-import { editSchoolLicence } from "../../../../actions/SchoolLicenceAction";
-import { deleteSchoolLicence } from "../../../../actions/SchoolLicenceAction";
+import React from 'react';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import IntlMessages from '../../../../util/IntlMessages';
+import EditSchoolLicence from './EditSchoolLicence';
+import SchoolLicenceListItem from './SchoolLicenceListItem';
+import { connect } from 'react-redux';
+import { editSchoolLicence } from '../../../../actions/SchoolLicenceAction';
+import { deleteSchoolLicence } from '../../../../actions/SchoolLicenceAction';
 
 class SchoolLicenceList extends React.Component {
   constructor(props) {
@@ -20,50 +19,50 @@ class SchoolLicenceList extends React.Component {
       item: {},
       deleteIsopen: false,
       deleteItem: {},
-      situationLicence: "",
-      start_date: "",
-      end_date: "",
+      situationLicence: '',
+      start_date: '',
+      end_date: '',
       id: null,
-      fk_id_school_year: "",
-      fk_id_establishment: "",
+      fk_id_school_year: '',
+      fk_id_establishment: '',
       licenceGroup: [
         {
-          value: "Actif",
-          label: "Active",
+          value: 'Actif',
+          label: 'Active',
         },
         {
-          value: "Expired",
-          label: "Expiré",
+          value: 'Expired',
+          label: 'Expiré',
         },
         {
-          value: "Pending",
-          label: "En cours",
+          value: 'Pending',
+          label: 'En cours',
         },
         {
-          value: "Blocked",
-          label: "Bloqué",
+          value: 'Blocked',
+          label: 'Bloqué',
         },
       ],
       paymentModeList: [
         {
-          value: "Semestre",
+          value: 'Semestre',
           label: <IntlMessages id="mode_payment.establishment.semester" />,
         },
         {
-          value: "Trimestre",
+          value: 'Trimestre',
           label: <IntlMessages id="mode_payment.establishment.trimester" />,
         },
         {
-          value: "Mensuel",
+          value: 'Mensuel',
           label: <IntlMessages id="mode_payment.establishment.monthly" />,
         },
         {
-          value: "Annuel",
+          value: 'Annuel',
           label: <IntlMessages id="mode_payment.establishment.annual" />,
         },
       ],
-      paymentMode: "",
-      licenceType: "",
+      paymentMode: '',
+      licenceType: '',
       establishment: {},
       studentsNumber: 0,
       smsNumber: 0,
@@ -185,7 +184,7 @@ class SchoolLicenceList extends React.Component {
           <TableHead className="th-border-b">
             <TableRow>
               <TableCell>
-                {" "}
+                {' '}
                 <IntlMessages id="list.schools" />
               </TableCell>
               <TableCell>
@@ -240,7 +239,7 @@ class SchoolLicenceList extends React.Component {
             handleChangeModule={this.handleChangeModule}
           />
         ) : (
-          ""
+          ''
         )}
       </div>
     );
