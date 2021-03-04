@@ -34,6 +34,13 @@ export function addClassFormation(data, subjectSelected) {
             payload: { ...response.data.affectation.result[0].classFormation, group: [] },
           });
           dispatch({ type: ADD_ASSIGNEMENT_COURSE, payload: assignmentClassToFormation });
+          dispatch({
+            type: SHOW_SUCCESS_MESSAGE,
+            payload: 'La création est effectuée avec succès',
+          });
+          setTimeout(() => {
+            dispatch({ type: HIDE_SUCCESS_MESSAGE });
+          }, 2000);
         }
       } else {
         dispatch({
@@ -52,7 +59,13 @@ export function addCollaboratorFormation(data) {
     let apiEndpoint = `/inscription_v4?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, data).then((response) => {
       if (response) {
-        console.log(response.data, 'response addCollaboratorFormation');
+         dispatch({
+          type: SHOW_SUCCESS_MESSAGE,
+          payload: "L'affectation de "+ response.data.length+ " collaborateurs est effectuée avec succès",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+        }, 2000);
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
@@ -70,6 +83,13 @@ export function addPlanningFormation(data, objMail) {
     let apiEndpoint = `/planning_events?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, data).then((response) => {
       if (response) {
+        dispatch({
+          type: SHOW_SUCCESS_MESSAGE,
+          payload: "La plannification est effectuée avec succès",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+        }, 2000);
         if (objMail !== undefined) {
           let apiEndpoint1 = `/planning_events/planning-notif?access_token=${localStorage.token}`;
           classService.post(apiEndpoint1, objMail).then((response) => {

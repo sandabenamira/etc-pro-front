@@ -17,8 +17,7 @@ export function getLevelClassSubjectData(establishmentId, schoolYearId, roleId, 
     classService.get(apiEndpoint).then((response) => {
       if (response) {
         const list = response.data;
-        console.log(list, '--------list--------');
-        dispatch({
+         dispatch({
           type: GET_FOLDERS_ARCHITECTURE,
           payload: response.data.SupportInfo,
         });
@@ -31,8 +30,7 @@ export function getMaterialCourse(establishmentId, schoolYearId, roleId, roleUse
     let apiEndpoint = `/course_materials/fetchCourseMaterialsByRole/${roleId}/${assignmentId}/${establishmentId}/${schoolYearId}/${roleUserId}?access_token=${localStorage.token}`;
     classService.get(apiEndpoint).then((response) => {
       if (response) {
-        console.log(response.data.courseMaterialsData, '---------response.data.courseMaterialsData----------');
-        const list = response.data.courseMaterialsData.filter((element) => element.status);
+         const list = response.data.courseMaterialsData.filter((element) => element.status);
         const listArchived = response.data.courseMaterialsData.filter((element) => !element.status);
         dispatch({
           type: GET_MATERIAL_COURSE,

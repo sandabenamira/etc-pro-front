@@ -45,8 +45,7 @@ class AddClassFormation extends React.Component {
   }
   render() {
     const { values } = this.props;
-    console.log('nameClassFormation', values.nameClassFormation);
-    console.log('subjectSelected', values.subjectSelected);
+     
 
     return (
       <div>
