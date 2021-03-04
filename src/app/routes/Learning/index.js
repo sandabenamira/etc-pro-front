@@ -266,7 +266,7 @@ const Learning = ({ match, estabModule }) => {
         }
          {
           <Route
-            path="/app/e-learning/course_material/:levelId/:levelName/:classRoomId/:className/:subjectId/:subjectName/:schoolSessionId/:schoolSessionName/:idAssignement/:surnameProf/:nameProf/:idProf"
+            path="/app/e-learning/course_material/:levelId/:levelName/:classRoomId/:className/:subjectId/:subjectName/:idAssignement/:surnameProf/:nameProf/:idProf"
             component={SupportCoursList}
           />
         }

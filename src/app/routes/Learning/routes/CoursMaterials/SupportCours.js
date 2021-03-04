@@ -15,15 +15,10 @@ import Badge from '@material-ui/core/Badge';
 import { RoleContext } from '../../../../../Context';
 import Can from '../../../../../can';
 import { NavLink } from 'react-router-dom';
-import {
-  getLevelClassSubjectData,
-  getMaterialCourse,
-} from '../../../../../actions/MaterialCourseAction';
-import { roleIdStudent,roleIdAdmin, roleIdParent } from '../../../../../config/config';
-import _ from "lodash";
-import SweetAlert from "react-bootstrap-sweetalert";
-
-
+import { getLevelClassSubjectData, getMaterialCourse } from '../../../../../actions/MaterialCourseAction';
+import { roleIdStudent, roleIdAdmin, roleIdParent } from '../../../../../config/config';
+import _ from 'lodash';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 class SupportCours extends React.Component {
   constructor(props) {
@@ -46,9 +41,8 @@ class SupportCours extends React.Component {
       levelNameStudent: 0,
       classIdStudent: 0,
       classNameStudent: 0,
-      isOpenAlertParent:false,
+      isOpenAlertParent: false,
       show: false,
-
     };
     this.handleChangeFolder = this.handleChangeFolder.bind(this);
   }
@@ -57,7 +51,7 @@ class SupportCours extends React.Component {
     this.setState({
       show: false,
     });
-  }; 
+  };
   onConfirmParent = () => {
     this.setState({
       isOpenAlertParent: false,
@@ -79,7 +73,6 @@ class SupportCours extends React.Component {
     } else {
       this.setState({ isFolderOpen: false, folderId: 0, classId: 0 });
     }
-
   }
   componentDidUpdate(prevProps) {
     if (prevProps.userProfile !== this.props.userProfile) {
@@ -105,7 +98,6 @@ class SupportCours extends React.Component {
           classNameStudent,
         });
       }
-    
     }
   }
   UNSAFE_componentWillMount() {
@@ -115,21 +107,17 @@ class SupportCours extends React.Component {
       this.props.userProfile.role_id,
       this.props.userProfile.id
     );
-   if (this.props.userProfile.role_id === roleIdStudent) {
-      let classStudent = this.props.userProfile.user.profiles[0].students[0]
-        .inscription[0].fk_id_class_v4;
+    if (this.props.userProfile.role_id === roleIdStudent) {
+      let classStudent = this.props.userProfile.user.profiles[0].students[0].inscription[0].fk_id_class_v4;
       this.setState({ classStudent });
       if (classStudent === null) {
         this.setState({ show: true });
       }
     } else if (this.props.userProfile.role_id === roleIdParent) {
-    
       let classStudents = this.props.userProfile.user.profiles[0].parents[0].student_parents;
       if (_.isEmpty(classStudents)) {
         this.setState({ isOpenAlertParent: true });
-     
       }
-
     }
   }
 
@@ -227,352 +215,166 @@ class SupportCours extends React.Component {
           </RoleContext.Consumer>
 
           <div className=" bd-highlight" style={{ width: '100%' }}>
-            <RoleContext.Consumer>
-              {({ role }) => (
-                <Can
-                  role={role}
-                  perform="get-subject-folders"
-                  yes={() => (
-                    <CardBox styleName="col-lg-12">
-                      <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-wrap flex-row bd-highlight mb-4  ">
-                        {this.state.SubjectListStudent.map((subject, index) => (
-                          <div key={index} class="col-md-4 col-lg-3 col-sm-6">
-                            <List>
-                              <ListItem>
-                                <div class="d-flex flex-column justify-content-center align-items-center">
-                                  <FolderIcon
-                                    style={{
-                                      fontSize: '55',
-                                      color: subject.subjectColor,
-                                    }}
-                                  />
-                                  <ListItemText
-                                    primary={
+            <CardBox styleName="col-lg-12">
+              <div className="d-flex flex-column bd-highlight mb-6 justify-content-around ">
+                {this.props.listMaterialCourse.map((levelMaterialCourse, index) => {
+                  return (
+                    <>
+                      <div key={index} className="col-md-12 col-lg-12 col-sm-12 d-flex flex-wrap flex-row bd-highlight mb-4  ">
+                        {levelMaterialCourse.classes.map((classMaterialCourse, index) => {
+                          return (
+                            <div key={index} className="col-md-6 col-lg-3 col-sm-6">
+                              <List>
+                                <ListItem>
+                                  <div className="d-flex  flex-column justify-content-center ">
+                                    <div
+                                      className="d-flex  flex-row justify-content-center "
+                                      onClick={(e) => this.handleChangeFolder(levelMaterialCourse.levelId, e, classMaterialCourse)}
+                                      language
+                                    >
+                                      <ListItemAvatar>
+                                        <Avatar>
+                                          <FolderIcon />
+                                        </Avatar>
+                                      </ListItemAvatar>
+                                    </div>
+
+                                    <div className="d-flex  flex-column justify-content-center align-items-center ">
+                                      <Typography
+                                        variant="h6"
+                                        style={{
+                                          marginLeft: '-7%',
+                                          color: 'grey',
+                                          fontWeight: 'bold',
+                                        }}
+                                      >
+                                        {classMaterialCourse.className}
+                                      </Typography>
                                       <Typography
                                         variant="h6"
                                         style={{
                                           color: 'grey',
                                           fontWeight: 'normal',
-                                          textAlign: 'center',
                                         }}
                                       >
-                                        {subject.subjectName}
-                                      </Typography>
-                                    }
-                                  />{' '}
-                                  <div class=" d-flex flex-row ">
-                                    {subject.schoolSession.map((schoolSession, index) => {
-                                      let levelId = this.state.levelIdStudent;
-                                      let levelName = this.state.levelNameStudent;
-                                      let classId = this.state.classIdStudent;
-                                      let className = this.state.classNameStudent;
-                                      let subjectId = subject.subjectId;
-                                      let subjectName = subject.subjectName;
-                                      let schoolSessionId = schoolSession.schoolSessionId;
-                                      let schoolSessionName = schoolSession.schoolSessionName;
-                                      let assignementId =
-                                        subject.assignementClassSubject == undefined
-                                          ? 0
-                                          : subject.assignementClassSubject;
-                                      let surnameProf =
-                                        subject.prof == undefined
-                                          ? 0
-                                          : subject.prof[0] == undefined
-                                          ? 0
-                                          : subject.prof[0].profile.user.surname;
-                                      let nameProf =
-                                        subject.prof == undefined
-                                          ? 0
-                                          : subject.prof[0] == undefined
-                                          ? 0
-                                          : subject.prof[0].profile.user.name;
-                                      let profId =
-                                        subject.prof == undefined
-                                          ? 0
-                                          : subject.prof[0] == undefined
-                                          ? 0
-                                          : subject.prof[0].id;
-
-                                      return (
-                                        <div
-                                          className="col"
-                                          key={index}
-                                          onClick={() => {
-                                            this.props.getMaterialCourse(
-                                              this.props.userProfile.establishment_id,
-                                              this.props.userProfile.school_year_id,
-                                              this.props.userProfile.role_id,
-                                              this.props.userProfile.id,
-                                              assignementId,
-                                              schoolSessionId
-                                            );
-                                          }}
-                                        >
-                                          <NavLink
-                                            to={`/app/e-learning/course_material/${levelId}/${levelName}/${classId}/${className}/${subjectId}/${subjectName}/${schoolSessionId}/${schoolSessionName}/${assignementId}/${surnameProf}/${nameProf}/${profId}`}
-                                          >
-                                            <Badge
-                                              color="secondary"
-                                              badgeContent={
-                                                schoolSession.schoolSessionName[0] +
-                                                schoolSession.schoolSessionName[
-                                                  schoolSession.schoolSessionName.length - 1
-                                                ]
-                                              }
-                                            >
-                                              {' '}
-                                            </Badge>
-                                          </NavLink>
-                                        </div>
-                                      );
-                                    })}
+                                        {settings === 'tunisia'
+                                          ? new Date(classMaterialCourse.classDate).toLocaleDateString('ar-TN', this.state.options)
+                                          : settings === 'french'
+                                          ? new Date(classMaterialCourse.classDate).toLocaleDateString('fr-FR', this.state.options)
+                                          : new Date(classMaterialCourse.classDate).toLocaleDateString('en-US', this.state.options)}{' '}
+                                      </Typography>{' '}
+                                    </div>
                                   </div>
-                                </div>
-                              </ListItem>
-                            </List>
-                          </div>
-                        ))}
-                      </div>
-                    </CardBox>
-                  )}
-                />
-              )}
-            </RoleContext.Consumer>
-            <RoleContext.Consumer>
-              {({ role }) => (
-                <Can
-                  role={role}
-                  perform="add-service"
-                  yes={() => (
-                    <CardBox styleName="col-lg-12">
-                      <div className="d-flex flex-column bd-highlight mb-6 justify-content-around ">
-                        {this.props.listMaterialCourse.map((levelMaterialCourse, index) => {
-                          return (
-                            <>
-                              <div
-                                key={index}
-                                className="col-md-12 col-lg-12 col-sm-12 d-flex flex-wrap flex-row bd-highlight mb-4  "
-                              >
-                                {levelMaterialCourse.classes.map((classMaterialCourse, index) => {
-                                  return (
-                                    <div key={index} className="col-md-6 col-lg-3 col-sm-6">
-                                      <List>
-                                        <ListItem>
-                                          <div className="d-flex  flex-column justify-content-center ">
-                                            <div
-                                              className="d-flex  flex-row justify-content-center "
-                                              onClick={(e) =>
-                                                this.handleChangeFolder(
-                                                  levelMaterialCourse.levelId,
-                                                  e,
-                                                  classMaterialCourse
-                                                )
-                                              }
-                                              language
-                                            >
-                                              <ListItemAvatar>
-                                                <Avatar>
-                                                  <FolderIcon />
-                                                </Avatar>
-                                              </ListItemAvatar>
-                                            </div>
-
-                                            <div className="d-flex  flex-column justify-content-center align-items-center ">
-                                              <Typography
-                                                variant="h6"
-                                                style={{
-                                                  marginLeft: '-7%',
-                                                  color: 'grey',
-                                                  fontWeight: 'bold',
-                                                }}
-                                              >
-                                                {classMaterialCourse.className}
-                                              </Typography>
-                                              <Typography
-                                                variant="h6"
-                                                style={{
-                                                  color: 'grey',
-                                                  fontWeight: 'normal',
-                                                }}
-                                              >
-                                                {settings === 'tunisia'
-                                                  ? new Date(
-                                                      classMaterialCourse.classDate
-                                                    ).toLocaleDateString(
-                                                      'ar-TN',
-                                                      this.state.options
-                                                    )
-                                                  : settings === 'french'
-                                                  ? new Date(
-                                                      classMaterialCourse.classDate
-                                                    ).toLocaleDateString(
-                                                      'fr-FR',
-                                                      this.state.options
-                                                    )
-                                                  : new Date(
-                                                      classMaterialCourse.classDate
-                                                    ).toLocaleDateString(
-                                                      'en-US',
-                                                      this.state.options
-                                                    )}{' '}
-                                              </Typography>{' '}
-                                            </div>
-                                          </div>
-                                        </ListItem>
-                                      </List>
-                                    </div>
-                                  );
-                                })}{' '}
-                              </div>
-                              <hr
-                                style={{
-                                  width: '100%',
-                                  margin: 'auto',
-                                  marginTop: '1%',
-                                  marginBottom: '1%',
-                                  border: '1px solid #979A9A',
-                                  paddingLeft: '-100%',
-                                }}
-                              />
-
-                              {this.state.SubjectList.length > 0 &&
-                              levelMaterialCourse.levelId == this.state.folderId ? (
-                                <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-wrap bd-highlight mb-4  ">
-                                  {this.state.SubjectList.map((subject, index) => (
-                                    <div key={index} class="col-md-4 col-lg-3 col-sm-6">
-                                      <List>
-                                        <ListItem>
-                                          <div class="d-flex flex-column justify-content-center align-items-center">
-                                            <FolderIcon
-                                              style={{
-                                                fontSize: '55',
-                                                color:
-                                                  this.props.userProfile.role_id === roleIdAdmin
-                                                    ? 'blue'
-                                                    : subject.subjectColor,
-                                              }}
-                                            />
-                                            <ListItemText
-                                              primary={
-                                                <Typography
-                                                  variant="h6"
-                                                  style={{
-                                                    color: 'grey',
-                                                    fontWeight: 'normal',
-                                                    textAlign: 'center',
-                                                  }}
-                                                >
-                                                  {subject.subjectName}
-                                                </Typography>
-                                              }
-                                            />{' '}
-                                            <div class=" d-flex flex-row ">
-                                              {subject.schoolSession.map((schoolSession, index) => {
-                                                let levelId = levelMaterialCourse.levelId;
-                                                let levelName = levelMaterialCourse.levelName;
-                                                let classId = this.state.classId;
-                                                let className = this.state.className;
-                                                let subjectId = subject.subjectId;
-                                                let subjectName = subject.subjectName;
-                                                let schoolSessionId = schoolSession.schoolSessionId;
-                                                let schoolSessionName =
-                                                  schoolSession.schoolSessionName;
-                                                let assignementId = subject.assignementClassSubject;
-                                                let surnameProf =
-                                                  subject.prof == undefined
-                                                    ? 0
-                                                    : subject.prof[0] == undefined
-                                                    ? 0
-                                                    : subject.prof[0].profile.user.surname;
-                                                let nameProf =
-                                                  subject.prof == undefined
-                                                    ? 0
-                                                    : subject.prof[0] == undefined
-                                                    ? 0
-                                                    : subject.prof[0].profile.user.name;
-                                                let profId =
-                                                  subject.prof == undefined
-                                                    ? 0
-                                                    : subject.prof[0] == undefined
-                                                    ? 0
-                                                    : subject.prof[0].id;
-
-                                                return (
-                                                  <div
-                                                    className="col"
-                                                    key={index}
-                                                    onClick={() => {
-                                                      this.props.getMaterialCourse(
-                                                        this.props.userProfile.establishment_id,
-                                                        this.props.userProfile.school_year_id,
-                                                        this.props.userProfile.role_id,
-                                                        this.props.userProfile.id,
-                                                        assignementId,
-                                                        schoolSessionId
-                                                      );
-                                                    }}
-                                                  >
-                                                    <NavLink
-                                                      to={`/app/e-learning/course_material/${levelId}/${levelName}/${classId}/${className}/${subjectId}/${subjectName}/${schoolSessionId}/${schoolSessionName}/${assignementId}/${surnameProf}/${nameProf}/${profId}`}
-                                                    >
-                                                      <Badge
-                                                        color="secondary"
-                                                        badgeContent={
-                                                          schoolSession.schoolSessionName[0] +
-                                                          schoolSession.schoolSessionName[
-                                                            schoolSession.schoolSessionName.length -
-                                                              1
-                                                          ]
-                                                        }
-                                                      ></Badge>
-                                                    </NavLink>
-                                                  </div>
-                                                );
-                                              })}
-                                            </div>
-                                          </div>
-                                        </ListItem>
-                                      </List>
-                                    </div>
-                                  ))}
-                                  <hr
-                                    style={{
-                                      width: '100%',
-                                      margin: 'auto',
-                                      marginTop: '1%',
-                                      marginBottom: '1%',
-                                      border: '1px solid #979A9A',
-                                      paddingLeft: '-100%',
-                                    }}
-                                  />
-                                </div>
-                              ) : null}
-                            </>
+                                </ListItem>
+                              </List>
+                            </div>
                           );
-                        })}
+                        })}{' '}
                       </div>
-                    </CardBox>
-                  )}
-                />
-              )}
-            </RoleContext.Consumer>
+                      <hr
+                        style={{
+                          width: '100%',
+                          margin: 'auto',
+                          marginTop: '1%',
+                          marginBottom: '1%',
+                          border: '1px solid #979A9A',
+                          paddingLeft: '-100%',
+                        }}
+                      />
+
+                      {this.state.SubjectList.length > 0 && levelMaterialCourse.levelId === this.state.folderId ? (
+                        <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-wrap bd-highlight mb-4  ">
+                          {this.state.SubjectList.map((subject, index) => {
+                            // eslint-disable-next-line
+                            let levelId = levelMaterialCourse.levelId;
+                            let levelName = levelMaterialCourse.levelName;
+                            let classId = this.state.classId;
+                            let className = this.state.className;
+                            let subjectId = subject.subjectId;
+                            let subjectName = subject.subjectName;
+                            let assignementId = subject.assignementClassSubject;
+                            let surnameProf =
+                              subject.prof === undefined ? 0 : subject.prof[0] == undefined ? 0 : subject.prof[0].profile.user.surname;
+                            let nameProf = subject.prof === undefined ? 0 : subject.prof[0] == undefined ? 0 : subject.prof[0].profile.user.name;
+                            let profId = subject.prof === undefined ? 0 : subject.prof[0] == undefined ? 0 : subject.prof[0].id;
+
+                            return (
+                              <div key={index} class="col-md-4 col-lg-3 col-sm-6">
+                                <List>
+                                  <ListItem>
+                                    <div
+                                      class="d-flex flex-column justify-content-center align-items-center text-center"
+                                      onClick={() => {
+                                        this.props.getMaterialCourse(
+                                          this.props.userProfile.establishment_id,
+                                          this.props.userProfile.school_year_id,
+                                          this.props.userProfile.role_id,
+                                          this.props.userProfile.id,
+                                          assignementId
+                                        );
+                                      }}
+                                    >
+                                      <NavLink
+                                        to={`/app/e-learning/course_material/${levelId}/${levelName}/${classId}/${className}/${subjectId}/${subjectName}/${assignementId}/${surnameProf}/${nameProf}/${profId}`}
+                                      >
+                                        <FolderIcon
+                                          style={{
+                                            fontSize: '55px',
+                                            color: this.props.userProfile.role_id === roleIdAdmin ? 'blue' : subject.subjectColor,
+                                          }}
+                                        />
+                                        <ListItemText
+                                          primary={
+                                            <Typography
+                                              variant="h6"
+                                              style={{
+                                                color: 'grey',
+                                                fontWeight: 'normal',
+                                                textAlign: 'center',
+                                              }}
+                                            >
+                                              {subject.subjectName}
+                                            </Typography>
+                                          }
+                                        />{' '}
+                                      </NavLink>
+                                    </div>
+                                  </ListItem>
+                                </List>
+                              </div>
+                            );
+                          })}
+                          <hr
+                            style={{
+                              width: '100%',
+                              margin: 'auto',
+                              marginTop: '1%',
+                              marginBottom: '1%',
+                              border: '1px solid #979A9A',
+                              paddingLeft: '-100%',
+                            }}
+                          />
+                        </div>
+                      ) : null}
+                    </>
+                  );
+                })}
+              </div>
+            </CardBox>
           </div>
         </div>
-        {this.props.userProfile.role_id === roleIdStudent &&
-        this.state.classStudent === null ? (
-          <SweetAlert
-            show={this.state.show}
-            title={<IntlMessages id="alert.affect.student" />}
-            onConfirm={this.onConfirm}
-          ></SweetAlert>
+        {this.props.userProfile.role_id === roleIdStudent && this.state.classStudent === null ? (
+          <SweetAlert show={this.state.show} title={<IntlMessages id="alert.affect.student" />} onConfirm={this.onConfirm}></SweetAlert>
         ) : (
-          ""
+          ''
         )}
-        {this.state.isOpenAlertParent &&  <SweetAlert
+        {this.state.isOpenAlertParent && (
+          <SweetAlert
             show={this.state.isOpenAlertParent}
             title={<IntlMessages id="alert.affect.student.to.parent" />}
             onConfirm={this.onConfirmParent}
-          ></SweetAlert>}
+          ></SweetAlert>
+        )}
       </div>
     );
   }
@@ -591,6 +393,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getLevelClassSubjectData, getMaterialCourse })(
-  SupportCours
-);
+export default connect(mapStateToProps, { getLevelClassSubjectData, getMaterialCourse })(SupportCours);

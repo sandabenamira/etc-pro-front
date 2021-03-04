@@ -18,12 +18,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import SupportCoursListItems from './SupportCoursListItems';
 import { UncontrolledAlert } from 'reactstrap';
-import {
-  addMaterialCourse,
-  getMaterialCourse,
-  editMaterialCourse,
-  deleteMaterialCourse,
-} from '../../../../../actions/MaterialCourseAction';
+import { addMaterialCourse, getMaterialCourse, editMaterialCourse, deleteMaterialCourse } from '../../../../../actions/MaterialCourseAction';
 import moment from 'moment';
 import axios from 'axios';
 import baseUrl from '../../../../../config/config';
@@ -136,8 +131,7 @@ class SupportCoursList extends Component {
           this.props.userProfile.school_year_id,
           this.props.userProfile.role_id,
           this.props.userProfile.id,
-          this.props.match.params.idAssignement,
-          this.props.match.params.schoolSessionId
+          this.props.match.params.idAssignement
         )
       );
       if (this.props.userProfile.role_id === roleIdProfessor) {
@@ -149,8 +143,7 @@ class SupportCoursList extends Component {
 
           data[0].forEach((element) => {
             if (
-              element.assignmentClassSubject.class.fk_id_school_year ==
-                this.props.userProfile.school_year_id &&
+              element.assignmentClassSubject.class.fk_id_school_year == this.props.userProfile.school_year_id &&
               element.assignmentClassSubject.subject.id == this.props.match.params.subjectId
             ) {
               var object = {};
@@ -185,8 +178,7 @@ class SupportCoursList extends Component {
 
         data[0].forEach((element) => {
           if (
-            element.assignmentClassSubject.class.fk_id_school_year ==
-              this.props.userProfile.school_year_id &&
+            element.assignmentClassSubject.class.fk_id_school_year == this.props.userProfile.school_year_id &&
             element.assignmentClassSubject.subject.id == this.props.match.params.subjectId
           ) {
             var object = {};
@@ -227,9 +219,7 @@ class SupportCoursList extends Component {
     this.setState({ optionsListMoocs, optionsListVirtualClasses });
   }
   openAddModal() {
-    let classIndex = this.state.courseAssignmentList.findIndex(
-      (element) => element.id == this.props.match.params.idAssignement
-    );
+    let classIndex = this.state.courseAssignmentList.findIndex((element) => element.id == this.props.match.params.idAssignement);
     let assignmentIds = [parseInt(this.props.match.params.idAssignement, 10)];
     this.setState({
       classIndex,
@@ -242,9 +232,7 @@ class SupportCoursList extends Component {
   }
   editShowModal = (item) => {
     let defaultClass = [];
-    defaultClass = this.state.courseAssignmentList.filter(
-      (element) => item.assignClassSubjectId.indexOf(element.id) >= 0
-    );
+    defaultClass = this.state.courseAssignmentList.filter((element) => item.assignClassSubjectId.indexOf(element.id) >= 0);
 
     let defaultMoocs = [];
     let MoocsIds = [];
@@ -297,9 +285,7 @@ class SupportCoursList extends Component {
   handleChange = (name) => (event) => {
     if (name == 'courseName') {
       let nameError = false;
-      nameError =
-        this.props.listSupportCourse.filter((element) => element.name === event.target.value.trim())
-          .length > 0;
+      nameError = this.props.listSupportCourse.filter((element) => element.name === event.target.value.trim()).length > 0;
 
       this.setState({ [name]: event.target.value, nameError: nameError });
     } else {
@@ -370,9 +356,7 @@ class SupportCoursList extends Component {
       });
     }
 
-    let materialCoursefiles = this.state.materialCoursefiles.filter(
-      (element) => element.name != filename
-    );
+    let materialCoursefiles = this.state.materialCoursefiles.filter((element) => element.name != filename);
     this.state.materialCoursefilesDelete.map((element) => {
       deletedFiles.push(element);
     });
@@ -405,10 +389,7 @@ class SupportCoursList extends Component {
     let dateFormat = moment(this.state.publicationDate).format('YYYY-MM-DD');
     let timeFormat = moment(this.state.postTime).format('HH:mm:ssZ');
     let TimeDate = dateFormat + 'T' + timeFormat;
-    let fk_id_professor =
-      parseInt(this.props.match.params.idProf, 10) == 0
-        ? null
-        : parseInt(this.props.match.params.idProf, 10);
+    let fk_id_professor = parseInt(this.props.match.params.idProf, 10) == 0 ? null : parseInt(this.props.match.params.idProf, 10);
 
     let data = {
       id: this.state.itemEdit.id,
@@ -425,7 +406,6 @@ class SupportCoursList extends Component {
       virtuelClassAttached: this.state.virtualClassIds,
       toDoAttached: 0,
       fk_id_professor: fk_id_professor,
-      fk_id_school_session: parseInt(this.props.match.params.schoolSessionId, 10),
     };
     this.props.dispatch(
       editMaterialCourse(
@@ -434,8 +414,7 @@ class SupportCoursList extends Component {
         this.props.userProfile.school_year_id,
         this.props.userProfile.role_id,
         this.props.userProfile.id,
-        this.props.match.params.idAssignement,
-        this.props.match.params.schoolSessionId
+        this.props.match.params.idAssignement
       )
     );
     this.setState({
@@ -464,10 +443,7 @@ class SupportCoursList extends Component {
     let dateFormat = moment(this.state.publicationDate).format('YYYY-MM-DD');
     let timeFormat = moment(this.state.postTime).format('HH:mm:ssZ');
     let TimeDate = dateFormat + 'T' + timeFormat;
-    let fk_id_professor =
-      parseInt(this.props.match.params.idProf, 10) == 0
-        ? null
-        : parseInt(this.props.match.params.idProf, 10);
+    let fk_id_professor = parseInt(this.props.match.params.idProf, 10) == 0 ? null : parseInt(this.props.match.params.idProf, 10);
 
     let data = {
       name: this.state.courseName,
@@ -482,7 +458,6 @@ class SupportCoursList extends Component {
       virtuelClassAttached: this.state.virtualClassIds,
       toDoAttached: 0,
       fk_id_professor: fk_id_professor,
-      fk_id_school_session: parseInt(this.props.match.params.schoolSessionId, 10),
     };
     this.props.dispatch(
       addMaterialCourse(
@@ -491,8 +466,7 @@ class SupportCoursList extends Component {
         this.props.userProfile.school_year_id,
         this.props.userProfile.role_id,
         this.props.userProfile.id,
-        this.props.match.params.idAssignement,
-        this.props.match.params.schoolSessionId
+        this.props.match.params.idAssignement
       )
     );
     this.setState({
@@ -565,19 +539,7 @@ class SupportCoursList extends Component {
                         fontFamily: 'Roboto',
                       }}
                     >
-                      {this.props.match.params.className +
-                        '/' +
-                        this.props.match.params.subjectName}
-                    </Typography>
-                    <Typography
-                      variant="h4"
-                      style={{
-                        color: 'black',
-                        fontWeight: 'normal',
-                        fontFamily: 'Roboto',
-                      }}
-                    >
-                      {'/' + this.props.match.params.schoolSessionName}
+                      {this.props.match.params.className + '/' + this.props.match.params.subjectName}
                     </Typography>
                   </div>
                 }
@@ -706,7 +668,6 @@ class SupportCoursList extends Component {
                                 archived={false}
                                 handleDelete={this.handleDelete}
                                 userPermission={this.props.userPermission}
-
                               />
                             );
                           })}
@@ -741,12 +702,7 @@ class SupportCoursList extends Component {
                           </b>
                         </h1>{' '}
                         &nbsp;&nbsp;&nbsp;
-                        <Fab
-                          size="small"
-                          color="secondary"
-                          aria-label="Add"
-                          onClick={this.openArchive}
-                        >
+                        <Fab size="small" color="secondary" aria-label="Add" onClick={this.openArchive}>
                           <DeleteOutlineIcon />
                         </Fab>
                       </div>

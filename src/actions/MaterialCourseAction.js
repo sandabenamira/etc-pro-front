@@ -7,7 +7,7 @@ import {
   GET_FOLDERS_ARCHITECTURE,
   GET_MATERIAL_COURSE,
   GET_MATERIAL_COURSE_ARCHIVED,
-  DELETE_MATERIAL_COURSE
+  DELETE_MATERIAL_COURSE,
 } from '../constants/ActionTypes';
 import baseUrl from '../config/config';
 import axios from 'axios';
@@ -17,7 +17,7 @@ export function getLevelClassSubjectData(establishmentId, schoolYearId, roleId, 
     classService.get(apiEndpoint).then((response) => {
       if (response) {
         const list = response.data;
-
+        console.log(list, '--------list--------');
         dispatch({
           type: GET_FOLDERS_ARCHITECTURE,
           payload: response.data.SupportInfo,
@@ -26,25 +26,15 @@ export function getLevelClassSubjectData(establishmentId, schoolYearId, roleId, 
     });
   };
 }
-export function getMaterialCourse(
-  establishmentId,
-  schoolYearId,
-  roleId,
-  roleUserId,
-  assignmentId,
-  schoolSessionId
-) {
+export function getMaterialCourse(establishmentId, schoolYearId, roleId, roleUserId, assignmentId) {
   return (dispatch) => {
     let apiEndpoint = `/course_materials/fetchCourseMaterialsByRole/${roleId}/${assignmentId}/${establishmentId}/${schoolYearId}/${roleUserId}?access_token=${localStorage.token}`;
     classService.get(apiEndpoint).then((response) => {
       if (response) {
-        const list = response.data.courseMaterialsData.filter(
-          (element) => element.schoolSessionId == schoolSessionId && element.status
-        );
-        const listArchived = response.data.courseMaterialsData.filter(
-          (element) => element.schoolSessionId == schoolSessionId && !element.status
-        );
-         dispatch({
+        console.log(response.data.courseMaterialsData, '---------response.data.courseMaterialsData----------');
+        const list = response.data.courseMaterialsData.filter((element) => element.status);
+        const listArchived = response.data.courseMaterialsData.filter((element) => !element.status);
+        dispatch({
           type: GET_MATERIAL_COURSE,
           payload: list,
         });
@@ -57,15 +47,7 @@ export function getMaterialCourse(
   };
 }
 
-export const addMaterialCourse = (
-  materialCourseItem,
-  establishmentId,
-  schoolYearId,
-  roleId,
-  roleUserId,
-  assignmentId,
-  schoolSessionId
-) => {
+export const addMaterialCourse = (materialCourseItem, establishmentId, schoolYearId, roleId, roleUserId, assignmentId) => {
   return (dispatch) => {
     let dataCoursematerials = {
       name: materialCourseItem.name, // nom support de cours
@@ -79,7 +61,7 @@ export const addMaterialCourse = (
       virtualClassAttached: materialCourseItem.virtuelClassAttached, // 'array des id des classe virtuelles'
       moocsAttached: materialCourseItem.moocsAttached, // 'array des id des moocs'
       fk_id_professor: materialCourseItem.fk_id_professor, // id prof
-      fk_id_school_session: materialCourseItem.fk_id_school_session, // id session scolaire
+      // fk_id_school_session: materialCourseItem.fk_id_school_session, // id session scolaire
     };
     let apiEndpoint = `/course_materials/create-course-materials?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, dataCoursematerials).then((response) => {
@@ -91,13 +73,7 @@ export const addMaterialCourse = (
         materialCourseItem.files.map((element, index) => {
           let materailCourseFile = element;
           const fileExtension = materailCourseFile.name.replace(/^.*\./, '');
-          const fileName =
-            'materialCourse' +
-            materialCourseId +
-            index +
-            String(Date.now()).slice(-2) +
-            '.' +
-            fileExtension;
+          const fileName = 'materialCourse' + materialCourseId + index + String(Date.now()).slice(-2) + '.' + fileExtension;
           var object = {};
           object.file = materailCourseFile;
           object.fileName = fileName;
@@ -128,16 +104,7 @@ export const addMaterialCourse = (
               let apiEndpointFiles = `/course_materials_files?access_token=${localStorage.token}`;
               classService.post(apiEndpointFiles, filesURL).then((response) => {
                 if (response) {
-                  dispatch(
-                    getMaterialCourse(
-                      establishmentId,
-                      schoolYearId,
-                      roleId,
-                      roleUserId,
-                      assignmentId,
-                      schoolSessionId
-                    )
-                  );
+                  dispatch(getMaterialCourse(establishmentId, schoolYearId, roleId, roleUserId, assignmentId));
 
                   dispatch({
                     type: SHOW_SUCCESS_MESSAGE,
@@ -164,16 +131,7 @@ export const addMaterialCourse = (
           dispatch({ type: HIDE_ERROR_MESSAGE });
         }, 4000);
       } else if (response && materialCourseItem.files.length == 0) {
-        dispatch(
-          getMaterialCourse(
-            establishmentId,
-            schoolYearId,
-            roleId,
-            roleUserId,
-            assignmentId,
-            schoolSessionId
-          )
-        );
+        dispatch(getMaterialCourse(establishmentId, schoolYearId, roleId, roleUserId, assignmentId));
         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
           payload: 'La création est effectuée avec succès',
@@ -187,15 +145,7 @@ export const addMaterialCourse = (
   };
 };
 
-export const editMaterialCourse = (
-  materialCourseItem,
-  establishmentId,
-  schoolYearId,
-  roleId,
-  roleUserId,
-  assignmentId,
-  schoolSessionId
-) => {
+export const editMaterialCourse = (materialCourseItem, establishmentId, schoolYearId, roleId, roleUserId, assignmentId) => {
   return (dispatch) => {
     let dataCoursematerials = {
       id: materialCourseItem.id,
@@ -210,14 +160,11 @@ export const editMaterialCourse = (
       virtualClassAttached: materialCourseItem.virtuelClassAttached, // 'array des id des classe virtuelles'
       moocsAttached: materialCourseItem.moocsAttached, // 'array des id des moocs'
       fk_id_professor: materialCourseItem.fk_id_professor, // id prof
-      fk_id_school_session: materialCourseItem.fk_id_school_session, // id session scolaire
+      // fk_id_school_session: materialCourseItem.fk_id_school_session, // id session scolaire
       files_deleted: materialCourseItem.filesDeleted,
     };
     axios
-      .put(
-        `${baseUrl.baseUrl}/course_materials/edit-course-materials?access_token=${localStorage.token}`,
-        dataCoursematerials
-      )
+      .put(`${baseUrl.baseUrl}/course_materials/edit-course-materials?access_token=${localStorage.token}`, dataCoursematerials)
       .then((response) => {
         if (response && materialCourseItem.files.length > 0) {
           let materialCourseId = response.data.courseMaterialsData.id;
@@ -227,13 +174,7 @@ export const editMaterialCourse = (
           materialCourseItem.files.map((element, index) => {
             let materailCourseFile = element;
             const fileExtension = materailCourseFile.name.replace(/^.*\./, '');
-            const fileName =
-              'materialCourseEdit' +
-              materialCourseId +
-              index +
-              String(Date.now()).slice(-2) +
-              '.' +
-              fileExtension;
+            const fileName = 'materialCourseEdit' + materialCourseId + index + String(Date.now()).slice(-2) + '.' + fileExtension;
             var object = {};
             object.file = materailCourseFile;
             object.fileName = fileName;
@@ -264,16 +205,7 @@ export const editMaterialCourse = (
                 let apiEndpointFiles = `/course_materials_files?access_token=${localStorage.token}`;
                 classService.post(apiEndpointFiles, filesURL).then((response) => {
                   if (response) {
-                    dispatch(
-                      getMaterialCourse(
-                        establishmentId,
-                        schoolYearId,
-                        roleId,
-                        roleUserId,
-                        assignmentId,
-                        schoolSessionId
-                      )
-                    );
+                    dispatch(getMaterialCourse(establishmentId, schoolYearId, roleId, roleUserId, assignmentId));
 
                     dispatch({
                       type: SHOW_SUCCESS_MESSAGE,
@@ -300,16 +232,7 @@ export const editMaterialCourse = (
             dispatch({ type: HIDE_ERROR_MESSAGE });
           }, 4000);
         } else if (response && materialCourseItem.files.length == 0) {
-          dispatch(
-            getMaterialCourse(
-              establishmentId,
-              schoolYearId,
-              roleId,
-              roleUserId,
-              assignmentId,
-              schoolSessionId
-            )
-          );
+          dispatch(getMaterialCourse(establishmentId, schoolYearId, roleId, roleUserId, assignmentId));
           dispatch({
             type: SHOW_SUCCESS_MESSAGE,
             payload: 'La modification est effectuée avec succès',
@@ -325,14 +248,9 @@ export const editMaterialCourse = (
 export function deleteMaterialCourse(item) {
   return (dispatch) => {
     axios
-      .patch(
-        `${baseUrl.baseUrl}/course_materials/` +
-          item.id +
-          `?access_token=${localStorage.token}`,
-        {
-          status: false,
-        }
-      )
+      .patch(`${baseUrl.baseUrl}/course_materials/` + item.id + `?access_token=${localStorage.token}`, {
+        status: false,
+      })
       .then((response) => {
         if (response) {
           dispatch({ type: DELETE_MATERIAL_COURSE, payload: response.data.id });
@@ -347,8 +265,7 @@ export function deleteMaterialCourse(item) {
         } else {
           dispatch({
             type: SHOW_ERROR_MESSAGE,
-            payload:
-              "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+            payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
           });
           setTimeout(() => {
             dispatch({ type: HIDE_ERROR_MESSAGE });
