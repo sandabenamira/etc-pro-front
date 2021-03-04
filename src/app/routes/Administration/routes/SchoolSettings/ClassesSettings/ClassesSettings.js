@@ -70,16 +70,7 @@ class ClassesSettings extends React.Component {
     return (
       <div>
         <div className=" d-flex flex-wrap flex-column mb-3">
-          {this.props.successStatus ? (
-            <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
-              <span className="icon-addon alert-addon">
-                <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
-              </span>
-              <span className="d-inline-block"> {this.props.message} </span>
-            </UncontrolledAlert>
-          ) : (
-            ""
-          )}
+          
           {this.state.alerteFiltre ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
               <span className="icon-addon alert-addon">
