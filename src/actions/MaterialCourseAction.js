@@ -1,5 +1,6 @@
 import { classService } from '../_services/class.service';
 import {
+  SHOW_LOADER_MATERIAL_COURSE,
   SHOW_SUCCESS_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
   SHOW_ERROR_MESSAGE,
@@ -64,6 +65,10 @@ export const addMaterialCourse = (materialCourseItem, establishmentId, schoolYea
     let apiEndpoint = `/course_materials/create-course-materials?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, dataCoursematerials).then((response) => {
       if (response && materialCourseItem.files.length > 0) {
+        dispatch({
+          type: SHOW_LOADER_MATERIAL_COURSE,
+          payload: true,
+        });
         let materialCourseId = response.data.courseMaterialsData.id;
 
         //  dispatch({ type: ADD_MATERIAL_COURSE, payload: response.data });

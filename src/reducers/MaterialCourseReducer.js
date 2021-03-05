@@ -1,22 +1,25 @@
 import {
-  SHOW_LOADER,
-  HIDE_LOADER,
+  SHOW_LOADER_MATERIAL_COURSE,
   GET_FOLDERS_ARCHITECTURE,
   GET_MATERIAL_COURSE,
   GET_MATERIAL_COURSE_ARCHIVED,
-  DELETE_MATERIAL_COURSE
+  DELETE_MATERIAL_COURSE,
 } from '../constants/ActionTypes';
 
 const initialState = {
   remoteFolderCourse: [],
-
   remoteMaterialCourse: [],
   archivedMaterialCourse: [],
   materialCourseLoading: false,
-  remoteMaterialCourseArchived:[]
+  remoteMaterialCourseArchived: [],
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
+  if (action.type === SHOW_LOADER_MATERIAL_COURSE) {
+    return Object.assign({}, state, {
+      materialCourseLoading: true,
+    });
+  }
   if (action.type === GET_FOLDERS_ARCHITECTURE) {
     return Object.assign({}, state, {
       remoteFolderCourse: action.payload,
@@ -25,6 +28,7 @@ export default function(state = initialState, action) {
   if (action.type === GET_MATERIAL_COURSE) {
     return Object.assign({}, state, {
       remoteMaterialCourse: action.payload,
+      materialCourseLoading: false,
     });
   }
   if (action.type === GET_MATERIAL_COURSE_ARCHIVED) {
@@ -33,14 +37,10 @@ export default function(state = initialState, action) {
     });
   }
   if (action.type === DELETE_MATERIAL_COURSE) {
-    let itemDeleted = state.remoteMaterialCourse.find(
-      (element) => element.id == action.payload
-    );
- 
+    let itemDeleted = state.remoteMaterialCourse.find((element) => element.id == action.payload);
+
     return Object.assign({}, state, {
-      remoteMaterialCourse: [
-        ...state.remoteMaterialCourse.filter((element) => element.id !== action.payload),
-      ],
+      remoteMaterialCourse: [...state.remoteMaterialCourse.filter((element) => element.id !== action.payload)],
       remoteMaterialCourseArchived: state.remoteMaterialCourseArchived.concat(itemDeleted),
     });
   }

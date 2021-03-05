@@ -27,6 +27,8 @@ import { roleIdProfessor, roleIdAdmin } from '../../../../../config/config';
 import EditSupportCours from './EditSupportCours';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import ArchiveSupportCours from './ArchiveSupportCours';
+import LoaderModal from './LoaderModal';
+
 class SupportCoursList extends Component {
   constructor(props) {
     super(props);
@@ -785,6 +787,7 @@ class SupportCoursList extends Component {
           editMaterialCourse={this.editMaterialCourse}
           courseAssignmentList={this.state.courseAssignmentList}
         />
+        {this.props.materialCourseLoading ? <LoaderModal materialCourseLoading={this.props.materialCourseLoading} /> : ''}
       </div>
     );
   }
@@ -802,6 +805,7 @@ function mapStateToProps(state) {
     listSupportCourse: state.MaterialCourseReducer.remoteMaterialCourse,
     listSupportCourseArchived: state.MaterialCourseReducer.remoteMaterialCourseArchived,
     userPermission: state.PermissionReducer.userPermission,
+    materialCourseLoading: state.MaterialCourseReducer.materialCourseLoading,
   };
 }
 
