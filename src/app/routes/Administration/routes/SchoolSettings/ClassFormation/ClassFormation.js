@@ -10,7 +10,7 @@ import { getRoomsByEstablshment } from '../../../../../../actions/roomAction';
 import moment from 'moment';
 import ClassesSettingsList from '../ClassesSettings/ClassesSettings';
 
-class CourseAssignment extends React.Component {
+class ClassFormation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -603,4 +603,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CourseAssignment);
+export default connect(mapStateToProps)(ClassFormation);

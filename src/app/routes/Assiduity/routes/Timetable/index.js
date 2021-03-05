@@ -7,6 +7,7 @@ import {
   roleIdParent,
   roleIdAdmin,
   roleIdProfessor,
+  roleIdSupervisor
 } from "../../../../../config/config";
 import {
   getEventsByEstabAndSchoolYear,
@@ -200,7 +201,7 @@ class ALMANACH extends React.Component {
           )
         );
       }
-    } else if (this.props.userProfile.role_id === roleIdAdmin) {
+    } else if (this.props.userProfile.role_id === roleIdAdmin || this.props.userProfile.role_id === roleIdSupervisor) {
       this.setState({ establishmentClass: this.props.classes });
     } else if (this.props.userProfile.role_id === roleIdProfessor) {
       this.props.dispatch(
