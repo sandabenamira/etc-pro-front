@@ -28,7 +28,8 @@ import EditSupportCours from './EditSupportCours';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import ArchiveSupportCours from './ArchiveSupportCours';
 import LoaderModal from './LoaderModal';
-
+import Button from '@material-ui/core/Button';
+import { NavLink } from 'react-router-dom';
 class SupportCoursList extends Component {
   constructor(props) {
     super(props);
@@ -516,15 +517,25 @@ class SupportCoursList extends Component {
     });
   }
   render() {
-    return (
+     return (
       <div>
         <div className=" bd-highlight" style={{ width: '100%' }}>
           <div className="  d-flex p-2 bd-highlight mb-4">
+            <div style={{ marginTop: '13px' }}>
+              <Button className="bg-primary text-white " style={{ borderRadius: '15px' }}>
+                <i class="zmdi zmdi-hc-2x zmdi-caret-left"></i>&nbsp;
+                <NavLink to={'/app/e-learning/course-material'}>
+                  <span className="text-white">
+                    <IntlMessages id="components.establishments.formadd.buttonCancel" />
+                  </span>
+                </NavLink>
+              </Button>
+            </div>
             <ListItem>
               <ListItemAvatar>
                 <FolderIcon
                   style={{
-                    fontSize: '55',
+                    fontSize: '55px',
                     marginRight: '20px',
                   }}
                   color="primary"
