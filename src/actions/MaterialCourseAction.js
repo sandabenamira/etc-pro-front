@@ -125,8 +125,7 @@ export const addMaterialCourse = (materialCourseItem, establishmentId, schoolYea
           })
           .catch((err) => {});
       } else if (!response) {
-        console.log('ereeeu', response);
-        dispatch({
+         dispatch({
           type: SHOW_ERROR_MESSAGE,
           payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
         });

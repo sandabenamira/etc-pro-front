@@ -27,13 +27,13 @@ export default function (state = initialState, action) {
   }
   if (action.type === GET_MATERIAL_COURSE) {
     return Object.assign({}, state, {
-      remoteMaterialCourse: action.payload,
+      remoteMaterialCourse: action.payload.reverse(),
       materialCourseLoading: false,
     });
   }
   if (action.type === GET_MATERIAL_COURSE_ARCHIVED) {
     return Object.assign({}, state, {
-      remoteMaterialCourseArchived: action.payload,
+      remoteMaterialCourseArchived: action.payload.reverse(),
     });
   }
   if (action.type === DELETE_MATERIAL_COURSE) {
