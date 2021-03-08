@@ -1424,6 +1424,8 @@ class Planning extends React.Component {
           professorsFiltred={this.state.professorsFiltred}
           professorIdList={this.state.professorIdList}
           classroomId={this.state.classroomId}
+          userPermission={this.props.userPermission}
+
         />
         {this.state.modal ? (
           <AddEvent
@@ -1456,6 +1458,8 @@ class Planning extends React.Component {
             handleEdit={this.handleEdit}
             handleNotifMailConfirmation={this.handleNotifMailConfirmation}
             handleDeleteConfirmation={this.handleDeleteConfirmation}
+            userPermission={this.props.userPermission}
+
           />
         ) : (
           ''
@@ -1558,6 +1562,8 @@ const mapStateToProps = (state) => {
     classrooms: state.rooms.rooms,
     professorsList: state.usersReducer.professors,
     establishementInformations: state.establishment.establishementInformations,
+    userPermission: state.PermissionReducer.userPermission,
+
   };
 };
 

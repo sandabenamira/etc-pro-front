@@ -2,11 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import PlanningCalendar from './PlanningCalendar';
-import {
-  getEventCallRegisterForAdmin,
-  getEventCallRegisterForProf,
-  getEventCallRegisterForParent,
-} from '../../../../../actions/planningActions';
+import { getEventCallRegisterForAdmin, getEventCallRegisterForProf, getEventCallRegisterForParent } from '../../../../../actions/planningActions';
 import { ButtonGroup } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import IntlMessages from '../../../../../util/IntlMessages';
@@ -15,13 +11,12 @@ import { roleIdProfessor, roleIdAdmin, roleIdParent } from '../../../../../confi
 import { classService } from '../../../../../_services/class.service';
 import _ from 'lodash';
 import { Redirect } from 'react-router-dom';
-import {
-  getStudentsCallRegister,
-  getStudentsCallRegisterForParent,
-} from '../../../../../actions/studentAction';
+import { getStudentsCallRegister, getStudentsCallRegisterForParent } from '../../../../../actions/studentAction';
 import ContainerHeader from '../../../../../components/ContainerHeader';
 import { UncontrolledAlert } from 'reactstrap';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { havePermission } from '../../../../../constants/validationFunctions';
+
 var options = {
   month: 'long',
 };
@@ -90,9 +85,7 @@ class Registre extends Component {
         this.props.dispatch(getStudentsCallRegisterForParent(this.props.userProfile.id));
       } else {
         if (this.state.typeCallRegister === 'formation') {
-          this.props.dispatch(
-            getStudentsCallRegister(event.classId, this.props.userProfile.school_year_id)
-          );
+          this.props.dispatch(getStudentsCallRegister(event.classId, this.props.userProfile.school_year_id));
         } else {
           this.props.dispatch(getStudentsCallRegisterForParent(this.state.chefAgenceId));
         }
@@ -116,31 +109,22 @@ class Registre extends Component {
 
     if (event.target.value !== 0) {
       if (this.state.typeCall == 'all') {
-        let events = this.props.events.filter(
-          (element) =>
-            element.profId === event.target.value && element.classId === this.state.classIdFilter
-        );
+        let events = this.props.events.filter((element) => element.profId === event.target.value && element.classId === this.state.classIdFilter);
         this.setState({ events });
       } else {
         let events = this.props.events.filter(
           (element) =>
-            element.profId === event.target.value &&
-            element.classId === this.state.classIdFilter &&
-            element.tagCallRegister === this.state.typeCall
+            element.profId === event.target.value && element.classId === this.state.classIdFilter && element.tagCallRegister === this.state.typeCall
         );
         this.setState({ events });
       }
     } else {
       if (this.state.typeCall == 'all') {
-        let events = this.props.events.filter(
-          (element) => element.classId === this.state.classIdFilter
-        );
+        let events = this.props.events.filter((element) => element.classId === this.state.classIdFilter);
         this.setState({ events });
       } else {
         let events = this.props.events.filter(
-          (element) =>
-            element.classId === this.state.classIdFilter &&
-            element.tagCallRegister === this.state.typeCall
+          (element) => element.classId === this.state.classIdFilter && element.tagCallRegister === this.state.typeCall
         );
         this.setState({ events });
       }
@@ -168,13 +152,7 @@ class Registre extends Component {
         this.setState({ professors: profFiltredByID, profId: '', typeCall: 'all' });
       });
 
-      this.props.dispatch(
-        getEventCallRegisterForAdmin(
-          this.props.userProfile.establishment_id,
-          this.props.userProfile.school_year_id,
-          obj.classId
-        )
-      );
+      this.props.dispatch(getEventCallRegisterForAdmin(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id, obj.classId));
     } else if (this.props.userProfile.role_id === roleIdProfessor) {
       if (this.state.typeCall == 'all') {
         if (obj.classId === 0) {
@@ -185,15 +163,10 @@ class Registre extends Component {
         }
       } else {
         if (obj.classId === 0) {
-          let events = this.props.events.filter(
-            (element) => element.tagCallRegister === this.state.typeCall
-          );
+          let events = this.props.events.filter((element) => element.tagCallRegister === this.state.typeCall);
           this.setState({ events });
         } else {
-          let events = this.props.events.filter(
-            (element) =>
-              element.classId === obj.classId && element.tagCallRegister === this.state.typeCall
-          );
+          let events = this.props.events.filter((element) => element.classId === obj.classId && element.tagCallRegister === this.state.typeCall);
           this.setState({ events: events });
         }
       }
@@ -206,73 +179,53 @@ class Registre extends Component {
         if (event.target.value == 'all') {
           this.setState({ events: this.props.events });
         } else {
-          let events = this.props.events.filter(
-            (element) => element.tagCallRegister === event.target.value
-          );
+          let events = this.props.events.filter((element) => element.tagCallRegister === event.target.value);
           this.setState({ events: events });
         }
       } else {
         if (this.state.profId == '') {
           if (event.target.value == 'all') {
-            let events = this.props.events.filter(
-              (element) => element.classId == this.state.classIdFilter
-            );
+            let events = this.props.events.filter((element) => element.classId == this.state.classIdFilter);
 
             this.setState({ events });
           } else {
             let events = this.props.events.filter(
-              (element) =>
-                element.tagCallRegister === event.target.value &&
-                element.classId == this.state.classIdFilter
+              (element) => element.tagCallRegister === event.target.value && element.classId == this.state.classIdFilter
             );
 
             this.setState({ events: events });
           }
         } else {
           if (event.target.value == 'all') {
-            let events = this.props.events.filter(
-              (element) =>
-                element.classId == this.state.classIdFilter && element.profId === this.state.profId
-            );
+            let events = this.props.events.filter((element) => element.classId == this.state.classIdFilter && element.profId === this.state.profId);
 
             this.setState({ events });
           } else {
             let events = this.props.events.filter(
               (element) =>
-                element.tagCallRegister === event.target.value &&
-                element.classId == this.state.classIdFilter &&
-                element.profId === this.state.profId
+                element.tagCallRegister === event.target.value && element.classId == this.state.classIdFilter && element.profId === this.state.profId
             );
 
             this.setState({ events: events });
           }
         }
       }
-    } else if (
-      this.props.userProfile.role_id === roleIdProfessor ||
-      this.props.userProfile.role_id === roleIdParent
-    ) {
+    } else if (this.props.userProfile.role_id === roleIdProfessor || this.props.userProfile.role_id === roleIdParent) {
       if (this.state.classIdFilter == 0) {
         if (event.target.value == 'all') {
           this.setState({ events: this.props.events });
         } else {
-          let events = this.props.events.filter(
-            (element) => element.tagCallRegister === event.target.value
-          );
+          let events = this.props.events.filter((element) => element.tagCallRegister === event.target.value);
           this.setState({ events: events });
         }
       } else {
         if (event.target.value == 'all') {
-          let events = this.props.events.filter(
-            (element) => element.classId == this.state.classIdFilter
-          );
+          let events = this.props.events.filter((element) => element.classId == this.state.classIdFilter);
 
           this.setState({ events });
         } else {
           let events = this.props.events.filter(
-            (element) =>
-              element.tagCallRegister === event.target.value &&
-              element.classId == this.state.classIdFilter
+            (element) => element.tagCallRegister === event.target.value && element.classId == this.state.classIdFilter
           );
 
           this.setState({ events: events });
@@ -323,10 +276,7 @@ class Registre extends Component {
     if (prevProps.events !== this.props.events) {
       this.setState({ events: this.props.events });
     }
-    if (
-      prevProps.userProfile.role_id !== this.props.userProfile.role_id &&
-      this.props.userProfile.role_id === roleIdParent
-    ) {
+    if (prevProps.userProfile.role_id !== this.props.userProfile.role_id && this.props.userProfile.role_id === roleIdParent) {
       this.props.dispatch(getEventCallRegisterForParent(this.props.userProfile.id));
     }
     if (prevProps.classes !== this.props.classes) {
@@ -344,10 +294,39 @@ class Registre extends Component {
 
           classes.push(allClass);
           data[0].forEach((element) => {
-            if (
-              element.assignmentClassSubject.class.fk_id_school_year ===
-              this.props.userProfile.school_year_id
-            ) {
+            if (element.assignmentClassSubject.class.fk_id_school_year === this.props.userProfile.school_year_id) {
+              classes.push(element.assignmentClassSubject.class);
+            }
+          });
+          let uniqClasses = _.uniqBy(classes, 'id');
+          this.setState({ classes: uniqClasses });
+        });
+      }
+    }
+    if (prevProps.userPermission !== this.props.userPermission) {
+      if (
+        this.props.userProfile.role_id === roleIdProfessor &&
+        havePermission({
+          permission: 'get-call-register',
+          permissionList: this.props.userPermission,
+        })
+      ) {
+        this.props.dispatch(
+          getEventCallRegisterForProf(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id, this.props.userProfile.id)
+        );
+  
+        let apiEndpoint = `/professors?access_token=${localStorage.token}&filter[where][profile_id]=${this.props.userProfile.id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
+        classService.get(apiEndpoint).then((res) => {
+          let data = _.map(res.data, 'course');
+          let classes = [];
+          const allClass = {
+            id: 0,
+            name: 'Tous',
+          };
+  
+          classes.push(allClass);
+          data[0].forEach((element) => {
+            if (element.assignmentClassSubject.class.fk_id_school_year === this.props.userProfile.school_year_id) {
               classes.push(element.assignmentClassSubject.class);
             }
           });
@@ -358,15 +337,18 @@ class Registre extends Component {
     }
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     ///// get events for different roles ////////////
-    if (this.props.userProfile.role_id === roleIdProfessor) {
+    if (
+      this.props.userProfile.role_id === roleIdProfessor
+       &&
+      havePermission({
+        permission: 'get-call-register',
+        permissionList: this.props.userPermission,
+      })
+    ) {
       this.props.dispatch(
-        getEventCallRegisterForProf(
-          this.props.userProfile.establishment_id,
-          this.props.userProfile.school_year_id,
-          this.props.userProfile.id
-        )
+        getEventCallRegisterForProf(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id, this.props.userProfile.id)
       );
 
       let apiEndpoint = `/professors?access_token=${localStorage.token}&filter[where][profile_id]=${this.props.userProfile.id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
@@ -380,10 +362,7 @@ class Registre extends Component {
 
         classes.push(allClass);
         data[0].forEach((element) => {
-          if (
-            element.assignmentClassSubject.class.fk_id_school_year ===
-            this.props.userProfile.school_year_id
-          ) {
+          if (element.assignmentClassSubject.class.fk_id_school_year === this.props.userProfile.school_year_id) {
             classes.push(element.assignmentClassSubject.class);
           }
         });
@@ -392,10 +371,7 @@ class Registre extends Component {
       });
     } else if (this.props.userProfile.role_id === roleIdAdmin) {
       this.setState({ classes: this.props.classes });
-      if (
-        this.props.match.params.classId != 'undefined' &&
-        this.props.match.params.classId != undefined
-      ) {
+      if (this.props.match.params.classId != 'undefined' && this.props.match.params.classId != undefined) {
         this.setState({
           itemClass: `{"classId":${this.props.match.params.classId},"classeName":"${this.props.match.params.classeName}"}`,
         });
@@ -438,32 +414,19 @@ class Registre extends Component {
                 {' '}
                 <b>{event.subjectName}</b> <br /> {event.roomName}{' '}
                 {event.tagCallRegister ? (
-                  <i
-                    className="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'green', float: 'right' }}
-                  ></i>
+                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                 ) : (
-                  <i
-                    className="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'red', float: 'right' }}
-                  ></i>
+                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                 )}{' '}
               </p>
             ) : event.eventType === 'exam' ? (
               <p style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
                 {' '}
-                <IntlMessages id="components.note.exam" /> <b>{event.subjectName}</b> <br />{' '}
-                {event.roomName}{' '}
+                <IntlMessages id="components.note.exam" /> <b>{event.subjectName}</b> <br /> {event.roomName}{' '}
                 {event.tagCallRegister ? (
-                  <i
-                    className="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'green', float: 'right' }}
-                  ></i>
+                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                 ) : (
-                  <i
-                    className="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'red', float: 'right' }}
-                  ></i>
+                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                 )}{' '}
               </p>
             ) : (
@@ -486,30 +449,18 @@ class Registre extends Component {
                     <p>
                       Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
                       {event.tagCallRegister ? (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'green', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                       ) : (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'red', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                       )}{' '}
                     </p>
                   ) : (
                     <p>
                       M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
                       {event.tagCallRegister ? (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'green', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                       ) : (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'red', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                       )}{' '}
                     </p>
                   )}{' '}
@@ -522,30 +473,18 @@ class Registre extends Component {
                     <p>
                       Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
                       {event.tagCallRegister ? (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'green', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                       ) : (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'red', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                       )}{' '}
                     </p>
                   ) : (
                     <p>
                       M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
                       {event.tagCallRegister ? (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'green', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                       ) : (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'red', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                       )}{' '}
                     </p>
                   )}
@@ -566,15 +505,9 @@ class Registre extends Component {
                 <br />{' '}
                 <p>
                   {event.tagCallRegister ? (
-                    <i
-                      className="zmdi zmdi-circle zmdi-hc-lg "
-                      style={{ color: 'green', float: 'right' }}
-                    ></i>
+                    <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                   ) : (
-                    <i
-                      className="zmdi zmdi-circle zmdi-hc-lg "
-                      style={{ color: 'red', float: 'right' }}
-                    ></i>
+                    <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                   )}
                 </p>
               </div>
@@ -592,15 +525,9 @@ class Registre extends Component {
               <br />{' '}
               <p>
                 {event.tagCallRegister ? (
-                  <i
-                    className="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'green', float: 'right' }}
-                  ></i>
+                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                 ) : (
-                  <i
-                    className="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'red', float: 'right' }}
-                  ></i>
+                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                 )}
               </p>
             </div>
@@ -651,27 +578,18 @@ class Registre extends Component {
         </div>
         <div className="p-4 bd-highlight">
           <ButtonGroup vertical={false}>
-            <Button
-              className={this.state.status === 'day' ? ' jr-btn active' : 'jr-btn'}
-              onClick={goToCurrent}
-            >
+            <Button className={this.state.status === 'day' ? ' jr-btn active' : 'jr-btn'} onClick={goToCurrent}>
               <span className="label-filter-off">
                 <IntlMessages id="timetable.day" />
               </span>
             </Button>
-            <Button
-              className={this.state.status === 'week' ? ' jr-btn active' : 'jr-btn'}
-              onClick={goToWeekView}
-            >
+            <Button className={this.state.status === 'week' ? ' jr-btn active' : 'jr-btn'} onClick={goToWeekView}>
               <span className="label-filter-off">
                 {' '}
                 <IntlMessages id="timetable.week" />
               </span>
             </Button>
-            <Button
-              className={this.state.status === 'month' ? 'jr-btn active' : 'jr-btn'}
-              onClick={goToMonthView}
-            >
+            <Button className={this.state.status === 'month' ? 'jr-btn active' : 'jr-btn'} onClick={goToMonthView}>
               <span className="label-filter-off">
                 <IntlMessages id="timetable.month" />
               </span>
@@ -680,39 +598,28 @@ class Registre extends Component {
         </div>
 
         <div className="p-4 row bd-highlight">
-          <i
-            className="zmdi zmdi-chevron-left zmdi-hc-2x mr-3"
-            style={{ color: '#0000CD' }}
-            onClick={goToBack}
-          ></i>
+          <i className="zmdi zmdi-chevron-left zmdi-hc-2x mr-3" style={{ color: '#0000CD' }} onClick={goToBack}></i>
           {this.props.settings === 'tunisia' ? (
             <span style={{ color: '#0000CD' }}>
               {' '}
-              <IntlMessages id="timetable.week" /> {moment(toolbar.date).weeks()}:{' '}
-              {moment(weekStart).format('DD')} - {moment(weekEnd).format('DD') - 1}{' '}
-              {new Date(weekStart).toLocaleDateString('ar-TN', options)}
+              <IntlMessages id="timetable.week" /> {moment(toolbar.date).weeks()}: {moment(weekStart).format('DD')} -{' '}
+              {moment(weekEnd).format('DD') - 1} {new Date(weekStart).toLocaleDateString('ar-TN', options)}
             </span>
           ) : this.props.settings === 'french' ? (
             <span style={{ color: '#0000CD' }}>
               {' '}
-              <IntlMessages id="timetable.week" /> {moment(toolbar.date).weeks()}:{' '}
-              {moment(weekStart).format('DD')} - {moment(weekEnd).format('DD') - 1}{' '}
-              {moment(weekStart).format('MMMM')}
+              <IntlMessages id="timetable.week" /> {moment(toolbar.date).weeks()}: {moment(weekStart).format('DD')} -{' '}
+              {moment(weekEnd).format('DD') - 1} {moment(weekStart).format('MMMM')}
             </span>
           ) : (
             <span style={{ color: '#0000CD' }}>
               {' '}
-              <IntlMessages id="timetable.week" /> {moment(toolbar.date).weeks()}:{' '}
-              {moment(weekStart).format('DD')} - {moment(weekEnd).format('DD') - 1}{' '}
-              {new Date(weekStart).toLocaleDateString('en-US', options)}
+              <IntlMessages id="timetable.week" /> {moment(toolbar.date).weeks()}: {moment(weekStart).format('DD')} -{' '}
+              {moment(weekEnd).format('DD') - 1} {new Date(weekStart).toLocaleDateString('en-US', options)}
             </span>
           )}
 
-          <i
-            className="zmdi zmdi-chevron-right zmdi-hc-2x ml-3"
-            style={{ color: '#0000CD' }}
-            onClick={goToNext}
-          ></i>
+          <i className="zmdi zmdi-chevron-right zmdi-hc-2x ml-3" style={{ color: '#0000CD' }} onClick={goToNext}></i>
         </div>
       </div>
     );
@@ -722,23 +629,21 @@ class Registre extends Component {
     //chefAgenceId
     if (this.state.isRedirect == true) {
       if (this.props.userProfile.role_id === roleIdParent) {
-         return (
+        return (
           <Redirect
-            to={`/app/assiduity/DetailsCallRegister/${'journalier'}/${
-              this.state.eventId
-            }/${this.props.userProfile.agencyName}/${this.props.userProfile.id}/${this.state.startDate}`}
+            to={`/app/assiduity/DetailsCallRegister/${'journalier'}/${this.state.eventId}/${this.props.userProfile.agencyName}/${
+              this.props.userProfile.id
+            }/${this.state.startDate}`}
           />
         );
       } else {
         if (this.state.typeCallRegister === 'formation') {
- 
           return (
             <Redirect
               to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${this.state.eventId}/${this.state.classId}/${this.state.chefAgenceId}/${this.state.startDate}`}
             />
           );
         } else {
- 
           return (
             <Redirect
               to={`/app/assiduity/DetailsCallRegister/${this.state.typeCallRegister}/${this.state.eventId}/${this.state.agenceName}/${this.state.chefAgenceId}/${this.state.startDate}`}
@@ -792,13 +697,10 @@ class Registre extends Component {
             handleChangeTypeCall={this.handleChangeTypeCall}
             handleChangeAgence={this.handleChangeAgence}
             agenceSettings={this.props.agenceSettings}
+            userPermission={this.props.userPermission}
           />
 
-          <SweetAlert
-            show={this.state.isOpen}
-            title={<IntlMessages id="alert.call.register" />}
-            onConfirm={this.onConfirm}
-          ></SweetAlert>
+          <SweetAlert show={this.state.isOpen} title={<IntlMessages id="alert.call.register" />} onConfirm={this.onConfirm}></SweetAlert>
         </div>
       );
     }
@@ -817,6 +719,7 @@ const mapStateToProps = (state) => {
     message: state.alert.message,
     agenceSettings: state.AgenceReducer.agenceSettings,
     listParents: state.usersReducer.parents,
+    userPermission: state.PermissionReducer.userPermission,
   };
 };
 export default connect(mapStateToProps)(Registre);

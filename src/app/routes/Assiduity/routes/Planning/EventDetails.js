@@ -6,6 +6,8 @@ import _ from 'lodash';
 import moment from 'moment';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import IconButton from '@material-ui/core/IconButton';
+import { RoleContext } from '../../../../../Context';
+import Can from '../../../../../can';
 import { Popover, PopoverBody, PopoverHeader } from 'reactstrap';
 var options = {
   weekday: 'long',
@@ -31,20 +33,48 @@ class EventDetails extends React.Component {
           >
             <PopoverHeader>
               <div className="col-md-12 text-right">
-                <IconButton
-                  size="medium"
-                  className="icon-btn"
-                  onClick={(e) => this.props.handleEdit(values.details, e)}
-                >
-                  <i className="zmdi zmdi-edit " style={{ color: 'text-grey' }} />
-                </IconButton>
-                <IconButton
-                  size="medium"
-                  className="icon-btn"
-                  onClick={(e) => this.props.handleDeleteConfirmation(values.details, e)}
-                >
-                  <i className="zmdi zmdi-delete" style={{ color: 'text-grey' }} />
-                </IconButton>
+              <RoleContext.Consumer>
+                  {({ role }) => (
+                    <Can
+                      role={role}
+                      perform="user-permission"
+                      data={{
+                        permission: 'edit-planning',
+                        permissionList: this.props.userPermission,
+                      }}
+                      yes={() => (
+                        <IconButton
+                          size="medium"
+                          className="icon-btn"
+                          onClick={(e) => this.props.handleEdit(values.details, e)}
+                        >
+                          <i className="zmdi zmdi-edit " style={{ color: 'text-grey' }} />
+                        </IconButton>
+                      )}
+                    />
+                  )}
+                </RoleContext.Consumer>
+                <RoleContext.Consumer>
+                  {({ role }) => (
+                    <Can
+                      role={role}
+                      perform="user-permission"
+                      data={{
+                        permission: 'delete-planning',
+                        permissionList: this.props.userPermission,
+                      }}
+                      yes={() => (
+                        <IconButton
+                          size="medium"
+                          className="icon-btn"
+                          onClick={(e) => this.props.handleDeleteConfirmation(values.details, e)}
+                        >
+                          <i className="zmdi zmdi-delete" style={{ color: 'text-grey' }} />
+                        </IconButton>
+                      )}
+                    />
+                  )}
+                </RoleContext.Consumer>
                 <IconButton
                   size="medium"
                   className="icon-btn"
