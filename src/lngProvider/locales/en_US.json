@@ -1540,7 +1540,9 @@
   "survey.satisfaction.list":"TRAINING SATISFACTION QUESTIONNAIRE",
   "sidebar.components.agenceSetting": "Agences setting",
   "add.new.agence": "Add new Agence",
-  "component.agence.list": "List of agences"
+  "component.agence.list": "List of agences",
+  "alert.permission" : "You do not have permissions for this module"
+
 
 
 

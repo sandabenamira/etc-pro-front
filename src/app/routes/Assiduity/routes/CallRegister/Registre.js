@@ -36,7 +36,6 @@ class Registre extends Component {
       startDate: '',
       typeCall: 'all',
       classIdFilter: 0,
-      isOpen: false,
       professors: [],
       profId: '',
       typeCallRegister: 'formation',
@@ -72,11 +71,7 @@ class Registre extends Component {
   handleChangeTypeCall = (name) => (event) => {
     this.setState({ [name]: event.target.value, events: [], itemClass: '', itemAgence: '' });
   };
-  onConfirm = () => {
-    this.setState({
-      isOpen: false,
-    });
-  };
+
   displayEventCallregister = (event) => {
     let curentDate = moment()._d;
     let checkDate = moment(event.start).isAfter(curentDate);
@@ -97,8 +92,6 @@ class Registre extends Component {
         classId: event.classId,
         startDate: event.start,
       });
-    } else {
-      this.setState({ isOpen: true });
     }
   };
   handleView(view) {
@@ -314,7 +307,7 @@ class Registre extends Component {
         this.props.dispatch(
           getEventCallRegisterForProf(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id, this.props.userProfile.id)
         );
-  
+
         let apiEndpoint = `/professors?access_token=${localStorage.token}&filter[where][profile_id]=${this.props.userProfile.id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
         classService.get(apiEndpoint).then((res) => {
           let data = _.map(res.data, 'course');
@@ -323,7 +316,7 @@ class Registre extends Component {
             id: 0,
             name: 'Tous',
           };
-  
+
           classes.push(allClass);
           data[0].forEach((element) => {
             if (element.assignmentClassSubject.class.fk_id_school_year === this.props.userProfile.school_year_id) {
@@ -340,8 +333,7 @@ class Registre extends Component {
   componentDidMount() {
     ///// get events for different roles ////////////
     if (
-      this.props.userProfile.role_id === roleIdProfessor
-       &&
+      this.props.userProfile.role_id === roleIdProfessor &&
       havePermission({
         permission: 'get-call-register',
         permissionList: this.props.userPermission,
@@ -699,8 +691,6 @@ class Registre extends Component {
             agenceSettings={this.props.agenceSettings}
             userPermission={this.props.userPermission}
           />
-
-          <SweetAlert show={this.state.isOpen} title={<IntlMessages id="alert.call.register" />} onConfirm={this.onConfirm}></SweetAlert>
         </div>
       );
     }
