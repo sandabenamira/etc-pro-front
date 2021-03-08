@@ -1,47 +1,42 @@
-import React from "react";
-import Widget from "../Widget/index";
-import moment from "moment";
-import "moment/locale/fr";
-import { connect } from "react-redux";
-import IntlMessages from "../../../../util/IntlMessages";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import { editProfile } from "../../../../actions/usersAction";
-import { isEmail } from "../../../../constants/validationFunctions";
-import TextField from "@material-ui/core/TextField";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
-import MuiPhoneNumber from "material-ui-phone-number";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/moment";
-import ModaleChangePassword from "./ModaleChangePassword";
+import React from 'react';
+import Widget from '../Widget/index';
+import moment from 'moment';
+import 'moment/locale/fr';
+import { connect } from 'react-redux';
+import IntlMessages from '../../../../util/IntlMessages';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import { editProfile } from '../../../../actions/usersAction';
+import { isEmail } from '../../../../constants/validationFunctions';
+import TextField from '@material-ui/core/TextField';
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import MuiPhoneNumber from 'material-ui-phone-number';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/moment';
+import ModaleChangePassword from './ModaleChangePassword';
 import axios from 'axios';
 import { baseUrl } from '../../../../config/config';
-
-
 
 class About extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: this.props.userProfile,
-      profileAdress: "",
-      profileGenre: "",
+      profileAdress: '',
+      profileGenre: '',
       birthDayDateProfile: moment(),
-      profileEmail: "",
-      profilePhone: "",
-      profilePhoto: "",
-      messageAlerte: "",
+      profileEmail: '',
+      profilePhone: '',
+      profilePhoto: '',
+      messageAlerte: '',
       alerteFiltre: false,
-      photoText: "",
-      profileNewPhoto:"",
-      profilAgence:"",
+      photoText: '',
+      profileNewPhoto: '',
+      profilAgence: '',
       isOpen: false,
-      resetPassword:"",
-      confirmresetPassword:"",
-      oldPassword:"",
+      resetPassword: '',
+      confirmresetPassword: '',
+      oldPassword: '',
       errorAlert: false,
       succedAlert: false,
     };
@@ -54,17 +49,16 @@ class About extends React.Component {
     this.openModalChangePassword = this.openModalChangePassword.bind(this);
     this.closeModalChangePassword = this.closeModalChangePassword.bind(this);
     this.ResetPassword = this.ResetPassword.bind(this);
-
   }
   openModalChangePassword() {
-    console.log("openModalChangePassword")
+    console.log('openModalChangePassword');
     this.setState({ isOpen: true });
   }
   closeModalChangePassword() {
     this.setState({ isOpen: false });
   }
   handleChange = (name) => (event) => {
-    console.log(event.target.value, "event");
+    console.log(event.target.value, 'event');
     this.setState({ [name]: event.target.value });
   };
   componentDidUpdate(prevProps) {
@@ -75,8 +69,7 @@ class About extends React.Component {
         profileAdress: this.props.userProfile.user.address,
         profilePhoto: this.props.userProfile.user.photo,
         birthDayDateProfile: this.props.userProfile.user.date_of_birth,
-        profileEstablishment: this.props.userProfile.establishments[0]
-          .establishment.name,
+        profileEstablishment: this.props.userProfile.establishments[0].establishment.name,
         profileRole: this.props.userProfile.roleName,
         // profilAgence:this.props.user.profilePassword,
         profileEmail: this.props.userProfile.user.email,
@@ -92,8 +85,7 @@ class About extends React.Component {
         profileAdress: this.props.userProfile.user.address,
         profilePhoto: this.props.userProfile.user.photo,
         birthDayDateProfile: this.props.userProfile.user.date_of_birth,
-        profileEstablishment: this.props.userProfile.establishments[0]
-          .establishment.name,
+        profileEstablishment: this.props.userProfile.establishments[0].establishment.name,
         profileRole: this.props.userProfile.roleName,
         // profilAgence:this.props.user.profilePassword,
         profileEmail: this.props.userProfile.user.email,
@@ -102,7 +94,7 @@ class About extends React.Component {
     }
   }
   uploadPhoto = (e) => {
-    console.log("event", e);
+    console.log('event', e);
     if (e.target.files[0] !== undefined) {
       let file = e.target.files[0];
       this.setState({ profileNewPhoto: file });
@@ -112,7 +104,7 @@ class About extends React.Component {
         alerteFiltre: true,
       });
       setTimeout(() => {
-        this.setState({ messageAlerte: "", alerteFiltre: false });
+        this.setState({ messageAlerte: '', alerteFiltre: false });
       }, 4000);
     }
   };
@@ -129,21 +121,18 @@ class About extends React.Component {
     this.setState({ profilePhone: value });
   };
   handleChangeBirthdayDate = (date) => {
-    this.setState({ birthDayDateProfile: date }, () =>
-      console.log("birthDayDateProfile", this.state.birthDayDateProfile)
-    );
+    this.setState({ birthDayDateProfile: date }, () => console.log('birthDayDateProfile', this.state.birthDayDateProfile));
   };
   handleSubmitEditProfile(event) {
-
     event.preventDefault();
     let data = {
       id: this.state.user.id,
       dateOfBirth: this.state.birthDayDateProfile,
       address: this.state.profileAdress,
       phone: this.state.profilePhone,
-       email: this.state.profileEmail,
+      email: this.state.profileEmail,
     };
-    console.log("data", data);
+    console.log('data', data);
     this.props.editProfile(data, this.state.profileNewPhoto);
   }
   ResetPassword() {
@@ -171,7 +160,7 @@ class About extends React.Component {
                 oldPassword: '',
               });
               setTimeout(
-                function() {
+                function () {
                   this.setState({ succedAlert: false, isOpen: false });
                 }.bind(this),
                 2000
@@ -184,7 +173,7 @@ class About extends React.Component {
                 oldPassword: '',
               });
               setTimeout(
-                function() {
+                function () {
                   this.setState({ errorAlert: false });
                 }.bind(this),
                 2000
@@ -200,7 +189,7 @@ class About extends React.Component {
                 oldPassword: '',
               });
               setTimeout(
-                function() {
+                function () {
                   this.setState({ errorAlert: false });
                 }.bind(this),
                 2000
@@ -217,7 +206,7 @@ class About extends React.Component {
             oldPassword: '',
           });
           setTimeout(
-            function() {
+            function () {
               this.setState({ errorAlert: false });
             }.bind(this),
             2000
@@ -226,17 +215,14 @@ class About extends React.Component {
       });
   }
   render() {
-     return (
+    return (
       <>
         {this.state.user.user == undefined ? (
-          " "
+          ' '
         ) : (
           <Widget styleName="jr-card-full jr-card-tabs-right jr-card-profile d-flex justify-content-start flex-wrap col-md-12 col-lg-6 col-sm-12">
             {/* Section Informations personnelles */}
-            <div
-              className="card-header d-flex flex-column justify-content-center"
-              style={{ marginBottom: "10%" }}
-            >
+            <div className="card-header d-flex flex-column justify-content-center" style={{ marginBottom: '10%' }}>
               <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center">
                 <h3>
                   <IntlMessages id="profile.personel.informations" />
@@ -247,12 +233,12 @@ class About extends React.Component {
               </div>
               <hr
                 style={{
-                  width: "100%",
-                  margin: "auto",
-                  marginTop: "10px",
-                  marginBottom: "10px",
-                  border: "1px dashed #979A9A",
-                  paddingLeft: "-100%",
+                  width: '100%',
+                  margin: 'auto',
+                  marginTop: '10px',
+                  marginBottom: '10px',
+                  border: '1px dashed #979A9A',
+                  paddingLeft: '-100%',
                 }}
               ></hr>
               {/* Section Informations générales */}
@@ -261,11 +247,7 @@ class About extends React.Component {
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column p-2">
                   <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center ">
                     <div className="jr-profile-banner-avatar">
-                      <Avatar
-                        className="size-90"
-                        alt="..."
-                        src={this.state.profilePhoto}
-                      />
+                      <Avatar className="size-90" alt="..." src={this.state.profilePhoto} />
                       <input
                         type="file"
                         className="d-none"
@@ -273,14 +255,8 @@ class About extends React.Component {
                         id="add-photo"
                         onChange={(e) => this.uploadPhoto(e)}
                       />
-                      <label
-                        htmlFor="add-photo"
-                        className="d-flex  bd-highlight"
-                      >
-                        <i
-                          className={`zmdi zmdi-camera jr-fs-xlxl text-orange pl-4`}
-                          style={{ paddingTop: "-3%" }}
-                        />
+                      <label htmlFor="add-photo" className="d-flex  bd-highlight">
+                        <i className={`zmdi zmdi-camera jr-fs-xlxl text-orange pl-4`} style={{ paddingTop: '-3%' }} />
                       </label>
                     </div>
                   </div>
@@ -299,9 +275,7 @@ class About extends React.Component {
                 <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column align-items-center p-2">
                   <div class="col-md-12 col-lg-10 col-sm-6 d-flex flex-row  mb-2 mb-sm-0 mt-md-2 ">
                     <div className="mr-3">
-                      <i
-                        className={`zmdi zmdi-account-circle jr-fs-xlxl text-orange`}
-                      />
+                      <i className={`zmdi zmdi-account-circle jr-fs-xlxl text-orange`} />
                     </div>
 
                     <TextField
@@ -310,11 +284,7 @@ class About extends React.Component {
                       variant="outlined"
                       id="profileName"
                       name="profileName"
-                      value={
-                        this.state.user.user.name +
-                          " " +
-                          this.state.user.user.surname || ""
-                      }
+                      value={this.state.user.user.name + ' ' + this.state.user.user.surname || ''}
                       size="small"
                       fullWidth
                       SelectProps={{
@@ -335,20 +305,18 @@ class About extends React.Component {
                         size="small"
                         id="birthdayDate"
                         name="birthdayDate"
-                        value={this.state.birthDayDateProfile || ""}
+                        value={this.state.birthDayDateProfile || ''}
                         onChange={this.handleChangeBirthdayDate}
                         format="DD-MM-YYYY"
                         autoOk
-                        maxDate={moment().year() - 6 + "-01-01"}
+                        maxDate={moment().year() - 6 + '-01-01'}
                       />
                     </MuiPickersUtilsProvider>
                   </div>
 
                   <div className="col-md-12 col-lg-10 col-sm-6 d-flex flex-row  mb-2 mb-sm-0 mt-md-2 ">
                     <div className="mr-3">
-                      <i
-                        className={`zmdi zmdi-male-female jr-fs-xlxl text-orange`}
-                      />
+                      <i className={`zmdi zmdi-male-female jr-fs-xlxl text-orange`} />
                     </div>
                     <TextField
                       required
@@ -356,7 +324,7 @@ class About extends React.Component {
                       variant="outlined"
                       id="profileGenre"
                       name="profileGenre"
-                      value={this.state.profileGenre || ""}
+                      value={this.state.profileGenre || ''}
                       size="small"
                       fullWidth
                       SelectProps={{
@@ -374,8 +342,8 @@ class About extends React.Component {
                       variant="outlined"
                       id="profileAdress"
                       name="profileAdress"
-                      value={this.state.profileAdress || ""}
-                      onChange={this.handleChange("profileAdress")}
+                      value={this.state.profileAdress || ''}
+                      onChange={this.handleChange('profileAdress')}
                       size="small"
                       fullWidth
                       SelectProps={{
@@ -385,9 +353,7 @@ class About extends React.Component {
                   </div>
                   <div className="col-md-12 col-lg-10 col-sm-6 d-flex flex-row  mb-2 mb-sm-0 mt-md-2 ">
                     <div className="mr-3">
-                      <i
-                        className={`zmdi zmdi-balance jr-fs-xlxl text-orange`}
-                      />
+                      <i className={`zmdi zmdi-balance jr-fs-xlxl text-orange`} />
                     </div>
 
                     <TextField
@@ -396,8 +362,7 @@ class About extends React.Component {
                       variant="outlined"
                       id="profileEstablishment"
                       name="profileEstablishment"
-                      value={this.state.profileEstablishment || ""}
-                      onChange={this.handleChange("profileEstablishment")}
+                      value={this.state.profileEstablishment || ''}
                       size="small"
                       fullWidth
                       SelectProps={{
@@ -407,9 +372,7 @@ class About extends React.Component {
                   </div>
                   <div className="col-md-12 col-lg-10 col-sm-6 d-flex flex-row  mb-2 mb-sm-0 mt-md-2 ">
                     <div className="mr-3">
-                      <i
-                        className={`zmdi zmdi-account-box jr-fs-xlxl text-orange`}
-                      />
+                      <i className={`zmdi zmdi-account-box jr-fs-xlxl text-orange`} />
                     </div>
 
                     <TextField
@@ -418,8 +381,7 @@ class About extends React.Component {
                       variant="outlined"
                       id="profileRole"
                       name="profileRole"
-                      value={this.state.profileRole || ""}
-                      onChange={this.handleChange("profileRole")}
+                      value={this.state.profileRole || ''}
                       size="small"
                       fullWidth
                       SelectProps={{
@@ -429,24 +391,21 @@ class About extends React.Component {
                   </div>
                   <div className="col-md-12 col-lg-10 col-sm-6 d-flex flex-row  mb-2 mb-sm-0 mt-md-2 ">
                     <div className="mr-3">
-                      <i
-                        className={`zmdi zmdi-city-alt jr-fs-xlxl text-orange`}
-                      />
+                      <i className={`zmdi zmdi-city-alt jr-fs-xlxl text-orange`} />
                     </div>
 
                     <TextField
                       required
                       className="form-control"
                       variant="outlined"
-                       id="profilAgence"
+                      id="profilAgence"
                       name="profilAgence"
-                      // value={this.state.profilAgence || ""}
-                      value="Agence Biat Lac 1"
-                       size="small"
+                      value={this.state.user.agencyName}
+                      size="small"
                       fullWidth
                       SelectProps={{
                         native: true,
-                      }}   
+                      }}
                     />
                   </div>
                   <div className="col-md-12 col-lg-10 col-sm-6 d-flex flex-row  mb-2 mb-sm-0 mt-md-2 ">
@@ -457,15 +416,15 @@ class About extends React.Component {
                       variant="contained"
                       className=" text-white pr-2 "
                       style={{
-                        borderBottomLeftRadius: "16px",
-                        borderBottomRightRadius: "16px",
-                        borderTopLeftRadius: "16px",
-                        borderTopRightRadius: "16px",
-                        width: "300px",
-                        height: "30px",
-                        marginTop: "10px",
-                        marginLeft: "20%",
-                        backgroundColor: "#F8A363",
+                        borderBottomLeftRadius: '16px',
+                        borderBottomRightRadius: '16px',
+                        borderTopLeftRadius: '16px',
+                        borderTopRightRadius: '16px',
+                        width: '300px',
+                        height: '30px',
+                        marginTop: '10px',
+                        marginLeft: '20%',
+                        backgroundColor: '#F8A363',
                       }}
                       onClick={this.openModalChangePassword}
                     >
@@ -493,28 +452,18 @@ class About extends React.Component {
                       required
                       className="form-control"
                       variant="outlined"
-                      error={
-                        isEmail(this.state.profileEmail) === false
-                          ? true
-                          : false
-                      }
+                      error={isEmail(this.state.profileEmail) === false ? true : false}
                       id="profileEmail"
                       name="profileEmail"
-                      value={this.state.profileEmail || ""}
-                      onChange={this.handleChange("profileEmail")}
+                      value={this.state.profileEmail || ''}
+                      onChange={this.handleChange('profileEmail')}
                       // style={{ height:'20%'}}
                       size="small"
                       fullWidth
                       SelectProps={{
                         native: true,
                       }}
-                      helperText={
-                        isEmail(this.state.profileEmail) === false ? (
-                          <IntlMessages id="error.user.message.mail" />
-                        ) : (
-                          ""
-                        )
-                      }
+                      helperText={isEmail(this.state.profileEmail) === false ? <IntlMessages id="error.user.message.mail" /> : ''}
                     />
                   </div>
 
@@ -525,23 +474,17 @@ class About extends React.Component {
                     <MuiPhoneNumber
                       variant="outlined"
                       size="small"
-                      error={
-                        this.isValidphoneNumber( this.state.profilePhone) ===
-                          true || this.state.profilePhone.length === 0
-                          ? false
-                          : true
-                      }
+                      error={this.isValidphoneNumber(this.state.profilePhone) === true || this.state.profilePhone.length === 0 ? false : true}
                       id="profilePhone"
                       name="profilePhone"
                       // country={this.state.countrie_locale === "ar" ? "tn" : "fr"}
-                      value={this.state.profilePhone || ""}
+                      value={this.state.profilePhone || ''}
                       onChange={this.handleChangePhone}
                       fullWidth={true}
                       placeholder="(+XXX) XXX XXX XXX"
                       helperText={
-                        this.isValidphoneNumber(this.state.profilePhone) ===
-                          true || this.state.profilePhone.length === 0 ? (
-                          ""
+                        this.isValidphoneNumber(this.state.profilePhone) === true || this.state.profilePhone.length === 0 ? (
+                          ''
                         ) : (
                           <IntlMessages id="error.user.message.phone" />
                         )
@@ -556,13 +499,13 @@ class About extends React.Component {
                     variant="contained"
                     className="bg-primary text-white pr-2 "
                     style={{
-                      borderBottomLeftRadius: "16px",
-                      borderBottomRightRadius: "16px",
-                      borderTopLeftRadius: "16px",
-                      borderTopRightRadius: "16px",
-                      width: "100px",
-                      height: "30px",
-                      marginBottom: "40px",
+                      borderBottomLeftRadius: '16px',
+                      borderBottomRightRadius: '16px',
+                      borderTopLeftRadius: '16px',
+                      borderTopRightRadius: '16px',
+                      width: '100px',
+                      height: '30px',
+                      marginBottom: '40px',
                     }}
                     onClick={this.handleSubmitEditProfile}
                   >
@@ -572,7 +515,8 @@ class About extends React.Component {
               </div>
             </div>
           </Widget>
-        )}{this.state.isOpen ? (
+        )}
+        {this.state.isOpen ? (
           <ModaleChangePassword
             closeModalChangePassword={this.closeModalChangePassword}
             handleChange={this.handleChange}
@@ -595,4 +539,4 @@ function mapStateToProps(state) {
     userProfile: state.auth.userProfile,
   };
 }
-export default connect(mapStateToProps,{editProfile})(About);
+export default connect(mapStateToProps, { editProfile })(About);
