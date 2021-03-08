@@ -20,6 +20,7 @@ import CardBox from '../../../../../components/CardBox/index';
 import Can from '../../../../../can';
 import { RoleContext } from '../../../../../Context';
 import Auxiliary from '../../../../../util/Auxiliary';
+import { havePermission } from '../../../../../constants/validationFunctions';
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -116,7 +117,11 @@ class PlanningCalendar extends React.Component {
             />
             <Can
               role={role}
-              perform="calendar-filter:visit"
+              perform="user-permission"
+              data={{
+                permission: 'get-plannings',
+                permissionList: this.props.userPermission,
+              }}
               yes={() => (
                 <CardBox styleName="col-12">
                   <div className="row">
@@ -225,7 +230,10 @@ class PlanningCalendar extends React.Component {
             <DragAndDropCalendar
               startAccessor="start"
               endAccessor="end"
-              selectable
+              selectable={havePermission({
+                permission: 'add-planning',
+                permissionList: this.props.userPermission,
+              })}
               localizer={localizer}
               events={events}
               defaultView="week"

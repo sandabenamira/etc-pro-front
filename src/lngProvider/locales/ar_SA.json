@@ -1541,7 +1541,9 @@
   "survey.satisfaction.list":"استبيان رضا التدريب",
   "sidebar.components.agenceSetting": " تعديل الوكالات",
   "add.new.agence": "إضافة وكالة جديد",
-  "component.agence.list": "قائمة الوكالات"
+  "component.agence.list": "قائمة الوكالات",
+  "alert.permission" : "  ليس لديك أذونات لهذه الوحدة"
+
 
 
 

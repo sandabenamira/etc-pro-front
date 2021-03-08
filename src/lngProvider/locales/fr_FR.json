@@ -1611,7 +1611,9 @@
   "sidebar.components.agenceSetting": "Gestion des agences",
   "add.new.agence": "Ajouter une Agence",
   "component.agence.list": "Liste des agences",
-  "profile.change.password" :"Changer mot de passe"
+  "profile.change.password" :"Changer mot de passe",
+  "alert.permission" : "Vous n'avez pas les permissions pour ce module " 
+
 
 
 

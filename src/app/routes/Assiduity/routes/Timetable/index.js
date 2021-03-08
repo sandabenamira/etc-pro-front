@@ -287,6 +287,8 @@ class ALMANACH extends React.Component {
           professorsFiltred={this.state.professorsFiltred}
           professorId={this.state.professorId}
           classroomId={this.state.classroomId}
+          userPermission={this.props.userPermission}
+
         />
       </div>
     );
@@ -302,6 +304,8 @@ const mapStateToProps = (state) => {
     classes: state.ClassSettingsReducer.classSettings,
     classrooms: state.rooms.rooms,
     professors: state.usersReducer.professors,
+    userPermission: state.PermissionReducer.userPermission,
+
   };
 };
 

@@ -7,12 +7,12 @@
 //   Director: 'add-direction-membre',
 // };
 const addUserRbac = {
-  Admin: "add-admin",
-  Formateur: "add-prof",
-  "Responsable formation": "add-parent",
-  Participant: "add-student",
-  "Vie scolaire": "add-school-life",
-  Director: "add-direction-membre",
+  Admin: 'add-admin',
+  Formateur: 'add-prof',
+  'Responsable formation': 'add-parent',
+  Participant: 'add-student',
+  'Vie scolaire': 'add-school-life',
+  Director: 'add-direction-membre',
 };
 const deleteUserRbac = {
   Admin: 'delete-admin',
@@ -72,9 +72,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission =
-        userPermission.findIndex((element) => element.permission.rbac == addUserRbac[roleLabel]) >
-        -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac == addUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -83,10 +81,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission =
-        userPermission.findIndex(
-          (element) => element.permission.rbac == deleteUserRbac[roleLabel]
-        ) > -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac == deleteUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -95,9 +90,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission =
-        userPermission.findIndex((element) => element.permission.rbac == editUserRbac[roleLabel]) >
-        -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac == editUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -106,11 +99,21 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission =
-        userPermission.findIndex((element) => element.permission.rbac == editUserRbac[roleLabel]) >
-        -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac == editUserRbac[roleLabel]) > -1;
     }
 
     return permission;
+  },
+  havePermission({ permission, permissionList }) {
+    if (!permissionList || permissionList.length === 0) {
+      return false;
+    } else {
+      const found = permissionList.find((element) => element.permission.rbac == permission);
+      if (typeof found != 'undefined') {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
 };

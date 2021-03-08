@@ -20,30 +20,18 @@ import { ButtonGroup } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import _ from 'lodash';
 import defaultAvatar from '../../../../../assets/images/default-Avatar.png';
-import {
-  getEventCallRegisterForAdmin,
-  getEventCallRegisterForProf,
-  getEventCallRegisterForParent,
-} from '../../../../../actions/planningActions';
+import { getEventCallRegisterForAdmin, getEventCallRegisterForProf, getEventCallRegisterForParent } from '../../../../../actions/planningActions';
 import { Redirect } from 'react-router-dom';
-import {
-  getStudentsCallRegister,
-  getStudentsCallRegisterForParent,
-} from '../../../../../actions/studentAction';
+import { getStudentsCallRegister, getStudentsCallRegisterForParent } from '../../../../../actions/studentAction';
 import ContainerHeader from '../../../../../components/ContainerHeader';
 import { roleIdProfessor, roleIdAdmin, roleIdParent } from '../../../../../config/config';
-import {
-  saveCallRegister,
-  getObservationList,
-  getEncouragementList,
-  getSanctionList,
-  saveCallRegisterParent,
-} from '../../../../../actions/RegistreAction';
+import { saveCallRegister, saveCallRegisterParent } from '../../../../../actions/RegistreAction';
 import { classService } from '../../../../../_services/class.service';
 import OtherPopover from './OtherPopover';
 import SanctionPopover from './SanctionPopover';
 import SweetAlert from 'react-bootstrap-sweetalert';
-
+import { RoleContext } from '../../../../../Context';
+import Can from '../../../../../can';
 const localizer = BigCalendar.momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 const styles = (theme) => ({
@@ -116,9 +104,7 @@ class DetailsCallRegister extends React.Component {
   changeEvent = (event) => {
     this.setState({ event: event });
     let dateFormat = moment(event.start).format('YYYY-MM-DD');
-    let timeFormat = moment(event.start)
-      .add(-1, 'h')
-      .format('HH:mm:ss[Z]');
+    let timeFormat = moment(event.start).add(-1, 'h').format('HH:mm:ss[Z]');
     let TimeDate = dateFormat + 'T' + timeFormat;
     let eventId = event.id;
 
@@ -205,12 +191,8 @@ class DetailsCallRegister extends React.Component {
 
   handleChangeOther(event, id, student) {
     event.preventDefault();
-    let observationSelected = this.state.observations.filter(
-      (observation) => observation.value == student.observation
-    );
-    let encouragementSelected = this.state.encouragements.filter(
-      (encouragement) => encouragement.value == student.encouragement
-    );
+    let observationSelected = this.state.observations.filter((observation) => observation.value == student.observation);
+    let encouragementSelected = this.state.encouragements.filter((encouragement) => encouragement.value == student.encouragement);
     this.setState({
       isOpen: true,
       sutdentId: id,
@@ -249,9 +231,7 @@ class DetailsCallRegister extends React.Component {
   }
 
   handleChangeSanction(event, id, student) {
-    let sanctionSelected = this.state.sanctions.filter(
-      (sanction) => sanction.value == student.sanction
-    );
+    let sanctionSelected = this.state.sanctions.filter((sanction) => sanction.value == student.sanction);
     event.preventDefault();
     this.setState({
       isOpenSanction: true,
@@ -277,10 +257,7 @@ class DetailsCallRegister extends React.Component {
       schoolYearId: this.props.userProfile.school_year_id,
       roleId: this.props.userProfile.role_id,
       profileId: this.props.userProfile.id,
-      logoEstab:
-        this.props.establishementInformations.logo === undefined
-          ? ''
-          : this.props.establishementInformations.logo,
+      logoEstab: this.props.establishementInformations.logo === undefined ? '' : this.props.establishementInformations.logo,
     };
     if (this.props.userProfile.role_id === roleIdParent) {
       this.props.dispatch(saveCallRegisterParent(callRegister, otherData));
@@ -343,32 +320,19 @@ class DetailsCallRegister extends React.Component {
                 {' '}
                 <b>{event.subjectName}</b> <br /> {event.roomName}{' '}
                 {event.tagCallRegister ? (
-                  <i
-                    class="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'green', float: 'right' }}
-                  ></i>
+                  <i class="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                 ) : (
-                  <i
-                    class="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'red', float: 'right' }}
-                  ></i>
+                  <i class="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                 )}{' '}
               </p>
             ) : event.eventType === 'exam' ? (
               <p style={{ fontFamily: 'Roboto', fontSize: '17px' }}>
                 {' '}
-                <IntlMessages id="components.note.exam" /> <b>{event.subjectName}</b> <br />{' '}
-                {event.roomName}{' '}
+                <IntlMessages id="components.note.exam" /> <b>{event.subjectName}</b> <br /> {event.roomName}{' '}
                 {event.tagCallRegister ? (
-                  <i
-                    class="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'green', float: 'right' }}
-                  ></i>
+                  <i class="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                 ) : (
-                  <i
-                    class="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'red', float: 'right' }}
-                  ></i>
+                  <i class="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                 )}{' '}
               </p>
             ) : (
@@ -391,30 +355,18 @@ class DetailsCallRegister extends React.Component {
                     <p>
                       Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
                       {event.tagCallRegister ? (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'green', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                       ) : (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'red', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                       )}{' '}
                     </p>
                   ) : (
                     <p>
                       M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
                       {event.tagCallRegister ? (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'green', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                       ) : (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'red', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                       )}{' '}
                     </p>
                   )}{' '}
@@ -427,30 +379,18 @@ class DetailsCallRegister extends React.Component {
                     <p>
                       Mme. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
                       {event.tagCallRegister ? (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'green', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                       ) : (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'red', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                       )}{' '}
                     </p>
                   ) : (
                     <p>
                       M. {event.profName} {event.profSurname} <br /> {event.roomName}{' '}
                       {event.tagCallRegister ? (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'green', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                       ) : (
-                        <i
-                          className="zmdi zmdi-circle zmdi-hc-lg "
-                          style={{ color: 'red', float: 'right' }}
-                        ></i>
+                        <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                       )}{' '}
                     </p>
                   )}
@@ -471,15 +411,9 @@ class DetailsCallRegister extends React.Component {
                 <br />{' '}
                 <p>
                   {event.tagCallRegister ? (
-                    <i
-                      className="zmdi zmdi-circle zmdi-hc-lg "
-                      style={{ color: 'green', float: 'right' }}
-                    ></i>
+                    <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                   ) : (
-                    <i
-                      className="zmdi zmdi-circle zmdi-hc-lg "
-                      style={{ color: 'red', float: 'right' }}
-                    ></i>
+                    <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                   )}
                 </p>
               </div>
@@ -497,15 +431,9 @@ class DetailsCallRegister extends React.Component {
               <br />{' '}
               <p>
                 {event.tagCallRegister ? (
-                  <i
-                    className="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'green', float: 'right' }}
-                  ></i>
+                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green', float: 'right' }}></i>
                 ) : (
-                  <i
-                    className="zmdi zmdi-circle zmdi-hc-lg "
-                    style={{ color: 'red', float: 'right' }}
-                  ></i>
+                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red', float: 'right' }}></i>
                 )}
               </p>
             </div>
@@ -522,18 +450,10 @@ class DetailsCallRegister extends React.Component {
       dayCall.setDate(dayCall.getDate() + -1);
       let title =
         this.props.userProfile.role_id === roleIdParent
-          ? this.props.match.params.classId +
-            '/' +
-            new Date(dayCall).toLocaleDateString('fr-FR', options)
+          ? this.props.match.params.classId + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options)
           : this.props.match.params.type === 'formation'
-          ? this.state.event.classeName +
-            '/' +
-            this.state.event.subjectName +
-            '/' +
-            new Date(dayCall).toLocaleDateString('fr-FR', options)
-          : this.props.match.params.classId +
-            '/' +
-            new Date(dayCall).toLocaleDateString('fr-FR', options);
+          ? this.state.event.classeName + '/' + this.state.event.subjectName + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options)
+          : this.props.match.params.classId + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options);
 
       this.setState({
         title: title,
@@ -549,18 +469,10 @@ class DetailsCallRegister extends React.Component {
         toolbar.onNavigate('NEXT');
         let title =
           this.props.userProfile.role_id === roleIdParent
-            ? this.props.match.params.classId +
-              '/' +
-              new Date(dayCall).toLocaleDateString('fr-FR', options)
+            ? this.props.match.params.classId + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options)
             : this.props.match.params.type === 'formation'
-            ? this.state.event.classeName +
-              '/' +
-              this.state.event.subjectName +
-              '/' +
-              new Date(dayCall).toLocaleDateString('fr-FR', options)
-            : this.props.match.params.classId +
-              '/' +
-              new Date(dayCall).toLocaleDateString('fr-FR', options);
+            ? this.state.event.classeName + '/' + this.state.event.subjectName + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options)
+            : this.props.match.params.classId + '/' + new Date(dayCall).toLocaleDateString('fr-FR', options);
 
         this.setState({
           title: title,
@@ -604,17 +516,9 @@ class DetailsCallRegister extends React.Component {
               marginTop: '20px',
             }}
           >
-            <i
-              className="zmdi zmdi-chevron-left zmdi-hc-1x mr-3"
-              style={{ color: '#0000CD' }}
-              onClick={goToBack}
-            ></i>
+            <i className="zmdi zmdi-chevron-left zmdi-hc-1x mr-3" style={{ color: '#0000CD' }} onClick={goToBack}></i>
             {this.state.dateEvent}
-            <i
-              className="zmdi zmdi-chevron-right zmdi-hc-1x ml-3"
-              style={{ color: this.state.colorSelected }}
-              onClick={goToNext}
-            ></i>
+            <i className="zmdi zmdi-chevron-right zmdi-hc-1x ml-3" style={{ color: this.state.colorSelected }} onClick={goToNext}></i>
           </Typography>
         </div>
       </div>
@@ -622,9 +526,7 @@ class DetailsCallRegister extends React.Component {
   };
 
   eventStyleGetter(event, start, end, isSelected) {
-    let diff = moment
-      .utc(moment(event.end, 'DD/MM/YYYY HH:mm').diff(moment(event.start, 'DD/MM/YYYY HH:mm')))
-      .format('HH:mm');
+    let diff = moment.utc(moment(event.end, 'DD/MM/YYYY HH:mm').diff(moment(event.start, 'DD/MM/YYYY HH:mm'))).format('HH:mm');
     const mn = moment.duration(diff).asMinutes();
     let height = mn * 1.3 * 0.33 + 'px';
     var backgroundColor = event.subjectColor;
@@ -646,11 +548,7 @@ class DetailsCallRegister extends React.Component {
     ///////////// get events //////////////////
     if (this.props.userProfile.role_id === roleIdProfessor) {
       this.props.dispatch(
-        getEventCallRegisterForProf(
-          this.props.userProfile.establishment_id,
-          this.props.userProfile.school_year_id,
-          this.props.userProfile.id
-        )
+        getEventCallRegisterForProf(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id, this.props.userProfile.id)
       );
     } else if (this.props.userProfile.role_id === roleIdAdmin) {
       if (this.props.match.params.type === 'formation') {
@@ -669,9 +567,7 @@ class DetailsCallRegister extends React.Component {
     }
     ///////// get call register   ///////////////
     let dateFormat = moment(this.props.match.params.startDate).format('YYYY-MM-DD');
-    let timeFormat = moment(this.props.match.params.startDate)
-      .add(-1, 'h')
-      .format('HH:mm:ss[Z]');
+    let timeFormat = moment(this.props.match.params.startDate).add(-1, 'h').format('HH:mm:ss[Z]');
     let TimeDate = dateFormat + 'T' + timeFormat;
     let eventId = this.props.match.params.eventId;
     let apiEndpoint = '';
@@ -732,61 +628,23 @@ class DetailsCallRegister extends React.Component {
 
     const startDateEvent = moment(this.props.match.params.startDate).format('DD/MM/YYYY HH:mm');
     let eventSelected = this.props.events.filter(
-      (element) =>
-        element.id === parseInt(this.props.match.params.eventId, 10) &&
-        moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
+      (element) => element.id === parseInt(this.props.match.params.eventId, 10) && moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
     );
     /////////////// get  call register setting //////////////////////
     if (!_.isEmpty(eventSelected)) {
-      if (
-        this.props.userProfile.role_id !== roleIdParent &&
-        this.props.match.params.type === 'formation'
-      ) {
-        const classId = eventSelected[0].classId;
-        let apiEndpoint = `/class_v4/${classId}?access_token=${localStorage.token}&filter[include][level][educationType][callRegisterSetting]`;
-        classService.get(apiEndpoint).then((res) => {
-          if (res) {
-            let callRegisterSetting = res.data.level.educationType.callRegisterSetting;
-            if (!_.isEmpty(callRegisterSetting)) {
-              let callRegisterSetting = res.data.level.educationType.callRegisterSetting[0];
-              this.setState({ callRegisterSetting });
-              if (callRegisterSetting.observation) {
-                this.props.dispatch(getObservationList());
-              }
-              if (callRegisterSetting.encouragement) {
-                this.props.dispatch(getEncouragementList());
-              }
-              if (callRegisterSetting.sanction) {
-                this.props.dispatch(getSanctionList());
-              }
-            } else {
-              this.setState({ isOpenAlert: true });
-            }
-          }
-        });
-      } else {
-        this.props.dispatch(getObservationList());
+      this.setState({ callRegisterSetting: callRegisterParent });
 
-        this.props.dispatch(getEncouragementList());
-
-        this.props.dispatch(getSanctionList());
-        this.setState({ callRegisterSetting: callRegisterParent });
-      }
       /////   title a afficher /////////////////
       let title =
         this.props.userProfile.role_id === roleIdParent
-          ? this.props.match.params.classId +
-            '/' +
-            new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
+          ? this.props.match.params.classId + '/' + new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
           : this.props.match.params.type === 'formation'
           ? eventSelected[0].classeName +
             '/' +
             eventSelected[0].subjectName +
             '/' +
             new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
-          : this.props.match.params.classId +
-            '/' +
-            new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
+          : this.props.match.params.classId + '/' + new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
 
       let curentDay = new Date();
       let checkDate = moment(eventSelected[0].start).isAfter(curentDay);
@@ -806,11 +664,7 @@ class DetailsCallRegister extends React.Component {
       ///////////// get events //////////////////
       if (this.props.userProfile.role_id === roleIdProfessor) {
         this.props.dispatch(
-          getEventCallRegisterForProf(
-            this.props.userProfile.establishment_id,
-            this.props.userProfile.school_year_id,
-            this.props.userProfile.id
-          )
+          getEventCallRegisterForProf(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id, this.props.userProfile.id)
         );
       } else if (this.props.userProfile.role_id === roleIdAdmin) {
         if (this.props.match.params.type === 'formation') {
@@ -834,12 +688,7 @@ class DetailsCallRegister extends React.Component {
         this.props.dispatch(getStudentsCallRegisterForParent(this.props.userProfile.id));
       } else {
         if (this.props.match.params.type === 'formation') {
-          this.props.dispatch(
-            getStudentsCallRegister(
-              this.props.match.params.classId,
-              this.props.userProfile.school_year_id
-            )
-          );
+          this.props.dispatch(getStudentsCallRegister(this.props.match.params.classId, this.props.userProfile.school_year_id));
         } else {
           this.props.dispatch(getStudentsCallRegisterForParent(this.props.match.params.profileId));
         }
@@ -849,9 +698,7 @@ class DetailsCallRegister extends React.Component {
 
     if (prevProps.students !== this.props.students) {
       let dateFormat = moment(this.props.match.params.startDate).format('YYYY-MM-DD');
-      let timeFormat = moment(this.props.match.params.startDate)
-        .add(-1, 'h')
-        .format('HH:mm:ss[Z]');
+      let timeFormat = moment(this.props.match.params.startDate).add(-1, 'h').format('HH:mm:ss[Z]');
       let TimeDate = dateFormat + 'T' + timeFormat;
       let eventId = this.props.match.params.eventId;
       let apiEndpoint = '';
@@ -915,61 +762,21 @@ class DetailsCallRegister extends React.Component {
       const startDateEvent = moment(this.props.match.params.startDate).format('DD/MM/YYYY HH:mm');
       let eventSelected = this.props.events.filter(
         (element) =>
-          element.id === parseInt(this.props.match.params.eventId, 10) &&
-          moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
+          element.id === parseInt(this.props.match.params.eventId, 10) && moment(element.start).format('DD/MM/YYYY HH:mm') === startDateEvent
       );
 
       if (!_.isEmpty(eventSelected)) {
-        if (
-          this.props.userProfile.role_id !== roleIdParent &&
-          this.props.match.params.type === 'formation'
-        ) {
-          const classId = eventSelected[0].classId;
-
-          let apiEndpoint = `/class_v4/${classId}?access_token=${localStorage.token}&filter[include][level][educationType][callRegisterSetting]`;
-          classService.get(apiEndpoint).then((res) => {
-            if (res) {
-              let callRegisterSetting = res.data.level.educationType.callRegisterSetting;
-              if (!_.isEmpty(callRegisterSetting)) {
-                let callRegisterSetting = res.data.level.educationType.callRegisterSetting[0];
-                this.setState({ callRegisterSetting });
-                if (callRegisterSetting.observation) {
-                  this.props.dispatch(getObservationList());
-                }
-                if (callRegisterSetting.encouragement) {
-                  this.props.dispatch(getEncouragementList());
-                }
-                if (callRegisterSetting.sanction) {
-                  this.props.dispatch(getSanctionList());
-                }
-              } else {
-                this.setState({ isOpenAlert: true });
-              }
-            }
-          });
-        } else {
-          this.props.dispatch(getObservationList());
-
-          this.props.dispatch(getEncouragementList());
-
-          this.props.dispatch(getSanctionList());
-          this.setState({ callRegisterSetting: callRegisterParent });
-        }
-
+        this.setState({ callRegisterSetting: callRegisterParent });
         title =
           this.props.userProfile.role_id === roleIdParent
-            ? this.props.match.params.classId +
-              '/' +
-              new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
+            ? this.props.match.params.classId + '/' + new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
             : this.props.match.params.type === 'formation'
             ? eventSelected[0].classeName +
               '/' +
               eventSelected[0].subjectName +
               '/' +
               new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options)
-            : this.props.match.params.classId +
-              '/' +
-              new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
+            : this.props.match.params.classId + '/' + new Date(eventSelected[0].start).toLocaleDateString('fr-FR', options);
 
         this.setState({
           title: title,
@@ -1017,7 +824,7 @@ class DetailsCallRegister extends React.Component {
     }
   }
   render() {
-     let newMatch = {
+    let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
       url: this.props.match.url,
       isExact: this.props.match.isExact,
@@ -1032,11 +839,7 @@ class DetailsCallRegister extends React.Component {
         return <Redirect to={`/app/assiduity/call_register`} />;
       } else {
         if (this.props.match.params.type === 'formation') {
-          return (
-            <Redirect
-              to={`/app/assiduity/call_register/${this.props.match.params.classId}/${this.state.event.classeName}`}
-            />
-          );
+          return <Redirect to={`/app/assiduity/call_register/${this.props.match.params.classId}/${this.state.event.classeName}`} />;
         } else {
           return <Redirect to={`/app/assiduity/call_register`} />;
         }
@@ -1063,8 +866,7 @@ class DetailsCallRegister extends React.Component {
                 }}
                 onClick={() => this.setState({ isRedirect: true })}
               >
-                {<IntlMessages id="sidebar.components.assiduity" />}/
-                {<IntlMessages id="call_register" />}
+                {<IntlMessages id="sidebar.components.assiduity" />}/{<IntlMessages id="call_register" />}
               </h5>
             </div>
 
@@ -1145,315 +947,261 @@ class DetailsCallRegister extends React.Component {
             </div>
 
             <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-              {this.state.callRegister
-                .slice(0, Math.ceil(this.state.callRegister.length / 2))
-                .map((element, index) => (
-                  <div
-                    className="d-flex flex-wrap flex-row justify-content-around  bd-highlight card shadow"
-                    key={index}
-                    id={'Popover-' + element.studentId}
-                  >
-                    <div className="mr-2 mt-2 bd-highlight">
-                      {' '}
-                      <Avatar
-                        alt="..."
-                        src={element.photo === null ? defaultAvatar : element.photo}
-                        className="size-40"
-                      />
-                    </div>
-                    <div
-                      className="mr-2  bd-highlight description"
-                      style={{ marginTop: '13px', marginRight: '15px' }}
-                    >
-                      {' '}
-                      <h5>
-                        {element.name} {element.surname}
-                      </h5>
-                    </div>
-                    {this.state.callRegisterSetting.presence && (
-                      <div className=" bd-highlight">
-                        <div className="d-flex flex-column bd-highlight ">
-                          <div className=" bd-highlight">
-                            {' '}
-                            <Switch
-                              disabled={
-                                this.props.match.params.type === 'journalier' &&
-                                this.props.userProfile.role_id === roleIdAdmin
-                              }
-                              classes={{
-                                checked: 'text-success',
-                              }}
-                              inputProps={{ 'aria-label': 'success checkbox' }}
-                              onChange={(event) =>
-                                this.handleChangePresence(event, 'presence', element.studentId)
-                              }
-                              checked={element.presence}
-                            />
-                          </div>
-                          {/* <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+              {this.state.callRegister.slice(0, Math.ceil(this.state.callRegister.length / 2)).map((element, index) => (
+                <div
+                  className="d-flex flex-wrap flex-row justify-content-around  bd-highlight card shadow"
+                  key={index}
+                  id={'Popover-' + element.studentId}
+                >
+                  <div className="mr-2 mt-2 bd-highlight">
+                    {' '}
+                    <Avatar alt="..." src={element.photo === null ? defaultAvatar : element.photo} className="size-40" />
+                  </div>
+                  <div className="mr-2  bd-highlight description" style={{ marginTop: '13px', marginRight: '15px' }}>
+                    {' '}
+                    <h5>
+                      {element.name} {element.surname}
+                    </h5>
+                  </div>
+                  {this.state.callRegisterSetting.presence && (
+                    <div className=" bd-highlight">
+                      <div className="d-flex flex-column bd-highlight ">
+                        <div className=" bd-highlight">
+                          {' '}
+                          <Switch
+                            disabled={this.props.match.params.type === 'journalier' && this.props.userProfile.role_id === roleIdAdmin}
+                            classes={{
+                              checked: 'text-success',
+                            }}
+                            inputProps={{ 'aria-label': 'success checkbox' }}
+                            onChange={(event) => this.handleChangePresence(event, 'presence', element.studentId)}
+                            checked={element.presence}
+                          />
+                        </div>
+                        {/* <div className=" bd-highlight" style={{ fontSize: '9px' }}>
                               {element.presence ? 'présent' : 'absent'}
                             </div> */}
-                          {element.presence ? (
-                            <div
-                              className=" bd-highlight"
-                              style={{ fontSize: '9px', color: 'green' }}
-                            >
-                              présent
-                            </div>
-                          ) : (
-                            <div
-                              className=" bd-highlight"
-                              style={{ fontSize: '9px', color: 'red' }}
-                            >
-                              absent
-                            </div>
-                          )}
+                        {element.presence ? (
+                          <div className=" bd-highlight" style={{ fontSize: '9px', color: 'green' }}>
+                            présent
+                          </div>
+                        ) : (
+                          <div className=" bd-highlight" style={{ fontSize: '9px', color: 'red' }}>
+                            absent
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  {this.state.callRegisterSetting.delay ? (
+                    <div className="p-2 bd-highlight">
+                      <div className="d-flex flex-column bd-highlight ">
+                        <div className=" bd-highlight">
+                          {' '}
+                          <AccessAlarmsIcon
+                            style={{
+                              color: element.delay ? 'red' : 'Grey',
+                            }}
+                            onClick={(event) =>
+                              this.props.match.params.type === 'journalier' && this.props.userProfile.role_id === roleIdAdmin
+                                ? ''
+                                : this.handleChangeDelay(event, 'delay', element.studentId)
+                            }
+                          />
+                        </div>
+                        <div className=" bd-highlight" style={{ fontSize: '9px', color: element.delay ? 'red' : 'Grey' }}>
+                          <IntlMessages id="timetable.retard" />
                         </div>
                       </div>
-                    )}
-                    {this.state.callRegisterSetting.delay ? (
-                      <div className="p-2 bd-highlight">
-                        <div className="d-flex flex-column bd-highlight ">
-                          <div className=" bd-highlight">
-                            {' '}
-                            <AccessAlarmsIcon
-                              style={{
-                                color: element.delay ? 'red' : 'Grey',
-                              }}
-                              onClick={(event) =>
-                                this.props.match.params.type === 'journalier' &&
-                                this.props.userProfile.role_id === roleIdAdmin
-                                  ? ''
-                                  : this.handleChangeDelay(event, 'delay', element.studentId)
-                              }
-                            />
-                          </div>
-                          <div
-                            className=" bd-highlight"
-                            style={{ fontSize: '9px', color: element.delay ? 'red' : 'Grey' }}
-                          >
-                            <IntlMessages id="timetable.retard" />
-                          </div>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {this.state.callRegisterSetting.sanction ? (
+                    <div className="p-2 bd-highlight">
+                      <div className="d-flex flex-column bd-highlight ">
+                        <div className=" bd-highlight">
+                          {' '}
+                          <ReportIcon
+                            style={{
+                              color: element.sanction ? 'pink' : 'Grey',
+                            }}
+                            onClick={(event) => this.handleChangeSanction(event, element.studentId, element)}
+                          />
+                        </div>
+                        <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+                          <IntlMessages id="timetable.punition" />
                         </div>
                       </div>
-                    ) : (
-                      ''
-                    )}
-                    {this.state.callRegisterSetting.sanction ? (
-                      <div className="p-2 bd-highlight">
-                        <div className="d-flex flex-column bd-highlight ">
-                          <div className=" bd-highlight">
-                            {' '}
-                            <ReportIcon
-                              style={{
-                                color: element.sanction ? 'pink' : 'Grey',
-                              }}
-                              onClick={(event) =>
-                                this.handleChangeSanction(event, element.studentId, element)
-                              }
-                            />
-                          </div>
-                          <div className=" bd-highlight" style={{ fontSize: '9px' }}>
-                            <IntlMessages id="timetable.punition" />
-                          </div>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {this.state.callRegisterSetting.encouragement || this.state.callRegisterSetting.observation ? (
+                    <div className="p-2 bd-highlight">
+                      <div className="d-flex flex-column bd-highlight ">
+                        <div className=" bd-highlight">
+                          {' '}
+                          <AddCircleIcon color="primary" onClick={(event) => this.handleChangeOther(event, element.studentId, element)} />
+                        </div>
+                        <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+                          <IntlMessages id="timetable.autre" />
                         </div>
                       </div>
-                    ) : (
-                      ''
-                    )}
-                    {this.state.callRegisterSetting.encouragement ||
-                    this.state.callRegisterSetting.observation ? (
-                      <div className="p-2 bd-highlight">
-                        <div className="d-flex flex-column bd-highlight ">
-                          <div className=" bd-highlight">
-                            {' '}
-                            <AddCircleIcon
-                              color="primary"
-                              onClick={(event) =>
-                                this.handleChangeOther(event, element.studentId, element)
-                              }
-                            />
-                          </div>
-                          <div className=" bd-highlight" style={{ fontSize: '9px' }}>
-                            <IntlMessages id="timetable.autre" />
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                ))}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              ))}
             </div>
 
             <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-              {this.state.callRegister
-                .slice(
-                  Math.ceil(this.state.callRegister.length / 2),
-                  this.state.callRegister.length
-                )
-                .map((element, index) => (
-                  <div
-                    className="d-flex flex-wrap flex-row justify-content-around  bd-highlight card shadow"
-                    key={index}
-                    id={'Popover-' + element.studentId}
-                  >
-                    <div className="mr-2 mt-2 bd-highlight">
-                      {' '}
-                      <Avatar
-                        alt="..."
-                        src={element.photo === null ? defaultAvatar : element.photo}
-                        className="size-40"
-                      />
-                    </div>
-                    <div
-                      className="mr-2  bd-highlight description"
-                      style={{ marginTop: '13px', marginRight: '15px' }}
-                    >
-                      {' '}
-                      <h5>
-                        {element.name} {element.surname}
-                      </h5>
-                    </div>
-                    {this.state.callRegisterSetting.presence ? (
-                      <div className=" bd-highlight">
-                        <div className="d-flex flex-column bd-highlight ">
-                          <div className=" bd-highlight">
-                            {' '}
-                            <Switch
-                              disabled={
-                                this.props.match.params.type === 'journalier' &&
-                                this.props.userProfile.role_id === roleIdAdmin
-                              }
-                              classes={{
-                                checked: 'text-success',
-                              }}
-                              inputProps={{ 'aria-label': 'success checkbox' }}
-                              onChange={(event) =>
-                                this.handleChangePresence(event, 'presence', element.studentId)
-                              }
-                              checked={element.presence}
-                            />
-                          </div>
-                          {/* <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+              {this.state.callRegister.slice(Math.ceil(this.state.callRegister.length / 2), this.state.callRegister.length).map((element, index) => (
+                <div
+                  className="d-flex flex-wrap flex-row justify-content-around  bd-highlight card shadow"
+                  key={index}
+                  id={'Popover-' + element.studentId}
+                >
+                  <div className="mr-2 mt-2 bd-highlight">
+                    {' '}
+                    <Avatar alt="..." src={element.photo === null ? defaultAvatar : element.photo} className="size-40" />
+                  </div>
+                  <div className="mr-2  bd-highlight description" style={{ marginTop: '13px', marginRight: '15px' }}>
+                    {' '}
+                    <h5>
+                      {element.name} {element.surname}
+                    </h5>
+                  </div>
+                  {this.state.callRegisterSetting.presence ? (
+                    <div className=" bd-highlight">
+                      <div className="d-flex flex-column bd-highlight ">
+                        <div className=" bd-highlight">
+                          {' '}
+                          <Switch
+                            disabled={this.props.match.params.type === 'journalier' && this.props.userProfile.role_id === roleIdAdmin}
+                            classes={{
+                              checked: 'text-success',
+                            }}
+                            inputProps={{ 'aria-label': 'success checkbox' }}
+                            onChange={(event) => this.handleChangePresence(event, 'presence', element.studentId)}
+                            checked={element.presence}
+                          />
+                        </div>
+                        {/* <div className=" bd-highlight" style={{ fontSize: '9px' }}>
                               {element.presence ? 'présent' : 'absent'}
                             </div> */}
-                          {element.presence ? (
-                            <div
-                              className=" bd-highlight"
-                              style={{ fontSize: '9px', color: 'green' }}
-                            >
-                              présent
-                            </div>
-                          ) : (
-                            <div
-                              className=" bd-highlight"
-                              style={{ fontSize: '9px', color: 'red' }}
-                            >
-                              absent
-                            </div>
-                          )}
+                        {element.presence ? (
+                          <div className=" bd-highlight" style={{ fontSize: '9px', color: 'green' }}>
+                            présent
+                          </div>
+                        ) : (
+                          <div className=" bd-highlight" style={{ fontSize: '9px', color: 'red' }}>
+                            absent
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {this.state.callRegisterSetting.delay ? (
+                    <div className="p-2 bd-highlight">
+                      <div className="d-flex flex-column bd-highlight ">
+                        <div className=" bd-highlight">
+                          {' '}
+                          <AccessAlarmsIcon
+                            style={{
+                              color: element.delay ? 'red' : 'Grey',
+                            }}
+                            onClick={(event) =>
+                              this.props.match.params.type === 'journalier' && this.props.userProfile.role_id === roleIdAdmin
+                                ? ''
+                                : this.handleChangeDelay(event, 'delay', element.studentId)
+                            }
+                          />
+                        </div>
+                        <div className=" bd-highlight" style={{ fontSize: '9px', color: element.delay ? 'red' : 'Grey' }}>
+                          <IntlMessages id="timetable.retard" />
                         </div>
                       </div>
-                    ) : (
-                      ''
-                    )}
-                    {this.state.callRegisterSetting.delay ? (
-                      <div className="p-2 bd-highlight">
-                        <div className="d-flex flex-column bd-highlight ">
-                          <div className=" bd-highlight">
-                            {' '}
-                            <AccessAlarmsIcon
-                              style={{
-                                color: element.delay ? 'red' : 'Grey',
-                              }}
-                              onClick={(event) =>
-                                this.props.match.params.type === 'journalier' &&
-                                this.props.userProfile.role_id === roleIdAdmin
-                                  ? ''
-                                  : this.handleChangeDelay(event, 'delay', element.studentId)
-                              }
-                            />
-                          </div>
-                          <div
-                            className=" bd-highlight"
-                            style={{ fontSize: '9px', color: element.delay ? 'red' : 'Grey' }}
-                          >
-                            <IntlMessages id="timetable.retard" />
-                          </div>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {this.state.callRegisterSetting.sanction ? (
+                    <div className="p-2 bd-highlight">
+                      <div className="d-flex flex-column bd-highlight ">
+                        <div className=" bd-highlight">
+                          {' '}
+                          <ReportIcon
+                            style={{
+                              color: element.sanction ? 'pink' : 'Grey',
+                            }}
+                            onClick={(event) => this.handleChangeSanction(event, element.studentId, element)}
+                          />
+                        </div>
+                        <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+                          <IntlMessages id="timetable.punition" />
                         </div>
                       </div>
-                    ) : (
-                      ''
-                    )}
-                    {this.state.callRegisterSetting.sanction ? (
-                      <div className="p-2 bd-highlight">
-                        <div className="d-flex flex-column bd-highlight ">
-                          <div className=" bd-highlight">
-                            {' '}
-                            <ReportIcon
-                              style={{
-                                color: element.sanction ? 'pink' : 'Grey',
-                              }}
-                              onClick={(event) =>
-                                this.handleChangeSanction(event, element.studentId, element)
-                              }
-                            />
-                          </div>
-                          <div className=" bd-highlight" style={{ fontSize: '9px' }}>
-                            <IntlMessages id="timetable.punition" />
-                          </div>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {this.state.callRegisterSetting.encouragement || this.state.callRegisterSetting.observation ? (
+                    <div className="p-2 bd-highlight">
+                      <div className="d-flex flex-column bd-highlight ">
+                        <div className=" bd-highlight">
+                          {' '}
+                          <AddCircleIcon color="primary" onClick={(event) => this.handleChangeOther(event, element.studentId, element)} />
+                        </div>
+                        <div className=" bd-highlight" style={{ fontSize: '9px' }}>
+                          <IntlMessages id="timetable.autre" />
                         </div>
                       </div>
-                    ) : (
-                      ''
-                    )}
-                    {this.state.callRegisterSetting.encouragement ||
-                    this.state.callRegisterSetting.observation ? (
-                      <div className="p-2 bd-highlight">
-                        <div className="d-flex flex-column bd-highlight ">
-                          <div className=" bd-highlight">
-                            {' '}
-                            <AddCircleIcon
-                              color="primary"
-                              onClick={(event) =>
-                                this.handleChangeOther(event, element.studentId, element)
-                              }
-                            />
-                          </div>
-                          <div className=" bd-highlight" style={{ fontSize: '9px' }}>
-                            <IntlMessages id="timetable.autre" />
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                ))}
-              {this.props.match.params.type === 'journalier' &&
-              this.props.userProfile.role_id === roleIdAdmin ? (
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              ))}
+              {this.props.match.params.type === 'journalier' && this.props.userProfile.role_id === roleIdAdmin ? (
                 ''
               ) : (
-                <div className="d-flex justify-content-end mt-5">
-                  <Button
-                    disabled={this.state.callRegister.length == 0}
-                    variant="contained"
-                    style={{
-                      borderBottomLeftRadius: '16px',
-                      borderBottomRightRadius: '16px',
-                      borderTopLeftRadius: '16px',
-                      borderTopRightRadius: '16px',
-                      width: '100px',
-                      height: '40px',
-                      marginRight: '10%',
-                    }}
-                    className=" bg-indigo text-white "
-                    onClick={this.handleSubmit}
-                  >
-                    <IntlMessages id="button.save.registreAppel" />
-                  </Button>
-                </div>
+                <RoleContext.Consumer>
+                  {({ role }) => (
+                    <Can
+                      role={role}
+                      perform="user-permission"
+                      data={{
+                        permission: 'add-call-register',
+                        permissionList: this.props.userPermission,
+                      }}
+                      yes={() => (
+                        <div className="d-flex justify-content-end mt-5">
+                          <Button
+                            disabled={this.state.callRegister.length == 0}
+                            variant="contained"
+                            style={{
+                              borderBottomLeftRadius: '16px',
+                              borderBottomRightRadius: '16px',
+                              borderTopLeftRadius: '16px',
+                              borderTopRightRadius: '16px',
+                              width: '100px',
+                              height: '40px',
+                              marginRight: '10%',
+                            }}
+                            className=" bg-indigo text-white "
+                            onClick={this.handleSubmit}
+                          >
+                            <IntlMessages id="button.save.registreAppel" />
+                          </Button>
+                        </div>
+                      )}
+                    />
+                  )}
+                </RoleContext.Consumer>
               )}
             </div>
           </div>
@@ -1481,11 +1229,7 @@ class DetailsCallRegister extends React.Component {
           ) : (
             ''
           )}
-          <SweetAlert
-            show={this.state.isOpenAlert}
-            title={<IntlMessages id="alert.setting.call.register" />}
-            onConfirm={this.onConfirm}
-          ></SweetAlert>
+          <SweetAlert show={this.state.isOpenAlert} title={<IntlMessages id="alert.setting.call.register" />} onConfirm={this.onConfirm}></SweetAlert>
         </div>
       );
     }
@@ -1502,6 +1246,7 @@ const mapStateToProps = (state) => {
     encouragements: state.callRegister.encouragements,
     sanctions: state.callRegister.sanctions,
     establishementInformations: state.establishment.establishementInformations,
+    userPermission: state.PermissionReducer.userPermission,
   };
 };
 export default withStyles(styles)(connect(mapStateToProps)(DetailsCallRegister));
