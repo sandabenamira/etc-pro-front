@@ -116,6 +116,7 @@ class App extends React.Component {
         this.props.dispatch(getExamType(userProfile.establishment_id, userProfile.school_year_id));
         break;
       case roleIdProfessor:
+        this.props.dispatch(getLevel(userProfile.establishment_id, userProfile.school_year_id));
         this.props.dispatch(getEventsByEstabAndSchoolYearForProf(userProfile.establishment_id, userProfile.school_year_id, userProfile.id));
         break;
       case roleIdStudent:
