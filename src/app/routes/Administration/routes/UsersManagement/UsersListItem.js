@@ -89,8 +89,7 @@ class UsersListItem extends Component {
   }
   render() {
     const { user } = this.props;
-    console.log(user, '--------user-------------');
-    let listSubjectStudent = [];
+     let listSubjectStudent = [];
     let listClassProf = [];
     let roleNameUser = '';
     let roleUser = listRolesUsers.find((element) => element.id == user.roleId);
