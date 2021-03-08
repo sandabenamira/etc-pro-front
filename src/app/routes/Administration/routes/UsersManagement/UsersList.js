@@ -320,15 +320,9 @@ class UsersList extends React.Component {
     let fonctionEdit = {};
     let subjectIdSelected = [];
 
-    let schoolyearEdit = this.props.usefulData.listSchoolYears.find(
-      (element) => element.id == item.schoolYearId
-    );
-    let establishmentEdit = this.props.usefulData.establishmentsList.find(
-      (element) => element.id == item.establishmentId
-    );
-    let userCountryEdit = this.props.usefulData.countriesList.find(
-      (element) => element.id == item.country
-    );
+    let schoolyearEdit = this.props.usefulData.listSchoolYears.find((element) => element.id == item.schoolYearId);
+    let establishmentEdit = this.props.usefulData.establishmentsList.find((element) => element.id == item.establishmentId);
+    let userCountryEdit = this.props.usefulData.countriesList.find((element) => element.id == item.country);
     if (item.paperFiles == null) {
       fileNamesEdit = [];
     } else {
@@ -342,9 +336,7 @@ class UsersList extends React.Component {
         parentItem.value = element.parenttId;
         return parentItem;
       });
-      studentClassEdit = this.props.usefulData.classForStudent.find(
-        (element) => element.id == item.inforamtionsStudent.classInformation.classId
-      );
+      studentClassEdit = this.props.usefulData.classForStudent.find((element) => element.id == item.inforamtionsStudent.classInformation.classId);
       if (studentClassEdit !== undefined) {
         studentClassEdit.groups.map((element) => {
           if (element.status) {
@@ -510,20 +502,13 @@ class UsersList extends React.Component {
         if (event.target.value == 0) {
           return true;
         } else {
-          listClass = item.inforamtionsProf.filter(
-            (element) => element.ClassId == event.target.value
-          );
+          listClass = item.inforamtionsProf.filter((element) => element.ClassId == event.target.value);
         }
       } else {
         if (event.target.value == 0) {
-          listClass = item.inforamtionsProf.filter(
-            (element) => element.subjectId == subjectIdFilter
-          );
+          listClass = item.inforamtionsProf.filter((element) => element.subjectId == subjectIdFilter);
         } else {
-          listClass = item.inforamtionsProf.filter(
-            (element) =>
-              element.ClassId == event.target.value && element.subjectId == subjectIdFilter
-          );
+          listClass = item.inforamtionsProf.filter((element) => element.ClassId == event.target.value && element.subjectId == subjectIdFilter);
         }
       }
       return listClass.length > 0;
@@ -535,17 +520,13 @@ class UsersList extends React.Component {
         if (event.target.value == 0) {
           return true;
         } else {
-          listClass = item.inforamtionsProf.filter(
-            (element) => element.subjectId == event.target.value
-          );
+          listClass = item.inforamtionsProf.filter((element) => element.subjectId == event.target.value);
         }
       } else {
         if (event.target.value == 0) {
           listClass = item.inforamtionsProf.filter((element) => element.ClassId == classIdFilter);
         } else {
-          listClass = item.inforamtionsProf.filter(
-            (element) => element.subjectId == event.target.value && element.ClassId == classIdFilter
-          );
+          listClass = item.inforamtionsProf.filter((element) => element.subjectId == event.target.value && element.ClassId == classIdFilter);
         }
       }
       return listClass.length > 0;
@@ -616,29 +597,17 @@ class UsersList extends React.Component {
     }
     // ****************** specific data for student ***************************
     if (this.state.roleItemEdit.id === roleIdStudent) {
-      data.classId =
-        this.state.studentClassEdit.id === undefined ? null : this.state.studentClassEdit.id;
-      data.levelId =
-        this.state.studentClassEdit.levelId === undefined
-          ? null
-          : this.state.studentClassEdit.levelId;
-      data.sectionId =
-        this.state.studentClassEdit.sectionId === undefined
-          ? null
-          : this.state.studentClassEdit.sectionId;
-      data.groupId =
-        this.state.studentGroupEdit.id === undefined ? null : this.state.studentGroupEdit.id;
+      data.classId = this.state.studentClassEdit.id === undefined ? null : this.state.studentClassEdit.id;
+      data.levelId = this.state.studentClassEdit.levelId === undefined ? null : this.state.studentClassEdit.levelId;
+      data.sectionId = this.state.studentClassEdit.sectionId === undefined ? null : this.state.studentClassEdit.sectionId;
+      data.groupId = this.state.studentGroupEdit.id === undefined ? null : this.state.studentGroupEdit.id;
       data.parentsId = this.state.listParentEdit.map((element) => element.id);
     }
     // ****************** specific data for Parent ***************************
     if (this.state.roleItemEdit.id === roleIdParent) {
       data.studentsId = this.state.listStudentEdit.map((element) => element.id);
     }
-    this.props.editUser(
-      data,
-      this.props.userProfile.establishment_id,
-      this.props.userProfile.school_year_id
-    );
+    this.props.editUser(data, this.props.userProfile.establishment_id, this.props.userProfile.school_year_id);
     this.handleToggle();
   }
   handleChangeFilterStudent = (name) => (event) => {
@@ -653,9 +622,7 @@ class UsersList extends React.Component {
           listGroupFilter: [],
         });
       } else {
-        let classStudentFilter = this.props.listClassFilter.filter(
-          (element) => element.levelId == event.target.value
-        );
+        let classStudentFilter = this.props.listClassFilter.filter((element) => element.levelId == event.target.value);
         let studentByLevel = this.props.usersList.students.filter(
           (element) => element.inforamtionsStudent.classInformation.levelId == event.target.value
         );
@@ -678,9 +645,7 @@ class UsersList extends React.Component {
           this.setState({ usersList: this.props.usersList });
         } else {
           let studentByLevel = this.props.usersList.students.filter(
-            (element) =>
-              element.inforamtionsStudent.classInformation.levelId ==
-              this.state.filterLevelStudentId
+            (element) => element.inforamtionsStudent.classInformation.levelId == this.state.filterLevelStudentId
           );
           let newUserList = {
             ...this.props.usersList,
@@ -692,9 +657,7 @@ class UsersList extends React.Component {
         let studentByLevel = this.props.usersList.students.filter(
           (element) => element.inforamtionsStudent.classInformation.classId == event.target.value
         );
-        let classSelected = this.state.classStudentFilter.find(
-          (element) => element.id == event.target.value
-        );
+        let classSelected = this.state.classStudentFilter.find((element) => element.id == event.target.value);
         let listGroupFilter;
         if (classSelected != undefined) {
           listGroupFilter = classSelected.groups.filter((element) => element.status);
@@ -706,8 +669,7 @@ class UsersList extends React.Component {
     if (name === 'filterGroupStudentId') {
       if (event.target.value == 0) {
         let studentByClass = this.props.usersList.students.filter(
-          (element) =>
-            element.inforamtionsStudent.classInformation.classId == this.state.filterClassStudentId
+          (element) => element.inforamtionsStudent.classInformation.classId == this.state.filterClassStudentId
         );
         let newUserList = { ...this.props.usersList, students: studentByClass };
 
@@ -904,7 +866,7 @@ class UsersList extends React.Component {
                   ))}
                 </TextField>
               </div>
-              <div className="p-2 bd-highlight col-lg-1 col-md-4 col-sm-2">
+              {/* <div className="p-2 bd-highlight col-lg-1 col-md-4 col-sm-2">
                 <TextField
                   id="idClasseStudent"
                   name="idClasseStudent"
@@ -926,7 +888,7 @@ class UsersList extends React.Component {
                     </MenuItem>
                   ))}
                 </TextField>
-              </div>
+              </div> */}
             </>
           ) : (
             ''
@@ -939,9 +901,6 @@ class UsersList extends React.Component {
               <TableCell align="left">
                 <IntlMessages id="user.photo" />
               </TableCell>
-              {/* <TableCell align="left">
-                <IntlMessages id="user.id" />
-              </TableCell> */}
               <TableCell align="left">
                 <IntlMessages id="user.name" />
               </TableCell>
@@ -967,24 +926,14 @@ class UsersList extends React.Component {
                 </TableCell>
               ) : null}
               {/* ------------     affichage classe et parent pour student -------------------------------------------*/}
-              {this.state.roleIdFilter == roleIdStudent ? (
-                <TableCell align="left">
-                  <IntlMessages id={`components.note.class`} />
-                </TableCell>
-              ) : null}
-              {this.state.roleIdFilter == roleIdStudent ? (
-                <TableCell align="left">Chef d'agence</TableCell>
-              ) : null}
+              {this.state.roleIdFilter == roleIdStudent ? <TableCell align="left">Agence</TableCell> : null}
+              {this.state.roleIdFilter == roleIdStudent ? <TableCell align="left">Chef d'agence</TableCell> : null}
               {/* ------------     affichage enfant et classe pour parent -------------------------------------------*/}
+
+              {this.state.roleIdFilter == roleIdParent ? <TableCell align="left">Agence</TableCell> : null}
               {this.state.roleIdFilter == roleIdParent ? (
                 <TableCell align="left">
                   <TableCell align="left">Collaborateurs </TableCell>
-                </TableCell>
-              ) : null}
-              {this.state.roleIdFilter == roleIdParent ? (
-                <TableCell align="left">
-                  {' '}
-                  <IntlMessages id={`components.note.class`} />
                 </TableCell>
               ) : null}
               {/* ------------     éliminer colonne email  -------------------------------------------*/}

@@ -611,7 +611,7 @@
   "components.establishments.formModify.buttonModify": "Modifier",
   "components.establishments.formadd.status": "statut",
   "component.students.list": "Liste des élèves",
-  "component.classes.list": "Liste des groupe de formation",
+  "component.classes.list": "Liste des classes de formation",
   "pages.call_register": "fiche de présence",
   "sidebar.classes": "Classes",
   "sidebar.adminstration-module": "Modules",

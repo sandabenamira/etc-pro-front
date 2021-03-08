@@ -274,15 +274,7 @@ class Users extends React.Component {
         this.setState({ alertMessage: '', missingValue: false });
       }, 4000);
     } else {
-      // if (this.state.roleId === roleIdProfessor && AssignementIdProf.length === 0) {
-      //   this.setState({
-      //     missingValue: true,
-      //     alertMessage: 'Il faut affecter une classe et une matiére pour le professeur ',
-      //   });
-      //   setTimeout(() => {
-      //     this.setState({ alertMessage: '', missingValue: false });
-      //   }, 4000);
-      // } else {
+       
       this.openAddModal();
       let data = {
         name: this.state.userName.toUpperCase(),

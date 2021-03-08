@@ -58,9 +58,6 @@ export class ModalDetailsUser extends React.Component {
   }
 
   render() {
-    console.log('userItem', this.props.userItem);
-    console.log('establishments', this.props.establishments);
-
     let userItem = this.props.userItem;
     let roleNameUser = '';
     let roleUser = listRolesUsers.find((element) => element.id == userItem.roleId);
