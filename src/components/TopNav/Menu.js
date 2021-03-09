@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { NavLink, withRouter } from "react-router-dom";
-import IntlMessages from "../../util/IntlMessages";
+import React, { Component } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
+import IntlMessages from '../../util/IntlMessages';
 import {
   sousModuleEtab,
   sousModuleEtab2,
@@ -12,7 +12,7 @@ import {
   sousModuleFinancialManagement,
   sousModuleSuperadmin,
   sousModuleCommunity,
-  sousModuleEvaluation
+  sousModuleEvaluation,
 } from '../../constants/StuppModules';
 import { RoleContext } from '../../Context';
 import Can from '../../can';
@@ -33,9 +33,9 @@ const NavlinkItem = ({ pathName, listMoule }) => {
                 moduleList: listMoule,
               }}
               yes={() => (
-                <NavLink to={{ pathname: "/app/" + pathName }}>
+                <NavLink to={{ pathname: '/app/' + pathName }}>
                   <span className="nav-text">
-                    <IntlMessages id={`sidebar.components.${pathName}`} />{" "}
+                    <IntlMessages id={`sidebar.components.${pathName}`} />{' '}
                   </span>
                 </NavLink>
               )}
@@ -64,37 +64,39 @@ const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
                   moduleList: listModule,
                 }}
                 yes={() => (
-                  <a className="nav-text ">
-                    <IntlMessages id={`sidebar.components.${pathName}`} />
-                  </a>
+                  <>
+                    <a className="nav-text ">
+                      <IntlMessages id={`sidebar.components.${pathName}`} />
+                    </a>
+                    <ul className="sub-menu">
+                      {sousModuleStupp.map((mod, index) => (
+                        <li key={index}>
+                          <RoleContext.Consumer>
+                            {({ role }) => (
+                              <Can
+                                role={role}
+                                perform={`module-nav-${mod.name}`}
+                                yes={() => (
+                                  <NavLink to={{ pathname: '/app/' + mod.pathName }}>
+                                    <i className={`zmdi zmdi-${mod.icon}`} />
+                                    <span className="nav-text">
+                                      <IntlMessages id={`sidebar.components.${mod.name}`} />{' '}
+                                    </span>
+                                  </NavLink>
+                                )}
+                              />
+                            )}
+                          </RoleContext.Consumer>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
                 )}
               />
             )}
           />
         )}
       </RoleContext.Consumer>
-      <ul className="sub-menu">
-        {sousModuleStupp.map((mod, index) => (
-          <li key={index}>
-            <RoleContext.Consumer>
-              {({ role }) => (
-                <Can
-                  role={role}
-                  perform={`module-nav-${mod.name}`}
-                  yes={() => (
-                    <NavLink to={{ pathname: "/app/" + mod.pathName }}>
-                      <i className={`zmdi zmdi-${mod.icon}`} />
-                      <span className="nav-text">
-                        <IntlMessages id={`sidebar.components.${mod.name}`} />{" "}
-                      </span>
-                    </NavLink>
-                  )}
-                />
-              )}
-            </RoleContext.Consumer>
-          </li>
-        ))}
-      </ul>
     </>
   );
 };
@@ -130,7 +132,7 @@ const MenuCollapseBoxItem2 = ({ pathName, listModule, sousModuleStupp }) => {
         {sousModuleStupp.map((mod, index) => {
           let test = false;
           let arr = [];
-          if (mod.name === "schoolSettings") {
+          if (mod.name === 'schoolSettings') {
             test = true;
             arr = mod.sousSousModules;
           }
@@ -145,9 +147,7 @@ const MenuCollapseBoxItem2 = ({ pathName, listModule, sousModuleStupp }) => {
                       <a>
                         <span className="nav-link">
                           <i className={`zmdi zmdi-${mod.icon}`} />
-                          <IntlMessages
-                            id={`sidebar.components.${mod.name}`}
-                          />{" "}
+                          <IntlMessages id={`sidebar.components.${mod.name}`} />{' '}
                         </span>
                       </a>
                     )}
@@ -165,18 +165,12 @@ const MenuCollapseBoxItem2 = ({ pathName, listModule, sousModuleStupp }) => {
                           yes={() => (
                             <NavLink
                               to={{
-                                pathname:
-                                  "/app/" +
-                                  mod.pathName +
-                                  "/" +
-                                  sousModule.pathName,
+                                pathname: '/app/' + mod.pathName + '/' + sousModule.pathName,
                               }}
                             >
                               <i className={`zmdi zmdi-${sousModule.icon}`} />
                               <span className="nav-text">
-                                <IntlMessages
-                                  id={`sidebar.components.${sousModule.name}`}
-                                />{" "}
+                                <IntlMessages id={`sidebar.components.${sousModule.name}`} />{' '}
                               </span>
                             </NavLink>
                           )}
@@ -195,10 +189,10 @@ const MenuCollapseBoxItem2 = ({ pathName, listModule, sousModuleStupp }) => {
                     role={role}
                     perform={`module-nav-${mod.name}`}
                     yes={() => (
-                      <NavLink to={{ pathname: "/app/" + mod.pathName }}>
+                      <NavLink to={{ pathname: '/app/' + mod.pathName }}>
                         <i className={`zmdi zmdi-${mod.icon}`} />
                         <span className="nav-text">
-                          <IntlMessages id={`sidebar.components.${mod.name}`} />{" "}
+                          <IntlMessages id={`sidebar.components.${mod.name}`} />{' '}
                         </span>
                       </NavLink>
                     )}
@@ -218,39 +212,39 @@ class Menu extends Component {
     const { history } = this.props;
 
     const pathname = `#${history.location.pathname}`; // get current path
-    const mainMenu = document.getElementsByClassName("nav-item");
+    const mainMenu = document.getElementsByClassName('nav-item');
     for (let i = 0; i < mainMenu.length; i++) {
-      mainMenu[i].onclick = function() {
+      mainMenu[i].onclick = function () {
         for (let j = 0; j < mainMenu.length; j++) {
-          if (mainMenu[j].classList.contains("active")) {
-            mainMenu[j].classList.remove("active");
+          if (mainMenu[j].classList.contains('active')) {
+            mainMenu[j].classList.remove('active');
           }
         }
-        this.classList.toggle("active");
+        this.classList.toggle('active');
       };
     }
-    const subMenuLi = document.getElementsByClassName("nav-arrow");
+    const subMenuLi = document.getElementsByClassName('nav-arrow');
     for (let i = 0; i < subMenuLi.length; i++) {
-      subMenuLi[i].onclick = function() {
+      subMenuLi[i].onclick = function () {
         for (let j = 0; j < subMenuLi.length; j++) {
-          if (subMenuLi[j].classList.contains("active")) {
-            subMenuLi[j].classList.remove("active");
+          if (subMenuLi[j].classList.contains('active')) {
+            subMenuLi[j].classList.remove('active');
           }
         }
-        this.classList.toggle("active");
+        this.classList.toggle('active');
       };
     }
     const activeLi = document.querySelector('a[href="' + pathname + '"]'); // select current a element
     try {
-      const activeNav = this.closest(activeLi, "ul"); // select closest ul
-      if (activeNav.classList.contains("sub-menu")) {
-        this.closest(activeNav, "li").classList.add("active");
+      const activeNav = this.closest(activeLi, 'ul'); // select closest ul
+      if (activeNav.classList.contains('sub-menu')) {
+        this.closest(activeNav, 'li').classList.add('active');
       } else {
-        this.closest(activeLi, "li").classList.add("active");
+        this.closest(activeLi, 'li').classList.add('active');
       }
-      const parentNav = this.closest(activeNav, ".nav-item");
+      const parentNav = this.closest(activeNav, '.nav-item');
       if (parentNav) {
-        parentNav.classList.add("active");
+        parentNav.classList.add('active');
       }
     } catch (e) {}
   }
@@ -259,14 +253,8 @@ class Menu extends Component {
     try {
       let matchesFn;
       // find vendor prefix
-      [
-        "matches",
-        "webkitMatchesSelector",
-        "mozMatchesSelector",
-        "msMatchesSelector",
-        "oMatchesSelector",
-      ].some(function(fn) {
-        if (typeof document.body[fn] === "function") {
+      ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].some(function (fn) {
+        if (typeof document.body[fn] === 'function') {
           matchesFn = fn;
           return true;
         }
@@ -302,50 +290,26 @@ class Menu extends Component {
               </NavLink>
             </li>
             <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={"super_administration"}
-                listModule={estabModule}
-                sousModuleStupp={sousModuleSuperadmin}
-              />
+              <MenuCollapseBoxItem pathName={'super_administration'} listModule={estabModule} sousModuleStupp={sousModuleSuperadmin} />
             </li>
 
             <li className="nav-item">
-              <MenuCollapseBoxItem2
-                pathName={"administration"}
-                listModule={estabModule}
-                sousModuleStupp={sousModuleEtab2}
-              />
-            </li>
-            
-            <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={'evaluation'}
-                listModule={estabModule}
-                sousModuleStupp={sousModuleEvaluation}
-              />
+              <MenuCollapseBoxItem2 pathName={'administration'} listModule={estabModule} sousModuleStupp={sousModuleEtab2} />
             </li>
 
             <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={"e-learning"}
-                listModule={estabModule}
-                sousModuleStupp={sousModuleELearning}
-              />
+              <MenuCollapseBoxItem pathName={'evaluation'} listModule={estabModule} sousModuleStupp={sousModuleEvaluation} />
             </li>
 
             <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={"assiduity"}
-                listModule={estabModule}
-                sousModuleStupp={sousModuleAssiduity}
-              />
+              <MenuCollapseBoxItem pathName={'e-learning'} listModule={estabModule} sousModuleStupp={sousModuleELearning} />
+            </li>
+
+            <li className="nav-item">
+              <MenuCollapseBoxItem pathName={'assiduity'} listModule={estabModule} sousModuleStupp={sousModuleAssiduity} />
             </li>
             <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={"community"}
-                listModule={estabModule}
-                sousModuleStupp={sousModuleCommunity}
-              />
+              <MenuCollapseBoxItem pathName={'community'} listModule={estabModule} sousModuleStupp={sousModuleCommunity} />
             </li>
 
             {/* <li className="nav-item">
@@ -365,7 +329,6 @@ class Menu extends Component {
                 sousModuleStupp={sousModuleFinancialManagement}
               />
             </li> */}
-          
 
             {/* <li className="nav-item ">
               <NavLink className="prepend-icon" to="/app/financial_management/ServiceAllocation">
@@ -375,11 +338,7 @@ class Menu extends Component {
               </NavLink>
             </li> */}
             <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={"e-libraries"}
-                listModule={estabModule}
-                sousModuleStupp={sousModuleLibraries}
-              />
+              <MenuCollapseBoxItem pathName={'e-libraries'} listModule={estabModule} sousModuleStupp={sousModuleLibraries} />
             </li>
           </ul>
         </div>

@@ -329,28 +329,28 @@ class UsersList extends React.Component {
       fileNamesEdit = item.paperFiles.map((element) => element.slice(59));
     }
     if (item.roleId == roleIdStudent) {
-      listParentEdit = item.inforamtionsStudent.parentsInformation.map((element) => {
+      listParentEdit = item.parentId.map((element) => {
         var parentItem = {};
         parentItem.label = element.parentName + ' ' + element.parentLastName;
         parentItem.id = element.parenttId;
         parentItem.value = element.parenttId;
         return parentItem;
       });
-      studentClassEdit = this.props.usefulData.classForStudent.find((element) => element.id == item.inforamtionsStudent.classInformation.classId);
-      if (studentClassEdit !== undefined) {
-        studentClassEdit.groups.map((element) => {
-          if (element.status) {
-            var object = {};
-            object.label = element.name;
-            object.id = element.id;
-            object.value = element.id;
-            listGroupClass.push(object);
-          }
-          if (element.status && element.id == item.inforamtionsStudent.classInformation.groupId) {
-            studentGroupEdit = object;
-          }
-        });
-      }
+      // studentClassEdit = this.props.usefulData.classForStudent.find((element) => element.id == item.inforamtionsStudent.classInformation.classId);
+      // if (studentClassEdit !== undefined) {
+      //   studentClassEdit.groups.map((element) => {
+      //     if (element.status) {
+      //       var object = {};
+      //       object.label = element.name;
+      //       object.id = element.id;
+      //       object.value = element.id;
+      //       listGroupClass.push(object);
+      //     }
+      //     if (element.status && element.id == item.inforamtionsStudent.classInformation.groupId) {
+      //       studentGroupEdit = object;
+      //     }
+      //   });
+      // }
     }
     if (item.roleId == roleIdProfessor) {
       item.inforamtionsProf.map((profItem, index) => {
@@ -623,8 +623,8 @@ class UsersList extends React.Component {
         });
       } else {
         let classStudentFilter = this.props.listClassFilter.filter((element) => element.levelId == event.target.value);
-        let studentByLevel = this.props.usersList.students.filter(
-          (element) => element.inforamtionsStudent.classInformation.levelId == event.target.value
+        let studentByLevel = this.props.usersList.students.filter((element) =>
+          element.inforamtionsStudent.some((classItem) => classItem.levelId == event.target.value)
         );
         let newUserList = { ...this.props.usersList, students: studentByLevel };
         this.setState({
@@ -637,15 +637,12 @@ class UsersList extends React.Component {
       }
     }
     if (name === 'filterClassStudentId') {
-      this.setState({ filterGroupStudentId: 0 });
       if (event.target.value == 0) {
-        this.setState({ listGroupFilter: [] });
-
         if (this.state.filterLevelStudentId == 0) {
           this.setState({ usersList: this.props.usersList });
         } else {
-          let studentByLevel = this.props.usersList.students.filter(
-            (element) => element.inforamtionsStudent.classInformation.levelId == this.state.filterLevelStudentId
+          let studentByLevel = this.props.usersList.students.filter((element) =>
+            element.inforamtionsStudent.some((classItem) => classItem.levelId == this.state.filterLevelStudentId)
           );
           let newUserList = {
             ...this.props.usersList,
@@ -654,32 +651,11 @@ class UsersList extends React.Component {
           this.setState({ usersList: newUserList });
         }
       } else {
-        let studentByLevel = this.props.usersList.students.filter(
-          (element) => element.inforamtionsStudent.classInformation.classId == event.target.value
+        let studentByClass = this.props.usersList.students.filter((element) =>
+          element.inforamtionsStudent.some((classItem) => classItem.classId == event.target.value)
         );
-        let classSelected = this.state.classStudentFilter.find((element) => element.id == event.target.value);
-        let listGroupFilter;
-        if (classSelected != undefined) {
-          listGroupFilter = classSelected.groups.filter((element) => element.status);
-        }
-        let newUserList = { ...this.props.usersList, students: studentByLevel };
-        this.setState({ usersList: newUserList, listGroupFilter });
-      }
-    }
-    if (name === 'filterGroupStudentId') {
-      if (event.target.value == 0) {
-        let studentByClass = this.props.usersList.students.filter(
-          (element) => element.inforamtionsStudent.classInformation.classId == this.state.filterClassStudentId
-        );
+
         let newUserList = { ...this.props.usersList, students: studentByClass };
-
-        this.setState({ usersList: newUserList });
-      } else {
-        let studentByGroup = this.props.usersList.students.filter(
-          (element) => element.inforamtionsStudent.classInformation.groupId == event.target.value
-        );
-        let newUserList = { ...this.props.usersList, students: studentByGroup };
-
         this.setState({ usersList: newUserList });
       }
     }
@@ -928,6 +904,11 @@ class UsersList extends React.Component {
               {/* ------------     affichage classe et parent pour student -------------------------------------------*/}
               {this.state.roleIdFilter == roleIdStudent ? <TableCell align="left">Agence</TableCell> : null}
               {this.state.roleIdFilter == roleIdStudent ? <TableCell align="left">Chef d'agence</TableCell> : null}
+              {this.state.roleIdFilter == roleIdStudent ? (
+                <TableCell align="left">
+                  <IntlMessages id={`components.note.class`} />
+                </TableCell>
+              ) : null}
               {/* ------------     affichage enfant et classe pour parent -------------------------------------------*/}
 
               {this.state.roleIdFilter == roleIdParent ? <TableCell align="left">Agence</TableCell> : null}

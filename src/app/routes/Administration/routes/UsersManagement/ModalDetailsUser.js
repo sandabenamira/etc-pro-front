@@ -269,33 +269,35 @@ export class ModalDetailsUser extends React.Component {
                           <input disabled={true} type="text" className="form-control" id="function" value={userItem.agencyName} />
                         </div>
                       </div>
-                      <div className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row p-2 ">
-                        <div class="col-md-6 col-lg-4 col-sm-12 d-flex flex-column">
-                          <label htmlFor="studentLevel">Niveau</label>
-                          {userItem.inforamtionsStudent.classInformation.levelName != null ? (
-                            <span className="jr-tag bg-primary d-inline-block">{userItem.inforamtionsStudent.classInformation.levelName}</span>
-                          ) : (
-                            'Non Affecté(e)'
-                          )}
-                        </div>
-                        <div className="col-md-6 col-lg-4 col-sm-12 d-flex flex-column ">
-                          <label htmlFor="studentClass">Classe de formation</label>
-                          {userItem.inforamtionsStudent.classInformation.classname != null ? (
-                            <span className="jr-tag bg-primary d-inline-block">{userItem.inforamtionsStudent.classInformation.classname}</span>
-                          ) : (
-                            'Non Affecté(e)'
-                          )}
-                        </div>
+                      {userItem.inforamtionsStudent.map((element) => (
+                        <div className="col-md-6 col-lg-12 col-sm-12 d-flex flex-row p-2 ">
+                          <div class="col-md-6 col-lg-4 col-sm-12 d-flex flex-column">
+                            <label htmlFor="studentLevel">Niveau</label>
+                            {element.levelName != null ? (
+                              <span className="jr-tag bg-primary d-inline-block">{element.levelName}</span>
+                            ) : (
+                              <span className="jr-tag bg-primary d-inline-block">Non Affecté(e)</span>
+                            )}
+                          </div>
+                          <div className="col-md-6 col-lg-4 col-sm-12 d-flex flex-column ">
+                            <label htmlFor="studentClass">Classe de formation</label>
+                            {element.classname != null ? (
+                              <span className="jr-tag bg-primary d-inline-block">{element.classname}</span>
+                            ) : (
+                              <span className="jr-tag bg-primary d-inline-block">Non Affecté(e)</span>
+                            )}
+                          </div>
 
-                        <div className="col-md-6 col-lg-4 col-sm-12 d-flex flex-column">
-                          <label htmlFor="studentSection">Formation</label>
-                          {userItem.inforamtionsStudent.classInformation.sectionname != null ? (
-                            <span className="jr-tag bg-primary d-inline-block">{userItem.inforamtionsStudent.classInformation.sectionname}</span>
-                          ) : (
-                            'Non Affecté(e)'
-                          )}
+                          <div className="col-md-6 col-lg-4 col-sm-12 d-flex flex-column">
+                            <label htmlFor="studentSection">Formation</label>
+                            {element.sectionname != null ? (
+                              <span className="jr-tag bg-primary d-inline-block">{element.sectionname}</span>
+                            ) : (
+                              <span className="jr-tag bg-primary d-inline-block">Non Affecté(e)</span>
+                            )}
+                          </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
                     <div className="d-flex flex-column col-md-12 col-lg-12 col-sm-12">
                       <div className="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-center p-2">
@@ -314,7 +316,7 @@ export class ModalDetailsUser extends React.Component {
                           </Typography>
                         </label>
                       </div>
-                      {userItem.inforamtionsStudent.parentsInformation.map((element) => (
+                      {userItem.parentId.map((element) => (
                         <>
                           <div className="col-md-12 col-lg-12 col-sm-12 p-2">
                             <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
