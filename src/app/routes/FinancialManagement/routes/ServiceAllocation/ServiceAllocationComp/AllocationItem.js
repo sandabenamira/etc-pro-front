@@ -43,7 +43,7 @@ class AllocationItem extends Component {
   handleChange = (monthId, monthValue) => (event) => {
     var tab = this.state.SelectedMonthList;
 
-    var index = tab.findIndex((element) => element == parseInt(monthId, 10));
+    var index = tab.findIndex((element) => element===parseInt(monthId, 10));
     if (new Date() - new Date(monthValue) > 0) {
       this.setState({
         alerteMonth: true,
@@ -54,7 +54,7 @@ class AllocationItem extends Component {
         });
       }, 1500);
     } else {
-      if (index == -1) {
+      if (index===-1) {
         tab.push(parseInt(monthId, 10));
         this.setState({
           SelectedMonthList: tab,
@@ -74,8 +74,8 @@ class AllocationItem extends Component {
     if (this.state.SelectedMonthList.length <= 0) {
       res = false;
     } else {
-      var test = tab.findIndex((element) => element == parseInt(month, 10));
-      if (test == -1) {
+      var test = tab.findIndex((element) => element===parseInt(month, 10));
+      if (test===-1) {
         res = false;
       } else {
         res = true;
@@ -150,7 +150,7 @@ class AllocationItem extends Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { value, monthList } = this.state;
     let element = this.props.item;
 

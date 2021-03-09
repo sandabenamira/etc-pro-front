@@ -1,4 +1,3 @@
-import { getName } from "./countriesAction";
 import _ from "lodash";
 import { classService } from "../_services/class.service";
 import { DATA_LOADED_LEVELS } from "../constants/ActionTypes";

@@ -1,25 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import IntlMessages from '../../../../../util/IntlMessages';
-import PlayForWorkIcon from '@material-ui/icons/PlayForWork';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import axios from 'axios';
-import baseUrl from '../../../../../config/config';
-import _ from 'lodash';
-import jsPDF from 'jspdf';
-import { Link } from 'react-router-dom';
 import 'jspdf-autotable';
-import { url } from './photo';
-import EditAllocationService from './EditAllocationService';
-import DeleteAllcation from './DeleteAllocation';
 import { connect } from 'react-redux';
-import { getAllocationServiceByEstablishment } from '../../../../../actions/AllocationServiceAction';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core';
 const styles = (theme) => ({
   textColorPrimary: {
@@ -42,6 +28,7 @@ class ServiceAllocationItem extends React.Component {
   }
 
   render() {
+    /* eslint eqeqeq: "off" */
     // const { classes } = this.props;
     const classes = useStyles;
 
@@ -53,12 +40,7 @@ class ServiceAllocationItem extends React.Component {
           {photo ? (
             <Avatar align="left" className="size-50" alt="..." src={photo} />
           ) : (
-            <Avatar
-              align="left"
-              className="size-50"
-              alt="..."
-              src="https://pngimage.net/wp-content/uploads/2018/05/admin-avatar-png-1.png"
-            />
+            <Avatar align="left" className="size-50" alt="..." src="https://pngimage.net/wp-content/uploads/2018/05/admin-avatar-png-1.png" />
           )}
         </div>
 
@@ -89,7 +71,7 @@ class ServiceAllocationItem extends React.Component {
                 textColorPrimary="secondary	"
                 icon={
                   <div className=" justify-content-start align-items-center ">
-                    {this.props.languageId == 'tunisia' ? (
+                    {this.props.languageId === 'tunisia' ? (
                       <h3>
                         {name_ar} {surname_ar}{' '}
                       </h3>
@@ -161,13 +143,7 @@ class ServiceAllocationItem extends React.Component {
                 icon={
                   <div>
                     {services.map((element, index) => {
-                      return (
-                        <i
-                          key={index}
-                          className={`${element.service_v2.path_img_service}`}
-                          style={{ color: 'primary' }}
-                        ></i>
-                      );
+                      return <i key={index} className={`${element.service_v2.path_img_service}`} style={{ color: 'primary' }}></i>;
                     })}
                   </div>
                 }

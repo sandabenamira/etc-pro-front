@@ -3,21 +3,12 @@ import IntlMessages from '../../../../../util/IntlMessages';
 import Auxiliary from '../../../../../util/Auxiliary';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
-import CardBox from '../../../../../components/CardBox/index';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
 import { UncontrolledAlert } from 'reactstrap';
-
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/moment';
 import { TimePicker } from '@material-ui/pickers';
 import { connect } from 'react-redux';
-import { subjectsByLevelBySection } from '../../../../../actions/subjectAction';
-import moment from 'moment';
-import { roleIdProfessor } from '../../../../../config/config';
-import _ from 'lodash';
-import Can from '../../../../../can';
-import { RoleContext } from '../../../../../Context';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from 'react-select';
@@ -32,6 +23,7 @@ class EditHomework extends Component {
   }
 
   render() {
+    /* eslint eqeqeq: "off" */
     const {
       values,
       handleChange,
@@ -145,9 +137,7 @@ class EditHomework extends Component {
                         }),
                       }}
                     />
-                    <FormHelperText error={values.errorClass}>
-                      {values.errorClass && <IntlMessages id="component.required_fields" />}
-                    </FormHelperText>
+                    <FormHelperText error={values.errorClass}>{values.errorClass && <IntlMessages id="component.required_fields" />}</FormHelperText>
                   </div>
                 </div>
 

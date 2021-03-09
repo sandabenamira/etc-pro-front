@@ -135,7 +135,7 @@ export class EditService extends React.Component {
     this.props.cancel();
   }
   handleChange = (name) => (event) => {
-    if (name == "name_fr_service") {
+    if (name==="name_fr_service") {
       let nameError = false;
 
       if (this.props.data.name_fr_service === event.target.value.trim()) {
@@ -258,7 +258,7 @@ export class EditService extends React.Component {
     }
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let element = this.state;
 
     let currencies = [];
@@ -560,7 +560,7 @@ export class EditService extends React.Component {
                       <IntlMessages id="components.establishments.formadd.buttonCancel" />
                     </Button>
                   </Col>
-                  {element.status_service == false ? (
+                  {element.status_service===false ? (
                     <Col>
                       <Button
                         variant="contained"

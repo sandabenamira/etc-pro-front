@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
-import _ from 'lodash';
-import { getNameFromID } from '../../../../../actions/countriesAction';
-export default class AgenceItem extends Component {
-  render() {
+/* eslint eqeqeq: "off" */
+  export default class AgenceItem extends Component {
+  render() {   /* eslint eqeqeq: "off" */
     const { agenceItem } = this.props;
     return (
       <TableRow key={agenceItem.id}>
@@ -16,7 +15,7 @@ export default class AgenceItem extends Component {
         <TableCell>{agenceItem.agency_mail}</TableCell>
         <TableCell>{agenceItem.agency_fax}</TableCell>
         <TableCell>{agenceItem.agency_tel}</TableCell>
-        {this.props.archived == false ? (
+        {this.props.archived===false ? (
           <TableCell>
             <IconButton
               size="medium"

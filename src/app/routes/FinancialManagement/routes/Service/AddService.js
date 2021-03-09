@@ -28,7 +28,7 @@ class AddService extends React.Component {
   
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
    const {values} = this.props
     return (
       <div>

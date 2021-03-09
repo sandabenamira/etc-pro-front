@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import NewsItem from "./NewsItem";
 
 class NewsList extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <div className="flex-row mb-3">

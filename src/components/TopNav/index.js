@@ -4,7 +4,7 @@ import Menu from '../../components/TopNav/Menu';
 
 class TopNav extends React.Component {
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className={`app-top-nav d-none d-md-block ${this.props.styleName}`}>
         <div className="d-flex app-toolbar align-items-center">

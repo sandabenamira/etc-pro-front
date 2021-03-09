@@ -26,12 +26,12 @@ class EditCafeteriaMenu extends Component {
   }
   checkDate = (date) => {
     const result = this.props.MenuList.filter(
-      (menu) => moment(menu.menu_date).format('LL') == moment(date).format('LL')
+      (menu) => moment(menu.menu_date).format('LL')===moment(date).format('LL')
     );
 
     return result;
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {
       values,
       addIsopen,
@@ -42,10 +42,10 @@ class EditCafeteriaMenu extends Component {
     } = this.props;
 
     var disabled =
-      values.dessert == '' ||
+      values.dessert==='' ||
       values.prix === '' ||
-      values.entree == '' ||
-      values.suite == '';
+      values.entree==='' ||
+      values.suite==='';
     var result = this.checkDate(values.menu_date);
 
     return (
@@ -197,8 +197,8 @@ class EditCafeteriaMenu extends Component {
                       }, 2000);
                     } else {
                       if (
-                        (result.length == 1 && result[0].id == values.id) ||
-                        result.length == 0
+                        (result.length===1 && result[0].id===values.id) ||
+                        result.length===0
                       ) {
                         this.props.editCafeteriaMenu();
                       } else {

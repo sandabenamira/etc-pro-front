@@ -3,7 +3,7 @@ import Jitsi from 'react-jitsi'
 
 export default class JitsiComponent extends Component {
 
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         return (
             <div>
                 <Jitsi

@@ -10,7 +10,7 @@ export default class EditGroupes extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
     console.log(values.itemEdit, 'itemEdit');
     return (

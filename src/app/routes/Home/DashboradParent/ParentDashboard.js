@@ -10,7 +10,7 @@ import TimerView from '../../../../components/dashboard/Common/TimerView/index';
 
 // components/dashboard/Common/DailyFeed/index
 class ParentDashboard extends Component {
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         return (
             <div className="app-wrapper">
                 <div className="animated slideInUpTiny animation-duration-3">

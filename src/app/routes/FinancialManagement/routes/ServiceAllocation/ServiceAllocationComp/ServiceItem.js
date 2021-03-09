@@ -29,9 +29,9 @@ export default class ServiceItem extends Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     var colorIcon;
-    if (this.state.color == true) {
+    if (this.state.color===true) {
       colorIcon = "blue";
     } else {
       colorIcon = "black";

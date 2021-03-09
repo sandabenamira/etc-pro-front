@@ -17,7 +17,7 @@ class ArchiveClassesSettings extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <div className="d-flex justify-content-start align-items-center ">

@@ -4,7 +4,7 @@ import EventItem from "./EventItem";
 
 class Events extends Component {
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <div className="flex-row mb-3">

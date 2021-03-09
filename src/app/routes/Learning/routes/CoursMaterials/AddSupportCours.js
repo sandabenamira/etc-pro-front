@@ -33,15 +33,15 @@ class AddSupportCours extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     // eslint-disable-next-line
     const { values } = this.props;
     let name =
-      this.props.informationsAdd.surnameProf == '0'
+      this.props.informationsAdd.surnameProf==='0'
         ? 'non affectée'
         : this.props.informationsAdd.nameProf;
     let surname =
-      this.props.informationsAdd.surnameProf == '0' ? ' ' : this.props.informationsAdd.surnameProf;
+      this.props.informationsAdd.surnameProf==='0' ? ' ' : this.props.informationsAdd.surnameProf;
     let nameSurnameProf = name + ' ' + surname;
 
     var classList = this.props.courseAssignmentList;
@@ -566,7 +566,7 @@ class AddSupportCours extends React.Component {
                   </Button>
                   &nbsp;&nbsp;
                   <Button
-                    disabled={values.assignmentIds.length == 0}
+                    disabled={values.assignmentIds.length===0}
                     variant="contained"
                     style={{
                       borderBottomLeftRadius: '16px',

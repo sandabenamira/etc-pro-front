@@ -27,7 +27,7 @@ class YourDailyFeed extends Component {
     ],
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {feeds} = this.state;
     return (
 

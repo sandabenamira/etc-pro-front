@@ -140,7 +140,7 @@ class IntegrationAutosuggest extends React.Component {
     });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {classes} = this.props;
 
     return (

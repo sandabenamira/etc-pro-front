@@ -145,8 +145,8 @@ class SchoolLicenceList extends React.Component {
     e.preventDefault();
     let checkDoubleLicence = this.props.schoolLicences.filter(
       (element) =>
-        element.fk_id_establishment == this.state.fk_id_establishment &&
-        element.fk_id_school_year == this.state.fk_id_school_year &&
+        element.fk_id_establishment===this.state.fk_id_establishment &&
+        element.fk_id_school_year===this.state.fk_id_school_year &&
         element.id != this.state.id
     );
 
@@ -170,7 +170,7 @@ class SchoolLicenceList extends React.Component {
     this.handleCancel();
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="table-responsive-material">
         <div>

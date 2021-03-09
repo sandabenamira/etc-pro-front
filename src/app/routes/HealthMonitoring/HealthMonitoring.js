@@ -208,9 +208,9 @@ class HealthMonitoring extends React.Component {
   handleCheck = (event) => {
     var tab = this.state.checkedValues;
     var test = this.state.checkedValues.findIndex(
-      (element) => element == event.target.value
+      (element) => element===event.target.value
     );
-    if (test == -1) {
+    if (test===-1) {
       tab.push(parseInt(event.target.value, 10));
       this.setState({ checkedValues: tab });
     } else {
@@ -374,7 +374,7 @@ class HealthMonitoring extends React.Component {
     this.setState({ levelsbyestablishment: this.props.ClassLevels });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper">
         <ContainerHeader
@@ -433,7 +433,7 @@ class HealthMonitoring extends React.Component {
                           >
                             {/* {this.state.establishments.map(establishment => (
                             <MenuItem key={establishment.id} value={establishment.id}>
-                              {this.props.settings == "tunisia" ? establishment.ar_name : establishment.name}
+                              {this.props.settings==="tunisia" ? establishment.ar_name : establishment.name}
                             </MenuItem>
                           ))} */}
                           </TextField>
@@ -460,9 +460,9 @@ class HealthMonitoring extends React.Component {
                         </MenuItem>
                         {this.props.classLevels.map((level) => (
                           <MenuItem key={level.id} value={level.id}>
-                            {this.props.settings.languageId == "tunisia"
+                            {this.props.settings.languageId==="tunisia"
                               ? level.name_AR
-                              : this.props.settings.languageId == "french"
+                              : this.props.settings.languageId==="french"
                               ? level.name_FR
                               : level.name_EN}
                             {/* {level.name} */}

@@ -11,7 +11,7 @@ export default class EditLevel extends React.Component {
     this.state = {
     };
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      return (
       <Auxiliary>
         <Modal isOpen={this.props.isOpen} toggle={this.props.handleToggle}>

@@ -38,7 +38,7 @@ export default class BooksManagement extends Component {
     this.setState({ isOpenReservationModal: true });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <div className="d-flex flex-wrap flex-column bd-highlight mb-3">

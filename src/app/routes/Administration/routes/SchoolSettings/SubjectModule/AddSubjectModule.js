@@ -13,7 +13,7 @@ export default class AddSubjectModule extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <form autoComplete="off" onSubmit={this.props.handleSubmit}>

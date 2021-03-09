@@ -12,7 +12,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { getServiceV2 } from '../../../../../actions/ServiceAction';
 import { getAllocationServiceByEstablishment } from '../../../../../actions/AllocationServiceAction';
-import _ from 'lodash';
 import { UncontrolledAlert } from 'reactstrap';
 import { fetchStudentByEstablishmentId } from '../../../../../actions/studentAction';
 import CardBox from '../../../../../components/CardBox/index';
@@ -162,7 +161,7 @@ class ServiceAllocation extends React.Component {
     }));
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      
     let { services, classLevels } = this.props;
     let { classesList, sections, allocationServicesList } = this.state;
@@ -172,7 +171,7 @@ class ServiceAllocation extends React.Component {
     // let serviceAllocated = _.intersectionWith(
     //   services,
     //   allserviceAllocated,
-    //   (a, b) => a.id == b.fk_id_service
+    //   (a, b) => a.id===b.fk_id_service
     // );
 
     let detailCards = [

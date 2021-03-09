@@ -33,7 +33,7 @@ export default function asyncComponent(importComponent) {
       }
     }
 
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
       const Component = this.state.component ||
         <div className="loader-view"
              style={{height: 'calc(100vh - 200px)'}}>

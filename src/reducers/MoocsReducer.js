@@ -4,8 +4,7 @@ import {
   EDIT_MOOCS,
   DELETE_MOOCS,
   ARCHIVED_GET_MOOCS,
-  GET_MOOCS_DETAILS,
-  SHOW_LOADER,
+   SHOW_LOADER,
   HIDE_LOADER
 } from "../constants/ActionTypes";
 
@@ -46,7 +45,7 @@ export default function(state = initialState, action) {
   }
   if (action.type === DELETE_MOOCS) {
     let itemDeleted = state.remoteMoocs.find(
-      (element) => element.id == action.payload
+      (element) => element.id===action.payload
     );
  
     return Object.assign({}, state, {

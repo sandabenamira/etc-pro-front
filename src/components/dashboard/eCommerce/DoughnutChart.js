@@ -7,7 +7,7 @@ import {Doughnut} from 'react-chartjs-2';
 
 class DoughnutChart extends Component {
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const data = (canvas) => {
       const ctx = canvas.getContext("2d");
       const _stroke = ctx.stroke;

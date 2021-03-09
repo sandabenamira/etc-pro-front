@@ -4,7 +4,7 @@ import { userSignOut } from '../../actions/Auth';
 import IntlMessages from '../../util/IntlMessages';
 
 class UserInfoPopup extends React.Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <div className="user-profile">

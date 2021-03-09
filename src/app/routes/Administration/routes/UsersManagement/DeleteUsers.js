@@ -12,7 +12,7 @@ export default class DeleteUsers extends Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Dialog open={this.props.deleteIsopen} TransitionComponent={Slide}>
         <DialogContent>

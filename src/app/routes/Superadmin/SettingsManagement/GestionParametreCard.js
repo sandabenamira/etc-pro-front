@@ -28,7 +28,7 @@ class GestionParametreCard extends React.Component {
     }));
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { chartProperties, isHide, children } = this.state;
     const { prize, title, styleName, bgColor, icon } = chartProperties;
     return (

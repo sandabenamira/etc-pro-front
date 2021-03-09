@@ -18,7 +18,7 @@ class SupportCoursListItems extends Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { cours } = this.props;
     let pathMoocs =
       cours.moocsList[0] === undefined

@@ -59,6 +59,7 @@ const listRolesUsers = [
     labelBackEnd: 'Participant',
   },
 ];
+/* eslint eqeqeq: "off" */
 class UsersListItem extends Component {
   constructor(props) {
     super(props);
@@ -87,17 +88,17 @@ class UsersListItem extends Component {
   handleOpenDetails() {
     this.setState({ menuState: false, openDetails: true });
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { user } = this.props;
     let listSubjectStudent = [];
     let listClassProf = [];
     let roleNameUser = '';
-    let roleUser = listRolesUsers.find((element) => element.id == user.roleId);
+    let roleUser = listRolesUsers.find((element) => element.id===user.roleId);
     if (roleUser != undefined) {
       roleNameUser = roleUser.label;
     }
 
-    if (this.props.roleIdFilter == roleIdProfessor) {
+    if (this.props.roleIdFilter===roleIdProfessor) {
       listSubjectStudent = _.uniqBy(user.inforamtionsProf, 'subjectName');
       listClassProf = _.uniqBy(user.inforamtionsProf, 'classname');
     }
@@ -113,37 +114,37 @@ class UsersListItem extends Component {
           </TableCell>
           <TableCell>{user.name}</TableCell>
           <TableCell>{user.surname}</TableCell>
-          {this.props.roleIdFilter == 0 ? <TableCell>{roleNameUser}</TableCell> : null}
+          {this.props.roleIdFilter===0 ? <TableCell>{roleNameUser}</TableCell> : null}
           {/* ------------     affichage classe et matiére pour prof -------------------------------------------*/}
-          {this.props.roleIdFilter == roleIdProfessor ? (
+          {this.props.roleIdFilter===roleIdProfessor ? (
             <TableCell>{listSubjectStudent.map((element, index) => element.subjectName + ' , ')}</TableCell>
           ) : null}
-          {this.props.roleIdFilter == roleIdProfessor ? <TableCell>{listClassProf.map((element) => element.classname + ' , ')}</TableCell> : null}
+          {this.props.roleIdFilter===roleIdProfessor ? <TableCell>{listClassProf.map((element) => element.classname + ' , ')}</TableCell> : null}
           {/* ------------     affichage classe et parent pour student -------------------------------------------*/}
-          {this.props.roleIdFilter == roleIdStudent ? <TableCell>{user.agencyName}</TableCell> : null}
-          {this.props.roleIdFilter == roleIdStudent ? (
+          {this.props.roleIdFilter===roleIdStudent ? <TableCell>{user.agencyName}</TableCell> : null}
+          {this.props.roleIdFilter===roleIdStudent ? (
             <TableCell>
-              {user.parentId.length == 0 ? 'Non Affécté' : user.parentId.map((element) => element.parentName + ' ' + element.parentLastName)}
+              {user.parentId.length===0 ? 'Non Affécté' : user.parentId.map((element) => element.parentName + ' ' + element.parentLastName)}
             </TableCell>
           ) : null}
-          {this.props.roleIdFilter == roleIdStudent ? (
+          {this.props.roleIdFilter===roleIdStudent ? (
             <TableCell>
-              {user.inforamtionsStudent.length == 0
+              {user.inforamtionsStudent.length===0
                 ? 'Non Affécté'
                 : user.inforamtionsStudent.map((element) => (element.classname === null ? 'Non Affécté' : element.classname + ' , '))}
             </TableCell>
           ) : null}
           {/* ------------     affichage enfant et classe pour parent -------------------------------------------*/}
 
-          {this.props.roleIdFilter == roleIdParent ? (
+          {this.props.roleIdFilter===roleIdParent ? (
             <TableCell align="justify">
               {user.agencyName}
               {/* <div className="d-flex flex-column align-items-right">
-                {user.inforamtionsParent.length == 0
+                {user.inforamtionsParent.length===0
                   ? "Non Affecté"
                   : user.inforamtionsParent.map((element) => (
                       <div>
-                        {element.studentClassName == null
+                        {element.studentClassName===null
                           ? "Non Affecté"
                           : element.studentClassName}
                       </div>
@@ -151,10 +152,10 @@ class UsersListItem extends Component {
               </div>{" "} */}
             </TableCell>
           ) : null}
-          {this.props.roleIdFilter == roleIdParent ? (
+          {this.props.roleIdFilter===roleIdParent ? (
             <TableCell align="justify">
               <div className="d-flex flex-column align-items-right">
-                {user.inforamtionsParent.length == 0
+                {user.inforamtionsParent.length===0
                   ? 'Non Affecté'
                   : user.inforamtionsParent.map((element) => (
                       <div>
@@ -165,10 +166,10 @@ class UsersListItem extends Component {
             </TableCell>
           ) : null}
           {/* ------------     éliminer colonne email  -------------------------------------------*/}
-          {this.props.roleIdFilter == roleIdAdmin ||
-          this.props.roleIdFilter == roleIdDirector ||
-          this.props.roleIdFilter == roleIdSupervisor ||
-          this.props.roleIdFilter == 0 ? (
+          {this.props.roleIdFilter===roleIdAdmin ||
+          this.props.roleIdFilter===roleIdDirector ||
+          this.props.roleIdFilter===roleIdSupervisor ||
+          this.props.roleIdFilter===0 ? (
             <TableCell>{user.email}</TableCell>
           ) : null}
           <TableCell>{user.phone}</TableCell>

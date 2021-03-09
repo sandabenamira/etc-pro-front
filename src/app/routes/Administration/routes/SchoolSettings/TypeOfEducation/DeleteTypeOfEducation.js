@@ -6,13 +6,14 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
+/* eslint eqeqeq: "off" */
 export default class DeleteTypeOfEducation extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Dialog open={this.props.deleteIsopen} TransitionComponent={Slide}>
         <DialogContent>

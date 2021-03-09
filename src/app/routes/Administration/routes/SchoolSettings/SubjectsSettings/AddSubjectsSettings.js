@@ -14,7 +14,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import { GithubPicker } from 'react-color';
 import InputLabel from '@material-ui/core/InputLabel';
 export default class AddSubjectsSettings extends React.Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <form autoComplete="off" onSubmit={this.props.handleSubmit}>

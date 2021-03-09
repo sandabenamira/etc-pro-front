@@ -63,7 +63,7 @@ class ColorOption extends React.Component {
     this.setState({drawerStatus: !this.state.drawerStatus});
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {themeColor, darkTheme, isDirectionRTL} = this.props;
     return (
 

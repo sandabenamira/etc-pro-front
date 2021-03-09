@@ -83,7 +83,7 @@ class UserInfo extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const establishmentName = this.state.establishmentName;
     const user = JSON.parse(localStorage.getItem('user'));
     return (

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import IconButton from "@material-ui/core/IconButton";
-import _ from "lodash";
 import moment from "moment";
 import Avatar from "@material-ui/core/Avatar";
 import defaultAvatar from "../../../../../assets/images/default-Avatar.png";
@@ -15,7 +14,7 @@ import Typography from "@material-ui/core/Typography";
 
 
 export default class BookItem extends Component {
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         return (
             
              <>

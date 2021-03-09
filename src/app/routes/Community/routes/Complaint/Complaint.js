@@ -31,7 +31,7 @@ export default class Complaint extends Component {
     this.setState({ isOpenReservationModal: true });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <div className="d-flex flex-wrap flex-column bd-highlight mb-3">
@@ -207,7 +207,7 @@ export default class Complaint extends Component {
 //   handleChange = (name) => (event) => {
 //     this.setState({ [name]: event.target.value });
 //   };
-//   render() {
+//   render() {   /* eslint eqeqeq: "off" */
 //     return (
 //       <div>
 //         <div className="app-wrapper">

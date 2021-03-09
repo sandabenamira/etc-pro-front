@@ -121,7 +121,7 @@ class SupportCours extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { settings } = this.props;
     const useStyles = makeStyles((theme) => ({
       root: {
@@ -294,9 +294,9 @@ class SupportCours extends React.Component {
                             let subjectName = subject.subjectName;
                             let assignementId = subject.assignementClassSubject;
                             let surnameProf =
-                              subject.prof === undefined ? 0 : subject.prof[0] == undefined ? 0 : subject.prof[0].profile.user.surname;
-                            let nameProf = subject.prof === undefined ? 0 : subject.prof[0] == undefined ? 0 : subject.prof[0].profile.user.name;
-                            let profId = subject.prof === undefined ? 0 : subject.prof[0] == undefined ? 0 : subject.prof[0].id;
+                              subject.prof === undefined ? 0 : subject.prof[0]===undefined ? 0 : subject.prof[0].profile.user.surname;
+                            let nameProf = subject.prof === undefined ? 0 : subject.prof[0]===undefined ? 0 : subject.prof[0].profile.user.name;
+                            let profId = subject.prof === undefined ? 0 : subject.prof[0]===undefined ? 0 : subject.prof[0].id;
 
                             return (
                               <div key={index} class="col-md-4 col-lg-3 col-sm-6">

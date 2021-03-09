@@ -31,6 +31,7 @@ const listRole = [
   { id: roleIdStudent, label: <IntlMessages id={`userStuppDisplay.Student`} /> },
   { id: roleIdParent, label: <IntlMessages id={`userStuppDisplay.Parent`} /> },
 ];
+/* eslint eqeqeq: "off" */
 export class PermissionList extends Component {
   constructor(props) {
     super(props);
@@ -118,7 +119,7 @@ export class PermissionList extends Component {
       listPermissions: newListPermissions,
     });
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
     return (
       <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column bd-highlight mb-3 ">

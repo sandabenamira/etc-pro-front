@@ -8,9 +8,9 @@ import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormHelperText from "@material-ui/core/FormHelperText";
-
+/* eslint eqeqeq: "off" */
 export class AddCallRegisterSetting extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-column bd-highlight mb-3 ">
         <CardBox styleName="col-md-6 col-lg-6 col-sm-12">
@@ -173,9 +173,9 @@ export class AddCallRegisterSetting extends Component {
                         <div className="d-flex flex-column bd-highlight mb-3">
                           {this.props.observations.map((observation, index) => (
                             <div className=" bd-highlight " key={index}>
-                              {this.props.settings.languageId == "tunisia"
+                              {this.props.settings.languageId==="tunisia"
                                 ? observation.name_ar
-                                : this.props.settings.languageId == "french"
+                                : this.props.settings.languageId==="french"
                                 ? observation.name_fr
                                 : observation.name_en}
                             </div>
@@ -237,9 +237,9 @@ export class AddCallRegisterSetting extends Component {
                         {this.props.encouragements.map(
                           (encouragement, index) => (
                             <div className=" bd-highlight " key={index}>
-                              {this.props.settings.languageId == "tunisia"
+                              {this.props.settings.languageId==="tunisia"
                                 ? encouragement.name_ar
-                                : this.props.settings.languageId == "french"
+                                : this.props.settings.languageId==="french"
                                 ? encouragement.name_fr
                                 : encouragement.name_en}
                             </div>
@@ -298,9 +298,9 @@ export class AddCallRegisterSetting extends Component {
                       <div className="d-flex flex-column bd-highlight mb-3">
                         {this.props.sanctions.map((sanction, index) => (
                           <div className=" bd-highlight " key={index}>
-                            {this.props.settings.languageId == "tunisia"
+                            {this.props.settings.languageId==="tunisia"
                               ? sanction.name_ar
-                              : this.props.settings.languageId == "french"
+                              : this.props.settings.languageId==="french"
                               ? sanction.name_fr
                               : sanction.name_en}
                           </div>

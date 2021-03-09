@@ -18,7 +18,7 @@ export default class EditMoocs extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      
     const { values } = this.props;
    

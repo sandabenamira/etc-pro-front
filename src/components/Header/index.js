@@ -236,7 +236,7 @@ class Header extends React.Component {
     );
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { drawerType, locale, navigationStyle, horizontalNavPosition, languageId } = this.props;
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'd-block d-xl-none'

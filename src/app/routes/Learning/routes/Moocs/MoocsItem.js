@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import axios from 'axios';
-import IntlMessages from '../../../../../util/IntlMessages';
-import baseUrl from '../../../../../config/config';
-import _ from 'lodash';
-import { connect } from 'react-redux';
+ import IntlMessages from '../../../../../util/IntlMessages';
+ import { connect } from 'react-redux';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
-import StarRatingComponent from 'react-star-rating-component';
-import prof from '../VirtualClasses/./Assets/prof1.jpg';
-import { roleIdSuperAdmin } from '../../../../../config/config';
-import { roleIdAdmin } from '../../../../../config/config';
-import { roleIdProfessor } from '../../../../../config/config';
+ 
+ 
 import { NavLink } from 'react-router-dom';
 import Can from '../../../../../can';
 import { RoleContext } from '../../../../../Context';
-import moocsPoster from './Assets/moocsPoster.jpg';
-import HoverVideoPlayer from 'react-hover-video-player';
-import img1 from './Assets/img1.jpg';
-import img2 from './Assets/img2.jpg';
+ import HoverVideoPlayer from 'react-hover-video-player';
+ import img2 from './Assets/img2.jpg';
 import img3 from './Assets/img3.png';
 import img4 from './Assets/img4.jpg';
 class MoocsItem extends Component {
@@ -52,7 +44,7 @@ class MoocsItem extends Component {
     this.setState({ menuState: false });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { anchorEl, menuState } = this.state;
     const { moocsItem } = this.props;
     var things = [img2, img3, img4];

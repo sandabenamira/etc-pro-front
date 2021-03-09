@@ -6,7 +6,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import IntlMessages from "../../../../../../util/IntlMessages";
 import EditSubjectModules from "./EditSubjectModules";
-import _ from "lodash";
 import SubjectModulesListItem from "./SubjectModulesListItem";
 import DeleteSubject from "./DeleteSubject";
 import { connect } from "react-redux";
@@ -77,7 +76,7 @@ class SubjectModulesList extends React.Component {
     this.handleCancel();
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      return (
       <div className="table-responsive-material">
         <div>

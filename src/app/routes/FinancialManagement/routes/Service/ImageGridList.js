@@ -65,14 +65,14 @@ class ImageGridList extends React.Component {
 
     this.props.handleIcon(event.target.className);
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <GridList spacing={20} cellHeight={40}>
           <Grid container spacing={3}>
             {IconCode.map((code) => {
               let colorIcon;
-              if (this.state.className == code.name) {
+              if (this.state.className===code.name) {
                 colorIcon = 'blue';
               } else {
                 colorIcon = 'black';

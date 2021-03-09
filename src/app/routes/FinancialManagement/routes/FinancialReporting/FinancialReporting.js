@@ -9,7 +9,7 @@ class FinancialReporting extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div   className="app-wrapper justify-content-center  align-items-center"
       style={{

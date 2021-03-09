@@ -4,8 +4,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import PublishIcon from "@material-ui/icons/Publish";
-import { element } from "prop-types";
-import IntlMessages from "../../../../../util/IntlMessages";
+ import IntlMessages from "../../../../../util/IntlMessages";
 import DetailsService from "./DetailsService";
 import EditService from "./EditService";
 import {
@@ -74,7 +73,7 @@ export class ServiceItem extends Component {
   handleEdit() {
     this.setState({ menuState: false, openEdit: true });
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let element = this.props.item;
     const { anchorEl, menuState } = this.state;
 
@@ -131,7 +130,7 @@ export class ServiceItem extends Component {
                   {<IntlMessages id="button.modify" />}
                 </MenuItem>
 
-                {element.status_service == true ? (
+                {element.status_service===true ? (
                   <MenuItem onClick={this.handleArchive}>
                     <DeleteIcon />
                   </MenuItem>

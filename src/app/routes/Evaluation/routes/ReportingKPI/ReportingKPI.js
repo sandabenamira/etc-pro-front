@@ -10,7 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ContainerHeader from "../../../../../components/ContainerHeader/index";
 
 export default class ReportingKPI extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="d-flex flex-wrap justify-content-center flex-column align-items-center">
         <div className="col-lg-12 col-12">

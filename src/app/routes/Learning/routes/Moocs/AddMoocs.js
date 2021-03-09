@@ -23,7 +23,7 @@ class AddClassesSettings extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <RoleContext.Consumer>

@@ -214,10 +214,10 @@ class About extends React.Component {
         }
       });
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <>
-        {this.state.user.user == undefined ? (
+        {this.state.user.user===undefined ? (
           ' '
         ) : (
           <Widget styleName="jr-card-full jr-card-tabs-right jr-card-profile d-flex justify-content-start flex-wrap col-md-12 col-lg-6 col-sm-12">

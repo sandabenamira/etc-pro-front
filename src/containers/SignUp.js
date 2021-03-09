@@ -38,7 +38,7 @@ class SignUp extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {
       name,
       email,

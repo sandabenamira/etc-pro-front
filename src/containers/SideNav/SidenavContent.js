@@ -161,7 +161,7 @@ class SidenavContent extends Component {
         "msMatchesSelector",
         "oMatchesSelector",
       ].some(function(fn) {
-        if (typeof document.body[fn] == "function") {
+        if (typeof document.body[fn]==="function") {
           matchesFn = fn;
           return true;
         }
@@ -183,7 +183,7 @@ class SidenavContent extends Component {
     return null;
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const estabModule = this.props.estabModule;
     return (
       <CustomScrollbars className=" scrollbar">

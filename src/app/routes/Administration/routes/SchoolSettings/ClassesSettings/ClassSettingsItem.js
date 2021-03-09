@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
-import _ from 'lodash';
 import { getNameFromID } from '../../../../../../actions/countriesAction';
+/* eslint eqeqeq: "off" */
 export default class ClassSettingsItem extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { classItem } = this.props;
      return (
       <TableRow key={classItem.id}>
@@ -17,7 +17,7 @@ export default class ClassSettingsItem extends Component {
         <TableCell>{getNameFromID(this.props.levels, classItem.fk_id_level_v4)}</TableCell>
         <TableCell>{classItem.name}</TableCell>
         <TableCell>{classItem.name}</TableCell> */}
-        {this.props.archived == false ? (
+        {this.props.archived===false ? (
           <TableCell>
             <IconButton
               size="medium"

@@ -17,7 +17,7 @@ class PlanningCalendar extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { classes, values } = this.props;
     let startHours = '';
     let startMinutes = '';
@@ -129,7 +129,7 @@ class PlanningCalendar extends React.Component {
                                 name="itemAgence"
                                 select
                                 value={this.props.values.itemAgence || ''}
-                                value={this.props.values.itemAgence == '' ? '' : JSON.stringify(this.props.values.itemAgence)}
+                                value={this.props.values.itemAgence==='' ? '' : JSON.stringify(this.props.values.itemAgence)}
                                 onChange={this.props.handleChangeAgence('itemAgence')}
                                 SelectProps={{}}
                                 label={'Agence'}

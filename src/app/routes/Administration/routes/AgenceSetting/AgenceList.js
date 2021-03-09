@@ -11,11 +11,10 @@ import {
   deleteAgence,
   editAgence,
 } from "../../../../../actions/AgenceSettingsAction";
-import _ from "lodash";
 import EditAgence from "./EditAgence";
 import DeleteAgence from "./DeleteAgence";
 
-
+/* eslint eqeqeq: "off" */
 class AgenceList extends Component {
   constructor(props) {
     super(props);
@@ -71,8 +70,8 @@ class AgenceList extends Component {
       nameAgence: item.name,
       typeAgence: item.agency_type,
       gouvernoratAgence: item.agency_gouvernorat,
-      faxAgence: item.agency_fax == null ? "" : "+" + item.agency_fax,
-      telAgence: item.agency_tel == null ? "" : "+" + item.agency_tel,
+      faxAgence: item.agency_fax===null ? "" : "+" + item.agency_fax,
+      telAgence: item.agency_tel===null ? "" : "+" + item.agency_tel,
       emailAgence: item.agency_mail,
       adresseAgence: item.agency_address,
     });
@@ -108,7 +107,7 @@ class AgenceList extends Component {
     this.props.editAgence(data, this.state.id);
     this.handleCancel();
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="table-responsive-material">
         <div>

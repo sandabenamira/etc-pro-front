@@ -10,7 +10,7 @@ import IntlMessages from "../../../../../util/IntlMessages";
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 
 export default class ReservationList extends Component {
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         return (
             <div className="table-responsive-material">
             <div>

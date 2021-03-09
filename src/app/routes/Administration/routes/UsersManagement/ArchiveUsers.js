@@ -15,7 +15,7 @@ class ArchiveUsers extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="table-responsive-material">
         <div>

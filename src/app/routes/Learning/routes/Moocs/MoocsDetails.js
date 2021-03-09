@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import IntlMessages from '../../../../../util/IntlMessages';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import { NavLink } from 'react-router-dom';
-import { Card, CardTitle } from 'reactstrap';
-import moocsPoster from './Assets/moocsPoster.jpg';
+ import moocsPoster from './Assets/moocsPoster.jpg';
 
 class MoocsDetails extends Component {
   constructor(props) {
@@ -18,22 +16,22 @@ class MoocsDetails extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.listMoocs !== this.props.listMoocs) {
       let itemMoocs = this.props.listMoocs.find(
-        (element) => element.id == this.props.match.params.moocsId
+        (element) => element.id===this.props.match.params.moocsId
       );
       this.setState({ itemMoocs });
     }
   }
   componentWillMount() {
     let itemMoocs = this.props.listMoocs.find(
-      (element) => element.id == this.props.match.params.moocsId
+      (element) => element.id===this.props.match.params.moocsId
     );
     this.setState({ itemMoocs });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let moocsItem = {};
     moocsItem = this.state.itemMoocs;
-    if (moocsItem == undefined) {
+    if (moocsItem===undefined) {
       return <h1 style={{ textAlign: 'center' }}>MOOCs non disponible</h1>;
     } else {
       return (
@@ -130,7 +128,7 @@ class MoocsDetails extends Component {
                       </span>
                     </div>
                   </div>
-                  {moocsItem.prerequiste == '' ? (
+                  {moocsItem.prerequiste==='' ? (
                     <h3 className="text-center  text-primary">
                       {' '}
                       <IntlMessages id="prerequis" />{' '}

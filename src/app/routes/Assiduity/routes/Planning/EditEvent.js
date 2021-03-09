@@ -34,7 +34,7 @@ class EditEvent extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     // console.log('----this.props.values.startHours-------',this.props.values.startHours);
     // console.log('----this.props.values.endHours-------',this.props.values.endHours);
 
@@ -70,7 +70,7 @@ class EditEvent extends React.Component {
                   <div className="p-2 bd-highlight">
                     <div className="d-flex flex-row mb-4 ml-5">
                       <div className="p-2 bd-highlight">
-                        {this.props.values.EventGategorie == 1 ? (
+                        {this.props.values.EventGategorie===1 ? (
                           <Nav className="jr-tabs-pills-ctr" pills>
                             <NavItem>
                               <NavLink
@@ -237,7 +237,7 @@ class EditEvent extends React.Component {
                             </FormHelperText>
                           </div>
                         </div>
-                      ) : this.props.values.eventType == 'schoolVacation' ? (
+                      ) : this.props.values.eventType==='schoolVacation' ? (
                         <div className=" d-flex flex-row ">
                           <div className="col-md-6">
                             <div className="form-group">
@@ -289,7 +289,7 @@ class EditEvent extends React.Component {
                             </div>
                           </div>
                         </div>
-                      ) : this.props.values.eventType == 'holidays' ? (
+                      ) : this.props.values.eventType==='holidays' ? (
                         <div className=" d-flex flex-row justify-content-center ">
                           <div className="col-md-12">
                             <div className="form-group">
@@ -392,7 +392,7 @@ class EditEvent extends React.Component {
                             </span>
                           </li>
                         </div>
-                      ) : this.props.values.EventGategorie == 0 ? (
+                      ) : this.props.values.EventGategorie===0 ? (
                         <div className="p-2 bd-highlight">
                           <li className="media">
                             <i className="zmdi zmdi-accounts zmdi-hc-fw zmdi-hc-lg text-primary align-self-center" />
@@ -508,8 +508,8 @@ class EditEvent extends React.Component {
                       <span className="media-body">
                         <div className="d-flex flex-row ml-3">
                           <IntlMessages id="components.event.with.class" /> :{' '}
-                          {this.props.values.eventType == 'schoolVacation' ||
-                          this.props.values.eventType == 'holidays' ? (
+                          {this.props.values.eventType==='schoolVacation' ||
+                          this.props.values.eventType==='holidays' ? (
                             <IntlMessages id="components.event.with.class.all" />
                           ) : (
                             this.props.values.classe.name

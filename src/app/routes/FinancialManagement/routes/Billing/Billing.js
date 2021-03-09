@@ -47,7 +47,7 @@ class Billing extends React.Component {
 
     if (this.state.month !== "" && this.props.billReducer.length > 0) {
       let listBills = this.props.billReducer.filter(
-        (element) => element.bill.month == this.state.month
+        (element) => element.bill.month===this.state.month
       );
       this.setState({ listBills });
     } else {
@@ -68,7 +68,7 @@ class Billing extends React.Component {
     ) {
       if (this.state.month !== "" && this.props.billReducer.length > 0) {
         let listBills = this.props.billReducer.filter(
-          (element) => element.bill.month == this.state.month
+          (element) => element.bill.month===this.state.month
         );
         this.setState({ listBills });
       } else {
@@ -85,13 +85,13 @@ class Billing extends React.Component {
   }
 
   handleChange = (name) => (event) => {
-    if (this.state.classLevelId == "" && this.state.classeId == "") {
+    if (this.state.classLevelId==="" && this.state.classeId==="") {
       let listBills = this.props.billReducer.filter(
         (element) =>
           _.head(element.service_v2).fk_id_schol_year_v2 === event.target.value
       );
       this.setState({ listBills, [name]: event.target.value });
-    } else if (this.state.classLevelId !== "" && this.state.classeId == "") {
+    } else if (this.state.classLevelId !== "" && this.state.classeId==="") {
       let listBills = this.props.billReducer.filter(
         (element) =>
           _.head(element.service_v2).fk_id_schol_year_v2 ===
@@ -99,7 +99,7 @@ class Billing extends React.Component {
           element.student.level_id === this.state.classLevelId
       );
       this.setState({ listBills, [name]: event.target.value });
-    } else if (this.state.classLevelId == "" && this.state.classeId !== "") {
+    } else if (this.state.classLevelId==="" && this.state.classeId !== "") {
       let listBills = this.props.billReducer.filter(
         (element) =>
           _.head(element.service_v2).fk_id_schol_year_v2 ===
@@ -162,7 +162,7 @@ class Billing extends React.Component {
   };
 
   changeMonth = (monthId) => (event) => {
-    if (this.state.month == monthId) {
+    if (this.state.month===monthId) {
       this.setState({
         month: "",
       });
@@ -173,7 +173,7 @@ class Billing extends React.Component {
     }
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let { classLevels, classes, schoolYears } = this.props;
     let { classesList, listBills, sections } = this.state;
     let detailCards = [
@@ -222,7 +222,7 @@ class Billing extends React.Component {
                   id="1"
                   variant="contained"
                   className={
-                    this.state.month == "1"
+                    this.state.month==="1"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -235,7 +235,7 @@ class Billing extends React.Component {
                   id="2"
                   variant="contained"
                   className={
-                    this.state.month == "2"
+                    this.state.month==="2"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -248,7 +248,7 @@ class Billing extends React.Component {
                   id="3"
                   variant="contained"
                   className={
-                    this.state.month == "3"
+                    this.state.month==="3"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -261,7 +261,7 @@ class Billing extends React.Component {
                   id="4"
                   variant="contained"
                   className={
-                    this.state.month == "4"
+                    this.state.month==="4"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -274,7 +274,7 @@ class Billing extends React.Component {
                   id="5"
                   variant="contained"
                   className={
-                    this.state.month == "5"
+                    this.state.month==="5"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -287,7 +287,7 @@ class Billing extends React.Component {
                   id="6"
                   variant="contained"
                   className={
-                    this.state.month == "6"
+                    this.state.month==="6"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -302,7 +302,7 @@ class Billing extends React.Component {
                   id="7"
                   variant="contained"
                   className={
-                    this.state.month == "7"
+                    this.state.month==="7"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -315,7 +315,7 @@ class Billing extends React.Component {
                   id="8"
                   variant="contained"
                   className={
-                    this.state.month == "8"
+                    this.state.month==="8"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -328,7 +328,7 @@ class Billing extends React.Component {
                   id="9"
                   variant="contained"
                   className={
-                    this.state.month == "9"
+                    this.state.month==="9"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -341,7 +341,7 @@ class Billing extends React.Component {
                   id="10"
                   variant="contained"
                   className={
-                    this.state.month == "10"
+                    this.state.month==="10"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -354,7 +354,7 @@ class Billing extends React.Component {
                   id="11"
                   variant="contained"
                   className={
-                    this.state.month == "11"
+                    this.state.month==="11"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }
@@ -367,7 +367,7 @@ class Billing extends React.Component {
                   id="12"
                   variant="contained"
                   className={
-                    this.state.month == "12"
+                    this.state.month==="12"
                       ? "jr-btn bg-blue-grey text-white"
                       : "jr-btn bg-white"
                   }

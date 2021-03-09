@@ -191,8 +191,8 @@ class DetailsCallRegister extends React.Component {
 
   handleChangeOther(event, id, student) {
     event.preventDefault();
-    let observationSelected = this.state.observations.filter((observation) => observation.value == student.observation);
-    let encouragementSelected = this.state.encouragements.filter((encouragement) => encouragement.value == student.encouragement);
+    let observationSelected = this.state.observations.filter((observation) => observation.value===student.observation);
+    let encouragementSelected = this.state.encouragements.filter((encouragement) => encouragement.value===student.encouragement);
     this.setState({
       isOpen: true,
       sutdentId: id,
@@ -231,7 +231,7 @@ class DetailsCallRegister extends React.Component {
   }
 
   handleChangeSanction(event, id, student) {
-    let sanctionSelected = this.state.sanctions.filter((sanction) => sanction.value == student.sanction);
+    let sanctionSelected = this.state.sanctions.filter((sanction) => sanction.value===student.sanction);
     event.preventDefault();
     this.setState({
       isOpenSanction: true,
@@ -823,7 +823,7 @@ class DetailsCallRegister extends React.Component {
       this.setState({ sanctions: options });
     }
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
       url: this.props.match.url,
@@ -834,7 +834,7 @@ class DetailsCallRegister extends React.Component {
     const startDayTime = new Date('2020-11-30T07:00:00.000Z');
     const endDayTime = new Date('2020-11-30T17:00:00.000Z');
     let events = this.props.events ? this.props.events : [];
-    if (this.state.isRedirect == true) {
+    if (this.state.isRedirect===true) {
       if (this.props.userProfile.role_id === roleIdParent) {
         return <Redirect to={`/app/assiduity/call_register`} />;
       } else {
@@ -1181,7 +1181,7 @@ class DetailsCallRegister extends React.Component {
                       yes={() => (
                         <div className="d-flex justify-content-end mt-5">
                           <Button
-                            disabled={this.state.callRegister.length == 0}
+                            disabled={this.state.callRegister.length===0}
                             variant="contained"
                             style={{
                               borderBottomLeftRadius: '16px',

@@ -83,7 +83,7 @@ class PlanningCalendar extends React.Component {
     });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let startHours = '';
     let startMunites = '';
     let endHours = '';

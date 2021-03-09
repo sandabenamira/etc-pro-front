@@ -10,11 +10,11 @@ class LoaderModal extends Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {} = this.props;
     return (
       <div className="modal-backdrop d-flex justify-content-center align-items-center" style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
-        <Loader type="Circles" color="#3F51B5" height={100} width={100} visible={this.props.moocsLoading == true ? true : false} />
+        <Loader type="Circles" color="#3F51B5" height={100} width={100} visible={this.props.moocsLoading===true ? true : false} />
       </div>
     );
   }

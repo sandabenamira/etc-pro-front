@@ -241,7 +241,7 @@ data.object=this.state.InvoiceObject
   };
 
   handleChangeInput = (name) => (event) => {
-    if (name == "price") {
+    if (name==="price") {
       let priceError = false;
       priceError =
         this.state.billSelected.totalPayed < parseInt(event.target.value, 10);
@@ -289,7 +289,7 @@ data.object=this.state.InvoiceObject
       }
     }
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <>
         <div className="row col-lg-12 col-md-12">

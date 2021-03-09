@@ -9,7 +9,7 @@ class ArchiveMoocs extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div
       className="row col-lg-12 col-md-12 col-sm-6"

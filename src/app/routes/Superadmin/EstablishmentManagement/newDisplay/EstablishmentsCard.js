@@ -40,7 +40,7 @@ class EstablishmentsCard extends React.Component {
 
 
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { listEstablishment, editEstablishment, moduleList, countries, estabTypes } = this.props;
 
     return (

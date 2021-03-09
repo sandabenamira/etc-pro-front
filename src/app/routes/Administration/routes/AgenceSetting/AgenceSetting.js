@@ -80,7 +80,7 @@ class ClassesSettings extends React.Component {
     });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div
         className="app-wrapper"

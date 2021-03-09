@@ -76,7 +76,7 @@ class Contact extends React.Component {
     });
 
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
  
   
     const stuppUserContact = this.state.stuppUserConnected;

@@ -21,7 +21,7 @@ class AddAssignClassSubject extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
     return (
       <div>
@@ -111,7 +111,7 @@ class AddAssignClassSubject extends React.Component {
                           className={ClassNames({
                             'd-flex flex-row justify-content-end':
                               this.props.settings.locale !== 'ar',
-                            '': this.props.settings.locale == 'ar',
+                            '': this.props.settings.locale==='ar',
                           })}
                         >
                           <Button
@@ -141,7 +141,7 @@ class AddAssignClassSubject extends React.Component {
                             }}
                             className=" bg-indigo text-white "
                             type="submit"
-                            disabled={values.class == '' || values.subjectsSelected.length == 0}
+                            disabled={values.class==='' || values.subjectsSelected.length===0}
                           >
                             <IntlMessages id="service.button.publish" />
                           </Button>

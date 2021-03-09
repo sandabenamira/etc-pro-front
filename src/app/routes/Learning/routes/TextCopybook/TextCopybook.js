@@ -23,7 +23,7 @@ class TextCopybook extends React.Component {
 this.setState({isOpenAddModal:true})
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let detailCards = [
       {
         cardColor: "primary",

@@ -1,6 +1,5 @@
 import { callService } from '../_services/call.service';
-import _ from 'lodash';
-import {
+ import {
   GET_PERMISSION_SETTING,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,

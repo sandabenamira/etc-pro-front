@@ -20,7 +20,7 @@ class TimerView extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {headerColor} = this.props;
     const {anchorEl, menuState} = this.state;
     return (

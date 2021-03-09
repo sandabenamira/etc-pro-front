@@ -12,7 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 
 class AddHealthFile extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {
       values,
       addIsopen,
@@ -61,9 +61,9 @@ class AddHealthFile extends Component {
                         >
                           {this.props.classLevels.map((level) => (
                             <MenuItem key={level.id} value={level.id}>
-                              {this.props.settings.languageId == "tunisia"
+                              {this.props.settings.languageId==="tunisia"
                                 ? level.name_AR
-                                : this.props.settings.languageId == "french"
+                                : this.props.settings.languageId==="french"
                                 ? level.name_FR
                                 : level.name_EN}
                             </MenuItem>

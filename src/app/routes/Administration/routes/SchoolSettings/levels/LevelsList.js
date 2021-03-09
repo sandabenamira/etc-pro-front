@@ -7,7 +7,6 @@ import TableRow from "@material-ui/core/TableRow";
 import IntlMessages from "../../../../../../util/IntlMessages";
 import IconButton from "@material-ui/core/IconButton";
 import EditLevel from "./EditLevel";
-import _ from "lodash";
 import LevelListItem from "./LevelListItem";
 import DeleteLevel from "./DeleteLevel";
 import { connect } from "react-redux";
@@ -81,7 +80,7 @@ class LevelsList extends React.Component {
     this.setState({ deleteIsopen: true, deleteItem: item });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="table-responsive-material">
         <div>

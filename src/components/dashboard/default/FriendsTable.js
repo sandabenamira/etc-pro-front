@@ -18,7 +18,7 @@ class FriendsTable extends Component {
     ],
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {data} = this.state;
     return (
 

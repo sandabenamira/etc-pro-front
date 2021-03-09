@@ -1,30 +1,21 @@
-import { classService } from "../_services/class.service";
+import { classService } from '../_services/class.service';
 import {
   FETECHED_ALL_SCHOOL_YEAR_ETAB,
   ADD_SCHOOL_YEAR_ETAB,
-  EDIT_SCHOOL_YEAR_ETAB,
-  DELETE_SCHOOL_YEAR_ETAB,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
-  GET_USER_PROFILE
-} from "../constants/ActionTypes";
+  GET_USER_PROFILE,
+} from '../constants/ActionTypes';
 
-import _ from "lodash";
 
 export const addSchoolYearEtab = (data) => {
   //1
   return (dispatch) => {
     let apiEndpoint = `/school_year_etablissements?access_token=${localStorage.token}`;
     classService.get(apiEndpoint).then((res) => {
-      if (
-        res.data.some(
-          (arrayTest) =>
-            arrayTest.establishment_id == data.establishment_id &&
-            arrayTest.school_year_id == data.school_year_id
-        )
-      ) {
+      if (res.data.some((arrayTest) => arrayTest.establishment_id == data.establishment_id && arrayTest.school_year_id == data.school_year_id)) {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
           payload: "L'anneé Scolaire existe déja pour cette établissement",
@@ -38,7 +29,7 @@ export const addSchoolYearEtab = (data) => {
             dispatch({ type: ADD_SCHOOL_YEAR_ETAB, payload: response.data });
             dispatch({
               type: SHOW_SUCCESS_MESSAGE,
-              payload: "La création est effectuée avec succès",
+              payload: 'La création est effectuée avec succès',
             });
             setTimeout(() => {
               dispatch({ type: HIDE_SUCCESS_MESSAGE });
@@ -46,8 +37,7 @@ export const addSchoolYearEtab = (data) => {
           } else {
             dispatch({
               type: SHOW_ERROR_MESSAGE,
-              payload:
-                "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+              payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
             });
             setTimeout(() => {
               dispatch({ type: HIDE_ERROR_MESSAGE });
@@ -75,10 +65,9 @@ export const getSchoolYearEtabs = () => {
 
 export const updateShoolYear = (data) => {
   return (dispatch) => {
-        dispatch({
-          type: GET_USER_PROFILE,
-          payload: data,
-        }); 
+    dispatch({
+      type: GET_USER_PROFILE,
+      payload: data,
+    });
   };
 };
-

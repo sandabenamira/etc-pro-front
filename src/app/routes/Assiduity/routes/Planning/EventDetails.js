@@ -2,7 +2,6 @@ import React from 'react';
 import IntlMessages from '../../../../../util/IntlMessages';
 import Auxiliary from '../../../../../util/Auxiliary';
 import MomentUtils from '@date-io/moment';
-import _ from 'lodash';
 import moment from 'moment';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import IconButton from '@material-ui/core/IconButton';
@@ -21,7 +20,7 @@ class EventDetails extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values, language } = this.props;
     return (
       <Auxiliary>

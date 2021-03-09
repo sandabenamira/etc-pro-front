@@ -4,7 +4,7 @@ import IntlMessages from "../../../../util/IntlMessages";
 
 
 export default class FinancialManagement extends Component {
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         return (
             <div className="app-wrapper">
                    <ContainerHeader

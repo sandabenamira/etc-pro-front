@@ -77,7 +77,7 @@ export class TypeOfEducationList extends React.Component {
   };
 
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
 
     let { educationTypes } = this.props
     return (

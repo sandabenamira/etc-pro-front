@@ -206,7 +206,7 @@ export const addUsers = (data) => {
                     type: HIDE_LOADER,
                     payload: false,
                   });
-                  if (data.userPapiersFiles.length == 0) {
+                  if (data.userPapiersFiles.length===0) {
                     dispatch(getAllUsersForAdmin(dataUser.establishmentId, dataUser.schoolYearId));
                   }
                 } else {
@@ -215,7 +215,7 @@ export const addUsers = (data) => {
               });
           });
         } else {
-          if (data.userPapiersFiles.length == 0) {
+          if (data.userPapiersFiles.length===0) {
             dispatch(getAllUsersForAdmin(dataUser.establishmentId, dataUser.schoolYearId));
           }
         }
@@ -367,7 +367,7 @@ export const editUser = (data, estabId, schoolYearId) => {
                     type: HIDE_LOADER,
                     payload: false,
                   });
-                  if (data.paperFiles.length == 0) {
+                  if (data.paperFiles.length===0) {
                     dispatch(getAllUsersForAdmin(estabId, schoolYearId));
                   }
                 } else {
@@ -376,7 +376,7 @@ export const editUser = (data, estabId, schoolYearId) => {
               });
           });
         } else {
-          if (data.paperFiles.length == 0) {
+          if (data.paperFiles.length===0) {
             dispatch(getAllUsersForAdmin(estabId, schoolYearId));
           }
         }
@@ -468,7 +468,7 @@ function downLoadCsv(data, fileName) {
 }
 export function exportCsv(csvList, classId, className) {
   const csvListFiltred = csvList.filter(
-    (element) => element.inforamtionsStudent.classInformation.classId == classId
+    (element) => element.inforamtionsStudent.classInformation.classId===classId
   );
   if (!_.isEmpty(csvListFiltred)) {
     const csvListFormated = csvListFiltred.map((row) => ({

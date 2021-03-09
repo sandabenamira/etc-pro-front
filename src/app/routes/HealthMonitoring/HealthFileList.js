@@ -162,8 +162,8 @@ class HealthFileList extends Component {
 
   handleCheck = (event) => {
     var tab = this.state.checkedValues;
-    var test = this.state.checkedValues.findIndex((element) => element == event.target.value);
-    if (test == -1) {
+    var test = this.state.checkedValues.findIndex((element) => element===event.target.value);
+    if (test===-1) {
       tab.push(parseInt(event.target.value, 10));
       this.setState({ checkedValues: tab });
     } else {
@@ -245,12 +245,12 @@ class HealthFileList extends Component {
     });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     var finalList;
     if (this.props.class_id === '') {
       finalList = this.props.ficheMedicalList;
     } else {
-      finalList = this.props.ficheMedicalList.filter((element) => element.class_id == this.props.class_id);
+      finalList = this.props.ficheMedicalList.filter((element) => element.class_id===this.props.class_id);
     }
     return (
       <div>

@@ -18,7 +18,7 @@ class MediaList extends Component {
     }));
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Auxiliary>
         <GreedImage

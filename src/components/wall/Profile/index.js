@@ -14,7 +14,7 @@ class Profile extends Component {
     }));
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { user, userInfo } = this.props;
     const { id, name, image, address } = user;
     const { followers, following, frinds } = userInfo;

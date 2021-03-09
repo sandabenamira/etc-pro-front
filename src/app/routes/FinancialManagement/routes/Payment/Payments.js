@@ -108,7 +108,7 @@ class PropertiesPayment extends React.Component {
     this.downLoad(csvData);
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
 
       <div className="app-wrapper">

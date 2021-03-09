@@ -2,18 +2,17 @@ import React, { Component } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import IconButton from "@material-ui/core/IconButton";
-import _ from "lodash";
 import moment from "moment";
 import { getNameFromID } from "../../../../actions/countriesAction";
 import ClassNames from "classnames";
 
 export default class SchoolLicenceListItem extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      const { schoolLicence, listEstablishments } = this.props;
 
     let schoolYear;
     schoolYear = this.props.schoolYearList.find(
-      (element) => element.id == schoolLicence.fk_id_school_year
+      (element) => element.id===schoolLicence.fk_id_school_year
     );
     return (
       <TableRow key={schoolLicence.id}>
@@ -31,7 +30,7 @@ export default class SchoolLicenceListItem extends Component {
             <span></span>
           )}
         </TableCell>
-        <TableCell>{schoolYear == undefined ? " " : schoolYear.name}</TableCell>
+        <TableCell>{schoolYear===undefined ? " " : schoolYear.name}</TableCell>
 
         <TableCell
           class={ClassNames("mb-2  ", {

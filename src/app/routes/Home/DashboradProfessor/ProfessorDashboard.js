@@ -61,7 +61,7 @@ class ProfessorDashboard extends React.Component {
     });
     
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const useStyles = makeStyles({
       root: {
         maxWidth: 345,

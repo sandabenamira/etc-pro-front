@@ -35,7 +35,7 @@ class PayBill extends React.Component {
   //         this.setState({ price: data.bill.total_incl_tax, paymentDay: paymentDay[0] })
   //     }
   // }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {
       paymentDay,
       price,
@@ -188,7 +188,7 @@ class PayBill extends React.Component {
                     variant="contained"
                     className="jr-btn bg-indigo text-white "
                     type="submit"
-                    disabled={price == ""}
+                    disabled={price===""}
                   >
                     {<IntlMessages id="button.pay" />}
                   </Button>

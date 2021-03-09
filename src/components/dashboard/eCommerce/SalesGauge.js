@@ -96,7 +96,7 @@ class SalesGauge extends Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div id="chartdiv" style={{width: "100%", height: "300px"}}/>
     );

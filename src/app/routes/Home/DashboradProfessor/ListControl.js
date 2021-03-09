@@ -32,7 +32,7 @@ class CheckBoxListControl extends Component {
     });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Card>
         <CardActionArea>

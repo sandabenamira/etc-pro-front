@@ -427,7 +427,7 @@ class Homework extends React.Component {
     });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let detailCards = [
       {
         cardColor: 'primary',

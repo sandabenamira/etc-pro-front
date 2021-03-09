@@ -22,7 +22,7 @@ export const editAllocationService = (data, establishmentId, schoolYearId) => {
 
       count = count - 1;
     });
-    if (count == 0) {
+    if (count===0) {
       dispatch(getAllocationServiceByEstablishment(establishmentId, schoolYearId));
       dispatch({
         type: SHOW_SUCCESS_MESSAGE,

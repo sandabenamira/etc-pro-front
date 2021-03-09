@@ -181,7 +181,7 @@ class Users extends React.Component {
     let classForStudentFiltred = [];
 
     classForStudentFiltred = this.state.classForStudent.filter(
-      (element) => element.levelId == selectedOption.id
+      (element) => element.levelId===selectedOption.id
     );
     this.setState({
       classForStudentFiltred,
@@ -384,7 +384,7 @@ class Users extends React.Component {
     this.setState({ birthdayDate: date, birthdayDateCheck: true });
   };
   handleChangeRole =   (selectedOption) => {
-     if (selectedOption.id == roleIdStudent) {
+     if (selectedOption.id===roleIdStudent) {
       this.setState({
         birthdayDate: moment().year() - 6 + '-01-01',
       });
@@ -451,7 +451,7 @@ class Users extends React.Component {
       this.props.courseAssignment.map((element) => {
         if (
           element.fk_id_class_v4 === classId &&
-          element.subject.fk_id_subjects_module_v4 == selectedOption.value
+          element.subject.fk_id_subjects_module_v4===selectedOption.value
         ) {
           var object = {};
           object.label = element.subject.name;
@@ -906,7 +906,7 @@ class Users extends React.Component {
     this.setState({ userList: this.props.usersReducer });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div
         className="app-wrapper"

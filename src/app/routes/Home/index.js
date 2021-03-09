@@ -48,13 +48,13 @@ class Home extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.users !== this.props.users) {
       let listParent = this.props.users.filter(
-        (element) => element.role_id == roleIdParent
+        (element) => element.role_id===roleIdParent
       );
       let listStudent = this.props.users.filter(
-        (element) => element.role_id == roleIdStudent
+        (element) => element.role_id===roleIdStudent
       );
       let listProf = this.props.users.filter(
-        (element) => element.role_id == roleIdProfessor
+        (element) => element.role_id===roleIdProfessor
       );
 
       this.setState({ countesProfessors: listProf.length });
@@ -175,7 +175,7 @@ class Home extends React.Component {
       });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
       const { anchorEl, menuState } = this.state;
     return (
       <RoleContext.Consumer>

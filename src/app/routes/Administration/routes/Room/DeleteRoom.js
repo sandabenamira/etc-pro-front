@@ -27,7 +27,7 @@ class DeleteRoom extends React.Component {
     handleRequestClose = () => {
         this.props.annuleModalDelete()
     };
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         return (
             <div>
                 <Dialog open={this.state.open} TransitionComponent={Slide} onClose={this.handleRequestClose}>

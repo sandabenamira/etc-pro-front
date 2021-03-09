@@ -25,7 +25,7 @@ export default class AddComplaint extends Component {
 
     return res;
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div class="d-flex flex-wrap flex-column bd-highlight ">
         <div class="p-2 ">
@@ -326,7 +326,7 @@ export default class AddComplaint extends Component {
 //     let file = e.target.files[0];
 //     this.setState({ Reclam_File: file, inputText: file.name });
 //   };
-//   render() {
+//   render() {   /* eslint eqeqeq: "off" */
 //     const typesSubjects = ['transport', 'cantine', 'maltraitance', 'niveau educatif', 'autre'];
 //     const { onClose, values, handleChange } = this.props;
 //     console.log(values, 'valuuuues');
@@ -342,7 +342,7 @@ export default class AddComplaint extends Component {
 //     } = this.state;
 
 //     if (this.props.receiverID !== undefined && this.state.usersData.length > 0) {
-//       var nameReciver = this.state.usersData.find((element) => element.id == this.props.receiverID);
+//       var nameReciver = this.state.usersData.find((element) => element.id===this.props.receiverID);
 //     }
 
 //     return (
@@ -461,10 +461,10 @@ export default class AddComplaint extends Component {
 //           <div align="right" className="col-sm-12">
 //             <Button
 //               disabled={
-//                 receiverID == '' ||
-//                 subject == '' ||
-//                 receiverID == '' ||
-//                 (subject == 'autre' && subject_Specifique === '')
+//                 receiverID==='' ||
+//                 subject==='' ||
+//                 receiverID==='' ||
+//                 (subject==='autre' && subject_Specifique === '')
 //               }
 //               variant="contained"
 //               color="primary"

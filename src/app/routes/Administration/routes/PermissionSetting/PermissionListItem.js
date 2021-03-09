@@ -28,6 +28,7 @@ const listRole = [
   { id: roleIdStudent, label: <IntlMessages id={`userStuppDisplay.Student`} /> },
   { id: roleIdParent, label: <IntlMessages id={`userStuppDisplay.Parent`} /> },
 ];
+/* eslint eqeqeq: "off" */
 class PermissionListItem extends Component {
   constructor(props) {
     super(props);
@@ -55,15 +56,15 @@ class PermissionListItem extends Component {
     );
     return icone;
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { permission, filtreRole } = this.props;
     return (
       <TableRow>
  
         <TableCell>
-          {this.props.settings.languageId == 'tunisia'
+          {this.props.settings.languageId==='tunisia'
             ? permission.permissionAr
-            : this.props.settings.languageId == 'french'
+            : this.props.settings.languageId==='french'
             ? permission.permissionFr
             : permission.permissionAng}
         </TableCell>

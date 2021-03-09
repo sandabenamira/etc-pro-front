@@ -209,7 +209,7 @@ class StudentDashboard extends Component {
     );
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     console.log("events", this.state.events);
 
     const detailCards = [

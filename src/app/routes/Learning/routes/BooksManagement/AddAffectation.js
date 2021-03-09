@@ -8,7 +8,7 @@ import Select from 'react-select';
 import Button from '@material-ui/core/Button';
 
 export default class AddAffectation extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="d-flex flex-wrap flex-column bd-highlight mb-3">
         <div className="p-2 bd-highlight">

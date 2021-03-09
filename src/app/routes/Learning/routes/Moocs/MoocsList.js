@@ -204,7 +204,7 @@ class MoocsList extends Component {
       }),
     });
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <div

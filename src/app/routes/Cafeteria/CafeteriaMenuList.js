@@ -68,7 +68,7 @@ class CafeteriaMenuList extends Component {
     });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
     var ListByFilter;
 

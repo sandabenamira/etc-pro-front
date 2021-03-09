@@ -17,8 +17,7 @@ import CardBox from '../../../../../components/CardBox/index';
 import AddSupplies from './AddSupplies';
 import Can from '../../../../../can';
 import { RoleContext } from '../../../../../Context';
-import _ from 'lodash';
-import SweetAlert from 'react-bootstrap-sweetalert';
+ import SweetAlert from 'react-bootstrap-sweetalert';
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -65,7 +64,7 @@ class TimeTable extends React.Component {
   closeAlerte = () => {
     this.setState({ alertePermission: false });
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let startHours = '';
     let startMinutes = '';
     let endHours = '';

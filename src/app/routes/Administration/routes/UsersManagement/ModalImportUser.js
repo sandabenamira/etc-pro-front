@@ -49,7 +49,7 @@ const listRolesUsers = [
   },
 ];
 export default class ModalImportUser extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
 
     return (
@@ -126,7 +126,7 @@ export default class ModalImportUser extends Component {
                       id="input"
                       type="file"
                       onChange={(e) => this.props.onDrop(e)}
-                      disabled={this.props.values.idRole == ''}
+                      disabled={this.props.values.idRole===''}
                     />
                   </div>
                   <div className="col-sm-12 col-lg-12 col-md-12  mb-3 d-flex flex-wrap justify-content-end">
@@ -175,8 +175,8 @@ export default class ModalImportUser extends Component {
                           {values.FormatedUserList.map((row, index) => (
                             <TableRow key={index}>
                               <TableCell>
-                                {row.name == null ||
-                                row.surname == null ||
+                                {row.name===null ||
+                                row.surname===null ||
                                 isEmail(row.email) === false ? (
                                   <i
                                     className="zmdi zmdi-circle zmdi-hc-lg "
@@ -194,10 +194,10 @@ export default class ModalImportUser extends Component {
                                 )}
                               </TableCell>
                               <TableCell>
-                                {row.name == null ? <h2>invalide</h2> : row.name}
+                                {row.name===null ? <h2>invalide</h2> : row.name}
                               </TableCell>
                               <TableCell>
-                                {row.surname == null ? <h2>invalide</h2> : row.surname}
+                                {row.surname===null ? <h2>invalide</h2> : row.surname}
                               </TableCell>
                               <TableCell>
                                 {isEmail(row.email) === false ? <h2>mail invalid</h2> : row.email}
@@ -229,7 +229,7 @@ export default class ModalImportUser extends Component {
                     }}
                     className=" bg-indigo text-white "
                     type="submit"
-                    disabled={values.FormatedUserList.length == 0}
+                    disabled={values.FormatedUserList.length===0}
                   >
                     <IntlMessages id="components.user.import" />
                   </Button>

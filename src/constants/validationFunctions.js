@@ -72,7 +72,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac == addUserRbac[roleLabel]) > -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac===addUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -81,7 +81,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac == deleteUserRbac[roleLabel]) > -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac===deleteUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -90,7 +90,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac == editUserRbac[roleLabel]) > -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac===editUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -99,7 +99,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac == editUserRbac[roleLabel]) > -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac===editUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -108,7 +108,7 @@ module.exports = {
     if (!permissionList || permissionList.length === 0) {
       return false;
     } else {
-      const found = permissionList.find((element) => element.permission.rbac == permission);
+      const found = permissionList.find((element) => element.permission.rbac===permission);
       if (typeof found != 'undefined') {
         return true;
       } else {

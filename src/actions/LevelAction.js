@@ -57,14 +57,14 @@ export function getLevel(establishementId, schoolYearId) {
  
         let levelsListByEstab = [];
         response.data.forEach((element) => {
-          if (element.educationType.fk_id_establishment == establishementId) {
+          if (element.educationType.fk_id_establishment===establishementId) {
             levelsListByEstab.push(element);
           }
         });
         const list = levelsListByEstab;
         const LevelList = list.filter((element) => element.status);
         const ArchivedLevelsList = list.filter(
-          (element) => element.status == false
+          (element) => element.status===false
         );
          dispatch({ type: GET_LEVELS, payload: LevelList });
         dispatch({ type: ARCHIVED_GET_LEVELS, payload: ArchivedLevelsList });

@@ -18,14 +18,14 @@ class ProfileHeader extends Component {
         {
           user: this.props.userProfile,
           photo:
-            this.props.userProfile.user.photo == null
+            this.props.userProfile.user.photo===null
               ? imageStudent
               : this.props.userProfile.user.photo,
         }
       );
     }
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="jr-profile-banner">
         <div className="jr-profile-container">

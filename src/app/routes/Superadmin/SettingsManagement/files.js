@@ -19,7 +19,7 @@ export default class SettingsManagement extends Component {
     };
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper ">
         <div className="row col-lg-12 col-md-12">

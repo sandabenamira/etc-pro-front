@@ -18,7 +18,7 @@ class AddOption extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
     return (
       <div>

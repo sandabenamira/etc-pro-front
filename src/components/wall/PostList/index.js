@@ -36,7 +36,7 @@ class PostList extends Component {
     });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Auxiliary>
         <WriteBox addPost={this.addPost.bind(this)} user={this.state.user} />

@@ -57,7 +57,7 @@ class SchoolYearEtab extends React.Component {
         );
         this.setState({ schoolYearEtabsFilredList: schoolYearEtabsFilredLists });
     };
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         var schoolYearEtabsFilred = [];
         if ((typeof this.state.school_year_id === 'string')) {
             schoolYearEtabsFilred = this.props.schoolYearEtabs;

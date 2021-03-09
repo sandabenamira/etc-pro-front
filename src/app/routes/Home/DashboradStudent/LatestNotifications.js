@@ -49,7 +49,7 @@ class LatestNotifications extends Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {anchorEl, menuState} = this.state;
     const {theme} = this.props;
 

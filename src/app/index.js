@@ -144,7 +144,7 @@ class App extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { match, drawerType, estabModule } = this.props;
 
     const drawerStyle = drawerType.includes(FIXED_DRAWER)

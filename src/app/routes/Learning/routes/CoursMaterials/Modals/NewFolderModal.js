@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 
 class NewFolderModal extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Auxiliary>
         <Modal isOpen={true}>

@@ -6,7 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from '@material-ui/core/Button';
 
 export default class ComplaintTableCell extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { index, item } = this.props;
     return (
       <>
@@ -205,7 +205,7 @@ export default class ComplaintTableCell extends Component {
 //         : "";
 //     }
 //   }
-//   render() {
+//   render() {   /* eslint eqeqeq: "off" */
 //     const { anchorEl, menuState } = this.state;
 //     const {
 //       id,
@@ -256,13 +256,13 @@ export default class ComplaintTableCell extends Component {
 //             />
 //             <div className="user-detail">
 //               {this.props.type === "Reçues" ? (
-//                 this.props.settings.languageId == "tunisia" &&
+//                 this.props.settings.languageId==="tunisia" &&
 //                 nameSender_AR != "null null" ? (
 //                   <h5 className="user-name">{nameSender_AR}</h5>
 //                 ) : (
 //                   <h5 className="user-name">{nameSender}</h5>
 //                 )
-//               ) : this.props.settings.languageId == "tunisia" &&
+//               ) : this.props.settings.languageId==="tunisia" &&
 //                 nameReceiver_AR != "null null" ? (
 //                 <h5 className="user-name">{nameReceiver_AR}</h5>
 //               ) : (
@@ -292,7 +292,7 @@ export default class ComplaintTableCell extends Component {
 //         </td>
 //         <td>
 //           {this.props.type === "Reçues" ? (
-//             localStorage.roles_id == roleIdAdmin ? (
+//             localStorage.roles_id===roleIdAdmin ? (
 //               <div className={` badge text-uppercase ${statusStyle}`}>
 //                 {statusComplaint}
 //               </div>

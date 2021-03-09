@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import CardBox from "../../../../../components/CardBox/index";
 import { connect } from "react-redux";
-import { UncontrolledAlert } from "reactstrap";
-import _ from "lodash";
+ 
 import moment from "moment";
 import AddSurvey from "./AddSurvey"
 class SatisfactionSurvey extends React.Component {
@@ -96,7 +95,7 @@ class SatisfactionSurvey extends React.Component {
    
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      return (
       <div
         className="app-wrapper"

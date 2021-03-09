@@ -20,7 +20,7 @@ class CardHeader extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {heading, subHeading} = this.props;
     let {styleName} = this.props;
     const {anchorEl, menuState} = this.state;

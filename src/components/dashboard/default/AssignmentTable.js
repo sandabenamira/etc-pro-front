@@ -20,7 +20,7 @@ class AssignmentTable extends Component {
     ],
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {data} = this.state;
     return (
       <div className="table-responsive-material">

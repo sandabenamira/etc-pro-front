@@ -48,7 +48,7 @@ class SchoolYearModal extends React.Component {
     });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let { schoolYear } = this.props;
     return (
       <div className="container">

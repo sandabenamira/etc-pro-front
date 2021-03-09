@@ -1,6 +1,5 @@
 import React from "react";
 import IntlMessages from "../../../../util/IntlMessages";
-import _ from "lodash";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import moment from "moment";
@@ -313,7 +312,7 @@ class BigCalendarCustomized extends React.Component {
       </div>
     );
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let startHours = "";
     let startMinutes = "";
     let endHours = "";

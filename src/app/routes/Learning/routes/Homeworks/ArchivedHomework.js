@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import HomeworkItem from './HomeworkItem';
 
@@ -9,7 +8,7 @@ class ArchivedHomework extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="col-xl-12 col-md-12 col-lg-12 col-sm-6 ">
         <div className="   price-tables row pt-default d-flex flex-wrap justify-content-start ">

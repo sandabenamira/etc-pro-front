@@ -221,7 +221,7 @@ class AddUsers extends React.Component {
       this.state.classId,
       this.state.classeName
     );
-    if (exportReturn == 'error') {
+    if (exportReturn==='error') {
       this.setState({
         alerteImportStatus: true,
         alerteImportMessage: "erreur d'export svp vérifier votre classe",
@@ -266,27 +266,27 @@ class AddUsers extends React.Component {
       };
     });
 
-    if (this.state.idRole == 2) {
+    if (this.state.idRole===2) {
       if ('Course' in objs[0]) {
         // this.props.importUsersFromFile(objs);
       } else {
       }
     }
-    if (this.state.idRole == 3) {
+    if (this.state.idRole===3) {
       if ('Course' in objs[0]) {
         // this.props.importUsersFromFile(objs);
       } else {
       }
     }
 
-    if (this.state.idRole == 4) {
+    if (this.state.idRole===4) {
       if ('idEnfant' in objs[0]) {
         // this.props.importUsersFromFile(objs);
       } else {
       }
     }
     let invalidData = [];
-    if (this.state.idRole == roleIdStudent) {
+    if (this.state.idRole===roleIdStudent) {
       var FormatedUserList = objs.slice(1).map((element, index) => {
         var UserObject = element;
         UserObject.establishmentId = parseInt(establishmentId, 10);
@@ -295,23 +295,23 @@ class AddUsers extends React.Component {
         UserObject.roleId = 5;
         let classItem = this.props.ClassSettings.find(
           (classElement) =>
-            classElement.name == element.classID &&
-            classElement.fk_id_establishment == establishmentId &&
-            classElement.fk_id_school_year == school_year_id
+            classElement.name===element.classID &&
+            classElement.fk_id_establishment===establishmentId &&
+            classElement.fk_id_school_year===school_year_id
         );
         if (classItem != undefined) {
           UserObject.classID = classItem.id;
           UserObject.levelId = classItem.fk_id_level_v4;
           UserObject.sectionId = classItem.fk_id_section_v4;
-          let groupItem = classItem.group.find((groupItem) => groupItem.name == element.groupeID);
-          UserObject.groupId = groupItem == undefined ? null : groupItem.id;
+          let groupItem = classItem.group.find((groupItem) => groupItem.name===element.groupeID);
+          UserObject.groupId = groupItem===undefined ? null : groupItem.id;
         } else {
           UserObject.classID = null;
           UserObject.levelId = null;
           UserObject.sectionId = null;
           UserObject.groupId = null;
         }
-        if (element.name == null || element.surname == null || isEmail(element.email) === false) {
+        if (element.name===null || element.surname===null || isEmail(element.email) === false) {
           invalidData.push(element);
         }
         return UserObject;
@@ -369,7 +369,7 @@ class AddUsers extends React.Component {
       classeName: selectedOption.label,
     });
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
     return (
       <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap align-items-start">
@@ -799,7 +799,7 @@ class AddUsers extends React.Component {
                 <div className="col-md-6 col-lg-2 col-sm-12 p-0 d-flex justify-content-center">
                   <div className="col-md-2 p-1 d-flex justify-content-center align-items-end ">
                     <Radio
-                      checked={values.userGender == 'Male'}
+                      checked={values.userGender==='Male'}
                       onChange={this.props.handleChange('userGender')}
                       value="Male"
                       color="primary"
@@ -808,7 +808,7 @@ class AddUsers extends React.Component {
                     />
                     <WcIcon color="primary" style={{ fontSize: 60 }} />
                     <Radio
-                      checked={values.userGender == 'Female'}
+                      checked={values.userGender==='Female'}
                       onChange={this.props.handleChange('userGender')}
                       value="Female"
                       color="primary"
@@ -1131,7 +1131,7 @@ class AddUsers extends React.Component {
                     }}
                   />{' '}
                 </div>
-                {values.photoText == '' ? (
+                {values.photoText==='' ? (
                   ''
                 ) : (
                   <div className="col-md-6 col-lg-2 col-sm-12 p-1 d-flex flex-row-reverse">
@@ -1217,9 +1217,9 @@ class AddUsers extends React.Component {
                       <div className="d-flex flex-column bd-highlight mb-3">
                         {values.nameFiles.map((papier, index) => (
                           <div className=" bd-highlight " key={index}>
-                            {/* {this.props.settings.languageId == "tunisia"
+                            {/* {this.props.settings.languageId==="tunisia"
                               ? papier.name_ar
-                              : this.props.settings.languageId == "french"
+                              : this.props.settings.languageId==="french"
                               ? papier.name_fr
                               : papier.name_en} */}
                             {papier}

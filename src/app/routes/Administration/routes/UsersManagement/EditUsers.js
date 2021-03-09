@@ -1,72 +1,51 @@
-import React from "react";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import IntlMessages from "../../../../../util/IntlMessages";
-import TextField from "@material-ui/core/TextField";
-import Auxiliary from "../../../../../util/Auxiliary";
-import MenuItem from "@material-ui/core/MenuItem";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
-import Button from "@material-ui/core/Button";
-import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import ImportExportIcon from "@material-ui/icons/ImportExport";
-import { connect } from "react-redux";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/moment";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "react-select";
-import AddBox from "@material-ui/icons/AddBox";
-import Typography from "@material-ui/core/Typography";
-import WcIcon from "@material-ui/icons/Wc";
-import { Radio } from "@material-ui/core";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import PrintIcon from "@material-ui/icons/Print";
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
-import RemoveIcon from "@material-ui/icons/Remove";
-import MuiPhoneNumber from "material-ui-phone-number";
-import { isEmail } from "../../../../../constants/validationFunctions";
-import moment from "moment";
-import PhotoIcon from "@material-ui/icons/Photo";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
+import React from 'react';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import IntlMessages from '../../../../../util/IntlMessages';
+import TextField from '@material-ui/core/TextField';
+import Auxiliary from '../../../../../util/Auxiliary';
+import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/moment';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from 'react-select';
+import AddBox from '@material-ui/icons/AddBox';
+import Typography from '@material-ui/core/Typography';
+import WcIcon from '@material-ui/icons/Wc';
+import { Radio } from '@material-ui/core';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import MuiPhoneNumber from 'material-ui-phone-number';
+import { isEmail } from '../../../../../constants/validationFunctions';
+import moment from 'moment';
+import PhotoIcon from '@material-ui/icons/Photo';
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
-import {
-  roleIdSuperAdmin,
-  roleIdAdmin,
-  roleIdProfessor,
-  roleIdStudent,
-  roleIdDirector,
-  roleIdParent,
-  roleIdSupervisor,
-} from "../../../../../config/config";
+import { roleIdSuperAdmin, roleIdProfessor, roleIdStudent, roleIdParent } from '../../../../../config/config';
 const schoolSessionList = [
   {
-    value: "Trimestre 1",
+    value: 'Trimestre 1',
     id: 1,
   },
   {
-    value: "Trimestre 2",
+    value: 'Trimestre 2',
     id: 2,
   },
   {
-    value: "Trimestre 3",
+    value: 'Trimestre 3',
     id: 3,
   },
   {
-    value: "Semestre 1",
+    value: 'Semestre 1',
     id: 4,
   },
   {
-    value: "Semestre 2",
+    value: 'Semestre 2',
     id: 5,
   },
 ];
 const TypeContrat = [
-  { label: "interne", id: 1, value: 1 },
-  { label: "externe", id: 2, value: 2 },
+  { label: 'interne', id: 1, value: 1 },
+  { label: 'externe', id: 2, value: 2 },
 ];
 class EditUsers extends React.Component {
   constructor(props) {
@@ -82,24 +61,18 @@ class EditUsers extends React.Component {
     return res;
   };
   render() {
+    /* eslint eqeqeq: "off" */
     const { values, usefulData } = this.props;
 
     return (
       <Auxiliary>
         <Modal isOpen={this.props.values.openEdit}>
-          <ModalHeader
-            toggle={this.props.handleToggle}
-            className="modal-box-header bg-primary text-white"
-          >
+          <ModalHeader toggle={this.props.handleToggle} className="modal-box-header bg-primary text-white">
             Modifier un utilisateur
           </ModalHeader>
           <ModalBody>
             <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap align-items-start">
-              <form
-                className="d-flex  flex-wrap col-lg-12 col-md-12 col-sm-12 p-4"
-                autoComplete="off"
-                onSubmit={this.props.handleSubmitEdit}
-              >
+              <form className="d-flex  flex-wrap col-lg-12 col-md-12 col-sm-12 p-4" autoComplete="off" onSubmit={this.props.handleSubmitEdit}>
                 {this.props.values.openEdit ? (
                   <>
                     <div className=" d-flex col-lg-12 col-md-12 col-sm-12 flex-row flex-wrap justify-content-around align-items-center">
@@ -107,8 +80,8 @@ class EditUsers extends React.Component {
                         <InputLabel
                           htmlFor="nomSelect"
                           style={{
-                            fontFamily: "Roboto",
-                            fontSize: "18px",
+                            fontFamily: 'Roboto',
+                            fontSize: '18px',
                           }}
                           required
                         >
@@ -124,23 +97,23 @@ class EditUsers extends React.Component {
                           styles={{
                             control: (base) => ({
                               ...base,
-                              "&:hover": { borderColor: "gray" }, // border style on hover
-                              border: "1px solid lightgray", // default border color
-                              boxShadow: "none", // no box-shadow
-                              borderTopStyle: "none",
-                              borderRightStyle: "none",
-                              borderLeftStyle: "none",
-                              borderRadius: " none",
+                              '&:hover': { borderColor: 'gray' }, // border style on hover
+                              border: '1px solid lightgray', // default border color
+                              boxShadow: 'none', // no box-shadow
+                              borderTopStyle: 'none',
+                              borderRightStyle: 'none',
+                              borderLeftStyle: 'none',
+                              borderRadius: ' none',
                             }),
                           }}
-                        />{" "}
+                        />{' '}
                       </div>
                       <div className="col-md-6 col-lg-3 col-sm-12 p-1">
                         <InputLabel
                           htmlFor="nomSelect"
                           style={{
-                            fontFamily: "Roboto",
-                            fontSize: "18px",
+                            fontFamily: 'Roboto',
+                            fontSize: '18px',
                           }}
                           required
                         >
@@ -155,16 +128,16 @@ class EditUsers extends React.Component {
                           styles={{
                             control: (base) => ({
                               ...base,
-                              "&:hover": { borderColor: "gray" }, // border style on hover
-                              border: "1px solid lightgray", // default border color
-                              boxShadow: "none", // no box-shadow
-                              borderTopStyle: "none",
-                              borderRightStyle: "none",
-                              borderLeftStyle: "none",
-                              borderRadius: " none",
+                              '&:hover': { borderColor: 'gray' }, // border style on hover
+                              border: '1px solid lightgray', // default border color
+                              boxShadow: 'none', // no box-shadow
+                              borderTopStyle: 'none',
+                              borderRightStyle: 'none',
+                              borderLeftStyle: 'none',
+                              borderRadius: ' none',
                             }),
                           }}
-                        />{" "}
+                        />{' '}
                       </div>
                       {values.roleItemEdit.id === roleIdSuperAdmin ? (
                         <>
@@ -172,8 +145,8 @@ class EditUsers extends React.Component {
                             <InputLabel
                               htmlFor="nomSelect"
                               style={{
-                                fontFamily: "Roboto",
-                                fontSize: "18px",
+                                fontFamily: 'Roboto',
+                                fontSize: '18px',
                               }}
                               required
                             >
@@ -188,35 +161,31 @@ class EditUsers extends React.Component {
                               styles={{
                                 control: (base) => ({
                                   ...base,
-                                  "&:hover": { borderColor: "gray" }, // border style on hover
-                                  border: "1px solid lightgray", // default border color
-                                  boxShadow: "none", // no box-shadow
-                                  borderTopStyle: "none",
-                                  borderRightStyle: "none",
-                                  borderLeftStyle: "none",
-                                  borderRadius: " none",
+                                  '&:hover': { borderColor: 'gray' }, // border style on hover
+                                  border: '1px solid lightgray', // default border color
+                                  boxShadow: 'none', // no box-shadow
+                                  borderTopStyle: 'none',
+                                  borderRightStyle: 'none',
+                                  borderLeftStyle: 'none',
+                                  borderRadius: ' none',
                                 }),
                               }}
-                            />{" "}
+                            />{' '}
                           </div>
                         </>
                       ) : (
-                        ""
+                        ''
                       )}
                       {values.roleItemEdit.id === roleIdStudent ? (
                         <>
-                          <div className="col-md-6 col-lg-3 col-sm-12 p-0 ">
-                            {" "}
-                          </div>
-                          <div className="col-md-6 col-lg-3 col-sm-12 p-0 ">
-                            {" "}
-                          </div>
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-0 "> </div>
+                          <div className="col-md-6 col-lg-3 col-sm-12 p-0 "> </div>
                           <div className="col-md-6 col-lg-5 col-sm-12 p-2">
                             <InputLabel
                               htmlFor="nomSelect"
                               style={{
-                                fontFamily: "Roboto",
-                                fontSize: "18px",
+                                fontFamily: 'Roboto',
+                                fontSize: '18px',
                               }}
                             >
                               {<IntlMessages id="parent.couplage.user" />}
@@ -231,50 +200,50 @@ class EditUsers extends React.Component {
                               styles={{
                                 control: (base) => ({
                                   ...base,
-                                  "&:hover": { borderColor: "gray" }, // border style on hover
-                                  border: "1px solid lightgray", // default border color
-                                  boxShadow: "none", // no box-shadow
-                                  borderTopStyle: "none",
-                                  borderRightStyle: "none",
-                                  borderLeftStyle: "none",
-                                  borderRadius: " none",
+                                  '&:hover': { borderColor: 'gray' }, // border style on hover
+                                  border: '1px solid lightgray', // default border color
+                                  boxShadow: 'none', // no box-shadow
+                                  borderTopStyle: 'none',
+                                  borderRightStyle: 'none',
+                                  borderLeftStyle: 'none',
+                                  borderRadius: ' none',
                                 }),
                               }}
-                            />{" "}
+                            />{' '}
                           </div>
-                          
-                    <div className="col-md-6 col-lg-2 col-sm-12 p-0">
-                      <InputLabel
-                        htmlFor="nomSelect"
-                        style={{
-                          fontFamily: 'Roboto',
-                          fontSize: '16px',
-                        }}
-                      >
-                        Agence
-                      </InputLabel>
-                      <Select
-                        isDisabled
-                        value={{
-                          label: values.agenceCollaborateur,
-                          id: 0,
-                        }}
-                        id="role"
-                        name="role"
-                        styles={{
-                          control: (base) => ({
-                            ...base,
-                            '&:hover': { borderColor: 'gray' }, // border style on hover
-                            border: '1px solid lightgray', // default border color
-                            boxShadow: 'none', // no box-shadow
-                            borderTopStyle: 'none',
-                            borderRightStyle: 'none',
-                            borderLeftStyle: 'none',
-                            borderRadius: ' none',
-                          }),
-                        }}
-                      />{' '}
-                    </div>
+
+                          <div className="col-md-6 col-lg-2 col-sm-12 p-0">
+                            <InputLabel
+                              htmlFor="nomSelect"
+                              style={{
+                                fontFamily: 'Roboto',
+                                fontSize: '16px',
+                              }}
+                            >
+                              Agence
+                            </InputLabel>
+                            <Select
+                              isDisabled
+                              value={{
+                                label: values.agenceCollaborateur,
+                                id: 0,
+                              }}
+                              id="role"
+                              name="role"
+                              styles={{
+                                control: (base) => ({
+                                  ...base,
+                                  '&:hover': { borderColor: 'gray' }, // border style on hover
+                                  border: '1px solid lightgray', // default border color
+                                  boxShadow: 'none', // no box-shadow
+                                  borderTopStyle: 'none',
+                                  borderRightStyle: 'none',
+                                  borderLeftStyle: 'none',
+                                  borderRadius: ' none',
+                                }),
+                              }}
+                            />{' '}
+                          </div>
                           {/* <div className="col-md-6 col-lg-3 col-sm-12 p-1">
                             <InputLabel
                               htmlFor="nomSelect"
@@ -337,16 +306,16 @@ class EditUsers extends React.Component {
                           </div> */}
                         </>
                       ) : (
-                        ""
+                        ''
                       )}
-                      {values.roleItemEdit.id === roleIdProfessor   && (
+                      {values.roleItemEdit.id === roleIdProfessor && (
                         <>
                           <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                             <InputLabel
                               htmlFor="nomSelect"
                               style={{
-                                fontFamily: "Roboto",
-                                fontSize: "16px",
+                                fontFamily: 'Roboto',
+                                fontSize: '16px',
                               }}
                             >
                               Type
@@ -359,16 +328,16 @@ class EditUsers extends React.Component {
                               styles={{
                                 control: (base) => ({
                                   ...base,
-                                  "&:hover": { borderColor: "gray" }, // border style on hover
-                                  border: "1px solid lightgray", // default border color
-                                  boxShadow: "none", // no box-shadow
-                                  borderTopStyle: "none",
-                                  borderRightStyle: "none",
-                                  borderLeftStyle: "none",
-                                  borderRadius: " none",
+                                  '&:hover': { borderColor: 'gray' }, // border style on hover
+                                  border: '1px solid lightgray', // default border color
+                                  boxShadow: 'none', // no box-shadow
+                                  borderTopStyle: 'none',
+                                  borderRightStyle: 'none',
+                                  borderLeftStyle: 'none',
+                                  borderRadius: ' none',
                                 }),
                               }}
-                            />{" "}
+                            />{' '}
                           </div>
                         </>
                       )}
@@ -400,12 +369,12 @@ class EditUsers extends React.Component {
                                     value={
                                       usefulData.classRoomList.find(
                                         (element) =>
-                                          element.id == objSubject.classId
-                                      ) == undefined
+                                          element.id===objSubject.classId
+                                      )===undefined
                                         ? {}
                                         : usefulData.classRoomList.find(
                                             (element) =>
-                                              element.id == objSubject.classId
+                                              element.id===objSubject.classId
                                           )
                                     }
                                     id="classId"
@@ -455,12 +424,12 @@ class EditUsers extends React.Component {
                                     value={
                                       objSubject.subjects.find(
                                         (element) =>
-                                          element.id == objSubject.subjectId
-                                      ) == undefined
+                                          element.id===objSubject.subjectId
+                                      )===undefined
                                         ? {}
                                         : objSubject.subjects.find(
                                             (element) =>
-                                              element.id == objSubject.subjectId
+                                              element.id===objSubject.subjectId
                                           )
                                     }
                                     id="subjectId"
@@ -517,8 +486,8 @@ class EditUsers extends React.Component {
                             <InputLabel
                               htmlFor="nomSelect"
                               style={{
-                                fontFamily: "Roboto",
-                                fontSize: "16px",
+                                fontFamily: 'Roboto',
+                                fontSize: '16px',
                               }}
                             >
                               Agence
@@ -534,20 +503,20 @@ class EditUsers extends React.Component {
                               styles={{
                                 control: (base) => ({
                                   ...base,
-                                  "&:hover": { borderColor: "gray" }, // border style on hover
-                                  border: "1px solid lightgray", // default border color
-                                  boxShadow: "none", // no box-shadow
-                                  borderTopStyle: "none",
-                                  borderRightStyle: "none",
-                                  borderLeftStyle: "none",
-                                  borderRadius: " none",
+                                  '&:hover': { borderColor: 'gray' }, // border style on hover
+                                  border: '1px solid lightgray', // default border color
+                                  boxShadow: 'none', // no box-shadow
+                                  borderTopStyle: 'none',
+                                  borderRightStyle: 'none',
+                                  borderLeftStyle: 'none',
+                                  borderRadius: ' none',
                                 }),
                               }}
-                            />{" "}
+                            />{' '}
                           </div>
                         </>
                       ) : (
-                        ""
+                        ''
                       )}
 
                       {/* {values.roleItemEdit.id === roleIdSupervisor ? (
@@ -586,12 +555,12 @@ class EditUsers extends React.Component {
                       )} */}
                       <hr
                         style={{
-                          width: "100%",
-                          margin: "auto",
-                          marginTop: "40px",
-                          marginBottom: "10px",
-                          border: "1px dashed #979A9A",
-                          paddingLeft: "-100%",
+                          width: '100%',
+                          margin: 'auto',
+                          marginTop: '40px',
+                          marginBottom: '10px',
+                          border: '1px dashed #979A9A',
+                          paddingLeft: '-100%',
                         }}
                       />
                     </div>
@@ -601,9 +570,9 @@ class EditUsers extends React.Component {
                         <div className="col-md-6 col-lg-4 col-sm-12 p-2">
                           <InputLabel
                             style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              marginTop: "-2%",
+                              fontFamily: 'Roboto',
+                              fontSize: '18px',
+                              marginTop: '-2%',
                             }}
                             required
                           >
@@ -613,10 +582,10 @@ class EditUsers extends React.Component {
                             required
                             id="userName"
                             name="userName"
-                            value={values.userNameEdit || ""}
-                            onChange={this.props.handleChange("userNameEdit")}
+                            value={values.userNameEdit || ''}
+                            onChange={this.props.handleChange('userNameEdit')}
                             style={{
-                              marginTop: "3%",
+                              marginTop: '3%',
                             }}
                             fullWidth
                             SelectProps={{
@@ -627,9 +596,9 @@ class EditUsers extends React.Component {
                         <div className="col-md-6 col-lg-4 col-sm-12 p-2">
                           <InputLabel
                             style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              marginTop: "-2%",
+                              fontFamily: 'Roboto',
+                              fontSize: '18px',
+                              marginTop: '-2%',
                             }}
                             required
                           >
@@ -639,12 +608,10 @@ class EditUsers extends React.Component {
                             required
                             id="userLastName"
                             name="userLastName"
-                            value={values.userLastNameEdit || ""}
-                            onChange={this.props.handleChange(
-                              "userLastNameEdit"
-                            )}
+                            value={values.userLastNameEdit || ''}
+                            onChange={this.props.handleChange('userLastNameEdit')}
                             style={{
-                              marginTop: "3%",
+                              marginTop: '3%',
                             }}
                             fullWidth
                             SelectProps={{
@@ -655,25 +622,21 @@ class EditUsers extends React.Component {
                         <div className="col-md-6 col-lg-4 col-sm-12 p-2 d-flex justify-content-center">
                           <div className="col-md-2 p-1 d-flex justify-content-center align-items-end ">
                             <Radio
-                              checked={values.userGenderEdit == "Male"}
-                              onChange={this.props.handleChange(
-                                "userGenderEdit"
-                              )}
+                              checked={values.userGenderEdit === 'Male'}
+                              onChange={this.props.handleChange('userGenderEdit')}
                               value="Male"
                               color="primary"
                               name="radio-button-demo"
-                              inputProps={{ "aria-label": "D" }}
+                              inputProps={{ 'aria-label': 'D' }}
                             />
                             <WcIcon color="primary" style={{ fontSize: 60 }} />
                             <Radio
-                              checked={values.userGenderEdit == "Female"}
-                              onChange={this.props.handleChange(
-                                "userGenderEdit"
-                              )}
+                              checked={values.userGenderEdit === 'Female'}
+                              onChange={this.props.handleChange('userGenderEdit')}
                               value="Female"
                               color="primary"
                               name="radio-button-demo"
-                              inputProps={{ "aria-label": "D" }}
+                              inputProps={{ 'aria-label': 'D' }}
                             />
                           </div>
                         </div>
@@ -688,15 +651,13 @@ class EditUsers extends React.Component {
                               label={
                                 <InputLabel
                                   style={{
-                                    backgroundColor: "white",
-                                    fontFamily: "Roboto",
-                                    fontSize: "30px",
-                                    marginTop: "-16px",
-                                    width: "300px",
+                                    backgroundColor: 'white',
+                                    fontFamily: 'Roboto',
+                                    fontSize: '30px',
+                                    marginTop: '-16px',
+                                    width: '300px',
                                   }}
-                                  required={
-                                    values.roleItemEdit.id === roleIdStudent
-                                  }
+                                  required={values.roleItemEdit.id === roleIdStudent}
                                 >
                                   {<IntlMessages id="user.birthday.date" />}
                                 </InputLabel>
@@ -710,18 +671,18 @@ class EditUsers extends React.Component {
                               format="DD-MM-YYYY"
                               autoOk
                               style={{
-                                marginTop: "9px",
+                                marginTop: '9px',
                               }}
-                              maxDate={moment().year() - 6 + "-01-01"}
+                              maxDate={moment().year() - 6 + '-01-01'}
                             />
                           </MuiPickersUtilsProvider>
                         </div>
                         <div className="col-md-6 col-lg-4 col-sm-12 p-2">
                           <InputLabel
                             style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              marginTop: "3%",
+                              fontFamily: 'Roboto',
+                              fontSize: '18px',
+                              marginTop: '3%',
                             }}
                           >
                             {<IntlMessages id="user.birthday.place" />}
@@ -729,12 +690,10 @@ class EditUsers extends React.Component {
                           <TextField
                             id="birthdayPlace"
                             name="birthdayPlace"
-                            value={values.birthdayPlaceEdit || ""}
-                            onChange={this.props.handleChange(
-                              "birthdayPlaceEdit"
-                            )}
+                            value={values.birthdayPlaceEdit || ''}
+                            onChange={this.props.handleChange('birthdayPlaceEdit')}
                             style={{
-                              marginTop: "3%",
+                              marginTop: '3%',
                             }}
                             fullWidth
                             SelectProps={{
@@ -746,9 +705,9 @@ class EditUsers extends React.Component {
                         <div className="col-md-6 col-lg-4 col-sm-12 p-2">
                           <InputLabel
                             style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              marginTop: "3%",
+                              fontFamily: 'Roboto',
+                              fontSize: '18px',
+                              marginTop: '3%',
                             }}
                             required={values.roleItemEdit.id === roleIdStudent}
                           >
@@ -758,12 +717,10 @@ class EditUsers extends React.Component {
                             required={values.roleItemEdit.id === roleIdStudent}
                             id="userNationnality"
                             name="userNationnality"
-                            value={values.userNationnalityEdit || ""}
-                            onChange={this.props.handleChange(
-                              "userNationnalityEdit"
-                            )}
+                            value={values.userNationnalityEdit || ''}
+                            onChange={this.props.handleChange('userNationnalityEdit')}
                             style={{
-                              marginTop: "3%",
+                              marginTop: '3%',
                             }}
                             fullWidth
                             SelectProps={{
@@ -777,9 +734,9 @@ class EditUsers extends React.Component {
                         <div className="col-md-6 col-lg-5 col-sm-12 p-2">
                           <InputLabel
                             style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              marginTop: "-2%",
+                              fontFamily: 'Roboto',
+                              fontSize: '18px',
+                              marginTop: '-2%',
                             }}
                             required
                           >
@@ -787,40 +744,25 @@ class EditUsers extends React.Component {
                           </InputLabel>
                           <TextField
                             required
-                            error={
-                              isEmail(values.userMailEdit) === false
-                                ? true
-                                : false
-                            }
+                            error={isEmail(values.userMailEdit) === false ? true : false}
                             id="userMail"
                             name="userMail"
-                            value={values.userMailEdit || ""}
-                            onChange={this.props.handleChange("userMailEdit")}
+                            value={values.userMailEdit || ''}
+                            onChange={this.props.handleChange('userMailEdit')}
                             style={{
-                              marginTop: "3%",
+                              marginTop: '3%',
                             }}
                             fullWidth
                             SelectProps={{
                               native: true,
                             }}
-                            helperText={
-                              isEmail(values.userMailEdit) === false ? (
-                                <IntlMessages id="error.user.message.mail" />
-                              ) : (
-                                ""
-                              )
-                            }
+                            helperText={isEmail(values.userMailEdit) === false ? <IntlMessages id="error.user.message.mail" /> : ''}
                           />
                         </div>
                         <div className="col-md-6 col-lg-4 col-sm-12 p-2">
                           <MuiPhoneNumber
                             error={
-                              this.isValidphoneNumber(
-                                values.userPhoneNumberEdit
-                              ) === true ||
-                              values.userPhoneNumberEdit.length === 0
-                                ? false
-                                : true
+                              this.isValidphoneNumber(values.userPhoneNumberEdit) === true || values.userPhoneNumberEdit.length === 0 ? false : true
                             }
                             id="userPhoneNumber"
                             name="userPhoneNumber"
@@ -830,11 +772,8 @@ class EditUsers extends React.Component {
                             label={<IntlMessages id="user.phone.number" />}
                             placeholder="(+XXX) XXX XXX XXX"
                             helperText={
-                              this.isValidphoneNumber(
-                                values.userPhoneNumberEdit
-                              ) === true ||
-                              values.userPhoneNumberEdit.length === 0 ? (
-                                ""
+                              this.isValidphoneNumber(values.userPhoneNumberEdit) === true || values.userPhoneNumberEdit.length === 0 ? (
+                                ''
                               ) : (
                                 <IntlMessages id="error.user.message.phone" />
                               )
@@ -847,9 +786,9 @@ class EditUsers extends React.Component {
                             <div className="col-md-6 col-lg-3 col-sm-12 p-2">
                               <InputLabel
                                 style={{
-                                  fontFamily: "Roboto",
-                                  fontSize: "18px",
-                                  marginTop: "-2%",
+                                  fontFamily: 'Roboto',
+                                  fontSize: '18px',
+                                  marginTop: '-2%',
                                 }}
                               >
                                 {<IntlMessages id="user.cin" />}
@@ -859,12 +798,10 @@ class EditUsers extends React.Component {
                                 id="userCIN"
                                 name="userCIN"
                                 type="number"
-                                value={values.userCinEdit || ""}
-                                onChange={this.props.handleChange(
-                                  "userCinEdit"
-                                )}
+                                value={values.userCinEdit || ''}
+                                onChange={this.props.handleChange('userCinEdit')}
                                 style={{
-                                  marginTop: "3%",
+                                  marginTop: '3%',
                                 }}
                                 fullWidth
                                 SelectProps={{
@@ -874,7 +811,7 @@ class EditUsers extends React.Component {
                             </div>
                           </>
                         ) : (
-                          ""
+                          ''
                         )}
                       </div>
 
@@ -882,9 +819,9 @@ class EditUsers extends React.Component {
                         <div className="col-md-6 col-lg-4 col-sm-12 p-2">
                           <InputLabel
                             style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              marginTop: "-2%",
+                              fontFamily: 'Roboto',
+                              fontSize: '18px',
+                              marginTop: '-2%',
                             }}
                           >
                             {<IntlMessages id="user.id" />}
@@ -892,12 +829,10 @@ class EditUsers extends React.Component {
                           <TextField
                             id="userIdentifier"
                             name="userIdentifier"
-                            value={values.userIdentifierEdit || ""}
-                            onChange={this.props.handleChange(
-                              "userIdentifierEdit"
-                            )}
+                            value={values.userIdentifierEdit || ''}
+                            onChange={this.props.handleChange('userIdentifierEdit')}
                             style={{
-                              marginTop: "3%",
+                              marginTop: '3%',
                             }}
                             fullWidth
                             SelectProps={{
@@ -909,9 +844,9 @@ class EditUsers extends React.Component {
                         <div className="col-md-6 col-lg-4 col-sm-12 p-2">
                           <InputLabel
                             style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              marginTop: "-2%",
+                              fontFamily: 'Roboto',
+                              fontSize: '18px',
+                              marginTop: '-2%',
                             }}
                           >
                             {<IntlMessages id="user.address.postal" />}
@@ -919,10 +854,10 @@ class EditUsers extends React.Component {
                           <TextField
                             id="userAdress"
                             name="userAdress"
-                            value={values.userAdressEdit || ""}
-                            onChange={this.props.handleChange("userAdressEdit")}
+                            value={values.userAdressEdit || ''}
+                            onChange={this.props.handleChange('userAdressEdit')}
                             style={{
-                              marginTop: "3%",
+                              marginTop: '3%',
                             }}
                             fullWidth
                             SelectProps={{
@@ -939,21 +874,15 @@ class EditUsers extends React.Component {
                             id="add-photo"
                             onChange={(e) => this.props.uploadPhoto(e)}
                           />
-                          <label
-                            htmlFor="add-photo"
-                            className="d-flex  bd-highlight"
-                          >
-                            <AddBox
-                              fontSize="inherit"
-                              style={{ fontSize: "40px" }}
-                            />
+                          <label htmlFor="add-photo" className="d-flex  bd-highlight">
+                            <AddBox fontSize="inherit" style={{ fontSize: '40px' }} />
                           </label>
                           <div className="p-2 bd-highlight">
                             <Typography
                               variant="h6"
                               style={{
-                                color: "grey",
-                                fontWeight: "normal",
+                                color: 'grey',
+                                fontWeight: 'normal',
                               }}
                             >
                               <IntlMessages id="user.join.photo" />
@@ -966,9 +895,9 @@ class EditUsers extends React.Component {
                         <div className="col-md-6 col-lg-3 col-sm-12 p-2">
                           <InputLabel
                             style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              marginTop: "-2%",
+                              fontFamily: 'Roboto',
+                              fontSize: '18px',
+                              marginTop: '-2%',
                             }}
                           >
                             {<IntlMessages id="zip.code.user" />}
@@ -977,12 +906,10 @@ class EditUsers extends React.Component {
                             id="userZipCode"
                             name="userZipCode"
                             type="number"
-                            value={values.userZipCodeEdit || ""}
-                            onChange={this.props.handleChange(
-                              "userZipCodeEdit"
-                            )}
+                            value={values.userZipCodeEdit || ''}
+                            onChange={this.props.handleChange('userZipCodeEdit')}
                             style={{
-                              marginTop: "3%",
+                              marginTop: '3%',
                             }}
                             fullWidth
                             SelectProps={{
@@ -998,9 +925,9 @@ class EditUsers extends React.Component {
                             //   fontSize: '18px',
                             // }}
                             style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              marginTop: "-2%",
+                              fontFamily: 'Roboto',
+                              fontSize: '18px',
+                              marginTop: '-2%',
                             }}
                           >
                             {<IntlMessages id="country.user" />}
@@ -1014,29 +941,29 @@ class EditUsers extends React.Component {
                             styles={{
                               control: (base) => ({
                                 ...base,
-                                "&:hover": { borderColor: "gray" }, // border style on hover
-                                border: "1px solid lightgray", // default border color
-                                boxShadow: "none", // no box-shadow
-                                borderTopStyle: "none",
-                                borderRightStyle: "none",
-                                borderLeftStyle: "none",
-                                borderRadius: " none",
+                                '&:hover': { borderColor: 'gray' }, // border style on hover
+                                border: '1px solid lightgray', // default border color
+                                boxShadow: 'none', // no box-shadow
+                                borderTopStyle: 'none',
+                                borderRightStyle: 'none',
+                                borderLeftStyle: 'none',
+                                borderRadius: ' none',
                               }),
                             }}
-                          />{" "}
+                          />{' '}
                         </div>
 
-                        {values.photoText != "" && (
+                        {values.photoText != '' && (
                           <div className="col-md-6 col-lg-4 col-sm-12   d-flex flex-row flex-wrap p-2">
                             <div>
-                              {" "}
+                              {' '}
                               <Typography
                                 variant="h6"
                                 style={{
-                                  color: "#3F51B5",
-                                  fontWeight: "normal",
-                                  fontFamily: "Roboto",
-                                  fontSize: "15px",
+                                  color: '#3F51B5',
+                                  fontWeight: 'normal',
+                                  fontFamily: 'Roboto',
+                                  fontSize: '15px',
                                   // marginTop: '10px',
                                 }}
                               >
@@ -1045,7 +972,7 @@ class EditUsers extends React.Component {
                             </div>
                             <PhotoIcon
                               style={{
-                                fontSize: "30",
+                                fontSize: '30',
                               }}
                               color="primary"
                             />
@@ -1056,12 +983,12 @@ class EditUsers extends React.Component {
 
                     <hr
                       style={{
-                        width: "100%",
-                        margin: "auto",
-                        marginTop: "40px",
-                        marginBottom: "10px",
-                        border: "1px dashed #979A9A",
-                        paddingLeft: "-100%",
+                        width: '100%',
+                        margin: 'auto',
+                        marginTop: '40px',
+                        marginBottom: '10px',
+                        border: '1px dashed #979A9A',
+                        paddingLeft: '-100%',
                       }}
                     />
                     <div className="d-flex col-lg-12 col-md-12 col-sm-12 flex-row flex-wrap pt-3">
@@ -1075,40 +1002,34 @@ class EditUsers extends React.Component {
                             multiple
                             onChange={(e) => this.props.attachFile(e)}
                           />
-                          <label
-                            htmlFor="add-file"
-                            className="d-flex  bd-highlight"
-                          >
-                            <CheckCircleIcon checked={true} color={"default"} />
+                          <label htmlFor="add-file" className="d-flex  bd-highlight">
+                            <CheckCircleIcon checked={true} color={'default'} />
                           </label>
                           <div className="p-2 bd-highlight">
                             <Typography
                               variant="h6"
                               style={{
-                                color: "grey",
-                                fontWeight: "normal",
+                                color: 'grey',
+                                fontWeight: 'normal',
                               }}
                             >
                               <IntlMessages id="user.join.papiers" />
                             </Typography>
                           </div>
                         </div>
-                        <div
-                          className="bd-highlight"
-                          style={{ marginTop: "-40px" }}
-                        >
+                        <div className="bd-highlight" style={{ marginTop: '-40px' }}>
                           <i className="zmdi zmdi-caret-down zmdi-hc-2x mt-4 ml-1 "></i>
                         </div>
                         <div className="d-flex flex-row bd-highlight ">
                           <div className="p-2 bd-highlight ">
                             <hr
                               style={{
-                                height: "80%",
-                                margin: "auto",
-                                marginTop: "5%",
-                                marginBottom: "5%",
-                                border: "1px dashed #979A9A",
-                                paddingLeft: "-100%",
+                                height: '80%',
+                                margin: 'auto',
+                                marginTop: '5%',
+                                marginBottom: '5%',
+                                border: '1px dashed #979A9A',
+                                paddingLeft: '-100%',
                               }}
                             />
                           </div>
@@ -1129,8 +1050,8 @@ class EditUsers extends React.Component {
                           <Typography
                             variant="h6"
                             style={{
-                              color: "grey",
-                              fontWeight: "normal",
+                              color: 'grey',
+                              fontWeight: 'normal',
                             }}
                           >
                             <IntlMessages id="inforamtions.user" />
@@ -1141,14 +1062,12 @@ class EditUsers extends React.Component {
                           id="usefulInformation"
                           name="usefulInformation"
                           rows="3"
-                          value={values.usefulInformationEdit || ""}
-                          onChange={this.props.handleChange(
-                            "usefulInformationEdit"
-                          )}
+                          value={values.usefulInformationEdit || ''}
+                          onChange={this.props.handleChange('usefulInformationEdit')}
                           style={{
-                            borderRadius: "20px",
-                            marginTop: "10px",
-                            width: "100%",
+                            borderRadius: '20px',
+                            marginTop: '10px',
+                            width: '100%',
                           }}
                         ></textarea>
                       </div>
@@ -1159,18 +1078,16 @@ class EditUsers extends React.Component {
                           variant="contained"
                           className="bg-grey text-white pr-2 "
                           style={{
-                            borderBottomLeftRadius: "16px",
-                            borderBottomRightRadius: "16px",
-                            borderTopLeftRadius: "16px",
-                            borderTopRightRadius: "16px",
-                            width: "100px",
-                            height: "30px",
+                            borderBottomLeftRadius: '16px',
+                            borderBottomRightRadius: '16px',
+                            borderTopLeftRadius: '16px',
+                            borderTopRightRadius: '16px',
+                            width: '100px',
+                            height: '30px',
                           }}
                           onClick={this.props.handleToggle}
                         >
-                          {
-                            <IntlMessages id="components.establishments.formadd.buttonCancel" />
-                          }
+                          {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
                         </Button>
                       </div>
                       <div className="p-1">
@@ -1178,12 +1095,12 @@ class EditUsers extends React.Component {
                           // disabled={values.roleId ==="" || values.schoolyearId===""}
                           variant="contained"
                           style={{
-                            borderBottomLeftRadius: "16px",
-                            borderBottomRightRadius: "16px",
-                            borderTopLeftRadius: "16px",
-                            borderTopRightRadius: "16px",
-                            width: "100px",
-                            height: "30px",
+                            borderBottomLeftRadius: '16px',
+                            borderBottomRightRadius: '16px',
+                            borderTopLeftRadius: '16px',
+                            borderTopRightRadius: '16px',
+                            width: '100px',
+                            height: '30px',
                           }}
                           className=" bg-indigo text-white pr-2 "
                           type="submit"
@@ -1194,7 +1111,7 @@ class EditUsers extends React.Component {
                     </div>
                   </>
                 ) : (
-                  ""
+                  ''
                 )}
               </form>
             </div>

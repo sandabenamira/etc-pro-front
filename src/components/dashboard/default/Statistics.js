@@ -14,7 +14,7 @@ class Statistics extends React.Component {
     this.setState({value});
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {value} = this.state;
     return (
       <div className="jr-card p-0">

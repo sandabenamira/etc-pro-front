@@ -112,7 +112,7 @@ import {addAdministration ,getCountries} from '../../../../actions/Superadminist
     this.props.getCountries()
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper ">
         <div className="row col-lg-12 col-md-12">

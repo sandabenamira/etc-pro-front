@@ -150,7 +150,7 @@ class VirtualClassList extends Component {
   handleChangeDate = (date) => {
     let startTimeClassError;
 
-    if (moment(date._d).format("LL") == moment(new Date()).format("LL")) {
+    if (moment(date._d).format("LL")===moment(new Date()).format("LL")) {
       startTimeClassError =
         moment(this.state.startTimeClass).isBefore(this.state.endTimeClass) &&
         moment(this.state.startTimeClass).isAfter(date._d);
@@ -253,8 +253,8 @@ class VirtualClassList extends Component {
 
         return (
           item.id != this.state.id &&
-          item.classeId == this.state.classId &&
-          dateClassItem == dateClass &&
+          item.classeId===this.state.classId &&
+          dateClassItem===dateClass &&
           ((timedebutAdd <= timedebutItem && timefinItem <= timefinAdd) ||
             (timedebutItem <= timedebutAdd && timedebutAdd <= timefinItem) ||
             (timedebutItem <= timefinAdd && timefinAdd <= timefinItem))
@@ -462,24 +462,24 @@ class VirtualClassList extends Component {
                 moment(elementItem.end_time_class).format("HH:mm")
             ) / 60000;
           if (
-            this.props.filterStatus == "upcoming" &&
+            this.props.filterStatus==="upcoming" &&
             start > sys &&
             end > sys
           ) {
             return elementItem;
           } else if (
-            this.props.filterStatus == "progress" &&
+            this.props.filterStatus==="progress" &&
             start < sys &&
             end > sys
           ) {
             return elementItem;
           } else if (
-            this.props.filterStatus == "past" &&
+            this.props.filterStatus==="past" &&
             start < sys &&
             end < sys
           ) {
             return elementItem;
-          } else if (this.props.filterStatus == "all") {
+          } else if (this.props.filterStatus==="all") {
             return elementItem;
           }
         }
@@ -521,7 +521,7 @@ class VirtualClassList extends Component {
       this.setState({ classes: this.props.ClassSettings });
     }
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="col-md-12 col-lg-12 col-sm-6 ">
         <div className="   price-tables row pt-default d-flex justify-content-start ">
@@ -573,7 +573,7 @@ class VirtualClassList extends Component {
         ) : (
           ""
         )}
-        {this.state.call == true ? (
+        {this.state.call===true ? (
           <JitsiComponent values={this.state} />
         ) : (
           <div></div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 
 class SiteTrafficChart extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {height}=this.props;
 
     const data = (canvas) => {

@@ -61,7 +61,7 @@ class AddSupplies extends React.Component {
         this.setState({ supplies })
     }
 
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         let { supplies } = this.state
         return (
             <Auxiliary>

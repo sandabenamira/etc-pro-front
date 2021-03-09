@@ -83,7 +83,7 @@ class CourseAssignment extends React.Component {
   handleChangeClass = (selectedOption) => {
     let subjectIDselected = [];
     this.state.courseAssignmentList.map((element) => {
-      if (element.classItem.id == selectedOption.id) {
+      if (element.classItem.id===selectedOption.id) {
         subjectIDselected = element.subjects.map((subjectItem) => subjectItem.fk_id_subject_v4);
       }
     });
@@ -183,7 +183,7 @@ class CourseAssignment extends React.Component {
       this.setState({ courseAssignmentList: finalListAssignment });
     }
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      return (
       <div
         className="app-wrapper"

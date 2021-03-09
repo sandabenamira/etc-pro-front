@@ -275,7 +275,7 @@ class Planning extends React.Component {
     data.start = startTimeDate;
     data.end = endTimeDate;
 
-    if (this.state.typeDeleteChecked == 'future') {
+    if (this.state.typeDeleteChecked==='future') {
       let messageNotif =
         'Je vous informe par la présente que les séances de formation ' +
         subjectName +
@@ -304,7 +304,7 @@ class Planning extends React.Component {
           logoEstab
         )
       );
-    } else if (this.state.typeDeleteChecked == 'uniq') {
+    } else if (this.state.typeDeleteChecked==='uniq') {
       let messageNotif =
         'Je vous informe par la présente que le séance de formation ' +
         subjectName +
@@ -333,7 +333,7 @@ class Planning extends React.Component {
           logoEstab
         )
       );
-    } else if (this.state.typeDeleteChecked == 'all') {
+    } else if (this.state.typeDeleteChecked==='all') {
       let messageNotif =
         'Je vous informe par la présente que les séances de formation ' +
         subjectName +
@@ -347,7 +347,7 @@ class Planning extends React.Component {
         profName +
         'ne pourra avoir lieu .Nous reviendrons vers vous le plus vite possible';
       data.status = false;
-      let classId = this.state.classe.id == undefined ? 0 : this.state.classe.id;
+      let classId = this.state.classe.id===undefined ? 0 : this.state.classe.id;
       this.props.dispatch(
         deleteEvent(
           this.state.typeDeleteChecked,
@@ -654,7 +654,7 @@ class Planning extends React.Component {
         var professor = this.props.professors.filter((element) => {
           if (!_.isEmpty(element.profile.professors)) {
             var x = element.profile.professors[0].id;
-            if (x == profId) return element;
+            if (x===profId) return element;
           }
         });
 
@@ -760,7 +760,7 @@ class Planning extends React.Component {
   };
 
   handleChangeEventType = () => {
-    if (this.state.EventGategorie == 1) {
+    if (this.state.EventGategorie===1) {
       this.setState({
         eventType: 'lesson',
       });
@@ -810,7 +810,7 @@ class Planning extends React.Component {
   handleChangeFieldsProfessor = (name) => (event) => {
     if (event.target.value !== undefined) {
       var Professor = this.state.professor.filter(
-        (element) => element.profile.professors[0].id == event.target.value
+        (element) => element.profile.professors[0].id===event.target.value
       );
       this.setState({
         [name]: event.target.value,
@@ -820,7 +820,7 @@ class Planning extends React.Component {
     }
   };
   handleChangeFieldsRoom = (name) => (event) => {
-    var Room = this.props.rooms.filter((element) => element.id == event.target.value);
+    var Room = this.props.rooms.filter((element) => element.id===event.target.value);
     this.setState({
       [name]: event.target.value,
       roomName: Room[0].name,
@@ -843,7 +843,7 @@ class Planning extends React.Component {
         let professor = this.props.professors.filter((element) => {
           if (!_.isEmpty(element.profile.professors)) {
             let professorId = element.profile.professors[0].id;
-            if (professorId == profId && this.state.indisponibleprofessors.indexOf(professorId) < 0)
+            if (professorId===profId && this.state.indisponibleprofessors.indexOf(professorId) < 0)
               return element;
           }
         });
@@ -1027,7 +1027,7 @@ class Planning extends React.Component {
         data.fk_id_assign_class_subject = this.state.assignClassSubjectId;
         data.fk_id_profile_creator = this.props.userProfile.id;
         data.repetition =
-          this.state.frequencyID == 'weekly'
+          this.state.frequencyID==='weekly'
             ? [
                 0,
                 1,
@@ -1059,7 +1059,7 @@ class Planning extends React.Component {
                 27,
                 28,
               ]
-            : this.state.frequencyID == 'fortnightly'
+            : this.state.frequencyID==='fortnightly'
             ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
             : [0];
 
@@ -1089,7 +1089,7 @@ class Planning extends React.Component {
         data.fk_id_assign_class_subject = this.state.courseAssignmentClass[0].id;
         data.fk_id_profile_creator = this.props.userProfile.id;
         data.repetition =
-          this.state.frequencyID == 'weekly'
+          this.state.frequencyID==='weekly'
             ? [
                 0,
                 1,
@@ -1121,7 +1121,7 @@ class Planning extends React.Component {
                 27,
                 28,
               ]
-            : this.state.frequencyID == 'fortnightly'
+            : this.state.frequencyID==='fortnightly'
             ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
             : [0];
         break;
@@ -1201,7 +1201,7 @@ class Planning extends React.Component {
       this.props.establishementInformations.logo === undefined
         ? ''
         : this.props.establishementInformations.logo;
-    if (this.state.eventChecked == 'future') {
+    if (this.state.eventChecked==='future') {
       //*-***************notif mail -------***********
 
       let oldDateStart = moment(this.state.eventToEdited.start).format('LLLL');
@@ -1251,7 +1251,7 @@ class Planning extends React.Component {
             1
       );
       this.props.dispatch(addEvent(newEventFutur, dataSup, messageNotif));
-    } else if (this.state.eventChecked == 'uniq') {
+    } else if (this.state.eventChecked==='uniq') {
       // ---------------------------edit old event -----------------
 
       let newRepetition = this.state.eventToEdited.repetition.filter(
@@ -1296,7 +1296,7 @@ class Planning extends React.Component {
         roomLabel;
 
       this.props.dispatch(addEvent(newEventFutur, dataSup, messageNotif));
-    } else if (this.state.eventChecked == 'all') {
+    } else if (this.state.eventChecked==='all') {
       let oldDateStart = moment(this.state.eventToEdited.start)
         .add(-7 * this.state.eventToEdited.idRepetition, 'days')
         .format('LLLL');
@@ -1375,7 +1375,7 @@ class Planning extends React.Component {
 
   handleRequestClose = () => {};
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="animated slideInUpTiny animation-duration-3">
         {this.state.alerteNotif ? (

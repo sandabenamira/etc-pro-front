@@ -1,5 +1,4 @@
 import { classService } from "../_services/class.service";
-import _ from "lodash";
 import {
   FETECHED_ALL_SUPPORT_COURS,
   ADD_SUPPORT_COURS,

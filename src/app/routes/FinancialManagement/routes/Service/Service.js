@@ -326,7 +326,7 @@ class Service extends React.Component {
     }, 3000);
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let { archives } = this.props;
 
     const { services } = this.state;

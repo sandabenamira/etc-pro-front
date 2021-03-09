@@ -14,7 +14,7 @@ export default class AddClassesSettings extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <RoleContext.Consumer>
@@ -155,8 +155,8 @@ export default class AddClassesSettings extends React.Component {
                           <Button
                             variant="contained"
                             disabled={
-                               this.props.values.level_id == null ||
-                              this.props.values.nameClassSettings == ""
+                               this.props.values.level_id===null ||
+                              this.props.values.nameClassSettings===""
                                 ? true
                                 : false
                             }

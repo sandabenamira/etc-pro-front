@@ -11,7 +11,7 @@ export default class EditSubjectSetting extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Auxiliary>
         <Modal

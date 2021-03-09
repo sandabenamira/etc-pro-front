@@ -132,7 +132,7 @@ export default class Form6 extends PureComponent {
 
     doc.save('generated.pdf');
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="px-lg-5 py-lg-5">
         <div>

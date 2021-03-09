@@ -6,6 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
+/* eslint eqeqeq: "off" */
 export default class ResetPermission extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,7 @@ export default class ResetPermission extends Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Dialog
         open={this.props.modal}

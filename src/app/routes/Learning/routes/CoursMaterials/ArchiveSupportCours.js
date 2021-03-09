@@ -15,7 +15,7 @@ export default class ArchiveSupportCours extends Component {
         }
     }
 
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         return (
            
             <Dialog open={this.props.deleteIsopen} TransitionComponent={Slide} onClose={this.props.handleCancelDelete}>

@@ -130,7 +130,7 @@ const options = {
 
 class RadarChart extends Component {
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Radar data={data} options={options} height={250}/>
     );

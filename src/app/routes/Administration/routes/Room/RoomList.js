@@ -43,7 +43,7 @@ class RoomList extends React.Component {
     this.props.RequestDeleteRoom(this.state.itemId);
     this.setState({ menuState: false });
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { anchorEl, menuState } = this.state;
     const ListEstablishment = this.props.ListEstablishment;
     return (

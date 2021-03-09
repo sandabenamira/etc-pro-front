@@ -254,7 +254,7 @@ class AddEstablishment extends React.Component {
     else return true;
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper">
         <Auxiliary>

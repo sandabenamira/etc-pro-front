@@ -18,7 +18,7 @@ class AddGroupes extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <RoleContext.Consumer>
@@ -92,7 +92,7 @@ class AddGroupes extends React.Component {
                                 select
                                 label={<IntlMessages id="sidebar.components.class" />}
                                 value={
-                                  this.props.values.classItem == ''
+                                  this.props.values.classItem===''
                                     ? ''
                                     : JSON.stringify(this.props.values.classItem)
                                 }
@@ -128,8 +128,8 @@ class AddGroupes extends React.Component {
                           <Button
                             variant="contained"
                             disabled={
-                              this.props.values.group == '' &&
-                              this.props.values.classItem == ''
+                              this.props.values.group==='' &&
+                              this.props.values.classItem===''
                                 ? true
                                 : false
                             }
