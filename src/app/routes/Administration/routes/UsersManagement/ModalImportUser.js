@@ -155,6 +155,9 @@ export default class ModalImportUser extends Component {
                               <IntlMessages id={`check.validity`} />
                             </TableCell>
                             <TableCell>
+                              Agence
+                            </TableCell>
+                            <TableCell>
                               <IntlMessages
                                 id={`components.establishments.formadd.name_director`}
                               />
@@ -193,6 +196,9 @@ export default class ModalImportUser extends Component {
                                   </i>
                                 )}
                               </TableCell>
+                              <TableCell>
+                              {row.agencyId===null ? <h2>invalide</h2> : row.agenceName}
+                            </TableCell>
                               <TableCell>
                                 {row.name===null ? <h2>invalide</h2> : row.name}
                               </TableCell>

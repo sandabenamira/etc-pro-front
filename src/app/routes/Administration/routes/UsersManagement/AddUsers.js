@@ -31,13 +31,7 @@ import {
   roleIdParent,
   roleIdSupervisor,
 } from '../../../../../config/config';
-import {
-  isEmail,
-  isPhonenumber,
-  isZipCode,
-  isCIN,
-  isValidphoneNumber,
-} from '../../../../../constants/validationFunctions';
+import { isEmail, isPhonenumber, isZipCode, isCIN, isValidphoneNumber } from '../../../../../constants/validationFunctions';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import moment from 'moment';
@@ -73,8 +67,7 @@ const correctHeader = [
   'code postal',
   'pays',
   'informations utiles',
-  'classe',
-  'groupe',
+  'agence',
 ];
 const fonctionList = [
   { label: "Agent d'entretien", id: 1, value: 1 },
@@ -140,21 +133,24 @@ class AddUsers extends React.Component {
         nationality: data.nationality,
         placeOfBirth: data.placeOfBirth,
         email: data.email,
-        roleId: roleIdStudent,
+        roleId: this.state.idRole,
         establishmentId: data.establishmentId,
         assignClassSubject: null,
-        classId: data.classID,
+        classId: null,
         schoolYearId: data.schoolYearId,
         paperFiles: null,
-        levelId: data.levelId,
-        sectionId: data.sectionId,
+        levelId: null,
+        sectionId: null,
         usefulInformation: data.usefulInformation,
-        parentId: null,
+        parentId: data.parentId,
         studentId: null,
-        groupId: data.groupId,
+        groupId: null,
         userIdentifier: data.userIdentifier,
+        agencyId: data.agencyId,
+        statusBelongTo: true,
+        activityUserBelongAgency: true,
       };
-      try {
+       try {
         let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
         const response = await axios.post(baseUrl.baseUrl + apiEndpoint, dataUser);
 
@@ -216,12 +212,8 @@ class AddUsers extends React.Component {
 
   handleSubmitExportCsv = (e) => {
     e.preventDefault();
-    const exportReturn = exportCsv(
-      this.props.usersReducer.students,
-      this.state.classId,
-      this.state.classeName
-    );
-    if (exportReturn==='error') {
+    const exportReturn = exportCsv(this.props.usersReducer.students, this.state.classId, this.state.classeName);
+    if (exportReturn === 'error') {
       this.setState({
         alerteImportStatus: true,
         alerteImportMessage: "erreur d'export svp vérifier votre classe",
@@ -237,13 +229,10 @@ class AddUsers extends React.Component {
     event.preventDefault();
 
     var establishmentId = this.props.userProfile.establishment_id;
-    var school_year_id = localStorage.school_year_id;
-    var ClassList = this.props.ClassSettings;
+    var school_year_id = this.props.userProfile.school_year_id;
 
-    var objs = this.state.listUsers.map(function(row) {
+    var objs = this.state.listUsers.map(function (row) {
       return {
-        roleId: row[0],
-        schoolYearId: row[1],
         name: row[2],
         surname: row[3],
         name_ar: row[4],
@@ -260,65 +249,46 @@ class AddUsers extends React.Component {
         zipCode: row[15],
         country: row[16],
         usefulInformation: row[17],
-        classID: row[18],
-        groupeID: row[19],
-        establishmentId: row[20],
+        agenceName: row[18],
+        agencyId: null,
+        parentId: null,
       };
     });
 
-    if (this.state.idRole===2) {
-      if ('Course' in objs[0]) {
-        // this.props.importUsersFromFile(objs);
-      } else {
-      }
-    }
-    if (this.state.idRole===3) {
-      if ('Course' in objs[0]) {
-        // this.props.importUsersFromFile(objs);
-      } else {
-      }
-    }
-
-    if (this.state.idRole===4) {
-      if ('idEnfant' in objs[0]) {
-        // this.props.importUsersFromFile(objs);
-      } else {
-      }
-    }
     let invalidData = [];
-    if (this.state.idRole===roleIdStudent) {
-      var FormatedUserList = objs.slice(1).map((element, index) => {
-        var UserObject = element;
-        UserObject.establishmentId = parseInt(establishmentId, 10);
-        UserObject.schoolYearId = parseInt(school_year_id, 10);
-        UserObject.indexFile = index + 2;
-        UserObject.roleId = 5;
-        let classItem = this.props.ClassSettings.find(
-          (classElement) =>
-            classElement.name===element.classID &&
-            classElement.fk_id_establishment===establishmentId &&
-            classElement.fk_id_school_year===school_year_id
-        );
-        if (classItem != undefined) {
-          UserObject.classID = classItem.id;
-          UserObject.levelId = classItem.fk_id_level_v4;
-          UserObject.sectionId = classItem.fk_id_section_v4;
-          let groupItem = classItem.group.find((groupItem) => groupItem.name===element.groupeID);
-          UserObject.groupId = groupItem===undefined ? null : groupItem.id;
-        } else {
-          UserObject.classID = null;
-          UserObject.levelId = null;
-          UserObject.sectionId = null;
-          UserObject.groupId = null;
-        }
-        if (element.name===null || element.surname===null || isEmail(element.email) === false) {
-          invalidData.push(element);
-        }
-        return UserObject;
-      });
 
-      this.setState({ FormatedUserList, invalidData });
-    }
+    var FormatedUserList = objs.slice(1).map((element, index) => {
+      var UserObject = element;
+      UserObject.establishmentId = parseInt(establishmentId, 10);
+      UserObject.schoolYearId = parseInt(school_year_id, 10);
+      UserObject.indexFile = index + 2;
+      UserObject.roleId = this.state.idRole;
+      if (this.state.idRole == roleIdStudent) {
+        let agencyItem = this.props.parentsList.find((parentElement) => parentElement.agenceName === element.agenceName);
+        if (agencyItem != undefined) {
+          UserObject.agencyId = agencyItem.agenceId;
+          UserObject.parentId = agencyItem.id;
+        } else {
+          UserObject.agencyId = null;
+          UserObject.parentId = null;
+        }
+      }
+      if (this.state.idRole == roleIdParent) {
+        let agencyItem = this.props.agenceList.find((agencyElement) => agencyElement.label === element.agenceName);
+        if (agencyItem != undefined) {
+          UserObject.agencyId = agencyItem.id;
+        } else {
+          UserObject.agencyId = null;
+        }
+      }
+
+      if (element.name === null || element.surname === null || isEmail(element.email) === false) {
+        invalidData.push(element);
+      }
+      return UserObject;
+    });
+
+    this.setState({ FormatedUserList, invalidData });
   };
 
   handleOpenImportModal = () => {
@@ -352,10 +322,7 @@ class AddUsers extends React.Component {
       this.setState({ importDone: true });
       let result = this.ImportXLSX(this.state.FormatedUserList);
     } else {
-      let alerteImportMessage =
-        'les lignes numéro ' +
-        this.state.invalidData.map((element) => element.indexFile + ' , ') +
-        'sont invalides';
+      let alerteImportMessage = 'les lignes numéro ' + this.state.invalidData.map((element) => element.indexFile + ' , ') + 'sont invalides';
 
       this.setState({ alerteImportStatus: true, alerteImportMessage });
       setTimeout(() => {
@@ -369,7 +336,8 @@ class AddUsers extends React.Component {
       classeName: selectedOption.label,
     });
   };
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+     /* eslint eqeqeq: "off" */
     const { values } = this.props;
     return (
       <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap align-items-start">
@@ -393,12 +361,7 @@ class AddUsers extends React.Component {
           </div>
           &nbsp;&nbsp;&nbsp;
           <div className="d-flex flex-row">
-            <Fab
-              size="small"
-              color="secondary"
-              aria-label="Add"
-              onClick={() => this.handleOpenImportModal()}
-            >
+            <Fab size="small" color="secondary" aria-label="Add" onClick={() => this.handleOpenImportModal()}>
               <GetAppIcon />
             </Fab>
             &nbsp;&nbsp;&nbsp;
@@ -416,12 +379,7 @@ class AddUsers extends React.Component {
           </div>
           &nbsp;&nbsp;&nbsp;
           <div className="d-flex flex-row">
-            <Fab
-              size="small"
-              color="#7b1fa2"
-              aria-label="Add"
-              onClick={() => this.handleOpenExportModal()}
-            >
+            <Fab size="small" color="#7b1fa2" aria-label="Add" onClick={() => this.handleOpenExportModal()}>
               <ImportExportIcon />
             </Fab>
             &nbsp;&nbsp;&nbsp;
@@ -478,11 +436,7 @@ class AddUsers extends React.Component {
           </div>
         </div>
 
-        <form
-          className="d-flex  flex-wrap col-lg-12 col-md-12 col-sm-12 p-4"
-          autoComplete="off"
-          onSubmit={this.props.handleSubmit}
-        >
+        <form className="d-flex  flex-wrap col-lg-12 col-md-12 col-sm-12 p-4" autoComplete="off" onSubmit={this.props.handleSubmit}>
           {this.props.values.isOpen ? (
             <>
               <div className=" d-flex col-lg-12 col-md-12 col-sm-12 flex-row flex-wrap justify-content-around align-items-center">
@@ -534,8 +488,7 @@ class AddUsers extends React.Component {
                     // defaultValue={this.props.userProfile.school_year_name}
                     defaultValue={{
                       // label: this.props.userProfile.school_year_name,
-                      label:this.props.userProfile.establishments[0].establishment
-                      .licence[0].schoolYear.name,
+                      label: this.props.userProfile.establishments[0].establishment.licence[0].schoolYear.name,
                       id: 0,
                     }}
                     id="role"
@@ -653,7 +606,6 @@ class AddUsers extends React.Component {
                         }}
                       />{' '}
                     </div>
-                     
                   </>
                 ) : (
                   ''
@@ -691,11 +643,9 @@ class AddUsers extends React.Component {
                     </div>
                   </>
                 )}
-                 
-                 
+
                 {this.props.values.roleId === roleIdParent && (
                   <>
-                     
                     <div className="col-md-6 col-lg-3 col-sm-12 p-0">
                       <InputLabel
                         htmlFor="nomSelect"
@@ -766,7 +716,6 @@ class AddUsers extends React.Component {
                       native: true,
                     }}
                   />
-               
                 </div>
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <InputLabel
@@ -794,12 +743,11 @@ class AddUsers extends React.Component {
                       native: true,
                     }}
                   />
-               
                 </div>
                 <div className="col-md-6 col-lg-2 col-sm-12 p-0 d-flex justify-content-center">
                   <div className="col-md-2 p-1 d-flex justify-content-center align-items-end ">
                     <Radio
-                      checked={values.userGender==='Male'}
+                      checked={values.userGender === 'Male'}
                       onChange={this.props.handleChange('userGender')}
                       value="Male"
                       color="primary"
@@ -808,7 +756,7 @@ class AddUsers extends React.Component {
                     />
                     <WcIcon color="primary" style={{ fontSize: 60 }} />
                     <Radio
-                      checked={values.userGender==='Female'}
+                      checked={values.userGender === 'Female'}
                       onChange={this.props.handleChange('userGender')}
                       value="Female"
                       color="primary"
@@ -872,7 +820,6 @@ class AddUsers extends React.Component {
                       native: true,
                     }}
                   />
-              
                 </div>
               </div>
 
@@ -927,23 +874,12 @@ class AddUsers extends React.Component {
                     SelectProps={{
                       native: true,
                     }}
-                    helperText={
-                      isEmail(values.userMail) === false ? (
-                        <IntlMessages id="error.user.message.mail" />
-                      ) : (
-                        ''
-                      )
-                    }
+                    helperText={isEmail(values.userMail) === false ? <IntlMessages id="error.user.message.mail" /> : ''}
                   />
                 </div>
                 <div className="col-md-6 col-lg-2 col-sm-12 p-1">
                   <MuiPhoneNumber
-                    error={
-                      this.isValidphoneNumber(values.userPhoneNumber) === true ||
-                      values.userPhoneNumber.length === 0
-                        ? false
-                        : true
-                    }
+                    error={this.isValidphoneNumber(values.userPhoneNumber) === true || values.userPhoneNumber.length === 0 ? false : true}
                     id="userPhoneNumber"
                     name="userPhoneNumber"
                     // country={this.state.countrie_locale === "ar" ? "tn" : "fr"}
@@ -953,8 +889,7 @@ class AddUsers extends React.Component {
                     label={<IntlMessages id="user.phone.number" />}
                     placeholder="(+XXX) XXX XXX XXX"
                     helperText={
-                      this.isValidphoneNumber(values.userPhoneNumber) === true ||
-                      values.userPhoneNumber.length === 0 ? (
+                      this.isValidphoneNumber(values.userPhoneNumber) === true || values.userPhoneNumber.length === 0 ? (
                         ''
                       ) : (
                         <IntlMessages id="error.user.message.phone" />
@@ -1131,7 +1066,7 @@ class AddUsers extends React.Component {
                     }}
                   />{' '}
                 </div>
-                {values.photoText==='' ? (
+                {values.photoText === '' ? (
                   ''
                 ) : (
                   <div className="col-md-6 col-lg-2 col-sm-12 p-1 d-flex flex-row-reverse">
@@ -1319,14 +1254,7 @@ class AddUsers extends React.Component {
             handleChangeClass={this.handleChangeClass}
           />
         ) : null}
-        {this.state.alerteImportStatus ? (
-          <AlerteImport
-            modal={this.state.alerteImportStatus}
-            message={this.state.alerteImportMessage}
-          />
-        ) : (
-          ''
-        )}
+        {this.state.alerteImportStatus ? <AlerteImport modal={this.state.alerteImportStatus} message={this.state.alerteImportMessage} /> : ''}
       </div>
     );
   }
