@@ -59,7 +59,7 @@ class Parent extends React.Component {
     this.setState({ [name]: event.target.value });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div
         className="app-wrapper"

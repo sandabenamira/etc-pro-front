@@ -17,7 +17,7 @@ class Edi extends React.Component {
   }
 
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Auxiliary>
         <Modal isOpen={this.props.isOpen} toggle={this.props.closeModal}>

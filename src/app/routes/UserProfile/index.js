@@ -7,7 +7,7 @@ import Auxiliary from "../../../util/Auxiliary";
 import { connect } from "react-redux";
 import { UncontrolledAlert } from "reactstrap";
 class UserProfile extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Auxiliary>
          {this.props.successStatus ? (

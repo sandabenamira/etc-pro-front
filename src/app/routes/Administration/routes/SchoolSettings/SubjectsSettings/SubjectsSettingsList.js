@@ -204,7 +204,7 @@ class SubjectsSettingsList extends React.Component {
       codeColor: e.target.value,
     });
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let { subjects, subjectModules } = this.props;
     return (
       <div className="table-responsive-material">

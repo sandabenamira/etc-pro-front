@@ -106,8 +106,8 @@ class SchoolLicence extends React.Component {
     } else {
       let checkDoubleLicence = this.props.schoolLicences.filter(
         (element) =>
-          element.fk_id_establishment == this.state.establishementId &&
-          element.fk_id_school_year == this.state.schoolYearId
+          element.fk_id_establishment===this.state.establishementId &&
+          element.fk_id_school_year===this.state.schoolYearId
       );
        if (checkDoubleLicence.length > 0) {
          this.setState({
@@ -196,7 +196,7 @@ class SchoolLicence extends React.Component {
   handleChangeModule = (event) => {
     this.setState({ modules: event.target.value });
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div
         className="app-wrapper"
@@ -216,7 +216,7 @@ class SchoolLicence extends React.Component {
           ) : (
             ""
           )}
-          {this.state.licenceExist || this.state.emptyFields == true ? (
+          {this.state.licenceExist || this.state.emptyFields===true ? (
             <UncontrolledAlert className="alert-addon-card bg-danger bg-danger text-white shadow-lg">
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />

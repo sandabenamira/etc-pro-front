@@ -61,7 +61,7 @@ class CafeteriaMenuItem extends Component {
     this.setState({ value: index });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { theme } = this.props;
 
     return (

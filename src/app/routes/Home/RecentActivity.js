@@ -29,7 +29,7 @@ class RecentActivity extends React.Component {
    }
 
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {recentList, shape} = this.props;
  const  limit= window.innerWidth < 575 ? 1 : 3
     return (

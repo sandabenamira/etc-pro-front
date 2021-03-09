@@ -20,7 +20,7 @@ class OrderTableCell extends React.Component {
     };
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { anchorEl, menuState } = this.state;
     // const {id, orderId, name, image, orderDate, deliveryDate, status} = this.props.data;
     const {

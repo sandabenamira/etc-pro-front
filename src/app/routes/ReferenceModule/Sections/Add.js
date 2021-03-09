@@ -20,7 +20,7 @@ class Add extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <RoleContext.Consumer>

@@ -77,7 +77,7 @@ class List extends Component {
     event.preventDefault();
     this.setState({ deleteIsopen: true, deleteItem: item });
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="table-responsive-material">
         <div>

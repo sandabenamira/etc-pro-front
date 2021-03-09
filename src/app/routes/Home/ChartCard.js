@@ -52,7 +52,7 @@ class ChartCard extends React.Component {
   }
 
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
 
     const { chartProperties, isHide, children } = this.props;
     const { title, styleName, desc, bgColor, percent, prize } = chartProperties;

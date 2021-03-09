@@ -23,7 +23,7 @@ class MailDetail extends React.Component {
     this.setState({open: false});
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {mail, onStartSelect, onImportantSelect, width} = this.props;
     const options = [
       'Reply',

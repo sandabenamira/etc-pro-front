@@ -193,7 +193,7 @@ class App extends Component {
     return applyTheme;
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     // console.log("je suis dans le render APP.js et voila ", this.props);
 
     const {

@@ -109,7 +109,7 @@ class HomeworkList extends Component {
       let dataHomework = {};
       dataHomework.title = this.state.nameFile;
       dataHomework.homeworkType =
-        this.state.homeworkType.value == undefined ? '' : this.state.homeworkType.value;
+        this.state.homeworkType.value===undefined ? '' : this.state.homeworkType.value;
       dataHomework.subjectId = this.state.subjectId;
       dataHomework.subjectColor = this.state.subjectColor;
       dataHomework.classesId = this.state.classesId;
@@ -135,7 +135,7 @@ class HomeworkList extends Component {
     let deletedFiles = [];
     if (this.state.itemEdit.homework.homeworkFiles != undefined) {
       this.state.itemEdit.homework.homeworkFiles.map((element) => {
-        if (element.name == filename) {
+        if (element.name===filename) {
           deletedFiles.push(element.id);
         }
       });
@@ -241,10 +241,10 @@ class HomeworkList extends Component {
 
   communActions(item) {
     let homeworkType = this.state.HomeworkTypes.find(
-      (element) => element.value == item.homework.homework_type
+      (element) => element.value===item.homework.homework_type
     );
     let subjectItem = this.props.subjects.find(
-      (element) => element.id == item.homework.fk_id_subject
+      (element) => element.id===item.homework.fk_id_subject
     );
     let classItem = {
       label: item.className,
@@ -357,7 +357,7 @@ class HomeworkList extends Component {
       homeworkFilesDelete: [],
     });
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="col-xl-12 col-md-12 col-lg-12 col-sm-6 ">
         <div className="   price-tables row pt-default d-flex flex-wrap justify-content-start ">

@@ -13,7 +13,7 @@ export default class DeleteHealthFile extends Component {
         this.state = {};
     }
 
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         return (
             <Dialog
                 open={this.props.deleteIsopen}

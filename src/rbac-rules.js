@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const rules = {
   visitor: {
     static: ['home-page:visit'],
@@ -7,7 +5,7 @@ const rules = {
       if (!moduleList || moduleList.length === 0) {
         return false;
       } else {
-        const found = moduleList.find((element) => element.module.path == mod);
+        const found = moduleList.find((element) => element.module.path === mod);
         if (typeof found != 'undefined') {
           return true;
         }
@@ -81,7 +79,7 @@ const rules = {
         if (!moduleList || moduleList.length === 0) {
           return false;
         } else {
-          const found = moduleList.find((element) => element.module.path == mod);
+          const found = moduleList.find((element) => element.module.path === mod);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -91,7 +89,7 @@ const rules = {
         if (!permissionList || permissionList.length === 0) {
           return false;
         } else {
-          const found = permissionList.find((element) => element.permission.rbac == permission);
+          const found = permissionList.find((element) => element.permission.rbac === permission);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -154,7 +152,7 @@ const rules = {
         if (!moduleList || moduleList.length === 0) {
           return false;
         } else {
-          const found = moduleList.find((element) => element.module.path == mod);
+          const found = moduleList.find((element) => element.module.path === mod);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -164,7 +162,7 @@ const rules = {
         if (!permissionList || permissionList.length === 0) {
           return false;
         } else {
-          const found = permissionList.find((element) => element.permission.rbac == permission);
+          const found = permissionList.find((element) => element.permission.rbac === permission);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -223,7 +221,7 @@ const rules = {
         if (!moduleList || moduleList.length === 0) {
           return false;
         } else {
-          const found = moduleList.find((element) => element.module.path == mod);
+          const found = moduleList.find((element) => element.module.path === mod);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -233,7 +231,7 @@ const rules = {
         if (!permissionList || permissionList.length === 0) {
           return false;
         } else {
-          const found = permissionList.find((element) => element.permission.rbac == permission);
+          const found = permissionList.find((element) => element.permission.rbac === permission);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -261,23 +259,20 @@ const rules = {
       'module-nav-planning',
       'module-nav-timetable',
       'module-nav-call_register',
-      "calendar-filter:visit",
-      "emploi-filter:visit",
+      'calendar-filter:visit',
+      'emploi-filter:visit',
       'module-nav-e-learning',
       'module-nav-virtual_classes',
       'module-nav-moocs',
       'module-nav-homeworks',
       'module-nav-course-material',
-
-
-
     ],
     dynamic: {
       'module-nav-access': ({ mod, moduleList }) => {
         if (!moduleList || moduleList.length === 0) {
           return false;
         } else {
-          const found = moduleList.find((element) => element.module.path == mod);
+          const found = moduleList.find((element) => element.module.path === mod);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -291,7 +286,7 @@ const rules = {
         if (!permissionList || permissionList.length === 0) {
           return false;
         } else {
-          const found = permissionList.find((element) => element.permission.rbac == permission);
+          const found = permissionList.find((element) => element.permission.rbac === permission);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -373,7 +368,7 @@ const rules = {
         if (!moduleList || moduleList.length === 0) {
           return false;
         } else {
-          const found = moduleList.find((element) => element.module.path == mod);
+          const found = moduleList.find((element) => element.module.path === mod);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -383,7 +378,7 @@ const rules = {
         if (!permissionList || permissionList.length === 0) {
           return false;
         } else {
-          const found = permissionList.find((element) => element.permission.rbac == permission);
+          const found = permissionList.find((element) => element.permission.rbac === permission);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -517,7 +512,7 @@ const rules = {
         if (!moduleList || moduleList.length === 0) {
           return false;
         } else {
-          const found = moduleList.find((element) => element.module.path == mod);
+          const found = moduleList.find((element) => element.module.path === mod);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -527,7 +522,7 @@ const rules = {
         if (!permissionList || permissionList.length === 0) {
           return false;
         } else {
-          const found = permissionList.find((element) => element.permission.rbac == permission);
+          const found = permissionList.find((element) => element.permission.rbac === permission);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -642,7 +637,7 @@ const rules = {
         if (!moduleList || moduleList.length === 0) {
           return false;
         } else {
-          const found = moduleList.find((element) => element.module.path == mod);
+          const found = moduleList.find((element) => element.module.path === mod);
           if (typeof found != 'undefined') {
             return true;
           }
@@ -652,7 +647,7 @@ const rules = {
         if (!permissionList || permissionList.length === 0) {
           return false;
         } else {
-          const found = permissionList.find((element) => element.permission.rbac == permission);
+          const found = permissionList.find((element) => element.permission.rbac === permission);
           if (typeof found != 'undefined') {
             return true;
           }

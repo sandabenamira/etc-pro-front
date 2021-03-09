@@ -28,7 +28,7 @@ class SideNav extends React.PureComponent {
     });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const estabModule = this.props.estabModule;
     const {
       navCollapsed,

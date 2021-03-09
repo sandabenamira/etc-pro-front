@@ -128,7 +128,7 @@ class VirtualClass extends React.Component {
   handleStartTimeChange = (time) => {
     let startTimeClassError;
 
-    if (moment(this.state.dateVirtualClass).format('LL') == moment(new Date()).format('LL')) {
+    if (moment(this.state.dateVirtualClass).format('LL')===moment(new Date()).format('LL')) {
       startTimeClassError =
         moment(time._d).isBefore(this.state.endTimeClass) &&
         moment(time._d).isAfter(this.state.dateVirtualClass);
@@ -148,7 +148,7 @@ class VirtualClass extends React.Component {
     let endTimeClassError = moment(time._d).isAfter(this.state.startTimeClass);
     let startTimeClassError;
 
-    if (moment(this.state.dateVirtualClass).format('LL') == moment(new Date()).format('LL')) {
+    if (moment(this.state.dateVirtualClass).format('LL')===moment(new Date()).format('LL')) {
       startTimeClassError =
         moment(this.state.startTimeClass).isBefore(time._d) &&
         moment(this.state.startTimeClass).isAfter(this.state.dateVirtualClass);
@@ -166,7 +166,7 @@ class VirtualClass extends React.Component {
   handleChangeDate = (date) => {
     let startTimeClassError;
 
-    if (moment(date._d).format('LL') == moment(new Date()).format('LL')) {
+    if (moment(date._d).format('LL')===moment(new Date()).format('LL')) {
       startTimeClassError =
         moment(this.state.startTimeClass).isBefore(this.state.endTimeClass) &&
         moment(this.state.startTimeClass).isAfter(date._d);
@@ -266,8 +266,8 @@ class VirtualClass extends React.Component {
         let timefinItem = Date.parse(dateClassItem + ' ' + endHourClassItem) / 60000;
 
         return (
-          item.classeId == this.state.classId &&
-          dateClassItem == dateClass &&
+          item.classeId===this.state.classId &&
+          dateClassItem===dateClass &&
           ((timedebutAdd <= timedebutItem && timefinItem <= timefinAdd) ||
             (timedebutItem <= timedebutAdd && timedebutAdd <= timefinItem) ||
             (timedebutItem <= timefinAdd && timefinAdd <= timefinItem))
@@ -386,7 +386,7 @@ class VirtualClass extends React.Component {
     }));
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let detailCards = [
       {
         cardColor: 'primary',

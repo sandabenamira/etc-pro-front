@@ -66,7 +66,7 @@ class ClassesSettings extends React.Component {
     this.setState({ [name]: event.target.value, sections });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <div className=" d-flex flex-wrap flex-column mb-3">

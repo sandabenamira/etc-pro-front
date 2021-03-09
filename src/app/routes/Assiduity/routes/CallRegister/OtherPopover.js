@@ -1,7 +1,6 @@
 import React from "react";
 import Auxiliary from "../../../../../util/Auxiliary";
 import MomentUtils from "@date-io/moment";
-import _ from "lodash";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Popover, PopoverBody } from "reactstrap";
 import Select from "react-select";
@@ -16,7 +15,7 @@ class OtherPopover extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
 
     return (

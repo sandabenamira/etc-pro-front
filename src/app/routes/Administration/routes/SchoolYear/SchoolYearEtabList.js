@@ -17,7 +17,7 @@ class SchoolYearEtabList extends React.Component {
         };
     }
 
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
 
         var schoolYearEtabList = this.props.schoolYearEtabs
 
@@ -53,7 +53,7 @@ class SchoolYearEtabList extends React.Component {
                                                         ) {
                                                             return (
                                                                 <TableCell key={index}>
-                                                                    {this.props.settings == "tunisia" ? establishment.ar_name : establishment.name}
+                                                                    {this.props.settings==="tunisia" ? establishment.ar_name : establishment.name}
                                                                 </TableCell>
                                                             );
                                                         } else {

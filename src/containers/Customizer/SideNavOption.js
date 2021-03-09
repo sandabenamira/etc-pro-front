@@ -32,7 +32,7 @@ class Customizer extends React.Component {
     this.props.setDrawerType(MINI_DRAWER);
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {drawerType, navigationStyle, horizontalNavPosition} = this.props;
     return (
       <div className="side-nav-option">

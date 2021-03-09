@@ -41,11 +41,11 @@ class AdminDashboard extends Component {
       });
     }
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     console.log("establishments logo", this.props.establishments.logo);
     console.log("establishments name ", this.props.establishments.name);
     let estabName =
-      this.props.establishments.name == undefined
+      this.props.establishments.name===undefined
         ? ""
         : this.props.establishments.name;
     const detailCardsRh = [
@@ -105,7 +105,7 @@ class AdminDashboard extends Component {
       <div className="app-wrapper d-flex flex-column   col-lg-12 col-md-12 col-sm-12">
         <div class="d-flex flex-row flex-wrap justify-content-center col-lg-12 col-md-12 col-sm-12 bd-highlight mb-3">
           <div class="p-2 bd-highlight">
-            {this.props.establishments.logo == undefined ? (
+            {this.props.establishments.logo===undefined ? (
               <img
                 src={bancLogo}
                 alt="Logo"

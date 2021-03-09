@@ -232,7 +232,7 @@ ml-3"
   }
 
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { classes } = this.props;
     const startDayTime = new Date();
     const endDayTime = new Date();

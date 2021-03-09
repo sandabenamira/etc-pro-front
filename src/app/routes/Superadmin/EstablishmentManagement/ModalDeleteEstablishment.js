@@ -29,7 +29,7 @@ class ModalDeleteEstablishment extends React.Component {
         this.props.cancelModalDelete()
     };
 
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
 
         return (
             <div>

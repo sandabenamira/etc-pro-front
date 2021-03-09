@@ -58,7 +58,7 @@ const listRolesUsers = [
   },
   {
     id: roleIdStudent,
-    label:<IntlMessages id={`userStuppDisplay.Student`} />,
+    label: <IntlMessages id={`userStuppDisplay.Student`} />,
     value: roleIdStudent,
     labelBackEnd: 'Participant',
   },
@@ -180,9 +180,7 @@ class Users extends React.Component {
   handleChangeLevelParticipant = (selectedOption) => {
     let classForStudentFiltred = [];
 
-    classForStudentFiltred = this.state.classForStudent.filter(
-      (element) => element.levelId == selectedOption.id
-    );
+    classForStudentFiltred = this.state.classForStudent.filter((element) => element.levelId === selectedOption.id);
     this.setState({
       classForStudentFiltred,
     });
@@ -191,7 +189,7 @@ class Users extends React.Component {
     let listGroupClass = [];
     selectedOption.groups.map((element) => {
       if (element.status) {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -274,7 +272,6 @@ class Users extends React.Component {
         this.setState({ alertMessage: '', missingValue: false });
       }, 4000);
     } else {
-       
       this.openAddModal();
       let data = {
         name: this.state.userName.toUpperCase(),
@@ -383,8 +380,8 @@ class Users extends React.Component {
   handleChangeBirthdayDate = (date) => {
     this.setState({ birthdayDate: date, birthdayDateCheck: true });
   };
-  handleChangeRole =   (selectedOption) => {
-     if (selectedOption.id == roleIdStudent) {
+  handleChangeRole = (selectedOption) => {
+    if (selectedOption.id === roleIdStudent) {
       this.setState({
         birthdayDate: moment().year() - 6 + '-01-01',
       });
@@ -416,7 +413,7 @@ class Users extends React.Component {
       let subjectsList = [];
       this.props.courseAssignment.map((element) => {
         if (element.fk_id_class_v4 === selectedOption.id) {
-          var object = {};
+          let object = {};
           object.label = element.subject.name;
           object.id = element.id;
           object.value = element.id;
@@ -449,11 +446,8 @@ class Users extends React.Component {
       let classId = this.state.listOfSubjects[index].classId;
       let subjectsList = [];
       this.props.courseAssignment.map((element) => {
-        if (
-          element.fk_id_class_v4 === classId &&
-          element.subject.fk_id_subjects_module_v4 == selectedOption.value
-        ) {
-          var object = {};
+        if (element.fk_id_class_v4 === classId && element.subject.fk_id_subjects_module_v4 === selectedOption.value) {
+          let object = {};
           object.label = element.subject.name;
           object.id = element.id;
           object.value = element.id;
@@ -531,9 +525,9 @@ class Users extends React.Component {
     });
     this.setState({ listOfSubjects: listOfSubjectsClasses, subjectIds });
   };
- 
+
   handleChangeParent = (selectedOption) => {
-     this.setState({
+    this.setState({
       parentId: selectedOption.id,
       agenceCollaborateur: selectedOption.agenceName,
       agenceId: selectedOption.agenceId,
@@ -555,11 +549,11 @@ class Users extends React.Component {
     this.setState({ functionName: selectedOption.label });
   };
   attachFile(e) {
-    var oldFiles = this.state.userPapiersFiles;
+    let oldFiles = this.state.userPapiersFiles;
 
-    var nameFiles = this.state.nameUserPapiersFiles;
+    let nameFiles = this.state.nameUserPapiersFiles;
     if (e.target.files !== undefined) {
-      var files = Object.values(e.target.files);
+      let files = Object.values(e.target.files);
       if (this.state.nameUserPapiersFiles.length + files.length < 6) {
         files.map((element) => {
           nameFiles.push(element.name);
@@ -601,7 +595,7 @@ class Users extends React.Component {
     if (prevProps.subjectModules !== this.props.subjectModules) {
       let subjectModulesList = [];
       subjectModulesList = this.props.subjectModules.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -612,7 +606,7 @@ class Users extends React.Component {
     if (prevProps.levels !== this.props.levels) {
       let levelListParticipant = [];
       levelListParticipant = this.props.levels.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -624,7 +618,7 @@ class Users extends React.Component {
     if (prevProps.ClassSettings !== this.props.ClassSettings) {
       let classForStudent = [];
       classForStudent = this.props.ClassSettings.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -638,7 +632,7 @@ class Users extends React.Component {
     if (prevProps.courseAssignment !== this.props.courseAssignment) {
       let classRoomList = [];
       classRoomList = this.props.courseAssignment.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.class.name;
         object.id = element.class.id;
         object.value = element.class.id;
@@ -652,7 +646,7 @@ class Users extends React.Component {
       let listRoles = [];
       if (this.props.userProfile.role_id === roleIdSuperAdmin) {
         listRolesUsers.map((element) => {
-          var object = {};
+          let object = {};
           object.label = element.label;
           object.id = element.id;
           object.value = element.id;
@@ -661,7 +655,7 @@ class Users extends React.Component {
         });
       } else {
         listRolesUsers.map((element) => {
-          var object = {};
+          let object = {};
           object.label = element.label;
           object.id = element.id;
           object.value = element.id;
@@ -686,7 +680,7 @@ class Users extends React.Component {
     if (prevProps.establishments !== this.props.establishments) {
       let establishmentsList = [];
       establishmentsList = this.props.establishments.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -698,7 +692,7 @@ class Users extends React.Component {
     if (prevProps.schoolYearEtabs !== this.props.schoolYearEtabs) {
       let listSchoolYears = [];
       listSchoolYears = this.props.schoolYearEtabs.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -708,7 +702,7 @@ class Users extends React.Component {
       });
       let countriesListUser = [];
       countriesListUser = countriesList.countriesList.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name_fr;
         object.id = element.code;
         object.value = element.code;
@@ -722,10 +716,11 @@ class Users extends React.Component {
     if (prevProps.agenceSettings !== this.props.agenceSettings) {
       let agenceList = [];
       agenceList = this.props.agenceSettings.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
+        object.fk_id_establishment = element.fk_id_establishment;
         return object;
       });
       this.setState({ agenceList });
@@ -733,18 +728,18 @@ class Users extends React.Component {
     if (prevProps.usersReducer !== this.props.usersReducer) {
       let parentsList = [];
       parentsList = this.props.usersReducer.parents.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name + ' ' + element.surname;
         object.id = element.parentId[0];
         object.value = element.parentId[0];
         object.agenceName = element.agencyName;
-        object.agenceId =element.agencyId;
+        object.agenceId = element.agencyId;
 
         return object;
       });
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name + ' ' + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
@@ -767,17 +762,14 @@ class Users extends React.Component {
     //   this.props.userProfile.school_year_id
     // );
     // this.props.getAllUsersForSuperAdministrator();
-    this.props.getAssignementCourse(
-      this.props.userProfile.establishment_id,
-      this.props.userProfile.school_year_id
-    );
+    this.props.getAssignementCourse(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id);
   }
 
   componentDidMount() {
     if (this.props.subjectModules != undefined) {
       let subjectModulesList = [];
       subjectModulesList = this.props.subjectModules.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -790,7 +782,7 @@ class Users extends React.Component {
       let listRoles = [];
       if (this.props.userProfile.role_id === roleIdSuperAdmin) {
         listRolesUsers.map((element) => {
-          var object = {};
+          let object = {};
           object.label = element.label;
           object.id = element.id;
           object.value = element.id;
@@ -799,7 +791,7 @@ class Users extends React.Component {
         });
       } else {
         listRolesUsers.map((element) => {
-          var object = {};
+          let object = {};
           object.label = element.label;
           object.id = element.id;
           object.value = element.id;
@@ -817,7 +809,7 @@ class Users extends React.Component {
     if (this.props.establishments != undefined) {
       let establishmentsList = [];
       establishmentsList = this.props.establishments.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -831,7 +823,7 @@ class Users extends React.Component {
     if (this.props.ClassSettings != undefined) {
       let classForStudent = [];
       classForStudent = this.props.ClassSettings.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -845,7 +837,7 @@ class Users extends React.Component {
     if (this.props.courseAssignment != undefined) {
       let classRoomList = [];
       classRoomList = this.props.courseAssignment.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.class.name;
         object.id = element.class.id;
         object.value = element.class.id;
@@ -857,10 +849,12 @@ class Users extends React.Component {
     if (this.props.agenceSettings != undefined) {
       let agenceList = [];
       agenceList = this.props.agenceSettings.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
+        object.fk_id_establishment = element.fk_id_establishment;
+
         return object;
       });
       this.setState({ agenceList });
@@ -868,12 +862,12 @@ class Users extends React.Component {
     if (typeof this.props.usersReducer.parents != 'undefined') {
       let parentsList = [];
       parentsList = this.props.usersReducer.parents.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name + ' ' + element.surname;
         object.id = element.id;
         object.value = element.id;
         object.agenceName = element.agencyName;
-        object.agenceId =element.agencyId;
+        object.agenceId = element.agencyId;
 
         return object;
       });
@@ -883,7 +877,7 @@ class Users extends React.Component {
     if (this.props.usersReducer.students != undefined) {
       let studentsList = [];
       studentsList = this.props.usersReducer.students.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name + ' ' + element.surname;
         object.id = element.studentId[0];
         object.value = element.studentId[0];
@@ -894,7 +888,7 @@ class Users extends React.Component {
     if (this.props.levels != undefined) {
       let levelListParticipant = [];
       levelListParticipant = this.props.levels.map((element) => {
-        var object = {};
+        let object = {};
         object.label = element.name;
         object.id = element.id;
         object.value = element.id;
@@ -907,6 +901,7 @@ class Users extends React.Component {
   }
 
   render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div
         className="app-wrapper"

@@ -6,7 +6,7 @@ class GridImage extends Component {
     this.props.handleToggle();
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {mediaList} = this.props;
     switch (mediaList.length) {
       case 1:

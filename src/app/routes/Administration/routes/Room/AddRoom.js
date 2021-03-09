@@ -59,7 +59,7 @@ class AddRoom extends React.Component {
   }
 
   handleChange = (name) => (event) => {
-    if (name == "name") {
+    if (name==="name") {
       let nameError = false;
       nameError =
         this.props.rooms.filter(
@@ -97,7 +97,7 @@ class AddRoom extends React.Component {
     });
     this.props.cancelModal();
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper">
         <Auxiliary>

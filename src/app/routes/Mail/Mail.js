@@ -376,7 +376,7 @@ class Mail extends Component {
   onToggleDrawer() {
     this.props.onMailToggleDrawer();
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {
       selectedMails,
       loader,

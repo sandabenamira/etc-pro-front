@@ -37,7 +37,7 @@ class Complaint extends Component {
     if (this._isMounted) {
       this.props.getReclams_Recues();
       this.props.getReclams_Envoyées();
-      if (localStorage.roles_id == roleIdAdmin) {
+      if (localStorage.roles_id===roleIdAdmin) {
         this.setState({ type: 'Reçues' });
       } else {
         this.setState({ type: 'Envoyées' });
@@ -60,7 +60,7 @@ class Complaint extends Component {
     this.props.onReclamSend(data);
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {
       locale,
       alertMessageAR,
@@ -131,8 +131,8 @@ class Complaint extends Component {
             ''
           )}
           <div className="col-md-12 text-right ">
-            {this.state.type == 'Reçues' ? (
-              folderReclamRecues.length == 0 ? (
+            {this.state.type==='Reçues' ? (
+              folderReclamRecues.length===0 ? (
                 <h1 align="center">
                   <IntlMessages id="complaint.no.réclamation" />
                 </h1>
@@ -143,7 +143,7 @@ class Complaint extends Component {
                   type={this.state.type}
                 />
               )
-            ) : folderReclamEnvoyées.length == 0 ? (
+            ) : folderReclamEnvoyées.length===0 ? (
               <h1 align="center">
                 <IntlMessages id="complaint.no.réclamation" />
               </h1>

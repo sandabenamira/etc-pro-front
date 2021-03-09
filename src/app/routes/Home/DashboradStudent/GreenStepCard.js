@@ -15,7 +15,7 @@ class GreenStepCard extends Component {
     loading: false
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const settings = {
       arrows: false,
       dots: true,

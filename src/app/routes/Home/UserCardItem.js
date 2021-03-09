@@ -50,12 +50,12 @@ export default class UserCardItem extends Component {
   }
 
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <li>
         <div className="jr-profileon">
           <div className="jr-profileon-thumb">
-            {this.state.uri == null ?
+            {this.state.uri===null ?
               <img src="https://pngimage.net/wp-content/uploads/2018/05/admin-avatar-png-1.png" alt="User"></img> :
               <img src={this.state.uri} alt="User"></img>
             }

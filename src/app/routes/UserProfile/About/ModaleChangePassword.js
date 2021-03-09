@@ -11,7 +11,7 @@ export default class ModaleChangePassword extends Component {
 
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      return (
       <Auxiliary>
         <Modal isOpen={true}>

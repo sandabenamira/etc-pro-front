@@ -63,7 +63,7 @@ class ComposeMail extends React.Component {
     });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { onMailSend, onClose, user, values } = this.props;
     const { to, subject, message, editorState } = this.state;
     return (
@@ -143,7 +143,7 @@ class ComposeMail extends React.Component {
               </div>
             )}
 
-            {values.roleId == roleIdProfessor && (
+            {values.roleId===roleIdProfessor && (
               <>
                 <div class="p-2 bd-highlight col-lg-3 col-md-3 col-sm-12">
                   <TextField

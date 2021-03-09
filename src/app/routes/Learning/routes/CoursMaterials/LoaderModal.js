@@ -7,7 +7,7 @@ class LoaderModal extends Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
  
      return (
       <div className="modal-backdrop d-flex justify-content-center align-items-center" style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>

@@ -61,7 +61,7 @@ export class PaymentFilter extends Component {
         this.props.dispatch(getPayments(this.state.classId, this.state.activeTab, date._d.getMonth() + 1))
     };
 
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         const { selectedDate } = this.state;
         return (
             <CardBox styleName="col-12" >

@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import IconButton from "@material-ui/core/IconButton";
-import _ from "lodash";
 import { getNameFromID } from "../../../../../../actions/countriesAction";
+/* eslint eqeqeq: "off" */
 export default class LevelListItem extends Component {
-  render() {
-    const { levelItem, educationTypes } = this.props;
+  render() {   /* eslint eqeqeq: "off" */
+    const { levelItem  } = this.props;
     return (
       <TableRow key={levelItem.id}>
         <TableCell>{levelItem.name}</TableCell>
@@ -16,7 +16,7 @@ export default class LevelListItem extends Component {
             levelItem.fk_id_education_type_v4
           )}
         </TableCell>
-        {this.props.archived == false ? (
+        {this.props.archived===false ? (
           <TableCell>
             <IconButton
               size="large"

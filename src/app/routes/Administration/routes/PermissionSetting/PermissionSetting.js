@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getPermissionSetting, getUserPermissions } from '../../../../../actions/PermissionAction';
 import { UncontrolledAlert } from 'reactstrap';
 import _ from 'lodash';
-
+/* eslint eqeqeq: "off" */
 export class PermissionSetting extends Component {
   constructor(props) {
     super(props);
@@ -27,12 +27,12 @@ export class PermissionSetting extends Component {
       if (this.state.moduleId > 0) {
         if (this.state.subModuleId > 0) {
           let listPermissions = this.props.permissionSetting.filter(
-            (element) => element.subModuleId == this.state.subModuleId
+            (element) => element.subModuleId===this.state.subModuleId
           );
           this.setState({ listPermissions });
         } else {
           let listPermissions = this.props.permissionSetting.filter(
-            (element) => element.moduleId == this.state.moduleId
+            (element) => element.moduleId===this.state.moduleId
           );
           this.setState({ listPermissions });
         }
@@ -43,11 +43,11 @@ export class PermissionSetting extends Component {
   }
   handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.value });
-    if (name == 'moduleId') {
+    if (name==='moduleId') {
       if (event.target.value > 0) {
         let moduleChecked = _.find(this.props.estabModule, { fk_id_module: event.target.value });
         let listPermissions = this.props.permissionSetting.filter(
-          (element) => element.moduleId == event.target.value
+          (element) => element.moduleId===event.target.value
         );
         this.setState({ subModuleList: moduleChecked.module.suBmodule, listPermissions });
       } else {
@@ -57,14 +57,14 @@ export class PermissionSetting extends Component {
           listPermissions: this.props.permissionSetting,
         });
       }
-    } else if (name == 'subModuleId') {
+    } else if (name==='subModuleId') {
       let listPermissions = this.props.permissionSetting.filter(
-        (element) => element.subModuleId == event.target.value
+        (element) => element.subModuleId===event.target.value
       );
       this.setState({ listPermissions });
     }
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         {this.props.successStatus ? (

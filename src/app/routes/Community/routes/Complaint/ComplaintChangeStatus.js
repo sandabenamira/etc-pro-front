@@ -38,7 +38,7 @@ class ComplaintChangeStatus extends React.Component {
     };
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { onClose } = this.props;
 
     return (

@@ -276,7 +276,7 @@ class Menu extends Component {
     return null;
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const estabModule = this.props.estabModule;
     return (
       <div className="d-none d-xl-block">

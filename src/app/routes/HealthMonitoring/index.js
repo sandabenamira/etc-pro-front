@@ -3,7 +3,7 @@ import IntlMessages from '../../../util/IntlMessages';
 
 class HealthMonitoring extends React.Component {
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper">
       <br/>

@@ -32,7 +32,7 @@ class DateRangeComponent extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="col-md-12">
         <DateRangePicker

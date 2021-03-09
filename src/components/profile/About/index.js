@@ -136,7 +136,7 @@ class About extends React.Component {
       });
     }
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     console.log("profile",this.props.userProfile.user)
     const { value, aboutList } = this.state;
     const { profileItem } = this.props;

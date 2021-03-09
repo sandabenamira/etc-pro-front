@@ -11,7 +11,7 @@ import RemoveSharpIcon from '@material-ui/icons/RemoveSharp';
 import { connect } from 'react-redux';
 
 class AddTypeOfEducation extends React.Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <form autoComplete="off" onSubmit={this.props.handleSubmit}>

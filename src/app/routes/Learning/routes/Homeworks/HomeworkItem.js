@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import IntlMessages from '../../../../../util/IntlMessages';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import Can from '../../../../../can';
 import { RoleContext } from '../../../../../Context';
 class HomeworkItem extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      const { homeworkItem } = this.props;
     return (
       <div className="card package bg-white shadow">

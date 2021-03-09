@@ -46,7 +46,7 @@ class CommentBox extends Component {
     ));
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {user, isLike, date, comment} = this.state.commentData;
     return (
       <div className="media flex-nowrap jr-wall-user-info mb-3">

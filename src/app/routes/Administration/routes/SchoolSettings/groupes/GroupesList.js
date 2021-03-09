@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import IntlMessages from "../../../../../../util/IntlMessages";
-import IconButton from "@material-ui/core/IconButton";
-import EditGroupes from "./EditGroupes";
-import _ from "lodash";
-import GroupesItem from "./GroupesItem";
-import DeleteGroupes from "./DeleteGroupes";
-import { connect } from "react-redux";
-import { deleteGroup, editGroup } from "../../../../../../actions/GroupsAction";
+import React from 'react';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import IntlMessages from '../../../../../../util/IntlMessages';
+import EditGroupes from './EditGroupes';
+import GroupesItem from './GroupesItem';
+import DeleteGroupes from './DeleteGroupes';
+import { connect } from 'react-redux';
+import { deleteGroup, editGroup } from '../../../../../../actions/GroupsAction';
 class GroupesList extends React.Component {
   constructor(props) {
     super(props);
@@ -20,9 +18,9 @@ class GroupesList extends React.Component {
       item: {},
       deleteIsopen: false,
       deleteItem: {},
-      group: "",
-      classId: "",
-      id: "",
+      group: '',
+      classId: '',
+      id: '',
       status: true,
       itemEdit: {},
     };
@@ -67,9 +65,9 @@ class GroupesList extends React.Component {
     this.setState({
       isOpen: false,
       deleteIsopen: false,
-      group: "",
-      classId: "",
-      id: "",
+      group: '',
+      classId: '',
+      id: '',
       status: true,
     });
   };
@@ -88,6 +86,7 @@ class GroupesList extends React.Component {
   };
 
   render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div className="table-responsive-material">
         <div>
@@ -101,7 +100,7 @@ class GroupesList extends React.Component {
           <TableHead className="th-border-b">
             <TableRow>
               <TableCell>
-                {" "}
+                {' '}
                 <IntlMessages id="sidebar.components.groupes" />
               </TableCell>
 
@@ -114,17 +113,10 @@ class GroupesList extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.groupsList.length == 0
-              ? ""
+            {this.props.groupsList.length === 0
+              ? ''
               : this.props.groupsList.map((groupItem) => {
-                  return (
-                    <GroupesItem
-                      archived={false}
-                      groupItem={groupItem}
-                      handleEdit={this.handleEdit}
-                      handleDelete={this.handleDelete}
-                    />
-                  );
+                  return <GroupesItem archived={false} groupItem={groupItem} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />;
                 })}
           </TableBody>
         </Table>
@@ -139,7 +131,7 @@ class GroupesList extends React.Component {
             // handleToggle={this.handleToggle}
           />
         ) : (
-          ""
+          ''
         )}
         {this.state.deleteIsopen === true ? (
           <DeleteGroupes
@@ -149,7 +141,7 @@ class GroupesList extends React.Component {
             deleteIsopen={this.state.deleteIsopen}
           />
         ) : (
-          ""
+          ''
         )}
       </div>
     );

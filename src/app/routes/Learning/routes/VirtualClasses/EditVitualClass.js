@@ -15,7 +15,6 @@ import {
 import DateFnsUtils from "@date-io/moment";
 import { TimePicker } from "@material-ui/pickers";
 import { connect } from "react-redux";
-import _ from "lodash";
 import Can from "../../../../../can";
 import { RoleContext } from "../../../../../Context";
 import FormHelperText from "@material-ui/core/FormHelperText";
@@ -37,7 +36,7 @@ class EditVitualClass extends Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {
       values,
       handleChange,

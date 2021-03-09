@@ -11,7 +11,7 @@ export default class AlerteDelete extends Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Dialog open={this.props.modal} TransitionComponent={Slide}>
         <DialogContent>

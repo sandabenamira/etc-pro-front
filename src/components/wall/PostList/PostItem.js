@@ -66,7 +66,7 @@ class PostItem extends Component {
     }));
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { user, date, mediaList, viewCount, likeCount, isLike, commentList, text } = this.state.post;
     return (
       <Card className="jr-card">

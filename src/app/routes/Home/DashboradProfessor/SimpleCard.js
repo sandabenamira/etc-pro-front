@@ -48,7 +48,7 @@ class SimpleCard extends Component {
     });
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const classes = useStyles;
 
     const rectangle = <div className={classes.shape} />;

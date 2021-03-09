@@ -57,10 +57,10 @@ export class ModalDetailsUser extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let userItem = this.props.userItem;
     let roleNameUser = '';
-    let roleUser = listRolesUsers.find((element) => element.id == userItem.roleId);
+    let roleUser = listRolesUsers.find((element) => element.id===userItem.roleId);
     if (roleUser != undefined) {
       roleNameUser = roleUser.label;
     }
@@ -109,7 +109,7 @@ export class ModalDetailsUser extends React.Component {
                       <input disabled={true} className="form-control" id="surname" value={userItem.surname} />
                     </div>
                     <div className="col-md-4 col-lg-2 col-sm-12 d-flex justify-content-end ">
-                      {userItem.urlPhoto == undefined ? (
+                      {userItem.urlPhoto===undefined ? (
                         <Avatar align="right" className="size-90" alt="..." src={defaultAvatar} />
                       ) : (
                         <Avatar align="right" className="size-90" alt="..." src={userItem.urlPhoto} />
@@ -193,7 +193,7 @@ export class ModalDetailsUser extends React.Component {
                     </Typography>
                   </label>
                 </div>
-                {this.props.userItem.roleId == roleIdProfessor ? (
+                {this.props.userItem.roleId===roleIdProfessor ? (
                   <div className="col-md-12 col-lg-12 col-sm-12 justify-content-center align-items-center">
                     <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
                       <div className="col-md-6 col-lg-3 col-sm-12">
@@ -240,7 +240,7 @@ export class ModalDetailsUser extends React.Component {
                 ) : (
                   ''
                 )}
-                {this.props.userItem.roleId == roleIdStudent ? (
+                {this.props.userItem.roleId===roleIdStudent ? (
                   <>
                     <div className="col-md-12 col-lg-12 col-sm-12 justify-content-center align-items-center">
                       <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
@@ -435,7 +435,7 @@ export class ModalDetailsUser extends React.Component {
                 ) : (
                   ''
                 )}
-                {this.props.userItem.roleId == roleIdParent ? (
+                {this.props.userItem.roleId===roleIdParent ? (
                   <div className="col-md-12 col-lg-12 col-sm-12 justify-content-center">
                     <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
                       <div className="col-md-6 col-lg-6 col-sm-12">
@@ -543,9 +543,9 @@ export class ModalDetailsUser extends React.Component {
                 ) : (
                   ''
                 )}
-                {this.props.userItem.roleId == roleIdAdmin ||
-                this.props.userItem.roleId == roleIdDirector ||
-                this.props.userItem.roleId == roleIdSupervisor ? (
+                {this.props.userItem.roleId===roleIdAdmin ||
+                this.props.userItem.roleId===roleIdDirector ||
+                this.props.userItem.roleId===roleIdSupervisor ? (
                   <div className="col-md-12 col-lg-12 col-sm-12 justify-content-center">
                     <div className="col-md-12 col-lg-12 col-sm-12 d-flex flex-row flex-wrap">
                       <div className="col-md-6 col-lg-6 col-sm-12">

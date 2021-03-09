@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
-import _ from 'lodash';
-
+/* eslint eqeqeq: "off" */
 export default class CoursesAssignmentListListItem extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { courseAssignment, educationTypes } = this.props;
     return (
       <TableRow key={courseAssignment.id}>

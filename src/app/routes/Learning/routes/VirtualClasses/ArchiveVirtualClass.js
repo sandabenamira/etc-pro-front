@@ -11,7 +11,7 @@ class ArchiveVirtualClass extends Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="col-md-12 col-lg-12  ">
         <div className="   price-tables row pt-default d-flex justify-content-start ">

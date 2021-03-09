@@ -1,19 +1,11 @@
-import React from "react";
-import IntlMessages from "../../../../../util/IntlMessages";
-import Button from "@material-ui/core/Button";
-import Auxiliary from "../../../../../util/Auxiliary";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import TextField from "@material-ui/core/TextField";
-import moment from "moment";
-import { payBill, editBill } from "../../../../../actions/PaymentAction";
-import { connect } from "react-redux";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import { classService } from "../../../../../_services/class.service";
-import { partiallyPaidInvoice } from "../../../../../config/config";
+import React from 'react';
+import IntlMessages from '../../../../../util/IntlMessages';
+import Button from '@material-ui/core/Button';
+import Auxiliary from '../../../../../util/Auxiliary';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
+import { connect } from 'react-redux';
 
 class ConfirmInvoiceModal extends React.Component {
   constructor(props) {
@@ -22,18 +14,15 @@ class ConfirmInvoiceModal extends React.Component {
   }
 
   render() {
+    /* eslint eqeqeq: "off" */
+    /* eslint eqeqeq: "off" */
     return (
       <div>
         <Auxiliary>
           <Modal isOpen={true}>
-            <ModalHeader
-              toggle={this.props.handleCloseInvoiceModal}
-              className="modal-box-header bg-primary text-white"
-            >
+            <ModalHeader toggle={this.props.handleCloseInvoiceModal} className="modal-box-header bg-primary text-white">
               <div className="jr-currentplan-col  ">
-                <h2 className="text-white jr-font-weight-medium ">
-                  Partager PDF avec e-mail
-                </h2>
+                <h2 className="text-white jr-font-weight-medium ">Partager PDF avec e-mail</h2>
               </div>
             </ModalHeader>
             <ModalBody>
@@ -50,7 +39,7 @@ class ConfirmInvoiceModal extends React.Component {
                       id="ReceiverMail"
                       name="ReceiverMail"
                       value={this.props.values.ReceiverMail}
-                      onChange={this.props.handleChange("ReceiverMail")}
+                      onChange={this.props.handleChange('ReceiverMail')}
                       fullWidth
                     />
                   </div>
@@ -62,7 +51,7 @@ class ConfirmInvoiceModal extends React.Component {
                       variant="outlined"
                       name="secondMail"
                       value={this.props.values.secondMail}
-                      onChange={this.props.handleChange("secondMail")}
+                      onChange={this.props.handleChange('secondMail')}
                       value={this.props.values.secondMail}
                       fullWidth
                     />
@@ -70,17 +59,13 @@ class ConfirmInvoiceModal extends React.Component {
                 </div>
 
                 <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-column justify-content-start pt-3">
-                <div className="col-lg-8 col-md-8 col-sm-8 p-3 bd-highlight  ">
+                  <div className="col-lg-8 col-md-8 col-sm-8 p-3 bd-highlight  ">
                     <InputLabel htmlFor="paymentMethode ">Message</InputLabel>
                   </div>
                   <div className="col-lg-8 col-md-8 col-sm-8 p-3 bd-highlight  ">
                     <h6>Cher(e),</h6>
-                    <h6>
-                      Merci pour votre confiance. Votre Facture fournisseur
-                    </h6>
-                    <h6>
-                      peut être consultée, imprimée et téléchargée au format PDF{" "}
-                    </h6>
+                    <h6>Merci pour votre confiance. Votre Facture fournisseur</h6>
+                    <h6>peut être consultée, imprimée et téléchargée au format PDF </h6>
                     <h6>à partir du piece joint.</h6>
                     <h6>Référence : FAF-000001</h6>
                     <h6>Date : 2020-12-07</h6>
@@ -97,14 +82,8 @@ class ConfirmInvoiceModal extends React.Component {
                   >
                     {<IntlMessages id="button.send.message" />}
                   </Button>
-                  <Button
-                    variant="contained"
-                    className="jr-btn bg-grey text-white "
-                    onClick={this.props.handleCloseInvoiceModal}
-                  >
-                    {
-                      <IntlMessages id="components.establishments.formadd.buttonCancel" />
-                    }
+                  <Button variant="contained" className="jr-btn bg-grey text-white " onClick={this.props.handleCloseInvoiceModal}>
+                    {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
                   </Button>
                 </div>
               </form>

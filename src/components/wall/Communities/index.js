@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import WidgetHeader from '../../WidgetHeader/index';
 
 class Communities extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { communitiesList } = this.props;
     return (
       <div className="jr-entry-sec">

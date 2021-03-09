@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 
 class CustomChart extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {labels,label, borderColor, chartdata, pointBackgroundColor,pointHoverBorderColor, height, pointBorderColor, borderWidth, xAxes,shadowColor } = this.props;
     const data = (canvas) => {
       const ctx = canvas.getContext("2d");

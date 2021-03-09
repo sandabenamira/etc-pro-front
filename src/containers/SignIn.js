@@ -130,7 +130,7 @@ class SignIn extends React.Component {
     this.props.hideLicenceMessage();
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { login, password } = this.state;
     const {
       showMessage,

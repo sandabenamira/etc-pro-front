@@ -57,8 +57,8 @@ class EditAllocationItem extends Component {
         });
       }, 1500);
     } else {
-      var index = tab.findIndex((element) => element == parseInt(monthId, 10));
-      if (index == -1) {
+      var index = tab.findIndex((element) => element===parseInt(monthId, 10));
+      if (index===-1) {
         tab.push(parseInt(monthId, 10));
         this.setState({
           SelectedMonthList: tab,
@@ -75,10 +75,10 @@ class EditAllocationItem extends Component {
   SelectedMonth = (monthId) => {
     var tab = this.state.SelectedMonthList;
     let checked = false;
-    var test = tab.findIndex((element) => element == parseInt(monthId, 10));
+    var test = tab.findIndex((element) => element===parseInt(monthId, 10));
 
     if (this.props.item.allocation_month.length !== 0) {
-      if (test == -1) {
+      if (test===-1) {
         checked = false;
       } else {
         checked = true;
@@ -111,7 +111,7 @@ class EditAllocationItem extends Component {
   }
  
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { value, monthList } = this.state;
     let element = this.props.item;
 

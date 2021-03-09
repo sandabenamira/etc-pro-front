@@ -132,7 +132,7 @@ export const addMaterialCourse = (materialCourseItem, establishmentId, schoolYea
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });
         }, 4000);
-      } else if (response && materialCourseItem.files.length == 0) {
+      } else if (response && materialCourseItem.files.length===0) {
         dispatch(getMaterialCourse(establishmentId, schoolYearId, roleId, roleUserId, assignmentId));
         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
@@ -233,7 +233,7 @@ export const editMaterialCourse = (materialCourseItem, establishmentId, schoolYe
           setTimeout(() => {
             dispatch({ type: HIDE_ERROR_MESSAGE });
           }, 4000);
-        } else if (response && materialCourseItem.files.length == 0) {
+        } else if (response && materialCourseItem.files.length===0) {
           dispatch(getMaterialCourse(establishmentId, schoolYearId, roleId, roleUserId, assignmentId));
           dispatch({
             type: SHOW_SUCCESS_MESSAGE,

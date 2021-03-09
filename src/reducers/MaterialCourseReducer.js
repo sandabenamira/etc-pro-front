@@ -37,7 +37,7 @@ export default function (state = initialState, action) {
     });
   }
   if (action.type === DELETE_MATERIAL_COURSE) {
-    let itemDeleted = state.remoteMaterialCourse.find((element) => element.id == action.payload);
+    let itemDeleted = state.remoteMaterialCourse.find((element) => element.id===action.payload);
 
     return Object.assign({}, state, {
       remoteMaterialCourse: [...state.remoteMaterialCourse.filter((element) => element.id !== action.payload)],

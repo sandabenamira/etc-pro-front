@@ -1,25 +1,9 @@
 import React, { Component } from 'react';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import IntlMessages from '../../../../../util/IntlMessages';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import { makeStyles } from '@material-ui/core/styles';
-import { Form, FormGroup, Label, Input, FormText, Row, Col } from 'reactstrap';
 import CardBox from '../../../../../components/CardBox/index';
 import ServiceAllocationItem from './ServiceAllocationItem';
-import { ListItem } from '@material-ui/core';
-import TablePagination from '@material-ui/core/TablePagination';
 import { connect } from 'react-redux';
 import EditAllocationService from './EditAllocationService';
-import DeleteAllcation from './DeleteAllocation';
-import {
-  addAllocationService,
-  editAllocationService,
-  getAllocationServiceByEstablishment,
-} from '../../../../../actions/AllocationServiceAction';
-
-import _ from 'lodash';
+import { addAllocationService, editAllocationService, getAllocationServiceByEstablishment } from '../../../../../actions/AllocationServiceAction';
 
 export class ListServiceAllocation extends Component {
   constructor(props) {
@@ -74,17 +58,9 @@ export class ListServiceAllocation extends Component {
       }
     });
 
-    this.props.editAllocationService(
-      oldData,
-      this.props.userProfile.establishment_id,
-      this.props.userProfile.school_year_id
-    );
+    this.props.editAllocationService(oldData, this.props.userProfile.establishment_id, this.props.userProfile.school_year_id);
     if (newData.length > 0) {
-      this.props.addAllocationService(
-        newData,
-        this.props.userProfile.establishment_id,
-        this.props.userProfile.school_year_id
-      );
+      this.props.addAllocationService(newData, this.props.userProfile.establishment_id, this.props.userProfile.school_year_id);
     }
     this.setState({
       openEdit: false,
@@ -93,8 +69,7 @@ export class ListServiceAllocation extends Component {
   handleIcon(itemSelected) {
     let serviceExistant = [];
     let idServices = this.state.idServicesAffected;
-    let monthSelected =
-      itemSelected.fk_id_frequency == 7 ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] : [];
+    let monthSelected = itemSelected.fk_id_frequency === 7 ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] : [];
     let newService = {
       allocation_month: monthSelected,
       service_v2: itemSelected,
@@ -103,13 +78,9 @@ export class ListServiceAllocation extends Component {
       fk_id_service: itemSelected.id,
     };
 
-    serviceExistant = this.state.servicesSelected.filter(
-      (service) => service.service_v2.id == itemSelected.id
-    );
+    serviceExistant = this.state.servicesSelected.filter((service) => service.service_v2.id === itemSelected.id);
 
-    let serviceDelete = this.state.servicesSelected.filter(
-      (service) => service.service_v2.id != itemSelected.id
-    );
+    let serviceDelete = this.state.servicesSelected.filter((service) => service.service_v2.id != itemSelected.id);
     let idServicesDelete = idServices.filter((service) => service != itemSelected.id);
     if (serviceExistant.length > 0) {
       this.setState({
@@ -161,13 +132,11 @@ export class ListServiceAllocation extends Component {
       servicesSelected: [],
       idServicesAffected: [],
     });
-    this.props.getAllocationServiceByEstablishment(
-      this.props.userProfile.establishment_id,
-      this.props.userProfile.school_year_id
-    );
+    this.props.getAllocationServiceByEstablishment(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id);
   }
 
   render() {
+    /* eslint eqeqeq: "off" */
     return (
       <>
         <CardBox styleName="text-black col-lg-12">

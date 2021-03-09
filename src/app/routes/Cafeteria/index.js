@@ -99,7 +99,7 @@ class Cafeteria extends React.Component {
     );
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
 
     return (
       <div className="app-wrapper">
@@ -160,7 +160,7 @@ class Cafeteria extends React.Component {
                           >
                             {/* {this.state.establishments.map(establishment => (
                             <MenuItem key={establishment.id} value={establishment.id}>
-                              {this.props.settings == "tunisia" ? establishment.ar_name : establishment.name}
+                              {this.props.settings==="tunisia" ? establishment.ar_name : establishment.name}
                             </MenuItem>
                           ))} */}
                           </TextField>

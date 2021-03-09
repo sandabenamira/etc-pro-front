@@ -15,7 +15,7 @@ class ArchiveGroupes extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { groupsList } = this.props;
     return (
       <div>

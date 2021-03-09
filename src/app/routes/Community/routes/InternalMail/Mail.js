@@ -208,7 +208,7 @@ class Mail extends Component {
       this.props.parents.forEach((element) => {
         element.inforamtionsParent.forEach((item) => {
           event.target.value.forEach((id) => {
-            if (id == item.studentProfileId) {
+            if (id===item.studentProfileId) {
               parentFiltred.push(element);
             }
           });
@@ -937,7 +937,7 @@ class Mail extends Component {
     });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {
       selectedMails,
       loader,

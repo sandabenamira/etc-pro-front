@@ -10,7 +10,7 @@ import PrintIcon from '@material-ui/icons/Print';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 
 export default class BookList extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="table-responsive-material">
         <div>

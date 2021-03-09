@@ -11,7 +11,7 @@ export default class EditClassSettings extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     console.log(this.props.values);
     return (
       <Auxiliary>

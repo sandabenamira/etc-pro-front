@@ -66,7 +66,7 @@ class EditPayment extends React.Component {
     this.props.cancelModal();
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { paymentDay, price, paymentMethode } = this.state;
     const { service } = this.props.paymentItem;
     return (

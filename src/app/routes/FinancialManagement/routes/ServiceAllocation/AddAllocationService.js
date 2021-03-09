@@ -40,18 +40,18 @@ class AddAllocationService extends React.Component {
     let serviceExistant = [];
 
     let services = this.state.servicesSelected;
-    servicesSelected = this.props.services.filter((service) => service.id == idSelected)[0];
+    servicesSelected = this.props.services.filter((service) => service.id===idSelected)[0];
     let serviceObj = {};
 
     serviceObj = servicesSelected;
 
-    if (servicesSelected.fk_id_frequency == 7) {
+    if (servicesSelected.fk_id_frequency===7) {
       serviceObj.monthSelected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     } else {
       serviceObj.monthSelected = [];
     }
 
-    serviceExistant = services.filter((service) => service.id == idSelected);
+    serviceExistant = services.filter((service) => service.id===idSelected);
 
     let serviceDelete = services.filter((service) => service.id != idSelected);
 
@@ -91,7 +91,7 @@ class AddAllocationService extends React.Component {
   };
 
   HandleSubmitAllocationService = () => {
-    if (this.state.student_id == '' || this.state.servicesSelected.length == 0) {
+    if (this.state.student_id==='' || this.state.servicesSelected.length===0) {
       this.setState({
         alerteEmpty: true,
         messageAlerte: 'il faut choisir un élève et une prestation au moins ',
@@ -112,7 +112,7 @@ class AddAllocationService extends React.Component {
         allocationData.fk_id_student = this.state.student_id;
         allocationData.fk_id_service = element.id;
         allocationData.allocation_month = element.monthSelected;
-        if (element.monthSelected.length == 0) {
+        if (element.monthSelected.length===0) {
           prestationWithoutMonths = element.name_fr_service;
         }
         monthExisted = monthExisted && element.monthSelected.length > 0;
@@ -202,11 +202,11 @@ class AddAllocationService extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let { services, studentList } = this.props;
     let { options, idStudents } = this.state;
     var lengthServices;
-    if (this.state.showListePrestation == false) {
+    if (this.state.showListePrestation===false) {
       lengthServices = 4;
     } else {
       lengthServices = services.length;
@@ -334,7 +334,7 @@ class AddAllocationService extends React.Component {
             ))}
           </div>
           <div className="col-lg-12 col-md-12 d-flex flex-column align-items-center ">
-            {this.state.showListePrestation == false ? (
+            {this.state.showListePrestation===false ? (
               <Button
                 variant="contained"
                 onClick={this.showPrestaion}
@@ -345,7 +345,7 @@ class AddAllocationService extends React.Component {
                   border: '0.5px solid',
                 }}
               >
-                {this.state.showListePrestation == false
+                {this.state.showListePrestation===false
                   ? ` Afficher toutes les prestations`
                   : ` masquer les prestations`}
               </Button>

@@ -145,7 +145,7 @@ export function getSchoolLicence(schoolYearId) {
        if (response) {
         const schoolLicenceList = response.data;
         const archivedSchoolLicenceList = schoolLicenceList.filter(
-          (element) => element.status == false
+          (element) => element.status===false
         );
         dispatch({ type: GET_SCHOOL_LICENCE, payload: schoolLicenceList });
         dispatch({

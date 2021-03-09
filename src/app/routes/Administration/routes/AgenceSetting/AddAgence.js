@@ -33,7 +33,7 @@ export default class AddAgence extends React.Component {w
 
     return res;
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <RoleContext.Consumer>
@@ -226,9 +226,9 @@ export default class AddAgence extends React.Component {w
                           <Button
                             variant="contained"
                             // disabled={
-                            //   this.props.values.section_id == null ||
-                            //   this.props.values.level_id == null ||
-                            //   this.props.values.nameClassSettings == ''
+                            //   this.props.values.section_id===null ||
+                            //   this.props.values.level_id===null ||
+                            //   this.props.values.nameClassSettings===''
                             //     ? true
                             //     : false
                             // }

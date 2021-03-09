@@ -70,7 +70,7 @@ class ComposeMail extends React.Component {
       this.setState({ receiverID: found.id });
     }
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { onMailSend, onClose, user } = this.props;
     const {
       receiver_id,

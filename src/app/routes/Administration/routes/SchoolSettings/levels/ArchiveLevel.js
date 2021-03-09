@@ -15,7 +15,7 @@ class ArchiveLevel extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { levelItem, educationTypes } = this.props;
     return (
       <div>

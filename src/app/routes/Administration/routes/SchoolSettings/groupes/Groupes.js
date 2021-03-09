@@ -56,7 +56,7 @@ class Groupes extends React.Component {
   //   }
 
   handleChange = (name) => (event) => {
-    if (name == "classId") {
+    if (name==="classId") {
       let obj = JSON.parse(event.target.value);
       this.setState({ [name]: obj.id, classItem: obj });
     } else {
@@ -102,7 +102,7 @@ class Groupes extends React.Component {
     );
   }
   handleDearchiver = (item, event) => {};
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div
         className="app-wrapper"

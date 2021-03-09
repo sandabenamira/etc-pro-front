@@ -8,7 +8,7 @@ class ScrollToTop extends Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return this.props.children
   }
 }

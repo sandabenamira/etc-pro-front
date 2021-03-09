@@ -18,7 +18,7 @@ export class DetailsService extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let element = this.props.data;
 
     const regex = /-/gi;

@@ -12,7 +12,7 @@ class EditTypeOfEducation extends React.Component {
     this.state = {
     };
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Auxiliary>
         <Modal

@@ -14,7 +14,7 @@ import { UncontrolledAlert } from "reactstrap";
 import _ from "lodash";
 import SweetAlert from "react-bootstrap-sweetalert";
 import IntlMessages from "../../../../../util/IntlMessages";
-
+/* eslint eqeqeq: "off" */
 export class CallRegisterSetting extends Component {
   constructor(props) {
     super(props);
@@ -148,7 +148,7 @@ export class CallRegisterSetting extends Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         {this.props.successStatus ? (

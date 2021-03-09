@@ -11,7 +11,7 @@ export default class DeleteMoocs extends Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Dialog open={this.props.deleteIsOpen} TransitionComponent={Slide}>
         <DialogContent>

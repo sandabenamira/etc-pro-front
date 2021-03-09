@@ -33,7 +33,7 @@ class AddCopybook extends React.Component {
       editorState,
     });
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { editorState } = this.state;
     return (
       <div>

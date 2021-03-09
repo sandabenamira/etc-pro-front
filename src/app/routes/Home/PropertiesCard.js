@@ -34,7 +34,7 @@ class PropertiesCard extends React.Component {
     }, 1500);
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Widget>
         <div className="d-flex flex-row justify-content-between mb-2">

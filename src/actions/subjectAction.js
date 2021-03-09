@@ -271,14 +271,14 @@ export function getSubjectSetting(establishementId, schoolYearId) {
       if (response) {
         var establishmentid = parseInt(establishementId, 10);
         var FiltredList = response.data.filter((element) => {
-          if (element.subjectModule.fk_id_establishment == establishmentid) {
+          if (element.subjectModule.fk_id_establishment===establishmentid) {
             subjects.push(element);
           }
         });
         const list = subjects;
         const SubjectList = list.filter((element) => element.status);
         const ArchivedSubjectsList = list.filter(
-          (element) => element.status == false
+          (element) => element.status===false
         );
         dispatch({ type: GET_SUBJECT_SETTING, payload: SubjectList });
         dispatch({

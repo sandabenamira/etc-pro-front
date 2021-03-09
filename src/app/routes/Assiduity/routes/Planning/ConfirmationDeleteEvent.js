@@ -15,7 +15,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export class ConfirmationDeleteEvent extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Dialog open={this.props.modal} TransitionComponent={Slide}>
         <form autoComplete="off" onSubmit={this.props.handleSubmitDelete}>
@@ -34,8 +34,8 @@ export class ConfirmationDeleteEvent extends Component {
                   onChange={this.props.handleChangeTypeDelete('typeDeleteChecked')}
                 >
                   {' '}
-                  {this.props.item.frequency == 'annual' ||
-                  this.props.item.frequency == 'unique' ? (
+                  {this.props.item.frequency==='annual' ||
+                  this.props.item.frequency==='unique' ? (
                     ''
                   ) : (
                     <>

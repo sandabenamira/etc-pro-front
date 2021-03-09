@@ -14,7 +14,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
 export class ConfirmationEditEvent extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Dialog open={this.props.modal} TransitionComponent={Slide}>
         <DialogContent>

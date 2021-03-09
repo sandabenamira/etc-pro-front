@@ -3,7 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Slide from '@material-ui/core/Slide';
-
+/* eslint eqeqeq: "off" */
 export default class AlerteImport extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +11,7 @@ export default class AlerteImport extends Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Dialog open={this.props.modal} TransitionComponent={Slide}>
         <DialogContent>

@@ -15,7 +15,7 @@ import Button from "@material-ui/core/Button";
 
 
 export default class AddBook extends Component {
-    render() {
+    render() {   /* eslint eqeqeq: "off" */
         return (
             <div class="d-flex flex-wrap flex-column bd-highlight ">
             <div class="p-2 ">

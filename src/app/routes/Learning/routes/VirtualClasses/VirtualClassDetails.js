@@ -4,8 +4,7 @@ import IntlMessages from '../../../../../util/IntlMessages';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import _ from 'lodash';
-
+ 
 
 class VirtualClassDetails extends Component {
   constructor(props) {
@@ -20,7 +19,7 @@ class VirtualClassDetails extends Component {
     if (prevProps.virtualClasses !== this.props.virtualClasses) {
       const sys = Date.parse(new Date()) / 60000;
       let virtualClassItem = this.props.virtualClasses.find(
-        (element) => element.id == this.props.match.params.classId
+        (element) => element.id===this.props.match.params.classId
       );
       if (virtualClassItem !== undefined) {
         const start =
@@ -47,7 +46,7 @@ class VirtualClassDetails extends Component {
   UNSAFE_componentWillMount() {
     const sys = Date.parse(new Date()) / 60000;
     let virtualClassItem = this.props.virtualClasses.find(
-      (element) => element.id == this.props.match.params.classId
+      (element) => element.id===this.props.match.params.classId
     );
     if (virtualClassItem !== undefined) {
       const start =
@@ -71,10 +70,11 @@ class VirtualClassDetails extends Component {
     this.setState({ virtualClassItem });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
+    /* eslint eqeqeq: "off" */
     let classItem = {};
     classItem = this.state.virtualClassItem;
-     if (classItem == undefined) {
+     if (classItem===undefined) {
       return (
         <h1 style={{ textAlign: 'center' }}>Classe Virtuelle non disponible</h1>
       );
@@ -181,7 +181,7 @@ class VirtualClassDetails extends Component {
                       </span>
                     </div>
                   </div>
-                  {classItem.description == '' ? (
+                  {classItem.description==='' ? (
                     <h3 className="text-center  text-primary">
                       Pas de description{' '}
                     </h3>

@@ -55,7 +55,7 @@ class EditRoom extends React.Component {
     this.props.cancelModal();
   }
   handleChange = (name) => (event) => {
-    if (name == "name") {
+    if (name==="name") {
       let nameError = false;
 
       if (this.props.room.name === event.target.value.trim()) {
@@ -91,7 +91,7 @@ class EditRoom extends React.Component {
     this.props.editRoom(data);
     this.setState({ previewVisible: false });
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Auxiliary>
         <Modal

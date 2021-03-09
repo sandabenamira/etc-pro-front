@@ -3,11 +3,9 @@ import IntlMessages from "../../../../../util/IntlMessages";
 import CardBox from "../../../../../components/CardBox/index";
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
-import _ from "lodash";
 import { connect } from "react-redux";
 import Rating from '@material-ui/lab/Rating';
-import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+ import PropTypes from 'prop-types';
 import moment from "moment";
 import DateFnsUtils from "@date-io/moment";
 import { Radio } from '@material-ui/core';
@@ -18,12 +16,12 @@ import {
   } from "@material-ui/pickers";
   import { withStyles } from '@material-ui/core/styles';
 
-import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
-import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
-import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
-import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
-import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
-import Typography from '@material-ui/core/Typography';
+// import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+// import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
+// import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
+// import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
+// import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
+// import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 const GreenRadio = withStyles({
@@ -195,7 +193,7 @@ this.setState({
 })
 }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="table-responsive-material">
         <div className="d-flex justify-content-center">

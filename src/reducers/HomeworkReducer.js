@@ -36,7 +36,7 @@ export default function(state = initialState, action) {
     });
   }
   if (action.type === DELETE_HOMEWORK) {
-    let itemDeleted = state.homeworks.find((element) => element.homework.id == action.payload);
+    let itemDeleted = state.homeworks.find((element) => element.homework.id===action.payload);
 
     return Object.assign({}, state, {
       homeworks: [...state.homeworks.filter((element) => element.homework.id !== action.payload)],

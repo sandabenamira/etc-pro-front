@@ -80,7 +80,7 @@ class Rooms extends React.Component {
     }
   }
   EditItemRoom(id) {
-    const room_Item = this.props.rooms.find((element) => element.id == id);
+    const room_Item = this.props.rooms.find((element) => element.id===id);
     this.setState({ room_Item: room_Item, edit: true });
   }
   handleSubmitEdit(room) {
@@ -165,7 +165,7 @@ class Rooms extends React.Component {
   handleAnnuleModalDelete() {
     this.setState({ modal_delete: false, item_id: 0 });
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper">
         <ContainerHeader

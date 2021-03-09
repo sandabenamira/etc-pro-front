@@ -85,12 +85,12 @@ class Moocs extends React.Component {
         let classProf = [];
 
         data[0].forEach((element) => {
-          if (element.assignmentClassSubject.class.fk_id_school_year == this.props.userProfile.school_year_id) {
+          if (element.assignmentClassSubject.class.fk_id_school_year===this.props.userProfile.school_year_id) {
             classProf.push(element.assignmentClassSubject.class);
 
             subjects.push(element.assignmentClassSubject.subject);
             assignmentClassSubjectProf.push(element.assignmentClassSubject);
-            let level = this.props.levels.find((levelItem) => levelItem.id == element.assignmentClassSubject.class.fk_id_level_v4);
+            let level = this.props.levels.find((levelItem) => levelItem.id===element.assignmentClassSubject.class.fk_id_level_v4);
             if (level != undefined) {
               levelProf.push(level);
             }
@@ -239,9 +239,9 @@ class Moocs extends React.Component {
     if (name === 'filterLevelId') {
       let filterClasses = [];
       if (this.props.userProfile.role_id === roleIdProfessor) {
-        filterClasses = this.state.classProf.filter((element) => element.fk_id_level_v4 == event.target.value);
+        filterClasses = this.state.classProf.filter((element) => element.fk_id_level_v4===event.target.value);
       } else {
-        filterClasses = this.props.ClassSettings.filter((element) => element.fk_id_level_v4 == event.target.value);
+        filterClasses = this.props.ClassSettings.filter((element) => element.fk_id_level_v4===event.target.value);
       }
 
       this.setState({
@@ -255,14 +255,14 @@ class Moocs extends React.Component {
     } else if (name === 'filterClassId') {
       let filterCourseAssignment = [];
       if (this.props.userProfile.role_id === roleIdProfessor) {
-        filterCourseAssignment = this.state.assignmentClassSubjectProf.filter((element) => element.fk_id_class_v4 == event.target.value);
+        filterCourseAssignment = this.state.assignmentClassSubjectProf.filter((element) => element.fk_id_class_v4===event.target.value);
       } else {
-        filterCourseAssignment = this.props.courseAssignment.filter((element) => element.fk_id_class_v4 == event.target.value);
+        filterCourseAssignment = this.props.courseAssignment.filter((element) => element.fk_id_class_v4===event.target.value);
       }
 
       let moocsAssignCourseFilter = [];
       let filterMoocs = this.props.listMoocs.filter((mooc) => {
-        moocsAssignCourseFilter = mooc.moocsAssignCourse.filter((element) => element.classId == event.target.value);
+        moocsAssignCourseFilter = mooc.moocsAssignCourse.filter((element) => element.classId===event.target.value);
         if (moocsAssignCourseFilter.length > 0) {
           return mooc;
         }
@@ -275,10 +275,10 @@ class Moocs extends React.Component {
         filterAssignmentId: '',
       });
     } else {
-      if (event.target.value == 0) {
+      if (event.target.value===0) {
         let moocsAssignCourseFilter = [];
         let filterMoocs = this.props.listMoocs.filter((mooc) => {
-          moocsAssignCourseFilter = mooc.moocsAssignCourse.filter((element) => element.classId == this.state.filterClassId);
+          moocsAssignCourseFilter = mooc.moocsAssignCourse.filter((element) => element.classId===this.state.filterClassId);
           if (moocsAssignCourseFilter.length > 0) {
             return mooc;
           }
@@ -287,7 +287,7 @@ class Moocs extends React.Component {
       } else {
         let moocsAssignCourseFilter = [];
         let filterMoocs = this.props.listMoocs.filter((mooc) => {
-          moocsAssignCourseFilter = mooc.moocsAssignCourse.filter((element) => element.assignementId == event.target.value);
+          moocsAssignCourseFilter = mooc.moocsAssignCourse.filter((element) => element.assignementId===event.target.value);
           if (moocsAssignCourseFilter.length > 0) {
             return mooc;
           }
@@ -297,7 +297,7 @@ class Moocs extends React.Component {
     }
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     var MoocsByMonth = 0;
     this.props.listMoocs.map((element) => {
       var d = new Date();
@@ -305,7 +305,7 @@ class Moocs extends React.Component {
       var check = moment(element.dateOfCreation, 'YYYY/MM/DD');
       var month = check.format('M');
 
-      if (month == n + 1) {
+      if (month===n + 1) {
         MoocsByMonth = MoocsByMonth + 1;
       }
     });

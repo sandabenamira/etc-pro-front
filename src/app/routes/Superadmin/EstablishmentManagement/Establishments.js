@@ -77,7 +77,7 @@ class Establishments extends React.Component {
     this.setState({ addEstablishmentModal: true });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      return (
       <div className="app-wrapper">
         <ContainerHeader

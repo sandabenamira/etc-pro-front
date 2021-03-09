@@ -3,7 +3,6 @@ import CardBox from '../../../../../../components/CardBox/index';
 import { connect } from 'react-redux';
 import AddClassFormation from './AddClassFormation';
 import SubmitStep from './SubmitStep';
-import _ from 'lodash';
 import { UncontrolledAlert } from 'reactstrap';
 import { addClassFormation, addCollaboratorFormation, addPlanningFormation } from '../../../../../../actions/AffectaionClassFormation';
 import { getRoomsByEstablshment } from '../../../../../../actions/roomAction';
@@ -505,7 +504,7 @@ class ClassFormation extends React.Component {
       this.setState({ professorList, studentsList });
     }
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div
         className="app-wrapper"

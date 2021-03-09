@@ -86,7 +86,7 @@ class Levels extends React.Component {
   }
   handleDearchiver= (item, event) => {
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div
         className="app-wrapper"

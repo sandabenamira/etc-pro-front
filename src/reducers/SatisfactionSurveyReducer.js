@@ -23,9 +23,9 @@ import {
     }
   
     if (action.type === ADD_SATIS_SURVEY) {
-      let classItmem = state.satisfactionSurveyList.find((element) => element.id == action.payload.id);
+      let classItmem = state.satisfactionSurveyList.find((element) => element.id===action.payload.id);
       let newItem = {};
-      if (classItmem == undefined) {
+      if (classItmem===undefined) {
         newItem = action.payload;
       } else {
         newItem = { ...classItmem, group: classItmem.group.concat(action.payload.group) };

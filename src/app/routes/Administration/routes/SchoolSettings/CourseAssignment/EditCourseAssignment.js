@@ -15,7 +15,7 @@ class EditCourseAssignment extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
     return (
       <Auxiliary>

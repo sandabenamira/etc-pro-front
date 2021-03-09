@@ -13,7 +13,7 @@ import {
   deleteClassSettings,
   editClassSettings,
 } from '../../../../../../actions/ClassSettingsAction';
-import _ from 'lodash';
+/* eslint eqeqeq: "off" */
 class ClassesSettingsList extends Component {
   constructor(props) {
     super(props);
@@ -90,7 +90,7 @@ class ClassesSettingsList extends Component {
     this.props.editClassSettings(data, this.state.id);
     this.handleCancel();
   };
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      return (
       <div className="table-responsive-material">
         <div>

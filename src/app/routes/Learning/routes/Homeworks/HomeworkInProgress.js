@@ -22,7 +22,7 @@ class HomeworkInProgress extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       
        

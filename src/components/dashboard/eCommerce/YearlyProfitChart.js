@@ -4,7 +4,7 @@ import '../../../app/routes/dashboard/routes/Misc/test.css'
 
 class YearlyProfitChart extends Component {
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
 
     const {
       shadowColor,

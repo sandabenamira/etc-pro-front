@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   HIDE_MESSAGE,
   INIT_URL,
@@ -18,18 +18,15 @@ import {
   SIGNOUT_USER_SUCCESS,
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
-  GET_USER_PROFILE,
-  FETECHED_ALL_SCHOOL_YEAR_ETAB,
+   FETECHED_ALL_SCHOOL_YEAR_ETAB,
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
   GET_ESTABLISHMENT_INFORMATIONS,
   GET_PROFILE,
-} from "../constants/ActionTypes";
-import { isEmail } from "../constants/validationFunctions";
-import cst from "../config/config";
-import { getThemeColor, getAppLanguage, initOptions } from "./Setting";
-import _ from "lodash";
-import { roleIdAdmin, roleIdSuperAdmin } from "../config/config";
+} from '../constants/ActionTypes';
+import { isEmail } from '../constants/validationFunctions';
+import cst from '../config/config';
+import { getThemeColor, getAppLanguage, initOptions } from './Setting';
 export const userSignUp = (user) => {
   return {
     type: SIGNUP_USER,
@@ -57,71 +54,43 @@ export const userSignIn = (user) => {
       .post(`${cst.baseUrl}/users/login`, User)
       .then((res) => {
         // let id = res.data.id;
-        localStorage.setItem("token", res.data.id);
-        localStorage.setItem("rtvrx_tgfsaju_G0loik", res.data.userId);
+        localStorage.setItem('token', res.data.id);
+        localStorage.setItem('rtvrx_tgfsaju_G0loik', res.data.userId);
         dispatch(getProfile(res.data.id, res.data.userId));
       })
-      .catch((err) =>
-        dispatch(
-          showAuthMessage("Veuillez vérifier votre login et mot de passe")
-        )
-      );
+      .catch((err) => dispatch(showAuthMessage('Veuillez vérifier votre login et mot de passe')));
   };
 };
 
 export const getProfile = (token, userId) => {
-  return function(dispatch) {
-    axios
-      .get(`${cst.baseUrl}/profiles/getprofile/${userId}?access_token=${token}`)
-      .then((res) => {
-        dispatch({
-          type: GET_PROFILE,
-          payload: res.data.profile[0],
-        });
-        let result = res.data.profile[0];
-        let status =
-          result.establishments[0].establishment.licence[0].situation;
-        let modules =
-          result.establishments[0].establishment.licence[0].licenceModule;
-        let user = result.user;
-        let settings = result.setting;
-        let dataOption = {
-          startTime: result.setting.start_time_calendar,
-          endTime: result.setting.end_time_calendar,
-          appLang: result.setting.app_lang,
-          conferenceTool: result.setting.conference_tool,
-        };
-        let establishmentInfomations = result.establishments[0].establishment;
-        dispatch(
-          chekLicence(
-            status,
-            modules,
-            user,
-            settings,
-            dataOption,
-            establishmentInfomations
-          )
-        );
+  return function (dispatch) {
+    axios.get(`${cst.baseUrl}/profiles/getprofile/${userId}?access_token=${token}`).then((res) => {
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data.profile[0],
       });
+      let result = res.data.profile[0];
+      let status = result.establishments[0].establishment.licence[0].situation;
+      let modules = result.establishments[0].establishment.licence[0].licenceModule;
+      let user = result.user;
+      let settings = result.setting;
+      let dataOption = {
+        startTime: result.setting.start_time_calendar,
+        endTime: result.setting.end_time_calendar,
+        appLang: result.setting.app_lang,
+        conferenceTool: result.setting.conference_tool,
+      };
+      let establishmentInfomations = result.establishments[0].establishment;
+      dispatch(chekLicence(status, modules, user, settings, dataOption, establishmentInfomations));
+    });
   };
 };
 
-const chekLicence = (
-  status,
-  modules,
-  user,
-  settings,
-  dataOption,
-  establishmentInfomations
-) => {
+const chekLicence = (status, modules, user, settings, dataOption, establishmentInfomations) => {
   return (dispatch) => {
-    if (status !== "Actif") {
+    if (status !== 'Actif') {
       dispatch(userSignOut());
-      dispatch(
-        showLicenceMessage(
-          "Votre licence a expiré, Merci de contacter le super admin Educap"
-        )
-      );
+      dispatch(showLicenceMessage('Votre licence a expiré, Merci de contacter le super admin Educap'));
     } else {
       dispatch(getEstablishmentsModules(modules));
       dispatch(initSessionApp(settings, dataOption, establishmentInfomations));
@@ -157,7 +126,7 @@ export const getSchoolYear = () => {
 
 export const getEstablishmentsModules = (modules) => {
   return {
-    type: "GET_ESTABLISHMENT_MODULE",
+    type: 'GET_ESTABLISHMENT_MODULE',
     payload: modules,
   };
 };
@@ -170,26 +139,22 @@ export const getEstablishmentsInformations = (data) => {
 };
 
 export const resetAccountPassword = (data) => {
-  return function(dispatch) {
-    var token = localStorage.getItem("token");
+  return function (dispatch) {
+    var token = localStorage.getItem('token');
     axios
-      .post(
-        `${cst.baseUrl}/users/reset-initial-password?access_token=${token}`,
-        data,
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-        }
-      )
+      .post(`${cst.baseUrl}/users/reset-initial-password?access_token=${token}`, data, {
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
       .then((res) => {})
       .catch((error) => {});
   };
 };
 export const userSignOut = () => {
   axios.post(`${cst.baseUrl}/users/logout?access_token=${localStorage.token}`);
-  localStorage.removeItem("token");
-  localStorage.removeItem("rtvrx_tgfsaju_G0loik");
+  localStorage.removeItem('token');
+  localStorage.removeItem('rtvrx_tgfsaju_G0loik');
 
   return {
     type: SIGNOUT_USER,
@@ -301,6 +266,6 @@ export const hideAuthLoader = () => {
 };
 export const hideModalSelectEstablishment = () => {
   return {
-    type: "HIDE_MODAL_SELECT_ESTABLISHMENT",
+    type: 'HIDE_MODAL_SELECT_ESTABLISHMENT',
   };
 };

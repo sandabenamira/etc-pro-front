@@ -62,7 +62,7 @@ class ComplaintChoiceMenu extends React.Component {
   onReclamSend(data) {
     this.props.onReclamSend(data);
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const data = this.props.data;
     const {
       openCompose,
@@ -106,7 +106,7 @@ class ComplaintChoiceMenu extends React.Component {
           >
             <IntlMessages id="Reclam.répondre" />
           </MenuItem>
-          {localStorage.roles_id == roleIdAdmin &&
+          {localStorage.roles_id===roleIdAdmin &&
           this.props.type != "Envoyées" ? (
             <MenuItem
               key="{modifier l'état}"
@@ -122,7 +122,7 @@ class ComplaintChoiceMenu extends React.Component {
             ""
           )}
 
-          {localStorage.roles_id == roleIdAdmin ? (
+          {localStorage.roles_id===roleIdAdmin ? (
             <MenuItem
               key="{Supprimer}"
               onClick={() => {

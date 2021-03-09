@@ -22,7 +22,7 @@ class AddLesson extends React.Component {
   UNSAFE_componentWillMount() {
     this.props.handleChangeEventType();
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
      const { language } = this.props;
     return (
       <Auxiliary>
@@ -35,7 +35,7 @@ class AddLesson extends React.Component {
                 onSubmit={(e) => this.props.handleSubmit(e)}
               >
                 <div className="col-sm-12">
-                  {this.props.values.EventGategorie == 1 ? (
+                  {this.props.values.EventGategorie===1 ? (
                     <Nav className="jr-tabs-pills-ctr" pills>
                       <NavItem>
                         <NavLink
@@ -209,7 +209,7 @@ class AddLesson extends React.Component {
                                   </div>
                                 </div>
                               </div>
-                            ) : this.props.values.eventType == "holidays" ? (
+                            ) : this.props.values.eventType==="holidays" ? (
                               <div className=" d-flex flex-row justify-content-center ">
                                 <div className="col-md-12">
                                   <div className="form-group">
@@ -305,7 +305,7 @@ class AddLesson extends React.Component {
                               </span>
                             </li>
                           </div>
-                        ) : this.props.values.EventGategorie == 0 ? (
+                        ) : this.props.values.EventGategorie===0 ? (
                           <div className="col-sm-12">
                             <li className="media">
                               <i className="zmdi zmdi-accounts zmdi-hc-fw zmdi-hc-lg text-primary align-self-center" />
@@ -432,8 +432,8 @@ class AddLesson extends React.Component {
                       <span className="media-body">
                         {" "}
                         <IntlMessages id="components.event.with.class" /> :
-                        {this.props.values.eventType == "schoolVacation" ||
-                          this.props.values.eventType == "holidays" ? (
+                        {this.props.values.eventType==="schoolVacation" ||
+                          this.props.values.eventType==="holidays" ? (
                             <IntlMessages id="components.event.with.class.all" />
                           ) : (
                             this.props.values.classe.name

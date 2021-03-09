@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import IconButton from "@material-ui/core/IconButton";
-import _ from "lodash";
 import { getNameFromID } from "../../../../../../actions/countriesAction";
+/* eslint eqeqeq: "off" */
 export default class GroupesItem extends Component {
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { groupItem, educationTypes } = this.props;
 
     return (
@@ -14,7 +14,7 @@ export default class GroupesItem extends Component {
           {groupItem.group.map((element) => element.name + " , ")}
         </TableCell>
         <TableCell>{groupItem.name}</TableCell>
-        {this.props.archived == false ? (
+        {this.props.archived===false ? (
           <TableCell>
             <IconButton
               size="large"

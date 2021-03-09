@@ -77,7 +77,7 @@ class HealthFileListItem extends Component {
       });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { theme } = this.props;
     const data = [
       {

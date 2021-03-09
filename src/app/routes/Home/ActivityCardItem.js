@@ -40,14 +40,14 @@ export default class ActivityCardItem extends Component {
 
 
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div className="media user-profile">
         <div className="MuiAvatar-root size-50 mr-3">
           <img src="https://jumbo-react.g-axon.work/static/media/domnic-brown.aca44ca2.png" alt="Activity">
           </img>
 
-          {this.state.uri == null ?
+          {this.state.uri===null ?
             <img src="https://pngimage.net/wp-content/uploads/2018/05/admin-avatar-png-1.png" alt="Activity"></img> :
             <img src={this.state.uri} alt="Activity"></img>
           }

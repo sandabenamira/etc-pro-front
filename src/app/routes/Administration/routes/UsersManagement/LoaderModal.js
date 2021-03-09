@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import _ from "lodash";
 import Loader from "react-loader-spinner";
 class LoaderModal extends Component {
   constructor(props) {
@@ -9,7 +8,7 @@ class LoaderModal extends Component {
   }
  
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {} = this.props;
     return (
       <div
@@ -21,7 +20,7 @@ class LoaderModal extends Component {
           color="#3F51B5"
           height={100}
           width={100}
-          visible={this.props.userLoading == true ? true : false}
+          visible={this.props.userLoading===true ? true : false}
         />
       </div>
     );

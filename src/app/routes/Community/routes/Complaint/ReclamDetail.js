@@ -181,7 +181,7 @@ class ReclamDetail extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { data, width, onClose } = this.props;
     const statusStyle = data.status_complaint.includes("non traitée")
       ? "text-white bg-danger"
@@ -256,7 +256,7 @@ class ReclamDetail extends React.Component {
 
               <div className="jr-card-hd-content">
                 {this.props.type === "Reçues" ? (
-                  this.props.settings.languageId == "tunisia" &&
+                  this.props.settings.languageId==="tunisia" &&
                   nameSender_AR != "null null" ? (
                     <h4 className="mb-0 text-white">
                       <IntlMessages id="Reclam.detail.from" /> {nameSender_AR}
@@ -266,7 +266,7 @@ class ReclamDetail extends React.Component {
                       <IntlMessages id="Reclam.detail.from" /> {nameSender}
                     </h4>
                   )
-                ) : this.props.settings.languageId == "tunisia" &&
+                ) : this.props.settings.languageId==="tunisia" &&
                   nameReceiver_AR != "null null" ? (
                   <h4 className="mb-0 text-white">
                     <IntlMessages id="Reclam.detail.to" /> {nameReceiver_AR}
@@ -309,7 +309,7 @@ class ReclamDetail extends React.Component {
               </div>
               <div>
                 {this.props.type === "Reçues" ? (
-                  localStorage.roles_id == roleIdAdmin ? (
+                  localStorage.roles_id===roleIdAdmin ? (
                     <div className={` badge text-uppercase ${statusStyle}`}>
                       {statusComplaint}
                     </div>
@@ -325,7 +325,7 @@ class ReclamDetail extends React.Component {
                 )}
               </div>
               <div>
-                {this.props.data.files == null ? (
+                {this.props.data.files===null ? (
                   ""
                 ) : (
                   <div>

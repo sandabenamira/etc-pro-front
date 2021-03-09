@@ -219,7 +219,7 @@ class EditEstablishment extends React.Component {
     else return true;
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <Auxiliary>
         <Modal isOpen={this.props.modal}>

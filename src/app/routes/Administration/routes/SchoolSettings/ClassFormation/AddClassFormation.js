@@ -34,16 +34,16 @@ class AddClassFormation extends React.Component {
   }
 
   validationClickStep1() {
-    if (this.props.values.nameClassFormation === '' && _.isEmpty(this.props.values.subjectSelected) == true) {
+    if (this.props.values.nameClassFormation === '' && _.isEmpty(this.props.values.subjectSelected)===true) {
       return true;
     } else return false;
   }
   validationClickStep2() {
-    if (this.props.values.agenceIds === [] && _.isEmpty(this.props.values.participantList) == true) {
+    if (this.props.values.agenceIds === [] && _.isEmpty(this.props.values.participantList)===true) {
       return true;
     } else return false;
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { values } = this.props;
 
     return (
@@ -164,7 +164,7 @@ class AddClassFormation extends React.Component {
                 <Button
                   disabled={
                     // values.step2 &&
-                    this.validationClickStep1() == true ? true : false
+                    this.validationClickStep1()===true ? true : false
                   }
                   variant="contained"
                   style={{
@@ -277,7 +277,7 @@ class AddClassFormation extends React.Component {
                     <Button
                       disabled={
                         // values.step3 &&
-                        this.validationClickStep2() == true ? true : false
+                        this.validationClickStep2()===true ? true : false
                       }
                       variant="contained"
                       style={{
@@ -468,7 +468,7 @@ class AddClassFormation extends React.Component {
                   <div
                     className={ClassNames({
                       'd-flex flex-row justify-content-end mt-3': this.props.settings.locale !== 'ar',
-                      '': this.props.settings.locale == 'ar',
+                      '': this.props.settings.locale==='ar',
                     })}
                   >
                     <Button

@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 
 class ShowSupportCours extends Component {
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const sys = Date.parse(new Date()) / 60000;
     const start =
       Date.parse(
@@ -84,9 +84,9 @@ class ShowSupportCours extends Component {
                   <div>
                     
                     <h3 className="mb-0 text-white">
-                      {this.props.settings.languageId == 'tunisia'
+                      {this.props.settings.languageId==='tunisia'
                         ? date_Class_AR + '   على الساعة  '
-                        : this.props.settings.languageId == 'french'
+                        : this.props.settings.languageId==='french'
                         ? date_Class_FR + '   '
                         : date_Class_EN + '   '}
                     </h3>
@@ -101,7 +101,7 @@ class ShowSupportCours extends Component {
 
                 <div className="jr-card-hd-content">
                   <h4 className="mb-0 text-white">
-                    {this.props.settings.languageId == 'tunisia'
+                    {this.props.settings.languageId==='tunisia'
                       ? this.props.values.classItem.ProfessorNameAR
                       : this.props.values.classItem.ProfessorName}
                   </h4>

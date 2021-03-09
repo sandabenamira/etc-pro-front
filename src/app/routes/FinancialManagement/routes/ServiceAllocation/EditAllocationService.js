@@ -14,7 +14,6 @@ import {
 } from '../../../../../actions/AllocationServiceAction';
 import { connect } from 'react-redux';
 import ServiceItem from './ServiceAllocationComp/ServiceItem';
-import _ from 'lodash';
 import Button from '@material-ui/core/Button';
 import { UncontrolledAlert } from 'reactstrap';
 
@@ -38,7 +37,7 @@ class EditAllocationService extends Component {
     console.log(this.props.servicesSelected, 'alertIcon');
 
      const found = this.props.servicesSelected.find(
-      (element) => element.fk_id_service == itemSelected.id
+      (element) => element.fk_id_service===itemSelected.id
     );
     if (found !== undefined) {
       if (found.id != '') {
@@ -58,15 +57,15 @@ class EditAllocationService extends Component {
   handleChangeMonth = (monthId, element) => {
     let tab = element.allocation_month;
 
-    var index = tab.findIndex((element) => element == parseInt(monthId, 10));
-    if (index == -1) {
+    var index = tab.findIndex((element) => element===parseInt(monthId, 10));
+    if (index===-1) {
       tab.push(parseInt(monthId, 10));
      } else {
       tab.splice(index, 1);
      }
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let { services, allocationItemEdit, idServicesAffected, servicesSelected } = this.props;
 
     return (
@@ -228,7 +227,7 @@ class EditAllocationService extends Component {
                   </Button>
                   &nbsp;&nbsp;
                   <Button
-                    disabled={this.state.student_id == '' || servicesSelected.length == 0}
+                    disabled={this.state.student_id==='' || servicesSelected.length===0}
                     variant="contained"
                     style={{
                       borderBottomLeftRadius: '16px',

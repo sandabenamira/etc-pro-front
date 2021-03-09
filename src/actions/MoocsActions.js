@@ -1,5 +1,4 @@
 import { classService } from "../_services/class.service";
-import _ from "lodash";
 import {
   ADD_MOOCS,
   GET_MOOCS,
@@ -181,7 +180,7 @@ export function deleteMoocs(item) {
 
 export function editMoocs(itemMoocs) {
   return (dispatch) => {
-    if (itemMoocs.moocsFile == null) {
+    if (itemMoocs.moocsFile===null) {
       let dataMoocs = {
         id: itemMoocs.id,
         moocs_topic: itemMoocs.topicMoocs,

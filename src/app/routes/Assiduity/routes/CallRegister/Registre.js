@@ -101,7 +101,7 @@ class Registre extends Component {
     this.setState({ [name]: event.target.value });
 
     if (event.target.value !== 0) {
-      if (this.state.typeCall == 'all') {
+      if (this.state.typeCall==='all') {
         let events = this.props.events.filter((element) => element.profId === event.target.value && element.classId === this.state.classIdFilter);
         this.setState({ events });
       } else {
@@ -112,7 +112,7 @@ class Registre extends Component {
         this.setState({ events });
       }
     } else {
-      if (this.state.typeCall == 'all') {
+      if (this.state.typeCall==='all') {
         let events = this.props.events.filter((element) => element.classId === this.state.classIdFilter);
         this.setState({ events });
       } else {
@@ -147,7 +147,7 @@ class Registre extends Component {
 
       this.props.dispatch(getEventCallRegisterForAdmin(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id, obj.classId));
     } else if (this.props.userProfile.role_id === roleIdProfessor) {
-      if (this.state.typeCall == 'all') {
+      if (this.state.typeCall==='all') {
         if (obj.classId === 0) {
           this.setState({ events: this.props.events });
         } else {
@@ -168,35 +168,35 @@ class Registre extends Component {
   handleChangeType = (name) => (event) => {
     this.setState({ [name]: event.target.value });
     if (this.props.userProfile.role_id === roleIdAdmin) {
-      if (this.state.classIdFilter == 0) {
-        if (event.target.value == 'all') {
+      if (this.state.classIdFilter===0) {
+        if (event.target.value==='all') {
           this.setState({ events: this.props.events });
         } else {
           let events = this.props.events.filter((element) => element.tagCallRegister === event.target.value);
           this.setState({ events: events });
         }
       } else {
-        if (this.state.profId == '') {
-          if (event.target.value == 'all') {
-            let events = this.props.events.filter((element) => element.classId == this.state.classIdFilter);
+        if (this.state.profId==='') {
+          if (event.target.value==='all') {
+            let events = this.props.events.filter((element) => element.classId===this.state.classIdFilter);
 
             this.setState({ events });
           } else {
             let events = this.props.events.filter(
-              (element) => element.tagCallRegister === event.target.value && element.classId == this.state.classIdFilter
+              (element) => element.tagCallRegister === event.target.value && element.classId===this.state.classIdFilter
             );
 
             this.setState({ events: events });
           }
         } else {
-          if (event.target.value == 'all') {
-            let events = this.props.events.filter((element) => element.classId == this.state.classIdFilter && element.profId === this.state.profId);
+          if (event.target.value==='all') {
+            let events = this.props.events.filter((element) => element.classId===this.state.classIdFilter && element.profId === this.state.profId);
 
             this.setState({ events });
           } else {
             let events = this.props.events.filter(
               (element) =>
-                element.tagCallRegister === event.target.value && element.classId == this.state.classIdFilter && element.profId === this.state.profId
+                element.tagCallRegister === event.target.value && element.classId===this.state.classIdFilter && element.profId === this.state.profId
             );
 
             this.setState({ events: events });
@@ -204,21 +204,21 @@ class Registre extends Component {
         }
       }
     } else if (this.props.userProfile.role_id === roleIdProfessor || this.props.userProfile.role_id === roleIdParent) {
-      if (this.state.classIdFilter == 0) {
-        if (event.target.value == 'all') {
+      if (this.state.classIdFilter===0) {
+        if (event.target.value==='all') {
           this.setState({ events: this.props.events });
         } else {
           let events = this.props.events.filter((element) => element.tagCallRegister === event.target.value);
           this.setState({ events: events });
         }
       } else {
-        if (event.target.value == 'all') {
-          let events = this.props.events.filter((element) => element.classId == this.state.classIdFilter);
+        if (event.target.value==='all') {
+          let events = this.props.events.filter((element) => element.classId===this.state.classIdFilter);
 
           this.setState({ events });
         } else {
           let events = this.props.events.filter(
-            (element) => element.tagCallRegister === event.target.value && element.classId == this.state.classIdFilter
+            (element) => element.tagCallRegister === event.target.value && element.classId===this.state.classIdFilter
           );
 
           this.setState({ events: events });
@@ -231,7 +231,7 @@ class Registre extends Component {
     if (
       this.props.match.params.classId !== 'undefined' &&
       this.props.match.params.classId !== undefined &&
-      this.state.itemClass == '' &&
+      this.state.itemClass==='' &&
       this.props.match.params != prevProps.match.params
     ) {
       if (this.props.userProfile.role_id === roleIdAdmin) {
@@ -617,9 +617,9 @@ class Registre extends Component {
     );
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     //chefAgenceId
-    if (this.state.isRedirect == true) {
+    if (this.state.isRedirect===true) {
       if (this.props.userProfile.role_id === roleIdParent) {
         return (
           <Redirect

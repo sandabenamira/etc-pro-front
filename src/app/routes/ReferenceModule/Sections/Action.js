@@ -61,15 +61,15 @@ export function get(establishment_id, schoolYearId) {
         const List = list.filter((element) => {
           return (
             element.status &&
-            element.fk_id_school_year == schoolYearId &&
-            element.level.educationType.fk_id_establishment == establishment_id
+            element.fk_id_school_year===schoolYearId &&
+            element.level.educationType.fk_id_establishment===establishment_id
           );
         });
         const ArchivedList = list.filter(
           (element) =>
-            element.status == false &&
-            element.fk_id_school_year == schoolYearId &&
-            element.level.educationType.fk_id_establishment == establishment_id
+            element.status===false &&
+            element.fk_id_school_year===schoolYearId &&
+            element.level.educationType.fk_id_establishment===establishment_id
         );
         dispatch({ type: GET, payload: List });
         dispatch({

@@ -160,7 +160,7 @@ export class BillItem extends Component {
     doc.save(bill.bill.reference);
   };
   /////////////////////////////////////////
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { classes } = this.props;
     let element = this.props.item;
     let statusInvoice = element.statusInvoice;
@@ -223,7 +223,7 @@ export class BillItem extends Component {
                 }
               />
 
-              {this.props.month == "" ? (
+              {this.props.month==="" ? (
                 <Tab
                   style={{ backgroundColor: "#FFFFFF" }}
                   icon={

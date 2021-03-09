@@ -56,7 +56,7 @@ class WriteBox extends Component {
     this.setState({ commentText: e.target.value });
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { previewVisible, previewImage, fileList } = this.state;
     const isEnabled = fileList.length === 0 && this.state.commentText === '';
 

@@ -8,7 +8,7 @@ class SubjectItem extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let { subjectModules, subject } = this.props;
     return (
       <>
@@ -30,7 +30,7 @@ class SubjectItem extends React.Component {
             />
           </TableCell>
 
-          {this.props.archived == false ? (
+          {this.props.archived===false ? (
             <TableCell align="center">
               <IconButton
                 size="medium"

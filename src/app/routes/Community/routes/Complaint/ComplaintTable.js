@@ -25,7 +25,7 @@ class ComplaintTable extends React.Component {
     };
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
 
       <div className="table-responsive-material">
@@ -124,7 +124,7 @@ export default ComplaintTable;
 // class ComplaintTable extends Component {
 //   getData(type) {
 //     if (type === "Reçues") {
-//       if (localStorage.roles_id == roleIdAdmin) {
+//       if (localStorage.roles_id===roleIdAdmin) {
 //         let reclam_Admin_Recues = this.props.Recues.filter(
 //           (element) => element.status
 //         );
@@ -133,7 +133,7 @@ export default ComplaintTable;
 //         return this.props.Recues;
 //       }
 //     } else {
-//       if (localStorage.roles_id == roleIdAdmin) {
+//       if (localStorage.roles_id===roleIdAdmin) {
 //         let reclam_Admin_Envoyées = this.props.Envoyées.filter(
 //           (element) => element.status
 //         );
@@ -144,11 +144,11 @@ export default ComplaintTable;
 //     }
 //   }
 
-//   render() {
+//   render() {   /* eslint eqeqeq: "off" */
 //     const data = this.getData(this.props.type);
 //     return (
 //       <CardBox styleName="col-lg-12">
-//         {data.length == 0 ? (
+//         {data.length===0 ? (
 //           <h1 align="center">
 //             <IntlMessages id="complaint.no.réclamation" />
 //           </h1>
@@ -177,7 +177,7 @@ export default ComplaintTable;
 //                     <IntlMessages id="complaint.date" />
 //                   </TableCell>
 //                   {this.props.type === "Reçues" ? (
-//                     localStorage.roles_id == roleIdAdmin ? (
+//                     localStorage.roles_id===roleIdAdmin ? (
 //                       <TableCell
 //                         align="center"
 //                         className="status-cell text-right"

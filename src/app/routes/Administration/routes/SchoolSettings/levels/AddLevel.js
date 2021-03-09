@@ -16,7 +16,7 @@ class AddLevel extends React.Component {
     super(props);
     this.state = {};
   }
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
       <div>
         <form autoComplete="off" onSubmit={this.props.handleSubmit}>
@@ -106,7 +106,7 @@ class AddLevel extends React.Component {
                 &nbsp;&nbsp;
                 <Button
                   variant="contained"
-                  disabled={this.props.values.nameLevel == '' || this.props.values.level_id == 0 ? true : false}
+                  disabled={this.props.values.nameLevel==='' || this.props.values.level_id===0 ? true : false}
                   style={{
                     borderBottomLeftRadius: '16px',
                     borderBottomRightRadius: '16px',

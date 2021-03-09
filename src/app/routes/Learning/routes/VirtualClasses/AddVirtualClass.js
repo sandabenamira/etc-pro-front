@@ -42,7 +42,7 @@ class AddVirtualClass extends React.Component {
     this.state = {};
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const {
       values,
       handleChange,

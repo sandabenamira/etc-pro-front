@@ -22,7 +22,7 @@ class Archive extends React.Component {
 
 
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     return (
    
       <div>

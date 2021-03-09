@@ -43,7 +43,7 @@ class AddSchoolYearEtab extends React.Component {
     this.props.cancelModal();
   };
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     let establishmentList = this.props.establishments;
     let schoolYearsList = this.props.schoolYearsList;
 

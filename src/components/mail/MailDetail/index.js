@@ -115,7 +115,7 @@ class MailDetail extends React.Component {
     }
   }
 
-  render() {
+  render() {   /* eslint eqeqeq: "off" */
     const { mail, onStartSelect, onImportantSelect, width, user } = this.props;
     const { openCompose } = this.state;
     const options = ['Reply', 'Forward', 'Print'];
