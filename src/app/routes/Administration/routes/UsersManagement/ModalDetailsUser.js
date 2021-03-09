@@ -276,7 +276,7 @@ export class ModalDetailsUser extends React.Component {
                             {element.levelName != null ? (
                               <span className="jr-tag bg-primary d-inline-block">{element.levelName}</span>
                             ) : (
-                              'Non Affecté(e)'
+                              <span className="jr-tag bg-primary d-inline-block">Non Affecté(e)</span>
                             )}
                           </div>
                           <div className="col-md-6 col-lg-4 col-sm-12 d-flex flex-column ">
@@ -284,7 +284,7 @@ export class ModalDetailsUser extends React.Component {
                             {element.classname != null ? (
                               <span className="jr-tag bg-primary d-inline-block">{element.classname}</span>
                             ) : (
-                              'Non Affecté(e)'
+                              <span className="jr-tag bg-primary d-inline-block">Non Affecté(e)</span>
                             )}
                           </div>
 
@@ -293,7 +293,7 @@ export class ModalDetailsUser extends React.Component {
                             {element.sectionname != null ? (
                               <span className="jr-tag bg-primary d-inline-block">{element.sectionname}</span>
                             ) : (
-                              ' '
+                              <span className="jr-tag bg-primary d-inline-block">Non Affecté(e)</span>
                             )}
                           </div>
                         </div>

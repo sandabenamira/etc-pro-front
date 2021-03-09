@@ -120,11 +120,7 @@ class UsersListItem extends Component {
           ) : null}
           {this.props.roleIdFilter == roleIdProfessor ? <TableCell>{listClassProf.map((element) => element.classname + ' , ')}</TableCell> : null}
           {/* ------------     affichage classe et parent pour student -------------------------------------------*/}
-          {this.props.roleIdFilter == roleIdStudent ? (
-            <TableCell>
-               {user.agencyName}
-            </TableCell>
-          ) : null}
+          {this.props.roleIdFilter == roleIdStudent ? <TableCell>{user.agencyName}</TableCell> : null}
           {this.props.roleIdFilter == roleIdStudent ? (
             <TableCell>
               {user.parentId.length == 0 ? 'Non Affécté' : user.parentId.map((element) => element.parentName + ' ' + element.parentLastName)}
@@ -132,7 +128,9 @@ class UsersListItem extends Component {
           ) : null}
           {this.props.roleIdFilter == roleIdStudent ? (
             <TableCell>
-              {user.inforamtionsStudent.length == 0 ? 'Non Affécté' : user.inforamtionsStudent.map((element) => element.classname + ' , ' )}
+              {user.inforamtionsStudent.length == 0
+                ? 'Non Affécté'
+                : user.inforamtionsStudent.map((element) => (element.classname === null ? 'Non Affécté' : element.classname + ' , '))}
             </TableCell>
           ) : null}
           {/* ------------     affichage enfant et classe pour parent -------------------------------------------*/}
