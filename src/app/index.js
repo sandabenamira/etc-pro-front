@@ -15,6 +15,8 @@ import asyncComponent from '../util/asyncComponent';
 import Cafeteria from './routes/Cafeteria/index';
 import HealthMonitoring from './routes/HealthMonitoring/HealthMonitoring';
 import Learning from './routes/Learning/index';
+import Evaluation from './routes/Evaluation/index';
+
 import Assiduity from './routes/Assiduity/index';
 import Can from '../can';
 import { RoleContext } from '../Context';
@@ -193,6 +195,7 @@ class App extends React.Component {
                 />
 
                 <Route path={`${match.url}/e-learning`} render={(props) => <Learning match={match} estabModule={estabModule} {...props} />} />
+                <Route path={`${match.url}/evaluation`} render={(props) => <Evaluation match={match} estabModule={estabModule} {...props} />} />
 
                 <Route path={`${match.url}/community`} render={(props) => <Community match={match} estabModule={estabModule} {...props} />} />
                 <Route

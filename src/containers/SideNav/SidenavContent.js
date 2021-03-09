@@ -247,11 +247,7 @@ class SidenavContent extends Component {
           <li>
             <NavlinkItem pathName={"devoir"} listMoule={estabModule} />
           </li>
-          {/* <MenuCollapseBoxItem
-            pathName={"calendar"}
-            listModule={estabModule}
-            sousModuleStupp={sousModuleCalendar}
-          /> */}
+          
           {/* <li>
             <NavlinkItem pathName={"complaints"} listMoule={estabModule} />
           </li> */}

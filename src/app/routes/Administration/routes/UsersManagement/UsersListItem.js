@@ -89,7 +89,7 @@ class UsersListItem extends Component {
   }
   render() {
     const { user } = this.props;
-     let listSubjectStudent = [];
+    let listSubjectStudent = [];
     let listClassProf = [];
     let roleNameUser = '';
     let roleUser = listRolesUsers.find((element) => element.id == user.roleId);
@@ -111,11 +111,9 @@ class UsersListItem extends Component {
               <Avatar align="left" className="size-90" alt="..." src={defaultAvatar} />
             )}
           </TableCell>
-          {/* <TableCell>{user.cin}</TableCell> */}
           <TableCell>{user.name}</TableCell>
           <TableCell>{user.surname}</TableCell>
           {this.props.roleIdFilter == 0 ? <TableCell>{roleNameUser}</TableCell> : null}
-          {/* {this.props.roleIdFilter == 0 ? <TableCell>{user.roleName}</TableCell> : null} */}
           {/* ------------     affichage classe et matiére pour prof -------------------------------------------*/}
           {this.props.roleIdFilter == roleIdProfessor ? (
             <TableCell>{listSubjectStudent.map((element, index) => element.subjectName + ' , ')}</TableCell>
@@ -124,15 +122,17 @@ class UsersListItem extends Component {
           {/* ------------     affichage classe et parent pour student -------------------------------------------*/}
           {this.props.roleIdFilter == roleIdStudent ? (
             <TableCell>
-              {/* {user.inforamtionsStudent.classInformation.classname == null ? 'Non Affécté' : user.inforamtionsStudent.classInformation.classname} */}
-              {user.agencyName}
+               {user.agencyName}
             </TableCell>
           ) : null}
           {this.props.roleIdFilter == roleIdStudent ? (
             <TableCell>
-              {user.inforamtionsStudent.parentsInformation.length == 0
-                ? 'Non Affécté'
-                : user.inforamtionsStudent.parentsInformation.map((element) => element.parentName + ' ' + element.parentLastName)}
+              {user.parentId.length == 0 ? 'Non Affécté' : user.parentId.map((element) => element.parentName + ' ' + element.parentLastName)}
+            </TableCell>
+          ) : null}
+          {this.props.roleIdFilter == roleIdStudent ? (
+            <TableCell>
+              {user.inforamtionsStudent.length == 0 ? 'Non Affécté' : user.inforamtionsStudent.map((element) => element.classname + ' , ' )}
             </TableCell>
           ) : null}
           {/* ------------     affichage enfant et classe pour parent -------------------------------------------*/}
