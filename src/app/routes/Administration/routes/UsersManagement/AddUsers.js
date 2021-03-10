@@ -103,6 +103,8 @@ class AddUsers extends React.Component {
       importStatus: [],
       importDone: false,
       fileUploaded: false,
+      templateUrl:'https://s3.eu-west-3.amazonaws.com/classebook.data.storage/educap/Template-import-user-Educap-Pro.xlsx'
+
     };
     this.handleSubmitImport = this.handleSubmitImport.bind(this);
     this.handleOpenImportModal = this.handleOpenImportModal.bind(this);
