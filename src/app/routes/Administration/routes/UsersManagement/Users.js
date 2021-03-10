@@ -24,7 +24,7 @@ import { addUserPermitted } from '../../../../../constants/validationFunctions';
 import LoaderModal from './LoaderModal';
 import { getAssignementCourse } from '../../../../../actions/AssignementAction';
 import IntlMessages from '../../../../../util/IntlMessages';
-
+    /* eslint  array-callback-return: "off" */
 const listRolesUsers = [
   {
     id: roleIdAdmin,

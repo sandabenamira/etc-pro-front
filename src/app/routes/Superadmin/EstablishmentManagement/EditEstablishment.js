@@ -10,26 +10,7 @@ import { connect } from "react-redux";
 import { updateEstablishment } from "../../../../actions/establishmentAction";
 import _ from "lodash";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const mode_payment = [
-  {
-    value: "Semestre",
-    label: <IntlMessages id="mode_payment.establishment.semester" />,
-  },
-  {
-    value: "Trimestre",
-    label: <IntlMessages id="mode_payment.establishment.trimester" />,
-  },
-  {
-    value: "Mensuel",
-    label: <IntlMessages id="mode_payment.establishment.monthly" />,
-  },
-  {
-    value: "Annuel",
-    label: <IntlMessages id="mode_payment.establishment.annual" />,
-  },
-];
+ 
 
 class EditEstablishment extends React.Component {
   constructor(props) {

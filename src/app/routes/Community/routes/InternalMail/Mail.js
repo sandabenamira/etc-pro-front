@@ -1,55 +1,47 @@
-import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
-import Drawer from "@material-ui/core/Drawer";
-import Checkbox from "@material-ui/core/Checkbox";
-import Snackbar from "@material-ui/core/Snackbar";
-import { connect } from "react-redux";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import mails from "./mails";
-import folders from "./folders";
-import filters from "./filters";
-import labels from "./labels";
-import options from "./options";
-import MailList from "./MailList";
+import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import Drawer from '@material-ui/core/Drawer';
+import Checkbox from '@material-ui/core/Checkbox';
+import Snackbar from '@material-ui/core/Snackbar';
+import { connect } from 'react-redux';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import mails from './mails';
+import folders from './folders';
+import filters from './filters';
+import labels from './labels';
+import options from './options';
+import MailList from './MailList';
 
-import ComposeMail from "./Compose";
-import AppModuleHeader from "./AppModuleHeader";
-import MailDetail from "./MailDetail";
-import IntlMessages from "../../../../../util/IntlMessages";
-import CustomScrollbars from "./CustomScrollbars";
-import { classService } from "../../../../../_services/class.service";
-import {
-  roleIdAdmin,
-  roleIdProfessor,
-  roleIdStudent,
-  roleIdDirector,
-  roleIdParent,
-  roleIdSupervisor,
-} from "../../../../../config/config";
-import _ from "lodash";
-import { sendMail } from "../../../../../actions/MailAction";
+import ComposeMail from './Compose';
+import AppModuleHeader from './AppModuleHeader';
+import MailDetail from './MailDetail';
+import IntlMessages from '../../../../../util/IntlMessages';
+import CustomScrollbars from './CustomScrollbars';
+import { roleIdAdmin, roleIdProfessor, roleIdStudent, roleIdDirector, roleIdParent, roleIdSupervisor } from '../../../../../config/config';
+import _ from 'lodash';
+import { sendMail } from '../../../../../actions/MailAction';
 
 class Mail extends Component {
   constructor() {
     super();
     this.state = {
-      searchMail: "",
-      noContentFoundMessage: "No mail found in selected folder",
-      alertMessage: "",
+      searchMail: '',
+      noContentFoundMessage: 'No mail found in selected folder',
+      alertMessage: '',
       showMessage: false,
       drawerState: false,
-      optionName: "None",
+      optionName: 'None',
       anchorEl: null,
       allMail: mails,
       loader: true,
       currentMail: null,
       user: {
-        name: "Robert Johnson",
-        email: "robert@example.com",
-        avatar: "https://via.placeholder.com/150x150",
+        name: 'Robert Johnson',
+        email: 'robert@example.com',
+        avatar: 'https://via.placeholder.com/150x150',
       },
       selectedMails: 0,
       selectedFolder: 0,
@@ -61,7 +53,7 @@ class Mail extends Component {
 
       classes: [],
       professorsIds: [],
-      subject: "",
+      subject: '',
       roleId: null,
       classId: null,
       professorsFiltred: [],
@@ -70,7 +62,7 @@ class Mail extends Component {
       mailFiles: [],
       nameFiles: [],
       users: [],
-      message: "",
+      message: '',
       classStudentFilter: [],
       studentFiltred: [],
       studentsIds: [],
@@ -91,13 +83,11 @@ class Mail extends Component {
     dataMail.starred = false;
     dataMail.important = false;
     dataMail.fk_id_sender_profile = this.props.userProfile.id;
-    this.props.dispatch(
-      sendMail(dataMail, this.state.receivers, this.state.mailFiles)
-    );
+    this.props.dispatch(sendMail(dataMail, this.state.receivers, this.state.mailFiles));
     this.setState({
       classes: [],
       professorsIds: [],
-      subject: "",
+      subject: '',
       roleId: null,
       classId: null,
       professorsFiltred: [],
@@ -106,7 +96,7 @@ class Mail extends Component {
       mailFiles: [],
       nameFiles: [],
       users: [],
-      message: "",
+      message: '',
       classStudentFilter: [],
       studentFiltred: [],
       studentsIds: [],
@@ -114,7 +104,6 @@ class Mail extends Component {
       filterClassStudentId: null,
       parentsIds: [],
       parentFiltred: [],
-
     });
   };
 
@@ -124,11 +113,11 @@ class Mail extends Component {
       let receivers = [];
       switch (event.target.value) {
         case roleIdAdmin:
-          receivers = _.map(this.props.admins, "profileId");
+          receivers = _.map(this.props.admins, 'profileId');
           this.setState({ receivers, users: this.props.admins });
           break;
         case roleIdProfessor:
-          receivers = _.map(this.props.professors, "profileId");
+          receivers = _.map(this.props.professors, 'profileId');
           this.setState({
             receivers,
             professorsFiltred: [],
@@ -136,7 +125,7 @@ class Mail extends Component {
           });
           break;
         case roleIdStudent:
-          receivers = _.map(this.props.students, "profileId");
+          receivers = _.map(this.props.students, 'profileId');
           this.setState({
             receivers,
             studentsIds: [],
@@ -144,11 +133,11 @@ class Mail extends Component {
           });
           break;
         case roleIdSupervisor:
-          receivers = _.map(this.props.supervisors, "profileId");
+          receivers = _.map(this.props.supervisors, 'profileId');
           this.setState({ receivers, users: this.props.supervisors });
           break;
         case roleIdDirector:
-          receivers = _.map(this.props.directors, "profileId");
+          receivers = _.map(this.props.directors, 'profileId');
           this.setState({ receivers, users: this.props.directors });
           break;
         default:
@@ -179,9 +168,10 @@ class Mail extends Component {
   };
 
   handleChangeEditor = (event) => {
-    let message = "";
+    let message = '';
     event.blocks.map((element) => {
-      message = message + " " + element.text;
+      message = message + ' ' + element.text;
+      return message;
     });
     this.setState({ message });
   };
@@ -208,7 +198,7 @@ class Mail extends Component {
       this.props.parents.forEach((element) => {
         element.inforamtionsParent.forEach((item) => {
           event.target.value.forEach((id) => {
-            if (id===item.studentProfileId) {
+            if (id === item.studentProfileId) {
               parentFiltred.push(element);
             }
           });
@@ -226,10 +216,8 @@ class Mail extends Component {
   };
 
   handleChangeFilterStudent = (name) => (event) => {
-    if (name === "filterLevelStudentId") {
-      let classStudentFilter = this.props.classes.filter(
-        (element) => element.fk_id_level_v4 === event.target.value
-      );
+    if (name === 'filterLevelStudentId') {
+      let classStudentFilter = this.props.classes.filter((element) => element.fk_id_level_v4 === event.target.value);
       this.setState({
         classStudentFilter,
         studentsIds: [],
@@ -237,13 +225,10 @@ class Mail extends Component {
         filterClassStudentId: null,
       });
     }
-    if (name === "filterClassStudentId") {
+    if (name === 'filterClassStudentId') {
       let studentFiltred = [];
       this.props.students.forEach((student) => {
-        if (
-          student.inforamtionsStudent.classInformation.classId ===
-          event.target.value
-        ) {
+        if (student.inforamtionsStudent.classInformation.classId === event.target.value) {
           studentFiltred.push(student);
         }
       });
@@ -256,13 +241,9 @@ class Mail extends Component {
   };
 
   deleteFile(filename) {
-    let nameFiles = this.state.nameFiles.filter(
-      (element) => element != filename
-    );
+    let nameFiles = this.state.nameFiles.filter((element) => element != filename);
 
-    let mailFiles = this.state.mailFiles.filter(
-      (element) => element.name != filename
-    );
+    let mailFiles = this.state.mailFiles.filter((element) => element.name != filename);
 
     this.setState({ nameFiles, mailFiles });
   }
@@ -275,15 +256,16 @@ class Mail extends Component {
       files.map((element) => {
         nameFiles.push(element.name);
         oldFiles.push(element);
+        return element;
       });
       this.setState({ mailFiles: oldFiles, nameFiles });
     } else {
       this.setState({
-        messageAlerte: "Vous avez dépasser 5 fichiers",
+        messageAlerte: 'Vous avez dépasser 5 fichiers',
         alerteStatus: true,
       });
       setTimeout(() => {
-        this.setState({ messageAlerte: "", alerteStatus: false });
+        this.setState({ messageAlerte: '', alerteStatus: false });
       }, 4000);
     }
   }
@@ -304,10 +286,7 @@ class Mail extends Component {
           <CustomScrollbars
             className="module-side-scroll scrollbar"
             style={{
-              height:
-                this.props.width >= 1200
-                  ? "calc(100vh - 200px)"
-                  : "calc(100vh - 80px)",
+              height: this.props.width >= 1200 ? 'calc(100vh - 200px)' : 'calc(100vh - 80px)',
             }}
           >
             <div className="module-add-task">
@@ -320,7 +299,7 @@ class Mail extends Component {
                 }}
               >
                 <i className="zmdi zmdi-edit zmdi-hc-fw" />
-                <IntlMessages id="mail.compose" />{" "}
+                <IntlMessages id="mail.compose" />{' '}
               </Button>
             </div>
 
@@ -347,18 +326,14 @@ class Mail extends Component {
 
   onDeleteMail = () => {
     const mails = this.state.allMail.map((mail) =>
-      mail.selected && mail.folder === this.state.selectedFolder
-        ? { ...mail, folder: 4, selected: false }
-        : mail
+      mail.selected && mail.folder === this.state.selectedFolder ? { ...mail, folder: 4, selected: false } : mail
     );
     this.setState({
-      alertMessage: "Mail Deleted Successfully",
+      alertMessage: 'Mail Deleted Successfully',
       showMessage: true,
       selectedMails: 0,
       allMail: mails,
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
   };
   getNavFolders = () => {
@@ -366,12 +341,10 @@ class Mail extends Component {
       <li
         key={index}
         onClick={() => {
-          const filterMails = this.state.allMail.filter(
-            (mail) => mail.folder === folder.id
-          );
+          const filterMails = this.state.allMail.filter((mail) => mail.folder === folder.id);
           this.setState({
             selectedFolder: folder.id,
-            noContentFoundMessage: "No mail found in selected folder",
+            noContentFoundMessage: 'No mail found in selected folder',
             currentMail: null,
             loader: true,
             folderMails: filterMails,
@@ -381,11 +354,7 @@ class Mail extends Component {
           }, 1500);
         }}
       >
-        <span
-          className={`jr-link ${
-            this.state.selectedFolder === folder.id ? "active" : ""
-          }`}
-        >
+        <span className={`jr-link ${this.state.selectedFolder === folder.id ? 'active' : ''}`}>
           <i className={`zmdi zmdi-${folder.icon}`} />
           <span>{folder.title}</span>
         </span>
@@ -395,19 +364,15 @@ class Mail extends Component {
   onFolderMenuItemSelect = (folderId) => {
     this.handleRequestClose();
     const mails = this.state.allMail.map((mail) =>
-      mail.selected && mail.folder === this.state.selectedFolder
-        ? { ...mail, folder: folderId, selected: false }
-        : mail
+      mail.selected && mail.folder === this.state.selectedFolder ? { ...mail, folder: folderId, selected: false } : mail
     );
     this.setState({
       selectedMails: 0,
       allMail: mails,
-      noContentFoundMessage: "No mail found in selected folder",
-      alertMessage: "Mail has been moved successfully",
+      noContentFoundMessage: 'No mail found in selected folder',
+      alertMessage: 'Mail has been moved successfully',
       showMessage: true,
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
   };
   onLabelMenuItemSelect = (label) => {
@@ -424,13 +389,11 @@ class Mail extends Component {
       }
     });
     this.setState({
-      noContentFoundMessage: "No mail found in selected label",
-      alertMessage: "Label Updated Successfully",
+      noContentFoundMessage: 'No mail found in selected label',
+      alertMessage: 'Label Updated Successfully',
       showMessage: true,
       allMail: mails,
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
   };
   handleRequestClose = () => {
@@ -443,7 +406,7 @@ class Mail extends Component {
 
       classes: [],
       professorsIds: [],
-      subject: "",
+      subject: '',
       roleId: null,
       classId: null,
       professorsFiltred: [],
@@ -452,7 +415,7 @@ class Mail extends Component {
       mailFiles: [],
       nameFiles: [],
       users: [],
-      message: "",
+      message: '',
       classStudentFilter: [],
       studentFiltred: [],
       studentsIds: [],
@@ -476,7 +439,7 @@ class Mail extends Component {
             return null;
           });
           this.setState({
-            noContentFoundMessage: "No mail found in selected filter",
+            noContentFoundMessage: 'No mail found in selected filter',
             loader: true,
             folderMails: filterMails,
           });
@@ -512,35 +475,35 @@ class Mail extends Component {
   };
   onOptionMenuItemSelect = (option) => {
     switch (option.title) {
-      case "All":
+      case 'All':
         this.handleRequestClose();
         this.getAllMail();
         break;
-      case "None":
+      case 'None':
         this.handleRequestClose();
         this.getUnselectedAllMail();
         break;
-      case "Read":
+      case 'Read':
         this.handleRequestClose();
         this.getReadMail();
         break;
-      case "Unread":
+      case 'Unread':
         this.handleRequestClose();
         this.getUnreadMail();
         break;
-      case "Starred":
+      case 'Starred':
         this.handleRequestClose();
         this.getStarredMail();
         break;
-      case "Unstarred":
+      case 'Unstarred':
         this.handleRequestClose();
         this.getUnStarredMail();
         break;
-      case "Important":
+      case 'Important':
         this.handleRequestClose();
         this.getImportantMail();
         break;
-      case "Unimportant":
+      case 'Unimportant':
         this.handleRequestClose();
         this.getUnimportantMail();
         break;
@@ -561,10 +524,8 @@ class Mail extends Component {
     this.setState({
       selectedMails: mails.length,
       allMail: mails,
-      optionName: "All",
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      optionName: 'All',
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
   };
   getUnselectedAllMail = () => {
@@ -579,17 +540,13 @@ class Mail extends Component {
     this.setState({
       selectedMails: 0,
       allMail: mails,
-      optionName: "None",
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      optionName: 'None',
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
   };
   getReadMail = () => {
     let selectedMail = 0;
-    let mails = this.state.allMail.filter(
-      (mail) => mail.folder === this.state.selectedFolder
-    );
+    let mails = this.state.allMail.filter((mail) => mail.folder === this.state.selectedFolder);
     mails = mails.map((mail) => {
       if (mail.read) {
         selectedMail++;
@@ -600,18 +557,14 @@ class Mail extends Component {
     this.setState({
       selectedMails: selectedMail,
       allMail: mails,
-      optionName: "Read",
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      optionName: 'Read',
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
     return mails;
   };
   getUnreadMail = () => {
     let selectedMail = 0;
-    let mails = this.state.allMail.filter(
-      (mail) => mail.folder === this.state.selectedFolder
-    );
+    let mails = this.state.allMail.filter((mail) => mail.folder === this.state.selectedFolder);
     mails = mails.map((mail) => {
       if (!mail.read) {
         selectedMail++;
@@ -622,18 +575,14 @@ class Mail extends Component {
     this.setState({
       selectedMails: selectedMail,
       allMail: mails,
-      optionName: "Unread",
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      optionName: 'Unread',
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
     return mails;
   };
   getStarredMail = () => {
     let selectedMail = 0;
-    let mails = this.state.allMail.filter(
-      (mail) => mail.folder === this.state.selectedFolder
-    );
+    let mails = this.state.allMail.filter((mail) => mail.folder === this.state.selectedFolder);
     mails = mails.map((mail) => {
       if (mail.starred) {
         selectedMail++;
@@ -644,18 +593,14 @@ class Mail extends Component {
     this.setState({
       selectedMails: selectedMail,
       allMail: mails,
-      optionName: "Starred",
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      optionName: 'Starred',
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
     return mails;
   };
   getUnStarredMail = () => {
     let selectedMail = 0;
-    let mails = this.state.allMail.filter(
-      (mail) => mail.folder === this.state.selectedFolder
-    );
+    let mails = this.state.allMail.filter((mail) => mail.folder === this.state.selectedFolder);
     mails = mails.map((mail) => {
       if (!mail.starred) {
         selectedMail++;
@@ -666,18 +611,14 @@ class Mail extends Component {
     this.setState({
       selectedMails: selectedMail,
       allMail: mails,
-      optionName: "UnStarred",
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      optionName: 'UnStarred',
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
     return mails;
   };
   getImportantMail = () => {
     let selectedMail = 0;
-    let mails = this.state.allMail.filter(
-      (mail) => mail.folder === this.state.selectedFolder
-    );
+    let mails = this.state.allMail.filter((mail) => mail.folder === this.state.selectedFolder);
     mails = mails.map((mail) => {
       if (mail.important) {
         selectedMail++;
@@ -688,18 +629,14 @@ class Mail extends Component {
     this.setState({
       selectedMails: selectedMail,
       allMail: mails,
-      optionName: "Important",
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      optionName: 'Important',
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
     return mails;
   };
   getUnimportantMail = () => {
     let selectedMail = 0;
-    let mails = this.state.allMail.filter(
-      (mail) => mail.folder === this.state.selectedFolder
-    );
+    let mails = this.state.allMail.filter((mail) => mail.folder === this.state.selectedFolder);
     mails = mails.map((mail) => {
       if (!mail.important) {
         selectedMail++;
@@ -709,12 +646,10 @@ class Mail extends Component {
     });
     this.setState({
       selectedMails: selectedMail,
-      optionName: "Unimportant",
+      optionName: 'Unimportant',
       allMail: mails,
-      noContentFoundMessage: "No Mail found in selected Label",
-      folderMails: mails.filter(
-        (mail) => mail.folder === this.state.selectedFolder
-      ),
+      noContentFoundMessage: 'No Mail found in selected Label',
+      folderMails: mails.filter((mail) => mail.folder === this.state.selectedFolder),
     });
     return mails;
   };
@@ -723,12 +658,10 @@ class Mail extends Component {
       <li
         key={index}
         onClick={() => {
-          const filterMails = this.state.allMail.filter((mail) =>
-            mail.labels.includes(label.id)
-          );
+          const filterMails = this.state.allMail.filter((mail) => mail.labels.includes(label.id));
           this.setState({
             loader: true,
-            noContentFoundMessage: "No mail found in selected label",
+            noContentFoundMessage: 'No mail found in selected label',
             folderMails: filterMails,
           });
           setTimeout(() => {
@@ -744,16 +677,12 @@ class Mail extends Component {
     ));
   };
   searchMail = (searchText) => {
-    if (searchText === "") {
+    if (searchText === '') {
       this.setState({
         folderMails: this.state.allMail.filter((mail) => !mail.deleted),
       });
     } else {
-      const searchMails = this.state.allMail.filter(
-        (mail) =>
-          !mail.deleted &&
-          mail.subject.toLowerCase().indexOf(searchText.toLowerCase()) > -1
-      );
+      const searchMails = this.state.allMail.filter((mail) => !mail.deleted && mail.subject.toLowerCase().indexOf(searchText.toLowerCase()) > -1);
       this.setState({
         folderMails: searchMails,
       });
@@ -767,10 +696,7 @@ class Mail extends Component {
             <div
               className="d-flex align-items-center justify-content-center"
               style={{
-                height:
-                  this.props.width >= 1200
-                    ? "calc(100vh - 265px)"
-                    : "calc(100vh - 245px)",
+                height: this.props.width >= 1200 ? 'calc(100vh - 265px)' : 'calc(100vh - 245px)',
               }}
             >
               {noContentFoundMessage}
@@ -798,10 +724,7 @@ class Mail extends Component {
   getMailActions = () => {
     return (
       <div>
-        <IconButton
-          onClick={this.onFolderSelect.bind(this)}
-          className="icon-btn"
-        >
+        <IconButton onClick={this.onFolderSelect.bind(this)} className="icon-btn">
           <i className="zmdi zmdi-folder" />
         </IconButton>
 
@@ -809,10 +732,7 @@ class Mail extends Component {
           <i className="zmdi zmdi-delete" />
         </IconButton>
 
-        <IconButton
-          onClick={this.onLabelSelect.bind(this)}
-          className="icon-btn"
-        >
+        <IconButton onClick={this.onLabelSelect.bind(this)} className="icon-btn">
           <i className="zmdi zmdi-label-alt" />
         </IconButton>
       </div>
@@ -858,10 +778,7 @@ class Mail extends Component {
 
   removeLabel(mail, label) {
     mail.labels.splice(mail.labels.indexOf(label), 1);
-    if (
-      this.state.currentMail !== null &&
-      mail.id === this.state.currentMail.id
-    ) {
+    if (this.state.currentMail !== null && mail.id === this.state.currentMail.id) {
       this.setState({
         currentMail: { ...mail, labels: mail.labels },
       });
@@ -872,24 +789,18 @@ class Mail extends Component {
   onStartSelect(data) {
     data.starred = !data.starred;
     this.setState({
-      alertMessage: data.starred ? "Mail Mark as Star" : "Mail Remove as Star",
+      alertMessage: data.starred ? 'Mail Mark as Star' : 'Mail Remove as Star',
       showMessage: true,
-      folderMails: this.state.folderMails.map((mail) =>
-        mail.id === data.id ? data : mail
-      ),
+      folderMails: this.state.folderMails.map((mail) => (mail.id === data.id ? data : mail)),
     });
   }
 
   onImportantSelect(data) {
     data.important = !data.important;
     this.setState({
-      alertMessage: data.important
-        ? "Mail Mark as Important"
-        : "Mail Remove as Important",
+      alertMessage: data.important ? 'Mail Mark as Important' : 'Mail Remove as Important',
       showMessage: true,
-      folderMails: this.state.folderMails.map((mail) =>
-        mail.id === data.id ? data : mail
-      ),
+      folderMails: this.state.folderMails.map((mail) => (mail.id === data.id ? data : mail)),
     });
   }
 
@@ -913,10 +824,7 @@ class Mail extends Component {
   }
 
   addLabel(mail, label) {
-    if (
-      this.state.currentMail !== null &&
-      mail.id === this.state.currentMail.id
-    ) {
+    if (this.state.currentMail !== null && mail.id === this.state.currentMail.id) {
       this.setState({
         currentMail: { ...mail, labels: mail.labels.concat(label) },
       });
@@ -937,7 +845,8 @@ class Mail extends Component {
     });
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const {
       selectedMails,
       loader,
@@ -945,8 +854,7 @@ class Mail extends Component {
       folderMails,
       composeMail,
       user,
-      alertMessage,
-      showMessage,
+
       noContentFoundMessage,
     } = this.state;
 
@@ -955,24 +863,15 @@ class Mail extends Component {
         <div className="animated slideInUpTiny animation-duration-3">
           <div className="app-module">
             <div className="d-block d-xl-none">
-              <Drawer
-                open={this.state.drawerState}
-                onClose={this.onToggleDrawer.bind(this)}
-              >
+              <Drawer open={this.state.drawerState} onClose={this.onToggleDrawer.bind(this)}>
                 {this.MailSideBar()}
               </Drawer>
             </div>
-            <div className="app-module-sidenav d-none d-xl-flex">
-              {this.MailSideBar()}
-            </div>
+            <div className="app-module-sidenav d-none d-xl-flex">{this.MailSideBar()}</div>
 
             <div className="module-box">
               <div className="module-box-header">
-                <IconButton
-                  className="drawer-btn d-block d-xl-none"
-                  aria-label="Menu"
-                  onClick={this.onToggleDrawer.bind(this)}
-                >
+                <IconButton className="drawer-btn d-block d-xl-none" aria-label="Menu" onClick={this.onToggleDrawer.bind(this)}>
                   <i className="zmdi zmdi-menu" />
                 </IconButton>
                 <AppModuleHeader
@@ -989,18 +888,12 @@ class Mail extends Component {
                     <div className="d-flex">
                       <Checkbox
                         color="primary"
-                        indeterminate={
-                          selectedMails > 0 &&
-                          selectedMails < folderMails.length
-                        }
+                        indeterminate={selectedMails > 0 && selectedMails < folderMails.length}
                         checked={selectedMails > 0}
                         onChange={this.onAllMailSelect.bind(this)}
                         value="SelectMail"
                       />
-                      <div
-                        className="d-flex align-items-center"
-                        onClick={this.onOptionMenuSelect.bind(this)}
-                      >
+                      <div className="d-flex align-items-center" onClick={this.onOptionMenuSelect.bind(this)}>
                         <span className="px-2"> {this.state.optionName}</span>
                         <IconButton className="icon-btn-sm">
                           <i className="zmdi zmdi-caret-down" />
@@ -1034,10 +927,7 @@ class Mail extends Component {
                     }}
                   >
                     {options.map((option) => (
-                      <MenuItem
-                        key={option.title}
-                        onClick={this.onOptionMenuItemSelect.bind(this, option)}
-                      >
+                      <MenuItem key={option.title} onClick={this.onOptionMenuItemSelect.bind(this, option)}>
                         {option.title}
                       </MenuItem>
                     ))}
@@ -1055,13 +945,7 @@ class Mail extends Component {
                     }}
                   >
                     {folders.map((folder) => (
-                      <MenuItem
-                        key={folder.id}
-                        onClick={this.onFolderMenuItemSelect.bind(
-                          this,
-                          folder.id
-                        )}
-                      >
+                      <MenuItem key={folder.id} onClick={this.onFolderMenuItemSelect.bind(this, folder.id)}>
                         {folder.title}
                       </MenuItem>
                     ))}
@@ -1078,10 +962,7 @@ class Mail extends Component {
                     }}
                   >
                     {labels.map((label) => (
-                      <MenuItem
-                        key={label.id}
-                        onClick={this.onLabelMenuItemSelect.bind(this, label)}
-                      >
+                      <MenuItem key={label.id} onClick={this.onLabelMenuItemSelect.bind(this, label)}>
                         {label.title}
                       </MenuItem>
                     ))}
@@ -1092,20 +973,13 @@ class Mail extends Component {
                   <div
                     className="loader-view"
                     style={{
-                      height:
-                        this.props.width >= 1200
-                          ? "calc(100vh - 265px)"
-                          : "calc(100vh - 245px)",
+                      height: this.props.width >= 1200 ? 'calc(100vh - 265px)' : 'calc(100vh - 245px)',
                     }}
                   >
                     <CircularProgress />
                   </div>
                 ) : (
-                  this.displayMail(
-                    currentMail,
-                    folderMails,
-                    noContentFoundMessage
-                  )
+                  this.displayMail(currentMail, folderMails, noContentFoundMessage)
                 )}
 
                 <ComposeMail
@@ -1117,9 +991,7 @@ class Mail extends Component {
                   handleChangeSubject={this.handleChangeSubject.bind(this)}
                   handleChangeEditor={this.handleChangeEditor.bind(this)}
                   handleChangeRole={this.handleChangeRole.bind(this)}
-                  handleChangeProfessorIds={this.handleChangeProfessorIds.bind(
-                    this
-                  )}
+                  handleChangeProfessorIds={this.handleChangeProfessorIds.bind(this)}
                   handleChangeAdminsIds={this.handleChangeAdminsIds.bind(this)}
                   sendMail={this.sendMail.bind(this)}
                   attachFile={this.attachFile.bind(this)}
@@ -1129,26 +1001,20 @@ class Mail extends Component {
                   admins={this.props.admins}
                   classes={this.props.classes}
                   levels={this.props.levels}
-                  handleChangeFilterStudent={this.handleChangeFilterStudent.bind(
-                    this
-                  )}
-                  handleChangeStudentsIds={this.handleChangeStudentsIds.bind(
-                    this
-                  )}
-                  handleChangeParentsIds={this.handleChangeParentsIds.bind(
-                    this
-                  )}
+                  handleChangeFilterStudent={this.handleChangeFilterStudent.bind(this)}
+                  handleChangeStudentsIds={this.handleChangeStudentsIds.bind(this)}
+                  handleChangeParentsIds={this.handleChangeParentsIds.bind(this)}
                 />
               </div>
             </div>
           </div>
           <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             open={this.props.showMessage}
             autoHideDuration={3000}
             onClose={this.handleRequestClose}
             ContentProps={{
-              "aria-describedby": "message-id",
+              'aria-describedby': 'message-id',
             }}
             message={<span id="message-id">{this.props.alertMessage}</span>}
           />

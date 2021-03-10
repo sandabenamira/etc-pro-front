@@ -1,4 +1,5 @@
-import { FETECHED_ALL_ADMINISTRATION, ADD_ADMINISTRATION, EDIT_ADMINISTRATION, DELETE_ADMINISTRATION } from '../constants/ActionTypes';
+import { FETECHED_ALL_ADMINISTRATION, ADD_ADMINISTRATION, EDIT_ADMINISTRATION, DELETE_ADMINISTRATION } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   remoteAdministration: [],

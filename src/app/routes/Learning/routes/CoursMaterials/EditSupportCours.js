@@ -11,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from 'react-select';
 import AddBox from '@material-ui/icons/AddBox';
 import Typography from '@material-ui/core/Typography';
-import { KeyboardDatePicker, MuiPickersUtilsProvider, KeyboardTimePicker } from '@material-ui/pickers';
+import { KeyboardDatePicker, MuiPickersUtilsProvider  } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/moment';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
@@ -289,8 +289,7 @@ class EditSupportCours extends Component {
                             <TextField
                               type="url"
                               variant="outlined"
-                              type="text"
-                              id="courseUrl"
+                               id="courseUrl"
                               name="courseUrl"
                               label={<IntlMessages id="material.course.url" />}
                               value={values.courseUrl || ''}

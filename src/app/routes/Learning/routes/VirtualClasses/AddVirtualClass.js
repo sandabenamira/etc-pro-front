@@ -25,16 +25,7 @@ import Input from "@material-ui/core/Input";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const accessibilityList = [
-  {
-    value: true,
-    name: "Publique",
-  },
-  {
-    value: false,
-    name: "Privé",
-  },
-];
+ 
 
 class AddVirtualClass extends React.Component {
   constructor(props) {

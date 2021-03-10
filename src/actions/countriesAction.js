@@ -1,7 +1,7 @@
 
 import { classService } from "../_services/class.service";
 import _ from 'lodash';
-import { roleIdProfessor, roleIdSuperAdmin, roleIdStudent, roleIdParent, roleIdAdmin, roleIdSupervisor, roleIdDirector } from '../config/config';
+import { roleIdProfessor, roleIdSuperAdmin, roleIdStudent, roleIdParent, roleIdAdmin, roleIdSupervisor } from '../config/config';
 
 let appLang = 'fr';
 function getLanguage(language) {

@@ -11,7 +11,8 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 export const getGrades = () => {
   return (dispatch) => {

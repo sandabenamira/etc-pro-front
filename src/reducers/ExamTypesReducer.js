@@ -4,7 +4,8 @@ import {
   EDIT_EXAM_TYPE,
   DELETE_EXAM_TYPES,
   ARCHIVED_GET_EXAM_TYPES,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 const initialState = {
   examTypes: [],
   archivedexamTypes: [],

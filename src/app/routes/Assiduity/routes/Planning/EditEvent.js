@@ -1,14 +1,12 @@
 import React from 'react';
-import { Modal, ModalBody, ModalHeader } from 'reactstrap';
-import IntlMessages from '../../../../../util/IntlMessages';
+ import IntlMessages from '../../../../../util/IntlMessages';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Auxiliary from '../../../../../util/Auxiliary';
 import MomentUtils from '@date-io/moment';
 import _ from 'lodash';
-import moment from 'moment';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+ import { Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/moment';

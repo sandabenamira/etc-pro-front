@@ -2,8 +2,7 @@ import axios from 'axios';
 import config from '../config/config';
 import { userSignOut } from "../actions/Auth";
 import configureStore from "../store";
-import { getError } from "../Error/Error";
-
+ 
 export const callService = {
     get,
     post,

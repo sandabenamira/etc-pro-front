@@ -1,5 +1,6 @@
 
-import {GET_PAYMENTS, CLEAR_LIST_PAYMENTS, PAY_BILL } from "../constants/ActionTypes";
+import {GET_PAYMENTS, CLEAR_LIST_PAYMENTS, PAY_BILL } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import { classService } from "../_services/class.service";
  
 export function editBill(data,idPaymentV2, dataInvoice) {

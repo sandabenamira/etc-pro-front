@@ -1,4 +1,5 @@
-import { ADD_MODULE, GET_ALL_MODULE, EDIT_MODULE, DELETE_MODULE } from "../constants/ActionTypes";
+import { ADD_MODULE, GET_ALL_MODULE, EDIT_MODULE, DELETE_MODULE } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
     modules: [],

@@ -1,4 +1,5 @@
-import { GET_GROUPS, ADD_GROUPS, EDIT_GROUPS, DELETE_GROUPS, ARCHIVED_GET_GROUPS } from '../constants/ActionTypes';
+import { GET_GROUPS, ADD_GROUPS, EDIT_GROUPS, DELETE_GROUPS, ARCHIVED_GET_GROUPS } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   groupsList: [],

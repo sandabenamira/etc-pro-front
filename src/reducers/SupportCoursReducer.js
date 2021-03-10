@@ -4,7 +4,8 @@ import {
   EDIT_SUPPORT_COURS,
   DELETE_SUPPORT_COURS,
   ARCHIVED_SUPPORT_COURS,
-  } from '../constants/ActionTypes';
+  } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
    
   const initialState = {
     remoteSupportCours: [],

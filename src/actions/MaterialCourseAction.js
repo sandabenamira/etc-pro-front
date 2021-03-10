@@ -9,7 +9,8 @@ import {
   GET_MATERIAL_COURSE,
   GET_MATERIAL_COURSE_ARCHIVED,
   DELETE_MATERIAL_COURSE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import baseUrl from '../config/config';
 import axios from 'axios';
 export function getLevelClassSubjectData(establishmentId, schoolYearId, roleId, roleUserId) {
@@ -17,8 +18,7 @@ export function getLevelClassSubjectData(establishmentId, schoolYearId, roleId, 
     let apiEndpoint = `/level_v4/getLevelClassSubjectData/${establishmentId}/${schoolYearId}/${roleId}/${roleUserId}?access_token=${localStorage.token}`;
     classService.get(apiEndpoint).then((response) => {
       if (response) {
-        const list = response.data;
-         dispatch({
+        dispatch({
           type: GET_FOLDERS_ARCHITECTURE,
           payload: response.data.SupportInfo,
         });
@@ -31,7 +31,7 @@ export function getMaterialCourse(establishmentId, schoolYearId, roleId, roleUse
     let apiEndpoint = `/course_materials/fetchCourseMaterialsByRole/${roleId}/${assignmentId}/${establishmentId}/${schoolYearId}/${roleUserId}?access_token=${localStorage.token}`;
     classService.get(apiEndpoint).then((response) => {
       if (response) {
-         const list = response.data.courseMaterialsData.filter((element) => element.status);
+        const list = response.data.courseMaterialsData.filter((element) => element.status);
         const listArchived = response.data.courseMaterialsData.filter((element) => !element.status);
         dispatch({
           type: GET_MATERIAL_COURSE,
@@ -84,6 +84,7 @@ export const addMaterialCourse = (materialCourseItem, establishmentId, schoolYea
             type: object.file.type,
           });
           formadata.append('file', myNewFile);
+          return element;
         });
 
         let filesURL = [];
@@ -125,14 +126,14 @@ export const addMaterialCourse = (materialCourseItem, establishmentId, schoolYea
           })
           .catch((err) => {});
       } else if (!response) {
-         dispatch({
+        dispatch({
           type: SHOW_ERROR_MESSAGE,
           payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });
         }, 4000);
-      } else if (response && materialCourseItem.files.length===0) {
+      } else if (response && materialCourseItem.files.length === 0) {
         dispatch(getMaterialCourse(establishmentId, schoolYearId, roleId, roleUserId, assignmentId));
         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
@@ -184,6 +185,7 @@ export const editMaterialCourse = (materialCourseItem, establishmentId, schoolYe
               type: object.file.type,
             });
             formadata.append('file', myNewFile);
+            return element;
           });
 
           let filesURL = [];
@@ -233,7 +235,7 @@ export const editMaterialCourse = (materialCourseItem, establishmentId, schoolYe
           setTimeout(() => {
             dispatch({ type: HIDE_ERROR_MESSAGE });
           }, 4000);
-        } else if (response && materialCourseItem.files.length===0) {
+        } else if (response && materialCourseItem.files.length === 0) {
           dispatch(getMaterialCourse(establishmentId, schoolYearId, roleId, roleUserId, assignmentId));
           dispatch({
             type: SHOW_SUCCESS_MESSAGE,
@@ -274,6 +276,6 @@ export function deleteMaterialCourse(item) {
           }, 4000);
         }
       })
-      .catch(function(error) {});
+      .catch(function (error) {});
   };
 }

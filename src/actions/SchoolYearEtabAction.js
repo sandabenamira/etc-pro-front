@@ -7,7 +7,8 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
   GET_USER_PROFILE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 
 export const addSchoolYearEtab = (data) => {

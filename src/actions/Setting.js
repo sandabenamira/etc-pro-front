@@ -15,7 +15,8 @@ import {
   SHOW_SUCCESS_MESSAGE,
   INIT_OPTIONS,
   SWITCH_APP_LANGUAGE,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import baseUrl from "../config/config";
 import axios from "axios";
 import languageData from "../components/LanguageSwitcher/data";

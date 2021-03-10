@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React  from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import IntlMessages from "../../../../../../util/IntlMessages";
-import IconButton from "@material-ui/core/IconButton";
-import EditLevel from "./EditLevel";
+ import EditLevel from "./EditLevel";
 import LevelListItem from "./LevelListItem";
 import DeleteLevel from "./DeleteLevel";
 import { connect } from "react-redux";

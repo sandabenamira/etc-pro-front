@@ -1,22 +1,21 @@
-import React, { Component } from "react";
-import IntlMessages from "../../../util/IntlMessages";
-import Auxiliary from "../../../util/Auxiliary";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import TextField from "@material-ui/core/TextField";
-import CardBox from "../../../components/CardBox/index";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import IntlMessages from '../../../util/IntlMessages';
+import Auxiliary from '../../../util/Auxiliary';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import TextField from '@material-ui/core/TextField';
+import CardBox from '../../../components/CardBox/index';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import { connect } from 'react-redux';
 
 class AddHealthFile extends Component {
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const {
       values,
-      addIsopen,
-      handleCancel,
       handleChange,
       handleChangeSection,
       handleChangesLevel,
@@ -28,20 +27,14 @@ class AddHealthFile extends Component {
     return (
       <Auxiliary>
         <Modal isOpen={this.props.addIsopen}>
-          <ModalHeader
-            toggle={this.props.handleCancel}
-            className="modal-box-header bg-primary text-white"
-          >
+          <ModalHeader toggle={this.props.handleCancel} className="modal-box-header bg-primary text-white">
             {<IntlMessages id="new.health.title" />}
           </ModalHeader>
           <br />
           <ModalBody>
             <form autoComplete="off">
               <div className="row">
-                <CardBox
-                  heading={<IntlMessages id="component.student.info.general" />}
-                  styleName="col-lg-12 text-primary"
-                >
+                <CardBox heading={<IntlMessages id="component.student.info.general" />} styleName="col-lg-12 text-primary">
                   <div className="row">
                     <div className="col-md-4">
                       <div className="form-group">
@@ -51,19 +44,17 @@ class AddHealthFile extends Component {
                           select
                           value={values.levelId}
                           defaultValue=" "
-                          onChange={handleChangesLevel("levelId")}
+                          onChange={handleChangesLevel('levelId')}
                           SelectProps={{}}
-                          helperText={
-                            <IntlMessages id="components.class.level.input.label.level" />
-                          }
+                          helperText={<IntlMessages id="components.class.level.input.label.level" />}
                           margin="normal"
                           fullWidth
                         >
                           {this.props.classLevels.map((level) => (
                             <MenuItem key={level.id} value={level.id}>
-                              {this.props.settings.languageId==="tunisia"
+                              {this.props.settings.languageId === 'tunisia'
                                 ? level.name_AR
-                                : this.props.settings.languageId==="french"
+                                : this.props.settings.languageId === 'french'
                                 ? level.name_FR
                                 : level.name_EN}
                             </MenuItem>
@@ -79,12 +70,10 @@ class AddHealthFile extends Component {
                           name="sectionId"
                           select
                           value={values.sectionId}
-                          onChange={handleChangeSection("sectionId")}
+                          onChange={handleChangeSection('sectionId')}
                           disabled={values.Disable_studentsection}
                           SelectProps={{}}
-                          helperText={
-                            <IntlMessages id="components.class.level.input.label.section" />
-                          }
+                          helperText={<IntlMessages id="components.class.level.input.label.section" />}
                           margin="normal"
                           fullWidth
                         >
@@ -104,19 +93,17 @@ class AddHealthFile extends Component {
                           name="class_id"
                           select
                           value={values.class_id}
-                          onChange={handleChangeClassStudent("class_id")}
+                          onChange={handleChangeClassStudent('class_id')}
                           SelectProps={{}}
                           helperText={<IntlMessages id="ticket.name.class" />}
                           margin="normal"
                           fullWidth
                         >
-                          {values.studentClassesByLevelSectionID.map(
-                            (classe) => (
-                              <MenuItem key={classe.id} value={classe.id}>
-                                {classe.name}
-                              </MenuItem>
-                            )
-                          )}
+                          {values.studentClassesByLevelSectionID.map((classe) => (
+                            <MenuItem key={classe.id} value={classe.id}>
+                              {classe.name}
+                            </MenuItem>
+                          ))}
                         </TextField>
                       </div>
                     </div>
@@ -127,19 +114,15 @@ class AddHealthFile extends Component {
                           name="professor_id"
                           select
                           value={values.student_id}
-                          onChange={handleChangeStudent("student_id")}
+                          onChange={handleChangeStudent('student_id')}
                           SelectProps={{}}
-                          helperText={
-                            <IntlMessages id="userStuppDisplay.Student" />
-                          }
+                          helperText={<IntlMessages id="userStuppDisplay.Student" />}
                           margin="normal"
                           fullWidth
                         >
                           {values.studentByclassID.map((student) => (
                             <MenuItem key={student.id} value={student.id}>
-                              {student.profile.user.name +
-                                " " +
-                                student.profile.user.surname}
+                              {student.profile.user.name + ' ' + student.profile.user.surname}
                             </MenuItem>
                           ))}
                         </TextField>
@@ -153,11 +136,9 @@ class AddHealthFile extends Component {
                           name="blood_type"
                           select
                           value={values.blood_type}
-                          onChange={handleChange("blood_type")}
+                          onChange={handleChange('blood_type')}
                           SelectProps={{}}
-                          helperText={
-                            <IntlMessages id="new.health.blood.type" />
-                          }
+                          helperText={<IntlMessages id="new.health.blood.type" />}
                           margin="normal"
                           fullWidth
                         >
@@ -179,7 +160,7 @@ class AddHealthFile extends Component {
                           type="number"
                           inputProps={{ min: 0 }}
                           label={<IntlMessages id="new.health.poids" />}
-                          onChange={handleChange("poids")}
+                          onChange={handleChange('poids')}
                           value={values.poids}
                           margin="normal"
                           fullWidth
@@ -196,7 +177,7 @@ class AddHealthFile extends Component {
                           type="number"
                           inputProps={{ min: 0 }}
                           label={<IntlMessages id="new.health.hauteur" />}
-                          onChange={handleChange("hauteur")}
+                          onChange={handleChange('hauteur')}
                           value={values.hauteur}
                           margin="normal"
                           fullWidth
@@ -206,10 +187,7 @@ class AddHealthFile extends Component {
                   </div>
                 </CardBox>
 
-                <CardBox
-                  heading={<IntlMessages id="new.health.maladies.title" />}
-                  styleName="col-lg-12 text-primary"
-                >
+                <CardBox heading={<IntlMessages id="new.health.maladies.title" />} styleName="col-lg-12 text-primary">
                   <div className="row">
                     {values.data.map((element) => (
                       <div className="col-md-4">
@@ -231,10 +209,7 @@ class AddHealthFile extends Component {
                     ))}
                   </div>
                 </CardBox>
-                <CardBox
-                  heading={<IntlMessages id="new.health.medecin.details" />}
-                  styleName="col-lg-12 text-primary"
-                >
+                <CardBox heading={<IntlMessages id="new.health.medecin.details" />} styleName="col-lg-12 text-primary">
                   <div className="row">
                     <div className="col-md-6">
                       <div className="form-group">
@@ -242,10 +217,8 @@ class AddHealthFile extends Component {
                           required
                           name="nom_doctor"
                           id="nom_doctor"
-                          label={
-                            <IntlMessages id="components.establishments.formadd.name" />
-                          }
-                          onChange={handleChange("nom_doctor")}
+                          label={<IntlMessages id="components.establishments.formadd.name" />}
+                          onChange={handleChange('nom_doctor')}
                           value={values.nom_doctor}
                           margin="normal"
                           fullWidth
@@ -259,10 +232,8 @@ class AddHealthFile extends Component {
                           required
                           name="prenom_doctor"
                           id="prenom_doctor"
-                          label={
-                            <IntlMessages id="components.establishments.formadd.surname_director" />
-                          }
-                          onChange={handleChange("prenom_doctor")}
+                          label={<IntlMessages id="components.establishments.formadd.surname_director" />}
+                          onChange={handleChange('prenom_doctor')}
                           value={values.prenom_doctor}
                           margin="normal"
                           fullWidth
@@ -277,7 +248,7 @@ class AddHealthFile extends Component {
                           name="phone_doctor"
                           id="phone_doctor"
                           label={<IntlMessages id="stuppUser.formadd.phone" />}
-                          onChange={handleChange("phone_doctor")}
+                          onChange={handleChange('phone_doctor')}
                           value={values.phone_doctor}
                           margin="normal"
                           type="number"
@@ -292,7 +263,7 @@ class AddHealthFile extends Component {
                           name="mail_doctor"
                           id="mail_doctor"
                           label={<IntlMessages id="appModule.email" />}
-                          onChange={handleChange("mail_doctor")}
+                          onChange={handleChange('mail_doctor')}
                           value={values.mail_doctor}
                           margin="normal"
                           fullWidth
@@ -301,10 +272,7 @@ class AddHealthFile extends Component {
                     </div>
                   </div>
                 </CardBox>
-                <CardBox
-                  heading={<IntlMessages id="new.health.remarqque" />}
-                  styleName="col-lg-12 text-primary"
-                >
+                <CardBox heading={<IntlMessages id="new.health.remarqque" />} styleName="col-lg-12 text-primary">
                   <div className="row">
                     <div className="col-md-12">
                       <div className="form-group">
@@ -312,10 +280,8 @@ class AddHealthFile extends Component {
                           name="remarque"
                           id="remarque"
                           variant="outlined"
-                          label={
-                            <IntlMessages id="components.note.student.comment" />
-                          }
-                          onChange={handleChange("remarque")}
+                          label={<IntlMessages id="components.note.student.comment" />}
+                          onChange={handleChange('remarque')}
                           value={values.class_object}
                           margin="normal"
                           fullWidth
@@ -324,10 +290,7 @@ class AddHealthFile extends Component {
                     </div>
                   </div>
                 </CardBox>
-                <CardBox
-                  heading={<IntlMessages id="new.health.fiche.title" />}
-                  styleName="col-lg-12 text-primary"
-                >
+                <CardBox heading={<IntlMessages id="new.health.fiche.title" />} styleName="col-lg-12 text-primary">
                   <div className="row">
                     <div className="col-md-12">
                       <div className="form-group">
@@ -336,22 +299,22 @@ class AddHealthFile extends Component {
                           htmlFor="files"
                           className="btn"
                           style={{
-                            cursor: "pointer",
-                            color: "white",
-                            fontWeight: "bold",
-                            backgroundColor: "#4C19A9",
-                            borderRadius: "4rem",
+                            cursor: 'pointer',
+                            color: 'white',
+                            fontWeight: 'bold',
+                            backgroundColor: '#4C19A9',
+                            borderRadius: '4rem',
                           }}
                         >
                           <strong>{<IntlMessages id="course.file" />}</strong>
-                        </label>{" "}
+                        </label>{' '}
                         <label htmlFor="files" className="btn">
                           {values.inputText}
                         </label>
                         <input
                           id="files"
                           type="file"
-                          style={{ visibility: "hidden" }}
+                          style={{ visibility: 'hidden' }}
                           onChange={this.props.onDrop}
                           accept="application/pdf,image/*"
                           multiple
@@ -364,23 +327,11 @@ class AddHealthFile extends Component {
               <div className="col-md-12 text-right ">
                 <br />
                 <br />
-                <Button
-                  variant="contained"
-                  className="jr-btn bg-indigo text-white "
-                  onClick={this.props.addHealthFile}
-                >
-                  {
-                    <IntlMessages id="components.establishments.formadd.buttonAdd" />
-                  }
+                <Button variant="contained" className="jr-btn bg-indigo text-white " onClick={this.props.addHealthFile}>
+                  {<IntlMessages id="components.establishments.formadd.buttonAdd" />}
                 </Button>
-                <Button
-                  variant="contained"
-                  className="jr-btn bg-grey text-white "
-                  onClick={this.props.handleCancel}
-                >
-                  {
-                    <IntlMessages id="components.establishments.formadd.buttonCancel" />
-                  }
+                <Button variant="contained" className="jr-btn bg-grey text-white " onClick={this.props.handleCancel}>
+                  {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
                 </Button>
               </div>
             </form>

@@ -9,8 +9,7 @@ class LoaderModal extends Component {
  
 
   render() {   /* eslint eqeqeq: "off" */
-    const {} = this.props;
-    return (
+     return (
       <div
         className="modal-backdrop d-flex justify-content-center align-items-center"
         style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}

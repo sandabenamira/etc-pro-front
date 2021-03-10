@@ -10,7 +10,8 @@ import {
   ADD_SUBJECT_SETTING,
   EDIT_SUBJECT_SETTING,
   GET_SUBJECT_SETTING,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   remoteSubjects: [],

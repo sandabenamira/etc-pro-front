@@ -163,8 +163,7 @@ class SchoolLicenceList extends React.Component {
         number_sms: this.state.smsNumber,
         modules: this.state.modules,
       };
-      const establishment = this.state.establishment;
-      this.props.editSchoolLicence(data);
+       this.props.editSchoolLicence(data);
     }
 
     this.handleCancel();

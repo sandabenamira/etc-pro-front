@@ -120,7 +120,7 @@ class HealthFileListItem extends Component {
     var problems = data.filter((element) => this.props.ficheMedicalItem.problems.includes(element.id));
     return (
       <Card className="shadow border-0">
-        <AppBar className="bg-primary card-header" position="static" style={{ paddingTop: 5, height: 55 }} className="">
+        <AppBar className="bg-primary card-header" position="static" style={{ paddingTop: 5, height: 55 }} >
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}

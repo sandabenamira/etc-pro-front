@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import BillItem from "./BillItem";
 import CardBox from "../../../../../components/CardBox/index";
 import PayBill from "../Payment/PayBill";
-import moment from "moment";
+// import moment from "moment";
 import { connect } from "react-redux";
 import {SendInvoice} from "../../../../../actions/BillAction"
 import ConfirmInvoiceModal from "./ConfirmInvoiceModal"
 import {
-  unpaidInvoice,
+  
   partiallyPaidInvoice,
-  billPaid,
-  lateInvoice,
+  
 } from "../../../../../config/config";
 let invoices = [
   {
@@ -269,7 +268,7 @@ data.object=this.state.InvoiceObject
     }
 
     else {
-      let data = {};
+      // let data = {};
       if (this.state.billSelected.statusInvoice === partiallyPaidInvoice) {
         const newPrice = parseInt(this.state.price) + this.state.oldPrice;
         if (newPrice > this.state.billSelected.totalPayed) {
@@ -277,14 +276,14 @@ data.object=this.state.InvoiceObject
         }
    
       } else {
-        data = {
-          payment_day: moment(this.state.paymentDay).format("YYYY-MM-DD"),
-          payment_methode: this.state.paymentMethode,
-          fk_id_profile: this.props.userProfile.id,
-          fk_id_bill: this.state.billSelected.id,
-          price_invoice: this.state.billSelected.totalPayed,
-          price_paid: parseInt(this.state.price),
-        };
+        // data = {
+        //   payment_day: moment(this.state.paymentDay).format("YYYY-MM-DD"),
+        //   payment_methode: this.state.paymentMethode,
+        //   fk_id_profile: this.props.userProfile.id,
+        //   fk_id_bill: this.state.billSelected.id,
+        //   price_invoice: this.state.billSelected.totalPayed,
+        //   price_paid: parseInt(this.state.price),
+        // };
        
       }
     }

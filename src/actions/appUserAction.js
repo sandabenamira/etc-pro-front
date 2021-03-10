@@ -1,6 +1,7 @@
 import baseUrl from "../config/config";
 import axios from "axios";
-import { DATA_LOADED_STUPPUSER } from "../constants/ActionTypes";
+import { DATA_LOADED_STUPPUSER } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 export function getAllUsers(id) {
   return function(dispatch) {

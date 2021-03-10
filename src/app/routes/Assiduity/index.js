@@ -3,7 +3,7 @@ import asyncComponent from '../../../util/asyncComponent';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Can from '../../../can';
 import { RoleContext } from '../../../Context';
-import EducationalCalendar from './routes/EducationalCalendar/EducationalCalendar';
+// import EducationalCalendar from './routes/EducationalCalendar/EducationalCalendar';
 import Timetable from './routes/Timetable/index';
 import Planning from './routes/Planning/Planning';
 import CallRegister from './routes/CallRegister/Registre';

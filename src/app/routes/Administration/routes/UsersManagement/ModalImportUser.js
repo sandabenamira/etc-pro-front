@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import IntlMessages from '../../../../../util/IntlMessages';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Auxiliary from '../../../../../util/Auxiliary';
-import { connect } from 'react-redux';
-import InputLabel from '@material-ui/core/InputLabel';
+ import InputLabel from '@material-ui/core/InputLabel';
 import Select from 'react-select';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
+ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';

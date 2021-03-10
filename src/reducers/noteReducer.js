@@ -2,7 +2,8 @@ import {
   GET_ALL_GRADES,
   ADD_GRADE,
   UPDATE_GRADE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   grades: [],

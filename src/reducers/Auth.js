@@ -17,7 +17,8 @@ import {
   EDIT_PROFILE,
   GET_PROFILE,
   SWITCH_APP_LANGUAGE,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const INIT_STATE = {
   loader: false,

@@ -13,8 +13,7 @@ import { UncontrolledAlert } from 'reactstrap';
 import SchoolYearEtabList from './SchoolYearEtabList';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from "@material-ui/core/MenuItem";
-import { string } from "prop-types";
-
+ 
 
 class SchoolYearEtab extends React.Component {
 

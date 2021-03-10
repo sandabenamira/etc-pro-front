@@ -19,8 +19,7 @@ class Levels extends React.Component {
     this.openAddModal = this.openAddModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleArchive = this.handleArchive.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
+     this.handleCancel = this.handleCancel.bind(this);
     this.handleArchive = this.handleArchive.bind(this);
     this.handleDearchiver=this.handleDearchiver.bind(this)
   }
@@ -57,14 +56,8 @@ class Levels extends React.Component {
   handleCancel() {
     this.setState({ open: false });
   }
-  openAddModal() {
-    this.setState({ open: true });
-  }
-  handleArchive(event) {
-    event.preventDefault();
-    this.openAddModal();
-    this.setState({});
-  }
+   
+  
 
   UNSAFE_componentWillMount() {
     this.props.dispatch(

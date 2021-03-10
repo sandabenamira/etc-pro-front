@@ -1,4 +1,5 @@
-import { DATA_LOADED_STUPPUSER, DATA_NEW_STUPPUSER } from "../constants/ActionTypes";
+import { DATA_LOADED_STUPPUSER, DATA_NEW_STUPPUSER } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import _ from 'lodash';
 
 const initialState = {

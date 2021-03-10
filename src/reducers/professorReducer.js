@@ -1,5 +1,6 @@
 
-import { DATA_LOADED, GET_PROFESSOR, ADD_PROFESSOR, DELETE_PROFESSOR, EDIT_PROFESSOR } from "../constants/ActionTypes";
+import { DATA_LOADED, GET_PROFESSOR, ADD_PROFESSOR, DELETE_PROFESSOR, EDIT_PROFESSOR } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   professors: [],

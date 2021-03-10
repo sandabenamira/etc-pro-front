@@ -1,38 +1,31 @@
-import React from "react";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import IntlMessages from "../../../../../../util/IntlMessages";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Auxiliary from "../../../../../../util/Auxiliary";
-import { connect } from "react-redux";
-import MenuItem from "@material-ui/core/MenuItem";
+import React from 'react';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import IntlMessages from '../../../../../../util/IntlMessages';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Auxiliary from '../../../../../../util/Auxiliary';
+import MenuItem from '@material-ui/core/MenuItem';
 export default class EditClassSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     console.log(this.props.values);
     return (
       <Auxiliary>
-        <Modal
-          isOpen={this.props.values.isOpen}
-          toggle={this.props.handleAnnule}
-        >
-          <ModalHeader className="modal-box-header bg-primary text-white">
-            {<IntlMessages id="modal.modif.module.class" />}
-          </ModalHeader>
+        <Modal isOpen={this.props.values.isOpen} toggle={this.props.handleAnnule}>
+          <ModalHeader className="modal-box-header bg-primary text-white">{<IntlMessages id="modal.modif.module.class" />}</ModalHeader>
           <ModalBody>
             <form className="row" onSubmit={this.props.handleSubmit}>
               <div className="col-sm-4">
                 <TextField
                   required
                   id="namesubjectModule"
-                  label={
-                    <IntlMessages id="components.student.formadd.classe" />
-                  }
+                  label={<IntlMessages id="components.student.formadd.classe" />}
                   value={this.props.values.nameClassSettings}
-                  onChange={this.props.handleChange("nameClassSettings")}
+                  onChange={this.props.handleChange('nameClassSettings')}
                   margin="normal"
                   fullWidth
                 />
@@ -44,7 +37,7 @@ export default class EditClassSettings extends React.Component {
                   id="levelId"
                   label={<IntlMessages id="components.note.niveau" />}
                   value={this.props.values.levelId}
-                  onChange={this.props.handleChangeLevel("levelId")}
+                  onChange={this.props.handleChangeLevel('levelId')}
                   margin="normal"
                   fullWidth
                 >
@@ -57,8 +50,7 @@ export default class EditClassSettings extends React.Component {
               </div>
               <div className="col-sm-12">
                 <h4>
-                  <font color="red">*</font>{" "}
-                  {<IntlMessages id="component.required_fields" />}
+                  <font color="red">*</font> {<IntlMessages id="component.required_fields" />}
                 </h4>
               </div>
               <div className="col-md-12 text-left d-flex flex-wrap justify-content-end">
@@ -67,12 +59,12 @@ export default class EditClassSettings extends React.Component {
                 <Button
                   variant="contained"
                   style={{
-                    borderBottomLeftRadius: "16px",
-                    borderBottomRightRadius: "16px",
-                    borderTopLeftRadius: "16px",
-                    borderTopRightRadius: "16px",
-                    width: "100px",
-                    height: "40px",
+                    borderBottomLeftRadius: '16px',
+                    borderBottomRightRadius: '16px',
+                    borderTopLeftRadius: '16px',
+                    borderTopRightRadius: '16px',
+                    width: '100px',
+                    height: '40px',
                   }}
                   className=" bg-indigo text-white "
                   type="submit"
@@ -83,12 +75,12 @@ export default class EditClassSettings extends React.Component {
                 <Button
                   variant="contained"
                   style={{
-                    borderBottomLeftRadius: "16px",
-                    borderBottomRightRadius: "16px",
-                    borderTopLeftRadius: "16px",
-                    borderTopRightRadius: "16px",
-                    width: "100px",
-                    height: "40px",
+                    borderBottomLeftRadius: '16px',
+                    borderBottomRightRadius: '16px',
+                    borderTopLeftRadius: '16px',
+                    borderTopRightRadius: '16px',
+                    width: '100px',
+                    height: '40px',
                   }}
                   className=" bg-grey text-white "
                   type="submit"

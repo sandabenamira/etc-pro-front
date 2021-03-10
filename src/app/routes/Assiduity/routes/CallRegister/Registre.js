@@ -14,7 +14,6 @@ import { Redirect } from 'react-router-dom';
 import { getStudentsCallRegister, getStudentsCallRegisterForParent } from '../../../../../actions/studentAction';
 import ContainerHeader from '../../../../../components/ContainerHeader';
 import { UncontrolledAlert } from 'reactstrap';
-import SweetAlert from 'react-bootstrap-sweetalert';
 import { havePermission } from '../../../../../constants/validationFunctions';
 
 var options = {
@@ -534,15 +533,15 @@ class Registre extends Component {
     var weekStart = currentDate.clone().startOf('week');
     var weekEnd = currentDate.clone().endOf('week');
 
-    const goToDayView = () => {
-      // toolbar.onView('day');
-      // this.handleView('day')
+    // const goToDayView = () => {
+    //   // toolbar.onView('day');
+    //   // this.handleView('day')
 
-      const now = new Date();
-      toolbar.date.setMonth(now.getMonth());
-      toolbar.date.setYear(now.getFullYear());
-      toolbar.onNavigate('current');
-    };
+    //   const now = new Date();
+    //   toolbar.date.setMonth(now.getMonth());
+    //   toolbar.date.setYear(now.getFullYear());
+    //   toolbar.onNavigate('current');
+    // };
 
     const goToWeekView = () => {
       toolbar.onView('week');

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import IconWithTextCard from "../IconWithTextCard";
-import IntlMessages from "../../../../util/IntlMessages";
 import CardHeader from "../../../../components/dashboard/default/CardHeader";
 import bancLogo from "../../../../assets/images/dashboard/bancLogo.jpg";
 import { connect } from "react-redux";

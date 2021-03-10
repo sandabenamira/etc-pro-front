@@ -17,25 +17,9 @@ class PlanningCalendar extends React.Component {
     this.state = {};
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const { classes, values } = this.props;
-    let startHours = '';
-    let startMinutes = '';
-    let endHours = '';
-    let endMinutes = '';
-    if (this.props.startTime && this.props.endTime) {
-      const startTime = this.props.startTime.split(':');
-      const endTime = this.props.endTime.split(':');
-      startHours = startTime[0];
-      startMinutes = startTime[1];
-      endHours = endTime[0];
-      endMinutes = endTime[1];
-    } else {
-      startHours = '08';
-      startMinutes = '00';
-      endHours = '19';
-      endMinutes = '00';
-    }
 
     const startDayTime = new Date();
     const endDayTime = new Date();
@@ -128,8 +112,7 @@ class PlanningCalendar extends React.Component {
                                 id="itemAgence"
                                 name="itemAgence"
                                 select
-                                value={this.props.values.itemAgence || ''}
-                                value={this.props.values.itemAgence==='' ? '' : JSON.stringify(this.props.values.itemAgence)}
+                                 value={this.props.values.itemAgence === '' ? '' : JSON.stringify(this.props.values.itemAgence)}
                                 onChange={this.props.handleChangeAgence('itemAgence')}
                                 SelectProps={{}}
                                 label={'Agence'}

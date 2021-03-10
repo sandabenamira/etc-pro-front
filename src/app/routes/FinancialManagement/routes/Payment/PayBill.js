@@ -1,19 +1,19 @@
-import React from "react";
-import IntlMessages from "../../../../../util/IntlMessages";
-import Button from "@material-ui/core/Button";
-import Auxiliary from "../../../../../util/Auxiliary";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import TextField from "@material-ui/core/TextField";
-import moment from "moment";
-import { payBill, editBill } from "../../../../../actions/PaymentAction";
-import { connect } from "react-redux";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import { classService } from "../../../../../_services/class.service";
-import { partiallyPaidInvoice } from "../../../../../config/config";
+import React from 'react';
+import IntlMessages from '../../../../../util/IntlMessages';
+import Button from '@material-ui/core/Button';
+import Auxiliary from '../../../../../util/Auxiliary';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import TextField from '@material-ui/core/TextField';
+import moment from 'moment';
+// import { payBill, editBill } from "../../../../../actions/PaymentAction";
+import { connect } from 'react-redux';
+import FormHelperText from '@material-ui/core/FormHelperText';
+// import { classService } from '../../../../../_services/class.service';
+// import { partiallyPaidInvoice } from '../../../../../config/config';
 
 class PayBill extends React.Component {
   constructor(props) {
@@ -35,11 +35,12 @@ class PayBill extends React.Component {
   //         this.setState({ price: data.bill.total_incl_tax, paymentDay: paymentDay[0] })
   //     }
   // }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const {
       paymentDay,
       price,
-      paymentMethode,
+      //  paymentMethode,
       priceError,
       openPay,
       paymentMethodeError,
@@ -50,36 +51,28 @@ class PayBill extends React.Component {
       <div>
         <Auxiliary>
           <Modal isOpen={openPay}>
-            <ModalHeader
-              toggle={this.props.cancelModal}
-              className="modal-box-header bg-primary text-white"
-            >
+            <ModalHeader toggle={this.props.cancelModal} className="modal-box-header bg-primary text-white">
               <div className="jr-currentplan-col pb-xl-2 text-center">
                 <h2 className="text-white jr-font-weight-medium ">
-                  {<IntlMessages id="invoice.reference" />}{" "}
-                  {this.props.invoice.invoiceNumber}
+                  {<IntlMessages id="invoice.reference" />} {this.props.invoice.invoiceNumber}
                 </h2>
               </div>
             </ModalHeader>
             <ModalBody>
-              <form
-                className="row"
-                autoComplete="off"
-                onSubmit={this.props.handleSubmit}
-              >
+              <form className="row" autoComplete="off" onSubmit={this.props.handleSubmit}>
                 <div className="col-sm-6">
                   <InputLabel htmlFor="price">Montant Total</InputLabel>
 
                   <TextField
                     id="price"
                     disabled
-                    value={priceTotal+" "+"TND"}
+                    value={priceTotal + ' TND'}
                     fullWidth
                     inputProps={{
                       style: {
-                        fontFamily: "Arial",
-                        color: "red",
-                        fontWeight: "bold",
+                        fontFamily: 'Arial',
+                        color: 'red',
+                        fontWeight: 'bold',
                         fontSize: 16,
                       },
                     }}
@@ -91,13 +84,13 @@ class PayBill extends React.Component {
                     <TextField
                       disabled
                       id="price"
-                      value={priceRestant+" "+"TND"}
+                      value={priceRestant +   ' TND'}
                       fullWidth
                       inputProps={{
                         style: {
-                          fontFamily: "Arial",
-                          color: "#308AE0",
-                          fontWeight: "bold",
+                          fontFamily: 'Arial',
+                          color: '#308AE0',
+                          fontWeight: 'bold',
                           fontSize: 16,
                         },
                       }}
@@ -109,35 +102,18 @@ class PayBill extends React.Component {
                 <br />
                 <br />
                 <div className="col-sm-6">
-                  <InputLabel htmlFor="price">
-                    {<IntlMessages id="service.price_ttc" />}
-                  </InputLabel>
-                  <TextField
-                    id="price"
-                    type="number"
-                    value={price}
-                    error={priceError}
-                    onChange={this.props.handleChangeInput("price")}
-                    fullWidth
-                  />
-                  <FormHelperText error={priceError}>
-                    {priceError ? (
-                      <IntlMessages id="message.error.price" />
-                    ) : (
-                      ""
-                    )}
-                  </FormHelperText>
+                  <InputLabel htmlFor="price">{<IntlMessages id="service.price_ttc" />}</InputLabel>
+                  <TextField id="price" type="number" value={price} error={priceError} onChange={this.props.handleChangeInput('price')} fullWidth />
+                  <FormHelperText error={priceError}>{priceError ? <IntlMessages id="message.error.price" /> : ''}</FormHelperText>
                 </div>
                 <div className="col-sm-6">
-                  <InputLabel htmlFor="paymentDay">
-                    {<IntlMessages id="payment.date" />}
-                  </InputLabel>
+                  <InputLabel htmlFor="paymentDay">{<IntlMessages id="payment.date" />}</InputLabel>
                   <TextField
                     id="paymentDay"
                     name="paymentDay"
                     type="date"
-                    value={moment(paymentDay).format("YYYY-MM-DD")}
-                    onChange={this.props.handleChangeInput("paymentDay")}
+                    value={moment(paymentDay).format('YYYY-MM-DD')}
+                    onChange={this.props.handleChangeInput('paymentDay')}
                     fullWidth
                   />
                 </div>
@@ -146,60 +122,29 @@ class PayBill extends React.Component {
                 <br />
                 <br />
                 <div className="col-sm-12">
-                  <InputLabel htmlFor="paymentMethode">
-                    {<IntlMessages id="methode.of.payment" />}
-                  </InputLabel>
+                  <InputLabel htmlFor="paymentMethode">{<IntlMessages id="methode.of.payment" />}</InputLabel>
                   <RadioGroup
                     row
                     aria-label="paymentMethode"
                     name="paymentMethode"
                     // value={paymentMethode}
-                    onChange={this.props.handleChangePaymentType(
-                      "paymentMethode"
-                    )}
+                    onChange={this.props.handleChangePaymentType('paymentMethode')}
                   >
-                    <FormControlLabel
-                      value="Espèce"
-                      control={<Radio />}
-                      label={<IntlMessages id="payment.service.cash" />}
-                    />
-                    <FormControlLabel
-                      value="Chèque"
-                      control={<Radio />}
-                      label={<IntlMessages id="payment.service.cheque" />}
-                    />
-                    <FormControlLabel
-                      value="Carte bancaire"
-                      control={<Radio />}
-                      label={<IntlMessages id="payment.methode.creditCard" />}
-                    />
+                    <FormControlLabel value="Espèce" control={<Radio />} label={<IntlMessages id="payment.service.cash" />} />
+                    <FormControlLabel value="Chèque" control={<Radio />} label={<IntlMessages id="payment.service.cheque" />} />
+                    <FormControlLabel value="Carte bancaire" control={<Radio />} label={<IntlMessages id="payment.methode.creditCard" />} />
                   </RadioGroup>
                   <FormHelperText error={paymentMethodeError}>
-                    {paymentMethodeError ? (
-                      <IntlMessages id="message.error.payment.methode" />
-                    ) : (
-                      ""
-                    )}
+                    {paymentMethodeError ? <IntlMessages id="message.error.payment.methode" /> : ''}
                   </FormHelperText>
                 </div>
                 <div className="col-md-12  ">
                   <br />
-                  <Button
-                    variant="contained"
-                    className="jr-btn bg-indigo text-white "
-                    type="submit"
-                    disabled={price===""}
-                  >
+                  <Button variant="contained" className="jr-btn bg-indigo text-white " type="submit" disabled={price === ''}>
                     {<IntlMessages id="button.pay" />}
                   </Button>
-                  <Button
-                    variant="contained"
-                    className="jr-btn bg-grey text-white "
-                    onClick={this.props.cancelModal}
-                  >
-                    {
-                      <IntlMessages id="components.establishments.formadd.buttonCancel" />
-                    }
+                  <Button variant="contained" className="jr-btn bg-grey text-white " onClick={this.props.cancelModal}>
+                    {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
                   </Button>
                 </div>
               </form>

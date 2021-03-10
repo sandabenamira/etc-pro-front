@@ -1,7 +1,6 @@
 import React from 'react';
 import IntlMessages from '../../../../../util/IntlMessages';
 import IconWithTextCard from '../../../FinancialManagement/routes/ServiceAllocation/ServiceAllocationComp/IconWithTextCard';
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,7 +10,6 @@ import FolderIcon from '@material-ui/icons/Folder';
 import CardBox from '../../../../../components/CardBox/index';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
 import { RoleContext } from '../../../../../Context';
 import Can from '../../../../../can';
 import { NavLink } from 'react-router-dom';
@@ -121,23 +119,9 @@ class SupportCours extends React.Component {
     }
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const { settings } = this.props;
-    const useStyles = makeStyles((theme) => ({
-      root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-      },
-      row: {
-        display: 'flex',
-        justifyContent: 'center',
-      },
-      margin: {
-        margin: theme.spacing(3),
-      },
-    }));
-    const classes = useStyles;
 
     let detailCards = [
       {
@@ -294,9 +278,9 @@ class SupportCours extends React.Component {
                             let subjectName = subject.subjectName;
                             let assignementId = subject.assignementClassSubject;
                             let surnameProf =
-                              subject.prof === undefined ? 0 : subject.prof[0]===undefined ? 0 : subject.prof[0].profile.user.surname;
-                            let nameProf = subject.prof === undefined ? 0 : subject.prof[0]===undefined ? 0 : subject.prof[0].profile.user.name;
-                            let profId = subject.prof === undefined ? 0 : subject.prof[0]===undefined ? 0 : subject.prof[0].id;
+                              subject.prof === undefined ? 0 : subject.prof[0] === undefined ? 0 : subject.prof[0].profile.user.surname;
+                            let nameProf = subject.prof === undefined ? 0 : subject.prof[0] === undefined ? 0 : subject.prof[0].profile.user.name;
+                            let profId = subject.prof === undefined ? 0 : subject.prof[0] === undefined ? 0 : subject.prof[0].id;
 
                             return (
                               <div key={index} class="col-md-4 col-lg-3 col-sm-6">

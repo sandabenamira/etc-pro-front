@@ -61,7 +61,6 @@ class EditHomework extends Component {
                   <div className="p-2 col-lg-3">
                     <TextField
                       required
-                      type="nameFile"
                       type="text"
                       id="nameFile"
                       name="nameFile"
@@ -352,8 +351,7 @@ class EditHomework extends Component {
                       <TextField
                         type="url"
                         variant="outlined"
-                        type="text"
-                        id="courseUrl"
+                         id="courseUrl"
                         name="courseUrl"
                         label={<IntlMessages id="material.course.url" />}
                         value={values.courseUrl || ''}

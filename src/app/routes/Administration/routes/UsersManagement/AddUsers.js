@@ -20,26 +20,15 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import PrintIcon from '@material-ui/icons/Print';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
-import { getAllRole, importUsersFromFile } from '../../../../../actions/usersAction';
 import PhotoIcon from '@material-ui/icons/Photo';
-import {
-  roleIdSuperAdmin,
-  roleIdAdmin,
-  roleIdProfessor,
-  roleIdStudent,
-  roleIdDirector,
-  roleIdParent,
-  roleIdSupervisor,
-} from '../../../../../config/config';
-import { isEmail, isPhonenumber, isZipCode, isCIN, isValidphoneNumber } from '../../../../../constants/validationFunctions';
+import { roleIdSuperAdmin, roleIdProfessor, roleIdStudent, roleIdParent } from '../../../../../config/config';
+import { isEmail } from '../../../../../constants/validationFunctions';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import moment from 'moment';
-import RemoveIcon from '@material-ui/icons/Remove';
 import ModalImportUser from './ModalImportUser';
 import ModalExportUser from './ModalExportUser';
 import readXlsxFile from 'read-excel-file';
-import { element } from 'prop-types';
 import _ from 'lodash';
 import AlerteImport from './AlerteImport';
 
@@ -69,14 +58,7 @@ const correctHeader = [
   'informations utiles',
   'agence',
 ];
-const fonctionList = [
-  { label: "Agent d'entretien", id: 1, value: 1 },
-  { label: 'Infirmière', id: 2, value: 2 },
-  { label: 'Cuisinier(e)', id: 3, value: 3 },
-  { label: 'Gardien', id: 4, value: 4 },
-  { label: 'surveillant', id: 5, value: 5 },
-  { label: 'surveillant général', id: 6, value: 6 },
-];
+
 const TypeContrat = [
   { label: 'interne', id: 1, value: 1 },
   { label: 'externe', id: 2, value: 2 },
@@ -103,8 +85,7 @@ class AddUsers extends React.Component {
       importStatus: [],
       importDone: false,
       fileUploaded: false,
-      templateUrl:'https://s3.eu-west-3.amazonaws.com/classebook.data.storage/educap/Template-import-user-Educap-Pro.xlsx'
-
+      templateUrl: 'https://s3.eu-west-3.amazonaws.com/classebook.data.storage/educap/Template-import-user-Educap-Pro.xlsx',
     };
     this.handleSubmitImport = this.handleSubmitImport.bind(this);
     this.handleOpenImportModal = this.handleOpenImportModal.bind(this);
@@ -152,10 +133,10 @@ class AddUsers extends React.Component {
         statusBelongTo: true,
         activityUserBelongAgency: true,
       };
-       try {
+      try {
         let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
         const response = await axios.post(baseUrl.baseUrl + apiEndpoint, dataUser);
-
+        console.log(response,'response');
         return data.indexFile;
       } catch (err) {
         // Handle Error Here
@@ -322,7 +303,7 @@ class AddUsers extends React.Component {
     event.preventDefault();
     if (this.state.invalidData.length === 0) {
       this.setState({ importDone: true });
-      let result = this.ImportXLSX(this.state.FormatedUserList);
+      this.ImportXLSX(this.state.FormatedUserList);
     } else {
       let alerteImportMessage = 'les lignes numéro ' + this.state.invalidData.map((element) => element.indexFile + ' , ') + 'sont invalides';
 
@@ -339,7 +320,7 @@ class AddUsers extends React.Component {
     });
   };
   render() {
-     /* eslint eqeqeq: "off" */
+    /* eslint eqeqeq: "off" */
     const { values } = this.props;
     return (
       <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap align-items-start">
@@ -914,7 +895,6 @@ class AddUsers extends React.Component {
                       <TextField
                         // error={isCIN(values.userCIN) === false ? true : false}
                         id="userCIN"
-                        id="userCIN"
                         name="userCIN"
                         type="number"
                         value={values.userCIN || ''}
@@ -926,13 +906,6 @@ class AddUsers extends React.Component {
                         SelectProps={{
                           native: true,
                         }}
-                        // helperText={
-                        //   isCIN(values.userCIN) === true ? (
-                        //     ""
-                        //   ) : (
-                        //     <IntlMessages id="error.user.message.cin" />
-                        //   )
-                        // }
                       />
                     </div>
                   </>
@@ -1270,4 +1243,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getAllRole, importUsersFromFile })(AddUsers);
+export default connect(mapStateToProps)(AddUsers);

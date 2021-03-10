@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import IntlMessages from '../../util/IntlMessages';
 import {
-  sousModuleEtab,
   sousModuleEtab2,
   sousModuleELearning,
   sousModuleAssiduity,
-  sousModuleCalendar,
-  sousModuleGrades,
   sousModuleLibraries,
-  sousModuleFinancialManagement,
+  // sousModuleFinancialManagement,
   sousModuleSuperadmin,
   sousModuleCommunity,
   sousModuleEvaluation,
@@ -17,35 +14,35 @@ import {
 import { RoleContext } from '../../Context';
 import Can from '../../can';
 
-const NavlinkItem = ({ pathName, listMoule }) => {
-  return (
-    <RoleContext.Consumer>
-      {({ role }) => (
-        <Can
-          role={role}
-          perform={`module-nav-${pathName}`}
-          yes={() => (
-            <Can
-              role={role}
-              perform="module-nav-access"
-              data={{
-                mod: pathName,
-                moduleList: listMoule,
-              }}
-              yes={() => (
-                <NavLink to={{ pathname: '/app/' + pathName }}>
-                  <span className="nav-text">
-                    <IntlMessages id={`sidebar.components.${pathName}`} />{' '}
-                  </span>
-                </NavLink>
-              )}
-            />
-          )}
-        />
-      )}
-    </RoleContext.Consumer>
-  );
-};
+// const NavlinkItem = ({ pathName, listMoule }) => {
+//   return (
+//     <RoleContext.Consumer>
+//       {({ role }) => (
+//         <Can
+//           role={role}
+//           perform={`module-nav-${pathName}`}
+//           yes={() => (
+//             <Can
+//               role={role}
+//               perform="module-nav-access"
+//               data={{
+//                 mod: pathName,
+//                 moduleList: listMoule,
+//               }}
+//               yes={() => (
+//                 <NavLink to={{ pathname: '/app/' + pathName }}>
+//                   <span className="nav-text">
+//                     <IntlMessages id={`sidebar.components.${pathName}`} />{' '}
+//                   </span>
+//                 </NavLink>
+//               )}
+//             />
+//           )}
+//         />
+//       )}
+//     </RoleContext.Consumer>
+//   );
+// };
 
 const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
   return (
@@ -65,7 +62,7 @@ const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
                 }}
                 yes={() => (
                   <>
-                    <a className="nav-text ">
+                    <a className="nav-text " href={null}>
                       <IntlMessages id={`sidebar.components.${pathName}`} />
                     </a>
                     <ul className="sub-menu">
@@ -276,7 +273,9 @@ class Menu extends Component {
     return null;
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
+    /* eslint jsx-a11y/anchor-is-valid: "off" */
     const estabModule = this.props.estabModule;
     return (
       <div className="d-none d-xl-block">

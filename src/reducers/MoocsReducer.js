@@ -6,7 +6,8 @@ import {
   ARCHIVED_GET_MOOCS,
    SHOW_LOADER,
   HIDE_LOADER
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   remoteMoocs: [],

@@ -3,7 +3,8 @@ import {
     ADD_MENU,
     EDIT_MENU,
     DELETE_MENU,
-  } from '../constants/ActionTypes';
+  } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
   
   const initialState = {
     remoteCafeteria: []

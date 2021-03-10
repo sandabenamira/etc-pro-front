@@ -1,5 +1,6 @@
 
-import { GET_ALL_STUDENT,GET_STUDENT, ADD_STUDENT, DELETE_STUDENT, EDIT_STUDENT, GET_STUDENT_BY_ESTABLISHMENT } from "../constants/ActionTypes";
+import { GET_ALL_STUDENT,GET_STUDENT, ADD_STUDENT, DELETE_STUDENT, EDIT_STUDENT, GET_STUDENT_BY_ESTABLISHMENT } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
     remoteStudents: [],

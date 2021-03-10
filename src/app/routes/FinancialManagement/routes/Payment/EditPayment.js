@@ -55,14 +55,14 @@ class EditPayment extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    let data = {
-      payment_day: this.state.paymentDay,
-      payment_status: "Payé",
-      payment_methode: this.state.paymentMethode,
-      profile_id: this.state.profileId,
-      price: this.state.price,
-      idLineOfPayment: this.props.paymentItem.linesPayments[0].id,
-    };
+    // let data = {
+    //   payment_day: this.state.paymentDay,
+    //   payment_status: "Payé",
+    //   payment_methode: this.state.paymentMethode,
+    //   profile_id: this.state.profileId,
+    //   price: this.state.price,
+    //   idLineOfPayment: this.props.paymentItem.linesPayments[0].id,
+    // };
     this.props.cancelModal();
   };
 

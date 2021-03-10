@@ -7,7 +7,8 @@ import {
   FETECHED_ALL_SERVICES_ARCHIVES,
   LIST_ALLOCATION_SERVICE,
   FETECHED_ALL_SERVICES_V2,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   remoteServices: [],

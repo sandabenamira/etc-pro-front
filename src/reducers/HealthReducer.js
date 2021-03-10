@@ -1,4 +1,5 @@
-import { FETECHED_ALL_HEALTH, ADD_HEALTH, EDIT_HEALTH, DELETE_HEALTH } from '../constants/ActionTypes';
+import { FETECHED_ALL_HEALTH, ADD_HEALTH, EDIT_HEALTH, DELETE_HEALTH } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   remoteFicheMedical: [],

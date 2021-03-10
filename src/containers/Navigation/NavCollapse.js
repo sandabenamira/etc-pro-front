@@ -9,7 +9,7 @@ import NavSection from './NavSection';
 import NavMenuItem from './NavMenuItem';
 import { RoleContext } from '../../Context';
 import Can from '../../can';
-
+/* eslint react-hooks/exhaustive-deps: "off" */
 const NavCollapse = (props) => {
   const history = useHistory();
 
@@ -105,6 +105,8 @@ const NavCollapse = (props) => {
                       return <NavCollapse {...item} key={index} />;
                     case 'item':
                       return <NavMenuItem {...item} key={index} />;
+                    default:
+                      return true;
                   }
                 }}
               />

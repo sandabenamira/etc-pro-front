@@ -5,7 +5,8 @@ import {
   DELETE_ASSIGNEMENT_COURSE,
   ARCHIVED_GET_ASSIGNEMENT_COURSE,
   ADD_ASSIGNMENT_FORMATION,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   courseAssignment: [],

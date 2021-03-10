@@ -362,8 +362,7 @@ const mapStateToProps = (state) => {
   return {
     userProfile: state.auth.userProfile,
     services: state.service.servicesV2,
-    sections: state.classSections.remoteSections,
-    allocationService: state.allocationService.allocationServiceList,
+     allocationService: state.allocationService.allocationServiceList,
     successStatus: state.alert.success,
     errorStatus: state.alert.error,
     message: state.alert.message,

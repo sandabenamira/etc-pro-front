@@ -2,106 +2,36 @@ import baseUrl from '../config/config';
 import axios from 'axios';
 import {
   FETCH_ALL_ROLE,
-  ADD_USER,
   GET_ALL_USERS_FOR_ADMIN,
   GET_ALL_USERS_FOR_SUPER_ADMIN,
-  EDIT_USER,
-  DELETE_USER,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
-  HIDE_WARNING_MESSAGE,
-  SHOW_WARNING_MESSAGE,
   SHOW_LOADER,
   HIDE_LOADER,
   EDIT_PROFILE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import _ from 'lodash';
-import { getError } from '../Error/Error';
 import { classService } from '../_services/class.service';
-import { roleIdStudent } from '../config/config';
-
-export function importUsersFromFile(ListUsers) {
-  return function(dispatch) {
-    ListUsers.map((data) => {
-      let dataUser = {
-        name: data.name,
-        surname: data.surname,
-        gender: data.gender,
-        dateOfBirth: data.dateOfBirth,
-        address: data.address,
-        phone: data.phone,
-        cin: data.cin,
-        zipCode: data.zipCode,
-        country: data.userCountry,
-        photo: null,
-        name_ar: data.name_ar,
-        surname_ar: data.surname_ar,
-        creation_date: new Date(),
-        nationality: data.nationality,
-        placeOfBirth: data.placeOfBirth,
-        email: data.email,
-        roleId: 5,
-        establishmentId: data.establishmentId,
-        assignClassSubject: null,
-        classId: data.classID,
-        schoolYearId: data.schoolYearId,
-        paperFiles: null,
-        functionName: null,
-        password: 123456,
-        login: 'john walls',
-        levelId: null,
-        sectionId: null,
-        usefulInformation: data.usefulInformation,
-        parentId: null,
-        studentId: null,
-        groupId: data.groupeID,
-        userIdentifier: data.userIdentifier,
-      };
-      // console.log(dataUser, 'dataUser apres action');
-      let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
-      classService
-        .post(apiEndpoint, dataUser)
-
-        .then((response) => {
-          console.log('EEEEEEEEEEEEEEEEE ', response);
-        })
-
-        .catch((err) => {
-          console.log('EEEEEEEEEEEEEEEEE ', err.message);
-          dispatch({
-            type: SHOW_ERROR_MESSAGE,
-            payload: 'Une erreur est survenue lors de la création',
-          });
-          setTimeout(() => {
-            dispatch({ type: HIDE_ERROR_MESSAGE });
-          }, 1000);
-        });
-    });
-  };
-}
 
 export function getAllRole() {
-  return function(dispatch) {
+  return function (dispatch) {
     axios.get(`${baseUrl.baseUrl}/roles?access_token=${localStorage.token}`).then((res) => {
       dispatch({ type: FETCH_ALL_ROLE, payload: res.data });
     });
   };
 }
 export function getAllUsersForAdmin(establishmentId, schoolYearId) {
-  return function(dispatch) {
-    axios
-      .get(
-        `${baseUrl.baseUrl}/users/${establishmentId}/${schoolYearId}?access_token=${localStorage.token}`
-      )
-      .then((res) => {
-        dispatch({ type: GET_ALL_USERS_FOR_ADMIN, payload: res.data.users });
-      });
+  return function (dispatch) {
+    axios.get(`${baseUrl.baseUrl}/users/${establishmentId}/${schoolYearId}?access_token=${localStorage.token}`).then((res) => {
+      dispatch({ type: GET_ALL_USERS_FOR_ADMIN, payload: res.data.users });
+    });
   };
 }
 export function getAllUsersForSuperAdministrator() {
-  return function(dispatch) {
+  return function (dispatch) {
     axios.get(`${baseUrl.baseUrl}/users?access_token=${localStorage.token}`).then((res) => {
       dispatch({ type: GET_ALL_USERS_FOR_SUPER_ADMIN, payload: res.data });
     });
@@ -132,7 +62,6 @@ export const addUsers = (data) => {
       classId: data.studentClass,
       schoolYearId: data.schoolyearId,
       paperFiles: null,
-      creation_date: Date(),
       functionName: data.functionName,
       password: data.password,
       login: data.login,
@@ -149,7 +78,7 @@ export const addUsers = (data) => {
 
       // contratType:data.contratType
     };
-    console.log('--------dataUser----------',dataUser);
+    console.log('--------dataUser----------', dataUser);
     let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, dataUser).then((response) => {
       if (!response) {
@@ -192,8 +121,7 @@ export const addUsers = (data) => {
             method: 'POST',
             data: formadata,
           }).then((response) => {
-            let urlPhotoUser =
-              `${baseUrl.baseUrl}/users/` + userId + `?access_token=${localStorage.token}`;
+            let urlPhotoUser = `${baseUrl.baseUrl}/users/` + userId + `?access_token=${localStorage.token}`;
 
             axios
               .patch(urlPhotoUser, {
@@ -206,7 +134,7 @@ export const addUsers = (data) => {
                     type: HIDE_LOADER,
                     payload: false,
                   });
-                  if (data.userPapiersFiles.length===0) {
+                  if (data.userPapiersFiles.length === 0) {
                     dispatch(getAllUsersForAdmin(dataUser.establishmentId, dataUser.schoolYearId));
                   }
                 } else {
@@ -215,7 +143,7 @@ export const addUsers = (data) => {
               });
           });
         } else {
-          if (data.userPapiersFiles.length===0) {
+          if (data.userPapiersFiles.length === 0) {
             dispatch(getAllUsersForAdmin(dataUser.establishmentId, dataUser.schoolYearId));
           }
         }
@@ -223,8 +151,6 @@ export const addUsers = (data) => {
           let formadata = new FormData();
           data.userPapiersFiles.map((element, index) => {
             let userPapiersFile = element;
-            const fileExtension = userPapiersFile.name.replace(/^.*\./, '');
-            // const fileName = 'userPapiersfile' + userId + index + '.' + fileExtension;
             const fileName = 'user' + userId + '-' + userPapiersFile.name;
 
             var object = {};
@@ -234,6 +160,7 @@ export const addUsers = (data) => {
               type: object.file.type,
             });
             formadata.append('file', myNewFile);
+            return true;
           });
 
           let filesURL = [];
@@ -252,8 +179,7 @@ export const addUsers = (data) => {
                 filesURL = response.data.result.files.file.map((urlFile, index) => {
                   return urlFile.providerResponse.location;
                 });
-                let urlPhotoUser =
-                  `${baseUrl.baseUrl}/users/` + userId + `?access_token=${localStorage.token}`;
+                let urlPhotoUser = `${baseUrl.baseUrl}/users/` + userId + `?access_token=${localStorage.token}`;
 
                 axios
                   .patch(urlPhotoUser, {
@@ -262,9 +188,7 @@ export const addUsers = (data) => {
                   })
                   .then((response) => {
                     if (response) {
-                      dispatch(
-                        getAllUsersForAdmin(dataUser.establishmentId, dataUser.schoolYearId)
-                      );
+                      dispatch(getAllUsersForAdmin(dataUser.establishmentId, dataUser.schoolYearId));
 
                       dispatch({
                         type: HIDE_LOADER,
@@ -353,8 +277,7 @@ export const editUser = (data, estabId, schoolYearId) => {
             method: 'POST',
             data: formadata,
           }).then((response) => {
-            let urlPhotoUser =
-              `${baseUrl.baseUrl}/users/` + userId + `?access_token=${localStorage.token}`;
+            let urlPhotoUser = `${baseUrl.baseUrl}/users/` + userId + `?access_token=${localStorage.token}`;
 
             axios
               .patch(urlPhotoUser, {
@@ -367,7 +290,7 @@ export const editUser = (data, estabId, schoolYearId) => {
                     type: HIDE_LOADER,
                     payload: false,
                   });
-                  if (data.paperFiles.length===0) {
+                  if (data.paperFiles.length === 0) {
                     dispatch(getAllUsersForAdmin(estabId, schoolYearId));
                   }
                 } else {
@@ -376,7 +299,7 @@ export const editUser = (data, estabId, schoolYearId) => {
               });
           });
         } else {
-          if (data.paperFiles.length===0) {
+          if (data.paperFiles.length === 0) {
             dispatch(getAllUsersForAdmin(estabId, schoolYearId));
           }
         }
@@ -384,7 +307,6 @@ export const editUser = (data, estabId, schoolYearId) => {
           let formadata = new FormData();
           data.paperFiles.map((element, index) => {
             let userPapiersFile = element;
-            const fileExtension = userPapiersFile.name.replace(/^.*\./, '');
             const fileName = 'user' + userId + '-' + userPapiersFile.name;
 
             var object = {};
@@ -394,6 +316,7 @@ export const editUser = (data, estabId, schoolYearId) => {
               type: object.file.type,
             });
             formadata.append('file', myNewFile);
+            return element;
           });
 
           let filesURL = data.oldPaperFiles;
@@ -411,9 +334,9 @@ export const editUser = (data, estabId, schoolYearId) => {
               if (response) {
                 response.data.result.files.file.map((urlFile, index) => {
                   filesURL.push(urlFile.providerResponse.location);
+                  return true;
                 });
-                let urlPhotoUser =
-                  `${baseUrl.baseUrl}/users/` + userId + `?access_token=${localStorage.token}`;
+                let urlPhotoUser = `${baseUrl.baseUrl}/users/` + userId + `?access_token=${localStorage.token}`;
 
                 axios
                   .patch(urlPhotoUser, {
@@ -461,15 +384,13 @@ function downLoadCsv(data, fileName) {
   const a = document.createElement('a');
   a.setAttribute('hidden', '');
   a.setAttribute('href', url);
-  a.setAttribute('download', `${fileName}` + '.csv');
+  a.setAttribute('download', `${fileName + '.csv'}`);
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
 }
 export function exportCsv(csvList, classId, className) {
-  const csvListFiltred = csvList.filter(
-    (element) => element.inforamtionsStudent.classInformation.classId===classId
-  );
+  const csvListFiltred = csvList.filter((element) => element.inforamtionsStudent.classInformation.classId === classId);
   if (!_.isEmpty(csvListFiltred)) {
     const csvListFormated = csvListFiltred.map((row) => ({
       nom: row.name,
@@ -487,7 +408,7 @@ export function exportCsv(csvList, classId, className) {
   }
 }
 export function editProfile(data, photo) {
-  return function(dispatch) {
+  return function (dispatch) {
     if (photo != '') {
       let photoUser = photo;
       var object = {};
@@ -508,8 +429,7 @@ export function editProfile(data, photo) {
         method: 'POST',
         data: formadata,
       }).then((response) => {
-        let urlPhotoUser =
-          `${baseUrl.baseUrl}/users/` + data.id + `?access_token=${localStorage.token}`;
+        let urlPhotoUser = `${baseUrl.baseUrl}/users/` + data.id + `?access_token=${localStorage.token}`;
 
         axios
           .patch(urlPhotoUser, {
@@ -537,7 +457,7 @@ export function editProfile(data, photo) {
           console.log('response', response);
           dispatch({ type: EDIT_PROFILE, payload: response.data });
         })
-        .catch(function(error) {});
+        .catch(function (error) {});
     }
   };
 }

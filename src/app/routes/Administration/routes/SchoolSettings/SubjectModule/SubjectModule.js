@@ -17,8 +17,7 @@ class SubjectModule extends React.Component {
     };
     this.openAddModal = this.openAddModal.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.openAddModal = this.openAddModal.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleArchive = this.handleArchive.bind(this);
     this.openArchiveModal = this.openArchiveModal.bind(this);
@@ -31,9 +30,7 @@ class SubjectModule extends React.Component {
   handleCancel() {
     this.setState({ open: false });
   }
-  openAddModal() {
-    this.setState({ open: true });
-  }
+   
   openAddModal() {
     this.setState((previousState) => ({
       open: !previousState.open,

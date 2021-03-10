@@ -15,10 +15,10 @@ import {
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
   HORIZONTAL_NAVIGATION,
-} from "../../constants/ActionTypes";
+} from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import SearchBox from "../../components/SearchBox";
 import { switchLanguage, toggleCollapsedNav } from "../../actions/Setting";
-import { classService } from "../../_services/class.service";
 import IntlMessages from "../../util/IntlMessages";
 import LanguageSwitcher from "../../components/LanguageSwitcher/index";
 import Menu from "@material-ui/core/Menu";
@@ -237,7 +237,7 @@ class Header extends React.Component {
   };
 
   render() {   /* eslint eqeqeq: "off" */
-    const { drawerType, locale, navigationStyle, horizontalNavPosition, languageId } = this.props;
+    const { drawerType, locale, navigationStyle } = this.props;
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'd-block d-xl-none'
       : drawerType.includes(COLLAPSED_DRAWER)

@@ -10,14 +10,12 @@ import { Card, CardBody, CardFooter, CardSubtitle, CardText } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import _ from 'lodash';
 import { deleteMenus } from '../../../actions/CafeteriaAction';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import DeleteMenu from './DeleteCafeteriaMenu';
-import { RoleContext } from "../../../Context";
-import Can from "../../../can";
-
+import { RoleContext } from '../../../Context';
+import Can from '../../../can';
 
 function TabContainer({ children, dir }) {
   return <div dir={dir}>{children}</div>;
@@ -61,7 +59,8 @@ class CafeteriaMenuItem extends Component {
     this.setState({ value: index });
   };
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const { theme } = this.props;
 
     return (
@@ -73,21 +72,10 @@ class CafeteriaMenuItem extends Component {
                 role={role}
                 perform="cafeteria-menu-admin:visit"
                 yes={() => (
-
-                  <AppBar
-                    className="bg-primary card-header"
-                    position="static"
-                    style={{ paddingTop: 22, height: 70 }}
-                  >
-                    <Tabs
-                      value={this.state.value}
-                      onChange={this.handleChange}
-                      variant="fullWidth"
-                    >
+                  <AppBar className="bg-primary card-header" position="static" style={{ paddingTop: 22, height: 70 }}>
+                    <Tabs value={this.state.value} onChange={this.handleChange} variant="fullWidth">
                       <Tab className="tab" label="Menu" value={0} />
                       <Tab className="tab" label="Options" value={1} />
-
-                      /> */}
                     </Tabs>
                   </AppBar>
                 )}
@@ -102,19 +90,9 @@ class CafeteriaMenuItem extends Component {
                 role={role}
                 perform="cafeteria-menu-student:visit"
                 yes={() => (
-
-                  <AppBar
-                    className="bg-primary card-header"
-                    position="static"
-                    style={{ paddingTop: 22, height: 70 }}
-                  >
-                    <Tabs
-                      value={this.state.value}
-                      onChange={this.handleChange}
-                      variant="fullWidth"
-                    >
+                  <AppBar className="bg-primary card-header" position="static" style={{ paddingTop: 22, height: 70 }}>
+                    <Tabs value={this.state.value} onChange={this.handleChange} variant="fullWidth">
                       <Tab className="tab" label="Menu" value={0} />
-
                     </Tabs>
                   </AppBar>
                 )}
@@ -122,11 +100,7 @@ class CafeteriaMenuItem extends Component {
             </div>
           )}
         </RoleContext.Consumer>
-        <SwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={this.state.value}
-          onChangeIndex={this.handleChangeIndex}
-        >
+        <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={this.state.value} onChangeIndex={this.handleChangeIndex}>
           <TabContainer dir={theme.direction}>
             <div>
               <CardBody>
@@ -150,18 +124,12 @@ class CafeteriaMenuItem extends Component {
                 </h3>
                 <CardText>{this.props.MenuItem.dessert}</CardText>
               </CardBody>
-              </div>
-              <div
-                className="d-flex align-items-end w-100 "
-                style={{ paddingTop: '15%' }}
-              >
+            </div>
+            <div className="d-flex align-items-end w-100 " style={{ paddingTop: '15%' }}>
               <CardFooter className="d-flex flex-row justify-content-around w-100 ">
-                <b style={{ color: 'blue' }}>
-                  {moment(this.props.MenuItem.menu_date).format('LL')}
-                </b>
+                <b style={{ color: 'blue' }}>{moment(this.props.MenuItem.menu_date).format('LL')}</b>
                 <b style={{ color: 'red' }}>
-                  <IntlMessages id="cantine.prix" /> :{this.props.MenuItem.prix}{' '}
-                  dt
+                  <IntlMessages id="cantine.prix" /> :{this.props.MenuItem.prix} dt
                 </b>
               </CardFooter>
             </div>
@@ -197,30 +165,23 @@ class CafeteriaMenuItem extends Component {
                 </CardSubtitle>
               </CardBody>
             </div>
-            <div
-              className="d-flex align-items-end w-100 "
-              style={{ paddingTop: '37%', marginRight: '0%' }}
-            >
+            <div className="d-flex align-items-end w-100 " style={{ paddingTop: '37%', marginRight: '0%' }}>
               <CardFooter className="d-flex flex-row justify-content-around w-100 ">
-                <b style={{ color: 'blue' }}>
-                  {moment(this.props.MenuItem.menu_date).format('LL')}
+                <b style={{ color: 'blue' }}>{moment(this.props.MenuItem.menu_date).format('LL')}</b>
+                <b style={{ color: 'red' }}>
+                  {' '}
+                  <IntlMessages id="cantine.prix" />: {this.props.MenuItem.prix} dt{' '}
                 </b>
-                <b style={{ color: 'red' }}> <IntlMessages id="cantine.prix" />: {this.props.MenuItem.prix}{' '}
-                  dt </b>
               </CardFooter>
             </div>
           </TabContainer>
         </SwipeableViews>
 
         {this.state.deleteIsopen === true ? (
-          <DeleteMenu
-            deleteIsopen={this.state.deleteIsopen}
-            handleDeleteMenu={this.handleDeleteMenu}
-            cancelModal={this.cancelModal}
-          />
+          <DeleteMenu deleteIsopen={this.state.deleteIsopen} handleDeleteMenu={this.handleDeleteMenu} cancelModal={this.cancelModal} />
         ) : (
-            ''
-          )}
+          ''
+        )}
       </Card>
     );
   }
@@ -236,7 +197,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { deleteMenus }
-)(withStyles(null, { withTheme: true })(CafeteriaMenuItem));
+export default connect(mapStateToProps, { deleteMenus })(withStyles(null, { withTheme: true })(CafeteriaMenuItem));

@@ -1,4 +1,3 @@
-
 import { classService } from '../_services/class.service';
 import {
   FETECHED_ALL_ALLOCATION_SERVICE,
@@ -6,14 +5,13 @@ import {
   HIDE_ERROR_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
 
 export const editAllocationService = (data, establishmentId, schoolYearId) => {
   return (dispatch) => {
     let count = data.length;
     data.map((element) => {
-      let apiEndpoint =
-        '/allocation_service_v2/' + element.id + `?access_token=${localStorage.token}`;
+      let apiEndpoint = '/allocation_service_v2/' + element.id + `?access_token=${localStorage.token}`;
 
       classService.patch(apiEndpoint, element).then((response) => {
         if (response) {
@@ -21,12 +19,13 @@ export const editAllocationService = (data, establishmentId, schoolYearId) => {
       });
 
       count = count - 1;
+      return true;
     });
-    if (count===0) {
+    if (count === 0) {
       dispatch(getAllocationServiceByEstablishment(establishmentId, schoolYearId));
       dispatch({
         type: SHOW_SUCCESS_MESSAGE,
-        payload: "La modification est effectuée avec succès",
+        payload: 'La modification est effectuée avec succès',
       });
       setTimeout(() => {
         dispatch({ type: HIDE_SUCCESS_MESSAGE });
@@ -81,9 +80,7 @@ export const getAllocationService = () => {
 
 export const getAllocationServiceByEstablishmentId = (establishmentId) => {
   return (dispatch) => {
-    let apiEndpoint =
-      `/allocation_service_v2?access_token=${localStorage.token}&filter[where][establishment_id]=` +
-      establishmentId;
+    let apiEndpoint = `/allocation_service_v2?access_token=${localStorage.token}&filter[where][establishment_id]=` + establishmentId;
     classService
       .get(apiEndpoint)
       .then((response) => {
@@ -113,10 +110,7 @@ export const studentExist = (student) => {
   return (dispatch) => {
     dispatch({
       type: SHOW_ERROR_MESSAGE,
-      payload:
-        "L'éléve  ' " +
-        student +
-        " '  est déja affecté a des prestations ,Vous pouvez faire la modification ",
+      payload: "L'éléve  ' " + student + " '  est déja affecté a des prestations ,Vous pouvez faire la modification ",
     });
     setTimeout(() => {
       dispatch({ type: HIDE_ERROR_MESSAGE });

@@ -1,20 +1,18 @@
 import React from 'react';
 import IntlMessages from '../../../../../../util/IntlMessages';
 import CardBox from '../../../../../../components/CardBox/index';
-import Can from '../../../../../../can';
-import { RoleContext } from '../../../../../../Context';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import RemoveSharpIcon from '@material-ui/icons/RemoveSharp';
-import { connect } from 'react-redux';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { GithubPicker } from 'react-color';
 import InputLabel from '@material-ui/core/InputLabel';
 export default class AddSubjectsSettings extends React.Component {
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div>
         <form autoComplete="off" onSubmit={this.props.handleSubmit}>

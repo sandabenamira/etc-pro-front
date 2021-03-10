@@ -2,7 +2,8 @@ import { DATA_LOADED_ESTAB_TYPES,
     EDIT_TYPE_EDUCATION,
     ADD_TYPE_EDUCATION, 
     DELETE_TYPE_EDUCATION,
-    GET_EDUCATION_TYPES } from "../constants/ActionTypes";
+    GET_EDUCATION_TYPES } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
     remoteEstabTypes: [],

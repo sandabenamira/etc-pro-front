@@ -1,42 +1,36 @@
-import React from "react";
-import IntlMessages from "../../../../util/IntlMessages";
-import CardBox from "../../../../components/CardBox/index";
-import Can from "../../../../can";
-import { RoleContext } from "../../../../Context";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
-import { connect } from "react-redux";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/moment";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import Input from "@material-ui/core/Input";
-import Chip from "@material-ui/core/Chip";
-import Avatar from "@material-ui/core/Avatar";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react';
+import IntlMessages from '../../../../util/IntlMessages';
+import CardBox from '../../../../components/CardBox/index';
+import Can from '../../../../can';
+import { RoleContext } from '../../../../Context';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import RemoveSharpIcon from '@material-ui/icons/RemoveSharp';
+import { connect } from 'react-redux';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar';
 const paymentMode = [
   {
-    value: "Mensuel",
+    value: 'Mensuel',
     label: <IntlMessages id="mode_payment.establishment.monthly" />,
   },
   {
-    value: "Trimestre",
+    value: 'Trimestre',
     label: <IntlMessages id="mode_payment.establishment.trimester" />,
   },
   {
-    value: "Semestre",
+    value: 'Semestre',
     label: <IntlMessages id="mode_payment.establishment.semester" />,
   },
   {
-    value: "Annuel",
+    value: 'Annuel',
     label: <IntlMessages id="mode_payment.establishment.annual" />,
   },
 ];
@@ -49,7 +43,8 @@ class AddSchoolLicence extends React.Component {
 
     this.state = {};
   }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div>
         <RoleContext.Consumer>
@@ -67,19 +62,14 @@ class AddSchoolLicence extends React.Component {
                         </b>
                       </h1>
                       &nbsp;&nbsp;&nbsp;
-                      <Fab
-                        size="small"
-                        color="primary"
-                        aria-label="Add"
-                        onClick={this.props.openAddModal}
-                      >
+                      <Fab size="small" color="primary" aria-label="Add" onClick={this.props.openAddModal}>
                         {this.state.isOpen ? <RemoveSharpIcon /> : <AddIcon />}
                       </Fab>
                     </div>
                     <br />
                     {this.props.values.isOpen ? (
                       <>
-                        {" "}
+                        {' '}
                         <CardBox styleName=" text-black  ">
                           <div className="d-flex flex-column  ">
                             <div className="d-flex flex-wrap  align-items-center ">
@@ -89,13 +79,9 @@ class AddSchoolLicence extends React.Component {
                                   name="establishementId"
                                   select
                                   required
-                                  label={
-                                    <IntlMessages id="establishement.choice" />
-                                  }
+                                  label={<IntlMessages id="establishement.choice" />}
                                   value={this.props.values.establishment}
-                                  onChange={this.props.handleChange(
-                                    "establishementId"
-                                  )}
+                                  onChange={this.props.handleChange('establishementId')}
                                   SelectProps={{}}
                                   margin="normal"
                                   defaultValue=""
@@ -114,13 +100,9 @@ class AddSchoolLicence extends React.Component {
                                   name="schoolYearId"
                                   select
                                   required
-                                  label={
-                                    <IntlMessages id="schoolYear.choice" />
-                                  }
+                                  label={<IntlMessages id="schoolYear.choice" />}
                                   value={this.props.values.schoolYearId}
-                                  onChange={this.props.handleChangeSchoolYears(
-                                    "schoolYearId"
-                                  )}
+                                  onChange={this.props.handleChangeSchoolYears('schoolYearId')}
                                   SelectProps={{}}
                                   margin="normal"
                                   defaultValue=""
@@ -140,37 +122,26 @@ class AddSchoolLicence extends React.Component {
                                   select
                                   required
                                   value={this.props.values.licenceType}
-                                  onChange={this.props.handleChange(
-                                    "licenceType"
-                                  )}
+                                  onChange={this.props.handleChange('licenceType')}
                                   SelectProps={{}}
                                   label={<IntlMessages id="licence.status" />}
                                   margin="normal"
                                   fullWidth
                                 >
-                                  {this.props.values.licenceGroup.map(
-                                    (licence) => (
-                                      <MenuItem
-                                        key={licence.value}
-                                        value={licence.value}
-                                      >
-                                        {licence.label}
-                                      </MenuItem>
-                                    )
-                                  )}
+                                  {this.props.values.licenceGroup.map((licence) => (
+                                    <MenuItem key={licence.value} value={licence.value}>
+                                      {licence.label}
+                                    </MenuItem>
+                                  ))}
                                 </TextField>
                               </div>
                               <div className="col-md-4">
                                 <TextField
                                   required
                                   id="studentsNumber"
-                                  onChange={this.props.handleChange(
-                                    "studentsNumber"
-                                  )}
+                                  onChange={this.props.handleChange('studentsNumber')}
                                   value={this.props.values.studentsNumber}
-                                  label={
-                                    <IntlMessages id="components.establishments.formadd.number_students" />
-                                  }
+                                  label={<IntlMessages id="components.establishments.formadd.number_students" />}
                                   type="number"
                                   margin="normal"
                                   fullWidth
@@ -180,13 +151,9 @@ class AddSchoolLicence extends React.Component {
                                 <TextField
                                   required
                                   id="smsNumber"
-                                  onChange={this.props.handleChange(
-                                    "smsNumber"
-                                  )}
+                                  onChange={this.props.handleChange('smsNumber')}
                                   value={this.props.values.smsNumber}
-                                  label={
-                                    <IntlMessages id="components.establishments.formadd.number_sms" />
-                                  }
+                                  label={<IntlMessages id="components.establishments.formadd.number_sms" />}
                                   type="number"
                                   margin="normal"
                                   fullWidth
@@ -196,23 +163,16 @@ class AddSchoolLicence extends React.Component {
                                 <TextField
                                   required
                                   id="paymentMode"
-                                  onChange={this.props.handleChange(
-                                    "paymentMode"
-                                  )}
+                                  onChange={this.props.handleChange('paymentMode')}
                                   value={this.props.values.paymentMode}
                                   select
-                                  label={
-                                    <IntlMessages id="components.establishments.formadd.mode_payment" />
-                                  }
+                                  label={<IntlMessages id="components.establishments.formadd.mode_payment" />}
                                   SelectProps={{}}
                                   margin="normal"
                                   fullWidth
                                 >
                                   {paymentMode.map((option) => (
-                                    <MenuItem
-                                      key={option.value}
-                                      value={option.value}
-                                    >
+                                    <MenuItem key={option.value} value={option.value}>
                                       {option.label}
                                     </MenuItem>
                                   ))}
@@ -225,9 +185,7 @@ class AddSchoolLicence extends React.Component {
                               </div>
                               <div className="col-sm-6">
                                 <FormControl className="w-100">
-                                  <InputLabel htmlFor="name-multiple">
-                                    {<IntlMessages id="sidebar.modules" />}
-                                  </InputLabel>
+                                  <InputLabel htmlFor="name-multiple">{<IntlMessages id="sidebar.modules" />}</InputLabel>
                                   <Select
                                     multiple
                                     name="modules"
@@ -237,54 +195,37 @@ class AddSchoolLicence extends React.Component {
                                     MenuProps={{
                                       PaperProps: {
                                         style: {
-                                          maxHeight:
-                                            ITEM_HEIGHT * 4.5 +
-                                            ITEM_PADDING_TOP,
+                                          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
                                           width: 200,
                                         },
                                       },
                                     }}
                                   >
-                                    {this.props.moduleList.map(
-                                      (moduleEstablishment, index) => (
-                                        <MenuItem
-                                          key={moduleEstablishment.id}
-                                          value={moduleEstablishment.id}
-                                        >
-                                          {moduleEstablishment.name}
-                                        </MenuItem>
-                                      )
-                                    )}
+                                    {this.props.moduleList.map((moduleEstablishment, index) => (
+                                      <MenuItem key={moduleEstablishment.id} value={moduleEstablishment.id}>
+                                        {moduleEstablishment.name}
+                                      </MenuItem>
+                                    ))}
                                   </Select>
                                 </FormControl>
                               </div>
                               <div className="col-sm-6">
                                 <div className="manage-margin d-flex flex-wrap">
-                                  {this.props.values.modules.map(
-                                    (data, index) => {
-                                      return (
-                                        <Chip
-                                          avatar={
-                                            <Avatar
-                                              src={require("../../../../assets/images/module.jpg")}
-                                            />
+                                  {this.props.values.modules.map((data, index) => {
+                                    return (
+                                      <Chip
+                                        avatar={<Avatar src={require('../../../../assets/images/module.jpg')} />}
+                                        label={this.props.moduleList.map((moduleEstablishment) => {
+                                          if (moduleEstablishment.id === data) {
+                                            return moduleEstablishment.name;
+                                          } else {
+                                            return null;
                                           }
-                                          label={this.props.moduleList.map(
-                                            (moduleEstablishment) => {
-                                              if (
-                                                moduleEstablishment.id === data
-                                              ) {
-                                                return moduleEstablishment.name;
-                                              } else {
-                                                return null;
-                                              }
-                                            }
-                                          )}
-                                          key={data.id}
-                                        />
-                                      );
-                                    }
-                                  )}
+                                        })}
+                                        key={data.id}
+                                      />
+                                    );
+                                  })}
                                 </div>
                               </div>
                             </div>
@@ -295,29 +236,27 @@ class AddSchoolLicence extends React.Component {
                             variant="contained"
                             onClick={this.props.openAddModal}
                             style={{
-                              borderBottomLeftRadius: "16px",
-                              borderBottomRightRadius: "16px",
-                              borderTopLeftRadius: "16px",
-                              borderTopRightRadius: "16px",
-                              width: "10%",
-                              height: "20%",
+                              borderBottomLeftRadius: '16px',
+                              borderBottomRightRadius: '16px',
+                              borderTopLeftRadius: '16px',
+                              borderTopRightRadius: '16px',
+                              width: '10%',
+                              height: '20%',
                             }}
                           >
-                            {
-                              <IntlMessages id="components.establishments.formadd.buttonCancel" />
-                            }
+                            {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
                           </Button>
                           &nbsp;&nbsp;
                           <Button
                             variant="contained"
                             className="bg-grey text-white "
                             style={{
-                              borderBottomLeftRadius: "16px",
-                              borderBottomRightRadius: "16px",
-                              borderTopLeftRadius: "16px",
-                              borderTopRightRadius: "16px",
-                              width: "10%",
-                              height: "6%",
+                              borderBottomLeftRadius: '16px',
+                              borderBottomRightRadius: '16px',
+                              borderTopLeftRadius: '16px',
+                              borderTopRightRadius: '16px',
+                              width: '10%',
+                              height: '6%',
                             }}
                             onClick={this.props.handleArchive}
                           >
@@ -327,22 +266,22 @@ class AddSchoolLicence extends React.Component {
                           <Button
                             variant="contained"
                             style={{
-                              borderBottomLeftRadius: "16px",
-                              borderBottomRightRadius: "16px",
-                              borderTopLeftRadius: "16px",
-                              borderTopRightRadius: "16px",
-                              width: "10%",
-                              height: "6%",
+                              borderBottomLeftRadius: '16px',
+                              borderBottomRightRadius: '16px',
+                              borderTopLeftRadius: '16px',
+                              borderTopRightRadius: '16px',
+                              width: '10%',
+                              height: '6%',
                             }}
                             className=" bg-indigo text-white "
                             type="submit"
                           >
                             <IntlMessages id="service.button.publish" />
                           </Button>
-                        </div>{" "}
+                        </div>{' '}
                       </>
                     ) : (
-                      ""
+                      ''
                     )}
                   </form>
                 </div>

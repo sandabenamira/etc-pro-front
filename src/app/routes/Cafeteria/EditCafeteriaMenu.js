@@ -5,13 +5,10 @@ import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
 import CardBox from '../../../components/CardBox/index';
 import Button from '@material-ui/core/Button';
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/moment';
 import { connect } from 'react-redux';
-  import moment from 'moment';
+import moment from 'moment';
 import { UncontrolledAlert } from 'reactstrap';
 
 class EditCafeteriaMenu extends Component {
@@ -25,48 +22,31 @@ class EditCafeteriaMenu extends Component {
     this.checkDate = this.checkDate.bind(this);
   }
   checkDate = (date) => {
-    const result = this.props.MenuList.filter(
-      (menu) => moment(menu.menu_date).format('LL')===moment(date).format('LL')
-    );
+    const result = this.props.MenuList.filter((menu) => moment(menu.menu_date).format('LL') === moment(date).format('LL'));
 
     return result;
   };
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const {
       values,
-      addIsopen,
-      handleCancel,
       handleChange,
-      addCafeteriaMenu,
-      MenuList,
     } = this.props;
 
-    var disabled =
-      values.dessert==='' ||
-      values.prix === '' ||
-      values.entree==='' ||
-      values.suite==='';
+    var disabled = values.dessert === '' || values.prix === '' || values.entree === '' || values.suite === '';
     var result = this.checkDate(values.menu_date);
 
     return (
       <Auxiliary>
         <Modal isOpen={values.editIsopen}>
-          <ModalHeader
-            toggle={this.props.handleCancel}
-            className="modal-box-header bg-primary text-white"
-          >
+          <ModalHeader toggle={this.props.handleCancel} className="modal-box-header bg-primary text-white">
             {<IntlMessages id="new.cantine.title" />}
           </ModalHeader>
           <br />
           <ModalBody>
             <form autoComplete="off">
               <div className="row">
-                <CardBox
-                  heading={
-                    <IntlMessages id="component.etablishments.info.general" />
-                  }
-                  styleName="col-lg-12 text-primary"
-                >
+                <CardBox heading={<IntlMessages id="component.etablishments.info.general" />} styleName="col-lg-12 text-primary">
                   <div className="row">
                     <div className="col-md-6 text-left ">
                       <div className="form-group">
@@ -93,25 +73,20 @@ class EditCafeteriaMenu extends Component {
                           required
                           name="prix"
                           id="prix"
-                          helperText={
-                            <IntlMessages id="service.price" />
-                          }
+                          helperText={<IntlMessages id="service.price" />}
                           onChange={handleChange('prix')}
                           value={values.prix}
                           margin="normal"
                           type="number"
                           fullWidth
-                          inputProps={{min: 0}}
+                          inputProps={{ min: 0 }}
                         />
                       </div>
                     </div>
                   </div>
                 </CardBox>
 
-                <CardBox
-                  heading={<IntlMessages id="new.cantine.plats" />}
-                  styleName="col-lg-12 text-primary"
-                >
+                <CardBox heading={<IntlMessages id="new.cantine.plats" />} styleName="col-lg-12 text-primary">
                   <div className="row">
                     <div className="col-md-12">
                       <div className="form-group">
@@ -196,10 +171,7 @@ class EditCafeteriaMenu extends Component {
                         this.setState({ alerte: false });
                       }, 2000);
                     } else {
-                      if (
-                        (result.length===1 && result[0].id===values.id) ||
-                        result.length===0
-                      ) {
+                      if ((result.length === 1 && result[0].id === values.id) || result.length === 0) {
                         this.props.editCafeteriaMenu();
                       } else {
                         this.setState({ alerteDate: true });
@@ -212,14 +184,8 @@ class EditCafeteriaMenu extends Component {
                 >
                   {<IntlMessages id="button.modify" />}
                 </Button>
-                <Button
-                  variant="contained"
-                  className="jr-btn bg-grey text-white "
-                  onClick={this.props.handleCancel}
-                >
-                  {
-                    <IntlMessages id="components.establishments.formadd.buttonCancel" />
-                  }
+                <Button variant="contained" className="jr-btn bg-grey text-white " onClick={this.props.handleCancel}>
+                  {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
                 </Button>
               </div>
             </form>
@@ -239,8 +205,4 @@ function mapStateToProps(state) {
     settings: state.settings.locale,
   };
 }
-export default connect(
-  mapStateToProps,
-  {
-    }
-)(EditCafeteriaMenu);
+export default connect(mapStateToProps, {})(EditCafeteriaMenu);

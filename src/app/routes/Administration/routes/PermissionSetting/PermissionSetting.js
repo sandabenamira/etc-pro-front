@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PermissionList from './PermissionList';
 import { connect } from 'react-redux';
-import { getPermissionSetting, getUserPermissions } from '../../../../../actions/PermissionAction';
+import { getPermissionSetting } from '../../../../../actions/PermissionAction';
 import { UncontrolledAlert } from 'reactstrap';
 import _ from 'lodash';
 /* eslint eqeqeq: "off" */

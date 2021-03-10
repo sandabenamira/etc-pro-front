@@ -16,14 +16,14 @@ class MoocsDetails extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.listMoocs !== this.props.listMoocs) {
       let itemMoocs = this.props.listMoocs.find(
-        (element) => element.id===this.props.match.params.moocsId
+        (element) => element.id== this.props.match.params.moocsId
       );
       this.setState({ itemMoocs });
     }
   }
   componentWillMount() {
     let itemMoocs = this.props.listMoocs.find(
-      (element) => element.id===this.props.match.params.moocsId
+      (element) => element.id== this.props.match.params.moocsId
     );
     this.setState({ itemMoocs });
   }

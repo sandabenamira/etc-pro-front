@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { Modal, ModalBody, ModalHeader } from 'reactstrap';
-import Auxiliary from '../../../../../util/Auxiliary';
-import Dialog from '@material-ui/core/Dialog';
+ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
 import IntlMessages from '../../../../../util/IntlMessages';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import DialogTitle from '@material-ui/core/DialogTitle';

@@ -4,7 +4,8 @@ import {
     EDIT_VIRTUAL_CLASS,
     DELETE_VIRTUAL_CLASS,
     ARCHIVED_VIRTUAL_CLASS,
-  } from '../constants/ActionTypes';
+  } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
   
   const initialState = {
     remoteClassVirtual: [],

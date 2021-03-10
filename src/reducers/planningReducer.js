@@ -1,5 +1,6 @@
 import {  FETECHED_ALL_EVENTS,EDIT_EVENT, GET_EVENTS_call_REGISTER,
-   REMOVE_EVENT, UPDATE_EVENT, GET_EVENTS_CLASS,ADD_EVENT } from "../constants/ActionTypes";
+   REMOVE_EVENT, UPDATE_EVENT, GET_EVENTS_CLASS,ADD_EVENT } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   events: [],

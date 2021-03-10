@@ -1,4 +1,5 @@
-import { DATA_LOADED_LEVELS } from "../constants/ActionTypes";
+import { DATA_LOADED_LEVELS } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   remoteLevels: []

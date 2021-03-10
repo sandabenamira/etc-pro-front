@@ -2,24 +2,7 @@ import IntlMessages from '../../../../../util/IntlMessages';
 import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import moment from 'moment';
-import { RoleContext } from '../../../../../Context';
-import Can from '../../../../../can';
-import { NavLink } from 'react-router-dom';
-import {
-  roleIdProfessor,
-  roleIdAdmin,
-  roleIdParent,
-  roleIdStudent,
-  roleIdSupervisor,
-  roleIdDirector,
-} from '../../../../../config/config';
+import { roleIdProfessor, roleIdAdmin, roleIdParent, roleIdStudent, roleIdSupervisor, roleIdDirector } from '../../../../../config/config';
 const listRole = [
   { id: roleIdAdmin, label: <IntlMessages id={`role.admin`} /> },
   { id: roleIdDirector, label: <IntlMessages id={`component.etablishments.info.director`} /> },
@@ -56,27 +39,23 @@ class PermissionListItem extends Component {
     );
     return icone;
   }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const { permission, filtreRole } = this.props;
     return (
       <TableRow>
- 
         <TableCell>
-          {this.props.settings.languageId==='tunisia'
+          {this.props.settings.languageId === 'tunisia'
             ? permission.permissionAr
-            : this.props.settings.languageId==='french'
+            : this.props.settings.languageId === 'french'
             ? permission.permissionFr
             : permission.permissionAng}
         </TableCell>
         {filtreRole > -1 ? (
           <TableCell> {this.havePermission(listRole[filtreRole].id, permission.id)} </TableCell>
         ) : (
-          listRole.map((element,index) => (
-            <TableCell key={index}> {this.havePermission(element.id, permission.id)} </TableCell>
-          ))
+          listRole.map((element, index) => <TableCell key={index}> {this.havePermission(element.id, permission.id)} </TableCell>)
         )}
-
-         
       </TableRow>
     );
   }

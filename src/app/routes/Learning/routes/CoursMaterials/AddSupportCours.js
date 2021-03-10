@@ -295,8 +295,7 @@ class AddSupportCours extends React.Component {
                         <TextField
                           type="url"
                           variant="outlined"
-                          type="text"
-                          id="courseUrl"
+                           id="courseUrl"
                           name="courseUrl"
                           label={<IntlMessages id="material.course.url" />}
                           value={values.courseUrl || ''}

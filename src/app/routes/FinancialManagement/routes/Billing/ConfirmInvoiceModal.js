@@ -52,8 +52,7 @@ class ConfirmInvoiceModal extends React.Component {
                       name="secondMail"
                       value={this.props.values.secondMail}
                       onChange={this.props.handleChange('secondMail')}
-                      value={this.props.values.secondMail}
-                      fullWidth
+                       fullWidth
                     />
                   </div>
                 </div>

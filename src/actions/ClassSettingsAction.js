@@ -9,7 +9,8 @@ import {
   EDIT_CLASS_SETTINGS,
   DELETE_CLASS_SETTINGS,
   ARCHIVED_GET_CLASS_SETTINGS,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 export function addClassSetting(data) {
   return (dispatch) => {
     let apiEndpoint = `/class_v4?access_token=${localStorage.token}`;

@@ -34,11 +34,7 @@ class AddCafeteriaMenu extends Component {
   render() {   /* eslint eqeqeq: "off" */
     const {
       values,
-      addIsopen,
-      handleCancel,
       handleChange,
-      addCafeteriaMenu,
-      MenuList,
     } = this.props;
     var disabled =
       values.dessert==='' ||

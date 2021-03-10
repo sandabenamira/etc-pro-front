@@ -6,7 +6,8 @@ import {
   HIDE_ERROR_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 export const generateBillForEstablishment = (idEstablishment) => {
   return (dispatch) => {
     let apiEndpoint = `/allocation_service_v2/generateBillForEstablishment/${idEstablishment}?access_token=${localStorage.token}`;
@@ -43,7 +44,7 @@ export const invoiceNotificationWithMail = (data) => {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
           payload:
-            "Une erreur est survenue lors de l\'envoie de mail, merci d'essayer à nouveau",
+            "Une erreur est survenue lors de l' envoie de mail, merci d'essayer à nouveau",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });

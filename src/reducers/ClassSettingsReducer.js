@@ -5,7 +5,8 @@ import {
   ARCHIVED_GET_CLASS_SETTINGS,
   ADD_CLASS_SETTINGS,
   ADD_CLASS_FORMATION
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   classSettings: [],

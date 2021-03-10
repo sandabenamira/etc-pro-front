@@ -4,7 +4,8 @@ import {
   EDIT_LEVELS,
   DELETE_LEVELS,
   ARCHIVED_GET_LEVELS,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   levels: [],

@@ -1,4 +1,5 @@
-import { DATA_LOADED_SECTIONS} from "../constants/ActionTypes";
+import { DATA_LOADED_SECTIONS} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
     remoteSections: []

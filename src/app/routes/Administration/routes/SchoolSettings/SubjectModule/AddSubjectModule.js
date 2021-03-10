@@ -1,8 +1,6 @@
 import React from 'react';
 import IntlMessages from '../../../../../../util/IntlMessages';
 import CardBox from '../../../../../../components/CardBox/index';
-import Can from '../../../../../../can';
-import { RoleContext } from '../../../../../../Context';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';

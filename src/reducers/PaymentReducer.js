@@ -1,5 +1,6 @@
 
-import { EDIT_PAYMENT, GET_PAYMENTS, CLEAR_LIST_PAYMENTS } from "../constants/ActionTypes";
+import { EDIT_PAYMENT, GET_PAYMENTS, CLEAR_LIST_PAYMENTS } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
     remotePayments: [],

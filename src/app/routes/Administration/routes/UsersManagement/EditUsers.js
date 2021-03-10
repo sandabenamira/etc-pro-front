@@ -21,36 +21,13 @@ import PhotoIcon from '@material-ui/icons/Photo';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 import { roleIdSuperAdmin, roleIdProfessor, roleIdStudent, roleIdParent } from '../../../../../config/config';
-const schoolSessionList = [
-  {
-    value: 'Trimestre 1',
-    id: 1,
-  },
-  {
-    value: 'Trimestre 2',
-    id: 2,
-  },
-  {
-    value: 'Trimestre 3',
-    id: 3,
-  },
-  {
-    value: 'Semestre 1',
-    id: 4,
-  },
-  {
-    value: 'Semestre 2',
-    id: 5,
-  },
-];
+ 
 const TypeContrat = [
   { label: 'interne', id: 1, value: 1 },
   { label: 'externe', id: 2, value: 2 },
 ];
 class EditUsers extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+   
   isValidphoneNumber = (number) => {
     const tel = parsePhoneNumberFromString(number);
     let res = false;
@@ -795,8 +772,7 @@ class EditUsers extends React.Component {
                               </InputLabel>
                               <TextField
                                 id="userCIN"
-                                id="userCIN"
-                                name="userCIN"
+                                 name="userCIN"
                                 type="number"
                                 value={values.userCinEdit || ''}
                                 onChange={this.props.handleChange('userCinEdit')}

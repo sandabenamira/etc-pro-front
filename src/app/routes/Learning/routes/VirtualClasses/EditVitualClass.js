@@ -19,16 +19,7 @@ import Can from "../../../../../can";
 import { RoleContext } from "../../../../../Context";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-const accessibilityList = [
-  {
-    value: true,
-    name: "Publique",
-  },
-  {
-    value: false,
-    name: "Privé",
-  },
-];
+ 
 
 class EditVitualClass extends Component {
   constructor(props) {

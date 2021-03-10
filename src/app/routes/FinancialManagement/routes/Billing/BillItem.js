@@ -128,15 +128,7 @@ export class BillItem extends Component {
       "TVA",
       "TOTAL TTC",
     ];
-    var rows = [
-      [1, "Bus", "3", "15 DT", "6 DT", "21 DT"],
-      [2, "Cantine", "3", "30 DT", "6DT", "36 DT"],
-      [3, "Inscription", "1", "100 DT", "20 DT", "120 DT"],
-      [, "", "", "", ""],
-      [, "", "", "", "Total HT", "200 DT"],
-      [, "", "", "", "TVA", "20 DT"],
-      [, "", "", "", "Total TTC", "220 DT"],
-    ];
+     
     var rowsDynamiq = [];
 
     bill.service_v2.map((element) =>
@@ -150,10 +142,10 @@ export class BillItem extends Component {
       ])
     );
 
-    rowsDynamiq.push([, "", "", "", ""]);
-    rowsDynamiq.push([, "", "", "", "Total HT", bill.bill.total_excl_tax]);
-    rowsDynamiq.push([, "", "", "", "TVA", bill.bill.total_vat + " %"]);
-    rowsDynamiq.push([, "", "", "", "Total TTC", bill.bill.total_incl_tax]);
+    rowsDynamiq.push([ "", "", "", ""]);
+    rowsDynamiq.push([ "", "", "", "Total HT", bill.bill.total_excl_tax]);
+    rowsDynamiq.push([ "", "", "", "TVA", bill.bill.total_vat + " %"]);
+    rowsDynamiq.push([ "", "", "", "Total TTC", bill.bill.total_incl_tax]);
 
     doc.autoTable(columns, rowsDynamiq, { margin: { top: 300 } });
 

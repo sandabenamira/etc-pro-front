@@ -9,7 +9,8 @@ import {
   DELETE_SATIS_SURVEY,
   GET_SATIS_SURVEY_LIST,
   ARCHIVED_GET_GROUPS,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 export function addSatisfactionSurvey(data, dataClass) {
   return (dispatch) => {

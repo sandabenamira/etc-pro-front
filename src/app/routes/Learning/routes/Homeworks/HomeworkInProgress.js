@@ -1,6 +1,5 @@
 import React from "react";
-import CardBox from "../../../../../components/CardBox/index";
-import Table from "@material-ui/core/Table";
+ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";

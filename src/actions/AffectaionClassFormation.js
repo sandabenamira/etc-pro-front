@@ -8,7 +8,8 @@ import {
   HIDE_ERROR_MESSAGE,
   ADD_CLASS_SETTINGS,
   ADD_ASSIGNEMENT_COURSE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 export function addClassFormation(data, subjectSelected) {
   return (dispatch) => {
     let apiEndpoint = `/class_v4/affectClassFormation?access_token=${localStorage.token}`;

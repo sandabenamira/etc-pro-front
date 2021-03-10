@@ -56,6 +56,7 @@ export class ListServiceAllocation extends Component {
           // );
         }
       }
+      return true;
     });
 
     this.props.editAllocationService(oldData, this.props.userProfile.establishment_id, this.props.userProfile.school_year_id);

@@ -1,17 +1,15 @@
 import React from "react";
 import { Modal, ModalHeader } from "reactstrap";
-import Moment from "moment";
-import TextField from "@material-ui/core/TextField";
+ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuItem from "@material-ui/core/MenuItem";
 import IntlMessages from "../../../../../util/IntlMessages";
 import { Editor } from "react-draft-wysiwyg";
-import { convertToRaw, EditorState } from "draft-js";
+import {  EditorState } from "draft-js";
 import {
-  roleIdSuperAdmin,
-  roleIdAdmin,
+   roleIdAdmin,
   roleIdProfessor,
   roleIdStudent,
   roleIdDirector,
@@ -64,9 +62,8 @@ class ComposeMail extends React.Component {
   };
 
   render() {   /* eslint eqeqeq: "off" */
-    const { onMailSend, onClose, user, values } = this.props;
-    const { to, subject, message, editorState } = this.state;
-    return (
+    const {   onClose , values } = this.props;
+     return (
       <Modal
         className="modal-box modal-box-mail"
         toggle={onClose}
