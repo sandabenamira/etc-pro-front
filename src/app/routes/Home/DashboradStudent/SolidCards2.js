@@ -1,8 +1,7 @@
 import React from "react";
-import { Card, CardBody, CardSubtitle, CardText } from "reactstrap";
+import { Card, CardBody , CardText } from "reactstrap";
 import IconButton from "@material-ui/core/IconButton";
-import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
-import { Badge } from "reactstrap";
+ 
 const SolidCards2 = ({ headerText, cardStyle }) => {
   return (
     <Card

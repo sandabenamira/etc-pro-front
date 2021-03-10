@@ -1,12 +1,6 @@
-import React from 'react';
 import moment from 'moment';
 import { classService } from '../_services';
 import {
-  ADD_EVENT,
-  EDIT_EVENT,
-  FETECHED_ALL_EVENTS,
-  REMOVE_EVENT,
-  UPDATE_EVENT,
   GET_EVENTS_CLASS,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
@@ -15,13 +9,9 @@ import {
   GET_EVENTS_call_REGISTER,
 } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
 
-import baseUrl from '../config/config';
-import IntlMessages from '../util/IntlMessages';
-
 export const getProessorssByClass = (id) => {
   return (dispatch) => {
-    let apiEndpoint =
-      `/classes_professors/getProfessorByClassId/` + id + `?access_token=${localStorage.token}`;
+    let apiEndpoint = `/classes_professors/getProfessorByClassId/` + id + `?access_token=${localStorage.token}`;
     classService
       .get(apiEndpoint)
       .then((response) => {
@@ -30,11 +20,6 @@ export const getProessorssByClass = (id) => {
       .catch((err) => {});
   };
 };
-
-const receiveEvents = (events) => ({
-  type: FETECHED_ALL_EVENTS,
-  payload: events,
-});
 
 export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
   let objMail = {};
@@ -53,13 +38,7 @@ export const addEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
             //
           });
         }
-        dispatch(
-          getEventsByEstabAndSchoolYear(
-            itemSuplimentaire.establishmentId,
-            itemSuplimentaire.schoolYearId,
-            itemSuplimentaire.classId
-          )
-        );
+        dispatch(getEventsByEstabAndSchoolYear(itemSuplimentaire.establishmentId, itemSuplimentaire.schoolYearId, itemSuplimentaire.classId));
       }
     });
   };
@@ -118,7 +97,7 @@ export const editEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
   objMail.classId = itemSuplimentaire.classId;
   objMail.notifMsg = notifMsg;
   objMail.establishmentId = itemSuplimentaire.establishmentId;
-  objMail.logoEstab =  itemSuplimentaire.logoEstab;
+  objMail.logoEstab = itemSuplimentaire.logoEstab;
   return (dispatch) => {
     let apiEndpoint = `/planning_events/` + itemEvent.id + `?access_token=${localStorage.token}`;
     classService.patch(apiEndpoint, itemEvent).then((response) => {
@@ -128,27 +107,13 @@ export const editEvent = (itemEvent, itemSuplimentaire, notifMsg) => {
           classService.post(apiEndpoint1, objMail).then((response) => {});
         }
 
-        dispatch(
-          getEventsByEstabAndSchoolYear(
-            itemSuplimentaire.establishmentId,
-            itemSuplimentaire.schoolYearId,
-            itemSuplimentaire.classId
-          )
-        );
+        dispatch(getEventsByEstabAndSchoolYear(itemSuplimentaire.establishmentId, itemSuplimentaire.schoolYearId, itemSuplimentaire.classId));
       }
     });
   };
 };
 
-export const deleteEvent = (
-  typeDelete,
-  itemEvent,
-  establishmentId,
-  schoolYearId,
-  classId,
-  messageNotif,
-  logoEstab
-) => {
+export const deleteEvent = (typeDelete, itemEvent, establishmentId, schoolYearId, classId, messageNotif, logoEstab) => {
   let objMail = {};
   objMail.classId = classId;
   objMail.notifMsg = messageNotif;
@@ -156,10 +121,7 @@ export const deleteEvent = (
   objMail.logoEstab = logoEstab;
 
   return (dispatch) => {
-    let apiEndpoint =
-      `/planning_events/` +
-      itemEvent.id +
-      `?access_token=${localStorage.token}&filter[include][callRegister]`;
+    let apiEndpoint = `/planning_events/` + itemEvent.id + `?access_token=${localStorage.token}&filter[include][callRegister]`;
     classService.get(apiEndpoint, itemEvent).then((response) => {
       let momentStartData = moment(itemEvent.start);
 
@@ -167,15 +129,11 @@ export const deleteEvent = (
         let canDelete = true;
         if (typeDelete == 'future') {
           let sameDateCallRegister = [];
-          sameDateCallRegister = response.data.callRegister.filter((call) =>
-            moment(call.start_date).isSameOrAfter(momentStartData)
-          );
+          sameDateCallRegister = response.data.callRegister.filter((call) => moment(call.start_date).isSameOrAfter(momentStartData));
           canDelete = sameDateCallRegister.length == 0;
         } else if (typeDelete == 'uniq') {
           let sameDateCallRegister = [];
-          sameDateCallRegister = response.data.callRegister.filter((call) =>
-            moment(call.start_date).isSame(momentStartData)
-          );
+          sameDateCallRegister = response.data.callRegister.filter((call) => moment(call.start_date).isSame(momentStartData));
           canDelete = sameDateCallRegister.length == 0;
         } else if (typeDelete == 'all') {
           if (response.data.callRegister.length > 0) {
@@ -196,8 +154,7 @@ export const deleteEvent = (
           newData.status = itemEvent.status;
           newData.repetition = itemEvent.repetition;
 
-          let apiEndpoint =
-            `/planning_events/` + newData.id + `?access_token=${localStorage.token}`;
+          let apiEndpoint = `/planning_events/` + newData.id + `?access_token=${localStorage.token}`;
           classService.patch(apiEndpoint, newData).then((response) => {
             if (response) {
               //*************notiif mail delete event */

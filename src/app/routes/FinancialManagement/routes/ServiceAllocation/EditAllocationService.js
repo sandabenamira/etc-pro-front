@@ -13,8 +13,7 @@ import {
   getAllocationServiceByEstablishment,
 } from '../../../../../actions/AllocationServiceAction';
 import { connect } from 'react-redux';
-import ServiceItem from './ServiceAllocationComp/ServiceItem';
-import Button from '@material-ui/core/Button';
+ import Button from '@material-ui/core/Button';
 import { UncontrolledAlert } from 'reactstrap';
 
 class EditAllocationService extends Component {

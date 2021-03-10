@@ -1,6 +1,4 @@
-import { getName } from "./countriesAction";
-import _ from "lodash";
-import { classService } from "../_services/class.service";
+import _ from 'lodash';
 
 function getSectionName(sections, section_id) {
   let sectionName = sections.map((element) => {
@@ -19,9 +17,7 @@ function getSectionFromLevel(sections, level_id) {
   if (level_id < 11) {
     sectionList = [];
   } else {
-    sectionList = Array.from(sections).filter(
-      (element) => element.level_id === level_id
-    );
+    sectionList = Array.from(sections).filter((element) => element.level_id === level_id);
   }
   return sectionList;
 }

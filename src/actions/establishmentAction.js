@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { classService } from "../_services/class.service";
 import axios from "axios";
 import baseUrl from "../config/config";
@@ -98,33 +97,33 @@ export function saveEstablishment(payload, file) {
           const fileExtension = file.name.replace(/^.*\./, "");
           const fileName =
             response.data.id + response.data.name + "." + fileExtension;
-          let dataWithFile = {
-            name: payload.name,
-            ar_name: payload.ar_name,
-            address: payload.address,
-            code: payload.code,
-            city: payload.city,
-            countries_id: payload.countries_id,
-            phone: payload.phone,
-            email_establishment: payload.email_establishment,
-            website: payload.website,
-            surname_director: payload.surname_director,
-            name_director: payload.name_director,
-            email_director: payload.email_director,
-            phone_director: payload.phone_director,
-            estab_type_id: payload.estab_type_id,
-            fk_id_school_year_current: payload.currentYearId,
-            status: true,
-            module_id: payload.module_id,
-            // logo: fileName,
-            matricule: payload.matricule,
-            tva: payload.tva,
-            capital: payload.capital,
-            siren: payload.siren,
-            siret: payload.siret,
-            rib: payload.rib,
-            iban: payload.iban,
-          };
+          // let dataWithFile = {
+          //   name: payload.name,
+          //   ar_name: payload.ar_name,
+          //   address: payload.address,
+          //   code: payload.code,
+          //   city: payload.city,
+          //   countries_id: payload.countries_id,
+          //   phone: payload.phone,
+          //   email_establishment: payload.email_establishment,
+          //   website: payload.website,
+          //   surname_director: payload.surname_director,
+          //   name_director: payload.name_director,
+          //   email_director: payload.email_director,
+          //   phone_director: payload.phone_director,
+          //   estab_type_id: payload.estab_type_id,
+          //   fk_id_school_year_current: payload.currentYearId,
+          //   status: true,
+          //   module_id: payload.module_id,
+          //   // logo: fileName,
+          //   matricule: payload.matricule,
+          //   tva: payload.tva,
+          //   capital: payload.capital,
+          //   siren: payload.siren,
+          //   siret: payload.siret,
+          //   rib: payload.rib,
+          //   iban: payload.iban,
+          // };
           const myNewFile = new File([file], fileName, { type: file.type });
           dispatch(uploadFile2(response.data, myNewFile));
           // let apiEndpoint2 =

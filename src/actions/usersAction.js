@@ -151,7 +151,7 @@ export const addUsers = (data) => {
           let formadata = new FormData();
           data.userPapiersFiles.map((element, index) => {
             let userPapiersFile = element;
-              const fileName = 'user' + userId + '-' + userPapiersFile.name;
+            const fileName = 'user' + userId + '-' + userPapiersFile.name;
 
             var object = {};
             object.file = userPapiersFile;
@@ -307,7 +307,7 @@ export const editUser = (data, estabId, schoolYearId) => {
           let formadata = new FormData();
           data.paperFiles.map((element, index) => {
             let userPapiersFile = element;
-             const fileName = 'user' + userId + '-' + userPapiersFile.name;
+            const fileName = 'user' + userId + '-' + userPapiersFile.name;
 
             var object = {};
             object.file = userPapiersFile;
@@ -316,6 +316,7 @@ export const editUser = (data, estabId, schoolYearId) => {
               type: object.file.type,
             });
             formadata.append('file', myNewFile);
+            return element;
           });
 
           let filesURL = data.oldPaperFiles;
@@ -333,6 +334,7 @@ export const editUser = (data, estabId, schoolYearId) => {
               if (response) {
                 response.data.result.files.file.map((urlFile, index) => {
                   filesURL.push(urlFile.providerResponse.location);
+                  return true;
                 });
                 let urlPhotoUser = `${baseUrl.baseUrl}/users/` + userId + `?access_token=${localStorage.token}`;
 
@@ -382,7 +384,7 @@ function downLoadCsv(data, fileName) {
   const a = document.createElement('a');
   a.setAttribute('hidden', '');
   a.setAttribute('href', url);
-  a.setAttribute('download', `${fileName}` + '.csv');
+  a.setAttribute('download', `${fileName + '.csv'}`);
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

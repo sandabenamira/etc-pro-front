@@ -1,20 +1,16 @@
 import React from 'react';
-import IntlMessages from '../../../util/IntlMessages';
-import { RoleContext } from '../../../Context';
+ import { RoleContext } from '../../../Context';
 import Can from '../../../can';
 import { connect } from 'react-redux';
 import ResetPasswordModal from './ResetPasswordModal';
 import axios from 'axios';
 import { baseUrl } from '../../../config/config';
 import { roleIdProfessor, roleIdStudent, roleIdParent } from '../../../config/config';
-import { classService } from '../../../_services/class.service';
-import moment from 'moment';
-import StudentDashborad from '../Home/DashboradStudent/StudentDashboard';
+ import StudentDashborad from '../Home/DashboradStudent/StudentDashboard';
 import ProfessorDashborad from '../Home/DashboradProfessor/ProfessorDashboard';
  import AdminDashboard from '../Home/DashboardAdmin/AdminDashboard';
 
-let currentDate = new Date();
-
+ 
 class Home extends React.Component {
   constructor() {
     super();
@@ -154,8 +150,7 @@ class Home extends React.Component {
 
   render() {
     /* eslint eqeqeq: "off" */
-    const { anchorEl, menuState } = this.state;
-    return (
+     return (
       <RoleContext.Consumer>
         {({ role }) => (
           <div>

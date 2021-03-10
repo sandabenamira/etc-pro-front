@@ -617,7 +617,7 @@ function filterVirtualClass(virtualClassList) {
   
 }
 
-
+ /* eslint array-callback-return: "off" */
 export default connect(
   mapStateToProps,
   {

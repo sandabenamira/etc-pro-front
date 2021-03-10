@@ -21,22 +21,15 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import PrintIcon from '@material-ui/icons/Print';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import PhotoIcon from '@material-ui/icons/Photo';
-import {
-  roleIdSuperAdmin,
-   
-  roleIdProfessor,
-  roleIdStudent,
- 
-  roleIdParent,
- } from '../../../../../config/config';
-import { isEmail   } from '../../../../../constants/validationFunctions';
+import { roleIdSuperAdmin, roleIdProfessor, roleIdStudent, roleIdParent } from '../../../../../config/config';
+import { isEmail } from '../../../../../constants/validationFunctions';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import moment from 'moment';
- import ModalImportUser from './ModalImportUser';
+import ModalImportUser from './ModalImportUser';
 import ModalExportUser from './ModalExportUser';
 import readXlsxFile from 'read-excel-file';
- import _ from 'lodash';
+import _ from 'lodash';
 import AlerteImport from './AlerteImport';
 
 import axios from 'axios';
@@ -65,14 +58,7 @@ const correctHeader = [
   'informations utiles',
   'agence',
 ];
-const fonctionList = [
-  { label: "Agent d'entretien", id: 1, value: 1 },
-  { label: 'Infirmière', id: 2, value: 2 },
-  { label: 'Cuisinier(e)', id: 3, value: 3 },
-  { label: 'Gardien', id: 4, value: 4 },
-  { label: 'surveillant', id: 5, value: 5 },
-  { label: 'surveillant général', id: 6, value: 6 },
-];
+
 const TypeContrat = [
   { label: 'interne', id: 1, value: 1 },
   { label: 'externe', id: 2, value: 2 },
@@ -909,7 +895,6 @@ class AddUsers extends React.Component {
                       <TextField
                         // error={isCIN(values.userCIN) === false ? true : false}
                         id="userCIN"
-                        id="userCIN"
                         name="userCIN"
                         type="number"
                         value={values.userCIN || ''}
@@ -921,13 +906,6 @@ class AddUsers extends React.Component {
                         SelectProps={{
                           native: true,
                         }}
-                        // helperText={
-                        //   isCIN(values.userCIN) === true ? (
-                        //     ""
-                        //   ) : (
-                        //     <IntlMessages id="error.user.message.cin" />
-                        //   )
-                        // }
                       />
                     </div>
                   </>

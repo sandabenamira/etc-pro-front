@@ -174,7 +174,7 @@ class Billing extends React.Component {
   };
 
   render() {   /* eslint eqeqeq: "off" */
-    let { classLevels, classes, schoolYears } = this.props;
+    let { classLevels, schoolYears } = this.props;
     let { classesList, listBills, sections } = this.state;
     let detailCards = [
       {

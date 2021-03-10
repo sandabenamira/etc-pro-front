@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { element } from "prop-types";
-
+ 
 export default class ServiceItem extends Component {
   constructor(props) {
     super(props);

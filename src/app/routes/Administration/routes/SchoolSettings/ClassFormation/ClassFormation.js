@@ -165,6 +165,7 @@ class ClassFormation extends React.Component {
         if (element.id != index) {
           agenceIds.push(element.agence.id);
         }
+        return element;
       });
       this.setState({ agenceIds });
       let newParticipantList = this.state.participantList.map((element, i) =>
@@ -278,7 +279,9 @@ class ClassFormation extends React.Component {
           fk_id_group: null,
         };
         insciptionsFormation.push(objInscription);
+        return collaborator;
       });
+      return participantAgency;
     });
 
     this.props.dispatch(addCollaboratorFormation(insciptionsFormation));
@@ -320,6 +323,7 @@ class ClassFormation extends React.Component {
         fk_id_profile_creator: this.props.userProfile.id,
       };
       listEvents.push(objHoraire);
+      return horaireElement;
     });
     let logoEstab = this.props.establishementInformations.logo === undefined ? '' : this.props.establishementInformations.logo;
     let objMail = {};

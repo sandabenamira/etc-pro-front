@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import IntlMessages from '../../../../../../util/IntlMessages';
 import CardBox from '../../../../../../components/CardBox/index';
 import Can from '../../../../../../can';

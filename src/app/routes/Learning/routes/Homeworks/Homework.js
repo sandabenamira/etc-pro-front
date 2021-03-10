@@ -171,9 +171,7 @@ class Homework extends React.Component {
         homeworks: homeworksList,
       });
     } else {
-      let homeworks = homeworksList.filter(
-        (element) => element.homework.homework_type === event.target.value
-      );
+      let homeworks = homeworksList.filter((element) => element.homework.homework_type === event.target.value);
       this.setState({ [name]: event.target.value, homeworks });
     }
   };
@@ -184,9 +182,7 @@ class Homework extends React.Component {
         homeworks: this.props.homeworks,
       });
     } else {
-      let homeworks = this.props.homeworks.filter(
-        (element) => element.classId === event.target.value
-      );
+      let homeworks = this.props.homeworks.filter((element) => element.classId === event.target.value);
       this.setState({ homeworks, homeworkClass: homeworks });
     }
 
@@ -242,9 +238,7 @@ class Homework extends React.Component {
       dataHomework.correctionDate = this.state.correctionDate;
       dataHomework.renderingDate = this.state.renderingDate;
       dataHomework.subjectName = this.state.subjectName;
-      this.props.dispatch(
-        addNewHomework(dataHomework, this.state.homeworkFiles, this.state.classesData)
-      );
+      this.props.dispatch(addNewHomework(dataHomework, this.state.homeworkFiles, this.state.classesData));
       this.cancelModal();
     }
   }
@@ -286,6 +280,7 @@ class Homework extends React.Component {
       files.map((element) => {
         nameFiles.push(element.name);
         oldFiles.push(element);
+        return element;
       });
       this.setState({ homeworkFiles: oldFiles, nameFiles });
     } else {
@@ -321,6 +316,7 @@ class Homework extends React.Component {
 
               newList.push(object);
             }
+            return element;
           });
           this.setState({ classes: newList });
         }
@@ -379,13 +375,13 @@ class Homework extends React.Component {
             subjects.push(object);
             classItem = element.assignmentClassSubject.class;
             classes.push(classItem);
+            return element;
           });
           this.setState({ subjects, classList: classes });
         }
       });
     } else if (this.props.userProfile.role_id === roleIdStudent) {
-      let classStudent = this.props.userProfile.user.profiles[0].students[0].inscription[0]
-        .fk_id_class_v4;
+      let classStudent = this.props.userProfile.user.profiles[0].students[0].inscription[0].fk_id_class_v4;
       this.setState({ classStudent });
       if (classStudent === null) {
         this.setState({ show: true });
@@ -427,7 +423,8 @@ class Homework extends React.Component {
     });
   };
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     let detailCards = [
       {
         cardColor: 'primary',
@@ -514,12 +511,7 @@ class Homework extends React.Component {
                         <CardBox styleName="col-lg-12 ">
                           <div className="row">
                             <div>
-                              <Fab
-                                size="small"
-                                color="secondary"
-                                aria-label="Add"
-                                onClick={this.openAddModal.bind(this)}
-                              >
+                              <Fab size="small" color="secondary" aria-label="Add" onClick={this.openAddModal.bind(this)}>
                                 {this.state.isOpenAddModal ? <RemoveSharpIcon /> : <AddIcon />}
                               </Fab>
                             </div>
@@ -697,10 +689,7 @@ class Homework extends React.Component {
                               </div>
                             </div>
 
-                            <HomeworkList
-                              homeworks={this.state.homeworks}
-                              subjects={this.state.subjects}
-                            />
+                            <HomeworkList homeworks={this.state.homeworks} subjects={this.state.subjects} />
                           </div>
                         ) : (
                           ''
@@ -714,11 +703,7 @@ class Homework extends React.Component {
           </div>
         </div>
         {this.props.userProfile.role_id === roleIdStudent && this.state.classStudent === null ? (
-          <SweetAlert
-            show={this.state.show}
-            title={<IntlMessages id="alert.affect.student" />}
-            onConfirm={this.onConfirm}
-          ></SweetAlert>
+          <SweetAlert show={this.state.show} title={<IntlMessages id="alert.affect.student" />} onConfirm={this.onConfirm}></SweetAlert>
         ) : (
           ''
         )}

@@ -14,8 +14,7 @@ import IntlMessages from '../../../../../util/IntlMessages';
 import { connect } from 'react-redux';
 import ContainerHeader from '../../../../../components/ContainerHeader';
 import CardBox from '../../../../../components/CardBox/index';
-import AddSupplies from './AddSupplies';
-import Can from '../../../../../can';
+ import Can from '../../../../../can';
 import { RoleContext } from '../../../../../Context';
  import SweetAlert from 'react-bootstrap-sweetalert';
 

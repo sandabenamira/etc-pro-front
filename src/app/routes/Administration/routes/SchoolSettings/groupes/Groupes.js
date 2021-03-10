@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React  from "react";
 import CardBox from "../../../../../../components/CardBox/index";
 import { connect } from "react-redux";
 import ArchiveGroupes from "./ArchiveGroupes";
@@ -6,8 +6,7 @@ import AddGroupes from "./AddGroupes";
 import GroupesList from "./GroupesList";
 import { UncontrolledAlert } from "reactstrap";
 import { addGroup, getGroup } from "../../../../../../actions/GroupsAction";
-import { getEducationType } from "../../../../../../actions/estabTypeAction";
-
+ 
 class Groupes extends React.Component {
   constructor(props) {
     super(props);

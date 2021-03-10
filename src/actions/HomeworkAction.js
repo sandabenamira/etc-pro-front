@@ -36,6 +36,7 @@ export const addNewHomework = (data, homeworkFiles, classesData) => {
             type: object.file.type,
           });
           formadata.append('file', myNewFile);
+          return element;
         });
 
         let filesURL = [];
@@ -182,6 +183,7 @@ export function getHomework(establishmentId, schoolYearId, profileId, roleId) {
           } else {
             homeworkListUnarchived.push(elementItem);
           }
+          return elementItem;
         });
 
         dispatch({
@@ -221,6 +223,7 @@ export const editHomework = (data, homeworkFiles, classesData, oldFiles) => {
               type: object.file.type,
             });
             formadata.append('file', myNewFile);
+            return element;
           });
 
           let filesURL = [];

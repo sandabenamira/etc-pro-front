@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectsCell from './ProjectsCell';
+// import ProjectsCell from './ProjectsCell';
 
 
 const ProjectsList = ({data}) => {

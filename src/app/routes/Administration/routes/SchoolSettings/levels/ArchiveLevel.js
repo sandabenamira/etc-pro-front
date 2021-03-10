@@ -16,8 +16,7 @@ class ArchiveLevel extends React.Component {
   }
 
   render() {   /* eslint eqeqeq: "off" */
-    const { levelItem, educationTypes } = this.props;
-    return (
+     return (
       <div>
         <div className="d-flex justify-content-start align-items-center ">
           <h1>

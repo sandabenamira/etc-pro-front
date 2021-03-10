@@ -1,26 +1,24 @@
-import React from "react";
-import ContainerHeader from "../../../../../components/ContainerHeader/index";
-import IntlMessages from "../../../../../util/IntlMessages";
-import AddRoom from "./AddRoom";
-import RoomList from "./RoomList";
-import EditRoom from "./EditRoom";
-import DeleteRoom from "./DeleteRoom";
-import { UncontrolledAlert } from "reactstrap";
-import { getEstablishment } from "../../../../../actions/establishmentAction";
-import { connect } from "react-redux";
-import { classService } from "../../../../../_services";
-import Input from "@material-ui/icons/Input";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import CardBox from "../../../../../components/CardBox/index";
-import Box from "@material-ui/core/Box";
-import { roleIdDirector, roleIdAdmin, roleIdSuperAdmin} from '../../../../../config/config'
-import { getRoomsByEstablshment } from "../../../../../actions/roomAction";
+import React from 'react';
+import ContainerHeader from '../../../../../components/ContainerHeader/index';
+import IntlMessages from '../../../../../util/IntlMessages';
+import AddRoom from './AddRoom';
+import RoomList from './RoomList';
+import EditRoom from './EditRoom';
+import DeleteRoom from './DeleteRoom';
+import { UncontrolledAlert } from 'reactstrap';
+import { getEstablishment } from '../../../../../actions/establishmentAction';
+import { connect } from 'react-redux';
+import { classService } from '../../../../../_services';
+import Input from '@material-ui/icons/Input';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Table from '@material-ui/core/Table';
+ import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import CardBox from '../../../../../components/CardBox/index';
+ import { roleIdDirector, roleIdAdmin  } from '../../../../../config/config';
+import { getRoomsByEstablshment } from '../../../../../actions/roomAction';
 
 const mapStateToProps = (state) => {
   return {
@@ -36,14 +34,14 @@ class Rooms extends React.Component {
       addRoomModal: false,
       successStatus: false,
       errorStatus: false,
-      message: "",
+      message: '',
       edit: false,
       Rooms_list: [],
       room_Item: [],
       modal_delete: false,
       item_id: 0,
     };
-     this.EditItemRoom = this.EditItemRoom.bind(this);
+    this.EditItemRoom = this.EditItemRoom.bind(this);
     this.handleCancelModal = this.handleCancelModal.bind(this);
     this.handleSubmitEdit = this.handleSubmitEdit.bind(this);
     this.RequestDeleteRoom = this.RequestDeleteRoom.bind(this);
@@ -57,7 +55,7 @@ class Rooms extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.userProfile !== this.props.userProfile) {
       const establishmentId = this.props.userProfile.establishment_id;
-      this.props.getRoomsByEstablshment(establishmentId,this.props.userProfile.school_year_id);
+      this.props.getRoomsByEstablshment(establishmentId, this.props.userProfile.school_year_id);
     }
   }
   componentWillMount() {
@@ -65,7 +63,7 @@ class Rooms extends React.Component {
     if (roleId === roleIdAdmin || roleId === roleIdDirector) {
       this.props.getEstablishment();
       const establishmentId = this.props.userProfile.establishment_id;
-      this.props.getRoomsByEstablshment(establishmentId,this.props.userProfile.school_year_id);
+      this.props.getRoomsByEstablshment(establishmentId, this.props.userProfile.school_year_id);
     } else {
       // this.props.dispatch(getEstablishment());
       let apiEndpoint = `/rooms?access_token=${localStorage.token}`;
@@ -80,7 +78,7 @@ class Rooms extends React.Component {
     }
   }
   EditItemRoom(id) {
-    const room_Item = this.props.rooms.find((element) => element.id===id);
+    const room_Item = this.props.rooms.find((element) => element.id === id);
     this.setState({ room_Item: room_Item, edit: true });
   }
   handleSubmitEdit(room) {
@@ -91,23 +89,16 @@ class Rooms extends React.Component {
       status: room.status,
       establishment_id: room.establishment_id,
       id: room.id,
-      fk_id_school_year: room.schoolYear
-
+      fk_id_school_year: room.schoolYear,
     };
-    let apiEndpoint =
-      `/rooms/` + room.id + `?access_token=${localStorage.token}`;
+    let apiEndpoint = `/rooms/` + room.id + `?access_token=${localStorage.token}`;
     classService.put(apiEndpoint, classroomData).then((res) => {
       if (res) {
         this.setState({
-          Rooms_list: [
-            ...this.state.Rooms_list.filter(
-              (element) => element.id !== room.id
-            ),
-            res.data,
-          ],
+          Rooms_list: [...this.state.Rooms_list.filter((element) => element.id !== room.id), res.data],
           edit: false,
           successStatus: true,
-          message: "La modification est effectuée avec succès",
+          message: 'La modification est effectuée avec succès',
         });
         setTimeout(() => {
           this.setState({ successStatus: false });
@@ -115,8 +106,7 @@ class Rooms extends React.Component {
       } else {
         this.setState({
           errorStatus: true,
-          message:
-            "Une erreur est survenue lors de la modification merci d'essayer à nouveau",
+          message: "Une erreur est survenue lors de la modification merci d'essayer à nouveau",
         });
         setTimeout(() => {
           this.setState({ errorStatus: false });
@@ -125,8 +115,7 @@ class Rooms extends React.Component {
     });
   }
   deleteItemRoom(idItem) {
-    let apiEndpoint =
-      `/rooms/` + idItem + `?access_token=${localStorage.token}`;
+    let apiEndpoint = `/rooms/` + idItem + `?access_token=${localStorage.token}`;
     classService
       .get(apiEndpoint)
       .then((res) => {
@@ -138,17 +127,12 @@ class Rooms extends React.Component {
           establishment_id: data_room.establishment_id,
           id: data_room.id,
         };
-        let apiEndpoint2 =
-          `/rooms/` + data_room.id + `?access_token=${localStorage.token}`;
+        let apiEndpoint2 = `/rooms/` + data_room.id + `?access_token=${localStorage.token}`;
         classService
           .put(apiEndpoint2, data)
           .then((res) => {
             this.setState({
-              Rooms_list: [
-                ...this.state.Rooms_list.filter(
-                  (element) => element.id !== data_room.id
-                ),
-              ],
+              Rooms_list: [...this.state.Rooms_list.filter((element) => element.id !== data_room.id)],
             });
           })
           .catch((error) => {});
@@ -165,20 +149,13 @@ class Rooms extends React.Component {
   handleAnnuleModalDelete() {
     this.setState({ modal_delete: false, item_id: 0 });
   }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper">
-        <ContainerHeader
-          match={this.props.match}
-          title={<IntlMessages id="sidebar.rooms" />}
-        />
+        <ContainerHeader match={this.props.match} title={<IntlMessages id="sidebar.rooms" />} />
         <div className="col-md-12 text-right " style={{ marginBottom: 20 }}>
-          <Fab
-            size="small"
-            color="primary"
-            aria-label="Add"
-            onClick={this.addRoom}
-          >
+          <Fab size="small" color="primary" aria-label="Add" onClick={this.addRoom}>
             <AddIcon />
           </Fab>
           &nbsp;&nbsp;&nbsp;
@@ -194,7 +171,7 @@ class Rooms extends React.Component {
             <span className="d-inline-block"> {this.state.message} </span>
           </UncontrolledAlert>
         ) : (
-          ""
+          ''
         )}
         {this.state.errorStatus ? (
           <UncontrolledAlert className="alert-addon-card bg-danger bg-danger text-white shadow-lg">
@@ -204,7 +181,7 @@ class Rooms extends React.Component {
             <span className="d-inline-block"> {this.state.message} </span>
           </UncontrolledAlert>
         ) : (
-          ""
+          ''
         )}
         {this.state.addRoomModal ? (
           <AddRoom
@@ -214,10 +191,9 @@ class Rooms extends React.Component {
             userProfile={this.props.userProfile}
           />
         ) : (
-          ""
+          ''
         )}
-        {this.props.rooms.length !== 0 &&
-        this.props.userProfile.role_id !== undefined ? (
+        {this.props.rooms.length !== 0 && this.props.userProfile.role_id !== undefined ? (
           <RoomList
             rooms={this.props.rooms}
             ListEstablishment={this.props.establishments}
@@ -231,20 +207,13 @@ class Rooms extends React.Component {
               <Table className="default-table table-unbordered table table-sm table-hover">
                 <TableHead className="th-border-b">
                   <TableRow>
-                    {this.props.userProfile.role_id ===
-                    this.state.roleIdSuperAdmin ? (
-                      <TableCell>
-                        {
-                          <IntlMessages id="components.student.formadd.establishment" />
-                        }
-                      </TableCell>
+                    {this.props.userProfile.role_id === this.state.roleIdSuperAdmin ? (
+                      <TableCell>{<IntlMessages id="components.student.formadd.establishment" />}</TableCell>
                     ) : (
-                      ""
+                      ''
                     )}
                     <TableCell>{<IntlMessages id="room.name" />}</TableCell>
-                    <TableCell align="right">
-                      {<IntlMessages id="room.description" />}
-                    </TableCell>
+                    <TableCell align="right">{<IntlMessages id="room.description" />}</TableCell>
                     <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
@@ -252,14 +221,14 @@ class Rooms extends React.Component {
             </div>
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around",
-                marginTop: "25px",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                marginTop: '25px',
               }}
             >
               <b>
-                {" "}
+                {' '}
                 <IntlMessages id="room.empty" />
               </b>
             </div>
@@ -275,20 +244,16 @@ class Rooms extends React.Component {
             userProfile={this.props.userProfile}
           />
         ) : (
-          ""
+          ''
         )}
         {this.state.modal_delete ? (
-          <DeleteRoom
-            item_id={this.state.item_id}
-            annuleModalDelete={this.handleAnnuleModalDelete}
-            handleDelete={this.deleteItemRoom}
-          />
+          <DeleteRoom item_id={this.state.item_id} annuleModalDelete={this.handleAnnuleModalDelete} handleDelete={this.deleteItemRoom} />
         ) : (
-          ""
+          ''
         )}
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps,{getEstablishment,getRoomsByEstablshment})(Rooms);
+export default connect(mapStateToProps, { getEstablishment, getRoomsByEstablshment })(Rooms);

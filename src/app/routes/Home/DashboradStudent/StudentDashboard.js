@@ -165,7 +165,6 @@ class StudentDashboard extends Component {
 
   render() {
     /* eslint eqeqeq: "off" */
-    console.log('events', this.state.events);
 
     const detailCards = [
       {
@@ -202,7 +201,6 @@ class StudentDashboard extends Component {
 
     const startDayTime = new Date('2020-11-30T07:00:00.000Z');
     const endDayTime = new Date('2020-11-30T17:00:00.000Z');
-    let events = this.props.events ? this.props.events : [];
 
     return (
       <div className="app-wrapper d-flex flex-column  col-lg-12 col-md-12 col-sm-12 ">
@@ -222,7 +220,6 @@ class StudentDashboard extends Component {
               }}
               localizer={localizer}
               events={this.state.events}
-              // events={events}
               defaultView="day"
               timeslots={1}
               min={startDayTime}

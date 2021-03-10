@@ -34,6 +34,7 @@ const fonctionList = [
   { label: 'surveillant', id: 5, value: 5 },
   { label: 'surveillant général', id: 6, value: 6 },
 ];
+ /* eslint  array-callback-return: "off" */
 class UsersList extends React.Component {
   constructor(props) {
     super(props);

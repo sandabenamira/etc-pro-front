@@ -9,7 +9,7 @@ import { classService } from "../../../../../_services/class.service";
 import Can from '../../../../../can';
 import { RoleContext } from '../../../../../Context';
 import { traductionValue } from '../../../../../actions/countriesAction';
-
+ /* eslint react-hooks/exhaustive-deps: "off" */
 function jsUpperCaseFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };

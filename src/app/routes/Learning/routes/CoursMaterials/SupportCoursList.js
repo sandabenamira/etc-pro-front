@@ -146,8 +146,8 @@ class SupportCoursList extends Component {
 
           data[0].forEach((element) => {
             if (
-              element.assignmentClassSubject.class.fk_id_school_year===this.props.userProfile.school_year_id &&
-              element.assignmentClassSubject.subject.id===this.props.match.params.subjectId
+              element.assignmentClassSubject.class.fk_id_school_year === this.props.userProfile.school_year_id &&
+              element.assignmentClassSubject.subject.id === this.props.match.params.subjectId
             ) {
               var object = {};
               object.label = element.assignmentClassSubject.class.name;
@@ -181,8 +181,8 @@ class SupportCoursList extends Component {
 
         data[0].forEach((element) => {
           if (
-            element.assignmentClassSubject.class.fk_id_school_year===this.props.userProfile.school_year_id &&
-            element.assignmentClassSubject.subject.id===this.props.match.params.subjectId
+            element.assignmentClassSubject.class.fk_id_school_year === this.props.userProfile.school_year_id &&
+            element.assignmentClassSubject.subject.id === this.props.match.params.subjectId
           ) {
             var object = {};
             object.label = element.assignmentClassSubject.class.name;
@@ -222,7 +222,7 @@ class SupportCoursList extends Component {
     this.setState({ optionsListMoocs, optionsListVirtualClasses });
   }
   openAddModal() {
-    let classIndex = this.state.courseAssignmentList.findIndex((element) => element.id===this.props.match.params.idAssignement);
+    let classIndex = this.state.courseAssignmentList.findIndex((element) => element.id === this.props.match.params.idAssignement);
     let assignmentIds = [parseInt(this.props.match.params.idAssignement, 10)];
     this.setState({
       classIndex,
@@ -286,7 +286,7 @@ class SupportCoursList extends Component {
     });
   };
   handleChange = (name) => (event) => {
-    if (name==='courseName') {
+    if (name === 'courseName') {
       let nameError = false;
       nameError = this.props.listSupportCourse.filter((element) => element.name === event.target.value.trim()).length > 0;
 
@@ -353,7 +353,7 @@ class SupportCoursList extends Component {
     let deletedFiles = [];
     if (this.state.itemEdit.fileList != undefined) {
       this.state.itemEdit.fileList.map((element) => {
-        if (element.url_course_materials_files.slice(59)===filename) {
+        if (element.url_course_materials_files.slice(59) === filename) {
           deletedFiles.push(element.id);
         }
       });
@@ -392,7 +392,7 @@ class SupportCoursList extends Component {
     let dateFormat = moment(this.state.publicationDate).format('YYYY-MM-DD');
     let timeFormat = moment(this.state.postTime).format('HH:mm:ssZ');
     let TimeDate = dateFormat + 'T' + timeFormat;
-    let fk_id_professor = parseInt(this.props.match.params.idProf, 10)===0 ? null : parseInt(this.props.match.params.idProf, 10);
+    let fk_id_professor = parseInt(this.props.match.params.idProf, 10) === 0 ? null : parseInt(this.props.match.params.idProf, 10);
 
     let data = {
       id: this.state.itemEdit.id,
@@ -446,7 +446,7 @@ class SupportCoursList extends Component {
     let dateFormat = moment(this.state.publicationDate).format('YYYY-MM-DD');
     let timeFormat = moment(this.state.postTime).format('HH:mm:ssZ');
     let TimeDate = dateFormat + 'T' + timeFormat;
-    let fk_id_professor = parseInt(this.props.match.params.idProf, 10)===0 ? null : parseInt(this.props.match.params.idProf, 10);
+    let fk_id_professor = parseInt(this.props.match.params.idProf, 10) === 0 ? null : parseInt(this.props.match.params.idProf, 10);
 
     let data = {
       name: this.state.courseName,
@@ -516,8 +516,12 @@ class SupportCoursList extends Component {
       defaultClass: [],
     });
   }
-  render() {   /* eslint eqeqeq: "off" */
-     return (
+  render() {
+    /* eslint eqeqeq: "off" */
+
+    /* eslint  array-callback-return: "off" */
+
+    return (
       <div>
         <div className=" bd-highlight" style={{ width: '100%' }}>
           <div className="  d-flex p-2 bd-highlight mb-4">

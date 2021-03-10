@@ -7,7 +7,7 @@ import Can from '../../can';
 import IntlMessages from '../../util/IntlMessages';
 
 const NavMenuItem = (props) => {
-  const { name, icon, pathName } = props;
+  const { name , pathName } = props;
 
   return (
     <RoleContext.Consumer>

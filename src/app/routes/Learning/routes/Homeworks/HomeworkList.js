@@ -145,6 +145,7 @@ class HomeworkList extends Component {
       files.map((element) => {
         nameFiles.push(element.name);
         oldFiles.push(element);
+        return element;
       });
       this.setState({ homeworkFiles: oldFiles, nameFiles });
     } else {
@@ -198,6 +199,7 @@ class HomeworkList extends Component {
 
                 newList.push(object);
               }
+              return element;
             });
 
             this.setState({ classes: newList });
@@ -282,6 +284,7 @@ class HomeworkList extends Component {
 
               newList.push(object);
             }
+            return element;
           });
 
           this.setState({ classes: newList });

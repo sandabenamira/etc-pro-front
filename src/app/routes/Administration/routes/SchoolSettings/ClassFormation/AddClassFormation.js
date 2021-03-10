@@ -19,8 +19,7 @@ import moment from 'moment';
 import DateFnsUtils from '@date-io/moment';
 import { TimePicker } from '@material-ui/pickers';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import _ from 'lodash';
-
+ 
 class AddClassFormation extends React.Component {
   constructor(props) {
     super(props);
@@ -303,8 +302,7 @@ class AddClassFormation extends React.Component {
                     </div>
                     <div className="col-md-5 col-lg-4 col-sm-12 p-2  d-flex flex-wrap flex-row justify-content-center align-items-end  ">
                       <Radio
-                        checked={false}
-                        checked={values.horaireList.length > 1}
+                         checked={values.horaireList.length > 1}
                         value="Female"
                         color="primary"
                         name="radio-button-demo"

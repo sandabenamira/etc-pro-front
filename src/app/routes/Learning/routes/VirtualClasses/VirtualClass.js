@@ -7,12 +7,7 @@ import AddVirtualClass from './AddVirtualClass';
 import _ from 'lodash';
 import { RoleContext } from '../../../../../Context';
 import Can from '../../../../../can';
-import {
-  roleIdProfessor,
-  roleIdAdmin,
-  roleIdParent,
-  roleIdStudent,
-} from '../../../../../config/config';
+import { roleIdProfessor, roleIdAdmin, roleIdParent, roleIdStudent } from '../../../../../config/config';
 import VirtualClassList from './VirtualClassList';
 import ArchiveVirtualClass from './ArchiveVirtualClass';
 import { addClassVirtual } from '../../../../../actions/VirtualClassAction';
@@ -128,10 +123,8 @@ class VirtualClass extends React.Component {
   handleStartTimeChange = (time) => {
     let startTimeClassError;
 
-    if (moment(this.state.dateVirtualClass).format('LL')===moment(new Date()).format('LL')) {
-      startTimeClassError =
-        moment(time._d).isBefore(this.state.endTimeClass) &&
-        moment(time._d).isAfter(this.state.dateVirtualClass);
+    if (moment(this.state.dateVirtualClass).format('LL') === moment(new Date()).format('LL')) {
+      startTimeClassError = moment(time._d).isBefore(this.state.endTimeClass) && moment(time._d).isAfter(this.state.dateVirtualClass);
     } else {
       startTimeClassError = moment(time._d).isBefore(this.state.endTimeClass);
     }
@@ -148,10 +141,9 @@ class VirtualClass extends React.Component {
     let endTimeClassError = moment(time._d).isAfter(this.state.startTimeClass);
     let startTimeClassError;
 
-    if (moment(this.state.dateVirtualClass).format('LL')===moment(new Date()).format('LL')) {
+    if (moment(this.state.dateVirtualClass).format('LL') === moment(new Date()).format('LL')) {
       startTimeClassError =
-        moment(this.state.startTimeClass).isBefore(time._d) &&
-        moment(this.state.startTimeClass).isAfter(this.state.dateVirtualClass);
+        moment(this.state.startTimeClass).isBefore(time._d) && moment(this.state.startTimeClass).isAfter(this.state.dateVirtualClass);
     } else {
       startTimeClassError = moment(this.state.startTimeClass).isBefore(time._d);
     }
@@ -166,10 +158,8 @@ class VirtualClass extends React.Component {
   handleChangeDate = (date) => {
     let startTimeClassError;
 
-    if (moment(date._d).format('LL')===moment(new Date()).format('LL')) {
-      startTimeClassError =
-        moment(this.state.startTimeClass).isBefore(this.state.endTimeClass) &&
-        moment(this.state.startTimeClass).isAfter(date._d);
+    if (moment(date._d).format('LL') === moment(new Date()).format('LL')) {
+      startTimeClassError = moment(this.state.startTimeClass).isBefore(this.state.endTimeClass) && moment(this.state.startTimeClass).isAfter(date._d);
     } else {
       startTimeClassError = moment(this.state.startTimeClass).isBefore(this.state.endTimeClass);
     }
@@ -192,6 +182,7 @@ class VirtualClass extends React.Component {
           };
           courseAssignment.push(object);
         }
+        return element;
       });
     } else {
       this.props.courseAssignment.forEach((element) => {
@@ -266,8 +257,8 @@ class VirtualClass extends React.Component {
         let timefinItem = Date.parse(dateClassItem + ' ' + endHourClassItem) / 60000;
 
         return (
-          item.classeId===this.state.classId &&
-          dateClassItem===dateClass &&
+          item.classeId === this.state.classId &&
+          dateClassItem === dateClass &&
           ((timedebutAdd <= timedebutItem && timefinItem <= timefinAdd) ||
             (timedebutItem <= timedebutAdd && timedebutAdd <= timefinItem) ||
             (timedebutItem <= timefinAdd && timefinAdd <= timefinItem))
@@ -318,10 +309,7 @@ class VirtualClass extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.subjects !== this.props.subjects &&
-      this.props.userProfile.role_id === roleIdAdmin
-    ) {
+    if (prevProps.subjects !== this.props.subjects && this.props.userProfile.role_id === roleIdAdmin) {
       this.setState({
         subjects: this.props.subjects,
       });
@@ -335,10 +323,7 @@ class VirtualClass extends React.Component {
         let data = _.map(res.data, 'course');
         let subjects = [];
         data[0].forEach((element) => {
-          if (
-            element.assignmentClassSubject.class.fk_id_school_year ==
-            this.props.userProfile.school_year_id
-          ) {
+          if (element.assignmentClassSubject.class.fk_id_school_year == this.props.userProfile.school_year_id) {
             subjects.push(element.assignmentClassSubject.subject);
           }
         });
@@ -349,8 +334,7 @@ class VirtualClass extends React.Component {
         });
       });
     } else if (this.props.userProfile.role_id === roleIdStudent) {
-      let classStudent = this.props.userProfile.user.profiles[0].students[0].inscription[0]
-        .fk_id_class_v4;
+      let classStudent = this.props.userProfile.user.profiles[0].students[0].inscription[0].fk_id_class_v4;
       this.setState({ classStudent });
       if (classStudent === null) {
         this.setState({ show: true });
@@ -386,7 +370,8 @@ class VirtualClass extends React.Component {
     }));
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     let detailCards = [
       {
         cardColor: 'primary',
@@ -583,12 +568,7 @@ class VirtualClass extends React.Component {
                           </b>
                         </h1>{' '}
                         &nbsp;&nbsp;&nbsp;
-                        <Fab
-                          size="small"
-                          color="secondary"
-                          aria-label="Add"
-                          onClick={this.openArchive}
-                        >
+                        <Fab size="small" color="secondary" aria-label="Add" onClick={this.openArchive}>
                           <DeleteOutlineIcon />
                         </Fab>
                       </div>
@@ -596,9 +576,7 @@ class VirtualClass extends React.Component {
 
                       {this.state.openArchive ? (
                         <div>
-                          <ArchiveVirtualClass
-                            virtualClassesArchived={this.props.archivedVirtualClass}
-                          ></ArchiveVirtualClass>
+                          <ArchiveVirtualClass virtualClassesArchived={this.props.archivedVirtualClass}></ArchiveVirtualClass>
                         </div>
                       ) : (
                         ''
@@ -612,11 +590,7 @@ class VirtualClass extends React.Component {
         </div>
 
         {this.props.userProfile.role_id === roleIdStudent && this.state.classStudent === null ? (
-          <SweetAlert
-            show={this.state.show}
-            title={<IntlMessages id="alert.affect.student" />}
-            onConfirm={this.onConfirm}
-          ></SweetAlert>
+          <SweetAlert show={this.state.show} title={<IntlMessages id="alert.affect.student" />} onConfirm={this.onConfirm}></SweetAlert>
         ) : (
           ''
         )}

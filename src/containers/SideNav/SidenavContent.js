@@ -8,7 +8,7 @@ import Can from "../../can";
 import {
   sousModuleGrades,
   sousModuleLibraries,
-  sousModuleFinancialManagement,
+  // sousModuleFinancialManagement,
   sousModuleSuperadmin,
   sousModuleELearning,
   sousModuleAdministration,

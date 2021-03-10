@@ -7,15 +7,8 @@ import AddEvent from './AddEvent';
 import PlanningCalendar from './PlanningCalendar';
 import { getRoomsByEstablshment } from '../../../../../actions/roomAction';
 import { connect } from 'react-redux';
-import {
-   getProfesseurByEstablishmentId,
-} from '../../../../../actions/professorAction';
-import {
-  addEvent,
-  getEventsByEstabAndSchoolYear,
-  editEvent,
-  deleteEvent,
-} from '../../../../../actions/planningActions';
+import { getProfesseurByEstablishmentId } from '../../../../../actions/professorAction';
+import { addEvent, getEventsByEstabAndSchoolYear, editEvent, deleteEvent } from '../../../../../actions/planningActions';
 import { getAssignementCourse } from '../../../../../actions/AssignementAction';
 import Snackbar from '@material-ui/core/Snackbar';
 import { classService } from '../../../../../_services/class.service';
@@ -29,37 +22,7 @@ import ConfirmationNotifMail from './ConfirmationNotifMail';
 import ConfirmationDeleteEvent from './ConfirmationDeleteEvent';
 import { UncontrolledAlert } from 'reactstrap';
 import AlerteDelete from './AlerteDelete';
-const listRepetition = [
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-  21,
-  22,
-  23,
-  24,
-  25,
-  26,
-  27,
-  28,
-];
+const listRepetition = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
 class Planning extends React.Component {
   constructor(props) {
     super(props);
@@ -202,9 +165,7 @@ class Planning extends React.Component {
     if (event.target.value === 0) {
       this.setState({ events: this.state.eventsByProf, [name]: event.target.value });
     } else {
-      let events = this.state.eventsByProf.filter(
-        (element) => element.roomId === event.target.value
-      );
+      let events = this.state.eventsByProf.filter((element) => element.roomId === event.target.value);
       this.setState({ events, [name]: event.target.value });
     }
   };
@@ -254,27 +215,18 @@ class Planning extends React.Component {
     let profName = this.state.deleteItem.profName;
     let subjectName = this.state.deleteItem.subjectName;
     let newDateStart = moment(this.state.deleteItem.start).format('LLLL');
-    let logoEstab =
-      this.props.establishementInformations.logo === undefined
-        ? ''
-        : this.props.establishementInformations.logo;
+    let logoEstab = this.props.establishementInformations.logo === undefined ? '' : this.props.establishementInformations.logo;
     //this.state.className
 
-    let startTimeDate =
-      moment(this.state.deleteItem.start).format('YYYY-MM-DD') +
-      'T' +
-      moment(this.state.deleteItem.start).format('HH:mm:ssZ');
-    let endTimeDate =
-      moment(this.state.deleteItem.end).format('YYYY-MM-DD') +
-      'T' +
-      moment(this.state.deleteItem.end).format('HH:mm:ssZ');
+    let startTimeDate = moment(this.state.deleteItem.start).format('YYYY-MM-DD') + 'T' + moment(this.state.deleteItem.start).format('HH:mm:ssZ');
+    let endTimeDate = moment(this.state.deleteItem.end).format('YYYY-MM-DD') + 'T' + moment(this.state.deleteItem.end).format('HH:mm:ssZ');
 
     let data = {};
     data.id = this.state.deleteItem.id;
     data.start = startTimeDate;
     data.end = endTimeDate;
 
-    if (this.state.typeDeleteChecked==='future') {
+    if (this.state.typeDeleteChecked === 'future') {
       let messageNotif =
         'Je vous informe par la présente que les séances de formation ' +
         subjectName +
@@ -287,9 +239,7 @@ class Planning extends React.Component {
         ' avec le formateur Mr/Mme ' +
         profName +
         ' ne pourra avoir lieu .Nous reviendrons vers vous le plus vite possible';
-      let newRepetition = this.state.deleteItem.repetition.filter(
-        (element) => element < this.state.deleteItem.idRepetition
-      );
+      let newRepetition = this.state.deleteItem.repetition.filter((element) => element < this.state.deleteItem.idRepetition);
       data.repetition = newRepetition;
       data.status = true;
       this.props.dispatch(
@@ -303,7 +253,7 @@ class Planning extends React.Component {
           logoEstab
         )
       );
-    } else if (this.state.typeDeleteChecked==='uniq') {
+    } else if (this.state.typeDeleteChecked === 'uniq') {
       let messageNotif =
         'Je vous informe par la présente que le séance de formation ' +
         subjectName +
@@ -316,9 +266,7 @@ class Planning extends React.Component {
         ' avec le Formateur Mr/Mme ' +
         profName +
         ' ne pourra avoir lieu .Nous reviendrons vers vous le plus vite possible';
-      let newRepetition = this.state.deleteItem.repetition.filter(
-        (element) => element != this.state.deleteItem.idRepetition
-      );
+      let newRepetition = this.state.deleteItem.repetition.filter((element) => element != this.state.deleteItem.idRepetition);
       data.repetition = newRepetition;
       data.status = true;
       this.props.dispatch(
@@ -332,7 +280,7 @@ class Planning extends React.Component {
           logoEstab
         )
       );
-    } else if (this.state.typeDeleteChecked==='all') {
+    } else if (this.state.typeDeleteChecked === 'all') {
       let messageNotif =
         'Je vous informe par la présente que les séances de formation ' +
         subjectName +
@@ -346,7 +294,7 @@ class Planning extends React.Component {
         profName +
         'ne pourra avoir lieu .Nous reviendrons vers vous le plus vite possible';
       data.status = false;
-      let classId = this.state.classe.id===undefined ? 0 : this.state.classe.id;
+      let classId = this.state.classe.id === undefined ? 0 : this.state.classe.id;
       this.props.dispatch(
         deleteEvent(
           this.state.typeDeleteChecked,
@@ -376,16 +324,12 @@ class Planning extends React.Component {
     obj.start = moment(this.state.detailsMailNotif.start).format('LLLL');
     obj.classId = this.state.detailsMailNotif.classId;
     obj.classeName = this.state.detailsMailNotif.classeName;
-    obj.logoEstab =
-      this.props.establishementInformations.logo === undefined
-        ? ''
-        : this.props.establishementInformations.logo;
+    obj.logoEstab = this.props.establishementInformations.logo === undefined ? '' : this.props.establishementInformations.logo;
     let apiEndpoint = `/planning_events/absent-prof-notif?access_token=${localStorage.token}`;
     classService.post(apiEndpoint, obj).then((response) => {
       if (response.data.notificationData.length > 0) {
         this.setState({
-          messageAlerte:
-            response.data.notificationData.length + ' Utilisateurs sont notifiés avec succées',
+          messageAlerte: response.data.notificationData.length + ' Utilisateurs sont notifiés avec succées',
           alerteNotif: true,
           colorNotif: 'bg-success',
         });
@@ -442,15 +386,11 @@ class Planning extends React.Component {
       .get(apiEndpoint)
       .then((response) => {
         let data = response.data.checkData;
-        let indisponibleProfRoom = data.indisponibleProfRoom.filter(
-          (element) => element.idEvent != this.state.eventToEdited.id
-        );
+        let indisponibleProfRoom = data.indisponibleProfRoom.filter((element) => element.idEvent != this.state.eventToEdited.id);
         let indisponbleRoomsIds = indisponibleProfRoom.map((element) => element.roomId);
         let indisponibleprofessorsIds = indisponibleProfRoom.map((element) => element.profId);
 
-        disponibleRooms = this.props.rooms.filter(
-          (element) => indisponbleRoomsIds.indexOf(element.id) < 0
-        );
+        disponibleRooms = this.props.rooms.filter((element) => indisponbleRoomsIds.indexOf(element.id) < 0);
         if (indisponbleRoomsIds.includes(this.state.room)) {
           this.setState({
             room: '',
@@ -493,15 +433,11 @@ class Planning extends React.Component {
       .get(apiEndpoint)
       .then((response) => {
         let data = response.data.checkData;
-        let indisponibleProfRoom = data.indisponibleProfRoom.filter(
-          (element) => element.idEvent != this.state.eventToEdited.id
-        );
+        let indisponibleProfRoom = data.indisponibleProfRoom.filter((element) => element.idEvent != this.state.eventToEdited.id);
         let indisponbleRoomsIds = indisponibleProfRoom.map((element) => element.roomId);
         let indisponibleprofessorsIds = indisponibleProfRoom.map((element) => element.profId);
 
-        disponibleRooms = this.props.rooms.filter(
-          (element) => indisponbleRoomsIds.indexOf(element.id) < 0
-        );
+        disponibleRooms = this.props.rooms.filter((element) => indisponbleRoomsIds.indexOf(element.id) < 0);
         if (indisponbleRoomsIds.includes(this.state.room)) {
           this.setState({
             room: '',
@@ -557,15 +493,11 @@ class Planning extends React.Component {
       .get(apiEndpoint)
       .then((response) => {
         let data = response.data.checkData;
-        let indisponibleProfRoom = data.indisponibleProfRoom.filter(
-          (element) => element.idEvent != this.state.eventToEdited.id
-        );
+        let indisponibleProfRoom = data.indisponibleProfRoom.filter((element) => element.idEvent != this.state.eventToEdited.id);
         let indisponbleRoomsIds = indisponibleProfRoom.map((element) => element.roomId);
         let indisponibleprofessorsIds = indisponibleProfRoom.map((element) => element.profId);
 
-        disponibleRooms = this.props.rooms.filter(
-          (element) => indisponbleRoomsIds.indexOf(element.id) < 0
-        );
+        disponibleRooms = this.props.rooms.filter((element) => indisponbleRoomsIds.indexOf(element.id) < 0);
         if (indisponbleRoomsIds.includes(this.state.room)) {
           this.setState({
             room: '',
@@ -615,21 +547,15 @@ class Planning extends React.Component {
       .then((response) => {
         let data = response.data.checkData;
         let indisponbleRoomsIds = _.difference(data.indisponibleRooms, [event.roomId]);
-        disponibleRooms = this.props.rooms.filter(
-          (element) => indisponbleRoomsIds.indexOf(element.id) < 0
-        );
+        disponibleRooms = this.props.rooms.filter((element) => indisponbleRoomsIds.indexOf(element.id) < 0);
         this.setState({
           disponibleRooms,
-          indisponibleprofessors: data.indisponibleprofessors.filter(
-            (element) => element != event.profId
-          ),
+          indisponibleprofessors: data.indisponibleprofessors.filter((element) => element != event.profId),
         });
       })
       .catch((err) => {});
 
-    const course = this.state.courses.filter(
-      (element) => element.fk_id_subject_v4 === event.subjectId
-    );
+    const course = this.state.courses.filter((element) => element.fk_id_subject_v4 === event.subjectId);
 
     if (event.eventType === 'exam') {
       const frequency = this.state.examFrequency;
@@ -653,7 +579,7 @@ class Planning extends React.Component {
         var professor = this.props.professors.filter((element) => {
           if (!_.isEmpty(element.profile.professors)) {
             var profElementId = element.profile.professors[0].id;
-            if (profElementId===profId) return element;
+            if (profElementId === profId) return element;
           }
         });
 
@@ -759,7 +685,7 @@ class Planning extends React.Component {
   };
 
   handleChangeEventType = () => {
-    if (this.state.EventGategorie===1) {
+    if (this.state.EventGategorie === 1) {
       this.setState({
         eventType: 'lesson',
       });
@@ -790,9 +716,7 @@ class Planning extends React.Component {
         .get(apiEndpoint)
         .then((response) => {
           let data = response.data.checkData;
-          disponibleRooms = this.props.rooms.filter(
-            (element) => data.indisponibleRooms.indexOf(element.id) < 0
-          );
+          disponibleRooms = this.props.rooms.filter((element) => data.indisponibleRooms.indexOf(element.id) < 0);
           this.setState({
             disponibleRooms,
             indisponibleprofessors: data.indisponibleprofessors,
@@ -808,9 +732,7 @@ class Planning extends React.Component {
 
   handleChangeFieldsProfessor = (name) => (event) => {
     if (event.target.value !== undefined) {
-      var Professor = this.state.professor.filter(
-        (element) => element.profile.professors[0].id===event.target.value
-      );
+      var Professor = this.state.professor.filter((element) => element.profile.professors[0].id === event.target.value);
       this.setState({
         [name]: event.target.value,
         profName: Professor[0].profile.user.name + ' ' + Professor[0].profile.user.surname,
@@ -819,7 +741,7 @@ class Planning extends React.Component {
     }
   };
   handleChangeFieldsRoom = (name) => (event) => {
-    var Room = this.props.rooms.filter((element) => element.id===event.target.value);
+    var Room = this.props.rooms.filter((element) => element.id === event.target.value);
     this.setState({
       [name]: event.target.value,
       roomName: Room[0].name,
@@ -828,9 +750,7 @@ class Planning extends React.Component {
 
   handleChangeSubject = (name) => (event) => {
     this.setState({ [name]: event.target.value });
-    const assignmentClassSelected = this.state.courses.find(
-      (element) => element.fk_id_subject_v4 === event.target.value
-    );
+    const assignmentClassSelected = this.state.courses.find((element) => element.fk_id_subject_v4 === event.target.value);
     if (assignmentClassSelected != undefined) {
       if (!_.isEmpty(assignmentClassSelected.course)) {
         this.setState({
@@ -842,8 +762,7 @@ class Planning extends React.Component {
         let professor = this.props.professors.filter((element) => {
           if (!_.isEmpty(element.profile.professors)) {
             let professorId = element.profile.professors[0].id;
-            if (professorId===profId && this.state.indisponibleprofessors.indexOf(professorId) < 0)
-              return element;
+            if (professorId === profId && this.state.indisponibleprofessors.indexOf(professorId) < 0) return element;
           }
         });
 
@@ -869,17 +788,11 @@ class Planning extends React.Component {
 
   handleChangeClasse = (name) => (event) => {
     this.props.dispatch(
-      getEventsByEstabAndSchoolYear(
-        this.props.userProfile.establishment_id,
-        this.props.userProfile.school_year_id,
-        event.target.value.id
-      )
+      getEventsByEstabAndSchoolYear(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id, event.target.value.id)
     );
     this.setState({ EventGategorie: event.target.value.id === 0 ? 0 : 1 });
     if (event.target.value.id && event.target.value.id !== 0) {
-      let courseAssignment = this.props.courseAssignment.filter(
-        (element) => element.fk_id_class_v4 === event.target.value.id
-      );
+      let courseAssignment = this.props.courseAssignment.filter((element) => element.fk_id_class_v4 === event.target.value.id);
 
       let subjects = _.map(courseAssignment, 'subject');
       let classe = this.state.establishmentClass.find(({ id }) => id === event.target.value.id);
@@ -914,12 +827,8 @@ class Planning extends React.Component {
   };
 
   handleChange = (name) => (event) => {
-    let classrooms = this.props.rooms.filter(
-      ({ establishment_id }) => establishment_id === event.target.value
-    );
-    let establishmentClass = this.props.classes.filter(
-      (classe) => classe.establishment_id === event.target.value
-    );
+    let classrooms = this.props.rooms.filter(({ establishment_id }) => establishment_id === event.target.value);
+    let establishmentClass = this.props.classes.filter((classe) => classe.establishment_id === event.target.value);
     this.setState({
       [name]: event.target.value,
       establishmentClass: establishmentClass,
@@ -953,19 +862,9 @@ class Planning extends React.Component {
   UNSAFE_componentWillMount() {
     const frequency = this.state.allFrequency;
     this.setState({ frequency: frequency });
-    this.props.dispatch(
-      getAssignementCourse(
-        this.props.userProfile.establishment_id,
-        this.props.userProfile.school_year_id
-      )
-    );
+    this.props.dispatch(getAssignementCourse(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id));
     this.props.dispatch(getProfesseurByEstablishmentId(this.props.userProfile.establishment_id));
-    this.props.dispatch(
-      getRoomsByEstablshment(
-        this.props.userProfile.establishment_id,
-        this.props.userProfile.school_year_id
-      )
-    );
+    this.props.dispatch(getRoomsByEstablshment(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id));
     if (this.props.userProfile.role_id !== roleIdSuperAdmin) {
       let apiEndpoint =
         `/class_v4?access_token=${localStorage.token}&filter[where][and][0][fk_id_establishment]=` +
@@ -1009,10 +908,7 @@ class Planning extends React.Component {
     dataSup.classId = this.state.classe.id;
     dataSup.establishmentId = this.props.userProfile.establishment_id;
     dataSup.schoolYearId = this.props.userProfile.school_year_id;
-    dataSup.logoEstab =
-      this.props.establishementInformations.logo === undefined
-        ? ''
-        : this.props.establishementInformations.logo;
+    dataSup.logoEstab = this.props.establishementInformations.logo === undefined ? '' : this.props.establishementInformations.logo;
     switch (expr) {
       case 'lesson':
         data.start_time = moment(this.state.startHours).format();
@@ -1026,39 +922,9 @@ class Planning extends React.Component {
         data.fk_id_assign_class_subject = this.state.assignClassSubjectId;
         data.fk_id_profile_creator = this.props.userProfile.id;
         data.repetition =
-          this.state.frequencyID==='weekly'
-            ? [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                21,
-                22,
-                23,
-                24,
-                25,
-                26,
-                27,
-                28,
-              ]
-            : this.state.frequencyID==='fortnightly'
+          this.state.frequencyID === 'weekly'
+            ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+            : this.state.frequencyID === 'fortnightly'
             ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
             : [0];
 
@@ -1088,39 +954,9 @@ class Planning extends React.Component {
         data.fk_id_assign_class_subject = this.state.courseAssignmentClass[0].id;
         data.fk_id_profile_creator = this.props.userProfile.id;
         data.repetition =
-          this.state.frequencyID==='weekly'
-            ? [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                21,
-                22,
-                23,
-                24,
-                25,
-                26,
-                27,
-                28,
-              ]
-            : this.state.frequencyID==='fortnightly'
+          this.state.frequencyID === 'weekly'
+            ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+            : this.state.frequencyID === 'fortnightly'
             ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
             : [0];
         break;
@@ -1196,15 +1032,11 @@ class Planning extends React.Component {
     dataSup.classId = this.state.classe.id;
     dataSup.establishmentId = this.props.userProfile.establishment_id;
     dataSup.schoolYearId = this.props.userProfile.school_year_id;
-    dataSup.logoEstab =
-      this.props.establishementInformations.logo === undefined
-        ? ''
-        : this.props.establishementInformations.logo;
-    if (this.state.eventChecked==='future') {
+    dataSup.logoEstab = this.props.establishementInformations.logo === undefined ? '' : this.props.establishementInformations.logo;
+    if (this.state.eventChecked === 'future') {
       //*-***************notif mail -------***********
 
       let oldDateStart = moment(this.state.eventToEdited.start).format('LLLL');
-      let oldDateEnd = moment(this.state.eventToEdited.end).format('LT');
       let newDateStart = moment(this.state.startHours).format('LLLL');
       let newDateEnd = moment(this.state.endHours).format('LT');
       messageNotif =
@@ -1224,9 +1056,7 @@ class Planning extends React.Component {
         roomLabel;
       // ---------------------------edit old event -----------------
 
-      let newRepetition = this.state.eventToEdited.repetition.filter(
-        (element) => element < this.state.eventToEdited.idRepetition
-      );
+      let newRepetition = this.state.eventToEdited.repetition.filter((element) => element < this.state.eventToEdited.idRepetition);
       data.repetition = newRepetition;
       this.props.dispatch(editEvent(data, dataSup));
       ////---------------new event ---------------
@@ -1244,18 +1074,13 @@ class Planning extends React.Component {
       newEventFutur.end_time = moment(this.state.endHours).format();
       newEventFutur.repetition = listRepetition.filter(
         (element) =>
-          element <
-          this.state.eventToEdited.repetition[this.state.eventToEdited.repetition.length - 1] -
-            this.state.eventToEdited.idRepetition +
-            1
+          element < this.state.eventToEdited.repetition[this.state.eventToEdited.repetition.length - 1] - this.state.eventToEdited.idRepetition + 1
       );
       this.props.dispatch(addEvent(newEventFutur, dataSup, messageNotif));
-    } else if (this.state.eventChecked==='uniq') {
+    } else if (this.state.eventChecked === 'uniq') {
       // ---------------------------edit old event -----------------
 
-      let newRepetition = this.state.eventToEdited.repetition.filter(
-        (element) => element != this.state.eventToEdited.idRepetition
-      );
+      let newRepetition = this.state.eventToEdited.repetition.filter((element) => element != this.state.eventToEdited.idRepetition);
       data.repetition = newRepetition;
       this.props.dispatch(editEvent(data, dataSup));
       ////---------------new event ---------------
@@ -1275,7 +1100,6 @@ class Planning extends React.Component {
       //*-***************notif mail -------***********
 
       let oldDateStart = moment(this.state.eventToEdited.start).format('LLLL');
-      let oldDateEnd = moment(this.state.eventToEdited.end).format('LT');
       let newDateStart = moment(this.state.startHours).format('LLLL');
       let newDateEnd = moment(this.state.endHours).format('LT');
       messageNotif =
@@ -1295,13 +1119,11 @@ class Planning extends React.Component {
         roomLabel;
 
       this.props.dispatch(addEvent(newEventFutur, dataSup, messageNotif));
-    } else if (this.state.eventChecked==='all') {
+    } else if (this.state.eventChecked === 'all') {
       let oldDateStart = moment(this.state.eventToEdited.start)
         .add(-7 * this.state.eventToEdited.idRepetition, 'days')
         .format('LLLL');
-      let oldDateEnd = moment(this.state.eventToEdited.end)
-        .add(-7 * this.state.eventToEdited.idRepetition, 'days')
-        .format('LT');
+
       let newDateStart = moment(this.state.startHours)
         .add(-7 * this.state.eventToEdited.idRepetition, 'days')
         .format('LLLL');
@@ -1332,14 +1154,8 @@ class Planning extends React.Component {
       data.fk_id_prof = this.state.professorId;
       data.fk_id_assign_class_subject = this.state.assignClassSubjectId;
       data.fk_id_profile_creator = this.props.userProfile.id;
-      data.start_time = moment(this.state.startHours).add(
-        -7 * this.state.eventToEdited.idRepetition,
-        'days'
-      );
-      data.end_time = moment(this.state.endHours).add(
-        -7 * this.state.eventToEdited.idRepetition,
-        'days'
-      );
+      data.start_time = moment(this.state.startHours).add(-7 * this.state.eventToEdited.idRepetition, 'days');
+      data.end_time = moment(this.state.endHours).add(-7 * this.state.eventToEdited.idRepetition, 'days');
       data.repetition = this.state.eventToEdited.repetition;
       this.props.dispatch(editEvent(data, dataSup, messageNotif));
     }
@@ -1374,13 +1190,13 @@ class Planning extends React.Component {
 
   handleRequestClose = () => {};
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
+    /* eslint array-callback-return: "off" */
     return (
       <div className="animated slideInUpTiny animation-duration-3">
         {this.state.alerteNotif ? (
-          <UncontrolledAlert
-            className={`alert-addon-card ${this.state.colorNotif} text-white shadow-lg`}
-          >
+          <UncontrolledAlert className={`alert-addon-card ${this.state.colorNotif} text-white shadow-lg`}>
             <span className="icon-addon alert-addon">
               <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
             </span>
@@ -1424,7 +1240,6 @@ class Planning extends React.Component {
           professorIdList={this.state.professorIdList}
           classroomId={this.state.classroomId}
           userPermission={this.props.userPermission}
-
         />
         {this.state.modal ? (
           <AddEvent
@@ -1458,7 +1273,6 @@ class Planning extends React.Component {
             handleNotifMailConfirmation={this.handleNotifMailConfirmation}
             handleDeleteConfirmation={this.handleDeleteConfirmation}
             userPermission={this.props.userPermission}
-
           />
         ) : (
           ''
@@ -1516,11 +1330,7 @@ class Planning extends React.Component {
         ) : (
           ''
         )}
-        {this.props.errorStatus ? (
-          <AlerteDelete modal={this.props.errorStatus} message={this.props.message} />
-        ) : (
-          ''
-        )}
+        {this.props.errorStatus ? <AlerteDelete modal={this.props.errorStatus} message={this.props.message} /> : ''}
         <SweetAlert
           show={this.state.show}
           title={<IntlMessages id="components.planning.alert.message.add.event" />}
@@ -1551,7 +1361,6 @@ const mapStateToProps = (state) => {
     showMessageEvent: state.planning.showMessageEvent,
     startTime: state.settings.startTime,
     endTime: state.settings.endTime,
-    settings: state.settings.locale.languageId,
     courseAssignment: state.AssignementReducer.courseAssignment,
     professors: state.professor.professors,
     settings: state.settings.locale,
@@ -1562,7 +1371,6 @@ const mapStateToProps = (state) => {
     professorsList: state.usersReducer.professors,
     establishementInformations: state.establishment.establishementInformations,
     userPermission: state.PermissionReducer.userPermission,
-
   };
 };
 

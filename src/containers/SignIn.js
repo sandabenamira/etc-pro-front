@@ -16,7 +16,6 @@ import ForgetPasswordModal from "./ForgetPasswordModal";
 import SweetAlert from "react-bootstrap-sweetalert";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {

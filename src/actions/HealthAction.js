@@ -21,7 +21,7 @@ export const addFicheMedical = (data, file) => {
         var suiviObject = response.data;
 
         if (file !== null) {
-          var formadata = new FormData();
+          // var formadata = new FormData();
           const fileExtension = file.name.replace(/^.*\./, "");
           const fileName =
             "fiche_medical_" + suiviObject.id + "." + fileExtension;
