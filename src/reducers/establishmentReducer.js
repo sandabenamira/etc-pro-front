@@ -1,5 +1,6 @@
 
-import { ADD_ESTABLISHMENT, GET_ALL_ESTABLISHMENT, DELETE_ESTABLISHMENT, EDIT_ESTABLISHMENT,GET_ESTABLISHMENT_INFORMATIONS } from "../constants/ActionTypes";
+import { ADD_ESTABLISHMENT, GET_ALL_ESTABLISHMENT, DELETE_ESTABLISHMENT, EDIT_ESTABLISHMENT,GET_ESTABLISHMENT_INFORMATIONS } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   remoteEstablishments: [],

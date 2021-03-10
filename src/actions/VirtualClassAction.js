@@ -9,7 +9,8 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
   ARCHIVED_VIRTUAL_CLASS,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import baseUrl from "../config/config";
 import axios from "axios";
 

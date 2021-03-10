@@ -9,7 +9,8 @@ import {
   EDIT_SCHOOL_LICENCE,
   DELETE_SCHOOL_LICENCE,
   ARCHIVED_GET_SCHOOL_LICENCE,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import { getNameFromID } from "../actions/countriesAction";
 import axios from "axios";
 import baseUrl from "../config/config";

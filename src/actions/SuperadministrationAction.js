@@ -9,7 +9,8 @@ import {
   HIDE_ERROR_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import baseUrl from "../config/config";
 import axios from "axios";
 export const addAdministration = (itemClass) => {

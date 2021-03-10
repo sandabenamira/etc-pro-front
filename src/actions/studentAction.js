@@ -1,5 +1,6 @@
 import { classService } from '../_services/class.service';
-import { GET_STUDENT_BY_ESTABLISHMENT, GET_STUDENT } from '../constants/ActionTypes';
+import { GET_STUDENT_BY_ESTABLISHMENT, GET_STUDENT } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 export function getStudents() {
   return (dispatch) => {
     let apiEndpoint = `/students?access_token=${localStorage.token}`;

@@ -4,7 +4,8 @@ import {
   EDIT_SUBJECT_MODULE,
   ADD_SUBJECT_MODULE,
   DELETE_SUBJECT_MODULES,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 const initialState = {
   subjectModules: [],
   archivedsubjectModules: [],

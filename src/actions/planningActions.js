@@ -13,7 +13,8 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
   GET_EVENTS_call_REGISTER,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import baseUrl from '../config/config';
 import IntlMessages from '../util/IntlMessages';
 

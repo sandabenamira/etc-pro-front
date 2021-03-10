@@ -23,7 +23,8 @@ import {
   HIDE_Licence_MESSAGE,
   GET_ESTABLISHMENT_INFORMATIONS,
   GET_PROFILE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import { isEmail } from '../constants/validationFunctions';
 import cst from '../config/config';
 import { getThemeColor, getAppLanguage, initOptions } from './Setting';

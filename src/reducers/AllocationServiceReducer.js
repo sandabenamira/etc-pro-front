@@ -3,7 +3,8 @@ import {
   ADD_ALLOCATION_SERVICE,
   EDIT_ALLOCATION_SERVICE,
   DELETE_ALLOCATION_SERVICE,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   remoteServices: [],

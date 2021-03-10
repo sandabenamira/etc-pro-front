@@ -1,4 +1,5 @@
-import { DATA_LOADED_EXAM, ADD_EXAM, DELETE_EXAM, EDIT_EXAM } from "../constants/ActionTypes";
+import { DATA_LOADED_EXAM, ADD_EXAM, DELETE_EXAM, EDIT_EXAM } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
     remoteExams: []

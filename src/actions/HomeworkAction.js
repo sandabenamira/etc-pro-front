@@ -10,7 +10,8 @@ import {
   ADD_NEW_HOMEWORK,
   DELETE_HOMEWORK,
   EDIT_HOMEWORK,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import axios from 'axios';
 
 export const addNewHomework = (data, homeworkFiles, classesData) => {

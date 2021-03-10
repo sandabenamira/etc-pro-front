@@ -8,7 +8,8 @@ import {
   ADD_ASSIGNEMENT_COURSE,
   DELETE_ASSIGNEMENT_COURSE,
   ARCHIVED_GET_ASSIGNEMENT_COURSE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import _ from 'lodash';
 
 export function addAssignementCourse(dataAssignementCourse) {

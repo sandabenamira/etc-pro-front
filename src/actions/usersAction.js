@@ -16,7 +16,8 @@ import {
   SHOW_LOADER,
   HIDE_LOADER,
   EDIT_PROFILE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import _ from 'lodash';
 import { getError } from '../Error/Error';
 import { classService } from '../_services/class.service';

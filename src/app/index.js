@@ -9,7 +9,8 @@ import Devoir from './routes/Learning/index';
 import Home from './routes/Home/index';
 import UserProfile from './routes/UserProfile/index';
 import { getSchoolYear, getProfile } from '../actions/Auth';
-import { COLLAPSED_DRAWER, FIXED_DRAWER } from '../constants/ActionTypes';
+import { COLLAPSED_DRAWER, FIXED_DRAWER } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import { isIOS, isMobile } from 'react-device-detect';
 import asyncComponent from '../util/asyncComponent';
 import Cafeteria from './routes/Cafeteria/index';

@@ -1,4 +1,5 @@
-import { DATA_LOADED_COUNTRIES} from "../constants/ActionTypes";
+import { DATA_LOADED_COUNTRIES} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
     remoteCountries: []

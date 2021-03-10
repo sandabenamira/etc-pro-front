@@ -1,4 +1,5 @@
-import { GET_ALL_LEVELS, ADD_LEVEL } from "../constants/ActionTypes";
+import { GET_ALL_LEVELS, ADD_LEVEL } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
     levels: [],

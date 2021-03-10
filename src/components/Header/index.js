@@ -15,7 +15,8 @@ import {
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
   HORIZONTAL_NAVIGATION,
-} from "../../constants/ActionTypes";
+} from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import SearchBox from "../../components/SearchBox";
 import { switchLanguage, toggleCollapsedNav } from "../../actions/Setting";
 import { classService } from "../../_services/class.service";

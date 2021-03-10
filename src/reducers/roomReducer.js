@@ -4,7 +4,8 @@ import {
   ADD_ROOM,
   EDIT_ROOM,
   DELETE_ROOM
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
   const initialState = {
     rooms: []
   };

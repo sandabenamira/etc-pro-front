@@ -9,7 +9,8 @@ import {
   EDIT_GROUPS,
   DELETE_GROUPS,
   ARCHIVED_GET_GROUPS,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 export function addGroup(data, dataClass) {
   return (dispatch) => {

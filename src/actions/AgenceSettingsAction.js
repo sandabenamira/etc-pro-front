@@ -9,7 +9,8 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 export function addAgence(data) {
   return (dispatch) => {
     let apiEndpoint = `/agencies?access_token=${localStorage.token}`;

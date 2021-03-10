@@ -14,7 +14,8 @@ import {
     SIGNIN_USER,
     SIGNOUT_USER,
     SIGNUP_USER
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import {showAuthMessage, userSignInSuccess,
      userSignOutSuccess, userSignUpSuccess} from "../actions/Auth";
 import {

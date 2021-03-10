@@ -2,7 +2,8 @@ import {
   GET_PERMISSION_SETTING,
   GET_USER_PERMISSION,
   EDIT_PERMISSION_SETTING,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import _ from 'lodash';
 
 const initialState = {

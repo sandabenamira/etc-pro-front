@@ -11,7 +11,8 @@ import {
   SHOW_SUCCESS_MESSAGE,
   SHOW_LOADER,
   HIDE_LOADER,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import baseUrl from "../config/config";
 import axios from "axios";
 

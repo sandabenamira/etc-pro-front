@@ -5,7 +5,8 @@ import {
     ADD,
     DELETE,
     PUBLISH,
-  } from "../constants/ActionTypes";
+  } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
   
   const initialState = {
     entity: [],

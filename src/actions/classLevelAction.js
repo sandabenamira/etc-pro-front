@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { classService } from "../_services/class.service";
-import { DATA_LOADED_LEVELS } from "../constants/ActionTypes";
+import { DATA_LOADED_LEVELS } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 function getLevelName(levels, id) {
   let levelName = levels.map((element) => {
     if (element.id === id) {

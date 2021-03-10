@@ -7,7 +7,8 @@ import { callService } from '../_services/call.service';
   SHOW_SUCCESS_MESSAGE,
   GET_USER_PERMISSION,
   EDIT_PERMISSION_SETTING,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 export const getPermissionSetting = (estabId) => {
   let id = parseInt(estabId, 10);

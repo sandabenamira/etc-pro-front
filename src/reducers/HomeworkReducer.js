@@ -4,7 +4,8 @@ import {
   ADD_NEW_HOMEWORK,
   DELETE_HOMEWORK,
   EDIT_HOMEWORK,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   homeworks: [],

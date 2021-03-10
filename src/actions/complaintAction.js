@@ -8,7 +8,8 @@ import {
   EDIT_RECLAM_STATUS,
   ON_CHANGE_STATUS_CLOSE,
   DELETE_RECLAM,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import _ from "lodash";
 import { classService } from "../_services/class.service";
 import baseUrl from "../config/config";

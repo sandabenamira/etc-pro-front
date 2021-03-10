@@ -3,7 +3,8 @@ import {
   EDIT_SATIS_SURVEY,
   DELETE_SATIS_SURVEY,
   GET_SATIS_SURVEY_LIST
-  } from '../constants/ActionTypes';
+  } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
   
   const initialState = {
     satisfactionSurveyList: [],

@@ -4,7 +4,8 @@ import {
   EDIT_SCHOOL_LICENCE,
   ADD_SCHOOL_LICENCE,
   DELETE_SCHOOL_LICENCE,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 const initialState = {
   schoolLicences: [],
   archivedSchoolLicences: [],

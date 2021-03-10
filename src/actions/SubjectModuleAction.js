@@ -9,7 +9,8 @@ import {
   EDIT_SUBJECT_MODULE,
   DELETE_SUBJECT_MODULES,
   ARCHIVED_GET_SUBJECT_MODULES,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 export function addSubjectModule(data) {
   return (dispatch) => {
     let apiEndpoint = `/subjects_module_v4?access_token=${localStorage.token}`;

@@ -1,4 +1,5 @@
-import { GENERATE_BILLS, FETECHED_ALL_BILLS, PAY_BILL } from '../constants/ActionTypes';
+import { GENERATE_BILLS, FETECHED_ALL_BILLS, PAY_BILL } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   remoteBills: [],

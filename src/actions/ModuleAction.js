@@ -4,7 +4,8 @@ import {
   GET_ALL_MODULE,
   EDIT_MODULE,
   DELETE_MODULE,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 export const getModules = () => {
   return (dispatch) => {
     let apiEndpoint = `/modules?access_token=${localStorage.token}`;

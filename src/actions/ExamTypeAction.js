@@ -9,7 +9,8 @@ import {
   EDIT_EXAM_TYPE,
   DELETE_EXAM_TYPES,
   ARCHIVED_GET_EXAM_TYPES,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 export function addExamType(data) {
   return (dispatch) => {
     let apiEndpoint = `/exam_type?access_token=${localStorage.token}`;

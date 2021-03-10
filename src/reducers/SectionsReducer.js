@@ -5,7 +5,8 @@ import {
   ADD_SECTION,
   DELETE_SECTIONS,
   PUBLISH_SECTIONS,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
   Section: [],

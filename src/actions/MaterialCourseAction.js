@@ -9,7 +9,8 @@ import {
   GET_MATERIAL_COURSE,
   GET_MATERIAL_COURSE_ARCHIVED,
   DELETE_MATERIAL_COURSE,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import baseUrl from '../config/config';
 import axios from 'axios';
 export function getLevelClassSubjectData(establishmentId, schoolYearId, roleId, roleUserId) {

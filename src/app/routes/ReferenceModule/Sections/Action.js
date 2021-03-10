@@ -11,7 +11,8 @@ import {
   DELETE,
   ARCHIVED,
   PUBLISH,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 export function add(data) {
   return (dispatch) => {

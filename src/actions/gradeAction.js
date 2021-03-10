@@ -1,6 +1,7 @@
 
 import { gradeService } from '../_services/grade.service';
-import { GET_ALL_GRADES, ADD_GRADE, UPDATE_GRADE } from "../constants/ActionTypes";
+import { GET_ALL_GRADES, ADD_GRADE, UPDATE_GRADE } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 export const getGrades = () => {
   return dispatch => {

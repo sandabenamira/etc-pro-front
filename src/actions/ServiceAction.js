@@ -9,7 +9,8 @@ import {
   SHOW_SUCCESS_MESSAGE,
   FETECHED_ALL_SERVICES_ARCHIVES,
   FETECHED_ALL_SERVICES_V2,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import baseUrl from "../config/config";
 import axios from "axios";
 import _ from "lodash";

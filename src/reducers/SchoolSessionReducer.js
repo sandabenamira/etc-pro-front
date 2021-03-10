@@ -4,7 +4,8 @@ import {
   EDIT_SCHOOL_SESSION,
   ADD_SCHOOL_SESSION,
   DELETE_SCHOOL_SESSION,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 const initialState = {
   schoolSessions: [],
   archivedSchoolSessions: [],

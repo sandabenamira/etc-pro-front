@@ -1,5 +1,6 @@
 
-import { SHOW_ERROR_MESSAGE, HIDE_ERROR_MESSAGE, HIDE_SUCCESS_MESSAGE, SHOW_SUCCESS_MESSAGE, SHOW_WARNING_MESSAGE,HIDE_WARNING_MESSAGE } from "../constants/ActionTypes";
+import { SHOW_ERROR_MESSAGE, HIDE_ERROR_MESSAGE, HIDE_SUCCESS_MESSAGE, SHOW_SUCCESS_MESSAGE, SHOW_WARNING_MESSAGE,HIDE_WARNING_MESSAGE } from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 const initialState = {
     error : false,

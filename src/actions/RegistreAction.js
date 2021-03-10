@@ -14,7 +14,8 @@ import {
   GET_ENCOURAGEMENTS,
   GET_SANCTION,
   GET_SETTING_CALL_REGISTER,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import _ from 'lodash';
 import {
   getEventCallRegisterForAdmin,

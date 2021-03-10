@@ -7,7 +7,8 @@ import {
   DELETE_USER,
   SHOW_LOADER,
   HIDE_LOADER,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 import { roleIdAdmin, roleIdProfessor, roleIdStudent, roleIdDirector, roleIdParent, roleIdSupervisor } from '../config/config';
 const initialState = {
   roles: [],

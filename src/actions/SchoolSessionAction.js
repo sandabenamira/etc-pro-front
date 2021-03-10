@@ -9,7 +9,8 @@ import {
   EDIT_SCHOOL_SESSION,
   DELETE_SCHOOL_SESSION,
   ARCHIVED_GET_SCHOOL_SESSION,
-} from '../constants/ActionTypes';
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+
 export function addSchoolSession(data) {
   let newObj = {
     name: data.name,

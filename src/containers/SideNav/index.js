@@ -7,7 +7,8 @@ import {
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
   HORIZONTAL_NAVIGATION,
-} from "../../constants/ActionTypes";
+} from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import { toggleCollapsedNav, updateWindowWidth } from "../../actions/Setting";
 import imageSchool from "../../assets/images/logoEducapGris.png";
 

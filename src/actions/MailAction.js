@@ -5,7 +5,8 @@ import {
   ON_MAIL_SEND,
   HANDLE_REQUEST_CLOSE,
   MAIL_NOT_SEND_ALERT,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 export const sendMail = (data, receivers, files) => {
   let mailItem = {};
   return (dispatch) => {

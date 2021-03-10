@@ -10,7 +10,8 @@ import {
   DELETE_SECTIONS,
   ARCHIVED_GET_SECTIONS,
   PUBLISH_SECTIONS,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 export function addSection(data) {
   return (dispatch) => {

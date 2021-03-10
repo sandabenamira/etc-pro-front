@@ -13,7 +13,8 @@ import {
   GET_SUBJECT_BY_Establishment_AND_SCHOOLYEAR,
   FETCH_CLASSES_SUBJECTS,
   ARCHIVER_SUBJECT_SETTING,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 
 function getSubjectName(subjects, subject_id) {
   let subjectName = subjects.find((element) => element.id === subject_id);

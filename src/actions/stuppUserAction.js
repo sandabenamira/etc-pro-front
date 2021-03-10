@@ -9,7 +9,8 @@ import {
   HIDE_WARNING_MESSAGE,
   SHOW_WARNING_MESSAGE,
   DATA_NEW_STUPPUSER,
-} from "../constants/ActionTypes";
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+
 import _ from "lodash";
 import { getError } from "../Error/Error";
 import { classService } from "../_services/class.service";
