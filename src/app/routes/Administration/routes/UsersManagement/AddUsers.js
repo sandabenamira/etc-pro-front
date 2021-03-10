@@ -136,7 +136,7 @@ class AddUsers extends React.Component {
       try {
         let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
         const response = await axios.post(baseUrl.baseUrl + apiEndpoint, dataUser);
-
+        console.log(response,'response');
         return data.indexFile;
       } catch (err) {
         // Handle Error Here
@@ -303,7 +303,7 @@ class AddUsers extends React.Component {
     event.preventDefault();
     if (this.state.invalidData.length === 0) {
       this.setState({ importDone: true });
-      let result = this.ImportXLSX(this.state.FormatedUserList);
+      this.ImportXLSX(this.state.FormatedUserList);
     } else {
       let alerteImportMessage = 'les lignes numéro ' + this.state.invalidData.map((element) => element.indexFile + ' , ') + 'sont invalides';
 

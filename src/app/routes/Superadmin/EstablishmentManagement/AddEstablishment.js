@@ -1,68 +1,47 @@
-import React from "react";
-import IntlMessages from "../../../../util/IntlMessages";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import InputLabel from "@material-ui/core/InputLabel";
-import { saveEstablishments } from "../../../../actions/establishmentAction";
-import { connect } from "react-redux";
-import Auxiliary from "../../../../util/Auxiliary";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import _ from "lodash";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const mode_payment = [
-  {
-    value: "Semestre",
-    label: <IntlMessages id="mode_payment.establishment.semester" />,
-  },
-  {
-    value: "Trimestre",
-    label: <IntlMessages id="mode_payment.establishment.trimester" />,
-  },
-  {
-    value: "Mensuel",
-    label: <IntlMessages id="mode_payment.establishment.monthly" />,
-  },
-  {
-    value: "Annuel",
-    label: <IntlMessages id="mode_payment.establishment.annual" />,
-  },
-];
+import React from 'react';
+import IntlMessages from '../../../../util/IntlMessages';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import { saveEstablishments } from '../../../../actions/establishmentAction';
+import { connect } from 'react-redux';
+import Auxiliary from '../../../../util/Auxiliary';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import _ from 'lodash';
 
 class AddEstablishment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       previewVisible: true,
-      name: "",
+      name: '',
       ar_disabled: true,
-      address: "",
-      code: "",
-      city: "",
+      address: '',
+      code: '',
+      city: '',
       country: null,
-      phone: "",
-      email_establishment: "",
-      website: "",
-      surname_director: "",
-      name_director: "",
-      email_director: "",
-      phone_director: "",
+      phone: '',
+      email_establishment: '',
+      website: '',
+      surname_director: '',
+      name_director: '',
+      email_director: '',
+      phone_director: '',
       categories: null,
       modules: [],
       establishmentlogo: null,
-      base64: "",
+      base64: '',
       establishmentPhotos: null,
-      base64photo: "",
-      matricule: "",
-      tva: "",
-      capital: "",
-      siren: "",
-      siret: "",
+      base64photo: '',
+      matricule: '',
+      tva: '',
+      capital: '',
+      siren: '',
+      siret: '',
       currentYearId: null,
-      iban:"",
-      rib:""
+      iban: '',
+      rib: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -85,7 +64,7 @@ class AddEstablishment extends React.Component {
     else return true;
   }
   handleChange = (name) => (event) => {
-    if (name === "country") {
+    if (name === 'country') {
       if (event.target.value === 1) {
         this.setState({
           [name]: event.target.value,
@@ -110,21 +89,21 @@ class AddEstablishment extends React.Component {
   handleCancel() {
     this.setState({
       previewVisible: false,
-      name: "",
-      address: "",
-      code: "",
-      city: "",
+      name: '',
+      address: '',
+      code: '',
+      city: '',
       country: 0,
-      phone: "",
-      email_establishment: "",
-      website: "",
-      surname_director: "",
-      name_director: "",
-      email_director: "",
-      phone_director: "",
+      phone: '',
+      email_establishment: '',
+      website: '',
+      surname_director: '',
+      name_director: '',
+      email_director: '',
+      phone_director: '',
       categories: 0,
       modules: [],
-      matricule: "",
+      matricule: '',
       tva: 0,
       capital: 0,
       siren: 0,
@@ -182,41 +161,40 @@ class AddEstablishment extends React.Component {
       siret,
       currentYearId,
       rib,
-      iban
-
+      iban,
     };
     this.props.saveEstablishments(data, this.state.establishmentPhotos);
     this.setState({
       previewVisible: false,
-      name: "",
-      address: "",
-      code: "",
-      city: "",
+      name: '',
+      address: '',
+      code: '',
+      city: '',
       country: 0,
-      phone: "",
-      email_establishment: "",
-      website: "",
-      surname_director: "",
-      name_director: "",
-      email_director: "",
-      phone_director: "",
+      phone: '',
+      email_establishment: '',
+      website: '',
+      surname_director: '',
+      name_director: '',
+      email_director: '',
+      phone_director: '',
       modules: [],
       establishmentlogo: null,
-      base64: "",
+      base64: '',
       modal: false,
       pictures: [],
       file: null,
       fileList: null,
       establishmentPhotos: null,
-      base64photo: "",
-      matricule: "",
-      tva: "",
-      capital: "",
-      siren: "",
-      siret: "",
+      base64photo: '',
+      matricule: '',
+      tva: '',
+      capital: '',
+      siren: '',
+      siret: '',
       currentYearId: null,
-      rib:"",
-      iban:""
+      rib: '',
+      iban: '',
     });
     this.props.cancelModal();
     this.onDrop = this.onDrop.bind(this);
@@ -254,37 +232,27 @@ class AddEstablishment extends React.Component {
     else return true;
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper">
         <Auxiliary>
           <Modal isOpen={this.state.previewVisible}>
-            <ModalHeader
-              toggle={this.handleCancel}
-              className="modal-box-header bg-primary text-white"
-            >
+            <ModalHeader toggle={this.handleCancel} className="modal-box-header bg-primary text-white">
               {<IntlMessages id="pages.establishementPage" />}
             </ModalHeader>
             <ModalBody>
-              <form
-                className="row"
-                autoComplete="off"
-                onSubmit={this.handleSubmit}
-              >
+              <form className="row" autoComplete="off" onSubmit={this.handleSubmit}>
                 <div className="col-sm-12">
-                  <h1>
-                    {<IntlMessages id="component.etablishments.info.general" />}
-                  </h1>
+                  <h1>{<IntlMessages id="component.etablishments.info.general" />}</h1>
                 </div>
                 <div className="col-sm-2">
                   <TextField
                     required
                     id="country"
-                    onChange={this.handleChange("country")}
+                    onChange={this.handleChange('country')}
                     select
-                    label={
-                      <IntlMessages id="components.establishments.formadd.country" />
-                    }
+                    label={<IntlMessages id="components.establishments.formadd.country" />}
                     value={this.state.country}
                     SelectProps={{}}
                     margin="normal"
@@ -302,10 +270,8 @@ class AddEstablishment extends React.Component {
                     required
                     name="name"
                     id="name"
-                    label={
-                      <IntlMessages id="components.establishments.formadd.name" />
-                    }
-                    onChange={this.handleChange("name")}
+                    label={<IntlMessages id="components.establishments.formadd.name" />}
+                    onChange={this.handleChange('name')}
                     margin="normal"
                     fullWidth
                     value={this.state.name}
@@ -316,10 +282,8 @@ class AddEstablishment extends React.Component {
                     required
                     id="address"
                     name="address"
-                    label={
-                      <IntlMessages id="components.establishments.formadd.adress" />
-                    }
-                    onChange={this.handleChange("address")}
+                    label={<IntlMessages id="components.establishments.formadd.adress" />}
+                    onChange={this.handleChange('address')}
                     value={this.state.address}
                     margin="normal"
                     fullWidth
@@ -331,14 +295,10 @@ class AddEstablishment extends React.Component {
                     id="code"
                     name="code"
                     type="number"
-                    onChange={this.handleChange("code")}
+                    onChange={this.handleChange('code')}
                     value={this.state.code}
-                    error={
-                      this.isZipCode(this.state.code) === false ? true : false
-                    }
-                    label={
-                      <IntlMessages id="components.establishments.formadd.codezip" />
-                    }
+                    error={this.isZipCode(this.state.code) === false ? true : false}
+                    label={<IntlMessages id="components.establishments.formadd.codezip" />}
                     margin="normal"
                     fullWidth
                   />
@@ -348,11 +308,9 @@ class AddEstablishment extends React.Component {
                   <TextField
                     required
                     id="city"
-                    onChange={this.handleChange("city")}
+                    onChange={this.handleChange('city')}
                     value={this.state.city}
-                    label={
-                      <IntlMessages id="components.establishments.formadd.city" />
-                    }
+                    label={<IntlMessages id="components.establishments.formadd.city" />}
                     margin="normal"
                     fullWidth
                   />
@@ -361,36 +319,23 @@ class AddEstablishment extends React.Component {
                   <TextField
                     required
                     id="phone"
-                    onChange={this.handleChange("phone")}
+                    onChange={this.handleChange('phone')}
                     value={this.state.phone}
-                    label={
-                      <IntlMessages id="components.establishments.formadd.phone" />
-                    }
+                    label={<IntlMessages id="components.establishments.formadd.phone" />}
                     type="number"
                     margin="normal"
                     fullWidth
-                    error={
-                      this.isPhonenumber(this.state.phone) === true ||
-                      this.state.phone.length === 0
-                        ? false
-                        : true
-                    }
+                    error={this.isPhonenumber(this.state.phone) === true || this.state.phone.length === 0 ? false : true}
                   />
                 </div>
                 <div className="col-sm-6">
                   <TextField
                     id="email_establishment"
                     type="email"
-                    onChange={this.handleChange("email_establishment")}
-                    error={
-                      this.isemail(this.state.email_establishment) === false
-                        ? true
-                        : false
-                    }
-                    value={this.state.email_establishment || ""}
-                    label={
-                      <IntlMessages id="components.establishments.formadd.email_establishment" />
-                    }
+                    onChange={this.handleChange('email_establishment')}
+                    error={this.isemail(this.state.email_establishment) === false ? true : false}
+                    value={this.state.email_establishment || ''}
+                    label={<IntlMessages id="components.establishments.formadd.email_establishment" />}
                     margin="normal"
                     fullWidth
                   />
@@ -398,11 +343,9 @@ class AddEstablishment extends React.Component {
                 <div className="col-sm-6">
                   <TextField
                     id="website"
-                    onChange={this.handleChange("website")}
+                    onChange={this.handleChange('website')}
                     value={this.state.website}
-                    label={
-                      <IntlMessages id="components.establishments.formadd.website" />
-                    }
+                    label={<IntlMessages id="components.establishments.formadd.website" />}
                     // type="url"
                     margin="normal"
                     fullWidth
@@ -419,11 +362,9 @@ class AddEstablishment extends React.Component {
                       <TextField
                         required
                         id="matricule"
-                        onChange={this.handleChange("matricule")}
+                        onChange={this.handleChange('matricule')}
                         value={this.state.matricule}
-                        label={
-                          <IntlMessages id="etablishments.info.matricule" />
-                        }
+                        label={<IntlMessages id="etablishments.info.matricule" />}
                         margin="normal"
                         fullWidth
                       />
@@ -432,22 +373,19 @@ class AddEstablishment extends React.Component {
                       <TextField
                         required
                         id="tva"
-                        onChange={this.handleChange("tva")}
+                        onChange={this.handleChange('tva')}
                         value={this.state.tva}
                         label={<IntlMessages id="etablishments.info.tva" />}
                         margin="normal"
                         fullWidth
-                        error={
-                          parseInt(this.state.tva, 10) < 0 ||
-                          parseInt(this.state.tva, 10) > 100
-                        }
+                        error={parseInt(this.state.tva, 10) < 0 || parseInt(this.state.tva, 10) > 100}
                       />
                     </div>
                     <div className="col-sm-4">
                       <TextField
                         required
                         id="capital"
-                        onChange={this.handleChange("capital")}
+                        onChange={this.handleChange('capital')}
                         value={this.state.capital}
                         label={<IntlMessages id="etablishments.info.Capital" />}
                         margin="normal"
@@ -457,8 +395,8 @@ class AddEstablishment extends React.Component {
                     </div>
                     <div className="col-sm-6">
                       <TextField
-                         id="rib"
-                        onChange={this.handleChange("rib")}
+                        id="rib"
+                        onChange={this.handleChange('rib')}
                         value={this.state.rib}
                         label={<IntlMessages id="etablishments.info.rib" />}
                         margin="normal"
@@ -471,8 +409,8 @@ class AddEstablishment extends React.Component {
                     </div>
                     <div className="col-sm-6">
                       <TextField
-                         id="iban"
-                        onChange={this.handleChange("iban")}
+                        id="iban"
+                        onChange={this.handleChange('iban')}
                         value={this.state.iban}
                         label={<IntlMessages id="etablishments.info.iban" />}
                         margin="normal"
@@ -490,54 +428,43 @@ class AddEstablishment extends React.Component {
                       <TextField
                         required
                         id="siren"
-                        onChange={this.handleChange("siren")}
+                        onChange={this.handleChange('siren')}
                         value={this.state.siren}
                         label={<IntlMessages id="etablishments.info.siren" />}
                         margin="normal"
                         fullWidth
-                        error={
-                          this.isSIREN(this.state.siren) === false
-                            ? true
-                            : false
-                        }
+                        error={this.isSIREN(this.state.siren) === false ? true : false}
                       />
                     </div>
                     <div className="col-sm-3">
                       <TextField
                         required
                         id="siret"
-                        onChange={this.handleChange("siret")}
+                        onChange={this.handleChange('siret')}
                         value={this.state.siret}
                         label={<IntlMessages id="etablishments.info.siret" />}
                         margin="normal"
                         fullWidth
-                        error={
-                          this.isSIRET(this.state.siret) === false
-                            ? true
-                            : false
-                        }
+                        error={this.isSIRET(this.state.siret) === false ? true : false}
                       />
                     </div>
                     <div className="col-sm-3">
                       <TextField
                         required
                         id="tva"
-                        onChange={this.handleChange("tva")}
+                        onChange={this.handleChange('tva')}
                         value={this.state.tva}
                         label={<IntlMessages id="etablishments.info.tva" />}
                         margin="normal"
                         fullWidth
-                        error={
-                          parseInt(this.state.tva, 10) < 0 ||
-                          parseInt(this.state.tva, 10) > 100
-                        }
+                        error={parseInt(this.state.tva, 10) < 0 || parseInt(this.state.tva, 10) > 100}
                       />
                     </div>
                     <div className="col-sm-3">
                       <TextField
                         required
                         id="capital"
-                        onChange={this.handleChange("capital")}
+                        onChange={this.handleChange('capital')}
                         value={this.state.capital}
                         label={<IntlMessages id="etablishments.info.Capital" />}
                         margin="normal"
@@ -547,8 +474,8 @@ class AddEstablishment extends React.Component {
                     </div>
                     <div className="col-sm-6">
                       <TextField
-                         id="rib"
-                        onChange={this.handleChange("rib")}
+                        id="rib"
+                        onChange={this.handleChange('rib')}
                         value={this.state.rib}
                         label={<IntlMessages id="etablishments.info.rib" />}
                         margin="normal"
@@ -561,8 +488,8 @@ class AddEstablishment extends React.Component {
                     </div>
                     <div className="col-sm-6">
                       <TextField
-                         id="iban"
-                        onChange={this.handleChange("iban")}
+                        id="iban"
+                        onChange={this.handleChange('iban')}
                         value={this.state.iban}
                         label={<IntlMessages id="etablishments.info.iban" />}
                         margin="normal"
@@ -579,21 +506,15 @@ class AddEstablishment extends React.Component {
                 <div className="col-sm-12">
                   <br />
                   <br />
-                  <h1>
-                    {
-                      <IntlMessages id="component.etablishments.info.director" />
-                    }
-                  </h1>
+                  <h1>{<IntlMessages id="component.etablishments.info.director" />}</h1>
                 </div>
                 <div className="col-sm-6">
                   <TextField
                     required
                     id="surname_director"
-                    onChange={this.handleChange("surname_director")}
+                    onChange={this.handleChange('surname_director')}
                     value={this.state.surname_director}
-                    label={
-                      <IntlMessages id="components.establishments.formadd.surname_director" />
-                    }
+                    label={<IntlMessages id="components.establishments.formadd.surname_director" />}
                     margin="normal"
                     fullWidth
                   />
@@ -602,11 +523,9 @@ class AddEstablishment extends React.Component {
                   <TextField
                     required
                     id="name_director"
-                    onChange={this.handleChange("name_director")}
+                    onChange={this.handleChange('name_director')}
                     value={this.state.name_director}
-                    label={
-                      <IntlMessages id="components.establishments.formadd.name_director" />
-                    }
+                    label={<IntlMessages id="components.establishments.formadd.name_director" />}
                     margin="normal"
                     fullWidth
                   />
@@ -617,16 +536,10 @@ class AddEstablishment extends React.Component {
                     required
                     id="email_director"
                     type="email"
-                    onChange={this.handleChange("email_director")}
-                    error={
-                      this.isemail(this.state.email_director) === false
-                        ? true
-                        : false
-                    }
-                    value={this.state.email_director || ""}
-                    label={
-                      <IntlMessages id="components.establishments.formadd.email_director" />
-                    }
+                    onChange={this.handleChange('email_director')}
+                    error={this.isemail(this.state.email_director) === false ? true : false}
+                    value={this.state.email_director || ''}
+                    label={<IntlMessages id="components.establishments.formadd.email_director" />}
                     margin="normal"
                     fullWidth
                   />
@@ -636,42 +549,29 @@ class AddEstablishment extends React.Component {
                   <TextField
                     required
                     id="phone_director"
-                    onChange={this.handleChange("phone_director")}
+                    onChange={this.handleChange('phone_director')}
                     value={this.state.phone_director}
-                    label={
-                      <IntlMessages id="components.establishments.formadd.phone_director" />
-                    }
+                    label={<IntlMessages id="components.establishments.formadd.phone_director" />}
                     type="number"
                     margin="normal"
                     fullWidth
-                    error={
-                      this.isPhonenumber(this.state.phone_director) === true ||
-                      this.state.phone_director.length === 0
-                        ? false
-                        : true
-                    }
+                    error={this.isPhonenumber(this.state.phone_director) === true || this.state.phone_director.length === 0 ? false : true}
                   />
                 </div>
 
                 <div className="col-sm-12">
                   <br />
                   <br />
-                  <h1>
-                    {
-                      <IntlMessages id="component.etablishments.info.categorie" />
-                    }
-                  </h1>
+                  <h1>{<IntlMessages id="component.etablishments.info.categorie" />}</h1>
                 </div>
 
                 <div className="col-sm-6">
                   <TextField
                     required
                     id="categories"
-                    onChange={this.handleChange("categories")}
+                    onChange={this.handleChange('categories')}
                     select
-                    label={
-                      <IntlMessages id="components.establishments.formadd.Categories" />
-                    }
+                    label={<IntlMessages id="components.establishments.formadd.Categories" />}
                     value={this.state.categories}
                     SelectProps={{}}
                     margin="normal"
@@ -687,17 +587,13 @@ class AddEstablishment extends React.Component {
                 <div className="col-sm-12">
                   <br />
                   <br />
-                  <h1>
-                    {
-                      <IntlMessages id="component.etablishments.info.school.cuurent.years" />
-                    }
-                  </h1>
+                  <h1>{<IntlMessages id="component.etablishments.info.school.cuurent.years" />}</h1>
                 </div>
                 <div className="col-sm-6">
                   <TextField
                     required
                     id="currentYearId"
-                    onChange={this.handleChange("currentYearId")}
+                    onChange={this.handleChange('currentYearId')}
                     value={this.state.currentYearId}
                     select
                     label={<IntlMessages id="filter.school.years" />}
@@ -713,57 +609,31 @@ class AddEstablishment extends React.Component {
                   </TextField>
                 </div>
                 <div className="col-sm-12 pt-3">
-                  <InputLabel htmlFor="name-multiple">
-                    {
-                      <IntlMessages id="components.establishments.formadd.logo" />
-                    }
-                  </InputLabel>{" "}
-                  <br /> <br />
+                  <InputLabel htmlFor="name-multiple">{<IntlMessages id="components.establishments.formadd.logo" />}</InputLabel> <br /> <br />
                   <label
                     htmlFor="files"
                     className="btn"
                     style={{
-                      cursor: "pointer",
-                      color: "white",
-                      fontWeight: "bold",
-                      backgroundColor: "#4C19A9",
-                      borderRadius: "4rem",
+                      cursor: 'pointer',
+                      color: 'white',
+                      fontWeight: 'bold',
+                      backgroundColor: '#4C19A9',
+                      borderRadius: '4rem',
                     }}
                   >
-                    <strong>
-                      {
-                        <IntlMessages id="components.establishments.formadd.selectImage" />
-                      }
-                    </strong>
-                  </label>{" "}
+                    <strong>{<IntlMessages id="components.establishments.formadd.selectImage" />}</strong>
+                  </label>{' '}
                   <label htmlFor="files" className="btn">
                     {this.state.inputText}
                   </label>
-                  <input
-                    id="files"
-                    type="file"
-                    style={{ visibility: "hidden" }}
-                    onChange={(e) => this.onDrop(e)}
-                  />
+                  <input id="files" type="file" style={{ visibility: 'hidden' }} onChange={(e) => this.onDrop(e)} />
                 </div>
                 <div className="col-md-12 text-left pt-3">
-                  <Button
-                    variant="contained"
-                    className="jr-btn bg-indigo text-white "
-                    type="submit"
-                  >
-                    {
-                      <IntlMessages id="components.establishments.formadd.buttonAdd" />
-                    }
+                  <Button variant="contained" className="jr-btn bg-indigo text-white " type="submit">
+                    {<IntlMessages id="components.establishments.formadd.buttonAdd" />}
                   </Button>
-                  <Button
-                    variant="contained"
-                    className="jr-btn bg-grey text-white "
-                    onClick={this.handleCancel}
-                  >
-                    {
-                      <IntlMessages id="components.establishments.formadd.buttonCancel" />
-                    }
+                  <Button variant="contained" className="jr-btn bg-grey text-white " onClick={this.handleCancel}>
+                    {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
                   </Button>
                 </div>
               </form>
@@ -781,9 +651,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    saveEstablishments,
-  }
-)(AddEstablishment);
+export default connect(mapStateToProps, {
+  saveEstablishments,
+})(AddEstablishment);

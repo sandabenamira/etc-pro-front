@@ -1,4 +1,4 @@
-import { classService } from "../_services/class.service";
+import { classService } from '../_services/class.service';
 import {
   ADD_MOOCS,
   GET_MOOCS,
@@ -11,10 +11,10 @@ import {
   SHOW_SUCCESS_MESSAGE,
   SHOW_LOADER,
   HIDE_LOADER,
-} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
 
-import baseUrl from "../config/config";
-import axios from "axios";
+import baseUrl from '../config/config';
+import axios from 'axios';
 
 export const addMoocs = (itemMoocs) => {
   return (dispatch) => {
@@ -26,7 +26,7 @@ export const addMoocs = (itemMoocs) => {
       type: object.file.type,
     });
     let formadata = new FormData();
-    formadata.append("video", myNewFile);
+    formadata.append('video', myNewFile);
     dispatch({
       type: SHOW_LOADER,
       payload: true,
@@ -35,7 +35,7 @@ export const addMoocs = (itemMoocs) => {
     classService
       .post(apiEndpoint, formadata, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       })
       .then((response) => {
@@ -75,7 +75,7 @@ export const addMoocs = (itemMoocs) => {
               });
               dispatch({
                 type: SHOW_SUCCESS_MESSAGE,
-                payload: "La création est effectuée avec succès",
+                payload: 'La création est effectuée avec succès',
               });
               setTimeout(() => {
                 dispatch({ type: HIDE_SUCCESS_MESSAGE });
@@ -87,8 +87,7 @@ export const addMoocs = (itemMoocs) => {
               });
               dispatch({
                 type: SHOW_ERROR_MESSAGE,
-                payload:
-                  "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+                payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
               });
               setTimeout(() => {
                 dispatch({ type: HIDE_ERROR_MESSAGE });
@@ -102,8 +101,7 @@ export const addMoocs = (itemMoocs) => {
           });
           dispatch({
             type: SHOW_ERROR_MESSAGE,
-            payload:
-              "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+            payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
           });
           setTimeout(() => {
             dispatch({ type: HIDE_ERROR_MESSAGE });
@@ -128,6 +126,7 @@ export function getMoocs(establishmentId, schoolYearId, roleId, roleUserId) {
           } else {
             moocsListUnarchived.push(elementItem);
           }
+          return elementItem;
         });
 
         dispatch({
@@ -145,14 +144,9 @@ export function getMoocs(establishmentId, schoolYearId, roleId, roleUserId) {
 export function deleteMoocs(item) {
   return (dispatch) => {
     axios
-      .patch(
-        `${baseUrl.baseUrl}/moocs/` +
-          item.id +
-          `?access_token=${localStorage.token}`,
-        {
-          status: false,
-        }
-      )
+      .patch(`${baseUrl.baseUrl}/moocs/` + item.id + `?access_token=${localStorage.token}`, {
+        status: false,
+      })
       .then((response) => {
         if (response) {
           dispatch({ type: DELETE_MOOCS, payload: response.data.id });
@@ -167,21 +161,20 @@ export function deleteMoocs(item) {
         } else {
           dispatch({
             type: SHOW_ERROR_MESSAGE,
-            payload:
-              "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+            payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
           });
           setTimeout(() => {
             dispatch({ type: HIDE_ERROR_MESSAGE });
           }, 4000);
         }
       })
-      .catch(function(error) {});
+      .catch(function (error) {});
   };
 }
 
 export function editMoocs(itemMoocs) {
   return (dispatch) => {
-    if (itemMoocs.moocsFile===null) {
+    if (itemMoocs.moocsFile === null) {
       let dataMoocs = {
         id: itemMoocs.id,
         moocs_topic: itemMoocs.topicMoocs,
@@ -194,54 +187,47 @@ export function editMoocs(itemMoocs) {
         status: true,
         moocs_url: itemMoocs.moocsUrl,
       };
-      axios
-        .put(
-          `${baseUrl.baseUrl}/moocs/edit-moocs?access_token=${localStorage.token}`,
-          dataMoocs
-        )
-        .then((response) => {
-          if (response) {
-            let newObject = {
-              dateOfCreation: response.data.MoocsUpDate.moocs.creation_date,
-              educationalGoals:
-                response.data.MoocsUpDate.moocs.educational_goals,
-              id: response.data.MoocsUpDate.moocs.id,
-              moocsAssignCourse: itemMoocs.assignmentRefresh,
-              moocsDuration: response.data.MoocsUpDate.moocs.moocs_duration,
-              moocsSession: response.data.MoocsUpDate.moocs.moocs_session,
-              moocsStatus: response.data.MoocsUpDate.moocs.status,
-              moocsTopic: response.data.MoocsUpDate.moocs.moocs_topic,
-              moocsUrl: response.data.MoocsUpDate.moocs.moocs_url,
-              poster: itemMoocs.userReresh,
-              prerequiste: response.data.MoocsUpDate.moocs.prerequiste,
-            };
+      axios.put(`${baseUrl.baseUrl}/moocs/edit-moocs?access_token=${localStorage.token}`, dataMoocs).then((response) => {
+        if (response) {
+          let newObject = {
+            dateOfCreation: response.data.MoocsUpDate.moocs.creation_date,
+            educationalGoals: response.data.MoocsUpDate.moocs.educational_goals,
+            id: response.data.MoocsUpDate.moocs.id,
+            moocsAssignCourse: itemMoocs.assignmentRefresh,
+            moocsDuration: response.data.MoocsUpDate.moocs.moocs_duration,
+            moocsSession: response.data.MoocsUpDate.moocs.moocs_session,
+            moocsStatus: response.data.MoocsUpDate.moocs.status,
+            moocsTopic: response.data.MoocsUpDate.moocs.moocs_topic,
+            moocsUrl: response.data.MoocsUpDate.moocs.moocs_url,
+            poster: itemMoocs.userReresh,
+            prerequiste: response.data.MoocsUpDate.moocs.prerequiste,
+          };
 
-            dispatch({
-              type: EDIT_MOOCS,
-              payload: newObject,
-            });
+          dispatch({
+            type: EDIT_MOOCS,
+            payload: newObject,
+          });
 
-            // dispatch(
-            //   getMoocs(establishmentId, schoolYearId, roleId, roleUserId)
-            // );
-            dispatch({
-              type: SHOW_SUCCESS_MESSAGE,
-              payload: "La modification est effectuée avec succès",
-            });
-            setTimeout(() => {
-              dispatch({ type: HIDE_SUCCESS_MESSAGE });
-            }, 4000);
-          } else {
-            dispatch({
-              type: SHOW_ERROR_MESSAGE,
-              payload:
-                "Une erreur est survenue lors de la création merci d'essayer à nouveau",
-            });
-            setTimeout(() => {
-              dispatch({ type: HIDE_ERROR_MESSAGE });
-            }, 4000);
-          }
-        });
+          // dispatch(
+          //   getMoocs(establishmentId, schoolYearId, roleId, roleUserId)
+          // );
+          dispatch({
+            type: SHOW_SUCCESS_MESSAGE,
+            payload: 'La modification est effectuée avec succès',
+          });
+          setTimeout(() => {
+            dispatch({ type: HIDE_SUCCESS_MESSAGE });
+          }, 4000);
+        } else {
+          dispatch({
+            type: SHOW_ERROR_MESSAGE,
+            payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+          });
+          setTimeout(() => {
+            dispatch({ type: HIDE_ERROR_MESSAGE });
+          }, 4000);
+        }
+      });
     } else {
       let moocsFile = itemMoocs.moocsFile;
       var object = {};
@@ -251,7 +237,7 @@ export function editMoocs(itemMoocs) {
         type: object.file.type,
       });
       let formadata = new FormData();
-      formadata.append("video", myNewFile);
+      formadata.append('video', myNewFile);
       dispatch({
         type: SHOW_LOADER,
         payload: true,
@@ -260,7 +246,7 @@ export function editMoocs(itemMoocs) {
       classService
         .post(apiEndpoint, formadata, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
         })
         .then((response) => {
@@ -277,59 +263,50 @@ export function editMoocs(itemMoocs) {
               status: true,
               moocs_url: response.data.moocsURL,
             };
-            axios
-              .put(
-                `${baseUrl.baseUrl}/moocs/edit-moocs?access_token=${localStorage.token}`,
-                dataMoocs
-              )
-              .then((response) => {
-                if (response) {
-                  let newObject = {
-                    dateOfCreation:
-                      response.data.MoocsUpDate.moocs.creation_date,
-                    educationalGoals:
-                      response.data.MoocsUpDate.moocs.educational_goals,
-                    id: response.data.MoocsUpDate.moocs.id,
-                    moocsAssignCourse: itemMoocs.assignmentRefresh,
-                    moocsDuration:
-                      response.data.MoocsUpDate.moocs.moocs_duration,
-                    moocsSession: response.data.MoocsUpDate.moocs.moocs_session,
-                    moocsStatus: response.data.MoocsUpDate.moocs.status,
-                    moocsTopic: response.data.MoocsUpDate.moocs.moocs_topic,
-                    moocsUrl: response.data.MoocsUpDate.moocs.moocs_url,
-                    poster: itemMoocs.userReresh,
-                    prerequiste: response.data.MoocsUpDate.moocs.prerequiste,
-                  };
-                  dispatch({
-                    type: EDIT_MOOCS,
-                    payload: newObject,
-                  });
-                  dispatch({
-                    type: HIDE_LOADER,
-                    payload: false,
-                  });
-                  dispatch({
-                    type: SHOW_SUCCESS_MESSAGE,
-                    payload: "La modification est effectuée avec succès",
-                  });
-                  setTimeout(() => {
-                    dispatch({ type: HIDE_SUCCESS_MESSAGE });
-                  }, 4000);
-                } else {
-                  dispatch({
-                    type: HIDE_LOADER,
-                    payload: false,
-                  });
-                  dispatch({
-                    type: SHOW_ERROR_MESSAGE,
-                    payload:
-                      "Une erreur est survenue lors de la création merci d'essayer à nouveau",
-                  });
-                  setTimeout(() => {
-                    dispatch({ type: HIDE_ERROR_MESSAGE });
-                  }, 4000);
-                }
-              });
+            axios.put(`${baseUrl.baseUrl}/moocs/edit-moocs?access_token=${localStorage.token}`, dataMoocs).then((response) => {
+              if (response) {
+                let newObject = {
+                  dateOfCreation: response.data.MoocsUpDate.moocs.creation_date,
+                  educationalGoals: response.data.MoocsUpDate.moocs.educational_goals,
+                  id: response.data.MoocsUpDate.moocs.id,
+                  moocsAssignCourse: itemMoocs.assignmentRefresh,
+                  moocsDuration: response.data.MoocsUpDate.moocs.moocs_duration,
+                  moocsSession: response.data.MoocsUpDate.moocs.moocs_session,
+                  moocsStatus: response.data.MoocsUpDate.moocs.status,
+                  moocsTopic: response.data.MoocsUpDate.moocs.moocs_topic,
+                  moocsUrl: response.data.MoocsUpDate.moocs.moocs_url,
+                  poster: itemMoocs.userReresh,
+                  prerequiste: response.data.MoocsUpDate.moocs.prerequiste,
+                };
+                dispatch({
+                  type: EDIT_MOOCS,
+                  payload: newObject,
+                });
+                dispatch({
+                  type: HIDE_LOADER,
+                  payload: false,
+                });
+                dispatch({
+                  type: SHOW_SUCCESS_MESSAGE,
+                  payload: 'La modification est effectuée avec succès',
+                });
+                setTimeout(() => {
+                  dispatch({ type: HIDE_SUCCESS_MESSAGE });
+                }, 4000);
+              } else {
+                dispatch({
+                  type: HIDE_LOADER,
+                  payload: false,
+                });
+                dispatch({
+                  type: SHOW_ERROR_MESSAGE,
+                  payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+                });
+                setTimeout(() => {
+                  dispatch({ type: HIDE_ERROR_MESSAGE });
+                }, 4000);
+              }
+            });
           } else {
             dispatch({
               type: HIDE_LOADER,
@@ -337,8 +314,7 @@ export function editMoocs(itemMoocs) {
             });
             dispatch({
               type: SHOW_ERROR_MESSAGE,
-              payload:
-                "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+              payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
             });
             setTimeout(() => {
               dispatch({ type: HIDE_ERROR_MESSAGE });
