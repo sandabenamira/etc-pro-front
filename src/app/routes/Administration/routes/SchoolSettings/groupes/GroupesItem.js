@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import IconButton from "@material-ui/core/IconButton";
-import { getNameFromID } from "../../../../../../actions/countriesAction";
 /* eslint eqeqeq: "off" */
 export default class GroupesItem extends Component {
   render() {   /* eslint eqeqeq: "off" */
-    const { groupItem, educationTypes } = this.props;
+    const { groupItem} = this.props;
 
     return (
       <TableRow key={groupItem.id}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import asyncComponent from '../../../util/asyncComponent';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Can from '../../../can';
 import { RoleContext } from '../../../Context';
 import Complaint from './routes/Complaint/Complaint';
@@ -26,16 +26,10 @@ const Community = ({ match, estabModule }) => (
                     role={role}
                     perform={`module-nav-complaints`}
                     yes={() => <Complaint match={match} />}
-                    no={() => (
-                      <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
-                      />
-                    )}
+                    no={() => <Route component={asyncComponent(() => import('../../../components/Error404'))} />}
                   />
                 )}
-                no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
-                )}
+                no={() => <Route component={asyncComponent(() => import('../../../components/Error404'))} />}
               />
             )}
           </RoleContext.Consumer>
@@ -58,16 +52,10 @@ const Community = ({ match, estabModule }) => (
                     role={role}
                     perform={`module-nav-internal_mail`}
                     yes={() => <Mail match={match} />}
-                    no={() => (
-                      <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
-                      />
-                    )}
+                    no={() => <Route component={asyncComponent(() => import('../../../components/Error404'))} />}
                   />
                 )}
-                no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
-                )}
+                no={() => <Route component={asyncComponent(() => import('../../../components/Error404'))} />}
               />
             )}
           </RoleContext.Consumer>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardSubtitle, CardText } from "reactstrap";
 import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import IntlMessages from "../../../../util/IntlMessages";
 
 const SolidCards = ({ headerText, cardStyle }) => {

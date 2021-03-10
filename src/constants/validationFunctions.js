@@ -6,6 +6,7 @@
 //   'Vie scolaire': 'add-school-life',
 //   Director: 'add-direction-membre',
 // };
+/* eslint eqeqeq: "off" */
 const addUserRbac = {
   Admin: 'add-admin',
   Formateur: 'add-prof',
@@ -30,14 +31,7 @@ const editUserRbac = {
   'Vie scolaire': 'edit-school-life',
   Director: 'edit-direction-membre',
 };
-const getUserRbac = {
-  Admin: 'get-admin',
-  Professor: 'get-prof',
-  Parent: 'get-parent',
-  Student: 'get-student',
-  'Vie scolaire': 'get-school-life',
-  Director: 'get-direction-membre',
-};
+
 module.exports = {
   isEmail(value) {
     if (value != null) {
@@ -72,7 +66,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac===addUserRbac[roleLabel]) > -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac === addUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -81,7 +75,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac===deleteUserRbac[roleLabel]) > -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac === deleteUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -90,7 +84,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac===editUserRbac[roleLabel]) > -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac === editUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -99,7 +93,7 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac===editUserRbac[roleLabel]) > -1;
+      permission = userPermission.findIndex((element) => element.permission.rbac === editUserRbac[roleLabel]) > -1;
     }
 
     return permission;
@@ -108,7 +102,7 @@ module.exports = {
     if (!permissionList || permissionList.length === 0) {
       return false;
     } else {
-      const found = permissionList.find((element) => element.permission.rbac===permission);
+      const found = permissionList.find((element) => element.permission.rbac === permission);
       if (typeof found != 'undefined') {
         return true;
       } else {

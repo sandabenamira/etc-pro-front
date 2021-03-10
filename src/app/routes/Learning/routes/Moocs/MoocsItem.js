@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import IconButton from '@material-ui/core/IconButton';
- import IntlMessages from '../../../../../util/IntlMessages';
- import { connect } from 'react-redux';
+import IntlMessages from '../../../../../util/IntlMessages';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
- 
- 
+
 import { NavLink } from 'react-router-dom';
 import Can from '../../../../../can';
 import { RoleContext } from '../../../../../Context';
- import HoverVideoPlayer from 'react-hover-video-player';
- import img2 from './Assets/img2.jpg';
+import HoverVideoPlayer from 'react-hover-video-player';
+import img2 from './Assets/img2.jpg';
 import img3 from './Assets/img3.png';
 import img4 from './Assets/img4.jpg';
 class MoocsItem extends Component {
@@ -21,12 +20,7 @@ class MoocsItem extends Component {
       itemId: 0,
       deleteIsopen: false,
       anchorEl: undefined,
-      imagesList: [
-        './Assets/img1.jpg',
-        './Assets/img2.jpg',
-        './Assets/img3.png',
-        './Assets/img4.jpg',
-      ],
+      imagesList: ['./Assets/img1.jpg', './Assets/img2.jpg', './Assets/img3.png', './Assets/img4.jpg'],
     };
     this.handleShowDeleteModal = this.handleShowDeleteModal.bind(this);
   }
@@ -44,8 +38,9 @@ class MoocsItem extends Component {
     this.setState({ menuState: false });
   };
 
-  render() {   /* eslint eqeqeq: "off" */
-    const { anchorEl, menuState } = this.state;
+  render() {
+    /* eslint eqeqeq: "off" */
+
     const { moocsItem } = this.props;
     var things = [img2, img3, img4];
     var thing = things[Math.floor(Math.random() * things.length)];
@@ -71,7 +66,7 @@ class MoocsItem extends Component {
                   <HoverVideoPlayer
                     style={{ width: '100%', height: '200px' }}
                     videoSrc={moocsItem.moocsUrl}
-                    pausedOverlay={<img src={thing} style={{ width: '100%', height: '200px' }} />}
+                    pausedOverlay={<img src={thing} style={{ width: '100%', height: '200px' }} alt="" />}
                   />
                 </span>
               </div>
@@ -79,25 +74,16 @@ class MoocsItem extends Component {
           </div>
           <div className="card-body" style={{ paddingLeft: '10px' }}>
             <div className="product-details">
-              <div style={{ fontSize: '16px', color: ' #3c3b37', width: '100%' }}>
-                {moocsItem.moocsTopic}
-              </div>
-              <div style={{ fontSize: '12px', color: ' #73726c' }}>
-                {' '}
-                {moocsItem.moocsAssignCourse[0].subjectName}
-              </div>
+              <div style={{ fontSize: '16px', color: ' #3c3b37', width: '100%' }}>{moocsItem.moocsTopic}</div>
+              <div style={{ fontSize: '12px', color: ' #73726c' }}> {moocsItem.moocsAssignCourse[0].subjectName}</div>
               <div className="d-flex ">
                 <div style={{ fontSize: '10px', color: ' #73726c' }}>
-                  <IntlMessages id="moocs.date.add" /> :{' '}
-                  {moment(moocsItem.dateOfCreation).format('DD/MM/YYYY') +
-                    '  ,   ' +
-                    moocsItem.moocsSession}
+                  <IntlMessages id="moocs.date.add" /> : {moment(moocsItem.dateOfCreation).format('DD/MM/YYYY') + '  ,   ' + moocsItem.moocsSession}
                 </div>
               </div>
               <div className="d-flex ">
                 <div style={{ fontSize: '10px', color: ' #73726c' }}>
-                  <IntlMessages id="moocs.postor" /> :{' '}
-                  {moocsItem.poster.name + ' ' + moocsItem.poster.surname}
+                  <IntlMessages id="moocs.postor" /> : {moocsItem.poster.name + ' ' + moocsItem.poster.surname}
                 </div>
               </div>
             </div>
@@ -118,9 +104,7 @@ class MoocsItem extends Component {
                         height: '20px',
                       }}
                     >
-                      <NavLink
-                        to={`/app/e-learning/moocs_details/${moocsItem.id}/${moocsItem.moocsTopic}`}
-                      >
+                      <NavLink to={`/app/e-learning/moocs_details/${moocsItem.id}/${moocsItem.moocsTopic}`}>
                         <span style={{ fontSize: '10px' }}> Visualiser</span>
                       </NavLink>
                     </Button>

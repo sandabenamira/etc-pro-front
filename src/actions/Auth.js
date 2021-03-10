@@ -18,7 +18,7 @@ import {
   SIGNOUT_USER_SUCCESS,
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
-   FETECHED_ALL_SCHOOL_YEAR_ETAB,
+  FETECHED_ALL_SCHOOL_YEAR_ETAB,
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
   GET_ESTABLISHMENT_INFORMATIONS,
@@ -38,13 +38,14 @@ export const userSignUp = (user) => {
 export const userSignIn = (user) => {
   var login = user.login;
   var password = user.password;
+  var User = {};
   if (isEmail(login)) {
-    var User = {
+    User = {
       email: login,
       password: password,
     };
   } else {
-    var User = {
+    User = {
       username: login,
       password: password,
     };

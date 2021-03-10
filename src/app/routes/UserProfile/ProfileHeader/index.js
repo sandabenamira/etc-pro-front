@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Avatar from "@material-ui/core/Avatar";
-import moment from "moment";
 import "moment/locale/fr";
 import imageStudent from "../../../../assets/images/supAdmin.png";
 class ProfileHeader extends Component {

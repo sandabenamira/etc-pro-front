@@ -48,8 +48,7 @@ class ServiceAllocationItem extends React.Component {
           <AppBar
             position="relative"
             color="transparent"
-            position="sticky"
-            className={classes.header}
+             className={classes.header}
             // style={{
             //   borderTopRightRadius: '12px',
             //   borderBottomRightRadius: '12px',

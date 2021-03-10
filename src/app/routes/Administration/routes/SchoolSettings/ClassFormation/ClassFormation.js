@@ -67,6 +67,7 @@ class ClassFormation extends React.Component {
         newHoraireList.push({ ...element, id: newIndex });
         newIndex++;
       }
+      return true;
     });
     this.setState({ horaireList: newHoraireList });
   };
@@ -76,6 +77,7 @@ class ClassFormation extends React.Component {
       if (element.id != index) {
         agenceIds.push(element.agence.id);
       }
+      return true;
     });
     let newParticipantList = [];
     let newIndex = 0;
@@ -85,6 +87,7 @@ class ClassFormation extends React.Component {
         newParticipantList.push({ ...element, id: newIndex });
         newIndex++;
       }
+      return true;
     });
     this.setState({ participantList: newParticipantList, agenceIds });
   };
@@ -99,6 +102,7 @@ class ClassFormation extends React.Component {
         id: element.id,
         isAdded: true,
       });
+      return true;
     });
     horaireList.push({
       id: index,
@@ -143,6 +147,7 @@ class ClassFormation extends React.Component {
         id: element.id,
         isAdded: true,
       });
+      return true;
     });
     participantList.push({
       agence: {},
@@ -504,7 +509,8 @@ class ClassFormation extends React.Component {
       this.setState({ professorList, studentsList });
     }
   }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div
         className="app-wrapper"

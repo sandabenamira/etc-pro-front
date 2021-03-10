@@ -1,10 +1,5 @@
-import { moduleService } from "../_services/module.service";
-import {
-  ADD_MODULE,
-  GET_ALL_MODULE,
-  EDIT_MODULE,
-  DELETE_MODULE,
-} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+import { moduleService } from '../_services/module.service';
+import { GET_ALL_MODULE } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
 
 export const getModules = () => {
   return (dispatch) => {

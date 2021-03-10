@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import IntlMessages from '../../util/IntlMessages';
 import {
-  sousModuleEtab,
   sousModuleEtab2,
   sousModuleELearning,
   sousModuleAssiduity,
-  sousModuleCalendar,
-  sousModuleGrades,
   sousModuleLibraries,
-  sousModuleFinancialManagement,
+  // sousModuleFinancialManagement,
   sousModuleSuperadmin,
   sousModuleCommunity,
   sousModuleEvaluation,
@@ -65,7 +62,7 @@ const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
                 }}
                 yes={() => (
                   <>
-                    <a className="nav-text ">
+                    <a className="nav-text " href={null}>
                       <IntlMessages id={`sidebar.components.${pathName}`} />
                     </a>
                     <ul className="sub-menu">
@@ -276,7 +273,8 @@ class Menu extends Component {
     return null;
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const estabModule = this.props.estabModule;
     return (
       <div className="d-none d-xl-block">

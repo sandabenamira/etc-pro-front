@@ -25,26 +25,7 @@ export function getEstablishment() {
       .catch((error) => {});
   };
 }
-export function addEstablishmentContainers(listEstablishment) {
-  return (dispatch) => {
-    let apiEndpoint = `/containers?access_token=${localStorage.token}`;
-    classService
-      .get(apiEndpoint)
-      .then((response) => {
-        listEstablishment.map((establishment) => {
-          if (_.some(response.data, ["name", establishment.name])) {
-          } else {
-            let container = { name: establishment.name };
-            let formadata = new FormData();
-            formadata.append("image", container);
-            let apiEndpoint2 = `/containers?access_token=${localStorage.token}`;
-            classService.post(apiEndpoint2, container);
-          }
-        });
-      })
-      .catch((error) => {});
-  };
-}
+ 
 
 export function uploadFile2(payload, file) {
   return (dispatch) => {

@@ -1,17 +1,15 @@
 import React from 'react';
 import IntlMessages from '../../../../../../util/IntlMessages';
-import CardBox from '../../../../../../components/CardBox/index';
-import Can from '../../../../../../can';
-import { RoleContext } from '../../../../../../Context';
+
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import RemoveSharpIcon from '@material-ui/icons/RemoveSharp';
 import { connect } from 'react-redux';
-import MenuItem from '@material-ui/core/MenuItem';
+
 import Select from 'react-select';
-import FormControl from '@material-ui/core/FormControl';
+
 import InputLabel from '@material-ui/core/InputLabel';
 import ClassNames from 'classnames';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -23,27 +21,14 @@ import { TimePicker } from '@material-ui/pickers';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import _ from 'lodash';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 class AddClassFormation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.validationClickStep1 = this.validationClickStep1.bind(this);
-    this.validationClickStep2 = this.validationClickStep2.bind(this);
   }
 
-  validationClickStep1() {
-    if (this.props.values.nameClassFormation === '' && _.isEmpty(this.props.values.subjectSelected)===true) {
-      return true;
-    } else return false;
-  }
-  validationClickStep2() {
-    if (this.props.values.agenceIds === [] && _.isEmpty(this.props.values.participantList)===true) {
-      return true;
-    } else return false;
-  }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const { values } = this.props;
 
     return (
@@ -162,10 +147,6 @@ class AddClassFormation extends React.Component {
               </div>
               <div className="d-flex flex-row-reverse mt-2">
                 <Button
-                  disabled={
-                    // values.step2 &&
-                    this.validationClickStep1()===true ? true : false
-                  }
                   variant="contained"
                   style={{
                     borderBottomLeftRadius: '16px',
@@ -275,10 +256,6 @@ class AddClassFormation extends React.Component {
                   ))}
                   <div className="d-flex flex-row-reverse mt-2">
                     <Button
-                      disabled={
-                        // values.step3 &&
-                        this.validationClickStep2()===true ? true : false
-                      }
                       variant="contained"
                       style={{
                         borderBottomLeftRadius: '16px',
@@ -468,7 +445,7 @@ class AddClassFormation extends React.Component {
                   <div
                     className={ClassNames({
                       'd-flex flex-row justify-content-end mt-3': this.props.settings.locale !== 'ar',
-                      '': this.props.settings.locale==='ar',
+                      '': this.props.settings.locale === 'ar',
                     })}
                   >
                     <Button

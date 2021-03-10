@@ -1,21 +1,19 @@
-import React from "react";
-import CardBox from "../../../../../../components/CardBox/index";
-import AddClassesSettings from "./AddClassesSettings";
-import { connect } from "react-redux";
-import ClassesSettingsList from "./ClassesSettingsList";
-import ArchiveClassesSettings from "./ArchiveClassesSettings";
-import { UncontrolledAlert } from "reactstrap";
-import { addClassSetting } from "../../../../../../actions/ClassSettingsAction";
-import moment from "moment";
+import React from 'react';
+import CardBox from '../../../../../../components/CardBox/index';
+import { connect } from 'react-redux';
+import ClassesSettingsList from './ClassesSettingsList';
+import { UncontrolledAlert } from 'reactstrap';
+import { addClassSetting } from '../../../../../../actions/ClassSettingsAction';
+import moment from 'moment';
 
 class ClassesSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      nameClassSettings: "",
+      nameClassSettings: '',
       alerteFiltre: false,
-      messageAlerte: "",
+      messageAlerte: '',
       level_id: null,
       section_id: null,
       sections: [],
@@ -46,14 +44,14 @@ class ClassesSettings extends React.Component {
     };
     this.props.dispatch(addClassSetting(data));
     this.openAddModal();
-    this.setState({ nameClassSettings: "", level_id: "", section_id: "" });
+    this.setState({ nameClassSettings: '', level_id: '', section_id: '' });
   }
   handleArchive(event) {
     event.preventDefault();
 
     this.openAddModal();
     this.setState({
-      nameClassSettings: "",
+      nameClassSettings: '',
     });
   }
 
@@ -66,23 +64,20 @@ class ClassesSettings extends React.Component {
     this.setState({ [name]: event.target.value, sections });
   };
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div>
         <div className=" d-flex flex-wrap flex-column mb-3">
-          
           {this.state.alerteFiltre ? (
             <UncontrolledAlert className="alert-addon-card bg-success bg-success text-white shadow-lg">
               <span className="icon-addon alert-addon">
                 <i className="zmdi zmdi-cloud-done zmdi-hc-fw zmdi-hc-lg" />
               </span>
-              <span className="d-inline-block">
-                {" "}
-                {this.state.messageAlerte}{" "}
-              </span>
+              <span className="d-inline-block"> {this.state.messageAlerte} </span>
             </UncontrolledAlert>
           ) : (
-            ""
+            ''
           )}
           {/* <div className=" bd-highlight" style={{ width: "90%" }}>
           <CardBox styleName="col-lg-12">
@@ -99,7 +94,7 @@ class ClassesSettings extends React.Component {
           </CardBox>
         </div> */}
         </div>
-        <div className=" bd-highlight" style={{ width: "90%" }}>
+        <div className=" bd-highlight" style={{ width: '90%' }}>
           <CardBox styleName="col-lg-12">
             <ClassesSettingsList
               ClassSettings={this.props.ClassSettings}
@@ -132,7 +127,6 @@ const mapStateToProps = (state) => {
     sections: state.SectionsReducer.Section,
     userProfile: state.auth.userProfile,
     courseAssignment: state.AssignementReducer.courseAssignment,
-
   };
 };
 export default connect(mapStateToProps)(ClassesSettings);

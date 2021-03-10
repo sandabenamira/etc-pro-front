@@ -44,7 +44,7 @@ export const invoiceNotificationWithMail = (data) => {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
           payload:
-            "Une erreur est survenue lors de l\'envoie de mail, merci d'essayer à nouveau",
+            "Une erreur est survenue lors de l' envoie de mail, merci d'essayer à nouveau",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import About from "./About/index";
-import Contact from "./Contact/index";
-import ProfileHeader from "./ProfileHeader/index";
 import Auxiliary from "../../../util/Auxiliary";
 // import Events from "./Events/index";
 import { connect } from "react-redux";

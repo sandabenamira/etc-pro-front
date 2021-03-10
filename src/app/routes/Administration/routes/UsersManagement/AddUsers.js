@@ -20,27 +20,23 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import PrintIcon from '@material-ui/icons/Print';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
-import { getAllRole, importUsersFromFile } from '../../../../../actions/usersAction';
 import PhotoIcon from '@material-ui/icons/Photo';
 import {
   roleIdSuperAdmin,
-  roleIdAdmin,
+   
   roleIdProfessor,
   roleIdStudent,
-  roleIdDirector,
+ 
   roleIdParent,
-  roleIdSupervisor,
-} from '../../../../../config/config';
-import { isEmail, isPhonenumber, isZipCode, isCIN, isValidphoneNumber } from '../../../../../constants/validationFunctions';
+ } from '../../../../../config/config';
+import { isEmail   } from '../../../../../constants/validationFunctions';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import moment from 'moment';
-import RemoveIcon from '@material-ui/icons/Remove';
-import ModalImportUser from './ModalImportUser';
+ import ModalImportUser from './ModalImportUser';
 import ModalExportUser from './ModalExportUser';
 import readXlsxFile from 'read-excel-file';
-import { element } from 'prop-types';
-import _ from 'lodash';
+ import _ from 'lodash';
 import AlerteImport from './AlerteImport';
 
 import axios from 'axios';
@@ -103,8 +99,7 @@ class AddUsers extends React.Component {
       importStatus: [],
       importDone: false,
       fileUploaded: false,
-      templateUrl:'https://s3.eu-west-3.amazonaws.com/classebook.data.storage/educap/Template-import-user-Educap-Pro.xlsx'
-
+      templateUrl: 'https://s3.eu-west-3.amazonaws.com/classebook.data.storage/educap/Template-import-user-Educap-Pro.xlsx',
     };
     this.handleSubmitImport = this.handleSubmitImport.bind(this);
     this.handleOpenImportModal = this.handleOpenImportModal.bind(this);
@@ -152,7 +147,7 @@ class AddUsers extends React.Component {
         statusBelongTo: true,
         activityUserBelongAgency: true,
       };
-       try {
+      try {
         let apiEndpoint = `/users/createByRole?access_token=${localStorage.token}`;
         const response = await axios.post(baseUrl.baseUrl + apiEndpoint, dataUser);
 
@@ -339,7 +334,7 @@ class AddUsers extends React.Component {
     });
   };
   render() {
-     /* eslint eqeqeq: "off" */
+    /* eslint eqeqeq: "off" */
     const { values } = this.props;
     return (
       <div className="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap align-items-start">
@@ -1270,4 +1265,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getAllRole, importUsersFromFile })(AddUsers);
+export default connect(mapStateToProps)(AddUsers);

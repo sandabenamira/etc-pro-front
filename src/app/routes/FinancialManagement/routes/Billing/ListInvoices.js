@@ -7,10 +7,9 @@ import { connect } from "react-redux";
 import {SendInvoice} from "../../../../../actions/BillAction"
 import ConfirmInvoiceModal from "./ConfirmInvoiceModal"
 import {
-  unpaidInvoice,
+  
   partiallyPaidInvoice,
-  billPaid,
-  lateInvoice,
+  
 } from "../../../../../config/config";
 let invoices = [
   {

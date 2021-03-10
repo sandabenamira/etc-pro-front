@@ -1,9 +1,7 @@
 import React from 'react';
 import IntlMessages from '../../../../../../util/IntlMessages';
-import Fab from '@material-ui/core/Fab';
-import { connect } from 'react-redux';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import Table from '@material-ui/core/Table';
+ import { connect } from 'react-redux';
+ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';

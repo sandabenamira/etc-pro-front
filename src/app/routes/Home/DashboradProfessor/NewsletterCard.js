@@ -1,8 +1,7 @@
 import React from "react";
 import { Card, CardBody, CardSubtitle, CardText } from "reactstrap";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import { Badge } from "reactstrap";
-import IconButton from "@material-ui/core/IconButton";
+ import IconButton from "@material-ui/core/IconButton";
 import IntlMessages from "../../../../util/IntlMessages";
 
 const NewsletterCard = ({ headerText, cardStyle }) => {

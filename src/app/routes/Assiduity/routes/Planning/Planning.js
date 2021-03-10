@@ -8,8 +8,7 @@ import PlanningCalendar from './PlanningCalendar';
 import { getRoomsByEstablshment } from '../../../../../actions/roomAction';
 import { connect } from 'react-redux';
 import {
-  getData as getProfessors,
-  getProfesseurByEstablishmentId,
+   getProfesseurByEstablishmentId,
 } from '../../../../../actions/professorAction';
 import {
   addEvent,
@@ -653,8 +652,8 @@ class Planning extends React.Component {
         const profId = course[0].course[0].fk_id_professor;
         var professor = this.props.professors.filter((element) => {
           if (!_.isEmpty(element.profile.professors)) {
-            var x = element.profile.professors[0].id;
-            if (x===profId) return element;
+            var profElementId = element.profile.professors[0].id;
+            if (profElementId===profId) return element;
           }
         });
 

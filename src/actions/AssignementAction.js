@@ -72,7 +72,6 @@ export function deleteAssignementCourse(data) {
       let apiEndpoint = `/assignment_class_subjects/${element.id}?access_token=${localStorage.token}`;
       classService.patch(apiEndpoint, element).then((response) => {
         if (response) {
-          console.log('response delete ', response.data);
           dispatch({ type: DELETE_ASSIGNEMENT_COURSE, payload: response.data });
           dispatch({
             type: SHOW_SUCCESS_MESSAGE,
@@ -91,6 +90,7 @@ export function deleteAssignementCourse(data) {
           }, 4000);
         }
       });
+      return true;
     });
   };
 }

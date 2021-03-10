@@ -1,22 +1,17 @@
-import React from "react";
-import IntlMessages from "../../../util/IntlMessages";
-import { RoleContext } from "../../../Context";
-import Can from "../../../can";
-import { connect } from "react-redux";
-import ResetPasswordModal from "./ResetPasswordModal";
-import axios from "axios";
-import { baseUrl } from "../../../config/config";
-import {
-  roleIdProfessor,
-  roleIdStudent,
-  roleIdParent,
-} from "../../../config/config";
-import { classService } from "../../../_services/class.service";
-import moment from "moment";
-import StudentDashborad from "../Home/DashboradStudent/StudentDashboard";
-import ProfessorDashborad from "../Home/DashboradProfessor/ProfessorDashboard";
-import { getAllUsersByEstablishmentId } from "../../../actions/stuppUserAction";
-import AdminDashboard from "../Home/DashboardAdmin/AdminDashboard";
+import React from 'react';
+import IntlMessages from '../../../util/IntlMessages';
+import { RoleContext } from '../../../Context';
+import Can from '../../../can';
+import { connect } from 'react-redux';
+import ResetPasswordModal from './ResetPasswordModal';
+import axios from 'axios';
+import { baseUrl } from '../../../config/config';
+import { roleIdProfessor, roleIdStudent, roleIdParent } from '../../../config/config';
+import { classService } from '../../../_services/class.service';
+import moment from 'moment';
+import StudentDashborad from '../Home/DashboradStudent/StudentDashboard';
+import ProfessorDashborad from '../Home/DashboradProfessor/ProfessorDashboard';
+ import AdminDashboard from '../Home/DashboardAdmin/AdminDashboard';
 
 let currentDate = new Date();
 
@@ -27,9 +22,9 @@ class Home extends React.Component {
     this.state = {
       anchorEl: undefined,
       menuState: false,
-      resetPassword: "",
-      oldPassword: "",
-      confirmresetPassword: "",
+      resetPassword: '',
+      oldPassword: '',
+      confirmresetPassword: '',
       errorAlert: false,
       succedAlert: false,
       isopen: true,
@@ -47,31 +42,18 @@ class Home extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (prevProps.users !== this.props.users) {
-      let listParent = this.props.users.filter(
-        (element) => element.role_id===roleIdParent
-      );
-      let listStudent = this.props.users.filter(
-        (element) => element.role_id===roleIdStudent
-      );
-      let listProf = this.props.users.filter(
-        (element) => element.role_id===roleIdProfessor
-      );
+      let listParent = this.props.users.filter((element) => element.role_id === roleIdParent);
+      let listStudent = this.props.users.filter((element) => element.role_id === roleIdStudent);
+      let listProf = this.props.users.filter((element) => element.role_id === roleIdProfessor);
 
       this.setState({ countesProfessors: listProf.length });
       this.setState({ countesParents: listParent.length });
       this.setState({ countesStudents: listStudent.length });
-      let nbreGirls = listStudent.filter(
-        (element) => element.user.gender === "Féminin"
-      );
-      let nbreBoys = listStudent.filter(
-        (element) => element.user.gender === "Masculin"
-      );
+      let nbreGirls = listStudent.filter((element) => element.user.gender === 'Féminin');
+      let nbreBoys = listStudent.filter((element) => element.user.gender === 'Masculin');
       this.setState({ nbreGirls: nbreGirls.length, nbreBoys: nbreBoys.length });
     }
   }
- 
-
-   
 
   onOptionMenuSelect = (event) => {
     this.setState({ menuState: true, anchorEl: event.currentTarget });
@@ -95,7 +77,7 @@ class Home extends React.Component {
     data.password = this.state.resetPassword;
     data.oldpassword = this.state.oldPassword;
     data.userId = this.props.userProfile.user_id;
-    var token = localStorage.getItem("token");
+    var token = localStorage.getItem('token');
     axios
       .post(`${baseUrl}/users/change-password?access_token=` + token, {
         oldPassword: data.oldpassword,
@@ -103,21 +85,16 @@ class Home extends React.Component {
       })
       .then((response) => {
         axios
-          .post(
-            `${baseUrl}/users/reset-initial-password?access_token=${token}`,
-            data,
-            {
-              headers: { "content-type": "application/json" },
-            }
-          )
+          .post(`${baseUrl}/users/reset-initial-password?access_token=${token}`, data, {
+            headers: { 'content-type': 'application/json' },
+          })
           .then((res) => {
             if (res.data.existe === true) {
- 
               this.setState({
                 succedAlert: true,
-                resetPassword: "",
-                confirmresetPassword: "",
-                oldPassword: "",
+                resetPassword: '',
+                confirmresetPassword: '',
+                oldPassword: '',
               });
               setTimeout(
                 function () {
@@ -128,9 +105,9 @@ class Home extends React.Component {
             } else {
               this.setState({
                 errorAlert: true,
-                resetPassword: "",
-                confirmresetPassword: "",
-                oldPassword: "",
+                resetPassword: '',
+                confirmresetPassword: '',
+                oldPassword: '',
               });
               setTimeout(
                 function () {
@@ -144,9 +121,9 @@ class Home extends React.Component {
             if (error.response.status === 400) {
               this.setState({
                 errorAlert: true,
-                resetPassword: "",
-                confirmresetPassword: "",
-                oldPassword: "",
+                resetPassword: '',
+                confirmresetPassword: '',
+                oldPassword: '',
               });
               setTimeout(
                 function () {
@@ -161,9 +138,9 @@ class Home extends React.Component {
         if (error.response.status === 400) {
           this.setState({
             errorAlert: true,
-            resetPassword: "",
-            confirmresetPassword: "",
-            oldPassword: "",
+            resetPassword: '',
+            confirmresetPassword: '',
+            oldPassword: '',
           });
           setTimeout(
             function () {
@@ -175,8 +152,9 @@ class Home extends React.Component {
       });
   }
 
-  render() {   /* eslint eqeqeq: "off" */
-      const { anchorEl, menuState } = this.state;
+  render() {
+    /* eslint eqeqeq: "off" */
+    const { anchorEl, menuState } = this.state;
     return (
       <RoleContext.Consumer>
         {({ role }) => (
@@ -196,7 +174,7 @@ class Home extends React.Component {
                       values={this.state}
                     />
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               )}
@@ -216,7 +194,7 @@ class Home extends React.Component {
                       values={this.state}
                     />
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               )}
@@ -236,7 +214,7 @@ class Home extends React.Component {
                       values={this.state}
                     />
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               )}
@@ -254,6 +232,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  getAllUsersByEstablishmentId,
-})(Home);
+export default connect(mapStateToProps)(Home);

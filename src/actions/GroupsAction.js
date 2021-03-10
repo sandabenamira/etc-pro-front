@@ -1,4 +1,4 @@
-import { classService } from "../_services/class.service";
+import { classService } from '../_services/class.service';
 import {
   SHOW_SUCCESS_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
@@ -9,8 +9,7 @@ import {
   EDIT_GROUPS,
   DELETE_GROUPS,
   ARCHIVED_GET_GROUPS,
-} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
-
+} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
 
 export function addGroup(data, dataClass) {
   return (dispatch) => {
@@ -18,10 +17,10 @@ export function addGroup(data, dataClass) {
     classService.post(apiEndpoint, data).then((response) => {
       if (response) {
         let dataStore = { ...dataClass, group: [response.data] };
-         dispatch({ type: ADD_GROUPS, payload: dataStore });
+        dispatch({ type: ADD_GROUPS, payload: dataStore });
         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
-          payload: "La création est effectuée avec succès",
+          payload: 'La création est effectuée avec succès',
         });
         setTimeout(() => {
           dispatch({ type: HIDE_SUCCESS_MESSAGE });
@@ -29,8 +28,7 @@ export function addGroup(data, dataClass) {
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
-          payload:
-            "Une erreur est survenue lors de la création merci d'essayer à nouveau",
+          payload: "Une erreur est survenue lors de la création merci d'essayer à nouveau",
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_MESSAGE });
@@ -63,7 +61,7 @@ export function getGroup(establishementId, schoolYearId) {
       if (response) {
         let groupList = [];
         let ArchivedGroupList = [];
-        response.data.map((element) => { 
+        response.data.map((element) => {
           if (element.status && element.group.length > 0) {
             let listTrue = [];
             let listFalse = [];
@@ -75,6 +73,7 @@ export function getGroup(establishementId, schoolYearId) {
               ArchivedGroupList.push({ ...element, group: listFalse });
             }
           }
+          return true;
         });
 
         dispatch({ type: GET_GROUPS, payload: groupList });
@@ -86,10 +85,7 @@ export function getGroup(establishementId, schoolYearId) {
 
 export function deleteGroup(itemId) {
   return (dispatch) => {
-    let apiEndpoint =
-      `/group_v4/` +
-      itemId.id +
-      `?access_token=${localStorage.token}`;
+    let apiEndpoint = `/group_v4/` + itemId.id + `?access_token=${localStorage.token}`;
     classService
       .patch(apiEndpoint, {
         status: false,
@@ -97,6 +93,6 @@ export function deleteGroup(itemId) {
       .then((response) => {
         dispatch({ type: DELETE_GROUPS, payload: response.data });
       })
-      .catch(function(error) {});
+      .catch(function (error) {});
   };
 }

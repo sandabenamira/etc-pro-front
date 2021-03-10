@@ -34,7 +34,7 @@ class SideNav extends React.PureComponent {
     const {
       navCollapsed,
       drawerType,
-      width,
+      // width,
       navigationStyle,
       establishementInformations,
     } = this.props;
@@ -43,17 +43,17 @@ class SideNav extends React.PureComponent {
       : drawerType.includes(COLLAPSED_DRAWER)
       ? ""
       : "d-flex";
-    let type = "permanent";
-    if (
-      drawerType.includes(COLLAPSED_DRAWER) ||
-      (drawerType.includes(FIXED_DRAWER) && width < 1200)
-    ) {
-      type = "temporary";
-    }
+    // let type = "permanent";
+    // if (
+    //   drawerType.includes(COLLAPSED_DRAWER) ||
+    //   (drawerType.includes(FIXED_DRAWER) && width < 1200)
+    // ) {
+    //   type = "temporary";
+    // }
 
     if (navigationStyle === HORIZONTAL_NAVIGATION) {
       drawerStyle = "";
-      type = "temporary";
+      // type = "temporary";
     }
     return (
       <div className={`app-sidebar d-none ${drawerStyle}`}>

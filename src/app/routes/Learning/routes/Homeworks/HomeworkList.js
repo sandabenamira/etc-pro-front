@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { getSectionFromLevel } from '../../../../../actions/sectionAction';
-import { getLevelListFromEstabType } from '../../../../../actions/classLevelAction';
-import axios from 'axios';
-import baseUrl from '../../../../../config/config';
- import { roleIdAdmin } from '../../../../../config/config';
-import { roleIdProfessor } from '../../../../../config/config';
-import { roleIdParent } from '../../../../../config/config';
-import { roleIdStudent } from '../../../../../config/config';
+import { roleIdAdmin } from '../../../../../config/config';
+
 import _ from 'lodash';
-import { privateStatus, publicStatus, allStatus } from '../../../../../config/config';
-import moment from 'moment';
 import HomeworkItem from './HomeworkItem';
 import DeleteHomework from './DeleteHomework';
 import { deleteHomework, editHomework } from '../../../../../actions/HomeworkAction';
@@ -19,7 +11,6 @@ import EditHomework from './EditHomework';
 import IntlMessages from '../../../../../util/IntlMessages';
 import { classService } from '../../../../../_services/class.service';
 import DetailHomework from './DetailHomework';
-import { object } from 'prop-types';
 
 class HomeworkList extends Component {
   constructor(props) {
@@ -103,13 +94,10 @@ class HomeworkList extends Component {
     } else if (_.isEmpty(this.state.classesId)) {
       this.setState({ isEmptylistClass: true });
     } else {
-      let oldFiles = this.state.itemEdit.homework.homeworkFiles.filter(
-        (element) => !this.state.homeworkFilesDelete.includes(element.id)
-      );
+      let oldFiles = this.state.itemEdit.homework.homeworkFiles.filter((element) => !this.state.homeworkFilesDelete.includes(element.id));
       let dataHomework = {};
       dataHomework.title = this.state.nameFile;
-      dataHomework.homeworkType =
-        this.state.homeworkType.value===undefined ? '' : this.state.homeworkType.value;
+      dataHomework.homeworkType = this.state.homeworkType.value === undefined ? '' : this.state.homeworkType.value;
       dataHomework.subjectId = this.state.subjectId;
       dataHomework.subjectColor = this.state.subjectColor;
       dataHomework.classesId = this.state.classesId;
@@ -123,9 +111,7 @@ class HomeworkList extends Component {
       dataHomework.homeworkId = this.state.homeworkId;
       dataHomework.files_deleted = this.state.homeworkFilesDelete;
 
-      this.props.dispatch(
-        editHomework(dataHomework, this.state.homeworkFiles, this.state.classItem, oldFiles)
-      );
+      this.props.dispatch(editHomework(dataHomework, this.state.homeworkFiles, this.state.classItem, oldFiles));
       this.cancelModal();
     }
   }
@@ -135,13 +121,15 @@ class HomeworkList extends Component {
     let deletedFiles = [];
     if (this.state.itemEdit.homework.homeworkFiles != undefined) {
       this.state.itemEdit.homework.homeworkFiles.map((element) => {
-        if (element.name===filename) {
+        if (element.name === filename) {
           deletedFiles.push(element.id);
         }
+        return true;
       });
     }
     this.state.homeworkFilesDelete.map((element) => {
       deletedFiles.push(element);
+      return true;
     });
     this.setState({ nameFiles, homeworkFiles, homeworkFilesDelete: deletedFiles });
   }
@@ -240,12 +228,8 @@ class HomeworkList extends Component {
   };
 
   communActions(item) {
-    let homeworkType = this.state.HomeworkTypes.find(
-      (element) => element.value===item.homework.homework_type
-    );
-    let subjectItem = this.props.subjects.find(
-      (element) => element.id===item.homework.fk_id_subject
-    );
+    let homeworkType = this.state.HomeworkTypes.find((element) => element.value === item.homework.homework_type);
+    let subjectItem = this.props.subjects.find((element) => element.id === item.homework.fk_id_subject);
     let classItem = {
       label: item.className,
       id: item.courseId,
@@ -282,7 +266,7 @@ class HomeworkList extends Component {
   }
 
   handleEdit(item) {
-     this.communActions(item);
+    this.communActions(item);
     if (this.props.userProfile.role_id === roleIdAdmin) {
       let apiEndpoint = `/assignment_class_subjects?access_token=${localStorage.token}&filter[where][fk_id_subject_v4]=${item.homework.fk_id_subject}&filter[include]=class&filter[include]=course`;
       classService.get(apiEndpoint).then((response) => {
@@ -357,7 +341,8 @@ class HomeworkList extends Component {
       homeworkFilesDelete: [],
     });
   }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div className="col-xl-12 col-md-12 col-lg-12 col-sm-6 ">
         <div className="   price-tables row pt-default d-flex flex-wrap justify-content-start ">
@@ -404,9 +389,7 @@ class HomeworkList extends Component {
           ''
         )}
 
-        {this.state.isOpenDetail && (
-          <DetailHomework values={this.state} handleCancel={this.handleCancel} />
-        )}
+        {this.state.isOpenDetail && <DetailHomework values={this.state} handleCancel={this.handleCancel} />}
       </div>
     );
   }
