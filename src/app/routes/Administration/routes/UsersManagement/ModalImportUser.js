@@ -17,15 +17,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { UncontrolledAlert } from 'reactstrap';
 import { isEmail } from '../../../../../constants/validationFunctions';
-import {
-  roleIdSuperAdmin,
-  roleIdAdmin,
-  roleIdProfessor,
-  roleIdStudent,
-  roleIdDirector,
-  roleIdParent,
-  roleIdSupervisor,
-} from '../../../../../config/config';
+import { roleIdProfessor, roleIdStudent, roleIdParent, roleIdSupervisor } from '../../../../../config/config';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+
 const listRolesUsers = [
   {
     id: roleIdProfessor,
@@ -34,7 +28,7 @@ const listRolesUsers = [
   },
   {
     id: roleIdStudent,
-    label: "Collaborateur",
+    label: 'Collaborateur',
     value: roleIdStudent,
   },
   {
@@ -44,23 +38,21 @@ const listRolesUsers = [
   },
   {
     id: roleIdSupervisor,
-    label: "Responsable formation",
+    label: 'Responsable formation',
     value: roleIdSupervisor,
   },
 ];
 export default class ModalImportUser extends Component {
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const { values } = this.props;
-
     return (
       <Auxiliary>
         <Modal
           isOpen={values.importisOpen}
           //  toggle={this.props.handleCancel}
         >
-          <ModalHeader className="modal-box-header bg-primary text-white">
-            {<IntlMessages id="upload.file.user" />}
-          </ModalHeader>
+          <ModalHeader className="modal-box-header bg-primary text-white">{<IntlMessages id="upload.file.user" />}</ModalHeader>
           <ModalBody>
             {values.errorHeader ? (
               <UncontrolledAlert className="alert-addon-card   bg-danger text-white shadow-lg">
@@ -69,8 +61,7 @@ export default class ModalImportUser extends Component {
                 </span>
                 <span className="d-inline-block">
                   {' '}
-                  il y a une erreur au niveau des colonne{' '}
-                  {values.errorHeaderColumn.map((element) => element + ' , ')}{' '}
+                  il y a une erreur au niveau des colonne {values.errorHeaderColumn.map((element) => element + ' , ')}{' '}
                 </span>
               </UncontrolledAlert>
             ) : (
@@ -88,8 +79,8 @@ export default class ModalImportUser extends Component {
             )}
             <form className="row" onSubmit={this.props.handleSubmitImport}>
               <div className=" col-sm-12 col-lg-12 col-md-12 ">
-                <div className="col-md-12 text-left  d-flex flex-wrap justify-content-end">
-                  <div className="col-md-12 col-lg-12 col-sm-12 pt-3 pb-3">
+                <div className="col-md-12 text-left  d-flex flex-wrap ">
+                  <div className="col-md-4 col-lg-4 col-sm-4 pt-3 pb-3">
                     <InputLabel
                       htmlFor="nomSelect"
                       style={{
@@ -121,13 +112,21 @@ export default class ModalImportUser extends Component {
                       }}
                     />{' '}
                   </div>
+                  {values.templateUrl != '' && (
+                    <div className="col-md-4 col-lg-4 col-sm-4 pt-3 pb-3">
+                      {' '}
+                      <Button href={values.templateUrl} target="_blank">
+                        <FileCopyIcon
+                          style={{
+                            fontSize: '35',
+                          }}
+                        />
+                        Template Excel
+                      </Button>
+                    </div>
+                  )}
                   <div className="col-sm-12 col-lg-12 col-md-12  mb-3  ">
-                    <input
-                      id="input"
-                      type="file"
-                      onChange={(e) => this.props.onDrop(e)}
-                      disabled={this.props.values.idRole===''}
-                    />
+                    <input id="input" type="file" onChange={(e) => this.props.onDrop(e)} disabled={this.props.values.idRole === ''} />
                   </div>
                   <div className="col-sm-12 col-lg-12 col-md-12  mb-3 d-flex flex-wrap justify-content-end">
                     <Button
@@ -154,13 +153,10 @@ export default class ModalImportUser extends Component {
                             <TableCell>
                               <IntlMessages id={`check.validity`} />
                             </TableCell>
+                            {(values.idRole === roleIdParent || values.idRole === roleIdStudent) && <TableCell>Agence</TableCell>}
+
                             <TableCell>
-                              Agence
-                            </TableCell>
-                            <TableCell>
-                              <IntlMessages
-                                id={`components.establishments.formadd.name_director`}
-                              />
+                              <IntlMessages id={`components.establishments.formadd.name_director`} />
                             </TableCell>
                             <TableCell>
                               <IntlMessages id={`appModule.name`} />
@@ -178,36 +174,25 @@ export default class ModalImportUser extends Component {
                           {values.FormatedUserList.map((row, index) => (
                             <TableRow key={index}>
                               <TableCell>
-                                {row.name===null ||
-                                row.surname===null ||
-                                isEmail(row.email) === false ? (
-                                  <i
-                                    className="zmdi zmdi-circle zmdi-hc-lg "
-                                    style={{ color: 'red' }}
-                                  >
+                                {row.name === null || row.surname === null || isEmail(row.email) === false ? (
+                                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'red' }}>
                                     {row.indexFile}
                                   </i>
                                 ) : (
-                                  <i
-                                    className="zmdi zmdi-circle zmdi-hc-lg "
-                                    style={{ color: 'green' }}
-                                  >
+                                  <i className="zmdi zmdi-circle zmdi-hc-lg " style={{ color: 'green' }}>
                                     {row.indexFile}
                                   </i>
                                 )}
                               </TableCell>
-                              <TableCell>
-                              {row.agencyId===null ? <h2>invalide</h2> : row.agenceName}
-                            </TableCell>
-                              <TableCell>
-                                {row.name===null ? <h2>invalide</h2> : row.name}
-                              </TableCell>
-                              <TableCell>
-                                {row.surname===null ? <h2>invalide</h2> : row.surname}
-                              </TableCell>
-                              <TableCell>
-                                {isEmail(row.email) === false ? <h2>mail invalid</h2> : row.email}
-                              </TableCell>
+                              {(values.idRole === roleIdParent || values.idRole === roleIdStudent) && (
+                                <TableCell>
+                                  {row.agencyId === null ? <h2>invalide</h2> : row.agenceName}
+                                </TableCell>
+                              )}
+                              {/* <TableCell>{row.agencyId === null ? <h2>invalide</h2> : row.agenceName}</TableCell> */}
+                              <TableCell>{row.name === null ? <h2>invalide</h2> : row.name}</TableCell>
+                              <TableCell>{row.surname === null ? <h2>invalide</h2> : row.surname}</TableCell>
+                              <TableCell>{isEmail(row.email) === false ? <h2>mail invalid</h2> : row.email}</TableCell>
                               <TableCell align="center">
                                 {!values.importDone ? (
                                   '--'
@@ -235,7 +220,7 @@ export default class ModalImportUser extends Component {
                     }}
                     className=" bg-indigo text-white "
                     type="submit"
-                    disabled={values.FormatedUserList.length===0}
+                    disabled={values.FormatedUserList.length === 0}
                   >
                     <IntlMessages id="components.user.import" />
                   </Button>
