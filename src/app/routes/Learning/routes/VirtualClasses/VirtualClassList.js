@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import VirtualClassListItems from "./VirtualClassListItems";
-import EditVitualClass from "./EditVitualClass";
-import { editClassVirtual } from "../../../../../actions/VirtualClassAction";
-import { deleteClassVirtual } from "../../../../../actions/VirtualClassAction";
-import { connect } from "react-redux";
-import axios from "axios";
-import baseUrl from "../../../../../config/config";
- import { roleIdProfessor } from "../../../../../config/config";
-import _ from "lodash";
-import DeleteVirtualClass from "./DeleteVirtualClass";
-import JitsiComponent from "./JitsiComponent";
-import moment from "moment";
+import React, { Component } from 'react';
+import VirtualClassListItems from './VirtualClassListItems';
+import EditVitualClass from './EditVitualClass';
+import { editClassVirtual } from '../../../../../actions/VirtualClassAction';
+import { deleteClassVirtual } from '../../../../../actions/VirtualClassAction';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../../../config/config';
+import { roleIdProfessor } from '../../../../../config/config';
+import _ from 'lodash';
+import DeleteVirtualClass from './DeleteVirtualClass';
+import JitsiComponent from './JitsiComponent';
+import moment from 'moment';
 
 class VirtualClassList extends Component {
   constructor(props) {
@@ -18,16 +18,16 @@ class VirtualClassList extends Component {
 
     this.state = {
       dateVirtualClass: new Date(),
-      virtualClassName: "",
-      classUrl: "",
-      password: "",
-      description: "",
-      virtualClassNameOld: "",
-      classUrlOld: "",
-      passwordOld: "",
+      virtualClassName: '',
+      classUrl: '',
+      password: '',
+      description: '',
+      virtualClassNameOld: '',
+      classUrlOld: '',
+      passwordOld: '',
       startTimeClass: new Date(),
       endTimeClass: new Date(),
-      virtualClassStatus: "",
+      virtualClassStatus: '',
       accessibility: true,
       classId: null,
       subjectId: null,
@@ -38,36 +38,36 @@ class VirtualClassList extends Component {
       professors: [],
       subjects: [],
       assignmentClassSubject: [],
-      profName: "",
-      profSurname: "",
-      subjectName: "",
-      classeName: "",
-      subjectColor: "",
-      itemClass: "",
-      itemProfessor: "",
-      itemSubject: "",
+      profName: '',
+      profSurname: '',
+      subjectName: '',
+      classeName: '',
+      subjectColor: '',
+      itemClass: '',
+      itemProfessor: '',
+      itemSubject: '',
       publish: false,
       isOpenDetails: false,
 
-      professorIdFilter: "",
-      studentClassIdFilter: "",
+      professorIdFilter: '',
+      studentClassIdFilter: '',
       addIsopen: false,
       editIsopen: false,
       deleteIsopen: false,
       showIsopen: true,
-      class_object: "",
-      level_id: "",
-      section_id: "",
-      professor_id: "",
-      class_id: "",
-      subject_id: "",
-      class_url: "",
-      class_password: "",
-      class_date: "",
+      class_object: '',
+      level_id: '',
+      section_id: '',
+      professor_id: '',
+      class_id: '',
+      subject_id: '',
+      class_url: '',
+      class_password: '',
+      class_date: '',
       selectedStartTime: new Date(),
       selectedEndTime: new Date(),
-      startTime: "",
-      endTime: "",
+      startTime: '',
+      endTime: '',
       studentsectionByLevels: [],
       Disable_studentsection: true,
       levelsbyestablishment: [],
@@ -106,13 +106,8 @@ class VirtualClassList extends Component {
   handleStartTimeChange = (time) => {
     let startTimeClassError;
 
-    if (
-      moment(this.state.dateVirtualClass).format("LL") ==
-      moment(new Date()).format("LL")
-    ) {
-      startTimeClassError =
-        moment(time._d).isBefore(this.state.endTimeClass) &&
-        moment(time._d).isAfter(this.state.dateVirtualClass);
+    if (moment(this.state.dateVirtualClass).format('LL') == moment(new Date()).format('LL')) {
+      startTimeClassError = moment(time._d).isBefore(this.state.endTimeClass) && moment(time._d).isAfter(this.state.dateVirtualClass);
     } else {
       startTimeClassError = moment(time._d).isBefore(this.state.endTimeClass);
     }
@@ -129,13 +124,9 @@ class VirtualClassList extends Component {
     let endTimeClassError = moment(time._d).isAfter(this.state.startTimeClass);
     let startTimeClassError;
 
-    if (
-      moment(this.state.dateVirtualClass).format("LL") ==
-      moment(new Date()).format("LL")
-    ) {
+    if (moment(this.state.dateVirtualClass).format('LL') == moment(new Date()).format('LL')) {
       startTimeClassError =
-        moment(this.state.startTimeClass).isBefore(time._d) &&
-        moment(this.state.startTimeClass).isAfter(this.state.dateVirtualClass);
+        moment(this.state.startTimeClass).isBefore(time._d) && moment(this.state.startTimeClass).isAfter(this.state.dateVirtualClass);
     } else {
       startTimeClassError = moment(this.state.startTimeClass).isBefore(time._d);
     }
@@ -150,14 +141,10 @@ class VirtualClassList extends Component {
   handleChangeDate = (date) => {
     let startTimeClassError;
 
-    if (moment(date._d).format("LL")===moment(new Date()).format("LL")) {
-      startTimeClassError =
-        moment(this.state.startTimeClass).isBefore(this.state.endTimeClass) &&
-        moment(this.state.startTimeClass).isAfter(date._d);
+    if (moment(date._d).format('LL') === moment(new Date()).format('LL')) {
+      startTimeClassError = moment(this.state.startTimeClass).isBefore(this.state.endTimeClass) && moment(this.state.startTimeClass).isAfter(date._d);
     } else {
-      startTimeClassError = moment(this.state.startTimeClass).isBefore(
-        this.state.endTimeClass
-      );
+      startTimeClassError = moment(this.state.startTimeClass).isBefore(this.state.endTimeClass);
     }
     this.setState({
       dateVirtualClass: date._d,
@@ -173,9 +160,7 @@ class VirtualClassList extends Component {
       classeName: obj.classeName,
     });
     if (this.props.userProfile.role_id === roleIdProfessor) {
-      let subjects = this.state.assignmentClassSubject.filter(
-        (element) => element.class.id === obj.classId
-      );
+      let subjects = this.state.assignmentClassSubject.filter((element) => element.class.id === obj.classId);
       this.setState({ subjects });
     } else {
       let apiEndpoint = `${baseUrl.baseUrl}/assignment_class_subjects?access_token=${localStorage.token}&filter[where][fk_id_class_v4]=${obj.classId}&filter[include][course][professor][profile][user]`;
@@ -206,9 +191,7 @@ class VirtualClassList extends Component {
     axios.get(apiEndpoint).then((res) => {
       let subjects = [];
       res.data.forEach((element) => {
-        if (
-          element.assignmentClassSubject.fk_id_class_v4 === this.state.classId
-        ) {
+        if (element.assignmentClassSubject.fk_id_class_v4 === this.state.classId) {
           let newObj = {
             ...element.assignmentClassSubject,
             courseId: element.id,
@@ -235,26 +218,24 @@ class VirtualClassList extends Component {
   editVirtualClass = (e) => {
     e.preventDefault();
     if (this.state.endTimeClassError && this.state.startTimeClassError) {
-      let dateClass = moment(this.state.dateVirtualClass).format("LL");
-      let endHourClass = moment(this.state.endTimeClass).format("HH:mm");
-      let startHourClass = moment(this.state.startTimeClass).format("HH:mm");
-      let timedebutAdd = Date.parse(dateClass + " " + startHourClass) / 60000;
-      let timefinAdd = Date.parse(dateClass + " " + endHourClass) / 60000;
+      let dateClass = moment(this.state.dateVirtualClass).format('LL');
+      let endHourClass = moment(this.state.endTimeClass).format('HH:mm');
+      let startHourClass = moment(this.state.startTimeClass).format('HH:mm');
+      let timedebutAdd = Date.parse(dateClass + ' ' + startHourClass) / 60000;
+      let timefinAdd = Date.parse(dateClass + ' ' + endHourClass) / 60000;
 
       const result = this.props.virtualClasses.filter((item) => {
-        let dateClassItem = moment(item.date_virtual_class).format("LL");
-        let endHourClassItem = moment(item.end_time_class).format("HH:mm");
-        let startHourClassItem = moment(item.start_time_class).format("HH:mm");
+        let dateClassItem = moment(item.date_virtual_class).format('LL');
+        let endHourClassItem = moment(item.end_time_class).format('HH:mm');
+        let startHourClassItem = moment(item.start_time_class).format('HH:mm');
 
-        let timedebutItem =
-          Date.parse(dateClassItem + " " + startHourClassItem) / 60000;
-        let timefinItem =
-          Date.parse(dateClassItem + " " + endHourClassItem) / 60000;
+        let timedebutItem = Date.parse(dateClassItem + ' ' + startHourClassItem) / 60000;
+        let timefinItem = Date.parse(dateClassItem + ' ' + endHourClassItem) / 60000;
 
         return (
           item.id != this.state.id &&
-          item.classeId===this.state.classId &&
-          dateClassItem===dateClass &&
+          item.classeId === this.state.classId &&
+          dateClassItem === dateClass &&
           ((timedebutAdd <= timedebutItem && timefinItem <= timefinAdd) ||
             (timedebutItem <= timedebutAdd && timedebutAdd <= timefinItem) ||
             (timedebutItem <= timefinAdd && timefinAdd <= timefinItem))
@@ -267,13 +248,6 @@ class VirtualClassList extends Component {
           this.setState({ alerteDate: false });
         }, 3000);
       } else {
-        if (
-          this.state.classUrl !== this.state.classUrlOld ||
-          this.state.password !== this.state.passwordOld ||
-          this.state.virtualClassName != this.state.virtualClassNameOld
-        ) {
-          this.setState({ call: true });
-        }
         let data = {
           virtualClassName: this.state.virtualClassName,
           accessibility: this.state.accessibility,
@@ -301,8 +275,8 @@ class VirtualClassList extends Component {
         this.setState({
           call: false,
           editIsopen: false,
-          virtualClassName: "",
-          accessibility: "",
+          virtualClassName: '',
+          accessibility: '',
           courseId: null,
           classId: null,
           subjectId: null,
@@ -310,17 +284,17 @@ class VirtualClassList extends Component {
           dateVirtualClass: new Date(),
           startTimeClass: new Date(),
           endTimeClass: new Date(),
-          classUrl: "",
-          password: "",
-          profName: "",
-          profSurname: "",
-          subjectName: "",
-          classeName: "",
-          itemClass: "",
-          itemProfessor: "",
-          itemSubject: "",
+          classUrl: '',
+          password: '',
+          profName: '',
+          profSurname: '',
+          subjectName: '',
+          classeName: '',
+          itemClass: '',
+          itemProfessor: '',
+          itemSubject: '',
           publish: false,
-          description: "",
+          description: '',
         });
       }
     }
@@ -331,19 +305,16 @@ class VirtualClassList extends Component {
   };
 
   editClassShowModal = (ClassObjectEdit) => {
-    if (ClassObjectEdit.virtual_class_status === "programée") {
+    if (ClassObjectEdit.virtual_class_status === 'programée') {
       if (this.props.userProfile.role_id === roleIdProfessor) {
         this.setState({ classId: null });
         let apiEndpoint = `${baseUrl.baseUrl}/professors?access_token=${localStorage.token}&filter[where][profile_id]=${this.props.userProfile.id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
         axios.get(apiEndpoint).then((res) => {
-          let data = _.map(res.data, "course");
+          let data = _.map(res.data, 'course');
           let classes = [];
           let assignmentClassSubject = [];
           data[0].forEach((element) => {
-            if (
-              element.assignmentClassSubject.class.fk_id_school_year ==
-              this.props.userProfile.school_year_id
-            ) {
+            if (element.assignmentClassSubject.class.fk_id_school_year == this.props.userProfile.school_year_id) {
               let newObj = {
                 ...element.assignmentClassSubject,
                 courseId: element.id,
@@ -369,10 +340,7 @@ class VirtualClassList extends Component {
         axios.get(apiEndpoint).then((res) => {
           let subjects = [];
           res.data.forEach((element) => {
-            if (
-              element.assignmentClassSubject.fk_id_class_v4 ===
-              this.state.classId
-            ) {
+            if (element.assignmentClassSubject.fk_id_class_v4 === this.state.classId) {
               let newObj = {
                 ...element.assignmentClassSubject,
                 courseId: element.id,
@@ -440,50 +408,25 @@ class VirtualClassList extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.virtualClasses !== this.props.virtualClasses) {
-      let newList= filterVirtualClass(this.props.virtualClasses)
+      let newList = filterVirtualClass(this.props.virtualClasses);
       this.setState({ virtualClasses: newList });
-  
     }
 
     if (prevProps.filterStatus !== this.props.filterStatus) {
-      let VirtualClassListFinal = this.props.virtualClasses.filter(
-        (elementItem) => {
-          const sys = Date.parse(new Date()) / 60000;
-          const start =
-            Date.parse(
-              elementItem.date_virtual_class.slice(0, 10) +
-                " " +
-                moment(elementItem.start_time_class).format("HH:mm")
-            ) / 60000;
-          const end =
-            Date.parse(
-              elementItem.date_virtual_class.slice(0, 10) +
-                " " +
-                moment(elementItem.end_time_class).format("HH:mm")
-            ) / 60000;
-          if (
-            this.props.filterStatus==="upcoming" &&
-            start > sys &&
-            end > sys
-          ) {
-            return elementItem;
-          } else if (
-            this.props.filterStatus==="progress" &&
-            start < sys &&
-            end > sys
-          ) {
-            return elementItem;
-          } else if (
-            this.props.filterStatus==="past" &&
-            start < sys &&
-            end < sys
-          ) {
-            return elementItem;
-          } else if (this.props.filterStatus==="all") {
-            return elementItem;
-          }
+      let VirtualClassListFinal = this.props.virtualClasses.filter((elementItem) => {
+        const sys = Date.parse(new Date()) / 60000;
+        const start = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.start_time_class).format('HH:mm')) / 60000;
+        const end = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.end_time_class).format('HH:mm')) / 60000;
+        if (this.props.filterStatus === 'upcoming' && start > sys && end > sys) {
+          return elementItem;
+        } else if (this.props.filterStatus === 'progress' && start < sys && end > sys) {
+          return elementItem;
+        } else if (this.props.filterStatus === 'past' && start < sys && end < sys) {
+          return elementItem;
+        } else if (this.props.filterStatus === 'all') {
+          return elementItem;
         }
-      );
+      });
 
       this.setState({ virtualClasses: VirtualClassListFinal });
     }
@@ -498,13 +441,12 @@ class VirtualClassList extends Component {
     });
   };
   UNSAFE_componentWillMount() {
-    
-    let newList= filterVirtualClass(this.props.virtualClasses)
+    let newList = filterVirtualClass(this.props.virtualClasses);
     this.setState({ virtualClasses: newList });
     if (this.props.userProfile.role_id === roleIdProfessor) {
       let apiEndpoint = `${baseUrl.baseUrl}/professors?access_token=${localStorage.token}&filter[where][profile_id]=${this.props.userProfile.id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
       axios.get(apiEndpoint).then((res) => {
-        let data = _.map(res.data, "course");
+        let data = _.map(res.data, 'course');
         let classes = [];
         let assignmentClassSubject = [];
         data[0].forEach((element) => {
@@ -521,7 +463,8 @@ class VirtualClassList extends Component {
       this.setState({ classes: this.props.ClassSettings });
     }
   }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     return (
       <div className="col-md-12 col-lg-12 col-sm-6 ">
         <div className="   price-tables row pt-default d-flex justify-content-start ">
@@ -554,13 +497,12 @@ class VirtualClassList extends Component {
             handleChange={this.handleChange}
             handleStartTimeChange={this.handleStartTimeChange}
             handleEndTimeChange={this.handleEndTimeChange}
-            addVirtualClass={this.addVirtualClass}
             handleChangeClass={this.handleChangeClass}
             handleChangeProfessor={this.handleChangeProfessor}
             handleChangeSubject={this.handleChangeSubject}
           />
         ) : (
-          ""
+          ''
         )}
 
         {this.state.deleteIsopen === true ? (
@@ -571,13 +513,9 @@ class VirtualClassList extends Component {
             deleteIsopen={this.state.deleteIsopen}
           />
         ) : (
-          ""
+          ''
         )}
-        {this.state.call===true ? (
-          <JitsiComponent values={this.state} />
-        ) : (
-          <div></div>
-        )}
+        {this.state.call === true ? <JitsiComponent values={this.state} /> : <div></div>}
       </div>
     );
   }
@@ -591,37 +529,20 @@ function mapStateToProps(state) {
 }
 
 function filterVirtualClass(virtualClassList) {
- let newList= virtualClassList.filter(
-    (elementItem) => {
-      const sys = Date.parse(new Date()) / 60000;
-      const start =
-        Date.parse(
-          elementItem.date_virtual_class.slice(0, 10) +
-            " " +
-            moment(elementItem.start_time_class).format("HH:mm")
-        ) / 60000;
-      const end =
-        Date.parse(
-          elementItem.date_virtual_class.slice(0, 10) +
-            " " +
-            moment(elementItem.end_time_class).format("HH:mm")
-        ) / 60000;
-      if ( (start > sys && end > sys) || ( start < sys && end > sys)
-      ) {
-        return elementItem;
-      }  
+  let newList = virtualClassList.filter((elementItem) => {
+    const sys = Date.parse(new Date()) / 60000;
+    const start = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.start_time_class).format('HH:mm')) / 60000;
+    const end = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.end_time_class).format('HH:mm')) / 60000;
+    if ((start > sys && end > sys) || (start < sys && end > sys)) {
+      return elementItem;
     }
-  );
+  });
 
-  return  newList
-  
+  return newList;
 }
 
- /* eslint array-callback-return: "off" */
-export default connect(
-  mapStateToProps,
-  {
-    editClassVirtual,
-     deleteClassVirtual,
-  }
-)(VirtualClassList);
+/* eslint array-callback-return: "off" */
+export default connect(mapStateToProps, {
+  editClassVirtual,
+  deleteClassVirtual,
+})(VirtualClassList);
