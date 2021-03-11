@@ -15,6 +15,7 @@ import { getStudentsCallRegister, getStudentsCallRegisterForParent } from '../..
 import ContainerHeader from '../../../../../components/ContainerHeader';
 import { UncontrolledAlert } from 'reactstrap';
 import { havePermission } from '../../../../../constants/validationFunctions';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 var options = {
   month: 'long',
@@ -43,6 +44,8 @@ class Registre extends Component {
       agenceName: '',
       events: [],
       chefAgenceId: 0,
+      isOpen: false,
+
     };
 
     this.handleChangeClass = this.handleChangeClass.bind(this);
@@ -55,6 +58,11 @@ class Registre extends Component {
     this.handleChangeTypeCall = this.handleChangeTypeCall.bind(this);
     this.handleChangeAgence = this.handleChangeAgence.bind(this);
   }
+  onConfirm = () => {
+    this.setState({
+      isOpen: false,
+    });
+  };
   handleChangeAgence = (name) => (event) => {
     let chefAgence = {};
     let obj = JSON.parse(event.target.value);
@@ -91,6 +99,8 @@ class Registre extends Component {
         classId: event.classId,
         startDate: event.start,
       });
+    } else {
+      this.setState({ isOpen: true });
     }
   };
   handleView(view) {
@@ -100,7 +110,7 @@ class Registre extends Component {
     this.setState({ [name]: event.target.value });
 
     if (event.target.value !== 0) {
-      if (this.state.typeCall==='all') {
+      if (this.state.typeCall === 'all') {
         let events = this.props.events.filter((element) => element.profId === event.target.value && element.classId === this.state.classIdFilter);
         this.setState({ events });
       } else {
@@ -111,7 +121,7 @@ class Registre extends Component {
         this.setState({ events });
       }
     } else {
-      if (this.state.typeCall==='all') {
+      if (this.state.typeCall === 'all') {
         let events = this.props.events.filter((element) => element.classId === this.state.classIdFilter);
         this.setState({ events });
       } else {
@@ -146,7 +156,7 @@ class Registre extends Component {
 
       this.props.dispatch(getEventCallRegisterForAdmin(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id, obj.classId));
     } else if (this.props.userProfile.role_id === roleIdProfessor) {
-      if (this.state.typeCall==='all') {
+      if (this.state.typeCall === 'all') {
         if (obj.classId === 0) {
           this.setState({ events: this.props.events });
         } else {
@@ -167,35 +177,35 @@ class Registre extends Component {
   handleChangeType = (name) => (event) => {
     this.setState({ [name]: event.target.value });
     if (this.props.userProfile.role_id === roleIdAdmin) {
-      if (this.state.classIdFilter===0) {
-        if (event.target.value==='all') {
+      if (this.state.classIdFilter === 0) {
+        if (event.target.value === 'all') {
           this.setState({ events: this.props.events });
         } else {
           let events = this.props.events.filter((element) => element.tagCallRegister === event.target.value);
           this.setState({ events: events });
         }
       } else {
-        if (this.state.profId==='') {
-          if (event.target.value==='all') {
-            let events = this.props.events.filter((element) => element.classId===this.state.classIdFilter);
+        if (this.state.profId === '') {
+          if (event.target.value === 'all') {
+            let events = this.props.events.filter((element) => element.classId === this.state.classIdFilter);
 
             this.setState({ events });
           } else {
             let events = this.props.events.filter(
-              (element) => element.tagCallRegister === event.target.value && element.classId===this.state.classIdFilter
+              (element) => element.tagCallRegister === event.target.value && element.classId === this.state.classIdFilter
             );
 
             this.setState({ events: events });
           }
         } else {
-          if (event.target.value==='all') {
-            let events = this.props.events.filter((element) => element.classId===this.state.classIdFilter && element.profId === this.state.profId);
+          if (event.target.value === 'all') {
+            let events = this.props.events.filter((element) => element.classId === this.state.classIdFilter && element.profId === this.state.profId);
 
             this.setState({ events });
           } else {
             let events = this.props.events.filter(
               (element) =>
-                element.tagCallRegister === event.target.value && element.classId===this.state.classIdFilter && element.profId === this.state.profId
+                element.tagCallRegister === event.target.value && element.classId === this.state.classIdFilter && element.profId === this.state.profId
             );
 
             this.setState({ events: events });
@@ -203,21 +213,21 @@ class Registre extends Component {
         }
       }
     } else if (this.props.userProfile.role_id === roleIdProfessor || this.props.userProfile.role_id === roleIdParent) {
-      if (this.state.classIdFilter===0) {
-        if (event.target.value==='all') {
+      if (this.state.classIdFilter === 0) {
+        if (event.target.value === 'all') {
           this.setState({ events: this.props.events });
         } else {
           let events = this.props.events.filter((element) => element.tagCallRegister === event.target.value);
           this.setState({ events: events });
         }
       } else {
-        if (event.target.value==='all') {
-          let events = this.props.events.filter((element) => element.classId===this.state.classIdFilter);
+        if (event.target.value === 'all') {
+          let events = this.props.events.filter((element) => element.classId === this.state.classIdFilter);
 
           this.setState({ events });
         } else {
           let events = this.props.events.filter(
-            (element) => element.tagCallRegister === event.target.value && element.classId===this.state.classIdFilter
+            (element) => element.tagCallRegister === event.target.value && element.classId === this.state.classIdFilter
           );
 
           this.setState({ events: events });
@@ -230,7 +240,7 @@ class Registre extends Component {
     if (
       this.props.match.params.classId !== 'undefined' &&
       this.props.match.params.classId !== undefined &&
-      this.state.itemClass==='' &&
+      this.state.itemClass === '' &&
       this.props.match.params != prevProps.match.params
     ) {
       if (this.props.userProfile.role_id === roleIdAdmin) {
@@ -616,9 +626,10 @@ class Registre extends Component {
     );
   };
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     //chefAgenceId
-    if (this.state.isRedirect===true) {
+    if (this.state.isRedirect === true) {
       if (this.props.userProfile.role_id === roleIdParent) {
         return (
           <Redirect
@@ -690,6 +701,11 @@ class Registre extends Component {
             agenceSettings={this.props.agenceSettings}
             userPermission={this.props.userPermission}
           />
+          <SweetAlert
+            show={this.state.isOpen}
+            title={<IntlMessages id="alert.call.register" />}
+            onConfirm={this.onConfirm}
+          ></SweetAlert>
         </div>
       );
     }

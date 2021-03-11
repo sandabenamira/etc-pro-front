@@ -1,25 +1,20 @@
-import React, { Component } from "react";
-import IntlMessages from "../../../../../util/IntlMessages";
-import Auxiliary from "../../../../../util/Auxiliary";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import TextField from "@material-ui/core/TextField";
-import CardBox from "../../../../../components/CardBox/index";
-import Button from "@material-ui/core/Button";
-import MenuItem from "@material-ui/core/MenuItem";
-import { UncontrolledAlert } from "reactstrap";
+import React, { Component } from 'react';
+import IntlMessages from '../../../../../util/IntlMessages';
+import Auxiliary from '../../../../../util/Auxiliary';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import TextField from '@material-ui/core/TextField';
+import CardBox from '../../../../../components/CardBox/index';
+import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import { UncontrolledAlert } from 'reactstrap';
 
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/moment";
-import { TimePicker } from "@material-ui/pickers";
-import { connect } from "react-redux";
-import Can from "../../../../../can";
-import { RoleContext } from "../../../../../Context";
-import FormHelperText from "@material-ui/core/FormHelperText";
-
- 
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/moment';
+import { TimePicker } from '@material-ui/pickers';
+import { connect } from 'react-redux';
+import Can from '../../../../../can';
+import { RoleContext } from '../../../../../Context';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 class EditVitualClass extends Component {
   constructor(props) {
@@ -27,7 +22,8 @@ class EditVitualClass extends Component {
     this.state = {};
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const {
       values,
       handleChange,
@@ -38,26 +34,18 @@ class EditVitualClass extends Component {
       handleStartTimeChange,
       handleChangeClass,
     } = this.props;
-    console.log("values",this.props.values)
+    console.log('values', this.props.values);
     return (
       <Auxiliary>
         <Modal isOpen={this.props.editIsopen}>
-          <ModalHeader
-            toggle={this.props.handleCancel}
-            className="modal-box-header bg-primary text-white"
-          >
-            {"Modifier formation en ligne"}
+          <ModalHeader toggle={this.props.handleCancel} className="modal-box-header bg-primary text-white">
+            {'Modifier formation en ligne'}
           </ModalHeader>
           <br />
           <ModalBody>
             <form autoComplete="off" onSubmit={this.props.editVirtualClass}>
               <div className="row">
-                <CardBox
-                  heading={
-                    <IntlMessages id="component.etablishments.info.general" />
-                  }
-                  styleName="col-lg-12 text-primary"
-                >
+                <CardBox heading={<IntlMessages id="component.etablishments.info.general" />} styleName="col-lg-12 text-primary">
                   <div>
                     <div className="row">
                       <div className="col-md-6">
@@ -67,8 +55,8 @@ class EditVitualClass extends Component {
                             name="virtualClassName"
                             id="virtualClassName"
                             label={<IntlMessages id="subject.message" />}
-                            onChange={handleChange("virtualClassName")}
-                            value={values.virtualClassName || ""}
+                            onChange={handleChange('virtualClassName')}
+                            value={values.virtualClassName || ''}
                             margin="normal"
                             fullWidth
                           />
@@ -78,14 +66,15 @@ class EditVitualClass extends Component {
                       <div className="col-md-6">
                         <div className="form-group">
                           <TextField
+                            disabled
                             id="classId"
                             name="classId"
                             select
                             required
-                            value={"" || values.itemClass}
-                            onChange={handleChangeClass("itemClass")}
+                            value={'' || values.itemClass}
+                            onChange={handleChangeClass('itemClass')}
                             SelectProps={{}}
-                            label={"Classe de formation"}
+                            label={'Classe de formation'}
                             margin="normal"
                             fullWidth
                           >
@@ -95,10 +84,7 @@ class EditVitualClass extends Component {
                                 classeName: itemClass.name,
                               };
                               return (
-                                <MenuItem
-                                  key={itemClass.id}
-                                  value={JSON.stringify(data)}
-                                >
+                                <MenuItem key={itemClass.id} value={JSON.stringify(data)}>
                                   {data.classeName}
                                 </MenuItem>
                               );
@@ -119,31 +105,23 @@ class EditVitualClass extends Component {
                                     name="itemProfessor"
                                     select
                                     required
-                                    value={values.itemProfessor || ""}
-                                    onChange={handleChangeProfessor(
-                                      "itemProfessor"
-                                    )}
+                                    value={values.itemProfessor || ''}
+                                    onChange={handleChangeProfessor('itemProfessor')}
                                     SelectProps={{}}
                                     label={<IntlMessages id="toDo.professor" />}
                                     margin="normal"
                                     fullWidth
+                                    disabled
                                   >
                                     {values.professors.map((option) => {
                                       let data = {
                                         profId: option.professor.id,
-                                        profName:
-                                          option.professor.profile.user.name,
-                                        profSurname:
-                                          option.professor.profile.user.surname,
+                                        profName: option.professor.profile.user.name,
+                                        profSurname: option.professor.profile.user.surname,
                                       };
                                       return (
-                                        <MenuItem
-                                          key={option.id}
-                                          value={JSON.stringify(data)}
-                                        >
-                                          {data.profName +
-                                            " " +
-                                            data.profSurname}
+                                        <MenuItem key={option.id} value={JSON.stringify(data)}>
+                                          {data.profName + ' ' + data.profSurname}
                                         </MenuItem>
                                       );
                                     })}
@@ -161,14 +139,13 @@ class EditVitualClass extends Component {
                             name="itemSubject"
                             select
                             required
-                            value={values.itemSubject || ""}
-                            onChange={handleChangeSubject("itemSubject")}
+                            value={values.itemSubject || ''}
+                            onChange={handleChangeSubject('itemSubject')}
                             SelectProps={{}}
-                            label={
-                              <IntlMessages id="components.note.subject" />
-                            }
+                            label={<IntlMessages id="components.note.subject" />}
                             margin="normal"
                             fullWidth
+                            disabled
                           >
                             {values.subjects.map((item) => {
                               let data = {
@@ -179,10 +156,7 @@ class EditVitualClass extends Component {
                               };
 
                               return (
-                                <MenuItem
-                                  key={item.subject.id}
-                                  value={JSON.stringify(data)}
-                                >
+                                <MenuItem key={item.subject.id} value={JSON.stringify(data)}>
                                   {data.subjectName}
                                 </MenuItem>
                               );
@@ -191,19 +165,16 @@ class EditVitualClass extends Component {
                         </div>
                       </div>
                       <div className="d-flex col-md-12 flex-column">
-                        <label
-                          htmlFor="comment"
-                          style={{ fontSize: "20px", color: "#0B4786" }}
-                        >
+                        <label htmlFor="comment" style={{ fontSize: '20px', color: '#0B4786' }}>
                           <IntlMessages id="room.description" />
                         </label>
                         <textarea
                           rows="3"
-                          value={values.description || ""}
-                          onChange={handleChange("description")}
+                          value={values.description || ''}
+                          onChange={handleChange('description')}
                           style={{
-                            borderRadius: "20px",
-                            marginTop: "10px",
+                            borderRadius: '20px',
+                            marginTop: '10px',
                           }}
                         ></textarea>
                       </div>
@@ -211,20 +182,20 @@ class EditVitualClass extends Component {
 
                     <hr
                       style={{
-                        width: "100%",
-                        margin: "auto",
-                        marginTop: "5%",
-                        marginBottom: "5%",
-                        border: "1px dashed #979A9A",
-                        paddingLeft: "-100%",
+                        width: '100%',
+                        margin: 'auto',
+                        marginTop: '5%',
+                        marginBottom: '5%',
+                        border: '1px dashed #979A9A',
+                        paddingLeft: '-100%',
                       }}
                     />
 
                     <div className="row">
                       <div className="col-md-7">
                         <div className="form-group">
-                          <h5 style={{ color: "#000" }}>
-                            {" "}
+                          <h5 style={{ color: '#000' }}>
+                            {' '}
                             <IntlMessages id="class.extern.link" /> &#x27A5;
                           </h5>
                         </div>
@@ -235,11 +206,9 @@ class EditVitualClass extends Component {
                             required
                             name="classUrl"
                             id="classUrl"
-                            label={
-                              <IntlMessages id="components.virtual.class.url" />
-                            }
-                            onChange={handleChange("classUrl")}
-                            value={values.classUrl || ""}
+                            label={<IntlMessages id="components.virtual.class.url" />}
+                            onChange={handleChange('classUrl')}
+                            value={values.classUrl || ''}
                             margin="normal"
                             fullWidth
                           />
@@ -252,8 +221,8 @@ class EditVitualClass extends Component {
                             id="password"
                             multiline
                             label={<IntlMessages id="appModule.password" />}
-                            onChange={handleChange("password")}
-                            value={values.password || ""}
+                            onChange={handleChange('password')}
+                            value={values.password || ''}
                             margin="normal"
                             fullWidth
                           />
@@ -263,12 +232,12 @@ class EditVitualClass extends Component {
 
                     <hr
                       style={{
-                        width: "100%",
-                        margin: "auto",
-                        marginTop: "5%",
-                        marginBottom: "5%",
-                        border: "1px dashed #979A9A",
-                        paddingLeft: "-100%",
+                        width: '100%',
+                        margin: 'auto',
+                        marginTop: '5%',
+                        marginBottom: '5%',
+                        border: '1px dashed #979A9A',
+                        paddingLeft: '-100%',
                       }}
                     />
 
@@ -303,20 +272,12 @@ class EditVitualClass extends Component {
                               showTabs={false}
                               onChange={handleStartTimeChange}
                               ampm={false}
-                              leftArrowIcon={
-                                <i className="zmdi zmdi-arrow-back" />
-                              }
-                              rightArrowIcon={
-                                <i className="zmdi zmdi-arrow-forward" />
-                              }
+                              leftArrowIcon={<i className="zmdi zmdi-arrow-back" />}
+                              rightArrowIcon={<i className="zmdi zmdi-arrow-forward" />}
                             />
                           </div>
                           <FormHelperText error={!values.startTimeClassError}>
-                            {!values.startTimeClassError ? (
-                              <IntlMessages id="start.hour.check" />
-                            ) : (
-                              ""
-                            )}
+                            {!values.startTimeClassError ? <IntlMessages id="start.hour.check" /> : ''}
                           </FormHelperText>
                         </div>
                       </div>
@@ -331,21 +292,13 @@ class EditVitualClass extends Component {
                               ampm={false}
                               showTabs={false}
                               onChange={handleEndTimeChange}
-                              leftArrowIcon={
-                                <i className="zmdi zmdi-arrow-back" />
-                              }
-                              rightArrowIcon={
-                                <i className="zmdi zmdi-arrow-forward" />
-                              }
+                              leftArrowIcon={<i className="zmdi zmdi-arrow-back" />}
+                              rightArrowIcon={<i className="zmdi zmdi-arrow-forward" />}
                             />
                           </div>
 
                           <FormHelperText error={!values.endTimeClassError}>
-                            {!values.endTimeClassError ? (
-                              <IntlMessages id="end.hour.check" />
-                            ) : (
-                              ""
-                            )}
+                            {!values.endTimeClassError ? <IntlMessages id="end.hour.check" /> : ''}
                           </FormHelperText>
                         </div>
                       </div>
@@ -363,7 +316,7 @@ class EditVitualClass extends Component {
                   </span>
                 </UncontrolledAlert>
               ) : (
-                ""
+                ''
               )}
 
               <div className="d-flex flex-wrap justify-content-end ">
@@ -374,17 +327,15 @@ class EditVitualClass extends Component {
                   className="bg-indigo text-white "
                   type="submit"
                   style={{
-                    borderBottomLeftRadius: "16px",
-                    borderBottomRightRadius: "16px",
-                    borderTopLeftRadius: "16px",
-                    borderTopRightRadius: "16px",
-                    width: "15%",
-                    height: "6%",
+                    borderBottomLeftRadius: '16px',
+                    borderBottomRightRadius: '16px',
+                    borderTopLeftRadius: '16px',
+                    borderTopRightRadius: '16px',
+                    width: '15%',
+                    height: '6%',
                   }}
                 >
-                  {
-                    <IntlMessages id="components.establishments.formModify.buttonModify" />
-                  }
+                  {<IntlMessages id="components.establishments.formModify.buttonModify" />}
                 </Button>
                 &nbsp;&nbsp;
                 <Button
@@ -392,17 +343,15 @@ class EditVitualClass extends Component {
                   className="bg-grey text-white "
                   onClick={this.props.handleCancel}
                   style={{
-                    borderBottomLeftRadius: "16px",
-                    borderBottomRightRadius: "16px",
-                    borderTopLeftRadius: "16px",
-                    borderTopRightRadius: "16px",
-                    width: "15%",
-                    height: "6%",
+                    borderBottomLeftRadius: '16px',
+                    borderBottomRightRadius: '16px',
+                    borderTopLeftRadius: '16px',
+                    borderTopRightRadius: '16px',
+                    width: '15%',
+                    height: '6%',
                   }}
                 >
-                  {
-                    <IntlMessages id="components.establishments.formadd.buttonCancel" />
-                  }
+                  {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
                 </Button>
               </div>
             </form>

@@ -82,6 +82,7 @@ class DetailsCallRegister extends React.Component {
       sanctionSelected: [],
       descriptionSanction: '',
       isOpenAlert: false,
+      openAlerteDate: false,
     };
     this.CustomToolbar = this.CustomToolbar.bind(this);
     this.event = this.event.bind(this);
@@ -102,71 +103,77 @@ class DetailsCallRegister extends React.Component {
   }
 
   changeEvent = (event) => {
-    this.setState({ event: event });
-    let dateFormat = moment(event.start).format('YYYY-MM-DD');
-    let timeFormat = moment(event.start).add(-1, 'h').format('HH:mm:ss[Z]');
-    let TimeDate = dateFormat + 'T' + timeFormat;
-    let eventId = event.id;
+    let curentDate = moment()._d;
+    let checkDate = moment(event.start).isAfter(curentDate);
+    if (!checkDate) {
+      this.setState({ event: event });
+      let dateFormat = moment(event.start).format('YYYY-MM-DD');
+      let timeFormat = moment(event.start).add(-1, 'h').format('HH:mm:ss[Z]');
+      let TimeDate = dateFormat + 'T' + timeFormat;
+      let eventId = event.id;
 
-    let apiEndpoint = '';
-    if (this.props.userProfile.role_id === roleIdParent) {
-      apiEndpoint =
-        `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
-        eventId +
-        `&filter[where][and][1][start_date]=` +
-        TimeDate +
-        `&filter[where][fk_id_creator_profile]=` +
-        this.props.userProfile.id +
-        `&filter[include][studentCall][student][profile][user]`;
-    } else {
-      if (this.props.match.params.type === 'formation') {
-        apiEndpoint =
-          `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
-          eventId +
-          `&filter[where][and][1][start_date]=` +
-          TimeDate +
-          `&filter[include][studentCall][student][profile][user]`;
-      } else {
+      let apiEndpoint = '';
+      if (this.props.userProfile.role_id === roleIdParent) {
         apiEndpoint =
           `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
           eventId +
           `&filter[where][and][1][start_date]=` +
           TimeDate +
           `&filter[where][fk_id_creator_profile]=` +
-          this.props.match.params.profileId +
+          this.props.userProfile.id +
           `&filter[include][studentCall][student][profile][user]`;
-      }
-    }
-    classService.get(apiEndpoint).then((res) => {
-      if (res) {
-        if (res.data.length > 0) {
-          let historiqRegistre = res.data[0].studentCall.map((element) => {
-            return {
-              name: element.student.profile.user.name,
-              surname: element.student.profile.user.surname,
-              presence: element.presence,
-              delay: element.delay,
-              sanction: element.sanction,
-              description_sanction: element.description_sanction,
-              observation: element.observation,
-              description_observation: element.description_observation,
-              encouragement: element.encouragement,
-              description_encouragement: element.description_encouragement,
-              studentId: element.fk_id_student,
-              photo: element.student.profile.user.photo,
-            };
-          });
-
-          this.setState({ callRegister: historiqRegistre });
+      } else {
+        if (this.props.match.params.type === 'formation') {
+          apiEndpoint =
+            `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+            eventId +
+            `&filter[where][and][1][start_date]=` +
+            TimeDate +
+            `&filter[include][studentCall][student][profile][user]`;
         } else {
-          this.setState({ callRegister: this.props.students });
+          apiEndpoint =
+            `/call_registers?access_token=${localStorage.token}&filter[where][and][0][fk_id_planning_events]=` +
+            eventId +
+            `&filter[where][and][1][start_date]=` +
+            TimeDate +
+            `&filter[where][fk_id_creator_profile]=` +
+            this.props.match.params.profileId +
+            `&filter[include][studentCall][student][profile][user]`;
         }
       }
-    });
+      classService.get(apiEndpoint).then((res) => {
+        if (res) {
+          if (res.data.length > 0) {
+            let historiqRegistre = res.data[0].studentCall.map((element) => {
+              return {
+                name: element.student.profile.user.name,
+                surname: element.student.profile.user.surname,
+                presence: element.presence,
+                delay: element.delay,
+                sanction: element.sanction,
+                description_sanction: element.description_sanction,
+                observation: element.observation,
+                description_observation: element.description_observation,
+                encouragement: element.encouragement,
+                description_encouragement: element.description_encouragement,
+                studentId: element.fk_id_student,
+                photo: element.student.profile.user.photo,
+              };
+            });
+
+            this.setState({ callRegister: historiqRegistre });
+          } else {
+            this.setState({ callRegister: this.props.students });
+          }
+        }
+      });
+    } else {
+      this.setState({ openAlerteDate: true });
+    }
   };
 
   onConfirm() {
-    this.setState({ isOpenAlert: false });
+    this.setState({ isOpenAlert: false, openAlerteDate: false });
   }
 
   handleChangeSanctions = (selectedOption) => {
@@ -191,8 +198,8 @@ class DetailsCallRegister extends React.Component {
 
   handleChangeOther(event, id, student) {
     event.preventDefault();
-    let observationSelected = this.state.observations.filter((observation) => observation.value===student.observation);
-    let encouragementSelected = this.state.encouragements.filter((encouragement) => encouragement.value===student.encouragement);
+    let observationSelected = this.state.observations.filter((observation) => observation.value === student.observation);
+    let encouragementSelected = this.state.encouragements.filter((encouragement) => encouragement.value === student.encouragement);
     this.setState({
       isOpen: true,
       sutdentId: id,
@@ -231,7 +238,7 @@ class DetailsCallRegister extends React.Component {
   }
 
   handleChangeSanction(event, id, student) {
-    let sanctionSelected = this.state.sanctions.filter((sanction) => sanction.value===student.sanction);
+    let sanctionSelected = this.state.sanctions.filter((sanction) => sanction.value === student.sanction);
     event.preventDefault();
     this.setState({
       isOpenSanction: true,
@@ -823,7 +830,8 @@ class DetailsCallRegister extends React.Component {
       this.setState({ sanctions: options });
     }
   }
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     let newMatch = {
       path: '/app/assiduity/DetailsCallRegister',
       url: this.props.match.url,
@@ -834,7 +842,7 @@ class DetailsCallRegister extends React.Component {
     const startDayTime = new Date('2020-11-30T07:00:00.000Z');
     const endDayTime = new Date('2020-11-30T17:00:00.000Z');
     let events = this.props.events ? this.props.events : [];
-    if (this.state.isRedirect===true) {
+    if (this.state.isRedirect === true) {
       if (this.props.userProfile.role_id === roleIdParent) {
         return <Redirect to={`/app/assiduity/call_register`} />;
       } else {
@@ -1181,7 +1189,7 @@ class DetailsCallRegister extends React.Component {
                       yes={() => (
                         <div className="d-flex justify-content-end mt-5">
                           <Button
-                            disabled={this.state.callRegister.length===0}
+                            disabled={this.state.callRegister.length === 0}
                             variant="contained"
                             style={{
                               borderBottomLeftRadius: '16px',
@@ -1205,7 +1213,7 @@ class DetailsCallRegister extends React.Component {
               )}
             </div>
           </div>
-
+          <SweetAlert show={this.state.openAlerteDate} title={<IntlMessages id="alert.call.register" />} onConfirm={this.onConfirm}></SweetAlert>
           {this.state.isOpen ? (
             <OtherPopover
               values={this.state}

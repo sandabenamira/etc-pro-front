@@ -124,42 +124,21 @@ export function deleteClassVirtual(item) {
 
 export function editClassVirtual(itemClass) {
   return (dispatch) => {
-    const classId = itemClass.classId;
-    const subjectId = itemClass.subjectId;
-    const profId = itemClass.professorId;
-    const courseId = itemClass.courseId;
-
     let dataVirtualClass = {
       date_virtual_class: itemClass.dateVirtualClass,
-      status: true,
       virtual_class_name: itemClass.virtualClassName,
       class_url: itemClass.classUrl,
       password: itemClass.password,
       start_time_class: itemClass.startTimeClass,
       end_time_class: itemClass.endTimeClass,
-      virtual_class_status: 'programée',
-      accessibility: itemClass.accessibility,
       id: itemClass.id,
-      fk_id_course_v4: courseId,
-      publish: itemClass.publish,
       description: itemClass.description,
     };
 
     let apiEndpoint = `/virtual_class_v4/${itemClass.id}?access_token=${localStorage.token}`;
-    classService.put(apiEndpoint, dataVirtualClass).then((response) => {
+    classService.patch(apiEndpoint, dataVirtualClass).then((response) => {
       if (response) {
-        let newObject = {
-          ...response.data,
-          classeId: classId,
-          subjectId: subjectId,
-          profId: profId,
-          profName: itemClass.profName,
-          profSurname: itemClass.profSurname,
-          subjectName: itemClass.subjectName,
-          classeName: itemClass.classeName,
-          subjectColor: itemClass.subjectColor,
-        };
-        dispatch({ type: EDIT_VIRTUAL_CLASS, payload: newObject });
+        dispatch({ type: EDIT_VIRTUAL_CLASS, payload: response.data });
         dispatch({
           type: SHOW_SUCCESS_MESSAGE,
           payload: 'La modification est effectuée avec succès',

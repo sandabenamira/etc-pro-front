@@ -26,15 +26,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { toUpperCaseFirst } from '../../../../../constants/ReactConst';
 import { editUser } from '../../../../../actions/usersAction';
 import { getAllUsersForAdmin } from '../../../../../actions/usersAction';
-const fonctionList = [
-  { label: "Agent d'entretien", id: 1, value: 1 },
-  { label: 'Infirmière', id: 2, value: 2 },
-  { label: 'Cuisinier(e)', id: 3, value: 3 },
-  { label: 'Gardien', id: 4, value: 4 },
-  { label: 'surveillant', id: 5, value: 5 },
-  { label: 'surveillant général', id: 6, value: 6 },
-];
- /* eslint  array-callback-return: "off" */
+
+/* eslint  array-callback-return: "off" */
 class UsersList extends React.Component {
   constructor(props) {
     super(props);
@@ -102,8 +95,6 @@ class UsersList extends React.Component {
       oldProfAssignments: [],
       // state parent
       listStudentEdit: [],
-      /// vie scolaire states
-      fonctionEdit: '',
       // counter user
       userCount: '',
     };
@@ -128,7 +119,6 @@ class UsersList extends React.Component {
     this.handleChangeGroupClassRoom = this.handleChangeGroupClassRoom.bind(this);
     this.uploadPhoto = this.uploadPhoto.bind(this);
     this.attachFile = this.attachFile.bind(this);
-    this.handleChangeFunctions = this.handleChangeFunctions.bind(this);
     this.handleChangeStudent = this.handleChangeStudent.bind(this);
     this.handleChangeFilterSuperAdmin = this.handleChangeFilterSuperAdmin.bind(this);
   }
@@ -143,9 +133,7 @@ class UsersList extends React.Component {
     }
     this.setState({ listStudentEdit });
   };
-  handleChangeFunctions = (selectedOption) => {
-    this.setState({ fonctionEdit: selectedOption });
-  };
+
   attachFile(e) {
     var oldFiles = this.state.userPapiersFiles;
 
@@ -318,18 +306,17 @@ class UsersList extends React.Component {
     let listGroupClass = [];
     let studentGroupEdit = {};
     let listOfSubjectsEdit = [];
-    let fonctionEdit = {};
     let subjectIdSelected = [];
 
-    let schoolyearEdit = this.props.usefulData.listSchoolYears.find((element) => element.id===item.schoolYearId);
-    let establishmentEdit = this.props.usefulData.establishmentsList.find((element) => element.id===item.establishmentId);
-    let userCountryEdit = this.props.usefulData.countriesList.find((element) => element.id===item.country);
-    if (item.paperFiles===null) {
+    let schoolyearEdit = this.props.usefulData.listSchoolYears.find((element) => element.id === item.schoolYearId);
+    let establishmentEdit = this.props.usefulData.establishmentsList.find((element) => element.id === item.establishmentId);
+    let userCountryEdit = this.props.usefulData.countriesList.find((element) => element.id === item.country);
+    if (item.paperFiles === null) {
       fileNamesEdit = [];
     } else {
       fileNamesEdit = item.paperFiles.map((element) => element.slice(59));
     }
-    if (item.roleId===roleIdStudent) {
+    if (item.roleId === roleIdStudent) {
       listParentEdit = item.parentId.map((element) => {
         var parentItem = {};
         parentItem.label = element.parentName + ' ' + element.parentLastName;
@@ -337,23 +324,8 @@ class UsersList extends React.Component {
         parentItem.value = element.parenttId;
         return parentItem;
       });
-      // studentClassEdit = this.props.usefulData.classForStudent.find((element) => element.id===item.inforamtionsStudent.classInformation.classId);
-      // if (studentClassEdit !== undefined) {
-      //   studentClassEdit.groups.map((element) => {
-      //     if (element.status) {
-      //       var object = {};
-      //       object.label = element.name;
-      //       object.id = element.id;
-      //       object.value = element.id;
-      //       listGroupClass.push(object);
-      //     }
-      //     if (element.status && element.id===item.inforamtionsStudent.classInformation.groupId) {
-      //       studentGroupEdit = object;
-      //     }
-      //   });
-      // }
     }
-    if (item.roleId===roleIdProfessor) {
+    if (item.roleId === roleIdProfessor) {
       item.inforamtionsProf.map((profItem, index) => {
         let subjectsList = [];
         this.props.courseAssignment.map((element) => {
@@ -371,11 +343,11 @@ class UsersList extends React.Component {
           classId: profItem.ClassId,
           subjectId: profItem.idAssignnement,
           subjects: subjectsList,
-          isAdded: !index===item.inforamtionsProf.length - 1,
+          isAdded: !index === item.inforamtionsProf.length - 1,
         });
       });
     }
-    if (item.roleId===roleIdParent) {
+    if (item.roleId === roleIdParent) {
       listStudentEdit = item.inforamtionsParent.map((element) => {
         var studentItem = {};
         studentItem.label = element.studentName + ' ' + element.studentLastName;
@@ -384,9 +356,7 @@ class UsersList extends React.Component {
         return studentItem;
       });
     }
-    if (item.roleId===roleIdSupervisor) {
-      fonctionEdit = fonctionList.find((element) => element.label===item.functionName);
-    }
+
     this.setState({
       openEdit: true,
       itemEdit: item,
@@ -404,13 +374,13 @@ class UsersList extends React.Component {
       birthdayPlaceEdit: item.placeOfBirth,
       userNationnalityEdit: item.nationality,
       userMailEdit: item.email,
-      userPhoneNumberEdit: item.phone===null ? '' : '+' + item.phone,
+      userPhoneNumberEdit: item.phone === null ? '' : '+' + item.phone,
       userCinEdit: item.cin,
       userIdentifierEdit: item.uniqueIdentifier,
       userAdressEdit: item.address,
       userZipCodeEdit: item.zipCode,
-      userCountryEdit: userCountryEdit===undefined ? {} : userCountryEdit,
-      photoText: item.urlPhoto===null ? '' : item.urlPhoto.slice(59),
+      userCountryEdit: userCountryEdit === undefined ? {} : userCountryEdit,
+      photoText: item.urlPhoto === null ? '' : item.urlPhoto.slice(59),
       usefulInformationEdit: item.usefulInformation,
       nameFiles: fileNamesEdit,
       listParentEdit,
@@ -419,7 +389,6 @@ class UsersList extends React.Component {
       studentGroupEdit: studentGroupEdit != undefined ? studentGroupEdit : {},
       listOfSubjectsEdit,
       listStudentEdit,
-      fonctionEdit,
       subjectIdSelected,
       oldProfAssignments: subjectIdSelected,
     });
@@ -470,7 +439,6 @@ class UsersList extends React.Component {
       // state parent
       listStudentEdit: [],
       /// vie scolaire states
-      fonctionEdit: '',
     });
   }
   handleDelete = (item, event) => {
@@ -499,17 +467,17 @@ class UsersList extends React.Component {
     function filterClassProf(item) {
       let listClass = [];
 
-      if (subjectIdFilter===0) {
-        if (event.target.value===0) {
+      if (subjectIdFilter === 0) {
+        if (event.target.value === 0) {
           return true;
         } else {
-          listClass = item.inforamtionsProf.filter((element) => element.ClassId===event.target.value);
+          listClass = item.inforamtionsProf.filter((element) => element.ClassId === event.target.value);
         }
       } else {
-        if (event.target.value===0) {
-          listClass = item.inforamtionsProf.filter((element) => element.subjectId===subjectIdFilter);
+        if (event.target.value === 0) {
+          listClass = item.inforamtionsProf.filter((element) => element.subjectId === subjectIdFilter);
         } else {
-          listClass = item.inforamtionsProf.filter((element) => element.ClassId===event.target.value && element.subjectId===subjectIdFilter);
+          listClass = item.inforamtionsProf.filter((element) => element.ClassId === event.target.value && element.subjectId === subjectIdFilter);
         }
       }
       return listClass.length > 0;
@@ -517,17 +485,17 @@ class UsersList extends React.Component {
 
     function filterSubjectProf(item) {
       let listClass = [];
-      if (classIdFilter===0) {
-        if (event.target.value===0) {
+      if (classIdFilter === 0) {
+        if (event.target.value === 0) {
           return true;
         } else {
-          listClass = item.inforamtionsProf.filter((element) => element.subjectId===event.target.value);
+          listClass = item.inforamtionsProf.filter((element) => element.subjectId === event.target.value);
         }
       } else {
-        if (event.target.value===0) {
-          listClass = item.inforamtionsProf.filter((element) => element.ClassId===classIdFilter);
+        if (event.target.value === 0) {
+          listClass = item.inforamtionsProf.filter((element) => element.ClassId === classIdFilter);
         } else {
-          listClass = item.inforamtionsProf.filter((element) => element.subjectId===event.target.value && element.ClassId===classIdFilter);
+          listClass = item.inforamtionsProf.filter((element) => element.subjectId === event.target.value && element.ClassId === classIdFilter);
         }
       }
       return listClass.length > 0;
@@ -572,14 +540,13 @@ class UsersList extends React.Component {
       phone: this.state.userPhoneNumberEdit,
       cin: this.state.userCinEdit,
       zipCode: this.state.userZipCodeEdit,
-      country: this.state.userCountryEdit.id===undefined ? null : this.state.userCountryEdit.id,
+      country: this.state.userCountryEdit.id === undefined ? null : this.state.userCountryEdit.id,
       userPhoto: this.state.userPhoto,
       paperFiles: this.state.userPapiersFiles,
       oldPaperFiles: this.state.itemEdit.paperFiles,
       name_ar: '',
       surname_ar: '',
       email: this.state.userMailEdit,
-      functionName: this.state.fonctionEdit.label===undefined ? '' : this.state.fonctionEdit.label,
       usefulInformation: this.state.usefulInformationEdit,
       uniqueIdentifier: this.state.userIdentifierEdit,
     };
@@ -614,7 +581,7 @@ class UsersList extends React.Component {
   handleChangeFilterStudent = (name) => (event) => {
     this.setState({ [name]: event.target.value });
     if (name === 'filterLevelStudentId') {
-      if (event.target.value===0) {
+      if (event.target.value === 0) {
         this.setState({
           usersList: this.props.usersList,
           filterClassStudentId: 0,
@@ -623,9 +590,9 @@ class UsersList extends React.Component {
           listGroupFilter: [],
         });
       } else {
-        let classStudentFilter = this.props.listClassFilter.filter((element) => element.levelId===event.target.value);
+        let classStudentFilter = this.props.listClassFilter.filter((element) => element.levelId === event.target.value);
         let studentByLevel = this.props.usersList.students.filter((element) =>
-          element.inforamtionsStudent.some((classItem) => classItem.levelId===event.target.value)
+          element.inforamtionsStudent.some((classItem) => classItem.levelId === event.target.value)
         );
         let newUserList = { ...this.props.usersList, students: studentByLevel };
         this.setState({
@@ -638,12 +605,12 @@ class UsersList extends React.Component {
       }
     }
     if (name === 'filterClassStudentId') {
-      if (event.target.value===0) {
-        if (this.state.filterLevelStudentId===0) {
+      if (event.target.value === 0) {
+        if (this.state.filterLevelStudentId === 0) {
           this.setState({ usersList: this.props.usersList });
         } else {
           let studentByLevel = this.props.usersList.students.filter((element) =>
-            element.inforamtionsStudent.some((classItem) => classItem.levelId===this.state.filterLevelStudentId)
+            element.inforamtionsStudent.some((classItem) => classItem.levelId === this.state.filterLevelStudentId)
           );
           let newUserList = {
             ...this.props.usersList,
@@ -653,7 +620,7 @@ class UsersList extends React.Component {
         }
       } else {
         let studentByClass = this.props.usersList.students.filter((element) =>
-          element.inforamtionsStudent.some((classItem) => classItem.classId===event.target.value)
+          element.inforamtionsStudent.some((classItem) => classItem.classId === event.target.value)
         );
 
         let newUserList = { ...this.props.usersList, students: studentByClass };
@@ -667,7 +634,8 @@ class UsersList extends React.Component {
   handleChangeFilterSuperAdmin = (name) => (event) => {
     this.props.getAllUsersForAdmin(event.target.value, this.props.userProfile.school_year_id);
   };
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const { usefulData } = this.props;
 
     return (
@@ -676,19 +644,19 @@ class UsersList extends React.Component {
           <h1>
             <b>
               <IntlMessages id="users.list" />
-              {this.state.roleIdFilter===0
+              {this.state.roleIdFilter === 0
                 ? '(' + this.props.usersList.users.length + ')'
-                : this.state.roleIdFilter===roleIdAdmin
+                : this.state.roleIdFilter === roleIdAdmin
                 ? '(' + this.props.usersList.admins.length + ')'
-                : this.state.roleIdFilter===roleIdDirector
+                : this.state.roleIdFilter === roleIdDirector
                 ? '(' + this.props.usersList.directors.length + ')'
-                : this.state.roleIdFilter===roleIdProfessor
+                : this.state.roleIdFilter === roleIdProfessor
                 ? '(' + this.props.usersList.professors.length + ')'
-                : this.state.roleIdFilter===roleIdStudent
+                : this.state.roleIdFilter === roleIdStudent
                 ? '(' + this.props.usersList.students.length + ')'
-                : this.state.roleIdFilter===roleIdParent
+                : this.state.roleIdFilter === roleIdParent
                 ? '(' + this.props.usersList.parents.length + ')'
-                : this.state.roleIdFilter===roleIdSupervisor
+                : this.state.roleIdFilter === roleIdSupervisor
                 ? '(' + this.props.usersList.supervisors.length + ')'
                 : ''}
             </b>{' '}
@@ -743,7 +711,7 @@ class UsersList extends React.Component {
               ))}
             </TextField>
           </div>
-          {this.state.roleIdFilter===roleIdProfessor ? (
+          {this.state.roleIdFilter === roleIdProfessor ? (
             <>
               <div className="p-2 bd-highlight col-lg-1 col-md-4 col-sm-2">
                 <TextField
@@ -795,7 +763,7 @@ class UsersList extends React.Component {
           ) : (
             ''
           )}
-          {this.state.roleIdFilter===roleIdStudent ? (
+          {this.state.roleIdFilter === roleIdStudent ? (
             <>
               <div className="p-2 bd-highlight col-lg-1 col-md-4 col-sm-2">
                 <TextField
@@ -885,45 +853,45 @@ class UsersList extends React.Component {
                 <IntlMessages id="user.last.name" />
               </TableCell>
 
-              {this.state.roleIdFilter===0 ? (
+              {this.state.roleIdFilter === 0 ? (
                 <TableCell align="left">
                   <IntlMessages id="role.user" />
                 </TableCell>
               ) : null}
               {/* ------------     affichage classe et matiére pour prof -------------------------------------------*/}
 
-              {this.state.roleIdFilter===roleIdProfessor ? (
+              {this.state.roleIdFilter === roleIdProfessor ? (
                 <TableCell align="left">
                   <IntlMessages id={`components.note.subject`} />
                 </TableCell>
               ) : null}
-              {this.state.roleIdFilter===roleIdProfessor ? (
+              {this.state.roleIdFilter === roleIdProfessor ? (
                 <TableCell align="left">
                   <IntlMessages id={`components.note.class`} />
                 </TableCell>
               ) : null}
               {/* ------------     affichage classe et parent pour student -------------------------------------------*/}
-              {this.state.roleIdFilter===roleIdStudent ? <TableCell align="left">Agence</TableCell> : null}
-              {this.state.roleIdFilter===roleIdStudent ? <TableCell align="left">Chef d'agence</TableCell> : null}
-              {this.state.roleIdFilter===roleIdStudent ? (
+              {this.state.roleIdFilter === roleIdStudent ? <TableCell align="left">Agence</TableCell> : null}
+              {this.state.roleIdFilter === roleIdStudent ? <TableCell align="left">Chef d'agence</TableCell> : null}
+              {this.state.roleIdFilter === roleIdStudent ? (
                 <TableCell align="left">
                   <IntlMessages id={`components.note.class`} />
                 </TableCell>
               ) : null}
               {/* ------------     affichage enfant et classe pour parent -------------------------------------------*/}
 
-              {this.state.roleIdFilter===roleIdParent ? <TableCell align="left">Agence</TableCell> : null}
-              {this.state.roleIdFilter===roleIdParent ? (
+              {this.state.roleIdFilter === roleIdParent ? <TableCell align="left">Agence</TableCell> : null}
+              {this.state.roleIdFilter === roleIdParent ? (
                 <TableCell align="left">
                   <TableCell align="left">Collaborateurs </TableCell>
                 </TableCell>
               ) : null}
               {/* ------------     éliminer colonne email  -------------------------------------------*/}
 
-              {this.state.roleIdFilter===roleIdAdmin ||
-              this.state.roleIdFilter===roleIdDirector ||
-              this.state.roleIdFilter===roleIdSupervisor ||
-              this.state.roleIdFilter===0 ? (
+              {this.state.roleIdFilter === roleIdAdmin ||
+              this.state.roleIdFilter === roleIdDirector ||
+              this.state.roleIdFilter === roleIdSupervisor ||
+              this.state.roleIdFilter === 0 ? (
                 <TableCell>
                   <IntlMessages id="user.mail" />
                 </TableCell>
@@ -952,7 +920,7 @@ class UsersList extends React.Component {
                 })
               : ''}
 
-            {this.state.roleIdFilter===roleIdAdmin || this.state.roleIdFilter===0 ? (
+            {this.state.roleIdFilter === roleIdAdmin || this.state.roleIdFilter === 0 ? (
               <RoleContext.Consumer>
                 {({ role }) => (
                   <Can
@@ -981,7 +949,7 @@ class UsersList extends React.Component {
             ) : (
               ''
             )}
-            {this.state.roleIdFilter===roleIdSupervisor || this.state.roleIdFilter===0 ? (
+            {this.state.roleIdFilter === roleIdSupervisor || this.state.roleIdFilter === 0 ? (
               <RoleContext.Consumer>
                 {({ role }) => (
                   <Can
@@ -1010,7 +978,7 @@ class UsersList extends React.Component {
             ) : (
               ''
             )}
-            {this.state.roleIdFilter===roleIdDirector || this.state.roleIdFilter===0 ? (
+            {this.state.roleIdFilter === roleIdDirector || this.state.roleIdFilter === 0 ? (
               <RoleContext.Consumer>
                 {({ role }) => (
                   <Can
@@ -1039,7 +1007,7 @@ class UsersList extends React.Component {
             ) : (
               ''
             )}
-            {this.state.roleIdFilter===roleIdProfessor || this.state.roleIdFilter===0 ? (
+            {this.state.roleIdFilter === roleIdProfessor || this.state.roleIdFilter === 0 ? (
               <RoleContext.Consumer>
                 {({ role }) => (
                   <Can
@@ -1068,7 +1036,7 @@ class UsersList extends React.Component {
             ) : (
               ''
             )}
-            {this.state.roleIdFilter===roleIdParent || this.state.roleIdFilter===0 ? (
+            {this.state.roleIdFilter === roleIdParent || this.state.roleIdFilter === 0 ? (
               <RoleContext.Consumer>
                 {({ role }) => (
                   <Can
@@ -1097,7 +1065,7 @@ class UsersList extends React.Component {
             ) : (
               ''
             )}
-            {this.state.roleIdFilter===roleIdStudent || this.state.roleIdFilter===0 ? (
+            {this.state.roleIdFilter === roleIdStudent || this.state.roleIdFilter === 0 ? (
               <RoleContext.Consumer>
                 {({ role }) => (
                   <Can
@@ -1155,8 +1123,6 @@ class UsersList extends React.Component {
             handleChangeGroupClassRoom={this.handleChangeGroupClassRoom}
             uploadPhoto={this.uploadPhoto}
             attachFile={this.attachFile}
-            fonctionList={fonctionList}
-            handleChangeFunctions={this.handleChangeFunctions}
             handleChangeStudent={this.handleChangeStudent}
           />
         ) : (
