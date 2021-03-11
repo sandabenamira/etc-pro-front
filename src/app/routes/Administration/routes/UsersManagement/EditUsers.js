@@ -21,13 +21,12 @@ import PhotoIcon from '@material-ui/icons/Photo';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 import { roleIdSuperAdmin, roleIdProfessor, roleIdStudent, roleIdParent } from '../../../../../config/config';
- 
+
 const TypeContrat = [
   { label: 'interne', id: 1, value: 1 },
   { label: 'externe', id: 2, value: 2 },
 ];
 class EditUsers extends React.Component {
-   
   isValidphoneNumber = (number) => {
     const tel = parsePhoneNumberFromString(number);
     let res = false;
@@ -496,40 +495,6 @@ class EditUsers extends React.Component {
                         ''
                       )}
 
-                      {/* {values.roleItemEdit.id === roleIdSupervisor ? (
-                        <div className="col-md-6 col-lg-3 col-sm-12 p-0">
-                          <InputLabel
-                            htmlFor="nomSelect"
-                            style={{
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                            }}
-                          >
-                            {<IntlMessages id="vie.scolaire.fonction" />}
-                          </InputLabel>
-                          <Select
-                            options={this.props.fonctionList}
-                            onChange={this.props.handleChangeFunctions}
-                            value={values.fonctionEdit}
-                            id="function"
-                            name="function"
-                            styles={{
-                              control: (base) => ({
-                                ...base,
-                                "&:hover": { borderColor: "gray" }, // border style on hover
-                                border: "1px solid lightgray", // default border color
-                                boxShadow: "none", // no box-shadow
-                                borderTopStyle: "none",
-                                borderRightStyle: "none",
-                                borderLeftStyle: "none",
-                                borderRadius: " none",
-                              }),
-                            }}
-                          />{" "}
-                        </div>
-                      ) : (
-                        ""
-                      )} */}
                       <hr
                         style={{
                           width: '100%',
@@ -772,7 +737,7 @@ class EditUsers extends React.Component {
                               </InputLabel>
                               <TextField
                                 id="userCIN"
-                                 name="userCIN"
+                                name="userCIN"
                                 type="number"
                                 value={values.userCinEdit || ''}
                                 onChange={this.props.handleChange('userCinEdit')}

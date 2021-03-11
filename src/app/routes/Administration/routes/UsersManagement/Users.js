@@ -24,7 +24,7 @@ import { addUserPermitted } from '../../../../../constants/validationFunctions';
 import LoaderModal from './LoaderModal';
 import { getAssignementCourse } from '../../../../../actions/AssignementAction';
 import IntlMessages from '../../../../../util/IntlMessages';
-    /* eslint  array-callback-return: "off" */
+/* eslint  array-callback-return: "off" */
 const listRolesUsers = [
   {
     id: roleIdAdmin,
@@ -309,7 +309,6 @@ class Users extends React.Component {
         agenceId: this.state.agenceId,
         contratType: this.state.contratType,
       };
-      console.log(data, 'data avant action');
       this.props.addUsers(data);
       this.setState({
         roleId: '',
@@ -757,11 +756,6 @@ class Users extends React.Component {
   UNSAFE_componentWillMount() {
     this.props.getAllRole();
     this.props.getSchoolYearEtabs();
-    // this.props.getAllUsersForAdmin(
-    //   this.props.userProfile.establishment_id,
-    //   this.props.userProfile.school_year_id
-    // );
-    // this.props.getAllUsersForSuperAdministrator();
     this.props.getAssignementCourse(this.props.userProfile.establishment_id, this.props.userProfile.school_year_id);
   }
 
@@ -902,6 +896,7 @@ class Users extends React.Component {
 
   render() {
     /* eslint eqeqeq: "off" */
+    console.log(countriesList,'+++++++++countriesList++++++++++++++++');
     return (
       <div
         className="app-wrapper"
