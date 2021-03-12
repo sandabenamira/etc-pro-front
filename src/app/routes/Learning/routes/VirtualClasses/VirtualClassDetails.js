@@ -55,9 +55,7 @@ class VirtualClassDetails extends Component {
     /* eslint jsx-a11y/iframe-has-title: "off" */
     let classItem = {};
     classItem = this.state.virtualClassItem;
-    console.log(this.state.virtualClassItem, this.props.match.params.classId, ' this.state.virtualClassItem++++++++++');
 
-    console.log(this.props.virtualClasses, '  this.props.virtualClasses++++++++++');
 
     if (classItem === undefined) {
       return <h1 style={{ textAlign: 'center' }}>Classe Virtuelle non disponible</h1>;

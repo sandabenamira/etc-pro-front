@@ -30,8 +30,8 @@ export default function (state = initialState, action) {
   }
   if (action.type === DELETE_VIRTUAL_CLASS) {
     return Object.assign({}, state, {
-      remoteClassVirtual: [...state.remoteClassVirtual.filter((element) => element.id !== action.payload.id)],
-      archivedVirtualClass: state.archivedVirtualClass.concat(action.payload),
+      remoteClassVirtual: [...state.remoteClassVirtual.filter((element) => element.idCourseVirtualclass !== action.payload.idCourseVirtualclass)],
+      archivedVirtualClass: [action.payload].concat(state.archivedVirtualClass),
     });
   }
 

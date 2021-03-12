@@ -479,6 +479,7 @@ class VirtualClassList extends Component {
                   editClassShowModal={this.editClassShowModal}
                   handleShowClassDetails={this.handleShowClassDetails}
                   handleDelete={this.handleDelete}
+                  public={true}
                 />
               </div>
             ))

@@ -92,7 +92,7 @@ class AddOption extends React.Component {
                 >
                 
                   <FormControlLabel
-                    value="Jitsi"
+                    value="JITSI"
                     control={<Radio color="primary" />}
                     label="Jitsi"
                   />

@@ -271,14 +271,7 @@ class VirtualClass extends React.Component {
           this.setState({ alerteDate: false });
         }, 3000);
       } else {
-        let data = {
-          subjectName: this.state.subjectName,
-          subjectColor: this.state.subjectColor,
-          subjectId: this.state.subjectId,
-          classSelected: this.state.classSelected,
-          coursesIds: this.state.coursesIds,
-        };
-        let dateVirtuelClass = {
+        let dataVirtuelClass = {
           date_virtual_class: this.state.dateVirtualClass,
           status: true,
           virtual_class_name: this.state.virtualClassName,
@@ -290,19 +283,58 @@ class VirtualClass extends React.Component {
           accessibility: this.state.accessibility,
           publish: this.state.isPublish,
           description: this.state.description,
+          subjectName: this.state.subjectName,
+          subjectColor: this.state.subjectColor,
+          subjectId: this.state.subjectId,
+          classSelected: this.state.classSelected,
+          coursesIds: this.state.coursesIds,
+          conferenceTool: this.props.conferenceTool,
+          fullName: this.props.userProfile.user.name + '.' + this.props.userProfile.user.surname,
         };
 
         if (this.props.userProfile.role_id === roleIdAdmin) {
-          data.professorId = this.state.profSelected[0].profId;
-          data.profName = this.state.profSelected[0].name;
-          data.profSurname = this.state.profSelected[0].surname;
+          dataVirtuelClass.professorId = this.state.profSelected[0].profId;
+          dataVirtuelClass.profName = this.state.profSelected[0].name;
+          dataVirtuelClass.profSurname = this.state.profSelected[0].surname;
         } else {
-          data.professorId = this.props.userProfile.user.profiles[0].professors[0].id;
-          data.profName = this.props.userProfile.user.name;
-          data.profSurname = this.props.userProfile.user.surname;
+          dataVirtuelClass.professorId = this.props.userProfile.user.profiles[0].professors[0].id;
+          dataVirtuelClass.profName = this.props.userProfile.user.name;
+          dataVirtuelClass.profSurname = this.props.userProfile.user.surname;
         }
-        this.props.dispatch(addClassVirtual(data, dateVirtuelClass));
+        this.props.dispatch(addClassVirtual(dataVirtuelClass));
         this.handleCancel();
+        // let data = {
+        //   subjectName: this.state.subjectName,
+        //   subjectColor: this.state.subjectColor,
+        //   subjectId: this.state.subjectId,
+        //   classSelected: this.state.classSelected,
+        //   coursesIds: this.state.coursesIds,
+        // };
+        // let dateVirtuelClass = {
+        //   date_virtual_class: this.state.dateVirtualClass,
+        //   status: true,
+        //   virtual_class_name: this.state.virtualClassName,
+        //   class_url: this.state.classUrl,
+        //   password: this.state.password,
+        //   start_time_class: this.state.startTimeClass,
+        //   end_time_class: this.state.endTimeClass,
+        //   virtual_class_status: 'programée',
+        //   accessibility: this.state.accessibility,
+        //   publish: this.state.isPublish,
+        //   description: this.state.description,
+        // };
+
+        // if (this.props.userProfile.role_id === roleIdAdmin) {
+        //   data.professorId = this.state.profSelected[0].profId;
+        //   data.profName = this.state.profSelected[0].name;
+        //   data.profSurname = this.state.profSelected[0].surname;
+        // } else {
+        //   data.professorId = this.props.userProfile.user.profiles[0].professors[0].id;
+        //   data.profName = this.props.userProfile.user.name;
+        //   data.profSurname = this.props.userProfile.user.surname;
+        // }
+        // this.props.dispatch(addClassVirtual(data, dateVirtuelClass));
+        // this.handleCancel();
       }
     } else {
     }
@@ -621,6 +653,8 @@ const mapStateToProps = (state) => {
     courseAssignment: state.AssignementReducer.courseAssignment,
     professors: state.usersReducer.professors,
     userPermission: state.PermissionReducer.userPermission,
+    conferenceTool: state.settings.conferenceTool,
+
   };
 };
 

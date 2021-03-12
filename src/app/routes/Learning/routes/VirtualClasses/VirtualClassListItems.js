@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import IntlMessages from '../../../../../util/IntlMessages';
- import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import { roleIdProfessor } from '../../../../../config/config';
@@ -53,27 +53,16 @@ class VitualClassListItems extends Component {
     }
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const sys = Date.parse(new Date()) / 60000;
     const start =
-      Date.parse(
-        this.props.Item.date_virtual_class.slice(0, 10) +
-          ' ' +
-          moment(this.props.Item.start_time_class).format('HH:mm')
-      ) / 60000;
-    const end =
-      Date.parse(
-        this.props.Item.date_virtual_class.slice(0, 10) +
-          ' ' +
-          moment(this.props.Item.end_time_class).format('HH:mm')
-      ) / 60000;
+      Date.parse(this.props.Item.date_virtual_class.slice(0, 10) + ' ' + moment(this.props.Item.start_time_class).format('HH:mm')) / 60000;
+    const end = Date.parse(this.props.Item.date_virtual_class.slice(0, 10) + ' ' + moment(this.props.Item.end_time_class).format('HH:mm')) / 60000;
 
     return (
       <div className="card package bg-white shadow">
-        <div
-          className="package-header  lighten-1 text-white"
-          style={{ backgroundColor: this.props.Item.subjectColor }}
-        >
+        <div className="package-header  lighten-1 text-white" style={{ backgroundColor: this.props.Item.subjectColor }}>
           <h3 className="letter-spacing-base text-uppercase mb-0">
             {' '}
             <strong>{this.props.Item.virtual_class_name}</strong>
@@ -105,9 +94,7 @@ class VitualClassListItems extends Component {
           </li>
           <li>
             <div style={{ display: 'grid', gridTemplateColumns: '60% 100px', color: '#9A9999' }}>
-              <div style={{ fontSize: '13px' }}>
-                {moment(this.props.Item.date_virtual_class).format('DD/MM/YYYY')}{' '}
-              </div>
+              <div style={{ fontSize: '13px' }}>{moment(this.props.Item.date_virtual_class).format('DD/MM/YYYY')} </div>
               <div style={{ fontSize: '13px' }}>
                 {moment(this.props.Item.start_time_class).format('HH:mm')} &nbsp; à &nbsp;
                 {moment(this.props.Item.end_time_class).format('HH:mm')}
@@ -125,20 +112,12 @@ class VitualClassListItems extends Component {
                   </>
                 )}{' '}
               </div>
-              <div style={{ color: ' #A9A9A8', fontSize: '15px' }}>
-                Mot de passe : {this.props.Item.password}{' '}
-              </div>
+              <div style={{ color: ' #A9A9A8', fontSize: '15px' }}>Mot de passe : {this.props.Item.password} </div>
             </div>
           </li>
           <li>
             <div
-              className={` badge  ${
-                start > sys
-                  ? 'bg-amber'
-                  : end > sys
-                  ? 'text-white bg-success'
-                  : 'text-white bg-danger'
-              }`}
+              className={` badge  ${start > sys ? 'bg-amber' : end > sys ? 'text-white bg-success' : 'text-white bg-danger'}`}
               style={{ height: '20px', width: '80px', float: 'left' }}
             >
               {start > sys ? (
@@ -153,11 +132,8 @@ class VitualClassListItems extends Component {
         </ul>
 
         <div className="package-footer" style={{ paddingLeft: '15%' }}>
-          {this.props.Item.status ? (
-            <div
-              className="d-flex flex-row justify-content-around bd-highlight  "
-              style={{ bottom: '0px', height: '30px', position: 'absolute' }}
-            >
+          {this.props.public ? (
+            <div className="d-flex flex-row justify-content-around bd-highlight  " style={{ bottom: '0px', height: '30px', position: 'absolute' }}>
               {end < sys ? (
                 ''
               ) : (
@@ -172,9 +148,7 @@ class VitualClassListItems extends Component {
                     target="_blank"
                   >
                     <span style={{ fontSize: '12px' }}>
-                      <NavLink
-                        to={`/app/e-learning/virtual_classes_details/${this.props.Item.id}/${this.props.Item.virtual_class_name}`}
-                      >
+                      <NavLink to={`/app/e-learning/virtual_classes_details/${this.props.Item.id}/${this.props.Item.virtual_class_name}`}>
                         <span className="nav-text">
                           <IntlMessages id="join.class.viruel" />
                         </span>

@@ -13,47 +13,22 @@ import {
 
 import baseUrl from '../config/config';
 import axios from 'axios';
-
-export const addClassVirtual = (itemClass, dateVirtuelClass) => {
+export const addClassVirtual = (virtuelClassData) => {
   return (dispatch) => {
-    let apiEndpoint = `/virtual_class_v4?access_token=${localStorage.token}`;
-    classService.post(apiEndpoint, dateVirtuelClass).then((response) => {
+    let apiEndpoint = `/virtual_class_v4/addVirtualClass?access_token=${localStorage.token}`;
+    classService.post(apiEndpoint, virtuelClassData).then((response) => {
       if (response) {
-        let virtuelClassId = response.data.id;
-        let virtuelClassCourse = [];
-        virtuelClassCourse = itemClass.coursesIds.map((courseId) => {
-          return {
-            status: true,
-            fk_id_course_v4: courseId.id,
-            fk_id_virtual_class_v4: virtuelClassId,
-          };
+         response.data.virtualClass.forEach((virtualClass) => {
+          dispatch({ type: ADD_VIRTUAL_CLASS, payload: virtualClass });
         });
-        let apiEndpoint2 = `/courses_virtuel_classes?access_token=${localStorage.token}`;
-        classService.post(apiEndpoint2, virtuelClassCourse).then((res) => {
-          if (res) {
-            itemClass.classSelected.forEach((element) => {
-              let newObject = {
-                ...response.data,
-                profId: itemClass.professorId,
-                profName: itemClass.profName,
-                profSurname: itemClass.profSurname,
-                classeId: element.class.id,
-                classeName: element.class.name,
-                subjectName: itemClass.subjectName,
-                subjectColor: itemClass.subjectColor,
-                subjectId: itemClass.subjectId,
-              };
-              dispatch({ type: ADD_VIRTUAL_CLASS, payload: newObject });
-            });
-            dispatch({
-              type: SHOW_SUCCESS_MESSAGE,
-              payload: 'La création est effectuée avec succès',
-            });
-            setTimeout(() => {
-              dispatch({ type: HIDE_SUCCESS_MESSAGE });
-            }, 4000);
-          }
+
+        dispatch({
+          type: SHOW_SUCCESS_MESSAGE,
+          payload: 'La création est effectuée avec succès',
         });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+        }, 4000);
       } else {
         dispatch({
           type: SHOW_ERROR_MESSAGE,
@@ -101,22 +76,13 @@ export function getClassesVirtual(establishmentId, schoolYearId, roleId, roleUse
 export function deleteClassVirtual(item) {
   return (dispatch) => {
     axios
-      .patch(`${baseUrl.baseUrl}/virtual_class_v4/` + item.id + `?access_token=${localStorage.token}`, {
+      .patch(`${baseUrl.baseUrl}/courses_virtuel_classes/` + item.idCourseVirtualclass + `?access_token=${localStorage.token}`, {
         status: false,
       })
       .then((response) => {
-        let newObject = {
-          ...response.data,
-          classeId: item.classId,
-          subjectId: item.subjectId,
-          profId: item.profId,
-          profName: item.profName,
-          profSurname: item.profSurname,
-          subjectName: item.subjectName,
-          classeName: item.classeName,
-          subjectColor: item.subjectColor,
-        };
-        dispatch({ type: DELETE_VIRTUAL_CLASS, payload: newObject });
+        if (response) {
+          dispatch({ type: DELETE_VIRTUAL_CLASS, payload: item });
+        }
       })
       .catch(function (error) {});
   };

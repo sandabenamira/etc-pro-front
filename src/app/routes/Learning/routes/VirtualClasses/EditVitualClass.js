@@ -34,7 +34,6 @@ class EditVitualClass extends Component {
       handleStartTimeChange,
       handleChangeClass,
     } = this.props;
-    console.log('values', this.props.values);
     return (
       <Auxiliary>
         <Modal isOpen={this.props.editIsopen}>

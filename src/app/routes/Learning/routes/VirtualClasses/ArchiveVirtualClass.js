@@ -22,6 +22,8 @@ class ArchiveVirtualClass extends Component {
                   key={index}
                   index={index}
                   Item={element}
+                  public={false}
+
                 />
               </div>
             ))
