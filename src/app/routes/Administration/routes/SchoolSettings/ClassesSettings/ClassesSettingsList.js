@@ -9,24 +9,22 @@ import IntlMessages from '../../../../../../util/IntlMessages';
 import ClassSettingsItem from './ClassSettingsItem';
 import DeleteClassSettings from './DeleteClassSettings';
 import EditClassSettings from './EditClassSettings';
-import {
-  deleteClassSettings,
-  editClassSettings,
-} from '../../../../../../actions/ClassSettingsAction';
+import { deleteClassSettings, editClassSettings } from '../../../../../../actions/ClassSettingsAction';
+import { classService } from '../../../../../../_services/class.service';
+
 /* eslint eqeqeq: "off" */
 class ClassesSettingsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
-      item: {},
+      itemEdit: {},
       deleteIsopen: false,
       deleteItem: {},
       nameClassSettings: '',
       id: null,
       levelId: '',
-      sectionId: '',
-      sectionsByLevelId: [],
+      subjectId: '',
     };
     this.handleEdit = this.handleEdit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -34,14 +32,11 @@ class ClassesSettingsList extends Component {
     this.handleDeleteClassSettings = this.handleDeleteClassSettings.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChangeLevel = this.handleChangeLevel.bind(this);
+    this.handleChangeSubject = this.handleChangeSubject.bind(this);
   }
 
-  handleChangeLevel = (name) => (event) => {
-    this.setState({
-      [name]: event.target.value,
-      sectionsByLevelId: this.props.sections,
-    });
+  handleChangeSubject = (name) => (selectedOption) => {
+    this.setState({ [name]: selectedOption });
   };
 
   handleDeleteClassSettings = (event) => {
@@ -58,40 +53,53 @@ class ClassesSettingsList extends Component {
 
   handleEdit = (item, event) => {
     event.preventDefault();
-    let sectionsByLevelId = this.props.sections;
     this.setState({
       isOpen: true,
-      item: item,
-      nameClassSettings: item.name,
+      itemEdit: item,
+      nameClassSettings: item.class.name,
       id: item.id,
-      levelId: item.fk_id_level_v4,
-      sectionId: item.fk_id_section_v4,
-      sectionsByLevelId,
+      levelId: this.props.levelList.find((element) => element.id === item.class.fk_id_level_v4),
+      subjectId: { ...item.subject, label: item.subject.name },
     });
   };
   handleDelete = (item, event) => {
     event.preventDefault();
-    this.setState({ deleteIsopen: true, deleteItem: item });
+     let apiEndpoint =
+      `/inscription_v4?access_token=${localStorage.token}&filter[where][and][0][status]=` +
+      true +
+      `&filter[where][and][1][fk_id_class_v4]=` +
+      item.fk_id_class_v4;
+    classService.get(apiEndpoint).then((res) => {
+      if (res) {
+        if (res.data.length > 0) {
+          this.setState({ alerteDelete: 'il y a des collaborateurs associés à cette classe', possibleDelete: false });
+        } else {
+          this.setState({ alerteDelete: <IntlMessages id="message.confirm.modal" />, possibleDelete: true });
+        }
+        this.setState({ deleteIsopen: true, deleteItem: item });
+      }
+    });
   };
   handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.value });
   };
-  handleToggle() {
-    this.handleCancel();
-  }
 
   handleSubmit = (e) => {
     e.preventDefault();
+
     const data = {
-      name: this.state.nameClassSettings,
-      fk_id_level_v4: this.state.levelId,
-      fk_id_section_v4: null,
+      ...this.state.itemEdit,
+      fk_id_subject_v4: this.state.subjectId.id,
+      class: { ...this.state.itemEdit.class, name: this.state.nameClassSettings },
+      subject: this.state.subjectId,
     };
-    this.props.editClassSettings(data, this.state.id);
+    this.props.editClassSettings(data);
     this.handleCancel();
   };
-  render() {   /* eslint eqeqeq: "off" */
-     return (
+  render() {
+
+    /* eslint eqeqeq: "off" */
+    return (
       <div className="table-responsive-material">
         <div>
           <h1>
@@ -111,12 +119,7 @@ class ClassesSettingsList extends Component {
               <TableCell>
                 <IntlMessages id="components.note.niveau" />
               </TableCell>
-              <TableCell>
-               Formation
-              </TableCell>{' '}
-              {/* <TableCell>
-                Formateur
-              </TableCell> */}
+              <TableCell>Formation</TableCell>
               <TableCell>
                 <IntlMessages id="action.type.of.education" />
               </TableCell>
@@ -140,15 +143,13 @@ class ClassesSettingsList extends Component {
         </Table>
         {this.state.isOpen ? (
           <EditClassSettings
-            moduleSubject={this.state.item}
             closeModal={this.handleCancel}
             values={this.state}
-            handleAnnule={this.handleCancel}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
-            handleToggle={this.handleToggle}
-            levels={this.props.levels}
-            handleChangeLevel={this.handleChangeLevel}
+            handleChangeSubject={this.handleChangeSubject}
+            subjectList={this.props.subjectList}
+            levelList={this.props.levelList}
           />
         ) : (
           ''
@@ -159,6 +160,8 @@ class ClassesSettingsList extends Component {
             deleteItem={this.state.deleteItem}
             handleCancel={this.handleCancel}
             deleteIsopen={this.state.deleteIsopen}
+            alerteDelete={this.state.alerteDelete}
+            possibleDelete={this.state.possibleDelete}
           />
         ) : (
           ''
