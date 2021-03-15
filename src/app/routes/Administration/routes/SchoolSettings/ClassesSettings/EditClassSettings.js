@@ -4,7 +4,9 @@ import IntlMessages from '../../../../../../util/IntlMessages';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Auxiliary from '../../../../../../util/Auxiliary';
-import MenuItem from '@material-ui/core/MenuItem';
+ import Select from 'react-select';
+import InputLabel from '@material-ui/core/InputLabel';
+
 export default class EditClassSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -12,17 +14,16 @@ export default class EditClassSettings extends React.Component {
   }
   render() {
     /* eslint eqeqeq: "off" */
-    console.log(this.props.values);
-    return (
+     return (
       <Auxiliary>
-        <Modal isOpen={this.props.values.isOpen} toggle={this.props.handleAnnule}>
+        <Modal isOpen={this.props.values.isOpen} toggle={this.props.closeModal}>
           <ModalHeader className="modal-box-header bg-primary text-white">{<IntlMessages id="modal.modif.module.class" />}</ModalHeader>
           <ModalBody>
             <form className="row" onSubmit={this.props.handleSubmit}>
               <div className="col-sm-4">
                 <TextField
                   required
-                  id="namesubjectModule"
+                  id="nameClassSettings"
                   label={<IntlMessages id="components.student.formadd.classe" />}
                   value={this.props.values.nameClassSettings}
                   onChange={this.props.handleChange('nameClassSettings')}
@@ -31,22 +32,70 @@ export default class EditClassSettings extends React.Component {
                 />
               </div>
               <div className="col-sm-4">
-                <TextField
+                <InputLabel required htmlFor="name-class">
+                  {'Formation'}
+                </InputLabel>
+                <Select
+                  options={this.props.subjectList}
+                  onChange={this.props.handleChangeSubject('subjectId')}
+                  value={this.props.values.subjectId}
+                  id="subjectId"
+                  name="subjectId"
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      marginTop: '10px',
+                      '&:hover': { borderColor: 'gray' }, // border style on hover
+                      border: '1px solid lightgray', // default border color
+                      boxShadow: 'none', // no box-shadow
+                      borderTopStyle: 'none',
+                      borderRightStyle: 'none',
+                      borderLeftStyle: 'none',
+                      borderRadius: ' none',
+                    }),
+                  }}
+                />{' '}
+                {/* <TextField
                   required
                   select
-                  id="levelId"
-                  label={<IntlMessages id="components.note.niveau" />}
-                  value={this.props.values.levelId}
-                  onChange={this.props.handleChangeLevel('levelId')}
+                  id="subjectId"
+                  label="Formation"
+                  value={this.props.values.subjectId}
+                  onChange={this.props.handleChange('subjectId')}
                   margin="normal"
                   fullWidth
                 >
-                  {this.props.levels.map((level) => (
-                    <MenuItem key={level.id} value={level.id}>
-                      {level.name}
+                  {this.props.subjectList.map((subject) => (
+                    <MenuItem key={subject.id} value={subject.id}>
+                      {subject.name}
                     </MenuItem>
                   ))}
-                </TextField>
+                </TextField> */}
+              </div>
+              <div className="col-sm-4">
+                <InputLabel required htmlFor="name-class">
+                  {'Formation'}
+                </InputLabel>
+                <Select
+                  options={this.props.levelList}
+                  isDisabled
+                  value={this.props.values.levelId}
+                  id="subjectId"
+                  name="subjectId"
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      marginTop: '10px',
+                      '&:hover': { borderColor: 'gray' }, // border style on hover
+                      border: '1px solid lightgray', // default border color
+                      boxShadow: 'none', // no box-shadow
+                      borderTopStyle: 'none',
+                      borderRightStyle: 'none',
+                      borderLeftStyle: 'none',
+                      borderRadius: ' none',
+                    }),
+                  }}
+                />{' '}
               </div>
               <div className="col-sm-12">
                 <h4>
@@ -83,7 +132,7 @@ export default class EditClassSettings extends React.Component {
                     height: '40px',
                   }}
                   className=" bg-grey text-white "
-                  type="submit"
+                  onClick={this.props.closeModal}
                 >
                   <IntlMessages id="components.establishments.formadd.buttonCancel" />
                 </Button>

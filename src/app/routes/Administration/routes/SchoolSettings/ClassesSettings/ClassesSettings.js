@@ -79,20 +79,6 @@ class ClassesSettings extends React.Component {
           ) : (
             ''
           )}
-          {/* <div className=" bd-highlight" style={{ width: "90%" }}>
-          <CardBox styleName="col-lg-12">
-            <AddClassesSettings
-              openAddModal={this.openAddModal}
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
-              handleArchive={this.handleArchive}
-              values={this.state}
-              levels={this.props.levels}
-              sections={this.props.sections}
-              handleChangeLevel={this.handleChangeLevel}
-            />
-          </CardBox>
-        </div> */}
         </div>
         <div className=" bd-highlight" style={{ width: '90%' }}>
           <CardBox styleName="col-lg-12">
@@ -101,6 +87,8 @@ class ClassesSettings extends React.Component {
               courseAssignment={this.props.courseAssignment}
               levels={this.props.levels}
               sections={this.props.sections}
+              subjectList={this.props.subjectList}
+              levelList={this.props.levelList}
             />
           </CardBox>
         </div>

@@ -12,11 +12,7 @@ export default class ClassSettingsItem extends Component {
         <TableCell>{classItem.class.name}</TableCell>
         <TableCell>{getNameFromID(this.props.levels, classItem.class.fk_id_level_v4)}</TableCell>
         <TableCell>{classItem.subject.name}</TableCell>
-        {/* <TableCell>{classItem.name}</TableCell>
-
-        <TableCell>{getNameFromID(this.props.levels, classItem.fk_id_level_v4)}</TableCell>
-        <TableCell>{classItem.name}</TableCell>
-        <TableCell>{classItem.name}</TableCell> */}
+        
         {this.props.archived===false ? (
           <TableCell>
             <IconButton

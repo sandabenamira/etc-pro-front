@@ -896,8 +896,7 @@ class Users extends React.Component {
 
   render() {
     /* eslint eqeqeq: "off" */
-    console.log(countriesList,'+++++++++countriesList++++++++++++++++');
-    return (
+     return (
       <div
         className="app-wrapper"
         style={{

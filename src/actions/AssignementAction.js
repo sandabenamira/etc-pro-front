@@ -46,7 +46,11 @@ export function getAssignementCourse(establishementId, schoolYearId) {
     classService.get(apiEndpoint).then((response) => {
       if (response) {
         const assignementCourseList = response.data.filter(
-          (element) => element.status && element.class.fk_id_establishment == establishementId && element.class.fk_id_school_year == schoolYearId
+          (element) =>
+            element.status &&
+            element.class.fk_id_establishment == establishementId &&
+            element.class.fk_id_school_year == schoolYearId &&
+            element.class.status
         );
         const ArchivedAssignementCourseList = response.data.filter(
           (element) =>
@@ -55,7 +59,7 @@ export function getAssignementCourse(establishementId, schoolYearId) {
 
         dispatch({
           type: GET_ASSIGNEMENT_COURSE,
-          payload: assignementCourseList,
+          payload: assignementCourseList.reverse(),
         });
         dispatch({
           type: ARCHIVED_GET_ASSIGNEMENT_COURSE,

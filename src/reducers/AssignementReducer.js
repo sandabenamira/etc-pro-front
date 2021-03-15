@@ -7,14 +7,13 @@ import {
   ADD_ASSIGNMENT_FORMATION,
 } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
 
-
 const initialState = {
   courseAssignment: [],
   archivedCourseAssignment: [],
   assignmentFormationToClass: null,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   if (action.type === ADD_ASSIGNMENT_FORMATION) {
     return Object.assign({}, state, {
       assignmentFormationToClass: action.payload,
@@ -33,24 +32,19 @@ export default function(state = initialState, action) {
 
   if (action.type === ADD_ASSIGNEMENT_COURSE) {
     return Object.assign({}, state, {
-      courseAssignment: state.courseAssignment.concat(action.payload),
+      courseAssignment: [action.payload].concat(state.courseAssignment),
     });
   }
 
   if (action.type === EDIT_ASSIGNEMENT_COURSE) {
     return Object.assign({}, state, {
-      courseAssignment: [
-        ...state.courseAssignment.filter((element) => element.id !== action.payload.id),
-        action.payload,
-      ],
+      courseAssignment: [action.payload, ...state.courseAssignment.filter((element) => element.id !== action.payload.id)],
     });
   }
 
   if (action.type === DELETE_ASSIGNEMENT_COURSE) {
     return Object.assign({}, state, {
-      courseAssignment: [
-        ...state.courseAssignment.filter((element) => element.id !== action.payload.id),
-      ],
+      courseAssignment: [...state.courseAssignment.filter((element) => element.id !== action.payload.id)],
       archivedCourseAssignment: state.archivedCourseAssignment.concat(action.payload),
     });
   }
