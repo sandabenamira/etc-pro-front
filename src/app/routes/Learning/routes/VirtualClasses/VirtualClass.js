@@ -67,6 +67,9 @@ class VirtualClass extends React.Component {
       profSelected: [],
       coursesIds: [],
       isOpenAlertParent: false,
+      upcomingList: [],
+      progressList: [],
+      pastList: [],
     };
 
     this.openAddModal = this.openAddModal.bind(this);
@@ -303,38 +306,6 @@ class VirtualClass extends React.Component {
         }
         this.props.dispatch(addClassVirtual(dataVirtuelClass));
         this.handleCancel();
-        // let data = {
-        //   subjectName: this.state.subjectName,
-        //   subjectColor: this.state.subjectColor,
-        //   subjectId: this.state.subjectId,
-        //   classSelected: this.state.classSelected,
-        //   coursesIds: this.state.coursesIds,
-        // };
-        // let dateVirtuelClass = {
-        //   date_virtual_class: this.state.dateVirtualClass,
-        //   status: true,
-        //   virtual_class_name: this.state.virtualClassName,
-        //   class_url: this.state.classUrl,
-        //   password: this.state.password,
-        //   start_time_class: this.state.startTimeClass,
-        //   end_time_class: this.state.endTimeClass,
-        //   virtual_class_status: 'programée',
-        //   accessibility: this.state.accessibility,
-        //   publish: this.state.isPublish,
-        //   description: this.state.description,
-        // };
-
-        // if (this.props.userProfile.role_id === roleIdAdmin) {
-        //   data.professorId = this.state.profSelected[0].profId;
-        //   data.profName = this.state.profSelected[0].name;
-        //   data.profSurname = this.state.profSelected[0].surname;
-        // } else {
-        //   data.professorId = this.props.userProfile.user.profiles[0].professors[0].id;
-        //   data.profName = this.props.userProfile.user.name;
-        //   data.profSurname = this.props.userProfile.user.surname;
-        // }
-        // this.props.dispatch(addClassVirtual(data, dateVirtuelClass));
-        // this.handleCancel();
       }
     } else {
     }
@@ -346,9 +317,50 @@ class VirtualClass extends React.Component {
         subjects: this.props.subjects,
       });
     }
+    if (prevProps.virtualClasses !== this.props.virtualClasses) {
+      let upcomingList = [];
+      let progressList = [];
+      let pastList = [];
+      this.props.virtualClasses.filter((elementItem) => {
+        const sys = Date.parse(new Date()) / 60000;
+        const start = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.start_time_class).format('HH:mm')) / 60000;
+        const end = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.end_time_class).format('HH:mm')) / 60000;
+        if (start > sys && end > sys) {
+          upcomingList.push(elementItem);
+        } else if (start < sys && end > sys) {
+          progressList.push(elementItem);
+        } else if (start < sys && end < sys) {
+          pastList.push(elementItem);
+        }
+        return elementItem;
+      });
+
+      this.setState({ upcomingList, progressList, pastList });
+    }
   }
 
   UNSAFE_componentWillMount() {
+    if (this.props.virtualClasses !== undefined) {
+      let upcomingList = [];
+      let progressList = [];
+      let pastList = [];
+
+      this.props.virtualClasses.filter((elementItem) => {
+        const sys = Date.parse(new Date()) / 60000;
+        const start = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.start_time_class).format('HH:mm')) / 60000;
+        const end = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.end_time_class).format('HH:mm')) / 60000;
+        if (start > sys && end > sys) {
+          upcomingList.push(elementItem);
+        } else if (start < sys && end > sys) {
+          progressList.push(elementItem);
+        } else if (start < sys && end < sys) {
+          pastList.push(elementItem);
+        }
+        return elementItem;
+      });
+
+      this.setState({ upcomingList, progressList, pastList });
+    }
     if (this.props.userProfile.role_id === roleIdProfessor) {
       let apiEndpoint = `${baseUrl.baseUrl}/professors?access_token=${localStorage.token}&filter[where][profile_id]=${this.props.userProfile.id}&filter[include][course][assignmentClassSubject]=class&filter[include][course][assignmentClassSubject]=subject`;
       axios.get(apiEndpoint).then((res) => {
@@ -414,19 +426,19 @@ class VirtualClass extends React.Component {
       {
         cardColor: 'secondary',
         imageIcon: require('../../../FinancialManagement/routes/ServiceAllocation/Icone/tasks-icon.png'),
-        title: this.state.prog,
+        title: this.state.pastList.length,
         subTitle: <IntlMessages id={`virtual.class.terminée`} />,
       },
       {
         cardColor: 'info',
         imageIcon: require('../../../FinancialManagement/routes/ServiceAllocation/Icone/teams-icon.png'),
-        title: this.state.encours,
+        title: this.state.progressList.length,
         subTitle: <IntlMessages id={`virtual.class.encours`} />,
       },
       {
         cardColor: 'warning',
         imageIcon: require('../../../FinancialManagement/routes/ServiceAllocation/Icone/files-icon.png'),
-        title: this.state.terminé,
+        title: this.state.upcomingList.length,
         subTitle: <IntlMessages id={`virtual.class.programmé`} />,
       },
     ];
@@ -654,7 +666,6 @@ const mapStateToProps = (state) => {
     professors: state.usersReducer.professors,
     userPermission: state.PermissionReducer.userPermission,
     conferenceTool: state.settings.conferenceTool,
-
   };
 };
 
