@@ -575,7 +575,7 @@ class ClassFormation extends React.Component {
                 />
               </CardBox>
             </div>
-            <ClassesSettingsList />
+            <ClassesSettingsList subjectList={this.state.subjectList} levelList={this.state.levelList} />
           </div>
         </div>
         {this.state.confirmStep1 === true ? (
