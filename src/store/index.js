@@ -3,7 +3,6 @@ import reducers from '../reducers/index';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from '../sagas/index';
 import thunk from 'redux-thunk';
 
 const history = createBrowserHistory();
@@ -23,7 +22,6 @@ export default function configureStore(initialState) {
     store = createStore(reducers(history), initialState, composedEnhancers);
   }
 
-  sagaMiddleware.run(rootSaga);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
