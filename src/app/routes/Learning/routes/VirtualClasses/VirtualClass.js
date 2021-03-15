@@ -327,14 +327,12 @@ class VirtualClass extends React.Component {
         const end = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.end_time_class).format('HH:mm')) / 60000;
         if (start > sys && end > sys) {
           upcomingList.push(elementItem);
-          return elementItem;
         } else if (start < sys && end > sys) {
           progressList.push(elementItem);
-          return elementItem;
         } else if (start < sys && end < sys) {
           pastList.push(elementItem);
-          return elementItem;
         }
+        return elementItem;
       });
 
       this.setState({ upcomingList, progressList, pastList });
@@ -353,14 +351,12 @@ class VirtualClass extends React.Component {
         const end = Date.parse(elementItem.date_virtual_class.slice(0, 10) + ' ' + moment(elementItem.end_time_class).format('HH:mm')) / 60000;
         if (start > sys && end > sys) {
           upcomingList.push(elementItem);
-          return elementItem;
         } else if (start < sys && end > sys) {
           progressList.push(elementItem);
-          return elementItem;
         } else if (start < sys && end < sys) {
           pastList.push(elementItem);
-          return elementItem;
         }
+        return elementItem;
       });
 
       this.setState({ upcomingList, progressList, pastList });
