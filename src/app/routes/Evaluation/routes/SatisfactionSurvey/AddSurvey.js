@@ -10,9 +10,48 @@ import {
     MuiPickersUtilsProvider,
   } from "@material-ui/pickers";
   import DateFnsUtils from "@date-io/moment";
+  import PropTypes from 'prop-types';
+  import Rating from '@material-ui/lab/Rating';
+  import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+  import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
+  import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
+  import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
+  import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
+  import Box from '@material-ui/core/Box';
+  
+  
 
-
-
+  const customIcons = {
+    1: {
+      icon: <SentimentVeryDissatisfiedIcon />,
+      label: 'Very Dissatisfied',
+    },
+    2: {
+      icon: <SentimentDissatisfiedIcon />,
+      label: 'Dissatisfied',
+    },
+    3: {
+      icon: <SentimentSatisfiedIcon />,
+      label: 'Neutral',
+    },
+    4: {
+      icon: <SentimentSatisfiedAltIcon />,
+      label: 'Satisfied',
+    },
+    5: {
+      icon: <SentimentVerySatisfiedIcon />,
+      label: 'Very Satisfied',
+    },
+  };
+  
+  function IconContainer(props) {
+    const { value, ...other } = props;
+    return <span {...other}>{customIcons[value].icon}</span>;
+  }
+  
+  IconContainer.propTypes = {
+    value: PropTypes.number.isRequired,
+  };
 
 export default class AddSurvey extends Component {
   render() {
@@ -198,12 +237,58 @@ export default class AddSurvey extends Component {
             </div>
           </div>
         </div>
-        <div class="p-2 bd-highlight col-lg-1  col-md-2 ">
-          Flex item 2
+
+        <div class="p-2 bd-highlight col-lg-1  col-md-2">
+          Flex item 2ss
         </div>
+
+
         <div class="p-2 bd-highlight col-lg-5  col-md-9 ">
-          Flex item 3
+        <div class="d-flex flex-column bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="d-flex flex-row bd-highlight mb-3">
+  <div class="p-2 bd-highlight">La relation avec le formateur</div>
+  <div class="p-2 bd-highlight">
+  <Box component="fieldset" mb={3} borderColor="transparent">
+      
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => customIcons[value].label}
+          IconContainerComponent={IconContainer}
+          size="large"
+        />
+      </Box>
+  </div>
+</div>
+<div class="d-flex flex-row bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+</div>
+<div class="d-flex flex-row bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+</div>
+<div class="d-flex flex-row bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+</div>
+<div class="d-flex flex-row bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+</div>
+<div class="d-flex flex-row bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+  
+</div>
+  <div class="p-2 bd-highlight">Flex item 8</div>
+  <div class="p-2 bd-highlight">Flex item 9</div>
+  <div class="p-2 bd-highlight">Flex item 10</div>
+  <div class="p-2 bd-highlight">Flex item 11</div>
+</div>   
         </div>
+        
       </div>
     );
   }
