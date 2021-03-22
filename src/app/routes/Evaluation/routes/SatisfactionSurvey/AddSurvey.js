@@ -240,7 +240,7 @@ export default class AddSurvey extends Component {
           </div>
         </div>
 
-        <div class="p-2 bd-highlight col-lg-1  d-md-none d-sm-none  ">
+        <div class="p-2 bd-highlight col-lg-1  d-none d-lg-block  ">
       
         
           <hr style={{border:"none",borderLeft:"1px solid hsla(200, 10%, 50%,100)" , height:"90vh", width:"1px"}}/>
