@@ -18,28 +18,30 @@ import {
   import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
   import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
   import Box from '@material-ui/core/Box';
-  
+  import Typography from '@material-ui/core/Typography';
+  import Button from '@material-ui/core/Button';
+
   
 
   const customIcons = {
     1: {
-      icon: <SentimentVeryDissatisfiedIcon />,
+      icon: <SentimentVeryDissatisfiedIcon style={{ fontSize: 50 }}   />,
       label: 'Very Dissatisfied',
     },
     2: {
-      icon: <SentimentDissatisfiedIcon />,
+      icon: <SentimentDissatisfiedIcon style={{ fontSize: 50 }}/>,
       label: 'Dissatisfied',
     },
     3: {
-      icon: <SentimentSatisfiedIcon />,
+      icon: <SentimentSatisfiedIcon style={{ fontSize: 50 }}/>,
       label: 'Neutral',
     },
     4: {
-      icon: <SentimentSatisfiedAltIcon />,
+      icon: <SentimentSatisfiedAltIcon style={{ fontSize: 50 }}/>,
       label: 'Satisfied',
     },
     5: {
-      icon: <SentimentVerySatisfiedIcon />,
+      icon: <SentimentVerySatisfiedIcon style={{ fontSize: 50 }}/>,
       label: 'Very Satisfied',
     },
   };
@@ -56,12 +58,12 @@ import {
 export default class AddSurvey extends Component {
   render() {
     return (
-      <div class="d-flex flex-wrap flex-row bd-highlight mb-3">
-        <div class="p-2 bd-highlight col-lg-5  col-md-9 ">
+      <div class="d-flex flex-wrap flex-row bd-highlight mb-3 justify-content-between">
+        <div class="p-2 bd-highlight col-lg-5  col-md-11 ">
           <div class="d-flex flex-column bd-highlight mb-3">
             <div
               class="p-2 bd-highlight"
-              style={{ fontSize: "20px", color: "blue" }}
+              style={{ fontSize: "28px", color: "#41549F" }}
             >
               Questionnaire de satisfaction de Formation
             </div>
@@ -82,7 +84,7 @@ export default class AddSurvey extends Component {
                   // error={values.nameError}
                   id="userLastName"
                   name="userLastName"
-                  //   value={values.userLastName || ""}
+                     value={ "KHLIFI"}
                   //   onChange={this.props.handleChange("userLastName")}
                   style={{
                     marginTop: "3%",
@@ -108,7 +110,7 @@ export default class AddSurvey extends Component {
                   // error={values.nameError}
                   id="userName"
                   name="userName"
-                  // value={values.userName || ''}
+                   value={'Hamza'}
                   // onChange={this.props.handleChange('userName')}
                   style={{
                     marginTop: "3%",
@@ -138,7 +140,7 @@ export default class AddSurvey extends Component {
                     //   checked={values.userGender === "Female"}
                     //   onChange={this.props.handleChange("userGender")}
                     value="Female"
-                    color="primary"
+                    color="danger"
                     name="radio-button-demo"
                     inputProps={{ "aria-label": "D" }}
                   />
@@ -238,18 +240,35 @@ export default class AddSurvey extends Component {
           </div>
         </div>
 
-        <div class="p-2 bd-highlight col-lg-1  col-md-2">
-          Flex item 2ss
+        <div class="p-2 bd-highlight col-lg-1  d-md-none d-sm-none  ">
+      
+        
+          <hr style={{border:"none",borderLeft:"1px solid hsla(200, 10%, 50%,100)" , height:"90vh", width:"1px"}}/>
         </div>
 
 
-        <div class="p-2 bd-highlight col-lg-5  col-md-9 ">
-        <div class="d-flex flex-column bd-highlight mb-3">
-  <div class="p-2 bd-highlight">Flex item 1</div>
-  <div class="d-flex flex-row bd-highlight mb-3">
-  <div class="p-2 bd-highlight">La relation avec le formateur</div>
-  <div class="p-2 bd-highlight">
-  <Box component="fieldset" mb={3} borderColor="transparent">
+        <div class="p-2 bd-highlight col-lg-5  col-md-11 ">
+        <div class="d-flex flex-wrap flex-column bd-highlight mb-3 ">
+  <div class="p-2 bd-highlight " style={{color:"#1977A7" , fontSize:"25px"}}>Etes-vous satisfaits de la qualité de :</div>
+  <div class="d-flex flex-wrap flex-row bd-highlight ">
+  <div class="p-2 bd-highlight col-lg-5  col-md-5"  style={{color:"#1977A7" , fontSize:"18px"}}>La relation avec le formateur</div>
+  <div class="p-2 bd-highlight col-lg-6 col-md-6">
+  <Box component="fieldset"  borderColor="transparent">
+      
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => customIcons[value].label}
+          IconContainerComponent={IconContainer}
+         
+        />
+      </Box>
+  </div>
+</div>
+<div class="d-flex flex-wrap flex-row bd-highlight ">
+  <div class="p-2 bd-highlight col-lg-5  col-md-5" style={{color:"#1977A7" , fontSize:"18px"}}>Les méthodes utilisées</div>
+  <div class="p-2 bd-highlight col-lg-6 col-md-6">
+  <Box component="fieldset"  borderColor="transparent">
       
         <Rating
           name="customized-icons"
@@ -261,31 +280,157 @@ export default class AddSurvey extends Component {
       </Box>
   </div>
 </div>
-<div class="d-flex flex-row bd-highlight mb-3">
-  <div class="p-2 bd-highlight">Flex item 1</div>
-  <div class="p-2 bd-highlight">Flex item 2</div>
+<div class="d-flex flex-wrap flex-row bd-highlight ">
+  <div class="p-2 bd-highlight col-lg-5  col-md-5" style={{color:"#1977A7" , fontSize:"18px"}}>Le rythme de la formation</div>
+  <div class="p-2 bd-highlight col-lg-6 col-md-6">
+  <Box component="fieldset"  borderColor="transparent">
+      
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => customIcons[value].label}
+          IconContainerComponent={IconContainer}
+          size="large"
+        />
+      </Box>
+  </div>
 </div>
-<div class="d-flex flex-row bd-highlight mb-3">
-  <div class="p-2 bd-highlight">Flex item 1</div>
-  <div class="p-2 bd-highlight">Flex item 2</div>
+<div class="d-flex flex-wrap flex-row bd-highlight ">
+  <div class="p-2 bd-highlight col-lg-5  col-md-5" style={{color:"#1977A7" , fontSize:"18px"}}>Les moyens pédagogiques</div>
+  <div class="p-2 bd-highlight col-lg-6 col-md-6">
+  <Box component="fieldset"  borderColor="transparent">
+      
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => customIcons[value].label}
+          IconContainerComponent={IconContainer}
+          size="large"
+        />
+      </Box>
+  </div>
 </div>
-<div class="d-flex flex-row bd-highlight mb-3">
-  <div class="p-2 bd-highlight">Flex item 1</div>
-  <div class="p-2 bd-highlight">Flex item 2</div>
+<div class="d-flex flex-wrap flex-row bd-highlight ">
+  <div class="p-2 bd-highlight col-lg-5  col-md-5" style={{color:"#1977A7" , fontSize:"18px"}}>L'animation</div>
+  <div class="p-2 bd-highlight col-lg-6 col-md-6">
+  <Box component="fieldset"  borderColor="transparent">
+      
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => customIcons[value].label}
+          IconContainerComponent={IconContainer}
+          size="large"
+        />
+      </Box>
+  </div>
 </div>
-<div class="d-flex flex-row bd-highlight mb-3">
-  <div class="p-2 bd-highlight">Flex item 1</div>
-  <div class="p-2 bd-highlight">Flex item 2</div>
+<div class="d-flex flex-wrap flex-row bd-highlight ">
+  <div class="p-2 bd-highlight col-lg-5  col-md-5" style={{color:"#1977A7" , fontSize:"18px"}}>L'organisation matérielle</div>
+  <div class="p-2 bd-highlight col-lg-6 col-md-6">
+  <Box component="fieldset"  borderColor="transparent">
+      
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => customIcons[value].label}
+          IconContainerComponent={IconContainer}
+          size="large"
+        />
+      </Box>
+  </div>
 </div>
-<div class="d-flex flex-row bd-highlight mb-3">
-  <div class="p-2 bd-highlight">Flex item 1</div>
-  <div class="p-2 bd-highlight">Flex item 2</div>
-  
+<div class="d-flex flex-wrap flex-row bd-highlight ">
+  <div class="p-2 bd-highlight col-lg-5  col-md-5" style={{color:"#1977A7" , fontSize:"18px"}}>L'aide reçue en cas de besoin</div>
+  <div class="p-2 bd-highlight col-lg-6 col-md-6">
+  <Box component="fieldset"  borderColor="transparent">
+      
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => customIcons[value].label}
+          IconContainerComponent={IconContainer}
+          size="large"
+        />
+      </Box>
+  </div>
 </div>
-  <div class="p-2 bd-highlight">Flex item 8</div>
-  <div class="p-2 bd-highlight">Flex item 9</div>
-  <div class="p-2 bd-highlight">Flex item 10</div>
-  <div class="p-2 bd-highlight">Flex item 11</div>
+<div class="d-flex flex-wrap flex-row bd-highlight ">
+  <div class="p-2 bd-highlight col-lg-5  col-md-5" style={{color:"#1977A7" , fontSize:"18px"}}>Les échanges dans le groupe</div>
+  <div class="p-2 bd-highlight col-lg-6 col-md-6">
+  <Box component="fieldset"  borderColor="transparent">
+      
+        <Rating
+          name="customized-icons"
+          defaultValue={2}
+          getLabelText={(value) => customIcons[value].label}
+          IconContainerComponent={IconContainer}
+          size="small"
+        />
+      </Box>
+  </div>
+</div>
+<div className="col-md-8 col-lg-10 col-sm-12 p-2">
+                  <label>
+                    <Typography
+                      style={{color:"#1977A7" , fontSize:"20px"}}
+                    >
+                      Commentaire
+                    </Typography>
+                  </label>
+                  <textarea
+                    className="container"
+                    id="usefulInformation"
+                    name="usefulInformation"
+                    rows="3"
+                    // value={values.usefulInformation || ''}
+                    // onChange={this.props.handleChange('usefulInformation')}
+                    style={{
+                      borderRadius: '20px',
+                      marginTop: '10px',
+                      width: '100%',
+                    }}
+                  ></textarea>
+                </div>
+                <div className="d-flex flex-wrap justify-content-end ">
+                          <Button
+                            variant="contained"
+                            onClick={this.props.openAddModal}
+                            style={{
+                              borderBottomLeftRadius: '16px',
+                              borderBottomRightRadius: '16px',
+                              borderTopLeftRadius: '16px',
+                              borderTopRightRadius: '16px',
+                              width: '120px',
+                              height: '40px',
+                            }}
+                          >
+                            {<IntlMessages id="components.establishments.formadd.buttonCancel" />}
+                          </Button>
+                         
+                          &nbsp;&nbsp;
+                          <Button
+                            variant="contained"
+                            // disabled={
+                            //   this.props.values.section_id===null ||
+                            //   this.props.values.level_id===null ||
+                            //   this.props.values.nameClassSettings===''
+                            //     ? true
+                            //     : false
+                            // }
+                            style={{
+                              borderBottomLeftRadius: '16px',
+                              borderBottomRightRadius: '16px',
+                              borderTopLeftRadius: '16px',
+                              borderTopRightRadius: '16px',
+                              width: '120px',
+                              height: '40px',
+                            }}
+                            className=" bg-indigo text-white "
+                            type="submit"
+                          >
+                            <IntlMessages id="service.button.send" />
+                          </Button></div>
 </div>   
         </div>
         

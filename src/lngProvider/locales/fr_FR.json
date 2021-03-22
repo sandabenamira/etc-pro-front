@@ -1613,8 +1613,8 @@
   "component.agence.list": "Liste des agences",
   "profile.change.password" :"Changer mot de passe",
   "alert.permission" : "Vous n'avez pas les permissions pour ce module " ,
-  "name.formation" : "Nom de la Formation"
-
+  "name.formation" : "Nom de la Formation",
+"service.button.send":"Envoyer"
 
 
 
