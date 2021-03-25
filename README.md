@@ -3,7 +3,7 @@
 This project is developed by Jumbo React
 This project is the first application for ADN Expertise Entreprise.
 
-# DevOpsTeam
+# DevTeam
 
                     |   start_date  |   end_date
 
@@ -17,6 +17,7 @@ Bechir ACHOURA | 14/10/2019 | -/-/-
 Bouraoui khlifi | 01/09/2019 | -/-/-
 Hamza KHLIFI | 15/10/2020 | -/-/-
 Amal BOUMIZA | 01/10/2020 | -/-/-
+Naceur HORBIT
 
 # We bought the Jumbo React to fast delivrey the classebook application.
 
