@@ -14,7 +14,6 @@ import {
   SIGNIN_TWITTER_USER,
   SIGNIN_TWITTER_USER_SUCCESS,
   SIGNIN_USER_SUCCESS,
-  SIGNOUT_USER,
   SIGNOUT_USER_SUCCESS,
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
@@ -159,7 +158,7 @@ export const userSignOut = () => {
   localStorage.removeItem('rtvrx_tgfsaju_G0loik');
 
   return {
-    type: SIGNOUT_USER,
+    type: SIGNOUT_USER_SUCCESS,
   };
 };
 
