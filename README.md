@@ -24,4 +24,6 @@ use node v14.16.0
 Installing all the dependencies of project, run following command:
 yarn install
 
-# Documentation
+# CICD
+gitlab, jenkins, ansible
+
