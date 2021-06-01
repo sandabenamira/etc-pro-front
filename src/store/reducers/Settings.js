@@ -10,7 +10,7 @@ import {
   WINDOW_WIDTH,
   COLLAPSED_DRAWER,
   INIT_OPTIONS,
-} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+} from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 
 const rltLocale = ["ar"];
 

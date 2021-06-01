@@ -4,7 +4,7 @@ import {
   DELETE_AGENCE,
   ARCHIVED_GET_AGENCE,
   EDIT_AGENCE,
-} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+} from '../../constants/ActionTypes'; /* eslint eqeqeq: "off" */
 
 
 const initialState = {

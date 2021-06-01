@@ -3,7 +3,7 @@ import {
   ADD_SCHOOL_YEAR_ETAB,
   EDIT_SCHOOL_YEAR_ETAB,
   DELETE_SCHOOL_YEAR_ETAB,
-} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+} from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 
 
 const initialState = {

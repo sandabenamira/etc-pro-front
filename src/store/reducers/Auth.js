@@ -17,7 +17,7 @@ import {
   EDIT_PROFILE,
   GET_PROFILE,
   SWITCH_APP_LANGUAGE,
-} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+} from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 
 
 const INIT_STATE = {
