@@ -37,18 +37,18 @@ class Home extends React.Component {
     this.ResetPassword = this.ResetPassword.bind(this);
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.users !== this.props.users) {
-      let listParent = this.props.users.filter((element) => element.role_id === roleIdParent);
-      let listStudent = this.props.users.filter((element) => element.role_id === roleIdStudent);
-      let listProf = this.props.users.filter((element) => element.role_id === roleIdProfessor);
+    // if (prevProps.users !== this.props.users) {
+    //   let listParent = this.props.users.filter((element) => element.role_id === roleIdParent);
+    //   let listStudent = this.props.users.filter((element) => element.role_id === roleIdStudent);
+    //   let listProf = this.props.users.filter((element) => element.role_id === roleIdProfessor);
 
-      this.setState({ countesProfessors: listProf.length });
-      this.setState({ countesParents: listParent.length });
-      this.setState({ countesStudents: listStudent.length });
-      let nbreGirls = listStudent.filter((element) => element.user.gender === 'Féminin');
-      let nbreBoys = listStudent.filter((element) => element.user.gender === 'Masculin');
-      this.setState({ nbreGirls: nbreGirls.length, nbreBoys: nbreBoys.length });
-    }
+    //   this.setState({ countesProfessors: listProf.length });
+    //   this.setState({ countesParents: listParent.length });
+    //   this.setState({ countesStudents: listStudent.length });
+    //   let nbreGirls = listStudent.filter((element) => element.user.gender === 'Féminin');
+    //   let nbreBoys = listStudent.filter((element) => element.user.gender === 'Masculin');
+    //   this.setState({ nbreGirls: nbreGirls.length, nbreBoys: nbreBoys.length });
+    // }
   }
 
   onOptionMenuSelect = (event) => {
@@ -223,7 +223,7 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
   return {
     userProfile: state.auth.userProfile,
-    users: state.stuppUsers.remoteStuppUsers,
+   // users: state.stuppUsers.remoteStuppUsers,
   };
 };
 
