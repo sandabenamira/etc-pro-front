@@ -1,6 +1,5 @@
 import React from 'react';
-import IconWithTextCard from '../../../CommonComponents/IconWithTextCard';
-import IntlMessages from '../../../../../util/IntlMessages';
+ import IntlMessages from '../../../../../util/IntlMessages';
 import HomeworkInProgress from './HomeworkInProgress';
 import CardBox from '../../../../../components/CardBox/index';
 import AddIcon from '@material-ui/icons/Add';
@@ -458,8 +457,7 @@ class Homework extends React.Component {
           <div className="row col-lg-12 col-md- col-sm-12  ">
             {detailCards.map((data, index) => (
               <div key={index} className="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-                <IconWithTextCard data={data} />
-              </div>
+               </div>
             ))}
           </div>
           <div>

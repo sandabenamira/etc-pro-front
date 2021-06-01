@@ -18,8 +18,7 @@ import Footer from '../components/Footer';
 import Administration from './routes/Administration/index';
 import Devoir from './routes/Learning/index';
 import Home from './routes/Home/index';
-import Cafeteria from './routes/Cafeteria/index';
-import HealthMonitoring from './routes/HealthMonitoring/HealthMonitoring';
+ import HealthMonitoring from './routes/HealthMonitoring/HealthMonitoring';
 import Learning from './routes/Learning/index';
 import Evaluation from './routes/Evaluation/index';
 import Assiduity from './routes/Assiduity/index';
@@ -177,17 +176,7 @@ class App extends React.Component {
                   )}
                 />
 
-                <Route
-                  path={`${match.url}/Cafeteria`}
-                  render={() => (
-                    <RouteControl
-                      pathName={'cafeteria'}
-                      estabModule={estabModule}
-                      Component={Cafeteria}
-                      match={match}
-                    />
-                  )}
-                />
+               
                 <Route
                   path={`${match.url}/devoir`}
                   render={() => (

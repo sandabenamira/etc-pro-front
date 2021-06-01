@@ -4,11 +4,10 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Can from '../../../can';
 import { RoleContext } from '../../../Context';
 // import EducationalCalendar from './routes/EducationalCalendar/EducationalCalendar';
-import Timetable from './routes/Timetable/index';
+import Timetable from './routes/Timetable/TimeTable';
 import Planning from './routes/Planning/Planning';
 import CallRegister from './routes/CallRegister/Registre';
- import DetailsCallRegister from './routes/CallRegister/DetailsCallRegister';
-
+ 
 const Assiduity = ({ match, estabModule }) => (
   <div className="app-wrapper">
     <Switch>
@@ -116,10 +115,10 @@ const Assiduity = ({ match, estabModule }) => (
         //   path="/app/assiduity/DetailsCallRegister/:type/:eventId/:classId/:profileId/:startDate"
         //   component={DetailsCallRegister}
         // />
-        <Route
-          path="/app/assiduity/DetailsCallRegister/:type/:eventId/:classId/:profileId/:startDate"
-          render={(props) => <DetailsCallRegister  {...props} />}
-        />
+        // <Route
+        //   path="/app/assiduity/DetailsCallRegister/:type/:eventId/:classId/:profileId/:startDate"
+        //   render={(props) => <DetailsCallRegister  {...props} />}
+        // />
       }
     </Switch>
   </div>

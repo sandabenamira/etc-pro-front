@@ -1,6 +1,5 @@
 import React from "react";
-import IconWithTextCard from "../../../CommonComponents/IconWithTextCard";
-import IntlMessages from "../../../../../util/IntlMessages";
+ import IntlMessages from "../../../../../util/IntlMessages";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import CardBox from "../../../../../components/CardBox/index";
@@ -63,8 +62,7 @@ this.setState({isOpenAddModal:true})
             <div class="d-flex flex-wrap flex-row justify-content-center">
               {detailCards.map((data, index) => (
                 <div key={index} className="p-2">
-                  <IconWithTextCard data={data} />
-                </div>
+                 </div>
               ))}
             </div>
           </div>
