@@ -1,16 +1,42 @@
-import React, { Component } from 'react'
-import AddSurvey from "./AddSurvey"
+import React, { Component } from "react";
+import { connect } from "react-redux";
+ 
+/* eslint eqeqeq: "off" */
+export class SatisfactionSurvey extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+       
+    };
+    
+  }
+ 
 
-export default class SatisfactionSurvey extends Component {
-    render() {
-        return (
-            <div className=" bd-highlight" >
-            <div styleName="col-lg-12 col-sm-12 col-md-12   d-flex flex-column justify-content-center ">
-               <AddSurvey/>
-               
-            </div>
-  
-          </div> 
-        )
-    }
+  render() {
+    /* eslint eqeqeq: "off" */
+    return (
+      <div
+        className="app-wrapper"
+        style={{
+          marginLeft: '5%',
+          marginRight: '10%',
+        }}
+      >
+        <h2>module  Satisfaction</h2>
+      </div>
+    );
+  }
 }
+
+const mapStateToProps = (state) => {
+  return {
+  
+  };
+};
+
+export default connect(mapStateToProps)(SatisfactionSurvey);
+
+
+
+
+ 

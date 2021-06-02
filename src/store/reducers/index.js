@@ -2,9 +2,9 @@ import {combineReducers} from 'redux';
 import {connectRouter} from 'connected-react-router';
 import Settings from './Settings';
 import Auth from './Auth';
-import establishmentReducer from './establishmentReducer';
+import establishmentReducer from './Establishment';
 import Alerts from './Alert';
-import SchoolYearEtabReducer from './SchoolYearEtabReducer';
+import SchoolYearEtabReducer from './SchoolYearEtab';
 
 export default history =>
   combineReducers({

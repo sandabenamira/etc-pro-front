@@ -8,8 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import {NavLink} from 'react-router-dom';
 import {Dropdown, DropdownMenu, DropdownToggle} from 'reactstrap';
-import {userSignOut} from '../../actions/Auth';
-import ColorOption from '../../containers/Customizer/ColorOption';
+import {userSignOut} from '../../store/actions/Auth';
+import ColorOption from '../containers/Customizer/ColorOption';
 import imageStudent from '../../assets/images/supAdmin.png';
 import {
   COLLAPSED_DRAWER,
@@ -17,7 +17,7 @@ import {
   HORIZONTAL_NAVIGATION,
 } from '../../constants/ActionTypes';
 import SearchBox from '../../components/SearchBox';
-import {switchLanguage, toggleCollapsedNav} from '../../actions/Setting';
+import {switchLanguage, toggleCollapsedNav} from '../../store/actions/Setting';
 import IntlMessages from '../../util/IntlMessages';
 import LanguageSwitcher from '../../components/LanguageSwitcher/index';
 import Menu from '@material-ui/core/Menu';

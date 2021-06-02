@@ -1,8 +1,8 @@
 import React from 'react';
 import asyncComponent from '../../../util/asyncComponent';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Can from '../../../can';
-import { RoleContext } from '../../../Context';
+import Can from '../../../components/switchComponent/can';
+import { RoleContext } from '../../../components/switchComponent/Context';
 // import EducationalCalendar from './routes/EducationalCalendar/EducationalCalendar';
 import Timetable from './routes/Timetable/TimeTable';
 import Planning from './routes/Planning/Planning';

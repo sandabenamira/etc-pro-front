@@ -6,36 +6,36 @@ import {
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
 } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
-import Can from '../can';
+import Can from '../components/switchComponent/can';
 import asyncComponent from '../util/asyncComponent';
 import {isIOS, isMobile} from 'react-device-detect';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 // -------------- import components --------------------//
 import Header from '../components/Header/index';
-import Sidebar from '../containers/SideNav/index';
+import Sidebar from '../components/containers/SideNav/index';
 import Footer from '../components/Footer';
 import Administration from './routes/Administration/index';
 import Devoir from './routes/Learning/index';
 import Home from './routes/Home/index';
- import HealthMonitoring from './routes/HealthMonitoring/HealthMonitoring';
+import HealthMonitoring from './routes/HealthMonitoring/HealthMonitoring';
 import Learning from './routes/Learning/index';
 import Evaluation from './routes/Evaluation/index';
 import Assiduity from './routes/Assiduity/index';
-import {RoleContext} from '../Context';
+import {RoleContext} from '../components/switchComponent/Context';
 import SupportCours from './routes/Learning/routes/CoursMaterials/SupportCours';
 import VirtualClasses from './routes/Learning/index';
 import Community from './routes/Community/index';
 import Libraries from './routes/Libraries/index';
 import FinancialManagement from './routes/FinancialManagement/index';
 import Superadmin from './routes/Superadmin/index';
-import ModalEstablishmentList from './routes/Home/DashboardAdmin/ModalEstablishmentList';
 import UserProfile from './routes/UserProfile/index';
 
 //----------------------- import actions ------------//
 
-import {getProfile} from '../actions/Auth';
-//----------------------- import actions ------------//
+import {getProfile} from '../store/actions/Auth';
+
+//----------------------- import config ------------//
 
 // import {
 //   roleIdSuperAdmin,
@@ -129,10 +129,6 @@ class App extends React.Component {
       <div className={`app-container ${drawerStyle}`}>
         <Sidebar estabModule={this.props.estabModule} />
         <div className="app-main-container bg-white">
-          {this.props.multiple ? (
-            <ModalEstablishmentList multiple={this.props.multiple} />
-          ) : null}
-
           <div className="app-header app-header-horizontal">
             <Header />
           </div>
@@ -176,7 +172,6 @@ class App extends React.Component {
                   )}
                 />
 
-               
                 <Route
                   path={`${match.url}/devoir`}
                   render={() => (

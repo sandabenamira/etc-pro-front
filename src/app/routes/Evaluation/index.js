@@ -1,9 +1,8 @@
 import React from "react";
 import asyncComponent from "../../../util/asyncComponent";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Can from "../../../can";
-import { RoleContext } from "../../../Context";
-import Note from "./routes/Note/Note";
+import Can from "../../../components/switchComponent/can";
+import { RoleContext } from "../../../components/switchComponent/Context";
 import ReportingKPI from "./routes/ReportingKPI/ReportingKPI";
 import SatisfactionSurvey from "./routes/SatisfactionSurvey/SatisfactionSurvey";
 
@@ -17,44 +16,6 @@ const Evaluation = ({ match, estabModule }) => (
       />
    
     
-      <Route
-        path={`${match.url}/note`}
-        render={() => (
-          <RoleContext.Consumer>
-            {({ role }) => (
-              <Can
-                role={role}
-                perform="module-nav-access"
-                data={{
-                  mod: "evaluation",
-                  moduleList: estabModule,
-                }}
-                yes={() => (
-                  <Can
-                    role={role}
-                    perform={`module-nav-note`}
-                    yes={() => <Note match={match} />}
-                    no={() => (
-                      <Route
-                        component={asyncComponent(() =>
-                          import("../../../components/Error404")
-                        )}
-                      />
-                    )}
-                  />
-                )}
-                no={() => (
-                  <Route
-                    component={asyncComponent(() =>
-                      import("../../../components/Error404")
-                    )}
-                  />
-                )}
-              />
-            )}
-          </RoleContext.Consumer>
-        )}
-      />
       <Route
         path={`${match.url}/satisfaction-question`}
         render={() => (

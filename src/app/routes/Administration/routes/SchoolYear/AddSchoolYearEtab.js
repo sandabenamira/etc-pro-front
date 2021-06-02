@@ -3,7 +3,7 @@ import IntlMessages from '../../../../../util/IntlMessages';
 import Auxiliary from '../../../../../util/Auxiliary';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
-import { addSchoolYearEtab } from '../../../../../actions/SchoolYearEtabAction';
+import { addSchoolYearEtab } from '../../../../../store/actions/SchoolYearEtabAction';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
  
