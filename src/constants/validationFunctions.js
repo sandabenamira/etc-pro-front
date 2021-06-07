@@ -1,4 +1,5 @@
 
+/* eslint eqeqeq: "off" */
 const addUserRbac = {
   Admin: 'add-admin',
   Formateur: 'add-prof',
