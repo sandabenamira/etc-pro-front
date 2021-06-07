@@ -297,7 +297,6 @@ const mapStateToProps = ({settings, establishment, auth, schoolYearEtab}) => {
   const {drawerType, navigationStyle, horizontalNavPosition} = settings;
   const {estabModule} = establishment;
   const {multiple, userProfile} = auth;
-  const {schoolYear} = schoolYearEtab;
 
   return {
     drawerType,
@@ -305,7 +304,6 @@ const mapStateToProps = ({settings, establishment, auth, schoolYearEtab}) => {
     horizontalNavPosition,
     estabModule,
     multiple,
-    schoolYear,
     userProfile,
   };
 };

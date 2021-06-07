@@ -5,10 +5,7 @@ import {
   sousModuleEtab2,
   sousModuleELearning,
   sousModuleAssiduity,
-  sousModuleLibraries,
-  // sousModuleFinancialManagement,
   sousModuleSuperadmin,
-  sousModuleCommunity,
   sousModuleEvaluation,
 } from '../../constants/StuppModules';
 import { RoleContext } from '../switchComponent/Context';
@@ -307,38 +304,7 @@ class Menu extends Component {
             <li className="nav-item">
               <MenuCollapseBoxItem pathName={'assiduity'} listModule={estabModule} sousModuleStupp={sousModuleAssiduity} />
             </li>
-            <li className="nav-item">
-              <MenuCollapseBoxItem pathName={'community'} listModule={estabModule} sousModuleStupp={sousModuleCommunity} />
-            </li>
-
-            {/* <li className="nav-item">
-            <NavlinkItem pathName={"cafeteria"} 
-            listMoule={estabModule} />
-          </li>
-          <li className="nav-item">
-            <NavlinkItem
-              pathName={"health-monitoring"}
-              listMoule={estabModule}
-            />
-          </li> */}
-            {/* <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={'financial_management'}
-                listModule={estabModule}
-                sousModuleStupp={sousModuleFinancialManagement}
-              />
-            </li> */}
-
-            {/* <li className="nav-item ">
-              <NavLink className="prepend-icon" to="/app/financial_management/ServiceAllocation">
-                <span className="nav-text">
-                <IntlMessages id="sidebar.components.financial_management" />
-                </span>
-              </NavLink>
-            </li> */}
-            <li className="nav-item">
-              <MenuCollapseBoxItem pathName={'e-libraries'} listModule={estabModule} sousModuleStupp={sousModuleLibraries} />
-            </li>
+        
           </ul>
         </div>
       </div>

@@ -6,7 +6,7 @@ import Rooms from './routes/Room/Rooms';
 import Can from '../../../components/switchComponent/can';
 import { RoleContext } from '../../../components/switchComponent/Context';
 import Option from './routes/Option/Option';
-import SchoolYearEtab from './routes/SchoolYear/SchoolYearEtab';
+import SchoolYearEtab from './routes/SchoolYear/SchoolYear';
 import TypeOfEducation from './routes/SchoolSettings/TypeOfEducation/TypeOfEducation';
 import Levels from './routes/SchoolSettings/levels/Levels';
 import SubjectModule from './routes/SchoolSettings/SubjectModule/SubjectModule';

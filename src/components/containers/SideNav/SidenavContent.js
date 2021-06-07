@@ -6,18 +6,13 @@ import CustomScrollbars from "../../../util/CustomScrollbars";
 import { RoleContext } from "../../switchComponent/Context";
 import Can from "../../switchComponent/can";
 import {
-  sousModuleGrades,
-  sousModuleLibraries,
-  // sousModuleFinancialManagement,
   sousModuleSuperadmin,
   sousModuleELearning,
   sousModuleAdministration,
   sousModuleAssiduity,
-  sousModuleCommunity,
-  sousModuleEvaluation
+  sousModuleEvaluation,
 } from "../../../constants/StuppModules";
 import Navigation from "../Navigation/index";
-// import CustomScrollbars from '../../util/CustomScrollbars';
 
 const NavlinkItem = ({ pathName, listMoule }) => {
   return (
@@ -51,7 +46,7 @@ const NavlinkItem = ({ pathName, listMoule }) => {
 };
 
 const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
-   return (
+  return (
     <li className="menu collapse-box">
       <RoleContext.Consumer>
         {({ role }) => (
@@ -111,7 +106,7 @@ class SidenavContent extends Component {
     const menuLi = document.getElementsByClassName("menu");
 
     for (let i = 0; i < menuLi.length; i++) {
-      menuLi[i].onclick = function(event) {
+      menuLi[i].onclick = function (event) {
         for (let j = 0; j < menuLi.length; j++) {
           const parentLi = that.closest(this, "li");
           if (
@@ -160,8 +155,8 @@ class SidenavContent extends Component {
         "mozMatchesSelector",
         "msMatchesSelector",
         "oMatchesSelector",
-      ].some(function(fn) {
-        if (typeof document.body[fn]==="function") {
+      ].some(function (fn) {
+        if (typeof document.body[fn] === "function") {
           matchesFn = fn;
           return true;
         }
@@ -183,7 +178,8 @@ class SidenavContent extends Component {
     return null;
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {
+    /* eslint eqeqeq: "off" */
     const estabModule = this.props.estabModule;
     return (
       <CustomScrollbars className=" scrollbar">
@@ -211,12 +207,6 @@ class SidenavContent extends Component {
             />
           </li>
 
-          {/* <MenuCollapseBoxItem
-            pathName={"administration"}
-            listModule={estabModule}
-            sousModuleStupp={sousModuleEtab}
-          /> */}
-
           <MenuCollapseBoxItem
             pathName={"e-learning"}
             listModule={estabModule}
@@ -227,83 +217,15 @@ class SidenavContent extends Component {
             listModule={estabModule}
             sousModuleStupp={sousModuleEvaluation}
           />
-          {/* <li>
-            <NavlinkItem pathName={"e-learning"} listMoule={estabModule} />
-          </li> */}
 
           <MenuCollapseBoxItem
             pathName={"assiduity"}
             listModule={estabModule}
             sousModuleStupp={sousModuleAssiduity}
           />
-          <MenuCollapseBoxItem
-            pathName={"community"}
-            listModule={estabModule}
-            sousModuleStupp={sousModuleCommunity}
-          />
-          <li>
-            <NavlinkItem pathName={"lesson"} listMoule={estabModule} />
-          </li>
-          <li>
-            <NavlinkItem pathName={"devoir"} listMoule={estabModule} />
-          </li>
-          
-          {/* <li>
-            <NavlinkItem pathName={"complaints"} listMoule={estabModule} />
-          </li> */}
-          <li>
-            <NavlinkItem pathName={"call_register"} listMoule={estabModule} />
-          </li>
-          <li>
-            <NavlinkItem pathName={"billetPass"} listMoule={estabModule} />
-          </li>
-          <li>
-            <NavlinkItem pathName={"mail"} listMoule={estabModule} />
-          </li>
-          <MenuCollapseBoxItem
-            pathName={"menuGrade"}
-            listModule={estabModule}
-            sousModuleStupp={sousModuleGrades}
-          />
-          <li>
-            <NavlinkItem pathName={"cafeteria"} listMoule={estabModule} />
-          </li>
-          {/* <li>
-            <NavlinkItem pathName={"community"} listMoule={estabModule} />
-          </li> */}
+
           <li>
             <NavlinkItem pathName={"dashboard"} listMoule={estabModule} />
-          </li>
-          <li>
-            <NavlinkItem
-              pathName={"health-monitoring"}
-              listMoule={estabModule}
-            />
-          </li>
-          {/* <MenuCollapseBoxItem
-            pathName={"financial_management"}
-            listModule={estabModule}
-            sousModuleStupp={sousModuleFinancialManagement}
-          /> */}
-
-          {/* <li>
-            <NavLink className="prepend-icon" to="/app/financial_management/ServiceAllocation">
-             
-              <i className={`zmdi zmdi-view-dashboard zmdi-hc-fw`} />
-              <span className="nav-text">
-                <IntlMessages id="sidebar.components.financial_management" />
-              </span>
-            </NavLink>
-          </li> */}
-
-          <MenuCollapseBoxItem
-            pathName={"e-libraries"}
-            listModule={estabModule}
-            sousModuleStupp={sousModuleLibraries}
-          />
-
-          <li>
-            <NavlinkItem pathName={"course-support"} listMoule={estabModule} />
           </li>
         </ul>
       </CustomScrollbars>

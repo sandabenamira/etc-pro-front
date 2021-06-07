@@ -22,7 +22,6 @@ import IntlMessages from '../../util/IntlMessages';
 import LanguageSwitcher from '../../components/LanguageSwitcher/index';
 import Menu from '@material-ui/core/Menu';
 import UserInfoPopup from '../../components/UserInfo/UserInfoPopup';
-import SchoolYearModal from '../../app/routes/Administration/routes/SchoolYear/SchoolYearModal';
 import MenuHeader from '../../components/TopNav/Menu';
 import _ from 'lodash';
 import AppNotification from '../AppNotification';
@@ -496,14 +495,7 @@ class Header extends React.Component {
         ) : (
           ''
         )}
-        {this.state.openSchoolYearModal ? (
-          <SchoolYearModal
-            cancelModal={this.handleCancelModal.bind(this)}
-            openSchoolYearModal={this.state.openSchoolYearModal}
-          />
-        ) : (
-          ''
-        )}
+
       </AppBar>
     );
   }

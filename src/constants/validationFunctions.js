@@ -1,11 +1,4 @@
-// const addUserRbac = {
-//   Admin: 'add-admin',
-//   Professor: 'add-prof',
-//   Parent: 'add-parent',
-//   Student: 'add-student',
-//   'Vie scolaire': 'add-school-life',
-//   Director: 'add-direction-membre',
-// };
+
 /* eslint eqeqeq: "off" */
 const addUserRbac = {
   Admin: 'add-admin',

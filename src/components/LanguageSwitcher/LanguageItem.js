@@ -1,12 +1,10 @@
 import React from 'react';
-import { getLanguage } from '../../store/actions/Countries';
 import moment from 'moment';
 
 const LanguageItem = ({ language, switchLanguage, handleRequestClose }) => {
   const { icon, name } = language;
   return (
     <li className="pointer" onClick={() => {
-      getLanguage(language.locale)
       moment.locale(language.locale)
       handleRequestClose();
       switchLanguage(language);
