@@ -256,7 +256,6 @@ const mapStateToProps = ({settings, auth, establishment}) => {
   const {themeColor, sideNavColor, darkTheme, locale, isDirectionRTL} =
     settings;
   const {authUser, initURL, userProfile} = auth;
-  const {estabModule} = establishment;
 
   return {
     themeColor,
@@ -266,8 +265,7 @@ const mapStateToProps = ({settings, auth, establishment}) => {
     isDirectionRTL,
     authUser,
     initURL,
-    estabModule,
-    userProfile,
+        userProfile,
   };
 };
 
