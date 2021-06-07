@@ -10,7 +10,7 @@ import {
 } from "../../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 
 import { toggleCollapsedNav, updateWindowWidth } from "../../../store/actions/Setting";
-import imageSchool from "../../../assets/images/logoEducapGris.png";
+import imageSchool from "../../../assets/images/educapProLogo.png";
 
 class SideNav extends React.PureComponent {
   constructor() {
@@ -84,8 +84,8 @@ class SideNav extends React.PureComponent {
                   ? establishementInformations.logo
                   : imageSchool
               }
-              alt="EDUCAP"
-              title="EDUCAP"
+              alt="EDUCAP-PRO"
+              title="EDUCAP-PRO"
             />
           </div>
           <SidenavContent estabModule={estabModule} />
