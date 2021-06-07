@@ -6,7 +6,7 @@ import IntlMessages from "../../../../../util/IntlMessages";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
-import { updateShoolYear } from "../../../../../actions/SchoolYearEtabAction";
+import { updateShoolYear } from "../../../../../store/actions/SchoolYearEtabAction";
 
 class SchoolYearModal extends React.Component {
   constructor(props) {

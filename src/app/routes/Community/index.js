@@ -1,8 +1,8 @@
 import React from 'react';
 import asyncComponent from '../../../util/asyncComponent';
 import { Route, Switch } from 'react-router-dom';
-import Can from '../../../can';
-import { RoleContext } from '../../../Context';
+import Can from '../../../components/switchComponent/can';
+import { RoleContext } from '../../../components/switchComponent/Context';
 import Complaint from './routes/Complaint/Complaint';
 import Mail from './routes/InternalMail/Mail';
 

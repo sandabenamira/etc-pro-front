@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import configureStore, { history } from './store';
-import App from './containers/App';
+import App from './components/containers/App';
 
 // import * as Sentry from '@sentry/react';
 // import { Integrations } from '@sentry/tracing';

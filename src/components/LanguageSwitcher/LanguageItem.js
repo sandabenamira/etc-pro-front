@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLanguage } from '../../actions/countriesAction';
+import { getLanguage } from '../../store/actions/Countries';
 import moment from 'moment';
 
 const LanguageItem = ({ language, switchLanguage, handleRequestClose }) => {

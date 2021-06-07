@@ -1,6 +1,6 @@
 import axios from "axios";
 import config from "../config/config";
-import { userSignOut } from "../actions/Auth";
+import { userSignOut } from "../store/actions/Auth";
 import configureStore from "../store";
  export const classService = {
   get,

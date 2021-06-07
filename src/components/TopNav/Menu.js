@@ -11,8 +11,8 @@ import {
   sousModuleCommunity,
   sousModuleEvaluation,
 } from '../../constants/StuppModules';
-import { RoleContext } from '../../Context';
-import Can from '../../can';
+import { RoleContext } from '../switchComponent/Context';
+import Can from '../switchComponent/can';
 
 // const NavlinkItem = ({ pathName, listMoule }) => {
 //   return (
