@@ -5,7 +5,8 @@ import img2 from "../../../assets/images/supAdmin.png";
 import Chart from "react-google-charts";
 import moment from "moment";
 import ActivityItem from "./ActivityItem";
-import {Card, CardBody, CardHeader} from 'reactstrap';
+import { Card, CardBody, CardHeader } from "reactstrap";
+import CalendarComponent from "./CalendarComponentNew";
 const listOnLineCourse = [
   {
     subjectName: "info",
@@ -40,7 +41,7 @@ class Home extends React.Component {
         // }}
       >
         <div className="d-flex flex-wrap flex-row bd-highlight mb-3 col-lg-12 col-md-12  col-sm-12">
-          <div className="p-2 bd-highlight col-lg-8 col-md-12  col-sm-12 bg-yellow">
+          <div className="p-2 bd-highlight col-lg-8 col-md-12  col-sm-12 ">
             <div class="d-flex flex-wrap flex-column bd-highlight mb-3">
               <div className="p-2 col-lg-12 col-md-12 col-sm-12">
                 <div
@@ -161,43 +162,48 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
-          <div className="d-flex flex-wrap flex-column  bd-highlight col-lg-4 col-md-12  col-sm-12 bg-red">
-            <div className="d-flex flex-column bd-highlight mb-3">
-              <div className="p-2 bd-highlight">Flex item 1</div>
-              <div className="p-2 bd-highlight col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+
+          <div class="p-2 bd-highlight mb-3 col-lg-4 col-md-12 col-sm-12">
+            <div class="d-flex flex-wrap flex-column bd-highlight mb-3">
+              <div class="p-2 bd-highlight p-2 col-lg-12 col-md-12 col-sm-12 ">
+                <CalendarComponent newArrOfEvent={[]}  />
+              </div>
+              <div class="p-2 bd-highlight p-2 col-lg-12 col-md-12 col-sm-12 ">
               <Card className={`shadow border-0 text-center`}>
-      <CardHeader className=" text-white" style={{backgroundColor:"#00b4d8"}}>{"Formations programmées"}</CardHeader>
-      <CardBody>
-      
-        <div >
-                      {listOnLineCourse.map((item, index) => {
-                        return (
-                          <div
-                            className="media user-profile"
-                            key={"taskId-" + item.id}
+                <CardHeader
+                  className=" text-white"
+                  style={{ backgroundColor: "#00b4d8" }}
+                >
+                  {"Formations programmées"}
+                </CardHeader>
+                <CardBody>
+                  <div>
+                    {listOnLineCourse.map((item, index) => {
+                      return (
+                        <div
+                          className="media user-profile"
+                          key={"taskId-" + item.id}
+                        >
+                          <Avatar
+                            className={"size-40 mr-3"}
+                            style={{ fontSize: 11, background: "#00b4d8" }}
                           >
-                            <Avatar
-                              className={"size-40 mr-3"}
-                              style={{ fontSize: 11, background: "#00b4d8" }}
-                            >
-                              {moment(item.date_virtual_class).format("DD")}
-                              <br />
-                              {moment(item.date_virtual_class).format("MMM")}
-                            </Avatar>
-                            <ActivityItem item={item} />
-                          </div>
-                        );
-                      })}
-                    </div>
-       
-      
-      </CardBody>
-     
-    </Card>
-               
+                            {moment(item.date_virtual_class).format("DD")}
+                            <br />
+                            {moment(item.date_virtual_class).format("MMM")}
+                          </Avatar>
+                          <ActivityItem item={item} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </CardBody>
+              </Card>
               </div>
             </div>
           </div>
+
+         
         </div>
       </div>
     );
