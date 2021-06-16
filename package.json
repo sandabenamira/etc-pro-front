@@ -40,6 +40,7 @@
         "react-intl": "^2.9.0",
         "react-jss": "^8.6.1",
         "react-loader-spinner": "^3.1.14",
+        "react-modern-calendar-datepicker": "^3.1.6",
         "react-notifications": "^1.4.3",
         "react-placeholder": "^3.0.2",
         "react-redux": "^7.0.3",
