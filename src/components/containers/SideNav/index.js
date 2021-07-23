@@ -36,7 +36,6 @@ class SideNav extends React.PureComponent {
       drawerType,
       // width,
       navigationStyle,
-      establishementInformations,
     } = this.props;
      let drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? "d-xl-flex"
@@ -80,9 +79,7 @@ class SideNav extends React.PureComponent {
             <img
               className="img-fluid"
               src={
-                establishementInformations.logo !== null
-                  ? establishementInformations.logo
-                  : imageSchool
+                imageSchool
               }
               alt="EDUCAP-PRO"
               title="EDUCAP-PRO"
@@ -95,11 +92,9 @@ class SideNav extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ settings, auth,establishment }) => {
+const mapStateToProps = ({ settings, auth }) => {
   const { navCollapsed, drawerType, width, navigationStyle } = settings;
-  const { userProfile } = auth;
-  const { establishementInformations } = establishment;
-  return { navCollapsed, drawerType, width, navigationStyle, userProfile,establishementInformations };
+  return { navCollapsed, drawerType, width, navigationStyle, };
 };
 
 export default withRouter(

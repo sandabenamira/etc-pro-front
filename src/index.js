@@ -15,6 +15,7 @@ let render = () => {
 
 if (module.hot) {
   module.hot.accept('./MainApp', () => {
+    console.log('src.index');
     const MainApp = require('./MainApp').default;
     render(
       <MainApp/>,

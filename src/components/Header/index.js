@@ -1,51 +1,34 @@
-import React from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
-import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
-import {NavLink} from 'react-router-dom';
-import {Dropdown, DropdownMenu, DropdownToggle} from 'reactstrap';
-import {userSignOut} from '../../store/actions/Auth';
-import ColorOption from '../containers/Customizer/ColorOption';
-import imageStudent from '../../assets/images/supAdmin.png';
+import React from "react";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import AppBar from "@material-ui/core/AppBar";
+import Avatar from "@material-ui/core/Avatar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuItem from "@material-ui/core/MenuItem";
+import { NavLink } from "react-router-dom";
+import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
+import { userSignOut } from "../../store/actions/Auth";
+import ColorOption from "../containers/Customizer/ColorOption";
+import imageStudent from "../../assets/images/supAdmin.png";
 import {
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
   HORIZONTAL_NAVIGATION,
-} from '../../constants/ActionTypes';
-import SearchBox from '../../components/SearchBox';
-import {switchLanguage, toggleCollapsedNav} from '../../store/actions/Setting';
-import IntlMessages from '../../util/IntlMessages';
-import LanguageSwitcher from '../../components/LanguageSwitcher/index';
-import Menu from '@material-ui/core/Menu';
-import UserInfoPopup from '../../components/UserInfo/UserInfoPopup';
-import MenuHeader from '../../components/TopNav/Menu';
-import _ from 'lodash';
-import AppNotification from '../AppNotification';
-import CardHeader from '../CardHeader/index';
-import Typography from '@material-ui/core/Typography';
-
-function getRoleNameByID(roleId) {
-  switch (roleId) {
-    case 1:
-      return <IntlMessages id="role.superAdmin" />;
-    case 2:
-      return <IntlMessages id="role.admin" />;
-    case 3:
-      return <IntlMessages id="toDo.professor" />;
-    case 4:
-      return <IntlMessages id="userStuppDisplay.Parent" />;
-    case 5:
-      return <IntlMessages id="userStuppDisplay.Student" />;
-    case 6:
-      return <IntlMessages id="role.supervisor" />;
-    default:
-      return '';
-  }
-}
+} from "../../constants/ActionTypes";
+import SearchBox from "../../components/SearchBox";
+import {
+  switchLanguage,
+  toggleCollapsedNav,
+} from "../../store/actions/Setting";
+import IntlMessages from "../../util/IntlMessages";
+import LanguageSwitcher from "../../components/LanguageSwitcher/index";
+import Menu from "@material-ui/core/Menu";
+import MenuHeader from "../../components/TopNav/Menu";
+import _ from "lodash";
+import AppNotification from "../AppNotification";
+import CardHeader from "../CardHeader/index";
+import Typography from "@material-ui/core/Typography";
 
 /* eslint eqeqeq: "off" */
 
@@ -55,72 +38,35 @@ class Header extends React.Component {
     this.state = {
       openProfile: false,
       anchorElProfile: undefined,
-      roleName: '',
       colorOption: false,
-      establishmentName: '',
-      uri: '',
-      establishmentName_ar: '',
-
+      uri: "",
       anchorEl: undefined,
       searchBox: false,
-      searchText: '',
+      searchText: "",
       mailNotification: false,
       userInfo: false,
       langSwitcher: false,
       appNotification: false,
-      schoolyear: '2019/2020',
-      openSchoolYearModal: false,
-      schoolYearName: '',
     };
   }
   activePanel = () => {
-    this.setState({colorOption: true});
-    this.setState({openProfile: false});
+    this.setState({ colorOption: true });
+    this.setState({ openProfile: false });
   };
 
-  activeSchoolYear = () => {
-    this.setState({openSchoolYearModal: true});
-    // this.props.updateSchoolYear()
-  };
-
-  handleClick = event => {
-    this.setState({openProfile: true, anchorElProfile: event.currentTarget});
+  handleClick = (event) => {
+    this.setState({ openProfile: true, anchorElProfile: event.currentTarget });
   };
 
   handleRequestCloseMenuProfile = () => {
     this.setState({
       openProfile: false,
-      roleName: '',
       anchorElProfile: undefined,
     });
   };
 
   handleCancelPanel() {
-    this.setState({colorOption: false});
-  }
-  handleCancelModal() {
-    this.setState({openSchoolYearModal: false});
-  }
-  UNSAFE_componentWillMount() {
-    if (!_.isEmpty(this.props.userProfile)) {
-      this.setState({
-        establishmentName: this.props.userProfile.establishments[0]
-          .establishment.name,
-        schoolYearName: this.props.userProfile.establishments[0].establishment
-          .licence[0].schoolYear.name,
-      });
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.userProfile !== this.props.userProfile) {
-      this.setState({
-        establishmentName: this.props.userProfile.establishments[0]
-          .establishment.name,
-        schoolYearName: this.props.userProfile.establishments[0].establishment
-          .licence[0].schoolYear.name,
-      });
-    }
+    this.setState({ colorOption: false });
   }
 
   onAppNotificationSelect = () => {
@@ -133,7 +79,7 @@ class Header extends React.Component {
       mailNotification: !this.state.mailNotification,
     });
   };
-  onLangSwitcherSelect = event => {
+  onLangSwitcherSelect = (event) => {
     this.setState({
       langSwitcher: !this.state.langSwitcher,
       anchorEl: event.currentTarget,
@@ -164,7 +110,7 @@ class Header extends React.Component {
       apps: false,
     });
   };
-  onToggleCollapsedNav = e => {
+  onToggleCollapsedNav = (e) => {
     const val = !this.props.navCollapsed;
     this.props.toggleCollapsedNav(val);
   };
@@ -174,334 +120,232 @@ class Header extends React.Component {
       searchText: evt.target.value,
     });
   }
-  Apps = () => {
-    const roleIdSuperAdmin = 1;
-    const roleIdAdmin = 2;
-    const roleIdProfessor = 3;
-    const roleId = parseInt(this.props.userProfile.roles_id);
-    return (
-      <ul className="jr-list jr-list-half">
-        {(() => {
-          if (roleId === roleIdSuperAdmin || roleId === roleIdAdmin) {
-            return (
-              <li className="jr-list-item">
-                <Link
-                  className="jr-list-link"
-                  to="/app/administration/establishment"
-                >
-                  <i className="zmdi zmdi-graduation-cap" />
-                  <span className="jr-list-text">
-                    <IntlMessages id="sidebar.administration" />
-                  </span>
-                </Link>
-              </li>
-            );
-          }
-        })()}
-
-        {(() => {
-          if (
-            roleId === roleIdProfessor ||
-            roleId === roleIdAdmin ||
-            roleId === roleIdSuperAdmin
-          ) {
-            return (
-              <li className="jr-list-item">
-                <Link className="jr-list-link" to="/app/call_register">
-                  <i className="zmdi zmdi-calendar-alt zmdi-hc-fw" />
-                  <span className="jr-list-text">
-                    <IntlMessages id="pages.registreAppel" />
-                  </span>
-                </Link>
-              </li>
-            );
-          }
-        })()}
-        <li className="jr-list-item">
-          <Link className="jr-list-link" to="/app/mail">
-            <i className="zmdi zmdi-email zmdi-hc-fw" />
-            <span className="jr-list-text">
-              <IntlMessages id="sidebar.appModule.mail" />
-            </span>
-          </Link>
-        </li>
-
-        {(() => {
-          if (roleId === roleIdSuperAdmin || roleId === roleIdAdmin) {
-            return (
-              <li className="jr-list-item">
-                <Link className="jr-list-link" to="/app/payments">
-                  <i className="zmdi zmdi-money-box" />
-                  <span className="jr-list-text">
-                    <IntlMessages id="sidebar.components.payment" />
-                  </span>
-                </Link>
-              </li>
-            );
-          }
-        })()}
-      </ul>
-    );
-  };
 
   render() {
-    const {drawerType, locale, navigationStyle} = this.props;
+    const { drawerType, locale, navigationStyle } = this.props;
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
-      ? 'd-block d-xl-none'
+      ? "d-block d-xl-none"
       : drawerType.includes(COLLAPSED_DRAWER)
-      ? 'd-block'
-      : 'd-none';
-    const establishmentName = this.state.establishmentName;
-    const user = this.props.userProfile.user;
+      ? "d-block"
+      : "d-none";
 
-    // const schoolyear = JSON.parse(localStorage.getItem("school_year_name"));
     return (
       <AppBar className="app-main-header jr-border-radius" position="relative">
-        {user != undefined && (
-          <Toolbar>
-            {navigationStyle === HORIZONTAL_NAVIGATION ? (
-              <div
-                className="d-block d-md-none pointer mr-3"
-                onClick={this.onToggleCollapsedNav}
-              >
-                <span className="jr-menu-icon">
-                  <span className="menu-icon" />
-                </span>
-              </div>
-            ) : (
-              <IconButton
-                className={`jr-menu-icon mr-3 ${drawerStyle}`}
-                aria-label="Menu"
-                onClick={this.onToggleCollapsedNav}
-              >
+        {/* {user != undefined && ( */}
+        <Toolbar>
+          {navigationStyle === HORIZONTAL_NAVIGATION ? (
+            <div
+              className="d-block d-md-none pointer mr-3"
+              onClick={this.onToggleCollapsedNav}
+            >
+              <span className="jr-menu-icon">
                 <span className="menu-icon" />
-              </IconButton>
-            )}
-            <h4 className="mb-0 mr-auto text-white">
-              {establishmentName.toUpperCase() +
+              </span>
+            </div>
+          ) : (
+            <IconButton
+              className={`jr-menu-icon mr-3 ${drawerStyle}`}
+              aria-label="Menu"
+              onClick={this.onToggleCollapsedNav}
+            >
+              <span className="menu-icon" />
+            </IconButton>
+          )}
+          <h4 className="mb-0 mr-auto text-white">
+            {/* {establishmentName.toUpperCase() +
                 '   ' +
                 '(' +
                 ' ' +
                 this.state.schoolYearName +
                 ' ' +
-                ')'}
-            </h4>
+                ')'} */}
+          </h4>
 
-            <MenuHeader estabModule={this.props.estabModule} />
+          <MenuHeader estabModule={this.props.estabModule} />
 
-            {/* {navigationStyle === HORIZONTAL_NAVIGATION &&
-            horizontalNavPosition === INSIDE_THE_HEADER && <Menu />} */}
+          <SearchBox styleName="d-none d-sm-block" />
 
-            <SearchBox styleName="d-none d-sm-block" />
+          <div className="d-inline-block d-sm-none list-inline-item">
+            <Dropdown
+              className="quick-menu nav-searchbox"
+              isOpen={this.state.searchBox}
+              toggle={this.onSearchBoxSelect.bind(this)}
+            >
+              <DropdownToggle
+                className="d-inline-block"
+                tag="span"
+                data-toggle="dropdown"
+              >
+                <IconButton className="icon-btn size-30">
+                  <i className="zmdi zmdi-search zmdi-hc-fw" />
+                </IconButton>
+              </DropdownToggle>
 
-            <div className="d-inline-block d-sm-none list-inline-item">
+              <DropdownMenu right className="p-0">
+                <SearchBox
+                  styleName="search-dropdown"
+                  placeholder=""
+                  onChange={this.updateSearchText.bind(this)}
+                  value={this.state.searchText}
+                />
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+
+          <ul className="header-notifications list-inline ml-3 d-none d-sm-block">
+            <li className="list-inline-item app-tour">
               <Dropdown
-                className="quick-menu nav-searchbox"
-                isOpen={this.state.searchBox}
-                toggle={this.onSearchBoxSelect.bind(this)}
+                className="quick-menu"
+                isOpen={this.state.appNotification}
+                toggle={this.onAppNotificationSelect.bind(this)}
               >
                 <DropdownToggle
                   className="d-inline-block"
                   tag="span"
                   data-toggle="dropdown"
                 >
-                  <IconButton className="icon-btn size-30">
-                    <i className="zmdi zmdi-search zmdi-hc-fw" />
+                  <IconButton className="icon-btn">
+                    <i className="zmdi zmdi-notifications-none icon-alert animated infinite wobble" />
                   </IconButton>
                 </DropdownToggle>
 
-                <DropdownMenu right className="p-0">
-                  <SearchBox
-                    styleName="search-dropdown"
-                    placeholder=""
-                    onChange={this.updateSearchText.bind(this)}
-                    value={this.state.searchText}
+                <DropdownMenu style={{ width: "450px" }} right>
+                  <CardHeader
+                    styleName="align-items-center"
+                    heading={
+                      <Typography
+                        variant="h6"
+                        style={{
+                          color: "#7e7e7f",
+                          fontWeight: "bold",
+                          fontFamily: "Roboto",
+                          fontSize: "20px",
+                          marginTop: "10px",
+                          marginLeft: "3%",
+                        }}
+                      >
+                        <IntlMessages id="appNotification.title" />
+                      </Typography>
+                    }
+                  />
+                  <AppNotification />
+                </DropdownMenu>
+              </Dropdown>
+            </li>
+            <li className="list-inline-item">
+              <i className="zmdi zmdi-comment-alt-text zmdi-hc-lg zmdi-hc-fw" />
+            </li>
+
+            <li className="list-inline-item">
+              <Dropdown
+                className="quick-menu"
+                isOpen={this.state.langSwitcher}
+                toggle={this.onLangSwitcherSelect.bind(this)}
+              >
+                <DropdownToggle
+                  className="d-inline-block"
+                  tag="span"
+                  data-toggle="dropdown"
+                >
+                  <IconButton className="icon-btn ">
+                    {locale.languageId === "tunisia" ? (
+                      <i className="tn flag"></i>
+                    ) : locale.languageId === "english" ? (
+                      <i className="us flag"></i>
+                    ) : (
+                      <i className="fr flag"></i>
+                    )}
+                  </IconButton>
+                </DropdownToggle>
+
+                <DropdownMenu right className="w-50">
+                  <LanguageSwitcher
+                    switchLanguage={this.props.switchLanguage}
+                    handleRequestClose={this.handleRequestClose}
                   />
                 </DropdownMenu>
               </Dropdown>
-            </div>
+            </li>
 
-            <ul className="header-notifications list-inline ml-3 d-none d-sm-block">
-              <li className="list-inline-item app-tour">
+            {navigationStyle === HORIZONTAL_NAVIGATION && (
+              <li className="list-inline-item user-nav">
                 <Dropdown
                   className="quick-menu"
-                  isOpen={this.state.appNotification}
-                  toggle={this.onAppNotificationSelect.bind(this)}
+                  isOpen={this.state.userInfo}
+                  toggle={this.onUserInfoSelect.bind(this)}
                 >
                   <DropdownToggle
                     className="d-inline-block"
                     tag="span"
                     data-toggle="dropdown"
                   >
-                    <IconButton className="icon-btn">
-                      <i className="zmdi zmdi-notifications-none icon-alert animated infinite wobble" />
-                    </IconButton>
+                    <IconButton className="icon-btn size-30"></IconButton>
                   </DropdownToggle>
-
-                  <DropdownMenu style={{width: '450px'}} right>
-                    <CardHeader
-                      styleName="align-items-center"
-                      heading={
-                        <Typography
-                          variant="h6"
-                          style={{
-                            color: '#7e7e7f',
-                            fontWeight: 'bold',
-                            fontFamily: 'Roboto',
-                            fontSize: '20px',
-                            marginTop: '10px',
-                            marginLeft: '3%',
-                          }}
-                        >
-                          <IntlMessages id="appNotification.title" />
-                        </Typography>
-                      }
-                    />
-                    <AppNotification />
-                  </DropdownMenu>
                 </Dropdown>
               </li>
-              <li className="list-inline-item">
-                <i className="zmdi zmdi-comment-alt-text zmdi-hc-lg zmdi-hc-fw" />
-              </li>
+            )}
+          </ul>
+          <div
+            className="user-detail"
+            onBlur={this.handleRequestCloseMenuProfile}
+          >
+            <Avatar
+              alt="..."
+              src={imageStudent}
+              className="ml-2 ml-lg-4 d-none d-sm-block"
+              onClick={this.handleClick}
+            />
 
-              <li className="list-inline-item">
-                <Dropdown
-                  className="quick-menu"
-                  isOpen={this.state.langSwitcher}
-                  toggle={this.onLangSwitcherSelect.bind(this)}
-                >
-                  <DropdownToggle
-                    className="d-inline-block"
-                    tag="span"
-                    data-toggle="dropdown"
-                  >
-                    <IconButton className="icon-btn ">
-                      {locale.languageId === 'tunisia' ? (
-                        <i className="tn flag"></i>
-                      ) : locale.languageId === 'english' ? (
-                        <i className="us flag"></i>
-                      ) : (
-                        <i className="fr flag"></i>
-                      )}
-                    </IconButton>
-                  </DropdownToggle>
-
-                  <DropdownMenu right className="w-50">
-                    <LanguageSwitcher
-                      switchLanguage={this.props.switchLanguage}
-                      handleRequestClose={this.handleRequestClose}
-                    />
-                  </DropdownMenu>
-                </Dropdown>
-              </li>
-
-              <li className="list-inline-item">
-                <h4 className="mb-0 mr-auto text-white">
-                  {user.name.charAt(0).toUpperCase() + user.name.slice(1)}{' '}
-                  {user.surname.toUpperCase()}
-                </h4>
-                <h5 className="mb-0 mr-auto text-grey">
-                  {getRoleNameByID(this.props.userProfile.role_id)}
-                </h5>
-              </li>
-              {navigationStyle === HORIZONTAL_NAVIGATION && (
-                <li className="list-inline-item user-nav">
-                  <Dropdown
-                    className="quick-menu"
-                    isOpen={this.state.userInfo}
-                    toggle={this.onUserInfoSelect.bind(this)}
-                  >
-                    <DropdownToggle
-                      className="d-inline-block"
-                      tag="span"
-                      data-toggle="dropdown"
-                    >
-                      <IconButton className="icon-btn size-30"></IconButton>
-                    </DropdownToggle>
-
-                    <DropdownMenu right>
-                      <UserInfoPopup />
-                    </DropdownMenu>
-                  </Dropdown>
-                </li>
-              )}
-            </ul>
-            <div
-              className="user-detail"
-              // onClick={this.handleClick}
-              onBlur={this.handleRequestCloseMenuProfile}
+            <Menu
+              className=""
+              id="simple-menu"
+              anchorEl={this.state.anchorElProfile}
+              open={this.state.openProfile}
+              onClose={this.handleRequestCloseMenuProfile}
+              PaperProps={{
+                style: {
+                  minWidth: 120,
+                  paddingTop: 0,
+                  paddingBottom: 0,
+                },
+              }}
             >
-              {user.photo != null ? (
-                <Avatar
-                  alt="..."
-                  src={user.photo}
-                  className="ml-2 ml-lg-4 d-none d-sm-block"
-                  onClick={this.handleClick}
-                />
-              ) : (
-                <Avatar
-                  alt="..."
-                  src={imageStudent}
-                  className="ml-2 ml-lg-4 d-none d-sm-block"
-                  onClick={this.handleClick}
-                />
-              )}
-              <Menu
-                className=""
-                id="simple-menu"
-                anchorEl={this.state.anchorElProfile}
-                open={this.state.openProfile}
-                onClose={this.handleRequestCloseMenuProfile}
-                PaperProps={{
-                  style: {
-                    minWidth: 120,
-                    paddingTop: 0,
-                    paddingBottom: 0,
-                  },
+              <NavLink to="/app/profile">
+                <MenuItem onClick={this.handleRequestCloseMenuProfile}>
+                  <i className="zmdi zmdi-account zmdi-hc-fw mr-2" />
+                  <IntlMessages id="popup.profile" />
+                </MenuItem>
+              </NavLink>
+              <MenuItem onClick={this.activePanel.bind(this)}>
+                <i className="zmdi zmdi-settings zmdi-hc-fw mr-2" />
+                <IntlMessages id="popup.setting" />
+              </MenuItem>
+
+              <MenuItem
+                onClick={() => {
+                  this.handleRequestCloseMenuProfile();
+                  this.props.userSignOut();
                 }}
               >
-                <NavLink to="/app/profile">
-                  <MenuItem onClick={this.handleRequestCloseMenuProfile}>
-                    <i className="zmdi zmdi-account zmdi-hc-fw mr-2" />
-                    <IntlMessages id="popup.profile" />
-                  </MenuItem>
-                </NavLink>
-                <MenuItem onClick={this.activePanel.bind(this)}>
-                  <i className="zmdi zmdi-settings zmdi-hc-fw mr-2" />
-                  <IntlMessages id="popup.setting" />
-                </MenuItem>
-                <MenuItem onClick={this.activeSchoolYear.bind(this)}>
-                  <i className="zmdi zmdi-calendar-check zmdi-hc-fw mr-2" />
-                  <IntlMessages id="filter.school.years" />
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    this.setState({roleName: ''});
-                    this.handleRequestCloseMenuProfile();
-                    this.props.userSignOut();
-                  }}
-                >
-                  <i className="zmdi zmdi-sign-in zmdi-hc-fw mr-2" />
-                  <IntlMessages id="user.signOut" />{' '}
-                </MenuItem>
-              </Menu>
-            </div>
-          </Toolbar>
-        )}
+                <i className="zmdi zmdi-sign-in zmdi-hc-fw mr-2" />
+                <IntlMessages id="user.signOut" />{" "}
+              </MenuItem>
+            </Menu>
+          </div>
+        </Toolbar>
+        {/* // )} */}
 
         {this.state.colorOption ? (
           <ColorOption cancelPanel={this.handleCancelPanel.bind(this)} />
         ) : (
-          ''
+          ""
         )}
-
       </AppBar>
     );
   }
 }
 
-const mapStateToProps = ({settings, auth, establishment}) => {
+const mapStateToProps = ({ settings, auth }) => {
   const {
     drawerType,
     locale,
@@ -515,13 +359,12 @@ const mapStateToProps = ({settings, auth, establishment}) => {
     navigationStyle,
     horizontalNavPosition,
     languageId,
-    userProfile: auth.userProfile,
-    estabModule: establishment.estabModule,
+    estabModule: [],
   };
 };
 
 export default withRouter(
-  connect(mapStateToProps, {toggleCollapsedNav, switchLanguage, userSignOut})(
-    Header,
-  ),
+  connect(mapStateToProps, { toggleCollapsedNav, switchLanguage, userSignOut })(
+    Header
+  )
 );

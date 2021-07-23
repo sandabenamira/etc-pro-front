@@ -6,82 +6,18 @@ import {
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
 } from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
-import Can from '../components/switchComponent/can';
 import asyncComponent from '../util/asyncComponent';
 import {isIOS, isMobile} from 'react-device-detect';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
-// -------------- import components --------------------//
 import Header from '../components/Header/index';
 import Sidebar from '../components/containers/SideNav/index';
 import Footer from '../components/Footer';
 import Administration from './routes/Administration/index';
-import Devoir from './routes/Learning/index';
 import Home from './routes/Home/index';
-import HealthMonitoring from './routes/HealthMonitoring/HealthMonitoring';
 import Learning from './routes/Learning/index';
-import Evaluation from './routes/Evaluation/index';
 import Assiduity from './routes/Assiduity/index';
-import {RoleContext} from '../components/switchComponent/Context';
-import SupportCours from './routes/Learning/routes/CoursMaterials/SupportCours';
-import VirtualClasses from './routes/Learning/index';
-import Community from './routes/Community/index';
-import Libraries from './routes/Libraries/index';
-import FinancialManagement from './routes/FinancialManagement/index';
-import Superadmin from './routes/Superadmin/index';
 import UserProfile from './routes/UserProfile/index';
 
-//----------------------- import actions ------------//
-
-import {getProfile} from '../store/actions/Auth';
-
-//----------------------- import config ------------//
-
-// import {
-//   roleIdSuperAdmin,
-//   roleIdProfessor,
-//   roleIdAdmin,
-//   roleIdParent,
-//   roleIdStudent,
-//   roleIdDirector,
-//   roleIdSupervisor,
-// } from '../config/config';
-
-const RouteControl = ({pathName, estabModule, Component, match}) => {
-  return (
-    <RoleContext.Consumer>
-      {({role}) => (
-        <Can
-          role={role}
-          perform={`module-nav-${pathName}`}
-          yes={() => (
-            <Can
-              role={role}
-              perform="module-nav-access"
-              data={{
-                mod: pathName,
-                moduleList: estabModule,
-              }}
-              yes={() => <Component match={match} />}
-              no={() => (
-                <Route
-                  component={asyncComponent(() =>
-                    import('../components/Error404'),
-                  )}
-                />
-              )}
-            />
-          )}
-          no={() => (
-            <Route
-              component={asyncComponent(() => import('../components/Error404'))}
-            />
-          )}
-        />
-      )}
-    </RoleContext.Consumer>
-  );
-};
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -89,26 +25,6 @@ class App extends React.Component {
     this.state = {
       load: false,
     };
-  }
-
-  UNSAFE_componentWillMount() {
-    if (_.isEmpty(this.props.userProfile)) {
-      this.props.dispatch(
-        getProfile(
-          localStorage.token,
-          parseInt(localStorage.getItem('rtvrx_tgfsaju_G0loik')),
-        ),
-      );
-    } else {
-      // this.initModules(this.props.userProfile);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    // if (prevProps.userProfile !== this.props.userProfile) {
-    //   let {userProfile} = this.props;
-    //     this.initModules(userProfile);
-    // }
   }
 
   render() {
@@ -150,39 +66,7 @@ class App extends React.Component {
                     />
                   )}
                 />
-                <Route
-                  path={`${match.url}/super_administration`}
-                  render={props => (
-                    <Superadmin
-                      match={match}
-                      estabModule={estabModule}
-                      {...props}
-                    />
-                  )}
-                />
-
-                <Route
-                  path={`${match.url}/financial_management`}
-                  render={props => (
-                    <FinancialManagement
-                      match={match}
-                      estabModule={estabModule}
-                      {...props}
-                    />
-                  )}
-                />
-
-                <Route
-                  path={`${match.url}/devoir`}
-                  render={() => (
-                    <RouteControl
-                      pathName={'devoir'}
-                      estabModule={estabModule}
-                      Component={Devoir}
-                      match={match}
-                    />
-                  )}
-                />
+              
 
                 <Route
                   path={`${match.url}/e-learning`}
@@ -194,70 +78,9 @@ class App extends React.Component {
                     />
                   )}
                 />
-                <Route
-                  path={`${match.url}/evaluation`}
-                  render={props => (
-                    <Evaluation
-                      match={match}
-                      estabModule={estabModule}
-                      {...props}
-                    />
-                  )}
-                />
-
-                <Route
-                  path={`${match.url}/community`}
-                  render={props => (
-                    <Community
-                      match={match}
-                      estabModule={estabModule}
-                      {...props}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${match.url}/health-monitoring`}
-                  render={() => (
-                    <RouteControl
-                      pathName={'health-monitoring'}
-                      estabModule={estabModule}
-                      Component={HealthMonitoring}
-                      match={match}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${match.url}/course-material`}
-                  render={() => (
-                    <RouteControl
-                      pathName={'course-material'}
-                      estabModule={estabModule}
-                      Component={SupportCours}
-                      match={match}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${match.url}/virtual_classes`}
-                  render={() => (
-                    <RouteControl
-                      pathName={'virtual_classes'}
-                      estabModule={estabModule}
-                      Component={VirtualClasses}
-                      match={match}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${match.url}/e-libraries`}
-                  render={props => (
-                    <Libraries
-                      match={match}
-                      estabModule={estabModule}
-                      {...props}
-                    />
-                  )}
-                />
+           
+            
+       
                 <Route
                   path={`${match.url}/assiduity`}
                   render={props => (
@@ -268,16 +91,7 @@ class App extends React.Component {
                     />
                   )}
                 />
-                <Route
-                  path={`${match.url}/course-support`}
-                  render={props => (
-                    <SupportCours
-                      match={match}
-                      estabModule={estabModule}
-                      {...props}
-                    />
-                  )}
-                />
+      
                 <Route
                   component={asyncComponent(() =>
                     import('../components/Error404'),
@@ -293,10 +107,10 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({settings, establishment, auth, schoolYearEtab}) => {
+const mapStateToProps = ({settings, auth}) => {
   const {drawerType, navigationStyle, horizontalNavPosition} = settings;
-  const {estabModule} = establishment;
-  const {multiple, userProfile} = auth;
+  const {estabModule} = [];
+  const {multiple} = auth;
 
   return {
     drawerType,
@@ -304,7 +118,6 @@ const mapStateToProps = ({settings, establishment, auth, schoolYearEtab}) => {
     horizontalNavPosition,
     estabModule,
     multiple,
-    userProfile,
   };
 };
 export default withRouter(connect(mapStateToProps)(App));
