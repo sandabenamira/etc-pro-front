@@ -17,11 +17,8 @@ import {
   SIGNOUT_USER_SUCCESS,
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
-  FETECHED_ALL_SCHOOL_YEAR_ETAB,
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
-  GET_ESTABLISHMENT_INFORMATIONS,
-  GET_PROFILE,
 } from '../../constants/ActionTypes'; /* eslint eqeqeq: "off" */
 
 import { isEmail } from '../../constants/validationFunctions';
@@ -54,90 +51,14 @@ export const userSignIn = (user) => {
     axios
       .post(`${cst.baseUrl}/users/login`, User)
       .then((res) => {
-        // let id = res.data.id;
-        localStorage.setItem('token', res.data.id);
-        localStorage.setItem('rtvrx_tgfsaju_G0loik', res.data.userId);
-        dispatch(getProfile(res.data.id, res.data.userId));
+        localStorage.setItem('token', res.data);
+        // localStorage.setItem('rtvrx_tgfsaju_G0loik', res.data.userId);
+        dispatch(userSignInSuccess(user));
       })
       .catch((err) => dispatch(showAuthMessage('Veuillez vérifier votre login et mot de passe')));
   };
 };
 
-export const getProfile = (token, userId) => {
-  return function (dispatch) {
-    axios.get(`${cst.baseUrl}/profiles/getprofile/${userId}?access_token=${token}`).then((res) => {
-      dispatch({
-        type: GET_PROFILE,
-        payload: res.data.profile[0],
-      });
-      let result = res.data.profile[0];
-      let status = result.establishments[0].establishment.licence[0].situation;
-      let modules = result.establishments[0].establishment.licence[0].licenceModule;
-      let user = result.user;
-      let settings = result.setting;
-      let dataOption = {
-        startTime: result.setting.start_time_calendar,
-        endTime: result.setting.end_time_calendar,
-        appLang: result.setting.app_lang,
-        conferenceTool: result.setting.conference_tool,
-      };
-      let establishmentInfomations = result.establishments[0].establishment;
-      dispatch(chekLicence(status, modules, user, settings, dataOption, establishmentInfomations));
-    });
-  };
-};
-
-const chekLicence = (status, modules, user, settings, dataOption, establishmentInfomations) => {
-  return (dispatch) => {
-    if (status !== 'Actif') {
-      dispatch(userSignOut());
-      dispatch(showLicenceMessage('Votre licence a expiré, Merci de contacter le super admin Educap'));
-    } else {
-      dispatch(getEstablishmentsModules(modules));
-      dispatch(initSessionApp(settings, dataOption, establishmentInfomations));
-      dispatch(userSignInSuccess(user));
-    }
-  };
-};
-
-const initSessionApp = (settings, dataOption, establishmentInfomations) => {
-  return (dispatch) => {
-    dispatch(getThemeColor(settings.theme_color));
-    dispatch(getAppLanguage(settings.app_lang));
-    dispatch(initOptions(dataOption));
-    dispatch(getSchoolYear());
-    dispatch(getEstablishmentsInformations(establishmentInfomations));
-  };
-};
-export const getSchoolYear = () => {
-  return (dispatch) => {
-    axios
-      .get(`${cst.baseUrl}/school_years/?access_token=${localStorage.token}`)
-      .then((res) => {
-        if (res) {
-          dispatch({
-            type: FETECHED_ALL_SCHOOL_YEAR_ETAB,
-            payload: res.data,
-          });
-        }
-      })
-      .catch((err) => {});
-  };
-};
-
-export const getEstablishmentsModules = (modules) => {
-  return {
-    type: 'GET_ESTABLISHMENT_MODULE',
-    payload: modules,
-  };
-};
-
-export const getEstablishmentsInformations = (data) => {
-  return {
-    type: GET_ESTABLISHMENT_INFORMATIONS,
-    payload: data,
-  };
-};
 
 export const resetAccountPassword = (data) => {
   return function (dispatch) {
@@ -263,10 +184,5 @@ export const hideMessage = () => {
 export const hideAuthLoader = () => {
   return {
     type: ON_HIDE_LOADER,
-  };
-};
-export const hideModalSelectEstablishment = () => {
-  return {
-    type: 'HIDE_MODAL_SELECT_ESTABLISHMENT',
   };
 };

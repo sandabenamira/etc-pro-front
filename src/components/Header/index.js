@@ -175,6 +175,7 @@ class Header extends React.Component {
     });
   }
   Apps = () => {
+    console.log('header');
     const roleIdSuperAdmin = 1;
     const roleIdAdmin = 2;
     const roleIdProfessor = 3;
@@ -257,7 +258,7 @@ class Header extends React.Component {
     // const schoolyear = JSON.parse(localStorage.getItem("school_year_name"));
     return (
       <AppBar className="app-main-header jr-border-radius" position="relative">
-        {user != undefined && (
+        {/* {user != undefined && ( */}
           <Toolbar>
             {navigationStyle === HORIZONTAL_NAVIGATION ? (
               <div
@@ -397,13 +398,13 @@ class Header extends React.Component {
               </li>
 
               <li className="list-inline-item">
-                <h4 className="mb-0 mr-auto text-white">
+                {/* <h4 className="mb-0 mr-auto text-white">
                   {user.name.charAt(0).toUpperCase() + user.name.slice(1)}{' '}
                   {user.surname.toUpperCase()}
                 </h4>
                 <h5 className="mb-0 mr-auto text-grey">
                   {getRoleNameByID(this.props.userProfile.role_id)}
-                </h5>
+                </h5> */}
               </li>
               {navigationStyle === HORIZONTAL_NAVIGATION && (
                 <li className="list-inline-item user-nav">
@@ -432,7 +433,7 @@ class Header extends React.Component {
               // onClick={this.handleClick}
               onBlur={this.handleRequestCloseMenuProfile}
             >
-              {user.photo != null ? (
+              {/* {user.photo != null ? (
                 <Avatar
                   alt="..."
                   src={user.photo}
@@ -440,13 +441,14 @@ class Header extends React.Component {
                   onClick={this.handleClick}
                 />
               ) : (
+                 )} */}
                 <Avatar
                   alt="..."
                   src={imageStudent}
                   className="ml-2 ml-lg-4 d-none d-sm-block"
                   onClick={this.handleClick}
                 />
-              )}
+             
               <Menu
                 className=""
                 id="simple-menu"
@@ -488,7 +490,7 @@ class Header extends React.Component {
               </Menu>
             </div>
           </Toolbar>
-        )}
+        {/* // )} */}
 
         {this.state.colorOption ? (
           <ColorOption cancelPanel={this.handleCancelPanel.bind(this)} />

@@ -33,6 +33,7 @@ class MainApp extends Component {
   };
 
   render() {   /* eslint eqeqeq: "off" */
+  console.log('MainApp');
      return (
       <Provider store={store}>
         <ConnectedRouter history={history}>

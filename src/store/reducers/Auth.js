@@ -25,7 +25,7 @@ const INIT_STATE = {
   alertMessage: "",
   showMessage: false,
   initURL: "",
-  authUser: localStorage.getItem("rtvrx_tgfsaju_G0loik"),
+  authUser: localStorage.getItem("token"),
   userProfile: [],
   multiple: false,
   profile: [],

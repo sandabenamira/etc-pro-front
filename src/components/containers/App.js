@@ -46,12 +46,14 @@ import SignUp from './SignUp';
 import RTL from '../../util/RTL';
 import asyncComponent from '../../util/asyncComponent';
 import {
-  getEstablishmentsInformations,
-  getEstablishmentsModules,
+  // getEstablishmentsInformations,
+  // getEstablishmentsModules,
   setInitUrl,
 } from '../../store/actions/Auth';
 
-const RestrictedRoute = ({component: Component, authUser, ...rest}) => (
+const RestrictedRoute = ({component: Component, authUser, ...rest}) =>{ 
+  console.log('authUser',authUser);
+  return (
   <Route
     {...rest}
     render={props =>
@@ -67,7 +69,7 @@ const RestrictedRoute = ({component: Component, authUser, ...rest}) => (
       )
     }
   />
-);
+)};
 
 class App extends Component {
   state = {
@@ -80,6 +82,7 @@ class App extends Component {
   };
 
   componentWillMount() {
+    console.log('container /app');
     window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
     if (this.props.initURL === '') {
       this.props.setInitUrl(this.props.history.location.pathname);
@@ -108,8 +111,8 @@ class App extends Component {
           ? 'director'
           : '';
       const contextValue = {
-        role: role,
-        roleId: this.props.userProfile.role_id,
+        role: 'admin',
+        roleId: 2,
       };
       if (!_.isEmpty(this.props.userProfile)) {
         let appLang = this.props.userProfile.setting.app_lang;
@@ -208,13 +211,17 @@ class App extends Component {
     } else {
       applyTheme = this.getColorTheme(themeColor, applyTheme);
     }
+    console.log('location.pathname', location.pathname);
 
     if (location.pathname === '/') {
       if (authUser === null) {
+        console.log("11");
         return <Redirect to={'/signin'} />;
       } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
+        console.log("22");
         return <Redirect to={'/app/home'} />;
       } else {
+        console.log("33");
         return <Redirect to={initURL} />;
       }
     }
@@ -303,6 +310,6 @@ function getLanguage(appLang) {
 }
 export default connect(mapStateToProps, {
   setInitUrl,
-  getEstablishmentsModules,
-  getEstablishmentsInformations,
+  // getEstablishmentsModules,
+  // getEstablishmentsInformations,
 })(App);

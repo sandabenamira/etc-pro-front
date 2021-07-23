@@ -1,7 +1,7 @@
 module.exports = {
   baseUrl:
   process.env.REACT_APP_NODE_ENV === 'local'
-  ? 'http://localhost:3000/api'
+  ? 'http://localhost:3000'
   : process.env.REACT_APP_NODE_ENV === 'staging'
   ? 'https://back-pro.educap.io/api'
   : process.env.REACT_APP_NODE_ENV === 'homologation'

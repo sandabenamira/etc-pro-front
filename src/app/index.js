@@ -33,19 +33,10 @@ import UserProfile from './routes/UserProfile/index';
 
 //----------------------- import actions ------------//
 
-import {getProfile} from '../store/actions/Auth';
+// import {getProfile} from '../store/actions/Auth';
 
 //----------------------- import config ------------//
 
-// import {
-//   roleIdSuperAdmin,
-//   roleIdProfessor,
-//   roleIdAdmin,
-//   roleIdParent,
-//   roleIdStudent,
-//   roleIdDirector,
-//   roleIdSupervisor,
-// } from '../config/config';
 
 const RouteControl = ({pathName, estabModule, Component, match}) => {
   return (
@@ -92,16 +83,17 @@ class App extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    if (_.isEmpty(this.props.userProfile)) {
-      this.props.dispatch(
-        getProfile(
-          localStorage.token,
-          parseInt(localStorage.getItem('rtvrx_tgfsaju_G0loik')),
-        ),
-      );
-    } else {
-      // this.initModules(this.props.userProfile);
-    }
+    console.log('app/index');
+    // if (_.isEmpty(this.props.userProfile)) {
+    //   this.props.dispatch(
+    //     getProfile(
+    //       localStorage.token,
+    //       parseInt(localStorage.getItem('rtvrx_tgfsaju_G0loik')),
+    //     ),
+    //   );
+    // } else {
+    //   // this.initModules(this.props.userProfile);
+    // }
   }
 
   componentDidUpdate(prevProps) {
@@ -126,7 +118,7 @@ class App extends React.Component {
       document.body.classList.remove('ios-mobile-view-height');
     }
     return (
-      <div className={`app-container ${drawerStyle}`}>
+      <div className={`app-container collapsible-drawer`}>
         <Sidebar estabModule={this.props.estabModule} />
         <div className="app-main-container bg-white">
           <div className="app-header app-header-horizontal">
