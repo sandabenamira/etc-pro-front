@@ -1,9 +1,6 @@
 import React from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import Widget from "../../Widget/index";
 import { aboutList } from "../../../app/routes/userProfile/Profile/data";
-import AboutItem from "./AboutItem";
 import moment from "moment";
 import "moment/locale/fr";
 class About extends React.Component {
@@ -11,29 +8,6 @@ class About extends React.Component {
     aboutList,
     user: this.props.userProfile,
     value: 0,
-
-    userImageList: [
-      {
-        id: 1,
-        image: "https://via.placeholder.com/150x150",
-      },
-      {
-        id: 2,
-        image: "https://via.placeholder.com/150x150",
-      },
-      {
-        id: 3,
-        image: "https://via.placeholder.com/150x150",
-      },
-      {
-        id: 4,
-        image: "https://via.placeholder.com/150x150",
-        name: "Mila Alba",
-        rating: "5.0",
-        deals: "27 Deals",
-      },
-    ],
-
     aboutList: [],
     eventList: [
       {
@@ -92,52 +66,8 @@ class About extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-  componentDidUpdate(prevProps) {
-    if (prevProps.userProfile != this.props.userProfile) {
-      this.setState({
-        user: this.props.userProfile,
-      });
-      var About = [
-        {
-          id: 1,
-          title: "Établissement",
-          icon: "city-alt",
-          userList: "",
-          desc: [this.props.userProfile.establishments[0].establishment.name],
-        },
-        {
-          id: 2,
-          title: "Anniversaire",
-          icon: "cake",
-          userList: "",
-          desc: [
-            moment(this.props.userProfile.userdate_of_birth).format(
-              "DD MMMM YYYY"
-            ),
-          ],
-        },
-        {
-          id: 3,
-          title: "CIN",
-          icon: "graduation-cap",
-          userList: "",
-          desc: [this.props.userProfile.user.cin],
-        },
-        {
-          id: 4,
-          title: "Address",
-          icon: "home",
-          userList: "",
-          desc: [this.props.userProfile.user.address],
-        },
-      ];
-      this.setState({
-        aboutList: About,
-      });
-    }
-  }
+
   render() {   /* eslint eqeqeq: "off" */
-    console.log("profile",this.props.userProfile.user)
     const { value, aboutList } = this.state;
     const { profileItem } = this.props;
     return (
@@ -294,35 +224,7 @@ class About extends React.Component {
           </div>
         </div>
 
-        {/* <div className="jr-tabs-classic">
-          <div lassName="row">
-            <div className="card-header">
-              <div class="d-flex flex-column">
-                <div class="p-2">
-                  <h4 className="card-title ">Informations générales</h4>
-                </div>
-                <div class="p-1">
-                  <h6>
-                    Certaines de ces informations peuvent être vues par les
-                    autres utilisateurs des services Google
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row bg-red">
-                 <label for="exampleFormControlInput1" class="form-label">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="name@example.com"
-                />
-             
-            </div>
-        </div> */}
+  
       </Widget>
     );
   }
