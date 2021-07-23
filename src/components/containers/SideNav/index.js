@@ -31,6 +31,7 @@ class SideNav extends React.PureComponent {
 
   render() {   /* eslint eqeqeq: "off" */
     const estabModule = this.props.estabModule;
+    console.log('estabModule', estabModule);
     const {
       navCollapsed,
       drawerType,

@@ -6,12 +6,9 @@ import CustomScrollbars from "../../../util/CustomScrollbars";
 import { RoleContext } from "../../switchComponent/Context";
 import Can from "../../switchComponent/can";
 import {
-  sousModuleSuperadmin,
-  sousModuleELearning,
   sousModuleAdministration,
-  sousModuleAssiduity,
-  sousModuleEvaluation,
-} from "../../../constants/StuppModules";
+  sousModuleELearning,
+} from "../../../constants/EducapProModules";
 import Navigation from "../Navigation/index";
 
 const NavlinkItem = ({ pathName, listMoule }) => {
@@ -45,7 +42,9 @@ const NavlinkItem = ({ pathName, listMoule }) => {
   );
 };
 
-const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
+const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleEducapPro }) => {
+  console.log("pathName", pathName);
+  console.log("listModule", listModule);
   return (
     <li className="menu collapse-box">
       <RoleContext.Consumer>
@@ -75,7 +74,7 @@ const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
         )}
       </RoleContext.Consumer>
       <ul className="sub-menu">
-        {sousModuleStupp.map((mod, index) => (
+        {sousModuleEducapPro.map((mod, index) => (
           <li key={index}>
             <RoleContext.Consumer>
               {({ role }) => (
@@ -195,37 +194,20 @@ class SidenavContent extends Component {
           </li>
 
           <MenuCollapseBoxItem
-            pathName={"super_administration"}
+            pathName={"administration"}
             listModule={estabModule}
-            sousModuleStupp={sousModuleSuperadmin}
+            sousModuleEducapPro={sousModuleAdministration}
           />
-          <li>
-            <Navigation
-              pathName={"administration"}
-              listModule={estabModule}
-              menuItems={sousModuleAdministration}
-            />
-          </li>
-
           <MenuCollapseBoxItem
             pathName={"e-learning"}
             listModule={estabModule}
-            sousModuleStupp={sousModuleELearning}
+            sousModuleEducapPro={sousModuleELearning}
           />
-          <MenuCollapseBoxItem
-            pathName={"evaluation"}
-            listModule={estabModule}
-            sousModuleStupp={sousModuleEvaluation}
-          />
-
-          <MenuCollapseBoxItem
-            pathName={"assiduity"}
-            listModule={estabModule}
-            sousModuleStupp={sousModuleAssiduity}
-          />
-
           <li>
-            <NavlinkItem pathName={"dashboard"} listMoule={estabModule} />
+            <NavlinkItem pathName={"catalog"} listMoule={estabModule} />
+          </li>
+          <li>
+            <NavlinkItem pathName={"reporting"} listMoule={estabModule} />
           </li>
         </ul>
       </CustomScrollbars>
