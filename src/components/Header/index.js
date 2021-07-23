@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Avatar from "@material-ui/core/Avatar";
@@ -25,7 +25,6 @@ import IntlMessages from "../../util/IntlMessages";
 import LanguageSwitcher from "../../components/LanguageSwitcher/index";
 import Menu from "@material-ui/core/Menu";
 import MenuHeader from "../../components/TopNav/Menu";
-import _ from "lodash";
 import AppNotification from "../AppNotification";
 import CardHeader from "../CardHeader/index";
 import Typography from "@material-ui/core/Typography";
@@ -131,7 +130,7 @@ class Header extends React.Component {
 
     return (
       <AppBar className="app-main-header jr-border-radius" position="relative">
-        {/* {user != undefined && ( */}
+       
         <Toolbar>
           {navigationStyle === HORIZONTAL_NAVIGATION ? (
             <div
@@ -333,7 +332,7 @@ class Header extends React.Component {
             </Menu>
           </div>
         </Toolbar>
-        {/* // )} */}
+       
 
         {this.state.colorOption ? (
           <ColorOption cancelPanel={this.handleCancelPanel.bind(this)} />

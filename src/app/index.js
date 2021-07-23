@@ -1,7 +1,6 @@
 import React from 'react';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import _ from 'lodash';
 import {
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
@@ -23,7 +22,6 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      load: false,
     };
   }
 
