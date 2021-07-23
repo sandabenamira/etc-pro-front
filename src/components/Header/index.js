@@ -24,7 +24,6 @@ import {
 import IntlMessages from "../../util/IntlMessages";
 import LanguageSwitcher from "../../components/LanguageSwitcher/index";
 import Menu from "@material-ui/core/Menu";
-import UserInfoPopup from "../../components/UserInfo/UserInfoPopup";
 import MenuHeader from "../../components/TopNav/Menu";
 import _ from "lodash";
 import AppNotification from "../AppNotification";
@@ -152,15 +151,15 @@ class Header extends React.Component {
               <span className="menu-icon" />
             </IconButton>
           )}
-               <h4 className="mb-0 mr-auto text-white">
-              {/* {establishmentName.toUpperCase() +
+          <h4 className="mb-0 mr-auto text-white">
+            {/* {establishmentName.toUpperCase() +
                 '   ' +
                 '(' +
                 ' ' +
                 this.state.schoolYearName +
                 ' ' +
                 ')'} */}
-            </h4>
+          </h4>
 
           <MenuHeader estabModule={this.props.estabModule} />
 
@@ -282,28 +281,14 @@ class Header extends React.Component {
                   >
                     <IconButton className="icon-btn size-30"></IconButton>
                   </DropdownToggle>
-
-                  <DropdownMenu right>
-                    <UserInfoPopup />
-                  </DropdownMenu>
                 </Dropdown>
               </li>
             )}
           </ul>
           <div
             className="user-detail"
-            // onClick={this.handleClick}
             onBlur={this.handleRequestCloseMenuProfile}
           >
-            {/* {user.photo != null ? (
-                <Avatar
-                  alt="..."
-                  src={user.photo}
-                  className="ml-2 ml-lg-4 d-none d-sm-block"
-                  onClick={this.handleClick}
-                />
-              ) : (
-                 )} */}
             <Avatar
               alt="..."
               src={imageStudent}

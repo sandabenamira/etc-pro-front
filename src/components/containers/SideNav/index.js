@@ -94,8 +94,7 @@ class SideNav extends React.PureComponent {
 
 const mapStateToProps = ({ settings, auth }) => {
   const { navCollapsed, drawerType, width, navigationStyle } = settings;
-  const { userProfile } = auth;
-  return { navCollapsed, drawerType, width, navigationStyle, userProfile, };
+  return { navCollapsed, drawerType, width, navigationStyle, };
 };
 
 export default withRouter(
