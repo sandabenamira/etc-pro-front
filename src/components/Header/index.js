@@ -518,7 +518,7 @@ const mapStateToProps = ({settings, auth, establishment}) => {
     horizontalNavPosition,
     languageId,
     userProfile: auth.userProfile,
-    estabModule: establishment.estabModule,
+    estabModule: [],
   };
 };
 

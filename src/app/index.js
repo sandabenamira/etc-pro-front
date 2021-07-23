@@ -285,9 +285,9 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({settings, establishment, auth, schoolYearEtab}) => {
+const mapStateToProps = ({settings, auth, schoolYearEtab}) => {
   const {drawerType, navigationStyle, horizontalNavPosition} = settings;
-  const {estabModule} = establishment;
+  const {estabModule} = [];
   const {multiple, userProfile} = auth;
 
   return {
