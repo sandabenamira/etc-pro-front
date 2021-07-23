@@ -17,9 +17,6 @@ import purpleTheme from "./themes/purpleTheme";
 import darkTheme from "./themes/darkTheme";
 import AppLocale from "../../lngProvider";
 import { RoleContext } from "../switchComponent/Context";
-import IntlMessages from "../../util/IntlMessages";
-import _ from "lodash";
-
 import "@material-ui/core/TextField";
 import {
   AMBER,
@@ -48,7 +45,6 @@ import asyncComponent from "../../util/asyncComponent";
 import { setInitUrl } from "../../store/actions/Auth";
 
 const RestrictedRoute = ({ component: Component, authUser, ...rest }) => {
-  console.log("authUser", authUser);
   return (
     <Route
       {...rest}
@@ -237,40 +233,6 @@ const mapStateToProps = ({ settings, auth }) => {
   };
 };
 
-function getLanguage(appLang) {
-  switch (appLang) {
-    case "french":
-      return {
-        languageId: "french",
-        locale: "fr",
-        name: <IntlMessages id="languageData.french" />,
-        icon: "fr",
-      };
-    case "english":
-      return {
-        languageId: "english",
-        locale: "en",
-        name: <IntlMessages id="languageData.english" />,
-        icon: "us",
-      };
-    case "tunisia":
-      return {
-        languageId: "tunisia",
-        locale: "ar",
-        name: <IntlMessages id="languageData.arabic" />,
-        icon: "tn",
-      };
-    default:
-      return {
-        languageId: "french",
-        locale: "fr",
-        name: <IntlMessages id="languageData.french" />,
-        icon: "fr",
-      };
-  }
-}
 export default connect(mapStateToProps, {
   setInitUrl,
-  // getEstablishmentsModules,
-  // getEstablishmentsInformations,
 })(App);

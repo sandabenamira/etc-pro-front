@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 /* eslint eqeqeq: "off" */
-export class HealthMonitoring extends Component {
+export class SupportCours extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -18,7 +18,7 @@ export class HealthMonitoring extends Component {
           marginRight: '10%',
         }}
       >
-        <h2>module HealthMonitoring</h2>
+        <h2>module Supports Formations</h2>
       </div>
     );
   }
@@ -28,9 +28,4 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default connect(mapStateToProps)(HealthMonitoring);
-
-
-
-
- 
+export default connect(mapStateToProps)(SupportCours);

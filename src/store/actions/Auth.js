@@ -23,7 +23,6 @@ import {
 
 import { isEmail } from '../../constants/validationFunctions';
 import cst from '../../config/config';
-import { getThemeColor, getAppLanguage, initOptions } from './Setting';
 export const userSignUp = (user) => {
   return {
     type: SIGNUP_USER,

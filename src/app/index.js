@@ -1,49 +1,48 @@
-import React from 'react';
-import {Route, Switch, withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
-import _ from 'lodash';
+import React from "react";
+import { Route, Switch, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
-} from '../constants/ActionTypes'; /* eslint eqeqeq: "off" */
-import asyncComponent from '../util/asyncComponent';
-import {isIOS, isMobile} from 'react-device-detect';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import Header from '../components/Header/index';
-import Sidebar from '../components/containers/SideNav/index';
-import Footer from '../components/Footer';
-import Administration from './routes/Administration/index';
-import Home from './routes/Home/index';
-import Learning from './routes/Learning/index';
-import Assiduity from './routes/Assiduity/index';
-import UserProfile from './routes/UserProfile/index';
+} from "../constants/ActionTypes"; /* eslint eqeqeq: "off" */
+import asyncComponent from "../util/asyncComponent";
+import { isIOS, isMobile } from "react-device-detect";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Header from "../components/Header/index";
+import Sidebar from "../components/containers/SideNav/index";
+import Footer from "../components/Footer";
+import Administration from "./routes/Administration/index";
+import Home from "./routes/Home/index";
+import Learning from "./routes/Learning/index";
+import UserProfile from "./routes/UserProfile/index";
+import { educapProModules } from "../constants/EducapProModules";
+import Raporting from "./routes/Raporting/Raporting";
+import Catalog from "./routes/Catalog/Catalog";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      load: false,
-    };
+    this.state = {};
   }
 
   render() {
     /* eslint eqeqeq: "off" */
-    const {match, drawerType, estabModule} = this.props;
-
+    const { match, drawerType } = this.props;
+    const estabModule = educapProModules;
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
-      ? 'fixed-drawer'
+      ? "fixed-drawer"
       : drawerType.includes(COLLAPSED_DRAWER)
-      ? 'collapsible-drawer'
-      : 'mini-drawer';
+      ? "collapsible-drawer"
+      : "mini-drawer";
     if (isIOS && isMobile) {
-      document.body.classList.add('ios-mobile-view-height');
-    } else if (document.body.classList.contains('ios-mobile-view-height')) {
-      document.body.classList.remove('ios-mobile-view-height');
+      document.body.classList.add("ios-mobile-view-height");
+    } else if (document.body.classList.contains("ios-mobile-view-height")) {
+      document.body.classList.remove("ios-mobile-view-height");
     }
     return (
       <div className={`app-container ${drawerStyle}`}>
-        <Sidebar estabModule={this.props.estabModule} />
+        <Sidebar estabModule={estabModule} />
         <div className="app-main-container bg-white">
           <div className="app-header app-header-horizontal">
             <Header />
@@ -54,11 +53,11 @@ class App extends React.Component {
                 <Route path={`${match.url}/profile`} component={UserProfile} />
                 <Route
                   path={`${match.url}/home`}
-                  render={props => <Home {...props} />}
+                  render={(props) => <Home {...props} />}
                 />
                 <Route
                   path={`${match.url}/administration`}
-                  render={props => (
+                  render={(props) => (
                     <Administration
                       match={match}
                       estabModule={estabModule}
@@ -66,11 +65,10 @@ class App extends React.Component {
                     />
                   )}
                 />
-              
 
                 <Route
                   path={`${match.url}/e-learning`}
-                  render={props => (
+                  render={(props) => (
                     <Learning
                       match={match}
                       estabModule={estabModule}
@@ -78,23 +76,32 @@ class App extends React.Component {
                     />
                   )}
                 />
-           
-            
-       
+
                 <Route
-                  path={`${match.url}/assiduity`}
-                  render={props => (
-                    <Assiduity
+                  path={`${match.url}/catalog`}
+                  render={(props) => (
+                    <Catalog
                       match={match}
                       estabModule={estabModule}
                       {...props}
                     />
                   )}
                 />
-      
+
+                <Route
+                  path={`${match.url}/reporting`}
+                  render={(props) => (
+                    <Raporting
+                      match={match}
+                      estabModule={estabModule}
+                      {...props}
+                    />
+                  )}
+                />
+
                 <Route
                   component={asyncComponent(() =>
-                    import('../components/Error404'),
+                    import("../components/Error404")
                   )}
                 />
               </Switch>
@@ -107,16 +114,14 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({settings, auth}) => {
-  const {drawerType, navigationStyle, horizontalNavPosition} = settings;
-  const {estabModule} = [];
-  const {multiple} = auth;
+const mapStateToProps = ({ settings, auth }) => {
+  const { drawerType, navigationStyle, horizontalNavPosition } = settings;
+  const { multiple } = auth;
 
   return {
     drawerType,
     navigationStyle,
     horizontalNavPosition,
-    estabModule,
     multiple,
   };
 };

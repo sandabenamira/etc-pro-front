@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 /* eslint eqeqeq: "off" */
-export class VirtualClass extends Component {
+export class Raporting extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -18,7 +18,7 @@ export class VirtualClass extends Component {
           marginRight: '10%',
         }}
       >
-        <h2>module VirtualClass</h2>
+        <h2>module Raporting</h2>
       </div>
     );
   }
@@ -28,4 +28,4 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default connect(mapStateToProps)(VirtualClass);
+export default connect(mapStateToProps)(Raporting);

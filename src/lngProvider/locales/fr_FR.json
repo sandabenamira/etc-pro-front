@@ -733,7 +733,6 @@
   "sidebar.components.community": "Communauté",
   "sidebar.components.dashboard": "Tableau de bord",
   "sidebar.components.health-monitiring": "Suivi médical",
-  "sidebar.components.e-learning": "E-learning",
   "e-learning": "E-learning",
   "sidebar.components.financial_management": "Reporting financier",
   "components.event.planning.calendar.generate.emploi.temps": "Planification des  évenements",
@@ -958,7 +957,6 @@
   "callRegister.reset.dialog.p3": ", il y a des séances sans appel",
   "callRegister.reset.dialog.interval": "Entre la dérniére séance faite dans le registre et celle que vous avez choisies ,il y a des séances sans appel",
   "callRegister.reset.accept": "Voulez vous garder la Derniére Version De L'Appel ou Initialiser à Présent ?",
-  "sidebar.components.administration": "Administration",
   "sidebar.components.stuppUser": "Utilisateurs",
   "sidebar.components.establishment": "Établissements",
   "sidebar.components.services": "Services",
@@ -1189,7 +1187,6 @@
   "sidebar.components.superadmin": "Super Administration",
   "sidebar.components.settings_management": "Gestion paramètres",
   "sidebar.components.establishment_management": "Gestion établissements",
-  "sidebar.components.reporting": "Rapports",
   "sidebar.components.financial_management_superadmin": "Reporting financier",
   "superadmin.apply.button": "Appliquer",
   "service.icon": " Photo associée ",
@@ -1260,7 +1257,6 @@
   "new.School.Session": "Nouvelle session de formation",
   "list.school.session": "Liste des sessions de formation",
   "assignment.subjects.levels.sections": "Affectation des matières",
-  "sidebar.components.moocs": "MOOCs",
   "sidebar.components.course-material": "Supports de formation",
   "sidebar.components.homeworks": "Exercices",
   "sidebar.components.educational_calendar": "Calendrier pédagogique",
@@ -1611,11 +1607,21 @@
   "sidebar.components.agenceSetting": "Gestion des agences",
   "add.new.agence": "Ajouter une Agence",
   "component.agence.list": "Liste des agences",
-  "profile.change.password" :"Changer mot de passe",
-  "alert.permission" : "Vous n'avez pas les permissions pour ce module " ,
-  "name.formation" : "Nom de la Formation",
-"service.button.send":"Envoyer"
+  "profile.change.password": "Changer mot de passe",
+  "alert.permission": "Vous n'avez pas les permissions pour ce module ",
+  "name.formation": "Nom de la Formation",
+  "service.button.send": "Envoyer",
 
 
 
+  "sidebar.components.administration": "Administration",
+  "sidebar.components.e-learning": "E-learning",
+  "sidebar.components.catalog": "Catalogue",
+  "sidebar.components.reporting": "Rapports",
+  "sidebar.components.agency-management": "Gestion des agences",
+  "sidebar.components.user-management": "Gestion des utilisateurs",
+  "sidebar.components.permissions-settings": "Paramètres des permissions",
+  "sidebar.components.online-training": "Formations en ligne",
+  "sidebar.components.training-materials": "Supports de formations",
+  "sidebar.components.moocs": "MOOCs"
 }

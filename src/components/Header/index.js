@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Avatar from "@material-ui/core/Avatar";
@@ -25,10 +25,12 @@ import IntlMessages from "../../util/IntlMessages";
 import LanguageSwitcher from "../../components/LanguageSwitcher/index";
 import Menu from "@material-ui/core/Menu";
 import MenuHeader from "../../components/TopNav/Menu";
-import _ from "lodash";
 import AppNotification from "../AppNotification";
 import CardHeader from "../CardHeader/index";
 import Typography from "@material-ui/core/Typography";
+import {
+  educapProModules
+} from "../../constants/EducapProModules";
 
 /* eslint eqeqeq: "off" */
 
@@ -131,7 +133,7 @@ class Header extends React.Component {
 
     return (
       <AppBar className="app-main-header jr-border-radius" position="relative">
-        {/* {user != undefined && ( */}
+       
         <Toolbar>
           {navigationStyle === HORIZONTAL_NAVIGATION ? (
             <div
@@ -152,16 +154,16 @@ class Header extends React.Component {
             </IconButton>
           )}
           <h4 className="mb-0 mr-auto text-white">
-            {/* {establishmentName.toUpperCase() +
+            {"BIAT Sousse"+
                 '   ' +
                 '(' +
                 ' ' +
-                this.state.schoolYearName +
+                "2021" +
                 ' ' +
-                ')'} */}
+                ')'}
           </h4>
 
-          <MenuHeader estabModule={this.props.estabModule} />
+          <MenuHeader estabModule={educapProModules} />
 
           <SearchBox styleName="d-none d-sm-block" />
 
@@ -296,6 +298,8 @@ class Header extends React.Component {
               onClick={this.handleClick}
             />
 
+         
+
             <Menu
               className=""
               id="simple-menu"
@@ -333,7 +337,7 @@ class Header extends React.Component {
             </Menu>
           </div>
         </Toolbar>
-        {/* // )} */}
+       
 
         {this.state.colorOption ? (
           <ColorOption cancelPanel={this.handleCancelPanel.bind(this)} />
@@ -359,7 +363,7 @@ const mapStateToProps = ({ settings, auth }) => {
     navigationStyle,
     horizontalNavPosition,
     languageId,
-    estabModule: [],
+   
   };
 };
 
