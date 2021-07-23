@@ -3,12 +3,9 @@ import asyncComponent from '../../../util/asyncComponent';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import Can from '../../../components/switchComponent/can';
 import {RoleContext} from '../../../components/switchComponent/Context';
-import VirtualClass from './routes/VirtualClasses/VirtualClass';
+import OnlineTraining from './routes/OnlineTraining/OnlineTraining';
 import Moocs from './routes/Moocs/Moocs';
-import SupportCours from './routes/CoursMaterials/SupportCours';
-import Homework from './routes/Homeworks/Homework';
-import BooksManagement from './routes/BooksManagement/BooksManagement';
-import TextCopybook from './routes/TextCopybook/TextCopybook';
+import TrainingMaterials from './routes/TrainingMaterials/TrainingMaterials';
 
 const Learning = ({match, estabModule}) => {
   return (
@@ -17,10 +14,10 @@ const Learning = ({match, estabModule}) => {
         <Redirect
           exact
           from={`${match.url}/`}
-          to={`${match.url}/virtual_classes`}
+          to={`${match.url}/online-training`}
         />
         <Route
-          path={`${match.url}/virtual_classes`}
+          path={`${match.url}/online-training`}
           render={() => (
             <RoleContext.Consumer>
               {({role}) => (
@@ -34,8 +31,8 @@ const Learning = ({match, estabModule}) => {
                   yes={() => (
                     <Can
                       role={role}
-                      perform={`module-nav-virtual_classes`}
-                      yes={() => <VirtualClass match={match} />}
+                      perform={`module-nav-online-training`}
+                      yes={() => <OnlineTraining match={match} />}
                       no={() => (
                         <Route
                           component={asyncComponent(() =>
@@ -96,7 +93,7 @@ const Learning = ({match, estabModule}) => {
           )}
         />
         <Route
-          path={`${match.url}/course-material`}
+          path={`${match.url}/training-materials`}
           render={() => (
             <RoleContext.Consumer>
               {({role}) => (
@@ -110,8 +107,8 @@ const Learning = ({match, estabModule}) => {
                   yes={() => (
                     <Can
                       role={role}
-                      perform={`module-nav-course-material`}
-                      yes={() => <SupportCours match={match} />}
+                      perform={`module-nav-training-materials`}
+                      yes={() => <TrainingMaterials match={match} />}
                       no={() => (
                         <Route
                           component={asyncComponent(() =>
@@ -133,140 +130,10 @@ const Learning = ({match, estabModule}) => {
             </RoleContext.Consumer>
           )}
         />
-        <Route
-          path={`${match.url}/homeworks`}
-          render={() => (
-            <RoleContext.Consumer>
-              {({role}) => (
-                <Can
-                  role={role}
-                  perform="module-nav-access"
-                  data={{
-                    mod: 'e-learning',
-                    moduleList: estabModule,
-                  }}
-                  yes={() => (
-                    <Can
-                      role={role}
-                      perform={`module-nav-homeworks`}
-                      yes={() => <Homework match={match} />}
-                      no={() => (
-                        <Route
-                          component={asyncComponent(() =>
-                            import('../../../components/Error404'),
-                          )}
-                        />
-                      )}
-                    />
-                  )}
-                  no={() => (
-                    <Route
-                      component={asyncComponent(() =>
-                        import('../../../components/Error404'),
-                      )}
-                    />
-                  )}
-                />
-              )}
-            </RoleContext.Consumer>
-          )}
-        />
-        <Route
-          path={`${match.url}/book_management`}
-          render={() => (
-            <RoleContext.Consumer>
-              {({role}) => (
-                <Can
-                  role={role}
-                  perform="module-nav-access"
-                  data={{
-                    mod: 'e-learning',
-                    moduleList: estabModule,
-                  }}
-                  yes={() => (
-                    <Can
-                      role={role}
-                      perform={`module-nav-book_management`}
-                      yes={() => <BooksManagement match={match} />}
-                      no={() => (
-                        <Route
-                          component={asyncComponent(() =>
-                            import('../../../components/Error404'),
-                          )}
-                        />
-                      )}
-                    />
-                  )}
-                  no={() => (
-                    <Route
-                      component={asyncComponent(() =>
-                        import('../../../components/Error404'),
-                      )}
-                    />
-                  )}
-                />
-              )}
-            </RoleContext.Consumer>
-          )}
-        />
+     
 
-        <Route
-          path={`${match.url}/text_copybook`}
-          render={() => (
-            <RoleContext.Consumer>
-              {({role}) => (
-                <Can
-                  role={role}
-                  perform="module-nav-access"
-                  data={{
-                    mod: 'e-learning',
-                    moduleList: estabModule,
-                  }}
-                  yes={() => (
-                    <Can
-                      role={role}
-                      perform={`module-nav-text_copybook`}
-                      yes={() => <TextCopybook match={match} />}
-                      no={() => (
-                        <Route
-                          component={asyncComponent(() =>
-                            import('../../../components/Error404'),
-                          )}
-                        />
-                      )}
-                    />
-                  )}
-                  no={() => (
-                    <Route
-                      component={asyncComponent(() =>
-                        import('../../../components/Error404'),
-                      )}
-                    />
-                  )}
-                />
-              )}
-            </RoleContext.Consumer>
-          )}
-        />
 
-        {
-          // <Route
-          //   path="/app/e-learning/virtual_classes_details/:classId/:className"
-          //   component={VirtualClassDetails}
-          // />
-        }
-        {
-          // <Route
-          //   path="/app/e-learning/moocs_details/:moocsId/:moocsTopic"
-          //   component={MoocsDetails}
-          // />
-        }
-        {
-          // <Route
-          //   path="/app/e-learning/course_material/:levelId/:levelName/:classRoomId/:className/:subjectId/:subjectName/:idAssignement/:surnameProf/:nameProf/:idProf"
-          //   component={SupportCoursList}
-          // />
-        }
+  
       </Switch>
     </div>
   );

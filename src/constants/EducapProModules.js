@@ -57,23 +57,23 @@ export const sousModuleAdministration = [
 
   export const sousModuleELearning = [
     {
-      name: 'online-training',
-      pathName: 'e-learning/online-training',
-      icon: 'laptop-chromebook',
+      name: "online-training",
+      pathName: "e-learning/online-training",
+      icon: "laptop-chromebook",
       id: 1,
     },
     {
-      name: 'training-materials',
-      pathName: 'e-learning/training-materials',
-      icon: 'cloud-outline-alt',
+      name: "training-materials",
+      pathName: "e-learning/training-materials",
+      icon: "cloud-outline-alt",
       id: 2,
     },
     {
-      name: 'moocs',
-      pathName: 'e-learning/moocs',
-      icon: 'folder-outline',
+      name: "moocs",
+      pathName: "e-learning/moocs",
+      icon: "folder-outline",
       id: 3,
-    }
+    },
   ];
 
   

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-class Rooms extends React.Component {
+/* eslint eqeqeq: "off" */
+export class OnlineTraining extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -17,12 +18,14 @@ class Rooms extends React.Component {
           marginRight: '10%',
         }}
       >
-        <h2>module Rooms</h2>
+        <h2>module Online Training</h2>
       </div>
     );
   }
 }
+
 const mapStateToProps = state => {
   return {};
 };
-export default connect(mapStateToProps)(Rooms);
+
+export default connect(mapStateToProps)(OnlineTraining);

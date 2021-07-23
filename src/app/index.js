@@ -14,7 +14,6 @@ import Footer from "../components/Footer";
 import Administration from "./routes/Administration/index";
 import Home from "./routes/Home/index";
 import Learning from "./routes/Learning/index";
-import Assiduity from "./routes/Assiduity/index";
 import UserProfile from "./routes/UserProfile/index";
 import { educapProModules } from "../constants/EducapProModules";
 
@@ -76,16 +75,7 @@ class App extends React.Component {
                   )}
                 />
 
-                <Route
-                  path={`${match.url}/assiduity`}
-                  render={(props) => (
-                    <Assiduity
-                      match={match}
-                      estabModule={estabModule}
-                      {...props}
-                    />
-                  )}
-                />
+              
 
                 <Route
                   component={asyncComponent(() =>
