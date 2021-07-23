@@ -1,47 +1,16 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import IntlMessages from '../../util/IntlMessages';
+
 import {
-  sousModuleEtab2,
+  sousModuleAdministration,
   sousModuleELearning,
-  sousModuleAssiduity,
-  sousModuleSuperadmin,
-  sousModuleEvaluation,
-} from '../../constants/StuppModules';
+} from "../../constants/EducapProModules";
 import { RoleContext } from '../switchComponent/Context';
 import Can from '../switchComponent/can';
 
-// const NavlinkItem = ({ pathName, listMoule }) => {
-//   return (
-//     <RoleContext.Consumer>
-//       {({ role }) => (
-//         <Can
-//           role={role}
-//           perform={`module-nav-${pathName}`}
-//           yes={() => (
-//             <Can
-//               role={role}
-//               perform="module-nav-access"
-//               data={{
-//                 mod: pathName,
-//                 moduleList: listMoule,
-//               }}
-//               yes={() => (
-//                 <NavLink to={{ pathname: '/app/' + pathName }}>
-//                   <span className="nav-text">
-//                     <IntlMessages id={`sidebar.components.${pathName}`} />{' '}
-//                   </span>
-//                 </NavLink>
-//               )}
-//             />
-//           )}
-//         />
-//       )}
-//     </RoleContext.Consumer>
-//   );
-// };
 
-const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
+const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleEducapPro }) => {
   return (
     <>
       <RoleContext.Consumer>
@@ -63,7 +32,7 @@ const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
                       <IntlMessages id={`sidebar.components.${pathName}`} />
                     </a>
                     <ul className="sub-menu">
-                      {sousModuleStupp.map((mod, index) => (
+                      {sousModuleEducapPro.map((mod, index) => (
                         <li key={index}>
                           <RoleContext.Consumer>
                             {({ role }) => (
@@ -94,112 +63,36 @@ const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleStupp }) => {
     </>
   );
 };
-
-const MenuCollapseBoxItem2 = ({ pathName, listModule, sousModuleStupp }) => {
+const NavlinkItem = ({ pathName, listMoule }) => {
   return (
-    <>
-      <RoleContext.Consumer>
-        {({ role }) => (
-          <Can
-            role={role}
-            perform={`module-nav-${pathName}`}
-            yes={() => (
-              <Can
-                role={role}
-                perform="module-nav-access"
-                data={{
-                  mod: pathName,
-                  moduleList: listModule,
-                }}
-                yes={() => (
-                  <a className="nav-text ">
-                    <IntlMessages id={`sidebar.components.${pathName}`} />
-                  </a>
-                )}
-              />
-            )}
-          />
-        )}
-      </RoleContext.Consumer>
-
-      <ul className="sub-menu">
-        {sousModuleStupp.map((mod, index) => {
-          let test = false;
-          let arr = [];
-          if (mod.name === 'schoolSettings') {
-            test = true;
-            arr = mod.sousSousModules;
-          }
-          return test === true ? (
-            <li key={index} className="nav-arrow">
-              <RoleContext.Consumer>
-                {({ role }) => (
-                  <Can
-                    role={role}
-                    perform={`module-nav-${mod.name}`}
-                    yes={() => (
-                      <a>
-                        <span className="nav-link">
-                          <i className={`zmdi zmdi-${mod.icon}`} />
-                          <IntlMessages id={`sidebar.components.${mod.name}`} />{' '}
-                        </span>
-                      </a>
-                    )}
-                  />
-                )}
-              </RoleContext.Consumer>
-              <ul className="sub-menu">
-                {arr.map((sousModule, index) => (
-                  <li key={index}>
-                    <RoleContext.Consumer>
-                      {({ role }) => (
-                        <Can
-                          role={role}
-                          perform={`module-nav-${sousModule.name}`}
-                          yes={() => (
-                            <NavLink
-                              to={{
-                                pathname: '/app/' + mod.pathName + '/' + sousModule.pathName,
-                              }}
-                            >
-                              <i className={`zmdi zmdi-${sousModule.icon}`} />
-                              <span className="nav-text">
-                                <IntlMessages id={`sidebar.components.${sousModule.name}`} />{' '}
-                              </span>
-                            </NavLink>
-                          )}
-                        />
-                      )}
-                    </RoleContext.Consumer>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ) : (
-            <li key={index}>
-              <RoleContext.Consumer>
-                {({ role }) => (
-                  <Can
-                    role={role}
-                    perform={`module-nav-${mod.name}`}
-                    yes={() => (
-                      <NavLink to={{ pathname: '/app/' + mod.pathName }}>
-                        <i className={`zmdi zmdi-${mod.icon}`} />
-                        <span className="nav-text">
-                          <IntlMessages id={`sidebar.components.${mod.name}`} />{' '}
-                        </span>
-                      </NavLink>
-                    )}
-                  />
-                )}
-              </RoleContext.Consumer>
-            </li>
-          );
-        })}
-      </ul>
-    </>
+    <RoleContext.Consumer>
+      {({ role }) => (
+        <Can
+          role={role}
+          perform={`module-nav-${pathName}`}
+          yes={() => (
+            <Can
+              role={role}
+              perform="module-nav-access"
+              data={{
+                mod: pathName,
+                moduleList: listMoule,
+              }}
+              yes={() => (
+                <NavLink to={{ pathname: "/app/" + pathName }}>
+                  <span className="nav-text">
+                    <IntlMessages id={`sidebar.components.${pathName}`} />{" "}
+                  </span>
+                </NavLink>
+              )}
+            />
+          )}
+        />
+      )}
+    </RoleContext.Consumer>
   );
 };
+
 
 class Menu extends Component {
   componentDidMount() {
@@ -285,25 +178,22 @@ class Menu extends Component {
                 </span>
               </NavLink>
             </li>
+         
             <li className="nav-item">
-              <MenuCollapseBoxItem pathName={'super_administration'} listModule={estabModule} sousModuleStupp={sousModuleSuperadmin} />
+              <MenuCollapseBoxItem pathName={'administration'} listModule={estabModule} sousModuleEducapPro={sousModuleAdministration} />
             </li>
 
             <li className="nav-item">
-              <MenuCollapseBoxItem2 pathName={'administration'} listModule={estabModule} sousModuleStupp={sousModuleEtab2} />
+              <MenuCollapseBoxItem pathName={'e-learning'} listModule={estabModule} sousModuleEducapPro={sousModuleELearning} />
             </li>
-
             <li className="nav-item">
-              <MenuCollapseBoxItem pathName={'evaluation'} listModule={estabModule} sousModuleStupp={sousModuleEvaluation} />
-            </li>
+            <NavlinkItem pathName={"catalog"} listMoule={estabModule} />
+          </li>
+          <li className="nav-item">
+            <NavlinkItem pathName={"reporting"} listMoule={estabModule} />
+          </li>
 
-            <li className="nav-item">
-              <MenuCollapseBoxItem pathName={'e-learning'} listModule={estabModule} sousModuleStupp={sousModuleELearning} />
-            </li>
-
-            <li className="nav-item">
-              <MenuCollapseBoxItem pathName={'assiduity'} listModule={estabModule} sousModuleStupp={sousModuleAssiduity} />
-            </li>
+           
         
           </ul>
         </div>

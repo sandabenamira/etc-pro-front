@@ -28,6 +28,9 @@ import MenuHeader from "../../components/TopNav/Menu";
 import AppNotification from "../AppNotification";
 import CardHeader from "../CardHeader/index";
 import Typography from "@material-ui/core/Typography";
+import {
+  educapProModules
+} from "../../constants/EducapProModules";
 
 /* eslint eqeqeq: "off" */
 
@@ -151,16 +154,16 @@ class Header extends React.Component {
             </IconButton>
           )}
           <h4 className="mb-0 mr-auto text-white">
-            {/* {establishmentName.toUpperCase() +
+            {"BIAT Sousse"+
                 '   ' +
                 '(' +
                 ' ' +
-                this.state.schoolYearName +
+                "2021" +
                 ' ' +
-                ')'} */}
+                ')'}
           </h4>
 
-          <MenuHeader estabModule={this.props.estabModule} />
+          <MenuHeader estabModule={educapProModules} />
 
           <SearchBox styleName="d-none d-sm-block" />
 
@@ -295,6 +298,8 @@ class Header extends React.Component {
               onClick={this.handleClick}
             />
 
+         
+
             <Menu
               className=""
               id="simple-menu"
@@ -358,7 +363,7 @@ const mapStateToProps = ({ settings, auth }) => {
     navigationStyle,
     horizontalNavPosition,
     languageId,
-    estabModule: [],
+   
   };
 };
 
