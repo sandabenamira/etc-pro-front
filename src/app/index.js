@@ -16,6 +16,8 @@ import Home from "./routes/Home/index";
 import Learning from "./routes/Learning/index";
 import UserProfile from "./routes/UserProfile/index";
 import { educapProModules } from "../constants/EducapProModules";
+import Raporting from "./routes/Raporting/Raporting";
+import Catalog from "./routes/Catalog/Catalog";
 
 class App extends React.Component {
   constructor(props) {
@@ -75,7 +77,27 @@ class App extends React.Component {
                   )}
                 />
 
-              
+                <Route
+                  path={`${match.url}/catalog`}
+                  render={(props) => (
+                    <Catalog
+                      match={match}
+                      estabModule={estabModule}
+                      {...props}
+                    />
+                  )}
+                />
+
+                <Route
+                  path={`${match.url}/reporting`}
+                  render={(props) => (
+                    <Raporting
+                      match={match}
+                      estabModule={estabModule}
+                      {...props}
+                    />
+                  )}
+                />
 
                 <Route
                   component={asyncComponent(() =>
