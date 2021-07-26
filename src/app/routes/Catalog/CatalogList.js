@@ -5,13 +5,14 @@ import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from '@material-ui/core/colors';
+import CatalogItem from "./CatalogItem";
 
 export default class CatalogList extends Component {
   render() {
     return (
       <div className="d-flex flex-column">
-        <div className="d-flex flex-row ">
-          <div className="p-2 col-md-1 col-sm-1 col-lg-1">
+        <div className="d-flex flex-row flex-wrap">
+          <div className="p-2 col-md-2 col-sm-1 col-lg-1">
             <TextField
               className="textfield"
               id="level_id"
@@ -34,7 +35,7 @@ export default class CatalogList extends Component {
                                   ))} */}
             </TextField>
           </div>
-          <div className="p-2 ml-5 col-md-2 col-sm-2 col-lg-2">
+          <div className="p-2 ml-5 col-md-3 col-sm-2 col-lg-2">
             <TextField
               id="search"
               name="search"
@@ -79,7 +80,16 @@ export default class CatalogList extends Component {
             </div>
           </div>
         </div>
-        <div className="p-2 bg-pink">Flex item 3</div>
+        <div className="p-2 price-tables row pt-default d-flex justify-content-start ">
+            {    [1,2,3,4,5].map((element, index) => (
+              <div className="col-md-6 col-lg-3 col-sm-6 " key={index}>
+                <CatalogItem
+                  key={index}
+                
+                />
+              </div>
+            ))}
+        </div>
       </div>
     );
   }

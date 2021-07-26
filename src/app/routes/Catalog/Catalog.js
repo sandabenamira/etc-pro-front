@@ -15,7 +15,7 @@ export class Catalog extends Component {
     return (
       <div className="app-wrapper">
         <div className="d-flex flex-column">
-          <div className="p-2" style={{color:"blue", fontSize:"20px"}}>Catalogue des informations</div>
+          <div className="p-2" style={{color:"#4C25B7", fontSize:"26px"}}>Catalogue des informations</div>
           <div className="p-2">
            <CatalogList />
           </div>
