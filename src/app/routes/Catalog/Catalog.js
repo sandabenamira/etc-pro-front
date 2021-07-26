@@ -1,5 +1,7 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import { sizeWidth } from "@material-ui/system";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import CatalogList from "./CatalogList";
 
 /* eslint eqeqeq: "off" */
 export class Catalog extends Component {
@@ -11,20 +13,20 @@ export class Catalog extends Component {
   render() {
     /* eslint eqeqeq: "off" */
     return (
-      <div
-        className="app-wrapper"
-        style={{
-          marginLeft: '5%',
-          marginRight: '10%',
-        }}
-      >
-        <h2>module Catalog</h2>
+      <div className="app-wrapper">
+        <div className="d-flex flex-column">
+          <div className="p-2" style={{color:"blue", fontSize:"20px"}}>Catalogue des informations</div>
+          <div className="p-2">
+           <CatalogList />
+          </div>
+          
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 
