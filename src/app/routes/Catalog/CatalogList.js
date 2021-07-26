@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
+// import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from '@material-ui/core/colors';

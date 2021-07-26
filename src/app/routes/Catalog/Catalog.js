@@ -1,9 +1,7 @@
-import { sizeWidth } from "@material-ui/system";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import CatalogList from "./CatalogList";
 
-/* eslint eqeqeq: "off" */
 export class Catalog extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +9,6 @@ export class Catalog extends Component {
   }
 
   render() {
-    /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper">
         <div className="d-flex flex-column">
