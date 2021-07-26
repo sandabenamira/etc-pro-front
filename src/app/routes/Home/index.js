@@ -42,7 +42,7 @@ class Home extends React.Component {
       >
         <div className="d-flex flex-wrap flex-row bd-highlight mb-3 col-lg-12 col-md-12  col-sm-12">
           <div className="p-2 bd-highlight col-lg-8 col-md-12  col-sm-12 ">
-            <div class="d-flex flex-wrap flex-column bd-highlight mb-3">
+            <div className="d-flex flex-wrap flex-column bd-highlight mb-3">
               <div className="p-2 col-lg-12 col-md-12 col-sm-12">
                 <div
                   className="media jr-featured-item "
@@ -163,12 +163,12 @@ class Home extends React.Component {
             </div>
           </div>
 
-          <div class="p-2 bd-highlight mb-3 col-lg-4 col-md-12 col-sm-12">
-            <div class="d-flex flex-wrap flex-column bd-highlight mb-3">
-              <div class="p-2 bd-highlight p-2 col-lg-12 col-md-12 col-sm-12 ">
+          <div className="p-2 bd-highlight mb-3 col-lg-4 col-md-12 col-sm-12">
+            <div className="d-flex flex-wrap flex-column bd-highlight mb-3">
+              <div className="p-2 bd-highlight p-2 col-lg-12 col-md-12 col-sm-12 ">
                 <CalendarComponent newArrOfEvent={[]}  />
               </div>
-              <div class="p-2 bd-highlight p-2 col-lg-12 col-md-12 col-sm-12 ">
+              <div className="p-2 bd-highlight p-2 col-lg-12 col-md-12 col-sm-12 ">
               <Card className={`shadow border-0 text-center`}>
                 <CardHeader
                   className=" text-white"
@@ -182,7 +182,7 @@ class Home extends React.Component {
                       return (
                         <div
                           className="media user-profile"
-                          key={"taskId-" + item.id}
+                          key={"taskId-" + index}
                         >
                           <Avatar
                             className={"size-40 mr-3"}

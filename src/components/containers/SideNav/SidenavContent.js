@@ -42,8 +42,7 @@ const NavlinkItem = ({ pathName, listMoule }) => {
 };
 
 const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleEducapPro }) => {
-  console.log("pathName", pathName);
-  console.log("listModule", listModule);
+
   return (
     <li className="menu collapse-box">
       <RoleContext.Consumer>
