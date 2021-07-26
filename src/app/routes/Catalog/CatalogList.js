@@ -4,8 +4,10 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 // import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
-import { orange } from '@material-ui/core/colors';
+import { orange } from "@material-ui/core/colors";
 import CatalogItem from "./CatalogItem";
+import MenuItem from "@material-ui/core/MenuItem";
+
 
 export default class CatalogList extends Component {
   render() {
@@ -28,11 +30,15 @@ export default class CatalogList extends Component {
               variant="outlined"
               size="small"
             >
-              {/* {this.props.levels.map((level) => (
-                                    <MenuItem key={level.id} value={level.id}>
-                                      {level.name}
-                                    </MenuItem>
-                                  ))} */}
+              {[
+                { id: 1, name: "plus récent" },
+                { id: 2, name: "Favoris" },
+                { id: 3, name: "Inscription" },
+              ].map((item) => (
+                <MenuItem key={item.id} value={item.id}>
+                  {item.name}
+                </MenuItem>
+              ))}
             </TextField>
           </div>
           <div className="p-2 ml-5 col-md-3 col-sm-2 col-lg-2">
@@ -73,22 +79,18 @@ export default class CatalogList extends Component {
                 <AddIcon style={{ color: orange[500] }} />
               </Fab>
               &nbsp;&nbsp;&nbsp;
-              <div style={{fontSize:"25px" , color:"orange"}} >
-               Ajouter une formation
-              </div  >
-              
+              <div style={{ fontSize: "25px", color: "orange" }}>
+                Ajouter une formation
+              </div>
             </div>
           </div>
         </div>
         <div className="p-2 price-tables row pt-default d-flex justify-content-start ">
-            {    [1,2,3,4,5].map((element, index) => (
-              <div className="col-md-6 col-lg-3 col-sm-6 " key={index}>
-                <CatalogItem
-                  key={index}
-                
-                />
-              </div>
-            ))}
+          {[1, 2, 3, 4, 5].map((element, index) => (
+            <div className="col-md-6 col-lg-3 col-sm-6 " key={index}>
+              <CatalogItem key={index} />
+            </div>
+          ))}
         </div>
       </div>
     );
