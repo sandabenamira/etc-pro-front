@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import { Modal, ModalBody } from "reactstrap";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import DateRangeComponent from "./DateRangeComponent";
@@ -475,7 +475,6 @@ export default class AddTraining extends Component {
                 {/* Programmes */}
 
                 <div
-                  className="p-2 "
                   className="p-2 "
                   style={{ fontSize: "20px" }}
                 >
