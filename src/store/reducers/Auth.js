@@ -11,11 +11,8 @@ import {
   SIGNIN_USER_SUCCESS,
   SIGNOUT_USER_SUCCESS,
   SIGNUP_USER_SUCCESS,
-  GET_USER_PROFILE,
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
-  EDIT_PROFILE,
-  GET_PROFILE,
   SWITCH_APP_LANGUAGE,
 } from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 
@@ -26,7 +23,6 @@ const INIT_STATE = {
   showMessage: false,
   initURL: "",
   authUser: localStorage.getItem("token"),
-  userProfile: [],
   multiple: false,
   profile: [],
   showLicenceMessage: false,
@@ -62,7 +58,6 @@ export default (state = INIT_STATE, action) => {
         authUser: null,
         initURL: "/signin",
         loader: false,
-        userProfile: [],
       };
     }
 
@@ -139,11 +134,7 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
-    case GET_USER_PROFILE: {
-      return Object.assign({}, state, {
-        userProfile: action.payload,
-      });
-    }
+
     case "SOW_MODAL_SELECT_ESTABLISHMENT": {
       return Object.assign({}, state, {
         multiple: true,
@@ -155,16 +146,7 @@ export default (state = INIT_STATE, action) => {
         multiple: false,
       });
     }
-    case EDIT_PROFILE: {
-      return Object.assign({}, state, {
-        userProfile: { ...state.userProfile, user: action.payload },
-      });
-    }
-    case GET_PROFILE: {
-      return Object.assign({}, state, {
-        userProfile: action.payload,
-      });
-    }
+
     case SWITCH_APP_LANGUAGE: {
       return Object.assign({}, state, {
         userProfile: action.payload,

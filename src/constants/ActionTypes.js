@@ -22,7 +22,6 @@ export const INSIDE_THE_HEADER = "inside_the_header";
 export const BELOW_THE_HEADER = "below_the_header";
 export const DARK_GREEN = "dark-green";
 
-export const GET_PROFILE = "GET_PROFILE";
 
 //Contact Module const
 
@@ -59,9 +58,7 @@ export const GET_ALL_ESTABLISHMENT = "GET_ALL_ESTABLISHMENT";
 export const DELETE_ESTABLISHMENT = "DELETE_ESTABLISHMENT";
 export const GET_ESTABLISHMENT_INFORMATIONS = "GET_ESTABLISHMENT_INFORMATIONS";
 
-export const EDIT_PROFILE = "EDIT_PROFILE";
 export const FETECHED_ALL_SCHOOL_YEAR_ETAB = "FETECHED_ALL_SCHOOL_YEAR_ETAB";
-export const GET_USER_PROFILE = "GET_USER_PROFILE";
 export const HIDE_ERROR_MESSAGE = "HIDE_ERROR_MESSAGE";
 export const HIDE_SUCCESS_MESSAGE = "HIDE_SUCCESS_MESSAGE";
 export const INIT_OPTIONS = "INIT_OPTIONS";
