@@ -69,7 +69,7 @@ export default class CatalogList extends Component {
                 size="small"
                 // color="primary"
                 aria-label="Add"
-                // onClick={this.props.openAddModal}
+                onClick={this.props.openAddTraining}
               >
                 {/* {this.props.values.open ? (
                           <RemoveSharpIcon />
