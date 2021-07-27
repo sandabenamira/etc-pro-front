@@ -8,8 +8,10 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import Button from '@material-ui/core/Button';
-
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+import { orange } from "@material-ui/core/colors";
 
 export default class AddTraining extends Component {
   render() {
@@ -17,12 +19,7 @@ export default class AddTraining extends Component {
     return (
       <div className="app-wrapper">
         <Modal isOpen={values.isOpen}>
-          <ModalHeader
-          //   toggle={this.handleCancel}
-          // className="modal-box-header "
-          >
-            <div style={{ textAlign: "center" }}>Ajouter une formation</div>
-          </ModalHeader>
+    
           <ModalBody>
             <form
               className="row"
@@ -30,14 +27,24 @@ export default class AddTraining extends Component {
               //   onSubmit={this.handleSubmit}
             >
               <div className="d-flex flex-column ml-5 ">
-                <div className="p-2 ">
-                  <h2>Informations générales</h2>
+                <div
+                  className="d-flex justify-content-center mt-3"
+                  style={{ color: "#4C25B7", fontSize: "25px" }}
+                >
+                  Ajouter une formation
+                </div>
+
+                <br />
+                <br />
+
+                <div className="p-2 " style={{ fontSize: "20px" }}>
+                  <b>Informations générales</b>
                 </div>
                 {/* thème formation */}
-                <div className="p-2 flex-column">
+                <div className="p-2 flex-column col-md-6">
                   <div
                     className="p-2"
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     Thème de la formation *
                   </div>
@@ -70,12 +77,24 @@ export default class AddTraining extends Component {
 
                 {/* session */}
                 <div className="p-2 flex-column">
-                  <div
-                    className="p-2"
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
-                  >
-                    Ajouter une session
+                  <div className="p-2 d-flex flex-row">
+                    <div
+                      className="p-2 "
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                    >
+                      Ajouter une session
+                    </div>
+                    <div>
+                      <Fab
+                        size="small"
+                        aria-label="Add"
+                        onClick={this.props.openAddTraining}
+                      >
+                        <AddIcon style={{ color: orange[500] }} />
+                      </Fab>
+                    </div>
                   </div>
+
                   <div className="p-2">
                     <DateRangeComponent />
                   </div>
@@ -85,13 +104,25 @@ export default class AddTraining extends Component {
                   </div>
                 </div>
                 {/* add modules */}
-                <div className="p-2 flex-column">
-                  <div
-                    className="p-2"
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
-                  >
-                    Ajouter un module
+                <div className="p-2 flex-column col-md-6">
+                  <div className="p-2 d-flex flex-row">
+                    <div
+                      className="p-2 "
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                    >
+                      Ajouter un module
+                    </div>
+                    <div>
+                      <Fab
+                        size="small"
+                        aria-label="Add"
+                        onClick={this.props.openAddTraining}
+                      >
+                        <AddIcon style={{ color: orange[500] }} />
+                      </Fab>
+                    </div>
                   </div>
+
                   <div className="p-2">
                     <TextField
                       className="textfield"
@@ -121,13 +152,21 @@ export default class AddTraining extends Component {
 
                 {/* add level */}
                 <div className="p-2 d-flex flex-row">
-                  <div className="p-2 flex-column">
+                  <div className="p-2 flex-column col-md-6">
                     <div
-                      className="p-2"
-                      style={{ color: "#4C25B7", fontSize: "16px" }}
+                      className="p-2 "
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
-                      Ajouter un niveau
+                      Ajouter un niveau &nbsp;
+                      <Fab
+                        size="small"
+                        aria-label="Add"
+                        onClick={this.props.openAddTraining}
+                      >
+                        <AddIcon style={{ color: orange[500] }} />
+                      </Fab>
                     </div>
+
                     <div className="p-2">
                       <TextField
                         className="textfield"
@@ -140,10 +179,10 @@ export default class AddTraining extends Component {
                     </div>
                   </div>
 
-                  <div className="p-2 flex-column">
+                  <div className="p-2 flex-column col-md-6">
                     <div
                       className="p-2"
-                      style={{ color: "#4C25B7", fontSize: "16px" }}
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Associer à un module
                     </div>
@@ -174,7 +213,7 @@ export default class AddTraining extends Component {
                 <div className="p-2 d-flex flex-row">
                   <div
                     className="p-2"
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     Existe-t-il une certification ? *
                   </div>
@@ -205,7 +244,7 @@ export default class AddTraining extends Component {
                 <div className="p-2 d-flex flex-row">
                   <div
                     className="p-2"
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     Qu'elle est le format de la formation ? *
                   </div>
@@ -237,10 +276,10 @@ export default class AddTraining extends Component {
                   </div>
                 </div>
                 {/* titre formation */}
-                <div className="p-2  d-flex flex-column">
+                <div className="p-2  d-flex flex-column col-md-10">
                   <div
                     className="p-2"
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     Titre de la formation *
                   </div>
@@ -257,10 +296,10 @@ export default class AddTraining extends Component {
                 </div>
 
                 {/* description formation */}
-                <div className="p-2  d-flex flex-column">
+                <div className="p-2  d-flex flex-column col-md-10">
                   <div
                     className="p-2"
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     Description
                   </div>
@@ -275,31 +314,54 @@ export default class AddTraining extends Component {
                     ></TextField>
                   </div>
                 </div>
-                {/* lieu formation */}
-                <div className="p-2  d-flex flex-column">
-                  <div
-                    className="p-2"
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
-                  >
-                    Lieu de la formation
+
+                {/*lien et lieu formation */}
+                <div className="p-2 d-flex flex-row">
+                  <div className="p-2  d-flex flex-column col-md-6">
+                    <div
+                      className="p-2"
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                    >
+                      Lieu
+                    </div>
+                    <div className="p-2">
+                      <TextField
+                        className="textfield"
+                        id="level_id"
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
                   </div>
-                  <div className="p-2">
-                    <TextField
-                      className="textfield"
-                      id="level_id"
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    ></TextField>
+
+                  <div className="p-2  d-flex flex-column col-md-6">
+                    <div
+                      className="p-2"
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                    >
+                      Lien de la formation *
+                    </div>
+                    <div className="p-2">
+                      <TextField
+                        className="textfield"
+                        id="level_id"
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
                   </div>
                 </div>
+
                 {/* formateur & description */}
-                <div className="p-2 d-flex flex-row">
-                  <div className="p-2  d-flex flex-column ">
+                <div className="p-2 d-flex flex-row ">
+                  <div className="p-2  d-flex flex-column col-md-6 ">
                     <div
                       className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "16px" }}
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Formateur *
                     </div>
@@ -329,10 +391,10 @@ export default class AddTraining extends Component {
                       </TextField>
                     </div>
                   </div>
-                  <div className="p-2  d-flex flex-column ml-4">
+                  <div className="p-2  d-flex flex-column col-md-6 ">
                     <div
                       className="p-2"
-                      style={{ color: "#4C25B7", fontSize: "16px" }}
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Description
                     </div>
@@ -352,10 +414,10 @@ export default class AddTraining extends Component {
 
                 {/* objectif & methodologie */}
                 <div className="p-2 d-flex flex-row">
-                  <div className="p-2  d-flex flex-column ">
+                  <div className="p-2  d-flex flex-column col-md-6">
                     <div
                       className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "16px" }}
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Objectif de la formation
                     </div>
@@ -371,10 +433,10 @@ export default class AddTraining extends Component {
                     </div>
                   </div>
 
-                  <div className="p-2  d-flex flex-column ml-4">
+                  <div className="p-2  d-flex flex-column col-md-6">
                     <div
                       className="p-2"
-                      style={{ color: "#4C25B7", fontSize: "16px" }}
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Méthodologie
                     </div>
@@ -395,11 +457,11 @@ export default class AddTraining extends Component {
                 <div className="p-2  d-flex flex-column ">
                   <div
                     className="p-2 "
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     Prérequis
                   </div>
-                  <div className="p-2 ">
+                  <div className="p-2 col-md-6">
                     <TextField
                       className="textfield"
                       id="level_id"
@@ -412,14 +474,18 @@ export default class AddTraining extends Component {
                 </div>
                 {/* Programmes */}
 
-                <div className="p-2 ">
-                  <h2>Programme</h2>
+                <div
+                  className="p-2 "
+                  className="p-2 "
+                  style={{ fontSize: "20px" }}
+                >
+                  <b>Programme</b>
                 </div>
                 {/* nombre de jours */}
                 <div className=" d-flex flex-row ">
                   <div
                     className="p-4 "
-                    style={{ color: "#4C25B7", fontSize: "16px" }}
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     nombres de jours
                   </div>
@@ -435,27 +501,21 @@ export default class AddTraining extends Component {
                   </div>
                 </div>
                 <div className="p-2 d-flex flex-row">
-                  {/* <div className="mr-3 mt-4"> */}
-                  {/* <LensOutlinedIcon
-                      style={{ fontSize: 130, color: "orange" }}
-                      shapeRendering="yess"
-                    />*/}
-
-                  <div className="max-width-100">
+                  <div className="max-width-100 mt-5">
                     <CircularProgressbar
                       percentage="100"
-                      text="hhhh"
+                      text="Jour 1"
                       styles={{
                         path: { stroke: "orange", height: "100%" },
-                        text: { fill: "#3D3D3D", fontSize: "16px" },
+                        text: { fill: "#3D3D3D", fontSize: "18px" },
                       }}
                     />
                   </div>
 
-                  <div className="p-2 d-flex flex-column">
+                  <div className="p-2 d-flex flex-column ml-3">
                     <div
                       className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "16px" }}
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Titre
                     </div>
@@ -472,11 +532,60 @@ export default class AddTraining extends Component {
 
                     <div
                       className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "16px" }}
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Description
                     </div>
+                    <div className="p-2">
+                      <TextField
+                        className="textfield"
+                        id="level_id"
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-2 d-flex flex-row">
+                  <div className="max-width-100 mt-5">
+                    <CircularProgressbar
+                      percentage="100"
+                      text="Jour 2"
+                      styles={{
+                        path: { stroke: "orange", height: "100%" },
+                        text: { fill: "#3D3D3D", fontSize: "18px" },
+                      }}
+                    />
+                  </div>
+
+                  <div className="p-2 d-flex flex-column ml-3">
+                    <div
+                      className="p-2 "
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                    >
+                      Titre
+                    </div>
                     <div className="p-2 ">
+                      <TextField
+                        className="textfield"
+                        id="level_id"
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
+
+                    <div
+                      className="p-2 "
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                    >
+                      Description
+                    </div>
+                    <div className="p-2">
                       <TextField
                         className="textfield"
                         id="level_id"
@@ -493,7 +602,7 @@ export default class AddTraining extends Component {
                 <div className="p-2 d-flex flex-column">
                   <h2>Prix de la formation par personne *</h2>
 
-                  <div className="p-2 ">
+                  <div className="p-2 col-md-6">
                     <TextField
                       className="textfield"
                       id="level_id"
@@ -506,29 +615,25 @@ export default class AddTraining extends Component {
                 </div>
                 {/* les bouttons */}
                 <div className="p-2 d-flex flex-row justify-content-center">
-                    <div className="p-2">
+                  <div className="p-2">
                     <Button
-                    variant="outlined"
-                    size="small"
-                    color="primary"
-                    style={{borderRadius:"80px"}}
-               
-                  >
-                    Annuler
-                  </Button>
-                    </div>
-                  <div className="p-2 ml-3">
-                  <Button
-                    variant="contained"
-                    size="small"
-                    color="primary"
-                    style={{borderRadius:"80px"}}
-                  >
-                    Confirmer
-                  </Button>
+                      variant="outlined"
+                      color="primary"
+                      style={{ borderRadius: "80px" }}
+                      onClick = {this.props.handleCancel}
+                    >
+                      Annuler
+                    </Button>
                   </div>
-               
-              
+                  <div className="p-2 ml-3">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      style={{ borderRadius: "80px" }}
+                    >
+                      Confirmer
+                    </Button>
+                  </div>
                 </div>
               </div>
             </form>

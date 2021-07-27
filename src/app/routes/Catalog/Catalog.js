@@ -11,10 +11,16 @@ export class Catalog extends Component {
       isOpen: false,
     };
     this.openAddTraining = this.openAddTraining.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+
   }
 
   openAddTraining() {
     this.setState({ isOpen: true });
+  }
+  handleCancel(){
+    this.setState({ isOpen: false });
+    
   }
 
   render() {
@@ -27,7 +33,9 @@ export class Catalog extends Component {
           <div className="p-2">
             <CatalogList openAddTraining={this.openAddTraining} />
           </div>
-          {this.state.isOpen && <AddTraining values={this.state} />}
+          {this.state.isOpen && <AddTraining values={this.state} 
+          handleCancel={this.handleCancel}
+          />}
         </div>
       </div>
     );
