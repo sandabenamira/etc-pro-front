@@ -33,6 +33,7 @@
         "react-big-calendar": "^0.21.0",
         "react-bootstrap-sweetalert": "^4.4.1",
         "react-custom-scrollbars": "^4.2.1",
+        "react-dates": "^21.8.0",
         "react-device-detect": "^1.6.2",
         "react-dom": "^16.13.1",
         "react-dropzone": "^10.1.5",
@@ -52,7 +53,8 @@
         "redux": "^4.0.1",
         "redux-saga": "^1.0.2",
         "redux-thunk": "^2.3.0",
-        "slick-carousel": "^1.8.1"
+        "slick-carousel": "^1.8.1",
+        "react-circular-progressbar": "^1.0.0"
     },
     "scripts": {
         "start": "react-scripts start",
