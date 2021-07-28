@@ -14,7 +14,6 @@ import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import RemoveIcon from "@material-ui/icons/Remove";
 
-
 export default class AddTraining extends Component {
   render() {
     const { values } = this.props;
@@ -65,86 +64,98 @@ export default class AddTraining extends Component {
 
                 {/* session */}
                 <div className="p-2 flex-column">
-                  <div className="p-2 d-flex flex-row">
                     <div
                       className="p-2 "
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Ajouter une session
                     </div>
-                    <div>
-                      <Fab
-                        size="small"
-                        aria-label="Add"
-                        onClick={this.props.openAddTraining}
-                      >
-                        <AddIcon style={{ color: orange[500] }} />
-                      </Fab>
-                    </div>
-                  </div>
-
+                    {values.sessions.map((sessionItem, index) => (
+                  <div className="p-2 d-flex flex-row">
                   <div className="p-2">
-                    <DateRangeComponent />
+                    <DateRangeComponent 
+                    index={index}
+                    setDate={this.props.setDate}
+                    dateSession={sessionItem || ""}
+                    />
                   </div>
-
-                  <div className="p-2">
-                    <DateRangeComponent />
-                  </div>
+                  <div className="p-2 ml-2">
+                        <Fab
+                          size="small"
+                          aria-label="Add"
+                          value={`${index}`}
+                          onClick={() => {
+                            if (!sessionItem.isAdded) {
+                              if (sessionItem.startDate !== "") {
+                                this.props.addNewChoice(index + 1, "sessions");
+                              }
+                            } else {
+                              this.props.deleteChoice(index, "sessions");
+                            }
+                          }}
+                        >
+                          {sessionItem.isAdded ? (
+                            <RemoveIcon style={{ color: orange[500] }} />
+                          ) : (
+                            <AddIcon style={{ color: orange[500] }} />
+                          )}
+                        </Fab>
+                      </div>
+                    
+                      
+                 </div>
+                 ))}
                 </div>
                 {/* add modules */}
                 <div className="p-2 flex-column col-md-6">
-                  
-                    <div
-                      className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "18px" }}
-                    >
-                      Ajouter un module
-                    </div>
-                   
-                  
+                  <div
+                    className="p-2 "
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
+                  >
+                    Ajouter un module
+                  </div>
+
                   {values.modules.map((moduleItem, index) => (
-                  <div className="p-2 d-flex flex-row">
-                  
-                  <div >
-                      <TextField
-                        className="textfield"
-                        id="module"
-                        value={moduleItem.title || ""}
-                        onChange={(e) =>
-                          this.props.handleChangeModules(e, "title", index)
-                        }
-                        SelectProps={{}}
-                        margin="normal"
-                        fullWidth
-                        size="small"
-                      />
-                    </div>
-                    <div className="p-2 ml-2"> 
-                      <Fab
-                        size="small"
-                        aria-label="Add"
-                        value={`${index}`}
-                        onClick={() => {
-                          if (!moduleItem.isAdded) {
-                            if (moduleItem.title !== "") {
-                              this.props.addNewChoice(
-                                index + 1,
-                                "title"
-                              );
-                            }
-                          } else {
-                            this.props.deleteChoice(
-                              index,
-                              "title"
-                            );
+                    <div className="p-2 d-flex flex-row">
+                      <div>
+                        <TextField
+                          className="textfield"
+                          id="module"
+                          value={moduleItem.title || ""}
+                          onChange={(e) =>
+                            this.props.handleChangeModules(e, "title", index)
                           }
-                        }}
-                      >
-                        {moduleItem.isAdded ? <RemoveIcon style={{ color: orange[500] }}  /> : <AddIcon style={{ color: orange[500] }}  />}
-                      </Fab>
+                          SelectProps={{}}
+                          margin="normal"
+                          fullWidth
+                          size="small"
+                        />
+                      </div>
+                      <div className="p-2 ml-2">
+                        <Fab
+                          size="small"
+                          aria-label="Add"
+                          value={`${index}`}
+                          onClick={() => {
+                            if (!moduleItem.isAdded) {
+                              if (moduleItem.title !== "") {
+                                this.props.addNewChoice(index + 1, "modules");
+                              }
+                            } else {
+                              this.props.deleteChoice(index, "modules");
+                            }
+                          }}
+                        >
+                          {moduleItem.isAdded ? (
+                            <RemoveIcon style={{ color: orange[500] }} />
+                          ) : (
+                            <AddIcon style={{ color: orange[500] }} />
+                          )}
+                        </Fab>
+                      </div>
+                    
                     </div>
-                 </div>
-                 ))}
+                  ))}
                 </div>
 
                 {/* add level */}
@@ -217,19 +228,19 @@ export default class AddTraining extends Component {
                   <div className="ml-5">
                     <RadioGroup
                       className="d-flex flex-row"
-                      aria-label="conferenceTool"
-                      name="conferenceTool"
-                      //   value={values.conferenceTool}
-                      //   onChange={this.props.handleChange("conferenceTool")}
+                      aria-label="certificate"
+                      name="certificate"
+                      value={values.certificate}
+                      onChange={this.props.handleChange("certificate")}
                     >
                       <FormControlLabel
-                        value="JITSI"
+                        value="true"
                         control={<Radio color="primary" />}
                         label="Oui"
                       />
 
                       <FormControlLabel
-                        value="BBB"
+                        value="false"
                         control={<Radio color="primary" />}
                         label="Non"
                       />
@@ -248,25 +259,25 @@ export default class AddTraining extends Component {
                   <div className="ml-5">
                     <RadioGroup
                       className="d-flex flex-row"
-                      aria-label="conferenceTool"
-                      name="conferenceTool"
-                      //   value={values.conferenceTool}
-                      //   onChange={this.props.handleChange("conferenceTool")}
+                      aria-label="trainingFormat"
+                      name="trainingFormat"
+                      value={values.trainingFormat}
+                      onChange={this.props.handleChange("trainingFormat")}
                     >
                       <FormControlLabel
-                        value="JITSI"
+                        value="INLINE"
                         control={<Radio color="primary" />}
                         label="En ligne"
                       />
 
                       <FormControlLabel
-                        value="BBB"
+                        value="FACETOFACE"
                         control={<Radio color="primary" />}
                         label="Présentiel"
                       />
                       <FormControlLabel
-                        value="BBB"
-                        control={<Radio color="Hybride" />}
+                        value="HYBRID"
+                        control={<Radio color="primary" />}
                         label="Hybride"
                       />
                     </RadioGroup>

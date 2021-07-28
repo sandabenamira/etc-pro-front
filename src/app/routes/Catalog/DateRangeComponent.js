@@ -8,34 +8,37 @@ class DateRangeComponent extends React.Component {
     super(props);
 
     this.state = {
-      startDate: null,
-      endDate: null,
+      // startDate: null,
+      // endDate: null,
     };
     this.dateFrequency = this.dateFrequency.bind(this);
   }
-  componentWillMount() {
-    this.setState({
-      startDate: this.props.startDate,
-      endDate: this.props.endDate,
-    });
-  }
+  // componentWillMount() {
+  //   this.setState({
+  //     startDate: this.props.startDate,
+  //     endDate: this.props.endDate,
+  //   });
+  // }
 
   dateFrequency(startDate, endDate) {
+    console.log('dateFrequencydateFrequencydateFrequency');
     this.setState({ startDate: startDate, endDate: endDate });
     if (startDate !== null && endDate !== null) {
-    //   this.props.setDate(startDate._d, endDate._d);
+      console.log('ttttt',startDate._d, endDate._d);
+      this.props.setDate(startDate, endDate, this.props.index);
     }
   }
 
   render() {
+    console.log('this.props.dateSession',this.props.dateSession);
     return (
       <div className="col-md-12">
         <DateRangePicker
           required={true}
           isOutsideRange={() => false}
-          startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+          startDate={this.props.dateSession.start} // momentPropTypes.momentObj or null,
           startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-          endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+          endDate={this.props.dateSession.end} // momentPropTypes.momentObj or null,
           endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
           onDatesChange={({ startDate, endDate }) =>
             this.dateFrequency(startDate, endDate)

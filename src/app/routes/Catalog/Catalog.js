@@ -20,17 +20,27 @@ export class Catalog extends Component {
       Prerequisites: "",
       nbrDays: null,
       price: null,
+      certificate: false,
+      trainingFormat: "",
       sessions: [
         {
           id: 0,
-          startDate: "",
-          endDate: "",
+          startDate: '',
+          endDate: '',
+          start:'',
+          end: ''
         },
       ],
       modules: [
         {
           id: 0,
           title: "",
+        },
+      ],
+      level: [
+        {
+          id: 0,
+          name: "",
         },
       ],
     };
@@ -46,39 +56,79 @@ export class Catalog extends Component {
   }
 
   handleChange = (name) => (event) => {
-    this.setState({ [name]: event.target.values });
+    this.setState({ [name]: event.target.value });
   };
-  addNewChoice = (index) => {
-    let modules = [];
-    this.state.modules.map((element) => {
-      modules.push({
-        id: element.id,
-        title: element.title,
-        isAdded: true,
+  addNewChoice = (index, name) => {
+    if (name === "modules") {
+      let modules = [];
+      this.state.modules.map((element) => {
+        modules.push({
+          id: element.id,
+          title: element.title,
+          isAdded: true,
+        });
+        return element;
       });
-      return element;
-    });
-    modules.push({
-      id: index,
-      title: "",
-      isAdded: false,
-    });
-    this.setState({ modules });
+      modules.push({
+        id: index,
+        title: "",
+        isAdded: false,
+      });
+      this.setState({ modules });
+    } else if (name === "sessions") {
+      let sessions = [];
+      this.state.sessions.map((element) => {
+        sessions.push({
+          id: element.id,
+          startDate: element.startDate,
+          endDate: element.endDate,
+          start:element.start,
+          end: element.end,
+          isAdded: true,
+        });
+        return element;
+      });
+      sessions.push({
+        id: index,
+        startDate: "",
+        endDate: "",
+        start:'',
+        end: '',
+        isAdded: false,
+      });
+      this.setState({ sessions });
+    }
   };
 
-  deleteChoice = (index) => {
-    let modules = [];
-    let newIndex = 0;
-    this.state.modules.map((element) => {
-      if (element.id !== index) {
-        modules.push({
-          ...element,
-        });
-        newIndex++;
-      }
-      return element;
-    });
-    this.setState({ modules });
+  deleteChoice = (index, name) => {
+    if (name === "modules") {
+      let modules = [];
+      let newIndex = 0;
+      this.state.modules.map((element) => {
+        if (element.id !== index) {
+          modules.push({
+            ...element,
+          });
+          newIndex++;
+        }
+        return element;
+      });
+      this.setState({ modules });
+    }else if (name === "sessions") {
+      let sessions = [];
+      let newIndex = 0;
+      this.state.sessions.map((element) => {
+        if (element.id !== index) {
+          sessions.push({
+            ...element,
+          });
+          newIndex++;
+        }
+        return element;
+      });
+      this.setState({ sessions });
+    }
+  
   };
 
   handleChangeModules = (event, name, index) => {
@@ -95,6 +145,27 @@ export class Catalog extends Component {
       modules: newModules,
     });
   };
+
+  setDate(startDate, endDate, index) {
+
+    let oldSession = this.state.sessions;
+    let newSession = oldSession.map((objSession, i) =>
+      i === index
+        ? {
+            ...objSession,
+            startDate: startDate._d,
+            endDate: endDate._d,
+            start:startDate,
+            end: endDate
+          }
+        : objSession
+    );
+    this.setState({
+      sessions: newSession,
+    });
+  }
+
+  // this.setState({ startDateService: startDate, endDateService: endDate });
 
   render() {
     return (
@@ -114,6 +185,7 @@ export class Catalog extends Component {
               addNewChoice={this.addNewChoice.bind(this)}
               deleteChoice={this.deleteChoice.bind(this)}
               handleChangeModules={this.handleChangeModules.bind(this)}
+              setDate={this.setDate.bind(this)}
             />
           )}
         </div>
