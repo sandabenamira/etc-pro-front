@@ -37,12 +37,13 @@ export class Catalog extends Component {
           title: "",
         },
       ],
-      level: [
+      levelsModules:[
         {
-          id: 0,
-          name: "",
-        },
-      ],
+          id:0,
+          levelName:"",
+          moduleName:""
+        }
+      ]
     };
     this.openAddTraining = this.openAddTraining.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
