@@ -8,18 +8,31 @@ export class Catalog extends Component {
     super(props);
     this.state = {
       isOpen: false,
-      theme: '',
-      titleTraining:'',
-      descriptionTraining:'',
-      PlaceTraining:'',
-      linkTraining:'',
+      theme: "",
+      titleTraining: "",
+      descriptionTraining: "",
+      PlaceTraining: "",
+      linkTraining: "",
       formerId: null,
-      descriptionFormer:'',
-      goal:'',
-      methodology:'',
-      Prerequisites:'',
-      nbrDays:null,
-      price:null
+      descriptionFormer: "",
+      goal: "",
+      methodology: "",
+      Prerequisites: "",
+      nbrDays: null,
+      price: null,
+      sessions: [
+        {
+          id: 0,
+          startDate: "",
+          endDate: "",
+        },
+      ],
+      modules: [
+        {
+          id: 0,
+          title: "",
+        },
+      ],
     };
     this.openAddTraining = this.openAddTraining.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -33,7 +46,54 @@ export class Catalog extends Component {
   }
 
   handleChange = (name) => (event) => {
-    this.setState({[name]:event.target.values})
+    this.setState({ [name]: event.target.values });
+  };
+  addNewChoice = (index) => {
+    let modules = [];
+    this.state.modules.map((element) => {
+      modules.push({
+        id: element.id,
+        title: element.title,
+        isAdded: true,
+      });
+      return element;
+    });
+    modules.push({
+      id: index,
+      title: "",
+      isAdded: false,
+    });
+    this.setState({ modules });
+  };
+
+  deleteChoice = (index) => {
+    let modules = [];
+    let newIndex = 0;
+    this.state.modules.map((element) => {
+      if (element.id !== index) {
+        modules.push({
+          ...element,
+        });
+        newIndex++;
+      }
+      return element;
+    });
+    this.setState({ modules });
+  };
+
+  handleChangeModules = (event, name, index) => {
+    let oldModules = this.state.modules;
+    let newModules = oldModules.map((objModule, i) =>
+      i === index
+        ? {
+            ...objModule,
+            [name]: event.target.value,
+          }
+        : objModule
+    );
+    this.setState({
+      modules: newModules,
+    });
   };
 
   render() {
@@ -51,6 +111,9 @@ export class Catalog extends Component {
               values={this.state}
               handleCancel={this.handleCancel}
               handleChange={this.handleChange.bind(this)}
+              addNewChoice={this.addNewChoice.bind(this)}
+              deleteChoice={this.deleteChoice.bind(this)}
+              handleChangeModules={this.handleChangeModules.bind(this)}
             />
           )}
         </div>

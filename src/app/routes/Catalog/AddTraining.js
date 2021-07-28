@@ -12,6 +12,8 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
+import RemoveIcon from "@material-ui/icons/Remove";
+
 
 export default class AddTraining extends Component {
   render() {
@@ -91,49 +93,58 @@ export default class AddTraining extends Component {
                 </div>
                 {/* add modules */}
                 <div className="p-2 flex-column col-md-6">
-                  <div className="p-2 d-flex flex-row">
+                  
                     <div
                       className="p-2 "
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Ajouter un module
                     </div>
-                    <div>
+                   
+                  
+                  {values.modules.map((moduleItem, index) => (
+                  <div className="p-2 d-flex flex-row">
+                  
+                  <div >
+                      <TextField
+                        className="textfield"
+                        id="module"
+                        value={moduleItem.title || ""}
+                        onChange={(e) =>
+                          this.props.handleChangeModules(e, "title", index)
+                        }
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      />
+                    </div>
+                    <div className="p-2 ml-2"> 
                       <Fab
                         size="small"
                         aria-label="Add"
-                        onClick={this.props.openAddTraining}
+                        value={`${index}`}
+                        onClick={() => {
+                          if (!moduleItem.isAdded) {
+                            if (moduleItem.title !== "") {
+                              this.props.addNewChoice(
+                                index + 1,
+                                "title"
+                              );
+                            }
+                          } else {
+                            this.props.deleteChoice(
+                              index,
+                              "title"
+                            );
+                          }
+                        }}
                       >
-                        <AddIcon style={{ color: orange[500] }} />
+                        {moduleItem.isAdded ? <RemoveIcon style={{ color: orange[500] }}  /> : <AddIcon style={{ color: orange[500] }}  />}
                       </Fab>
                     </div>
-                  </div>
-
-                  <div className="p-2">
-                    <TextField
-                      className="textfield"
-                      id="level_id"
-                      //   onChange={this.props.handleChangeLevel(
-                      //     "level_id"
-                      //   )}
-                      select
-                      //   value={this.props.values.level_id}
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    >
-                      {[
-                        { id: 1, name: "Design thinking" },
-                        { id: 2, name: "Loopback 4" },
-                        { id: 3, name: "React js" },
-                      ].map((item) => (
-                        <MenuItem key={item.id} value={item.id}>
-                          {item.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </div>
+                 </div>
+                 ))}
                 </div>
 
                 {/* add level */}
