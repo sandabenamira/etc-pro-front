@@ -19,7 +19,6 @@ export default class AddTraining extends Component {
     return (
       <div className="app-wrapper">
         <Modal isOpen={values.isOpen}>
-    
           <ModalBody>
             <form
               className="row"
@@ -51,27 +50,14 @@ export default class AddTraining extends Component {
                   <div className="p-2">
                     <TextField
                       className="textfield"
-                      id="level_id"
-                      //   onChange={this.props.handleChangeLevel(
-                      //     "level_id"
-                      //   )}
-                      select
-                      //   value={this.props.values.level_id}
+                      id="theme"
+                      onChange={this.props.handleChange("theme")}
+                      value={values.themeId}
                       SelectProps={{}}
                       margin="normal"
                       fullWidth
                       size="small"
-                    >
-                      {[
-                        { id: 1, name: "Design thinking" },
-                        { id: 2, name: "Loopback 4" },
-                        { id: 3, name: "React js" },
-                      ].map((item) => (
-                        <MenuItem key={item.id} value={item.id}>
-                          {item.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                    ></TextField>
                   </div>
                 </div>
 
@@ -270,7 +256,7 @@ export default class AddTraining extends Component {
                       <FormControlLabel
                         value="BBB"
                         control={<Radio color="Hybride" />}
-                        label="Non"
+                        label="Hybride"
                       />
                     </RadioGroup>
                   </div>
@@ -286,7 +272,9 @@ export default class AddTraining extends Component {
                   <div className="p-2">
                     <TextField
                       className="textfield"
-                      id="level_id"
+                      id="titleTraining"
+                      onChange={this.props.handleChange("titleTraining")}
+                      value={values.titleTraining}
                       SelectProps={{}}
                       margin="normal"
                       fullWidth
@@ -306,7 +294,9 @@ export default class AddTraining extends Component {
                   <div className="p-2">
                     <TextField
                       className="textfield"
-                      id="level_id"
+                      id="descriptionTraining"
+                      onChange={this.props.handleChange("descriptionTraining")}
+                      value={values.descriptionTraining}
                       SelectProps={{}}
                       margin="normal"
                       fullWidth
@@ -327,7 +317,9 @@ export default class AddTraining extends Component {
                     <div className="p-2">
                       <TextField
                         className="textfield"
-                        id="level_id"
+                        id="PlaceTraining"
+                        onChange={this.props.handleChange("PlaceTraining")}
+                        value={values.PlaceTraining}
                         SelectProps={{}}
                         margin="normal"
                         fullWidth
@@ -346,7 +338,9 @@ export default class AddTraining extends Component {
                     <div className="p-2">
                       <TextField
                         className="textfield"
-                        id="level_id"
+                        id="linkTraining"
+                        onChange={this.props.handleChange("linkTraining")}
+                        value={values.linkTraining}
                         SelectProps={{}}
                         margin="normal"
                         fullWidth
@@ -402,7 +396,9 @@ export default class AddTraining extends Component {
                     <div className="p-2">
                       <TextField
                         className="textfield"
-                        id="level_id"
+                        id="descriptionFormer"
+                        onChange={this.props.handleChange("descriptionFormer")}
+                        value={values.descriptionFormer}
                         SelectProps={{}}
                         margin="normal"
                         fullWidth
@@ -424,7 +420,9 @@ export default class AddTraining extends Component {
                     <div className="p-2 ">
                       <TextField
                         className="textfield"
-                        id="level_id"
+                        id="goal"
+                        onChange={this.props.handleChange("goal")}
+                        value={values.goal}
                         SelectProps={{}}
                         margin="normal"
                         fullWidth
@@ -444,7 +442,9 @@ export default class AddTraining extends Component {
                     <div className="p-2">
                       <TextField
                         className="textfield"
-                        id="level_id"
+                        id="methodology"
+                        onChange={this.props.handleChange("methodology")}
+                        value={values.methodology}
                         SelectProps={{}}
                         margin="normal"
                         fullWidth
@@ -464,7 +464,9 @@ export default class AddTraining extends Component {
                   <div className="p-2 col-md-6">
                     <TextField
                       className="textfield"
-                      id="level_id"
+                      id="Prerequisites"
+                      onChange={this.props.handleChange("Prerequisites")}
+                      value={values.Prerequisites}
                       SelectProps={{}}
                       margin="normal"
                       fullWidth
@@ -474,10 +476,7 @@ export default class AddTraining extends Component {
                 </div>
                 {/* Programmes */}
 
-                <div
-                  className="p-2 "
-                  style={{ fontSize: "20px" }}
-                >
+                <div className="p-2 " style={{ fontSize: "20px" }}>
                   <b>Programme</b>
                 </div>
                 {/* nombre de jours */}
@@ -490,12 +489,15 @@ export default class AddTraining extends Component {
                   </div>
                   <div className="ml-5 ">
                     <TextField
-                      className="textfield"
-                      id="level_id"
+                      id="nbrDays"
+                      type="number"
+                      onChange={this.props.handleChange("nbrDays")}
+                      value={values.nbrDays}
                       SelectProps={{}}
                       margin="normal"
                       fullWidth
                       size="small"
+                      inputProps={{ min: 0 }}
                     ></TextField>
                   </div>
                 </div>
@@ -603,8 +605,10 @@ export default class AddTraining extends Component {
 
                   <div className="p-2 col-md-6">
                     <TextField
-                      className="textfield"
-                      id="level_id"
+                      type="number"
+                      id="price"
+                      onChange={this.props.handleChange("price")}
+                      value={values.price}
                       SelectProps={{}}
                       margin="normal"
                       fullWidth
@@ -619,7 +623,7 @@ export default class AddTraining extends Component {
                       variant="outlined"
                       color="primary"
                       style={{ borderRadius: "80px" }}
-                      onClick = {this.props.handleCancel}
+                      onClick={this.props.handleCancel}
                     >
                       Annuler
                     </Button>
