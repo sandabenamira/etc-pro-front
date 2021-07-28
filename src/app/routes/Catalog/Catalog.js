@@ -35,6 +35,7 @@ export class Catalog extends Component {
         {
           id: 0,
           title: "",
+          value:1
         },
       ],
       levelsModules:[
@@ -66,6 +67,7 @@ export class Catalog extends Component {
         modules.push({
           id: element.id,
           title: element.title,
+          value:element.value,
           isAdded: true,
         });
         return element;
@@ -73,6 +75,7 @@ export class Catalog extends Component {
       modules.push({
         id: index,
         title: "",
+        value:index+1,
         isAdded: false,
       });
       this.setState({ modules });
@@ -98,6 +101,24 @@ export class Catalog extends Component {
         isAdded: false,
       });
       this.setState({ sessions });
+    } else if (name === "levelsModules") {
+      let levelsModules = [];
+      this.state.levelsModules.map((element) => {
+        levelsModules.push({
+          id: element.id,
+          levelName:element.levelName,
+          moduleName:element.moduleName,
+          isAdded: true,
+        });
+        return element;
+      });
+      levelsModules.push({
+        id: index,
+        levelName:"",
+        moduleName:"",
+        isAdded: false,
+      });
+      this.setState({ levelsModules });
     }
   };
 
@@ -128,6 +149,19 @@ export class Catalog extends Component {
         return element;
       });
       this.setState({ sessions });
+    }else if (name === "levelsModules") {
+      let levelsModules = [];
+      let newIndex = 0;
+      this.state.levelsModules.map((element) => {
+        if (element.id !== index) {
+          levelsModules.push({
+            ...element,
+          });
+          newIndex++;
+        }
+        return element;
+      });
+      this.setState({ levelsModules });
     }
   
   };
@@ -166,7 +200,21 @@ export class Catalog extends Component {
     });
   }
 
-  // this.setState({ startDateService: startDate, endDateService: endDate });
+  handleChangeLevelsModules = (event, name, index) =>{
+    let oldLevelsModules = this.state.levelsModules;
+    let newLevelsModules = oldLevelsModules.map((objLevelModule, i) =>
+      i === index
+        ? {
+            ...objLevelModule,
+            [name]: event.target.value,
+          }
+        : objLevelModule
+    );
+    this.setState({
+      levelsModules: newLevelsModules,
+    });
+  };
+
 
   render() {
     return (
@@ -187,6 +235,8 @@ export class Catalog extends Component {
               deleteChoice={this.deleteChoice.bind(this)}
               handleChangeModules={this.handleChangeModules.bind(this)}
               setDate={this.setDate.bind(this)}
+              handleChangeLevelsModules={this.handleChangeLevelsModules.bind(this)}
+              
             />
           )}
         </div>
