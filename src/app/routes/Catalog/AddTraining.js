@@ -64,22 +64,22 @@ export default class AddTraining extends Component {
 
                 {/* session */}
                 <div className="p-2 flex-column">
-                    <div
-                      className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "18px" }}
-                    >
-                      Ajouter une session
-                    </div>
-                    {values.sessions.map((sessionItem, index) => (
-                  <div className="p-2 d-flex flex-row">
-                  <div className="p-2">
-                    <DateRangeComponent 
-                    index={index}
-                    setDate={this.props.setDate}
-                    dateSession={sessionItem || ""}
-                    />
+                  <div
+                    className="p-2 "
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
+                  >
+                    Ajouter une session
                   </div>
-                  <div className="p-2 ml-2">
+                  {values.sessions.map((sessionItem, index) => (
+                    <div className="p-2 d-flex flex-row">
+                      <div className="p-2">
+                        <DateRangeComponent
+                          index={index}
+                          setDate={this.props.setDate}
+                          dateSession={sessionItem || ""}
+                        />
+                      </div>
+                      <div className="p-2 ml-2">
                         <Fab
                           size="small"
                           aria-label="Add"
@@ -101,10 +101,8 @@ export default class AddTraining extends Component {
                           )}
                         </Fab>
                       </div>
-                    
-                      
-                 </div>
-                 ))}
+                    </div>
+                  ))}
                 </div>
                 {/* add modules */}
                 <div className="p-2 flex-column col-md-6">
@@ -153,69 +151,68 @@ export default class AddTraining extends Component {
                           )}
                         </Fab>
                       </div>
-                    
                     </div>
                   ))}
                 </div>
 
                 {/* add level */}
-                <div className="p-2 d-flex flex-row">
-                  <div className="p-2 flex-column col-md-6">
-                    <div
-                      className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                <div className=" d-flex flex-row">
+                  <div
+                    className=" col-md-6"
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
+                  >
+                    Ajouter un niveau &nbsp;
+                 
+                  </div>
+                  <div
+                    className=" col-md-6"
+                    style={{ color: "#4C25B7", fontSize: "18px" }}
+                  >
+                    Associer à un module
+                  </div>
+                </div>
+                <div className=" d-flex flex-row">
+                  <div className=" col-md-5">
+                    <TextField
+                      className="textfield"
+                      id="level_id"
+                      SelectProps={{}}
+                      margin="normal"
+                      fullWidth
+                      size="small"
+                    ></TextField>
+                  </div>
+                  <div className=" col-md-5">
+                    <TextField
+                      className="textfield"
+                      id="level_id"
+                      select
+                      SelectProps={{}}
+                      margin="normal"
+                      fullWidth
+                      size="small"
                     >
-                      Ajouter un niveau &nbsp;
-                      <Fab
+                      {[
+                        { id: 1, name: "Design thinking" },
+                        { id: 2, name: "Loopback 4" },
+                        { id: 3, name: "React js" },
+                      ].map((item) => (
+                        <MenuItem key={item.id} value={item.id}>
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </div>
+                  <div className=" p-2 col-md-2">
+                       <Fab
                         size="small"
                         aria-label="Add"
                         onClick={this.props.openAddTraining}
                       >
                         <AddIcon style={{ color: orange[500] }} />
                       </Fab>
-                    </div>
-
-                    <div className="p-2">
-                      <TextField
-                        className="textfield"
-                        id="level_id"
-                        SelectProps={{}}
-                        margin="normal"
-                        fullWidth
-                        size="small"
-                      ></TextField>
-                    </div>
                   </div>
-
-                  <div className="p-2 flex-column col-md-6">
-                    <div
-                      className="p-2"
-                      style={{ color: "#4C25B7", fontSize: "18px" }}
-                    >
-                      Associer à un module
-                    </div>
-                    <div className="p-2">
-                      <TextField
-                        className="textfield"
-                        id="level_id"
-                        select
-                        SelectProps={{}}
-                        margin="normal"
-                        fullWidth
-                        size="small"
-                      >
-                        {[
-                          { id: 1, name: "Design thinking" },
-                          { id: 2, name: "Loopback 4" },
-                          { id: 3, name: "React js" },
-                        ].map((item) => (
-                          <MenuItem key={item.id} value={item.id}>
-                            {item.name}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </div>
-                  </div>
+             
                 </div>
                 {/* certificat */}
                 <div className="p-2 d-flex flex-row">
@@ -284,14 +281,14 @@ export default class AddTraining extends Component {
                   </div>
                 </div>
                 {/* titre formation */}
-                <div className="p-2  d-flex flex-column col-md-10">
+                <div className="  d-flex flex-column col-md-10">
                   <div
-                    className="p-2"
+                   
                     style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     Titre de la formation *
                   </div>
-                  <div className="p-2">
+                  <div >
                     <TextField
                       className="textfield"
                       id="titleTraining"
@@ -308,12 +305,12 @@ export default class AddTraining extends Component {
                 {/* description formation */}
                 <div className="p-2  d-flex flex-column col-md-10">
                   <div
-                    className="p-2"
+                    
                     style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     Description
                   </div>
-                  <div className="p-2">
+                  <div >
                     <TextField
                       className="textfield"
                       id="descriptionTraining"
@@ -329,14 +326,14 @@ export default class AddTraining extends Component {
 
                 {/*lien et lieu formation */}
                 <div className="p-2 d-flex flex-row">
-                  <div className="p-2  d-flex flex-column col-md-6">
+                  <div className=" p-2 d-flex flex-column col-md-6">
                     <div
-                      className="p-2"
+                      
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Lieu
                     </div>
-                    <div className="p-2">
+                    <div >
                       <TextField
                         className="textfield"
                         id="PlaceTraining"
@@ -352,12 +349,12 @@ export default class AddTraining extends Component {
 
                   <div className="p-2  d-flex flex-column col-md-6">
                     <div
-                      className="p-2"
+                      
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Lien de la formation *
                     </div>
-                    <div className="p-2">
+                    <div >
                       <TextField
                         className="textfield"
                         id="linkTraining"
@@ -376,12 +373,12 @@ export default class AddTraining extends Component {
                 <div className="p-2 d-flex flex-row ">
                   <div className="p-2  d-flex flex-column col-md-6 ">
                     <div
-                      className="p-2 "
+                      
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Formateur *
                     </div>
-                    <div className="p-2 ">
+                    <div >
                       <TextField
                         className="textfield"
                         id="level_id"
@@ -409,13 +406,13 @@ export default class AddTraining extends Component {
                   </div>
                   <div className="p-2  d-flex flex-column col-md-6 ">
                     <div
-                      className="p-2"
+                      
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Description
                     </div>
 
-                    <div className="p-2">
+                    <div >
                       <TextField
                         className="textfield"
                         id="descriptionFormer"
@@ -434,12 +431,12 @@ export default class AddTraining extends Component {
                 <div className="p-2 d-flex flex-row">
                   <div className="p-2  d-flex flex-column col-md-6">
                     <div
-                      className="p-2 "
+                      
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Objectif de la formation
                     </div>
-                    <div className="p-2 ">
+                    <div>
                       <TextField
                         className="textfield"
                         id="goal"
@@ -455,13 +452,13 @@ export default class AddTraining extends Component {
 
                   <div className="p-2  d-flex flex-column col-md-6">
                     <div
-                      className="p-2"
+                     
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
                       Méthodologie
                     </div>
 
-                    <div className="p-2">
+                    <div >
                       <TextField
                         className="textfield"
                         id="methodology"
@@ -478,12 +475,12 @@ export default class AddTraining extends Component {
                 {/* prérequis */}
                 <div className="p-2  d-flex flex-column ">
                   <div
-                    className="p-2 "
+                    
                     style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
                     Prérequis
                   </div>
-                  <div className="p-2 col-md-6">
+                  <div className=" col-md-6">
                     <TextField
                       className="textfield"
                       id="Prerequisites"
