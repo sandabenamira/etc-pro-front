@@ -25,26 +25,33 @@ export class Catalog extends Component {
       sessions: [
         {
           id: 0,
-          startDate: '',
-          endDate: '',
-          start:'',
-          end: ''
+          startDate: "",
+          endDate: "",
+          start: "",
+          end: "",
         },
       ],
       modules: [
         {
           id: 0,
           title: "",
-          value:1
+          value: 1,
         },
       ],
-      levelsModules:[
+      levelsModules: [
         {
-          id:0,
-          levelName:"",
-          moduleName:""
-        }
-      ]
+          id: 0,
+          levelName: "",
+          moduleName: "",
+        },
+      ],
+      programs: [
+        {
+          id: 0,
+          title: "",
+          description: "",
+        },
+      ],
     };
     this.openAddTraining = this.openAddTraining.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -67,7 +74,7 @@ export class Catalog extends Component {
         modules.push({
           id: element.id,
           title: element.title,
-          value:element.value,
+          value: element.value,
           isAdded: true,
         });
         return element;
@@ -75,7 +82,7 @@ export class Catalog extends Component {
       modules.push({
         id: index,
         title: "",
-        value:index+1,
+        value: index + 1,
         isAdded: false,
       });
       this.setState({ modules });
@@ -86,7 +93,7 @@ export class Catalog extends Component {
           id: element.id,
           startDate: element.startDate,
           endDate: element.endDate,
-          start:element.start,
+          start: element.start,
           end: element.end,
           isAdded: true,
         });
@@ -96,8 +103,8 @@ export class Catalog extends Component {
         id: index,
         startDate: "",
         endDate: "",
-        start:'',
-        end: '',
+        start: "",
+        end: "",
         isAdded: false,
       });
       this.setState({ sessions });
@@ -106,64 +113,86 @@ export class Catalog extends Component {
       this.state.levelsModules.map((element) => {
         levelsModules.push({
           id: element.id,
-          levelName:element.levelName,
-          moduleName:element.moduleName,
+          levelName: element.levelName,
+          moduleName: element.moduleName,
           isAdded: true,
         });
         return element;
       });
       levelsModules.push({
         id: index,
-        levelName:"",
-        moduleName:"",
+        levelName: "",
+        moduleName: "",
         isAdded: false,
       });
       this.setState({ levelsModules });
+    } else if (name === "programs") {
+      let programs = [];
+      this.state.programs.map((element) => {
+        programs.push({
+          id: element.id,
+          title: element.title,
+          description: element.description,
+          isAdded: true,
+        });
+        return element;
+      });
+      programs.push({
+        id: index,
+        title: "",
+        description: "",
+        isAdded: false,
+      });
+      this.setState({ programs });
     }
   };
 
   deleteChoice = (index, name) => {
     if (name === "modules") {
       let modules = [];
-      let newIndex = 0;
       this.state.modules.map((element) => {
         if (element.id !== index) {
           modules.push({
             ...element,
           });
-          newIndex++;
         }
         return element;
       });
       this.setState({ modules });
-    }else if (name === "sessions") {
+    } else if (name === "sessions") {
       let sessions = [];
-      let newIndex = 0;
       this.state.sessions.map((element) => {
         if (element.id !== index) {
           sessions.push({
             ...element,
           });
-          newIndex++;
         }
         return element;
       });
       this.setState({ sessions });
-    }else if (name === "levelsModules") {
+    } else if (name === "levelsModules") {
       let levelsModules = [];
-      let newIndex = 0;
       this.state.levelsModules.map((element) => {
         if (element.id !== index) {
           levelsModules.push({
             ...element,
           });
-          newIndex++;
         }
         return element;
       });
       this.setState({ levelsModules });
+    } else if (name === "programs") {
+      let programs = [];
+      this.state.programs.map((element) => {
+        if (element.id !== index) {
+          programs.push({
+            ...element,
+          });
+        }
+        return element;
+      });
+      this.setState({ programs });
     }
-  
   };
 
   handleChangeModules = (event, name, index) => {
@@ -182,7 +211,6 @@ export class Catalog extends Component {
   };
 
   setDate(startDate, endDate, index) {
-
     let oldSession = this.state.sessions;
     let newSession = oldSession.map((objSession, i) =>
       i === index
@@ -190,8 +218,8 @@ export class Catalog extends Component {
             ...objSession,
             startDate: startDate._d,
             endDate: endDate._d,
-            start:startDate,
-            end: endDate
+            start: startDate,
+            end: endDate,
           }
         : objSession
     );
@@ -200,7 +228,7 @@ export class Catalog extends Component {
     });
   }
 
-  handleChangeLevelsModules = (event, name, index) =>{
+  handleChangeLevelsModules = (event, name, index) => {
     let oldLevelsModules = this.state.levelsModules;
     let newLevelsModules = oldLevelsModules.map((objLevelModule, i) =>
       i === index
@@ -215,6 +243,18 @@ export class Catalog extends Component {
     });
   };
 
+  handleChangePrograms = (event, name, index) => {
+    let oldPrograms = this.state.programs;
+    let newPrograms = oldPrograms.map((objProgram, i) =>
+      i === index
+        ? {
+            ...objProgram,
+            [name]: event.target.value,
+          }
+        : objProgram
+    );
+    this.setState({ programs: newPrograms });
+  };
 
   render() {
     return (
@@ -235,8 +275,10 @@ export class Catalog extends Component {
               deleteChoice={this.deleteChoice.bind(this)}
               handleChangeModules={this.handleChangeModules.bind(this)}
               setDate={this.setDate.bind(this)}
-              handleChangeLevelsModules={this.handleChangeLevelsModules.bind(this)}
-              
+              handleChangeLevelsModules={this.handleChangeLevelsModules.bind(
+                this
+              )}
+              handleChangePrograms={this.handleChangePrograms.bind(this)}
             />
           )}
         </div>

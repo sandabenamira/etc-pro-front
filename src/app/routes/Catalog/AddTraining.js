@@ -225,7 +225,10 @@ export default class AddTraining extends Component {
                         onClick={() => {
                           if (!item.isAdded) {
                             if (item.title !== "") {
-                              this.props.addNewChoice(index + 1, "levelsModules");
+                              this.props.addNewChoice(
+                                index + 1,
+                                "levelsModules"
+                              );
                             }
                           } else {
                             this.props.deleteChoice(index, "levelsModules");
@@ -521,109 +524,106 @@ export default class AddTraining extends Component {
                     ></TextField>
                   </div>
                 </div>
-                <div className="p-2 d-flex flex-row">
-                  <div className="max-width-100 mt-5">
-                    <CircularProgressbar
-                      percentage="100"
-                      text="Jour 1"
-                      styles={{
-                        path: { stroke: "orange", height: "100%" },
-                        text: { fill: "#3D3D3D", fontSize: "18px" },
-                      }}
-                    />
-                  </div>
-
-                  <div className="p-2 d-flex flex-column ml-3">
-                    <div
-                      className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "18px" }}
-                    >
-                      Titre
-                    </div>
-                    <div className="p-2 ">
-                      <TextField
-                        className="textfield"
-                        id="level_id"
-                        SelectProps={{}}
-                        margin="normal"
-                        fullWidth
-                        size="small"
-                      ></TextField>
+                {values.programs.map((item, index) => (
+                  <div className="p-2 d-flex flex-row">
+                    <div className="max-width-100 mt-5">
+                      <CircularProgressbar
+                        percentage="100"
+                        text={`Jour ${index + 1}`}
+                        styles={{
+                          path: { stroke: "orange", height: "100%" },
+                          text: { fill: "#3D3D3D", fontSize: "18px" },
+                        }}
+                      />
                     </div>
 
-                    <div
-                      className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "18px" }}
-                    >
-                      Description
-                    </div>
-                    <div className="p-2">
-                      <TextField
-                        className="textfield"
-                        id="level_id"
-                        SelectProps={{}}
-                        margin="normal"
-                        fullWidth
-                        size="small"
-                      ></TextField>
-                    </div>
-                  </div>
-                </div>
+                    <div className="p-2 d-flex flex-column ml-3 col-md-8">
+                      <div style={{ color: "#4C25B7", fontSize: "18px" }}>
+                        Titre
+                      </div>
+                      <div className="col-md-6">
+                        <TextField
+                          className="textfield"
+                          id="titleProg"
+                          value={item.title || ""}
+                          onChange={(e) =>
+                            this.props.handleChangePrograms(
+                              e,
+                              "title",
+                              index
+                            )
+                          }
+                          SelectProps={{}}
+                          margin="normal"
+                          fullWidth
+                          size="small"
+                        />
+                      </div>
 
-                <div className="p-2 d-flex flex-row">
-                  <div className="max-width-100 mt-5">
-                    <CircularProgressbar
-                      percentage="100"
-                      text="Jour 2"
-                      styles={{
-                        path: { stroke: "orange", height: "100%" },
-                        text: { fill: "#3D3D3D", fontSize: "18px" },
-                      }}
-                    />
-                  </div>
+                      <div
+                        className="mt-2"
+                        style={{ color: "#4C25B7", fontSize: "18px" }}
+                      >
+                        Description
+                      </div>
 
-                  <div className="p-2 d-flex flex-column ml-3">
-                    <div
-                      className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "18px" }}
-                    >
-                      Titre
-                    </div>
-                    <div className="p-2 ">
-                      <TextField
-                        className="textfield"
-                        id="level_id"
-                        SelectProps={{}}
-                        margin="normal"
-                        fullWidth
-                        size="small"
-                      ></TextField>
-                    </div>
-
-                    <div
-                      className="p-2 "
-                      style={{ color: "#4C25B7", fontSize: "18px" }}
-                    >
-                      Description
-                    </div>
-                    <div className="p-2">
-                      <TextField
-                        className="textfield"
-                        id="level_id"
-                        SelectProps={{}}
-                        margin="normal"
-                        fullWidth
-                        size="small"
-                      ></TextField>
+                      <div className="p-2 d-flex flex-row col-md-12">
+                        <div className="col-md-10">
+                          <TextField
+                            className="textfield"
+                            id="descriptionProg"
+                            value={item.description || ""}
+                            onChange={(e) =>
+                              this.props.handleChangePrograms(
+                                e,
+                                "description",
+                                index
+                              )
+                            }
+                            SelectProps={{}}
+                            margin="normal"
+                            fullWidth
+                            size="small"
+                          />
+                        </div>
+                        <div className=" p-2 col-md-2">
+                          <Fab
+                            size="small"
+                            aria-label="Add"
+                            value={`${index}`}
+                            onClick={() => {
+                              if (!item.isAdded) {
+                                if (
+                                  item.title !== "" ||
+                                  item.description !== ""
+                                ) {
+                                  this.props.addNewChoice(
+                                    index + 1,
+                                    "programs"
+                                  );
+                                }
+                              } else {
+                                this.props.deleteChoice(index, "programs");
+                              }
+                            }}
+                          >
+                            {item.isAdded ? (
+                              <RemoveIcon style={{ color: orange[500] }} />
+                            ) : (
+                              <AddIcon style={{ color: orange[500] }} />
+                            )}
+                          </Fab>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
 
                 {/* prix */}
                 <div className="p-2 d-flex flex-column">
                   <h2>Prix de la formation par personne *</h2>
 
-                  <div className="p-2 col-md-6">
+                  <div className="col-md-6">
                     <TextField
                       type="number"
                       id="price"
