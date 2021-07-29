@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from "../../config/config";
-import { userSignOut } from "../actions/Auth";
-import configureStore from "../index";
+// import { userSignOut } from "../actions/Auth";
+// import configureStore from "../index";
 export const service = {
   get,
   post,
@@ -10,7 +10,7 @@ export const service = {
   deleteDetail,
 
 };
-const store = configureStore();
+// const store = configureStore();
 
 function get(apiEndpoint) {
     console.log(config.baseUrl + apiEndpoint);
