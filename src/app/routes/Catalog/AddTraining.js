@@ -397,24 +397,18 @@ export default class AddTraining extends Component {
                     <div>
                       <TextField
                         className="textfield"
-                        id="level_id"
-                        //   onChange={this.props.handleChangeLevel(
-                        //     "level_id"
-                        //   )}
+                        id="userId"
+                        onChange={this.props.handleChange("userId")}
                         select
-                        //   value={this.props.values.level_id}
+                         value={values.userId}
                         SelectProps={{}}
                         margin="normal"
                         fullWidth
                         size="small"
                       >
-                        {[
-                          { id: 1, name: "Design thinking" },
-                          { id: 2, name: "Loopback 4" },
-                          { id: 3, name: "React js" },
-                        ].map((item) => (
+                        {this.props.users.map((item) => (
                           <MenuItem key={item.id} value={item.id}>
-                            {item.name}
+                            {item.firstName} {item.lastName}
                           </MenuItem>
                         ))}
                       </TextField>

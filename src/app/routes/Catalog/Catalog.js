@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import CatalogList from "./CatalogList";
 import AddTraining from "./AddTraining";
+import {getUsers} from "../../../store/actions/User"
 
 export class Catalog extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ export class Catalog extends Component {
       price: null,
       certificate: false,
       trainingFormat: "",
+      userId:null,
       sessions: [
         {
           id: 0,
@@ -55,6 +57,11 @@ export class Catalog extends Component {
     };
     this.openAddTraining = this.openAddTraining.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+  }
+
+  UNSAFE_componentWillMount(){
+    console.log('UNSAFE_componentWillMount');
+    this.props.dispatch(getUsers())
   }
 
   openAddTraining() {
@@ -257,6 +264,7 @@ export class Catalog extends Component {
   };
 
   render() {
+    console.log('tt',this.props.users);
     return (
       <div className="app-wrapper">
         <div className="d-flex flex-column">
@@ -279,6 +287,7 @@ export class Catalog extends Component {
                 this
               )}
               handleChangePrograms={this.handleChangePrograms.bind(this)}
+              users = {this.props.users}
             />
           )}
         </div>
@@ -288,7 +297,9 @@ export class Catalog extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    users : state.users.users
+  };
 };
 
 export default connect(mapStateToProps)(Catalog);
