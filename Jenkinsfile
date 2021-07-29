@@ -21,8 +21,8 @@ pipeline {
                 -Dsonar.projectKey=educap-pro-front \
                 -Dsonar.sources=. \
                 -Dsonar.host.url=https://sonar.educap.io \
-                -Dsonar.login=admin \
-                -Dsonar.password=admin"
+                -Dsonar.login=educappro \
+                -Dsonar.password=educappro"
                } 
            }
         }
