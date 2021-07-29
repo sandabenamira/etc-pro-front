@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import CatalogList from "./CatalogList";
 import AddTraining from "./AddTraining";
-import {getUsers} from "../../../store/actions/User"
+import { getUsers } from "../../../store/actions/User";
+import {addTraining} from "../../../store/actions/Training"
 
 export class Catalog extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export class Catalog extends Component {
       theme: "",
       titleTraining: "",
       descriptionTraining: "",
-      PlaceTraining: "",
+      placeTraining: "",
       linkTraining: "",
       formerId: null,
       descriptionFormer: "",
@@ -23,7 +24,7 @@ export class Catalog extends Component {
       price: null,
       certificate: false,
       trainingFormat: "",
-      userId:null,
+      userId: null,
       sessions: [
         {
           id: 0,
@@ -59,19 +60,66 @@ export class Catalog extends Component {
     this.handleCancel = this.handleCancel.bind(this);
   }
 
-  UNSAFE_componentWillMount(){
-    console.log('UNSAFE_componentWillMount');
-    this.props.dispatch(getUsers())
+  UNSAFE_componentWillMount() {
+    this.props.dispatch(getUsers());
   }
 
   openAddTraining() {
     this.setState({ isOpen: true });
   }
   handleCancel() {
-    this.setState({ isOpen: false });
+    this.setState({
+      isOpen: false,
+      theme: "",
+      titleTraining: "",
+      descriptionTraining: "",
+      placeTraining: "",
+      linkTraining: "",
+      formerId: null,
+      descriptionFormer: "",
+      goal: "",
+      methodology: "",
+      Prerequisites: "",
+      nbrDays: null,
+      price: null,
+      certificate: false,
+      trainingFormat: "",
+      userId: null,
+      sessions: [
+        {
+          id: 0,
+          startDate: "",
+          endDate: "",
+          start: "",
+          end: "",
+        },
+      ],
+      modules: [
+        {
+          id: 0,
+          title: "",
+          value: 1,
+        },
+      ],
+      levelsModules: [
+        {
+          id: 0,
+          levelName: "",
+          moduleName: "",
+        },
+      ],
+      programs: [
+        {
+          id: 0,
+          title: "",
+          description: "",
+        },
+      ],
+    });
   }
 
   handleChange = (name) => (event) => {
+    console.log(name, event.target.value );
     this.setState({ [name]: event.target.value });
   };
   addNewChoice = (index, name) => {
@@ -263,8 +311,38 @@ export class Catalog extends Component {
     this.setState({ programs: newPrograms });
   };
 
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log("handleSubmit");
+    let data = {
+      theme: this.state.theme,
+      title: this.state.titleTraining,
+      certificat: this.state.certificate,
+      format: this.state.trainingFormat,
+      description: this.state.descriptionTraining,
+      link: this.state.linkTraining,
+      former: this.state.userId,
+      descriptionFormer: this.state.descriptionFormer,
+      methodology: this.state.methodology,
+      location: this.state.placeTraining,
+      objective: this.state.goal,
+      prerequiste: this.state.Prerequisites,
+      numberDay: this.state.nbrDays,
+      modules: this.state.modules,
+      levels: [],
+      program: this.state.levelsModules,
+      price: this.state.price,
+      sessions: this.state.sessions,
+      fk_id_company: 1,
+      creationDate: new Date(),
+      fk_id_creator: 1,
+    };
+    console.log("data,", data);
+    this.props.dispatch(addTraining(data))
+    this.handleCancel()
+  }
+
   render() {
-    console.log('tt',this.props.users);
     return (
       <div className="app-wrapper">
         <div className="d-flex flex-column">
@@ -287,7 +365,8 @@ export class Catalog extends Component {
                 this
               )}
               handleChangePrograms={this.handleChangePrograms.bind(this)}
-              users = {this.props.users}
+              users={this.props.users}
+              handleSubmit={this.handleSubmit.bind(this)}
             />
           )}
         </div>
@@ -298,7 +377,7 @@ export class Catalog extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    users : state.users.users
+    users: state.users.users,
   };
 };
 

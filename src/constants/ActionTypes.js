@@ -67,3 +67,9 @@ export const SHOW_SUCCESS_MESSAGE = "SHOW_SUCCESS_MESSAGE";
 
 //// Users
 export const FETECHED_USERS = "FETECHED_USERS";
+
+////Training
+export const ADD_TRAINING = "ADD_TRAINING";
+
+
+

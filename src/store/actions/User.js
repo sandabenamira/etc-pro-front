@@ -1,7 +1,6 @@
 import { service } from "../services/service";
 import {FETECHED_USERS} from "../../constants/ActionTypes"
 export function getUsers() {
-    console.log('action', );
   return (dispatch) => {
     let apiEndpoint = `/users?access_token=${localStorage.token}`;
     service.get(apiEndpoint).then((response) => {

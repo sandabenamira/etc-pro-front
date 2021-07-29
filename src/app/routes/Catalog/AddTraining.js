@@ -25,7 +25,7 @@ export default class AddTraining extends Component {
             <form
               className="row"
               autoComplete="off"
-              //   onSubmit={this.handleSubmit}
+              onSubmit={this.props.handleSubmit}
             >
               <div className="d-flex flex-column ml-5 ">
                 <div
@@ -358,9 +358,9 @@ export default class AddTraining extends Component {
                     <div>
                       <TextField
                         className="textfield"
-                        id="PlaceTraining"
-                        onChange={this.props.handleChange("PlaceTraining")}
-                        value={values.PlaceTraining}
+                        id="placeTraining"
+                        onChange={this.props.handleChange("placeTraining")}
+                        value={values.placeTraining}
                         SelectProps={{}}
                         margin="normal"
                         fullWidth
@@ -647,6 +647,7 @@ export default class AddTraining extends Component {
                       variant="contained"
                       color="primary"
                       style={{ borderRadius: "80px" }}
+                      type="submit"
                     >
                       Confirmer
                     </Button>
