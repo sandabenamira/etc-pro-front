@@ -11,14 +11,19 @@ export class OnlineTraining extends Component {
   render() {
     /* eslint eqeqeq: "off" */
     return (
-      <div
-        className="app-wrapper"
+      <div className="app-wrapper"
+        
         style={{
           marginLeft: '5%',
           marginRight: '10%',
         }}
       >
-        <h2>module Online Training</h2>
+        <div className="d-flex flex-column">
+          <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px" }}>
+            E-Learning  -  Formations programmées en ligne 
+          </div>
+        
+      </div>
       </div>
     );
   }
