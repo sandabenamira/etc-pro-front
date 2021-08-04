@@ -18,7 +18,7 @@ export class Raporting extends Component {
           marginRight: '10%',
         }}
       >
-        <h2>module Raporting</h2>
+        <h2>module Raporting1</h2>
       </div>
     );
   }
