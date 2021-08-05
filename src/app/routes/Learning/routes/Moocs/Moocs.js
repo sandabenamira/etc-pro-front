@@ -23,7 +23,7 @@ export class Moocs extends Component {
           marginRight: '10%',
         }}
       >
-        <h2>module Moocs ahmed</h2>
+        <h2>module Moocs ahmedddddddddddddddjjjjj</h2>
       </div>
     );
   }
