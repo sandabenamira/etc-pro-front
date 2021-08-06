@@ -6,30 +6,31 @@ import Fab from "@material-ui/core/Fab";
 import {  orange } from "@material-ui/core/colors";
 import OnlineTrainingItem from "./OnlineTrainingItem";
 import MenuItem from "@material-ui/core/MenuItem";
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 //import AddOnlineTraining from "./AddOnlineTraining";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
     
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: '200%',
-    width: '90%',
-    fontSize:'20px',
+//   },
+//   paper: {
+//     padding: theme.spacing(2),
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+//     height: '200%',
+//     width: '90%',
+//     fontSize:'20px',
     
     
-  },
-}));
+//   },
+// }));
+    /* eslint eqeqeq: "off" */
 
 export default class OnlineTrainingList extends Component {
    
   render() {
-    const classes = useStyles;
+    // const classes = useStyles;
     return (
 
       <div className="d-flex flex-column">
