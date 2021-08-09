@@ -9,24 +9,24 @@ pipeline {
                     sh 'yarn install'
             }
         }
-        stage("Code Quality Check via SonarQube")
-        {
-            steps {
+        // stage("Code Quality Check via SonarQube")
+        // {
+        //     steps {
             
-            script {
-                 def scannerHome = tool 'sonarqube-scanner'
+        //     script {
+        //          def scannerHome = tool 'sonarqube-scanner'
     
-           withSonarQubeEnv("sonarqube-server") {
-           sh "${scannerHome}/bin/sonar-scanner \
-                -Dsonar.projectKey=educap-pro-front \
-                -Dsonar.sources=. \
-                -Dsonar.host.url=https://sonar.educap.io \
-                -Dsonar.login=educappro \
-                -Dsonar.password=educappro"
-               } 
-           }
-        }
-        }
+        //    withSonarQubeEnv("sonarqube-server") {
+        //    sh "${scannerHome}/bin/sonar-scanner \
+        //         -Dsonar.projectKey=educap-pro-front \
+        //         -Dsonar.sources=. \
+        //         -Dsonar.host.url=https://sonar.educap.io \
+        //         -Dsonar.login=educappro \
+        //         -Dsonar.password=educappro"
+        //        } 
+        //    }
+        // }
+        // }
 
         stage('build develop') {
             steps {
