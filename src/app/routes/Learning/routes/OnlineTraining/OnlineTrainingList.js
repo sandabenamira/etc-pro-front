@@ -36,6 +36,7 @@ export default class OnlineTrainingList extends Component {
       <div className="d-flex flex-column">
         
         <div className="d-flex flex-row flex-wrap">
+          
           <div className="p-2 col-md-2 col-sm-1 col-lg-1">
 
             <TextField
@@ -90,7 +91,7 @@ export default class OnlineTrainingList extends Component {
                 size="small"
                 // color="primary"
                 aria-label="Add"
-                //onClick={this.props.o}
+                onClick={this.props.openAddOnlineTraining}
               >
                 {}
                 <AddIcon style={{ color: orange[500] }} />
