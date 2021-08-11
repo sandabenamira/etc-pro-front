@@ -10,9 +10,9 @@ export default class MaterialVisualisation extends Component {
 
     return (
       <div className="app-wrapper">
-        <Modal isOpen={values.isOpen}>
+        <Modal isOpenMaterial={values.isOpenMaterial}>
           <ModalBody>
-            
+            <h1>hello</h1>
                  
           </ModalBody>
         </Modal>

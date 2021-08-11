@@ -1,8 +1,6 @@
-import React, {useState} from "react";
-//import Button from '@material-ui/core/Button';
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-//import FavoriteIcon from '@material-ui/icons/Favorite';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
@@ -63,6 +61,7 @@ export default function TrainingMaterialsItem() {
           <div>
             <strong> Formation:</strong> &nbsp; Les bases du management
           </div>
+          <br />
           <div>
           Ce programme a pour objectif de former des techniciens de la relation client autour des métiers du marketing, de la vente et de la communication.
           </div>
