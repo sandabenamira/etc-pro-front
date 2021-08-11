@@ -76,4 +76,21 @@ export const sousModuleAdministration = [
     },
   ];
 
+
+
+  export const sousModuleReporting = [
+    {
+      name: "reporting-formation",
+      pathName: "reporting/reporting-formation",
+      icon: "laptop-chromebook",
+      id: 1,
+    },
+    {
+      name: "reporting-financier",
+      pathName: "reporting/reporting-financier",
+      icon: "cloud-outline-alt",
+      id: 2,
+    }
+  ];
+
   

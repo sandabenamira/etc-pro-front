@@ -11,7 +11,9 @@ const rules = {
      'module-nav-permissions-settings',
      'module-nav-online-training',
      'module-nav-training-materials',
-     'module-nav-moocs'
+     'module-nav-moocs',
+     'module-nav-reporting-formation',
+     'module-nav-reporting-financier'
     ],
 
     dynamic: {

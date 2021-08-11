@@ -5,6 +5,7 @@ import IntlMessages from '../../util/IntlMessages';
 import {
   sousModuleAdministration,
   sousModuleELearning,
+  sousModuleReporting
 } from "../../constants/EducapProModules";
 import { RoleContext } from '../switchComponent/Context';
 import Can from '../switchComponent/can';
@@ -189,9 +190,10 @@ class Menu extends Component {
             <li className="nav-item">
             <NavlinkItem pathName={"catalog"} listMoule={estabModule} />
           </li>
+         
           <li className="nav-item">
-            <NavlinkItem pathName={"reporting"} listMoule={estabModule} />
-          </li>
+              <MenuCollapseBoxItem pathName={'reporting'} listModule={estabModule} sousModuleEducapPro={sousModuleReporting} />
+            </li>
 
            
         

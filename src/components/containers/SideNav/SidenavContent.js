@@ -8,6 +8,7 @@ import Can from "../../switchComponent/can";
 import {
   sousModuleAdministration,
   sousModuleELearning,
+  sousModuleReporting
 } from "../../../constants/EducapProModules";
 
 const NavlinkItem = ({ pathName, listMoule }) => {
@@ -205,7 +206,12 @@ class SidenavContent extends Component {
             <NavlinkItem pathName={"catalog"} listMoule={estabModule} />
           </li>
           <li>
-            <NavlinkItem pathName={"reporting"} listMoule={estabModule} />
+            {/* <NavlinkItem pathName={"reporting"} listMoule={estabModule} /> */}
+            <MenuCollapseBoxItem
+            pathName={"reporting"}
+            listModule={estabModule}
+            sousModuleEducapPro={sousModuleReporting}
+          />
           </li>
         </ul>
       </CustomScrollbars>
