@@ -16,7 +16,7 @@ import Home from "./routes/Home/index";
 import Learning from "./routes/Learning/index";
 import UserProfile from "./routes/UserProfile/index";
 import { educapProModules } from "../constants/EducapProModules";
-import Raporting from "./routes/Raporting/Raporting";
+import Raporting from "./routes/Raporting/index";
 import Catalog from "./routes/Catalog/Catalog";
 
 class App extends React.Component {

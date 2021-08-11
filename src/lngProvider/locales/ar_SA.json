@@ -1542,7 +1542,9 @@
   "sidebar.components.agenceSetting": " تعديل الوكالات",
   "add.new.agence": "إضافة وكالة جديد",
   "component.agence.list": "قائمة الوكالات",
-  "alert.permission" : "  ليس لديك أذونات لهذه الوحدة"
+  "alert.permission" : "  ليس لديك أذونات لهذه الوحدة",
+  "sidebar.components.reporting-formation":"تقارير التكوين",
+  "sidebar.components.reporting-financier":"تقارير مالية"
 
 
 

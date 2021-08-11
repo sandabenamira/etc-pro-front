@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import RaportingItem from './RaportingItem';
+import RaportingFormationItem from './RaportingFormationItem';
 
 //import { makeStyles } from '@material-ui/core/styles';
 
@@ -17,7 +17,7 @@ function createData(nom, formateur, participants, frais, charges, revenu, rentab
   ];
   
 
-export default class RaportingList extends Component {
+export default class RaportingFormationList extends Component {
     render(){
         return(
             <table class="table" style={{borderCollapse: "separate",
@@ -42,7 +42,7 @@ export default class RaportingList extends Component {
                 </thead>
                     <tbody>
                     {rows.map((row) => (
-                        <RaportingItem nom={row.nom}
+                        <RaportingFormationItem nom={row.nom}
                         formateur={row.formateur} 
                         participants={row.participants} 
                         frais={row.frais} 

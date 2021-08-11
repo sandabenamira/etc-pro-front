@@ -6,7 +6,7 @@ import moment from "moment";
 
 
 
-const RaportingItem =({nom,formateur,participants,frais,charges,revenu,rentabilite}) =>
+const RaportingFormationItem =({nom,formateur,participants,frais,charges,revenu,rentabilite}) =>
         <tr style={{backgroundColor :"#DCDCDC"}}>
             <th scope="row" 
             style = {{borderTopLeftRadius: "15px", borderBottomLeftRadius: "15px"
@@ -29,4 +29,4 @@ const RaportingItem =({nom,formateur,participants,frais,charges,revenu,rentabili
              textAlign:"center"}}>{rentabilite}</td>
         </tr>
 
-export default RaportingItem
+export default RaportingFormationItem
