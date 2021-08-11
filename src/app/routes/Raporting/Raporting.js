@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-//import Select from 'react-select'
-//import './Raporting.css';
+
 
 import RaportingList from './RaportingList';
 //import ReportingItem from './ReprotingItem';
@@ -36,7 +35,7 @@ export class Raporting extends Component {
     /* eslint eqeqeq: "off" */
 
     return (
-      <div className="app-wrapper raportingFinancier">
+      <div className="app-wrapper ">
         <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12" >
         <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  col-sm-12">
           <div className="p2"> 

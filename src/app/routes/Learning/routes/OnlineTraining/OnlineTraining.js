@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import OnlineTrainingList from "./OnlineTrainingList";
 import AddOnlineTraining from "./AddOnlineTraining";
 import { getUsers } from "../../../../../store/actions/User";
 import {addTraining} from "../../../../../store/actions/Training"
 
-
-/* eslint eqeqeq: "off" */
 export class OnlineTraining extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +56,7 @@ export class OnlineTraining extends Component {
         },
       ],
     };
-    this.openAddTraining = this.openAddOnlineTraining.bind(this);
+    this.openAddTraining = this.openAddTraining.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
 
@@ -66,8 +64,8 @@ export class OnlineTraining extends Component {
     this.props.dispatch(getUsers());
   }
 
-  openAddOnlineTraining() {
-    this.setState({ isOpen: true }, () => console.log("hello"));
+  openAddTraining() {
+    this.setState({ isOpen: true });
   }
   handleCancel() {
     this.setState({
@@ -345,47 +343,40 @@ export class OnlineTraining extends Component {
   }
 
   render() {
-    /* eslint eqeqeq: "off" */
     return (
       <div className="app-wrapper">
         <div className="d-flex flex-column">
-          <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px", marginLeft: "15px" }}>
-            E-Learning  -  Formations programmées en ligne
+          <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px" }}>
+          E-Learning &nbsp; - &nbsp; Formations programmées en ligne
           </div>
-
-
 
           <div className="d-flex justify-content-center flex-row ">
             <div className="col-lg-11 col-md-11 col-sm-12 d-flex flex-wrap justify-content-center flex-row  ">
 
-              <div className="col-lg-2 col-md-4 col-sm-10 d-flex flex-wrap flex-column m-2 justify-content-center align-items-center" style={{ backgroundColor: "#3F51B5", borderRadius: 15, height: "150px", }}>
-                <h1 style={{ color: "white", fontWeight: "bold" }}>Formations en ligne</h1>
+              <div className="col-lg-2 col-md-4 col-sm-10 d-flex flex-wrap flex-column m-2 justify-content-center align-items-center" style={{ backgroundColor: "#3F51B5", borderRadius: 10, height: "150px", paddingRight:"1rem", paddingLeft:"1rem" }}>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign:"center"  }}>Formations en ligne</h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>150</h1>
               </div>
 
-              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column  justify-content-center align-items-center m-2" style={{ backgroundColor: "#3BBDD5", borderRadius: 15, height: "150px", }}>
-                <h1 style={{ color: "white", fontWeight: "bold" }}>Formations en ligne ce mois</h1>
+              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column  justify-content-center align-items-center m-2" style={{ backgroundColor: "#3BBDD5", borderRadius: 10, height: "150px", paddingRight:"1rem", paddingLeft:"1rem" }}>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign:"center" }}>Formations en ligne ce mois</h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>25</h1>
               </div>
 
-              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center  align-items-center m-2" style={{ backgroundColor: "#F9972D", borderRadius: 15, height: "150px", }}>
-                <h1 style={{ color: "white", fontWeight: "bold" }}>Nb d'inscriptions</h1>
+              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center  align-items-center m-2" style={{ backgroundColor: "#F9972D", borderRadius: 10, height: "150px", paddingRight:"1rem", paddingLeft:"1rem"}}>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign:"center"  }}>Nb d'inscriptions</h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>7</h1>
               </div>
 
-              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center align-items-center m-2" style={{ backgroundColor: "#F15381", borderRadius: 15, height: "150px", }}>
-                <h1 style={{ color: "white", fontWeight: "bold" }}>Nb de personnes inscrites</h1>
+              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center align-items-center m-2" style={{ backgroundColor: "#F15381", borderRadius: 10, height: "150px", paddingRight:"1rem", paddingLeft:"1rem" }}>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign:"center"  }}>Nb de personnes inscrites</h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>45</h1>
               </div>
             </div>
           </div>
 
-
-
-        </div>
-        <div className=" d-flex justify-content-end align-items-center flex-row mt-4">
           <div className="p-2">
-            <OnlineTrainingList openAddOnlineTraining={this.openAddOnlineTraining} />
+            <OnlineTrainingList openAddTraining={this.openAddTraining} />
           </div>
           {this.state.isOpen && (
             <AddOnlineTraining
@@ -405,12 +396,11 @@ export class OnlineTraining extends Component {
             />
           )}
         </div>
-
       </div>
-
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     users: state.users.users,

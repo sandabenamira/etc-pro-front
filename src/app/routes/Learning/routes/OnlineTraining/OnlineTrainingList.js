@@ -1,59 +1,35 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+// import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
-import {  orange } from "@material-ui/core/colors";
+import { orange } from "@material-ui/core/colors";
 import OnlineTrainingItem from "./OnlineTrainingItem";
 import MenuItem from "@material-ui/core/MenuItem";
-// import { makeStyles } from '@material-ui/core/styles';
-//import AddOnlineTraining from "./AddOnlineTraining";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-    
-//   },
-//   paper: {
-//     padding: theme.spacing(2),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-//     height: '200%',
-//     width: '90%',
-//     fontSize:'20px',
-    
-    
-//   },
-// }));
-    /* eslint eqeqeq: "off" */
 
 export default class OnlineTrainingList extends Component {
-   
   render() {
-    // const classes = useStyles;
     return (
-
       <div className="d-flex flex-column">
-        
         <div className="d-flex flex-row flex-wrap">
-          
           <div className="p-2 col-md-2 col-sm-1 col-lg-1">
-
             <TextField
               className="textfield"
-              
               id="level_id"
-          
+              style={{ borderRadius:15}}
+              //   onChange={this.props.handleChangeLevel(
+              //     "level_id"
+              //   )}
               select
               label="Filtrer par"
-              
+              //   value={this.props.values.level_id}
               SelectProps={{}}
               margin="normal"
               fullWidth
-              variant="filled"
-              color="primary"
+              variant="outlined"
               size="small"
-              
             >
               {[
                 { id: 1, name: "plus récent" },
@@ -72,7 +48,11 @@ export default class OnlineTrainingList extends Component {
               name="search"
               label="Rechercher ..."
               size="small"
-             
+              style={{borderRadius:15}}
+              //   onChange={this.props.handleChangeSearchTicket(
+              //     "nameForHistory"
+              //   )}
+              //   value={nameForHistory}
               margin="normal"
               fullWidth
               variant="outlined"
@@ -91,9 +71,13 @@ export default class OnlineTrainingList extends Component {
                 size="small"
                 // color="primary"
                 aria-label="Add"
-                onClick={this.props.openAddOnlineTraining}
+                onClick={this.props.openAddTraining}
               >
-                {}
+                {/* {this.props.values.open ? (
+                          <RemoveSharpIcon />
+                        ) : (
+                          <AddIcon />
+                        )} */}
                 <AddIcon style={{ color: orange[500] }} />
               </Fab>
               &nbsp;&nbsp;&nbsp;
