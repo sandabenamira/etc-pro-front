@@ -1,8 +1,6 @@
 import React from "react";
-//import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-//import FavoriteIcon from '@material-ui/icons/Favorite';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
@@ -12,6 +10,7 @@ import img2 from '../../../../../assets/images/img2.jpeg';
 import img3 from '../../../../../assets/images/img3.jpeg';
 import img4 from '../../../../../assets/images/img4.jpeg';
 
+
 const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
@@ -20,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
     },
   }));
+
 export default function TrainingMaterialsItem() {
     const classes = useStyles();
     var things = [img1, img2, img3, img4];
@@ -61,6 +61,7 @@ export default function TrainingMaterialsItem() {
           <div>
             <strong> Formation:</strong> &nbsp; Les bases du management
           </div>
+          <br />
           <div>
           Ce programme a pour objectif de former des techniciens de la relation client autour des métiers du marketing, de la vente et de la communication.
           </div>
