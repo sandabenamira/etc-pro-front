@@ -60,8 +60,5 @@ export default class RaportingList extends Component {
 
   
 }
-const mapStateToProps = state => {
-    return {};
-  };
-  
+
 

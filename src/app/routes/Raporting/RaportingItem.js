@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 //import { makeStyles } from '@material-ui/core/styles';
 
 import Avatar from "@material-ui/core/Avatar";
@@ -7,7 +7,7 @@ import moment from "moment";
 
 
 const RaportingItem =({nom,formateur,participants,frais,charges,revenu,rentabilite}) =>
-        <tr style={{backgroundColor :"#DCDCDC", borderRadius: "25%"}}>
+        <tr style={{backgroundColor :"#DCDCDC"}}>
             <th scope="row" 
             style = {{borderTopLeftRadius: "15px", borderBottomLeftRadius: "15px"
             ,display:"flex", flexDirection: "row", textAlign: "center"}}>
