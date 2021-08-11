@@ -42,6 +42,7 @@ export default class AddTraining extends Component {
                   <b>Informations générales</b>
                 </div>
                 {/* thème formation */}
+                <div className="p-2 d-flex flex-row">
                 <div className="p-2 flex-column col-md-6">
                   <div
                     className="p-2"
@@ -62,8 +63,10 @@ export default class AddTraining extends Component {
                     ></TextField>
                   </div>
                 </div>
+                </div>
 
                 {/* session */}
+                <div className="p-2 d-flex flex-row">
                 <div className="p-2 flex-column">
                   <div
                     className="p-2 "
@@ -105,7 +108,9 @@ export default class AddTraining extends Component {
                     </div>
                   ))}
                 </div>
+                </div>
                 {/* add modules */}
+                <div className="p-2 d-flex flex-row">
                 <div className="p-2 flex-column col-md-6">
                   <div
                     className="p-2 "
@@ -154,6 +159,7 @@ export default class AddTraining extends Component {
                       </div>
                     </div>
                   ))}
+                </div>
                 </div>
 
                 {/* add level */}
@@ -312,6 +318,7 @@ export default class AddTraining extends Component {
                   </div>
                 </div>
                 {/* titre formation */}
+                <div className="p-2 d-flex flex-row">
                 <div className="  d-flex flex-column col-md-10">
                   <div style={{ color: "#4C25B7", fontSize: "18px" }}>
                     Titre de la formation *
@@ -329,8 +336,10 @@ export default class AddTraining extends Component {
                     ></TextField>
                   </div>
                 </div>
+                </div>
 
                 {/* description formation */}
+                <div className="p-2 d-flex flex-row">
                 <div className="p-2  d-flex flex-column col-md-10">
                   <div style={{ color: "#4C25B7", fontSize: "18px" }}>
                     Description
@@ -347,6 +356,7 @@ export default class AddTraining extends Component {
                       size="small"
                     ></TextField>
                   </div>
+                </div>
                 </div>
 
                 {/*lien et lieu formation */}
