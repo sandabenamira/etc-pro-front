@@ -1623,5 +1623,7 @@
   "sidebar.components.permissions-settings": "Paramètres des permissions",
   "sidebar.components.online-training": "Formations en ligne",
   "sidebar.components.training-materials": "Supports de formations",
-  "sidebar.components.moocs": "MOOCs"
+  "sidebar.components.moocs": "MOOCs",
+  "sidebar.components.reporting-formation":"Reporting formation",
+  "sidebar.components.reporting-financier":"Reporting financier"
 }
