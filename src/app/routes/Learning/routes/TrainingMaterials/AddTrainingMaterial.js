@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { Modal, ModalBody } from "reactstrap";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import AttachmentIcon from '@material-ui/icons/Attachment';
 //import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
@@ -23,7 +21,7 @@ export default class AddTrainingMaterial extends Component {
               autoComplete="off"
               onSubmit={this.props.handleSubmit}
             >
-              <div className="d-flex flex-column ml-5 ">
+              <div className="d-flex flex-column ml-5 col-lg-10 col-md-8 ">
                 <div
                   className="d-flex justify-content-center mt-3"
                   style={{ color: "#4C25B7", fontSize: "25px" }}
@@ -79,7 +77,7 @@ export default class AddTrainingMaterial extends Component {
                 </div>
                 </div>
                 <div className="p-2 d-flex flex-row">
-                <div className="p-2 flex-column col-md-6">
+                <div className="p-2 flex-column col-lg-10 col-md-10">
                   <div
                     className="p-2"
                     style={{  fontSize: "18px" }}
@@ -101,7 +99,7 @@ export default class AddTrainingMaterial extends Component {
                 </div>
                 </div>
                 <div className="p-2 d-flex flex-row">
-                <div className="p-2 flex-column col-md-6">
+                <div className="p-2 flex-column col-lg-10 col-md-10">
                   <div
                     className="p-2"
                     style={{  fontSize: "18px" }}
@@ -122,31 +120,9 @@ export default class AddTrainingMaterial extends Component {
                   </div>
                 </div>
                 </div>
-                <div className="p-2 d-flex flex-row">
-                <div className="p-2 flex-column col-md-6">
-                  <div
-                    className="p-2"
-                    style={{  fontSize: "18px" }}
-                  >
-                   Joindre un fichier
-                  </div>
-                  <div className="p-2">
-                    <TextField
-                      className="textfield"
-                      id="theme"
-                      onChange={this.props.handleChange("theme")}
-                      value={values.themeId}
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    ></TextField>
-                  </div>
-                </div>
-                </div>
                 
               
-                {/* format formation */}
+                {/* joindre fichier */}
 
                 <div className="p-2 d-flex flex-row">
                   <div
@@ -156,30 +132,15 @@ export default class AddTrainingMaterial extends Component {
                     Joindre un fichier
                   </div>
                   <div className="ml-5">
-                    <RadioGroup
-                      className="d-flex flex-row"
-                      aria-label="trainingFormat"
-                      name="trainingFormat"
-                      value={values.trainingFormat}
-                      onChange={this.props.handleChange("trainingFormat")}
+                    <Button
+                      variant="contained"
+                      color="default"
+                      
+                      startIcon={<AttachmentIcon />}
                     >
-                      <FormControlLabel
-                        value="INLINE"
-                        control={<Radio color="primary" />}
-                        label="En ligne"
-                      />
+                      Pièce jointe
+                    </Button>
 
-                      <FormControlLabel
-                        value="FACETOFACE"
-                        control={<Radio color="primary" />}
-                        label="Présentiel"
-                      />
-                      <FormControlLabel
-                        value="HYBRID"
-                        control={<Radio color="primary" />}
-                        label="Hybride"
-                      />
-                    </RadioGroup>
                   </div>
                 </div>
                

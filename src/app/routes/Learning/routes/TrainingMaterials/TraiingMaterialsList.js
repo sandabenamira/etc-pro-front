@@ -5,7 +5,6 @@ import { orange } from "@material-ui/core/colors";
 import TrainingMaterialsItem from "./TrainingMaterialsItem";
 
 
-
 export default class TraiingMaterialsList extends Component {
   render() {
     return (
