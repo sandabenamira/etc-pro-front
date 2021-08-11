@@ -24,7 +24,7 @@ export default class ListMoocs extends Component {
                 size="small"
                 // color="primary"
                 aria-label="Add"
-                onClick={this.props.openAddMoocs}
+                onClick={this.props.openAddTraining}
               >
                 {/* {this.props.values.open ? (
                           <RemoveSharpIcon />

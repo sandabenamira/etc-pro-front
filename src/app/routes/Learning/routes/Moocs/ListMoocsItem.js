@@ -71,10 +71,14 @@ export default function Item() {
       <div className="package-footer" >
         
       <IconButton aria-label="delete" className={classes.margin} style={{color:"#FFFFFF",backgroundColor:"#3F51B5",width:"30px",height:"30px"}}>
-          <VisibilityOutlinedIcon 
-          />
+        
+          <VisibilityOutlinedIcon/>
+          
+          
           
         </IconButton>
+        
+        
         <IconButton aria-label="delete" className={classes.margin} style={{color:"#FFFFFF",backgroundColor:"#F15381",width:"30px",height:"30px"}}>
           <CreateIcon  />
         </IconButton>
