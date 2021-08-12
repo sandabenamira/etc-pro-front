@@ -22,26 +22,18 @@ export default function OnlineTrainingItem() {
     var thing = things[Math.floor(Math.random() * things.length)];
   return (
     <div className="card package bg-white shadow">
-      <div
-        className="package-header  lighten-1 text-white"
-        // style={{ backgroundColor: "orange" }}
-      >
-        {/* <h3 className="letter-spacing-base text-uppercase mb-0">
-          {" "}
-          <strong>formation</strong>
-        </h3> */}
+      
+     <div className="package-items">
+       <div>
         <img src={thing} alt="formation" style={{ width: '100%', height: '200px' }} />
       </div>
-     <div className="package-items">
-         
-     
       <ul
         className="package-items package-items text-grey text-darken-3"
       >
         <li>
           {" "}
           <div style={{ fontSize: "20px", color: "orange" }}>
-            Marketing Digital : Les bases
+            <strong >Marketing Digital : Les bases </strong>
           </div>
         </li>
         <li>
