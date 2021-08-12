@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ListMoocs from "./ListMoocs";
 import AddMoocs from "./AddMoocs";
-import { getUsers } from "../../../../../store/actions/User";
+
 import {addTraining} from "../../../../../store/actions/Training"
 
 export class Moocs extends Component {
@@ -58,10 +58,6 @@ export class Moocs extends Component {
     };
     this.openAddTraining = this.openAddTraining.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-  }
-
-  UNSAFE_componentWillMount() {
-    this.props.dispatch(getUsers());
   }
 
   openAddTraining() {

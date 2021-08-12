@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-//import TextField from "@material-ui/core/TextField";
-//import InputAdornment from "@material-ui/core/InputAdornment";
-// import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
+
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import ListMoocsItem from "./ListMoocsItem";
-//import MenuItem from "@material-ui/core/MenuItem";
+
 
 
 export default class ListMoocs extends Component {
@@ -22,15 +20,11 @@ export default class ListMoocs extends Component {
             <div className="d-flex justify-content-start align-items-center">
               <Fab
                 size="small"
-                // color="primary"
+                
                 aria-label="Add"
                 onClick={this.props.openAddTraining}
               >
-                {/* {this.props.values.open ? (
-                          <RemoveSharpIcon />
-                        ) : (
-                          <AddIcon />
-                        )} */}
+                
                 <AddIcon style={{ color: orange[500] }} />
               </Fab>
               &nbsp;&nbsp;&nbsp;
