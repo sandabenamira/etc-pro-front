@@ -11,7 +11,7 @@ function createData(photo, nom, prenom, role, email, Ntel, ) {
   const rows = [
     <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> ,
     createData('ML', 'Med Ouni', 9.0, 37, 4.3 ,2,'Rentable'),
-    createData('Marketing', 'Med Ouni', 16.0, 24, 6.0, 3,'Rentable'),
+    createData('Marketing', 'Med Ouni', 16.0, 24, 5, 3,'Rentable'),
     createData('Business', 'Med Ouni', 37, 67, 4.3, 5,'Rentable'),
   ];
   

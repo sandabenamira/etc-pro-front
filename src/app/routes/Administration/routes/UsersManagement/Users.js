@@ -37,7 +37,7 @@ export class User extends Component {
           </div>
           <div className="d-flex flex-row col-lg-12 col-md-12 col-sm-12 mt-2 justify-content-around ">
             
-            {/* -- Bouttons roles par/ rechercher --*/}
+            {/* -- Bouttons roles rechercher --*/}
             <div className="d-flex justify-content-center flex-row mt-4 ">
               <div className="col-lg-10 col-md-11 col-sm-12 d-flex flex-wrap  flex-row  ">
                 <Button
