@@ -1625,5 +1625,6 @@
   "sidebar.components.training-materials": "Supports de formations",
   "sidebar.components.moocs": "MOOCs",
   "sidebar.components.reporting-formation":"Reporting formation",
-  "sidebar.components.reporting-financier":"Reporting financier"
+  "sidebar.components.reporting-financier":"Reporting financier",
+  "add.formation": "Ajouter une formation"
 }

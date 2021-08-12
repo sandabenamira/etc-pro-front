@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-// import RemoveSharpIcon from "@material-ui/icons/RemoveSharp";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
@@ -19,12 +18,8 @@ export default class OnlineTrainingList extends Component {
               className="textfield"
               id="level_id"
               style={{ borderRadius:15}}
-              //   onChange={this.props.handleChangeLevel(
-              //     "level_id"
-              //   )}
               select
               label="Filtrer par"
-              //   value={this.props.values.level_id}
               SelectProps={{}}
               margin="normal"
               fullWidth
@@ -49,10 +44,6 @@ export default class OnlineTrainingList extends Component {
               label="Rechercher ..."
               size="small"
               style={{borderRadius:15}}
-              //   onChange={this.props.handleChangeSearchTicket(
-              //     "nameForHistory"
-              //   )}
-              //   value={nameForHistory}
               margin="normal"
               fullWidth
               variant="outlined"
@@ -69,15 +60,9 @@ export default class OnlineTrainingList extends Component {
             <div className="d-flex justify-content-start align-items-center">
               <Fab
                 size="small"
-                // color="primary"
                 aria-label="Add"
                 onClick={this.props.openAddTraining}
               >
-                {/* {this.props.values.open ? (
-                          <RemoveSharpIcon />
-                        ) : (
-                          <AddIcon />
-                        )} */}
                 <AddIcon style={{ color: orange[500] }} />
               </Fab>
               &nbsp;&nbsp;&nbsp;

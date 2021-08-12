@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TraiingMaterialsList from "./TraiingMaterialsList";
 import AddTraining from "./AddTrainingMaterial";
+import MaterialVisualisation from "./MaterialVisualisation";
 import { getUsers } from "../../../../../store/actions/User";
 import {addTraining} from "../../../../../store/actions/Training"
 
@@ -10,6 +11,7 @@ export class SupportCours extends Component {
     super(props);
     this.state = {
       isOpen: false,
+      isOpenMaterial: false,
       theme: "",
       titleTraining: "",
       descriptionTraining: "",
@@ -57,6 +59,7 @@ export class SupportCours extends Component {
       ],
     };
     this.openAddTraining = this.openAddTraining.bind(this);
+    this.openAddMaterial= this.openAddMaterial.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
 
@@ -67,9 +70,14 @@ export class SupportCours extends Component {
   openAddTraining() {
     this.setState({ isOpen: true });
   }
+  openAddMaterial() {
+    this.setState({ isOpenMaterial: true });
+  }
+  
   handleCancel() {
     this.setState({
       isOpen: false,
+      isOpenMaterial:false,
       theme: "",
       titleTraining: "",
       descriptionTraining: "",
@@ -374,7 +382,6 @@ export class SupportCours extends Component {
               </div>
             </div>
           </div>
-
           <div className="p-2">
             <TraiingMaterialsList openAddTraining={this.openAddTraining} />
           </div>
@@ -395,6 +402,25 @@ export class SupportCours extends Component {
               handleSubmit={this.handleSubmit.bind(this)}
             />
           )}
+          
+          {this.state.isOpenMaterial && (
+            <MaterialVisualisation
+              values={this.state}
+              handleCancel={this.handleCancel}
+              handleChange={this.handleChange.bind(this)}
+              addNewChoice={this.addNewChoice.bind(this)}
+              deleteChoice={this.deleteChoice.bind(this)}
+              handleChangeModules={this.handleChangeModules.bind(this)}
+              setDate={this.setDate.bind(this)}
+              handleChangeLevelsModules={this.handleChangeLevelsModules.bind(
+                this
+              )}
+              handleChangePrograms={this.handleChangePrograms.bind(this)}
+              users={this.props.users}
+              handleSubmit={this.handleSubmit.bind(this)}
+            />
+          )}
+          
         </div>
       </div>
     );

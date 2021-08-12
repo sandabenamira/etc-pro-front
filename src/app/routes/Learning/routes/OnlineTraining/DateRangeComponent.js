@@ -8,17 +8,11 @@ class DateRangeComponent extends React.Component {
     super(props);
 
     this.state = {
-      // startDate: null,
-      // endDate: null,
+      
     };
     this.dateFrequency = this.dateFrequency.bind(this);
   }
-  // componentWillMount() {
-  //   this.setState({
-  //     startDate: this.props.startDate,
-  //     endDate: this.props.endDate,
-  //   });
-  // }
+  
 
   dateFrequency(startDate, endDate) {
     console.log('dateFrequencydateFrequencydateFrequency');

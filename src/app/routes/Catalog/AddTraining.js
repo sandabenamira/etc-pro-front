@@ -13,6 +13,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import RemoveIcon from "@material-ui/icons/Remove";
+import IntlMessages from "../../../util/IntlMessages";
 
 export default class AddTraining extends Component {
   render() {
@@ -32,7 +33,8 @@ export default class AddTraining extends Component {
                   className="d-flex justify-content-center mt-3"
                   style={{ color: "#4C25B7", fontSize: "25px" }}
                 >
-                  Ajouter une formation
+                  
+                  <IntlMessages id="add.formation" />
                 </div>
 
                 <br />
