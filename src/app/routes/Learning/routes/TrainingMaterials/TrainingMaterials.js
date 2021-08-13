@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TraiingMaterialsList from "./TraiingMaterialsList";
 import AddTraining from "./AddTrainingMaterial";
-import MaterialVisualisation from "./MaterialVisualisation";
+//import MaterialVisualisation from "./MaterialVisualisation";
 import { getUsers } from "../../../../../store/actions/User";
-import {addTraining} from "../../../../../store/actions/Training"
+import { addTraining } from "../../../../../store/actions/Training"
 
 export class SupportCours extends Component {
   constructor(props) {
@@ -59,7 +59,6 @@ export class SupportCours extends Component {
       ],
     };
     this.openAddTraining = this.openAddTraining.bind(this);
-    this.openAddMaterial= this.openAddMaterial.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
 
@@ -70,14 +69,11 @@ export class SupportCours extends Component {
   openAddTraining() {
     this.setState({ isOpen: true });
   }
-  openAddMaterial() {
-    this.setState({ isOpenMaterial: true });
-  }
-  
+
   handleCancel() {
     this.setState({
       isOpen: false,
-      isOpenMaterial:false,
+      isOpenMaterial: false,
       theme: "",
       titleTraining: "",
       descriptionTraining: "",
@@ -127,7 +123,7 @@ export class SupportCours extends Component {
   }
 
   handleChange = (name) => (event) => {
-    console.log(name, event.target.value );
+    console.log(name, event.target.value);
     this.setState({ [name]: event.target.value });
   };
   addNewChoice = (index, name) => {
@@ -263,9 +259,9 @@ export class SupportCours extends Component {
     let newModules = oldModules.map((objModule, i) =>
       i === index
         ? {
-            ...objModule,
-            [name]: event.target.value,
-          }
+          ...objModule,
+          [name]: event.target.value,
+        }
         : objModule
     );
     this.setState({
@@ -278,12 +274,12 @@ export class SupportCours extends Component {
     let newSession = oldSession.map((objSession, i) =>
       i === index
         ? {
-            ...objSession,
-            startDate: startDate._d,
-            endDate: endDate._d,
-            start: startDate,
-            end: endDate,
-          }
+          ...objSession,
+          startDate: startDate._d,
+          endDate: endDate._d,
+          start: startDate,
+          end: endDate,
+        }
         : objSession
     );
     this.setState({
@@ -296,9 +292,9 @@ export class SupportCours extends Component {
     let newLevelsModules = oldLevelsModules.map((objLevelModule, i) =>
       i === index
         ? {
-            ...objLevelModule,
-            [name]: event.target.value,
-          }
+          ...objLevelModule,
+          [name]: event.target.value,
+        }
         : objLevelModule
     );
     this.setState({
@@ -311,9 +307,9 @@ export class SupportCours extends Component {
     let newPrograms = oldPrograms.map((objProgram, i) =>
       i === index
         ? {
-            ...objProgram,
-            [name]: event.target.value,
-          }
+          ...objProgram,
+          [name]: event.target.value,
+        }
         : objProgram
     );
     this.setState({ programs: newPrograms });
@@ -355,29 +351,29 @@ export class SupportCours extends Component {
       <div className="app-wrapper">
         <div className="d-flex flex-column">
           <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px" }}>
-          E-Learning &nbsp; - &nbsp; Supports de formations 
+            E-Learning &nbsp; - &nbsp; Supports de formations
           </div>
 
           <div className="d-flex justify-content-center flex-row ">
             <div className="col-lg-11 col-md-11 col-sm-12 d-flex flex-wrap justify-content-center flex-row  ">
 
-              <div className="col-lg-2 col-md-4 col-sm-10 d-flex flex-wrap flex-column m-2 justify-content-center align-items-center" style={{ backgroundColor: "#3F51B5", borderRadius: 10, height: "150px", paddingRight:"1rem", paddingLeft:"1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign:"center" }}>Total de supports</h1>
+              <div className="col-lg-2 col-md-4 col-sm-10 d-flex flex-wrap flex-column m-2 justify-content-center align-items-center" style={{ backgroundColor: "#3F51B5", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Total de supports</h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>200</h1>
               </div>
 
-              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column  justify-content-center align-items-center m-2" style={{ backgroundColor: "#3BBDD5", borderRadius: 10, height: "150px", paddingRight:"1rem", paddingLeft:"1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign:"center" }}>Supports de mois</h1>
+              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column  justify-content-center align-items-center m-2" style={{ backgroundColor: "#3BBDD5", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Supports de mois</h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>25</h1>
               </div>
 
-              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center  align-items-center m-2" style={{ backgroundColor: "#F9972D", borderRadius: 10, height: "150px", paddingRight:"1rem", paddingLeft:"1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign:"center"  }}>Nb de téléchargements</h1>
+              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center  align-items-center m-2" style={{ backgroundColor: "#F9972D", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Nb de téléchargements</h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>5200</h1>
               </div>
 
-              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center align-items-center m-2" style={{ backgroundColor: "#F15381", borderRadius: 10, height: "150px", paddingRight:"1rem", paddingLeft:"1rem"}}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign:"center" }}>Nombre de vues</h1>
+              <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center align-items-center m-2" style={{ backgroundColor: "#F15381", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Nombre de vues</h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>65</h1>
               </div>
             </div>
@@ -402,25 +398,7 @@ export class SupportCours extends Component {
               handleSubmit={this.handleSubmit.bind(this)}
             />
           )}
-          
-          {this.state.isOpenMaterial && (
-            <MaterialVisualisation
-              values={this.state}
-              handleCancel={this.handleCancel}
-              handleChange={this.handleChange.bind(this)}
-              addNewChoice={this.addNewChoice.bind(this)}
-              deleteChoice={this.deleteChoice.bind(this)}
-              handleChangeModules={this.handleChangeModules.bind(this)}
-              setDate={this.setDate.bind(this)}
-              handleChangeLevelsModules={this.handleChangeLevelsModules.bind(
-                this
-              )}
-              handleChangePrograms={this.handleChangePrograms.bind(this)}
-              users={this.props.users}
-              handleSubmit={this.handleSubmit.bind(this)}
-            />
-          )}
-          
+
         </div>
       </div>
     );

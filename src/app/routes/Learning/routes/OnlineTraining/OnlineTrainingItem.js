@@ -9,54 +9,54 @@ import img3 from '../../../../../assets/images/img3.jpeg';
 import img4 from '../../../../../assets/images/img4.jpeg';
 
 const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-  }));
+  margin: {
+    margin: theme.spacing(1),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+}));
 export default function OnlineTrainingItem() {
-    const classes = useStyles();
-    var things = [img1, img2, img3, img4];
-    var thing = things[Math.floor(Math.random() * things.length)];
+  const classes = useStyles();
+  var things = [img1, img2, img3, img4];
+  var thing = things[Math.floor(Math.random() * things.length)];
   return (
     <div className="card package bg-white shadow">
-      
-     <div className="package-items">
-       <div>
-        <img src={thing} alt="formation" style={{ width: '100%', height: '200px' }} />
-      </div>
-      <ul
-        className="package-items package-items text-grey text-darken-3"
-      >
-        <li>
-          {" "}
-          <div style={{ fontSize: "20px", color: "orange" }}>
-            <strong >Marketing Digital : Les bases </strong>
-          </div>
-        </li>
-        <li>
-          <div>
-            <strong> Organizateur</strong> &nbsp; Nour Bouakine
-          </div>
-          <div>
-            <strong> Formateur</strong> &nbsp; Nour Bouakine
-          </div>
-          <div>
-            <strong> Date début</strong> &nbsp; 01/05/2021
-          </div>
-          <div>
-            <strong> DUrée</strong> &nbsp; 3 jours
-          </div>
-          <div>
-          Ce programme a pour objectif de former des techniciens de la relation client autour des métiers du marketing, de la vente et de la communication.
-          </div>
-        </li>
-      </ul>
+
+      <div className="package-items">
+        <div>
+          <img src={thing} alt="formation" style={{ width: '100%', height: '200px' }} />
+        </div>
+        <ul
+          className="package-items package-items text-grey text-darken-3"
+        >
+          <li>
+            {" "}
+            <div style={{ fontSize: "20px", color: "orange" }}>
+              <strong >Marketing Digital : Les bases </strong>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong> Organizateur</strong> &nbsp; Nour Bouakine
+            </div>
+            <div>
+              <strong> Formateur</strong> &nbsp; Nour Bouakine
+            </div>
+            <div>
+              <strong> Date début</strong> &nbsp; 01/05/2021
+            </div>
+            <div>
+              <strong> DUrée</strong> &nbsp; 3 jours
+            </div>
+            <div>
+              Ce programme a pour objectif de former des techniciens de la relation client autour des métiers du marketing, de la vente et de la communication.
+            </div>
+          </li>
+        </ul>
       </div>
       <div className="package-footer" >
-      <Button variant="outlined" size="small" color="primary" className={classes.margin}>
+        <Button variant="outlined" size="small" color="primary" className={classes.margin}>
           Savoir Plus
         </Button>
         <Button variant="contained" size="small" color="primary" className={classes.margin}>

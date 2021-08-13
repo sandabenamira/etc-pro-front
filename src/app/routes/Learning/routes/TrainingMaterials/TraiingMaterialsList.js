@@ -11,9 +11,9 @@ export default class TraiingMaterialsList extends Component {
       <div className="d-flex flex-column">
         <div className="d-flex flex-row flex-wrap">
           <div className="p-2 col-md-2 col-sm-1 col-lg-1">
-            
-             
-               
+
+
+
           </div>
           <div className="p-2 ml-auto ">
             <div className="d-flex justify-content-start align-items-center">
