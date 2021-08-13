@@ -13,6 +13,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import RemoveIcon from "@material-ui/icons/Remove";
+import IntlMessages from "../../../../../util/IntlMessages";
 
 export default class AddTraining extends Component {
   render() {
@@ -32,14 +33,14 @@ export default class AddTraining extends Component {
                   className="d-flex justify-content-center mt-3"
                   style={{ color: "#4C25B7", fontSize: "25px" }}
                 >
-                  Ajouter une formation
+                  <IntlMessages id="add.formation" />
                 </div>
 
                 <br />
                 <br />
 
                 <div className="p-2 " style={{ fontSize: "20px" }}>
-                  <b>Informations générales</b>
+                  <b><IntlMessages id="general.information" /></b>
                 </div>
                 {/* thème formation */}
                 <div className="p-2 d-flex flex-row">
@@ -48,7 +49,7 @@ export default class AddTraining extends Component {
                       className="p-2"
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
-                      Thème de la formation *
+                      <IntlMessages id="training.theme" />
                     </div>
                     <div className="p-2">
                       <TextField
@@ -72,7 +73,7 @@ export default class AddTraining extends Component {
                       className="p-2 "
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
-                      Ajouter une session
+                      <IntlMessages id="add.session" />
                     </div>
                     {values.sessions.map((sessionItem, index) => (
                       <div className="p-2 d-flex flex-row">
@@ -116,7 +117,7 @@ export default class AddTraining extends Component {
                       className="p-2 "
                       style={{ color: "#4C25B7", fontSize: "18px" }}
                     >
-                      Ajouter un module
+                      <IntlMessages id="add.module" />
                     </div>
 
                     {values.modules.map((moduleItem, index) => (
@@ -168,13 +169,13 @@ export default class AddTraining extends Component {
                     className=" col-md-6"
                     style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
-                    Ajouter un niveau &nbsp;
+                    <IntlMessages id="add.level" /> &nbsp;
                   </div>
                   <div
                     className=" col-md-6"
                     style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
-                    Associer à un module
+                    <IntlMessages id="associate.module" />
                   </div>
                 </div>
 
@@ -257,7 +258,7 @@ export default class AddTraining extends Component {
                     className="p-2"
                     style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
-                    Existe-t-il une certification ? *
+                    <IntlMessages id="is.there.a.certification" />
                   </div>
                   <div className="ml-5">
                     <RadioGroup
@@ -288,7 +289,7 @@ export default class AddTraining extends Component {
                     className="p-2"
                     style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
-                    Qu'elle est le format de la formation ? *
+                    <IntlMessages id="what.is.the.training.format" />
                   </div>
                   <div className="ml-5">
                     <RadioGroup
@@ -321,7 +322,7 @@ export default class AddTraining extends Component {
                 <div className="p-2 d-flex flex-row">
                   <div className="  d-flex flex-column col-md-10">
                     <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                      Titre de la formation *
+                      <IntlMessages id="training.title" />
                     </div>
                     <div>
                       <TextField
@@ -342,7 +343,7 @@ export default class AddTraining extends Component {
                 <div className="p-2 d-flex flex-row">
                   <div className="p-2  d-flex flex-column col-md-10">
                     <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                      Description
+                      <IntlMessages id="description" />
                     </div>
                     <div>
                       <TextField
@@ -381,7 +382,7 @@ export default class AddTraining extends Component {
 
                   <div className="p-2  d-flex flex-column col-md-6">
                     <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                      Lien de la formation *
+                      <IntlMessages id="training.link" />
                     </div>
                     <div>
                       <TextField
@@ -402,7 +403,7 @@ export default class AddTraining extends Component {
                 <div className="p-2 d-flex flex-row ">
                   <div className="p-2  d-flex flex-column col-md-6 ">
                     <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                      Formateur *
+                      <IntlMessages id="trainer" />
                     </div>
                     <div>
                       <TextField
@@ -426,7 +427,7 @@ export default class AddTraining extends Component {
                   </div>
                   <div className="p-2  d-flex flex-column col-md-6 ">
                     <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                      Description
+                      <IntlMessages id="description" />
                     </div>
 
                     <div>
@@ -448,7 +449,7 @@ export default class AddTraining extends Component {
                 <div className="p-2 d-flex flex-row">
                   <div className="p-2  d-flex flex-column col-md-6">
                     <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                      Objectif de la formation
+                      <IntlMessages id="training.goal" />
                     </div>
                     <div>
                       <TextField
@@ -466,7 +467,7 @@ export default class AddTraining extends Component {
 
                   <div className="p-2  d-flex flex-column col-md-6">
                     <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                      Méthodologie
+                      <IntlMessages id="methodology" />
                     </div>
 
                     <div>
@@ -486,7 +487,7 @@ export default class AddTraining extends Component {
                 {/* prérequis */}
                 <div className="p-2  d-flex flex-column ">
                   <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                    Prérequis
+                    <IntlMessages id="Prerequisites" />
                   </div>
                   <div className=" col-md-6">
                     <TextField
@@ -504,7 +505,7 @@ export default class AddTraining extends Component {
                 {/* Programmes */}
 
                 <div className="p-2 " style={{ fontSize: "20px" }}>
-                  <b>Programme</b>
+                  <b><IntlMessages id="program" /></b>
                 </div>
                 {/* nombre de jours */}
                 <div className=" d-flex flex-row ">
@@ -512,7 +513,7 @@ export default class AddTraining extends Component {
                     className="p-4 "
                     style={{ color: "#4C25B7", fontSize: "18px" }}
                   >
-                    nombres de jours
+                    <IntlMessages id="days.number" />
                   </div>
                   <div className="ml-5 ">
                     <TextField
@@ -543,7 +544,7 @@ export default class AddTraining extends Component {
 
                     <div className="p-2 d-flex flex-column ml-3 col-md-8">
                       <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                        Titre
+                        <IntlMessages id="title" />
                       </div>
                       <div className="col-md-6">
                         <TextField
@@ -568,7 +569,7 @@ export default class AddTraining extends Component {
                         className="mt-2"
                         style={{ color: "#4C25B7", fontSize: "18px" }}
                       >
-                        Description
+                        <IntlMessages id="description" />
                       </div>
 
                       <div className="p-2 d-flex flex-row col-md-12">
@@ -625,7 +626,7 @@ export default class AddTraining extends Component {
 
                 {/* prix */}
                 <div className="p-2 d-flex flex-column">
-                  <h2>Prix de la formation par personne *</h2>
+                  <h2><IntlMessages id="training.price.per.person" /></h2>
 
                   <div className="col-md-6">
                     <TextField
@@ -649,7 +650,7 @@ export default class AddTraining extends Component {
                       style={{ borderRadius: "80px" }}
                       onClick={this.props.handleCancel}
                     >
-                      Annuler
+                      <IntlMessages id="cancel" />
                     </Button>
                   </div>
                   <div className="p-2 ml-3">
@@ -659,7 +660,7 @@ export default class AddTraining extends Component {
                       style={{ borderRadius: "80px" }}
                       type="submit"
                     >
-                      Confirmer
+                      <IntlMessages id="confirm" />
                     </Button>
                   </div>
                 </div>

@@ -1564,7 +1564,37 @@
   "added.by": "Added By:",
   "added.on": "Ajouté On:",
   "intended.for ": "Intended For:",
-  "training": "Training:"
+  "training": "Training:",
+
+  "general.information": "General Information",
+  "training.theme": "Training Theme *",
+  "add.session": "Add session",
+  "add.module": "Add module",
+  "add.level": "Add level",
+  "associate.module": "Associate with a module",
+  "is.there.a.certification": "Is there a certification ? *",
+  "what.is.the.training.format": "what is the training format ? *",
+  "training.title": "Training title *",
+  "training.link": "Training link *",
+  "trainer": "Trainer *",
+  "training.goal": "Training goal",
+  "methodology": "Methodology",
+  "Prerequisites": "Prerequisites",
+  "program": "Program",
+  "days.number": "Days number",
+  "title": "Title",
+  "training.price.per.person": "Training price per person *",
+  "scheduled.online.training": "Scheduled Online Trainigs",
+  "online.training": "Online Trainings",
+  "online.training.this.month": "This Month's Online Trainings",
+  "registrations.number": "Registrations Number",
+  "registered.people.number": "Registered Peoples Number",
+  "organizer": "Organizer:",
+  "duration": "Duration:",
+  "trainer ":"Formateur:",
+  "show.more": "Show More",
+  "register": "Register"
+  
 
 
 

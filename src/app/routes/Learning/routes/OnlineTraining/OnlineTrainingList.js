@@ -6,7 +6,7 @@ import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import OnlineTrainingItem from "./OnlineTrainingItem";
 import MenuItem from "@material-ui/core/MenuItem";
-
+import IntlMessages from "../../../../../util/IntlMessages";
 
 export default class OnlineTrainingList extends Component {
   render() {
@@ -67,7 +67,7 @@ export default class OnlineTrainingList extends Component {
               </Fab>
               &nbsp;&nbsp;&nbsp;
               <div style={{ fontSize: "25px", color: "orange" }}>
-                Ajouter une formation
+                <IntlMessages id="add.formation" />
               </div>
             </div>
           </div>

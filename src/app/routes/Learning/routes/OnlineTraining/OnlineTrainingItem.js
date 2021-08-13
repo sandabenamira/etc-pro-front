@@ -7,6 +7,7 @@ import img1 from '../../../../../assets/images/img1.jpg';
 import img2 from '../../../../../assets/images/img2.jpeg';
 import img3 from '../../../../../assets/images/img3.jpeg';
 import img4 from '../../../../../assets/images/img4.jpeg';
+import IntlMessages from "../../../../../util/IntlMessages";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -38,16 +39,16 @@ export default function OnlineTrainingItem() {
           </li>
           <li>
             <div>
-              <strong> Organizateur</strong> &nbsp; Nour Bouakine
+              <strong> <IntlMessages id="organizer" /></strong>
             </div>
             <div>
-              <strong> Formateur</strong> &nbsp; Nour Bouakine
+              <strong> <IntlMessages id="trainer " /></strong>
             </div>
             <div>
-              <strong> Date début</strong> &nbsp; 01/05/2021
+              <strong> <IntlMessages id="start.date" /></strong>
             </div>
             <div>
-              <strong> DUrée</strong> &nbsp; 3 jours
+              <strong> <IntlMessages id="duration" /></strong>
             </div>
             <div>
               Ce programme a pour objectif de former des techniciens de la relation client autour des métiers du marketing, de la vente et de la communication.
@@ -57,10 +58,10 @@ export default function OnlineTrainingItem() {
       </div>
       <div className="package-footer" >
         <Button variant="outlined" size="small" color="primary" className={classes.margin}>
-          Savoir Plus
+          <IntlMessages id="show.more" />
         </Button>
         <Button variant="contained" size="small" color="primary" className={classes.margin}>
-          S'inscrire
+          <IntlMessages id="register" />
         </Button>
         <IconButton aria-label="delete" className={classes.margin}>
           <FavoriteIcon color="secondary" />
