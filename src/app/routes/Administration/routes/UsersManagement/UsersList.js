@@ -2,56 +2,60 @@ import React, { Component } from 'react';
 
 import UserListItem from './UserListItem';
 
-import Avatar from '@material-ui/core/Avatar';
+
 
 function createData(photo, nom, prenom, role, email, Ntel, ) {
     return { photo, nom, prenom, role, email, Ntel,  };
   }
   
   const rows = [
-    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> ,
-    createData('ML', 'Med Ouni', 9.0, 37, 4.3 ,2,'Rentable'),
-    createData('Marketing', 'Med Ouni', 16.0, 24, 5, 3,'Rentable'),
-    createData('Business', 'Med Ouni', 37, 67, 4.3, 5,'Rentable'),
+   
+    createData('Achoura', 'Ahmed','Responsable Formation', 'aa@jj.com', 9548745555 ),
+    createData('Ouni', 'Med ', 'chef du projet', 'oo@fef.com', 454184154 ),
+    createData('Béji', 'Fatma', "chef d'équipe", 'ff@gdnj.com',5445484455),
+    createData('Ben', 'sami','Responsable Marketing', 'aadeded@jj.com', 9548745555 ),
+    createData('salem', 'Ahmed','ouvrier', 'accfva@jj.com', 9548745555 ),
   ];
   
 
 export default class UserList extends Component {
     render(){
         return(
-            <table class="table" style={{borderCollapse: "separate",
-                borderSpacing:"0 15px"}} >
+            <table className="table" style={{}} >
                 <thead>
-                    <tr style={{paddingBottom: "10px", textAlign:"center"}}>
-                        <th style={{borderBottom: "0", borderTop: "0"}} scope="col">
+                    <tr style={{paddingBottom: "10px", textAlign:"start",}}>
+                        <th style={{borderBottom: "0", borderTop: "0"}} >
                             photo</th>
-                        <th style={{borderBottom: "0", borderTop: "0"}} scope="col">
+                        <th style={{borderBottom: "0", borderTop: "0"}} >
                             nom</th>
-                        <th style={{borderBottom: "0", borderTop: "0"}} scope="col">
+                        <th style={{borderBottom: "0", borderTop: "0"}} >
                             prenom</th>
-                        <th style={{borderBottom: "0", borderTop: "0"}} scope="col">
-                            role de Formation</th>
-                        <th style={{borderBottom: "0", borderTop: "0"}} scope="col">
+                        <th style={{borderBottom: "0", borderTop: "0"}} >
+                            role </th>
+                        <th style={{borderBottom: "0", borderTop: "0"}} >
                             email</th>
-                        <th style={{borderBottom: "0", borderTop: "0"}} scope="col">
+                        <th style={{borderBottom: "0", borderTop: "0"}} >
                             N tél</th>
-                        <th style={{borderBottom: "0", borderTop: "0"}} scope="col">
+                        <th style={{borderBottom: "0", borderTop: "0"}} >
+                       
                             </th>
                     </tr>
                 </thead>
                     <tbody>
                     {rows.map((row) => (
-                        <UserListItem nom={row.nom}
-                        formateur={row.formateur} 
-                        participants={row.participants} 
-                        frais={row.frais} 
-                        charges={row.charges} 
-                        revenu={row.revenu}
-                        rentabilite={row.rentabilite}
+                        <UserListItem 
+                        photo={row.photo} 
+                        nom={row.nom}
+                        prenom={row.prenom} 
+                        role={row.role} 
+                        email={row.email} 
+                        Ntel={row.Ntel}
+                        
                         />
                     ))}
                     </tbody>
                 </table>
+               
         );
     }
 
