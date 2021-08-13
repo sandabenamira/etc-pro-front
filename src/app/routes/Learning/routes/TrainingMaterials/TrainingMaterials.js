@@ -5,6 +5,7 @@ import AddTraining from "./AddTrainingMaterial";
 //import MaterialVisualisation from "./MaterialVisualisation";
 import { getUsers } from "../../../../../store/actions/User";
 import { addTraining } from "../../../../../store/actions/Training"
+import IntlMessages from "../../../../../util/IntlMessages";
 
 export class SupportCours extends Component {
   constructor(props) {
@@ -351,29 +352,29 @@ export class SupportCours extends Component {
       <div className="app-wrapper">
         <div className="d-flex flex-column">
           <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px" }}>
-            E-Learning &nbsp; - &nbsp; Supports de formations
+          <IntlMessages id="e-Learning" /> &nbsp; - &nbsp; <IntlMessages id="training.materials" />
           </div>
 
           <div className="d-flex justify-content-center flex-row ">
             <div className="col-lg-11 col-md-11 col-sm-12 d-flex flex-wrap justify-content-center flex-row  ">
 
               <div className="col-lg-2 col-md-4 col-sm-10 d-flex flex-wrap flex-column m-2 justify-content-center align-items-center" style={{ backgroundColor: "#3F51B5", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Total de supports</h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="total.supports" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>200</h1>
               </div>
 
               <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column  justify-content-center align-items-center m-2" style={{ backgroundColor: "#3BBDD5", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Supports de mois</h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="supports.of.the.month" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>25</h1>
               </div>
 
               <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center  align-items-center m-2" style={{ backgroundColor: "#F9972D", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Nb de téléchargements</h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="downloads.number" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>5200</h1>
               </div>
 
               <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center align-items-center m-2" style={{ backgroundColor: "#F15381", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Nombre de vues</h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="views.number" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>65</h1>
               </div>
             </div>

@@ -1626,5 +1626,25 @@
   "sidebar.components.moocs": "MOOCs",
   "sidebar.components.reporting-formation":"Reporting formation",
   "sidebar.components.reporting-financier":"Reporting financier",
-  "add.formation": "Ajouter une formation"
+
+  "add.formation": "Ajouter une formation",
+  "add.material": "Ajouter un support",
+  "subject": "Sujet",
+  "asociate.training": "Associer à une formation",
+  "intended.for": "Destinés aux",
+  "description": "Description",
+  "upload.file":"Joindre un fichier",
+  "attachment": "Pièce jointe",
+  "cancel": "Annuler",
+  "confirm":"Confirmer",
+  "e-Learning": "E-Learning",
+  "training.materials": "Supports de formations",
+  "total.supports": "Total de supports",
+  "supports.of.the.month": "Supports de mois",
+  "downloads.number": "Nb de téléchargements",
+  "views.number": "Nombre de vues",
+  "added.by": "Ajouté par:",
+  "added.on": "Ajouté le:",
+  "intended.for ": "Destiné aux:",
+  "training": "Formation:"
 }

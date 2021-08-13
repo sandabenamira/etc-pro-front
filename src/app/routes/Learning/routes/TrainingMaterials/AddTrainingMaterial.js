@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
+import IntlMessages from "../../../../../util/IntlMessages";
 
 
 export default class AddTrainingMaterial extends Component {
@@ -25,7 +26,7 @@ export default class AddTrainingMaterial extends Component {
                   className="d-flex justify-content-center mt-3"
                   style={{ color: "#4C25B7", fontSize: "25px" }}
                 >
-                  Ajouter un support de formation
+                  <IntlMessages id="add.material" />
                 </div>
                 <br /><br />
 
@@ -33,7 +34,7 @@ export default class AddTrainingMaterial extends Component {
                 <div className="p-2 d-flex flex-row ">
                   <div className="p-2  d-flex flex-column col-md-6 ">
                     <div style={{ fontSize: "18px" }}>
-                      Sujet
+                      <IntlMessages id="subject" />
                     </div>
                     <div>
                       <TextField
@@ -51,7 +52,7 @@ export default class AddTrainingMaterial extends Component {
                   </div>
                   <div className="p-2  d-flex flex-column col-md-6 ">
                     <div style={{ fontSize: "18px" }}>
-                      Associer à une formation
+                      <IntlMessages id="asociate.training" />
                     </div>
                     <div>
                       <TextField
@@ -81,7 +82,7 @@ export default class AddTrainingMaterial extends Component {
                       className="p-2"
                       style={{ fontSize: "18px" }}
                     >
-                      Destinés aux
+                      <IntlMessages id="intended.for" />
                     </div>
                     <div className="p-2">
                       <TextField
@@ -103,7 +104,7 @@ export default class AddTrainingMaterial extends Component {
                       className="p-2"
                       style={{ fontSize: "18px" }}
                     >
-                      Description
+                      <IntlMessages id="description" />
                     </div>
                     <div className="p-2">
                       <TextField
@@ -128,7 +129,7 @@ export default class AddTrainingMaterial extends Component {
                     className="p-2"
                     style={{ fontSize: "18px" }}
                   >
-                    Joindre un fichier
+                    <IntlMessages id="upload.file" />
                   </div>
                   <div className="ml-5">
                     <Button
@@ -137,7 +138,7 @@ export default class AddTrainingMaterial extends Component {
 
                       startIcon={<AttachmentIcon />}
                     >
-                      Pièce jointe
+                      <IntlMessages id="attachment" />
                     </Button>
 
                   </div>
@@ -152,7 +153,7 @@ export default class AddTrainingMaterial extends Component {
                       style={{ borderRadius: "80px" }}
                       onClick={this.props.handleCancel}
                     >
-                      Annuler
+                      <IntlMessages id="cancel" />
                     </Button>
                   </div>
                   <div className="p-2 ml-3">
@@ -162,7 +163,7 @@ export default class AddTrainingMaterial extends Component {
                       style={{ borderRadius: "80px" }}
                       type="submit"
                     >
-                      Confirmer
+                      <IntlMessages id="confirm" />
                     </Button>
                   </div>
                 </div>

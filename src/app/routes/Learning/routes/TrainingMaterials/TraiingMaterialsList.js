@@ -3,6 +3,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import TrainingMaterialsItem from "./TrainingMaterialsItem";
+import IntlMessages from "../../../../../util/IntlMessages";
 
 
 export default class TraiingMaterialsList extends Component {
@@ -32,7 +33,7 @@ export default class TraiingMaterialsList extends Component {
               </Fab>
               &nbsp;&nbsp;&nbsp;
               <div style={{ fontSize: "25px", color: "orange" }}>
-                Ajouter un support
+                <IntlMessages id="add.material" />
               </div>
             </div>
           </div>
