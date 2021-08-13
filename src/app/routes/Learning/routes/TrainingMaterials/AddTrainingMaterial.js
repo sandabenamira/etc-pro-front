@@ -3,7 +3,6 @@ import { Modal, ModalBody } from "reactstrap";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import AttachmentIcon from '@material-ui/icons/Attachment';
-//import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 
@@ -33,7 +32,7 @@ export default class AddTrainingMaterial extends Component {
                 {/* Ajout d'un support de formation */}
                 <div className="p-2 d-flex flex-row ">
                   <div className="p-2  d-flex flex-column col-md-6 ">
-                    <div style={{  fontSize: "18px" }}>
+                    <div style={{ fontSize: "18px" }}>
                       Sujet
                     </div>
                     <div>
@@ -51,77 +50,77 @@ export default class AddTrainingMaterial extends Component {
                     </div>
                   </div>
                   <div className="p-2  d-flex flex-column col-md-6 ">
-                    <div style={{  fontSize: "18px" }}>
+                    <div style={{ fontSize: "18px" }}>
                       Associer à une formation
                     </div>
                     <div>
-                    <TextField
-                      className="textfield"
-                      id="userId"
-                      onChange={this.props.handleChange("userId")}
-                      select
-                      value={values.userId}
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    >
-                      {this.props.users.map((item) => (
+                      <TextField
+                        className="textfield"
+                        id="userId"
+                        onChange={this.props.handleChange("userId")}
+                        select
+                        value={values.userId}
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      >
+                        {this.props.users.map((item) => (
                           <MenuItem key={item.id} value={item.id}>
                             {item.firstName} {item.lastName}
                           </MenuItem>
                         ))}
-                    </TextField>
+                      </TextField>
+                    </div>
+
                   </div>
-                  
-                </div>
                 </div>
                 <div className="p-2 d-flex flex-row">
-                <div className="p-2 flex-column col-lg-10 col-md-10">
-                  <div
-                    className="p-2"
-                    style={{  fontSize: "18px" }}
-                  >
-                    Destinés aux
+                  <div className="p-2 flex-column col-lg-10 col-md-10">
+                    <div
+                      className="p-2"
+                      style={{ fontSize: "18px" }}
+                    >
+                      Destinés aux
+                    </div>
+                    <div className="p-2">
+                      <TextField
+                        className="textfield"
+                        id="theme"
+                        onChange={this.props.handleChange("theme")}
+                        value={values.themeId}
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
                   </div>
-                  <div className="p-2">
-                    <TextField
-                      className="textfield"
-                      id="theme"
-                      onChange={this.props.handleChange("theme")}
-                      value={values.themeId}
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    ></TextField>
-                  </div>
-                </div>
                 </div>
                 <div className="p-2 d-flex flex-row">
-                <div className="p-2 flex-column col-lg-10 col-md-10">
-                  <div
-                    className="p-2"
-                    style={{  fontSize: "18px" }}
-                  >
-                    Description
-                  </div>
-                  <div className="p-2">
-                    <TextField
-                      className="textfield"
-                      id="theme"
-                      onChange={this.props.handleChange("theme")}
-                      value={values.themeId}
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    ></TextField>
+                  <div className="p-2 flex-column col-lg-10 col-md-10">
+                    <div
+                      className="p-2"
+                      style={{ fontSize: "18px" }}
+                    >
+                      Description
+                    </div>
+                    <div className="p-2">
+                      <TextField
+                        className="textfield"
+                        id="theme"
+                        onChange={this.props.handleChange("theme")}
+                        value={values.themeId}
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
                   </div>
                 </div>
-                </div>
-                
-              
+
+
                 {/* joindre fichier */}
 
                 <div className="p-2 d-flex flex-row">
@@ -135,7 +134,7 @@ export default class AddTrainingMaterial extends Component {
                     <Button
                       variant="contained"
                       color="default"
-                      
+
                       startIcon={<AttachmentIcon />}
                     >
                       Pièce jointe
@@ -143,7 +142,7 @@ export default class AddTrainingMaterial extends Component {
 
                   </div>
                 </div>
-               
+
                 {/* les bouttons */}
                 <div className="p-2 d-flex flex-row justify-content-center">
                   <div className="p-2">

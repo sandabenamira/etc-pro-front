@@ -17,7 +17,7 @@ export default class OnlineTrainingList extends Component {
             <TextField
               className="textfield"
               id="level_id"
-              style={{ borderRadius:15}}
+              style={{ borderRadius: 15 }}
               select
               label="Filtrer par"
               SelectProps={{}}
@@ -43,7 +43,7 @@ export default class OnlineTrainingList extends Component {
               name="search"
               label="Rechercher ..."
               size="small"
-              style={{borderRadius:15}}
+              style={{ borderRadius: 15 }}
               margin="normal"
               fullWidth
               variant="outlined"

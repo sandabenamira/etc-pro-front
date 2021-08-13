@@ -43,123 +43,123 @@ export default class AddTraining extends Component {
                 </div>
                 {/* thème formation */}
                 <div className="p-2 d-flex flex-row">
-                <div className="p-2 flex-column col-md-6">
-                  <div
-                    className="p-2"
-                    style={{ color: "#4C25B7", fontSize: "18px" }}
-                  >
-                    Thème de la formation *
+                  <div className="p-2 flex-column col-md-6">
+                    <div
+                      className="p-2"
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                    >
+                      Thème de la formation *
+                    </div>
+                    <div className="p-2">
+                      <TextField
+                        className="textfield"
+                        id="theme"
+                        onChange={this.props.handleChange("theme")}
+                        value={values.themeId}
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
                   </div>
-                  <div className="p-2">
-                    <TextField
-                      className="textfield"
-                      id="theme"
-                      onChange={this.props.handleChange("theme")}
-                      value={values.themeId}
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    ></TextField>
-                  </div>
-                </div>
                 </div>
 
                 {/* session */}
                 <div className="p-2 d-flex flex-row">
-                <div className="p-2 flex-column">
-                  <div
-                    className="p-2 "
-                    style={{ color: "#4C25B7", fontSize: "18px" }}
-                  >
-                    Ajouter une session
-                  </div>
-                  {values.sessions.map((sessionItem, index) => (
-                    <div className="p-2 d-flex flex-row">
-                      <div className="p-2">
-                        <DateRangeComponent
-                          index={index}
-                          setDate={this.props.setDate}
-                          dateSession={sessionItem || ""}
-                        />
-                      </div>
-                      <div className="p-2 ml-2">
-                        <Fab
-                          size="small"
-                          aria-label="Add"
-                          value={`${index}`}
-                          onClick={() => {
-                            if (!sessionItem.isAdded) {
-                              if (sessionItem.startDate !== "") {
-                                this.props.addNewChoice(index + 1, "sessions");
-                              }
-                            } else {
-                              this.props.deleteChoice(index, "sessions");
-                            }
-                          }}
-                        >
-                          {sessionItem.isAdded ? (
-                            <RemoveIcon style={{ color: orange[500] }} />
-                          ) : (
-                            <AddIcon style={{ color: orange[500] }} />
-                          )}
-                        </Fab>
-                      </div>
+                  <div className="p-2 flex-column">
+                    <div
+                      className="p-2 "
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                    >
+                      Ajouter une session
                     </div>
-                  ))}
-                </div>
+                    {values.sessions.map((sessionItem, index) => (
+                      <div className="p-2 d-flex flex-row">
+                        <div className="p-2">
+                          <DateRangeComponent
+                            index={index}
+                            setDate={this.props.setDate}
+                            dateSession={sessionItem || ""}
+                          />
+                        </div>
+                        <div className="p-2 ml-2">
+                          <Fab
+                            size="small"
+                            aria-label="Add"
+                            value={`${index}`}
+                            onClick={() => {
+                              if (!sessionItem.isAdded) {
+                                if (sessionItem.startDate !== "") {
+                                  this.props.addNewChoice(index + 1, "sessions");
+                                }
+                              } else {
+                                this.props.deleteChoice(index, "sessions");
+                              }
+                            }}
+                          >
+                            {sessionItem.isAdded ? (
+                              <RemoveIcon style={{ color: orange[500] }} />
+                            ) : (
+                              <AddIcon style={{ color: orange[500] }} />
+                            )}
+                          </Fab>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 {/* add modules */}
                 <div className="p-2 d-flex flex-row">
-                <div className="p-2 flex-column col-md-6">
-                  <div
-                    className="p-2 "
-                    style={{ color: "#4C25B7", fontSize: "18px" }}
-                  >
-                    Ajouter un module
-                  </div>
-
-                  {values.modules.map((moduleItem, index) => (
-                    <div className="p-2 d-flex flex-row">
-                      <div>
-                        <TextField
-                          className="textfield"
-                          id="module"
-                          value={moduleItem.title || ""}
-                          onChange={(e) =>
-                            this.props.handleChangeModules(e, "title", index)
-                          }
-                          SelectProps={{}}
-                          margin="normal"
-                          fullWidth
-                          size="small"
-                        />
-                      </div>
-                      <div className="p-2 ml-2">
-                        <Fab
-                          size="small"
-                          aria-label="Add"
-                          value={`${index}`}
-                          onClick={() => {
-                            if (!moduleItem.isAdded) {
-                              if (moduleItem.title !== "") {
-                                this.props.addNewChoice(index + 1, "modules");
-                              }
-                            } else {
-                              this.props.deleteChoice(index, "modules");
-                            }
-                          }}
-                        >
-                          {moduleItem.isAdded ? (
-                            <RemoveIcon style={{ color: orange[500] }} />
-                          ) : (
-                            <AddIcon style={{ color: orange[500] }} />
-                          )}
-                        </Fab>
-                      </div>
+                  <div className="p-2 flex-column col-md-6">
+                    <div
+                      className="p-2 "
+                      style={{ color: "#4C25B7", fontSize: "18px" }}
+                    >
+                      Ajouter un module
                     </div>
-                  ))}
-                </div>
+
+                    {values.modules.map((moduleItem, index) => (
+                      <div className="p-2 d-flex flex-row">
+                        <div>
+                          <TextField
+                            className="textfield"
+                            id="module"
+                            value={moduleItem.title || ""}
+                            onChange={(e) =>
+                              this.props.handleChangeModules(e, "title", index)
+                            }
+                            SelectProps={{}}
+                            margin="normal"
+                            fullWidth
+                            size="small"
+                          />
+                        </div>
+                        <div className="p-2 ml-2">
+                          <Fab
+                            size="small"
+                            aria-label="Add"
+                            value={`${index}`}
+                            onClick={() => {
+                              if (!moduleItem.isAdded) {
+                                if (moduleItem.title !== "") {
+                                  this.props.addNewChoice(index + 1, "modules");
+                                }
+                              } else {
+                                this.props.deleteChoice(index, "modules");
+                              }
+                            }}
+                          >
+                            {moduleItem.isAdded ? (
+                              <RemoveIcon style={{ color: orange[500] }} />
+                            ) : (
+                              <AddIcon style={{ color: orange[500] }} />
+                            )}
+                          </Fab>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 {/* add level */}
@@ -319,44 +319,44 @@ export default class AddTraining extends Component {
                 </div>
                 {/* titre formation */}
                 <div className="p-2 d-flex flex-row">
-                <div className="  d-flex flex-column col-md-10">
-                  <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                    Titre de la formation *
+                  <div className="  d-flex flex-column col-md-10">
+                    <div style={{ color: "#4C25B7", fontSize: "18px" }}>
+                      Titre de la formation *
+                    </div>
+                    <div>
+                      <TextField
+                        className="textfield"
+                        id="titleTraining"
+                        onChange={this.props.handleChange("titleTraining")}
+                        value={values.titleTraining}
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
                   </div>
-                  <div>
-                    <TextField
-                      className="textfield"
-                      id="titleTraining"
-                      onChange={this.props.handleChange("titleTraining")}
-                      value={values.titleTraining}
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    ></TextField>
-                  </div>
-                </div>
                 </div>
 
                 {/* description formation */}
                 <div className="p-2 d-flex flex-row">
-                <div className="p-2  d-flex flex-column col-md-10">
-                  <div style={{ color: "#4C25B7", fontSize: "18px" }}>
-                    Description
+                  <div className="p-2  d-flex flex-column col-md-10">
+                    <div style={{ color: "#4C25B7", fontSize: "18px" }}>
+                      Description
+                    </div>
+                    <div>
+                      <TextField
+                        className="textfield"
+                        id="descriptionTraining"
+                        onChange={this.props.handleChange("descriptionTraining")}
+                        value={values.descriptionTraining}
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
                   </div>
-                  <div>
-                    <TextField
-                      className="textfield"
-                      id="descriptionTraining"
-                      onChange={this.props.handleChange("descriptionTraining")}
-                      value={values.descriptionTraining}
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    ></TextField>
-                  </div>
-                </div>
                 </div>
 
                 {/*lien et lieu formation */}
@@ -410,7 +410,7 @@ export default class AddTraining extends Component {
                         id="userId"
                         onChange={this.props.handleChange("userId")}
                         select
-                         value={values.userId}
+                        value={values.userId}
                         SelectProps={{}}
                         margin="normal"
                         fullWidth

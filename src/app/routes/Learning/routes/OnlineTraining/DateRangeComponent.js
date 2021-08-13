@@ -8,23 +8,23 @@ class DateRangeComponent extends React.Component {
     super(props);
 
     this.state = {
-      
+
     };
     this.dateFrequency = this.dateFrequency.bind(this);
   }
-  
+
 
   dateFrequency(startDate, endDate) {
     console.log('dateFrequencydateFrequencydateFrequency');
     this.setState({ startDate: startDate, endDate: endDate });
     if (startDate !== null && endDate !== null) {
-      console.log('ttttt',startDate._d, endDate._d);
+      console.log('ttttt', startDate._d, endDate._d);
       this.props.setDate(startDate, endDate, this.props.index);
     }
   }
 
   render() {
-    console.log('this.props.dateSession',this.props.dateSession);
+    console.log('this.props.dateSession', this.props.dateSession);
     return (
       <div className="col-md-12">
         <DateRangePicker
