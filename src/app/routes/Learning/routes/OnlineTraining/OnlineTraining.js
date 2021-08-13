@@ -4,6 +4,7 @@ import OnlineTrainingList from "./OnlineTrainingList";
 import AddOnlineTraining from "./AddOnlineTraining";
 import { getUsers } from "../../../../../store/actions/User";
 import { addTraining } from "../../../../../store/actions/Training"
+import IntlMessages from "../../../../../util/IntlMessages";
 
 export class OnlineTraining extends Component {
   constructor(props) {
@@ -347,29 +348,29 @@ export class OnlineTraining extends Component {
       <div className="app-wrapper">
         <div className="d-flex flex-column">
           <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px" }}>
-            E-Learning &nbsp; - &nbsp; Formations programmées en ligne
+            <IntlMessages id="e-Learning" /> &nbsp; - &nbsp; <IntlMessages id="scheduled.online.training" />
           </div>
 
           <div className="d-flex justify-content-center flex-row ">
             <div className="col-lg-11 col-md-11 col-sm-12 d-flex flex-wrap justify-content-center flex-row  ">
 
               <div className="col-lg-2 col-md-4 col-sm-10 d-flex flex-wrap flex-column m-2 justify-content-center align-items-center" style={{ backgroundColor: "#3F51B5", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Formations en ligne</h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="online.training" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>150</h1>
               </div>
 
               <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column  justify-content-center align-items-center m-2" style={{ backgroundColor: "#3BBDD5", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Formations en ligne ce mois</h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="online.training.this.month" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>25</h1>
               </div>
 
               <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center  align-items-center m-2" style={{ backgroundColor: "#F9972D", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Nb d'inscriptions</h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="registrations.number" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>7</h1>
               </div>
 
               <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center align-items-center m-2" style={{ backgroundColor: "#F15381", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Nb de personnes inscrites</h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="registered.people.number" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>45</h1>
               </div>
             </div>
