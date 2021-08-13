@@ -123,22 +123,29 @@ export default class AddMoocs extends Component {
                   </div>
                 </div>
                 </div>
+                
                 {/* joindre Moocs */}
-                <div className=" d-flex flex-row d-flex justify-content-between">
+
+                <div className="p-2 d-flex flex-row">
                   <div
-                    className=" col-md-6"
-                    style={{ color: "primary", fontSize: "18px" ,}}
+                    className="p-2"
+                    style={{ fontSize: "18px" }}
                   >
-                    Joindre fichier &nbsp;
+                    Joindre fichier
                   </div>
-                  <div  >
-        
-      <IconButton aria-label="delete" className="package-footer d-flex justify-content-left "  style={{color:"#FFFFFF",backgroundColor:"#3F51B5",width:"50px",height:"50px"}}>
-          < AttachmentIcon/>
-          </IconButton>
-          </div>
-                  
+                  <div className="ml-5">
+                    <Button
+                      variant="contained"
+                      color="default"
+                      
+                      startIcon={<AttachmentIcon />}
+                    >
+                      Pièce jointe
+                    </Button>
+
                   </div>
+                </div>
+      
                   
                 
 

@@ -1,5 +1,5 @@
 import React from "react";
-//import Button from '@material-ui/core/Button';
+
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -29,12 +29,9 @@ export default function Item() {
     <div className="card package bg-white shadow">
       <div
         className="package-header  lighten-1 text-white"
-        // style={{ backgroundColor: "orange" }}
+       
       >
-        {/* <h3 className="letter-spacing-base text-uppercase mb-0">
-          {" "}
-          <strong>formation</strong>
-        </h3> */}
+        
         <img src={thing} alt="Moocs" style={{ width: '100%', height: '150px' }} />
         <div style={{ fontSize: "30px", color: "orange",fontWeight: "bold" ,textAlign:"center"}}>
             Management
