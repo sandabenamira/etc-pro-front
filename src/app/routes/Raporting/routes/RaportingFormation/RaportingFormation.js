@@ -7,7 +7,7 @@ import NearMeOutlinedIcon from "@material-ui/icons/NearMeOutlined";
 import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
 import Button from "@material-ui/core/Button";
 
-/* eslint eqeqeq: "off" */
+
 
 export class RaportingFormation extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export class RaportingFormation extends Component {
   }
 
   render() {
-    /* eslint eqeqeq: "off" */
+
 
     return (
       <div className="app-wrapper ">
@@ -55,7 +55,7 @@ export class RaportingFormation extends Component {
             </div>
           </div>
           <div className="d-flex flex-column col-lg-12 col-md-12 col-sm-12 mt-2">
-            {/* -- cartes colorées (KPI) --*/}
+            {/* -- CARDS (KPI) --*/}
             <div className="d-flex justify-content-center flex-row ">
               <div className="col-lg-11 col-md-11 col-sm-12 d-flex flex-wrap justify-content-center flex-row  ">
                 <div
@@ -107,7 +107,7 @@ export class RaportingFormation extends Component {
                 </div>
               </div>
             </div>
-            {/* -- Bouttons Filtrer par/ Rentabilité --*/}
+            {/* -- Bouttons "Filtrer par"/ "Rentabilité" --*/}
             <div className="d-flex justify-content-center flex-row mt-4 ">
               <div className="col-lg-11 col-md-11 col-sm-12 d-flex flex-wrap  flex-row  ">
                 <Button
