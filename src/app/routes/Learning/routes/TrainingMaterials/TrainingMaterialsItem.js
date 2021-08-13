@@ -9,7 +9,7 @@ import img1 from '../../../../../assets/images/img1.jpg';
 import img2 from '../../../../../assets/images/img2.jpeg';
 import img3 from '../../../../../assets/images/img3.jpeg';
 import img4 from '../../../../../assets/images/img4.jpeg';
-
+import IntlMessages from "../../../../../util/IntlMessages";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -43,16 +43,16 @@ export default function TrainingMaterialsItem() {
           </li>
           <li>
             <div>
-              <strong> Ajouté par:</strong> &nbsp; Mohamed Hosni
+              <strong> <IntlMessages id="added.by" /></strong>  
             </div>
             <div>
-              <strong> Ajouté le:</strong> &nbsp; 01/06/2021
+              <strong> <IntlMessages id="added.on" /></strong> 
             </div>
             <div>
-              <strong> Destiné aux:</strong> &nbsp; Managers
+              <strong> <IntlMessages id="intended.for " /></strong>  
             </div>
             <div>
-              <strong> Formation:</strong> &nbsp; Les bases du management
+              <strong><IntlMessages id="training" /></strong> 
             </div>
 
             <div>

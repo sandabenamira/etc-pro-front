@@ -1544,7 +1544,27 @@
   "alert.permission" : "You do not have permissions for this module",
   "sidebar.components.reporting-formation":"Reporting formation",
   "sidebar.components.reporting-financier":"Reporting financier",
-  "add.formation": "add "
+  
+  "add.formation": "Add Training",
+  "add.material": "Add Support Material",
+  "subject": "Subject",
+  "asociate.training": "Associate with training",
+  "intended.for": "Intended For",
+  "description": "Description",
+  "upload.file":"Upload File",
+  "attachment": "Attachment",
+  "cancel": "Cancel",
+  "confirm":"Confirm",
+  "e-Learning": "E-Learning",
+  "training.materials": "Training Materials",
+  "total.supports": "Total supports",
+  "supports.of.the.month": "Supports of the month",
+  "downloads.number": "Downloads Number",
+  "views.number": "Views Number",
+  "added.by": "Added By:",
+  "added.on": "Ajouté On:",
+  "intended.for ": "Intended For:",
+  "training": "Training:"
 
 
 
