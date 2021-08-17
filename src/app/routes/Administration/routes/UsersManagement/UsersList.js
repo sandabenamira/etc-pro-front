@@ -21,7 +21,7 @@ function createData(photo, nom, prenom, role, email, Ntel, ) {
 export default class UserList extends Component {
     render(){
         return(
-            <table className="table" style={{}} >
+            <table className="table" style={{borderCollapse:"separate",borderSpacing:"0 15px"}} >
                 <thead>
                     <tr style={{paddingBottom: "10px", textAlign:"start",}}>
                         <th style={{borderBottom: "0", borderTop: "0"}} >
