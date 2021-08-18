@@ -1,21 +1,38 @@
 import React, { Component } from "react";
 import { Modal, ModalBody } from "reactstrap";
-//import IconButton from '@material-ui/core/IconButton';
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import TextField from "@material-ui/core/TextField";
-
-
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
-
-
+import IntlMessages from "../../../../../util/IntlMessages";
 export default class AddMoocs extends Component {
   render() {
     const { values } = this.props;
-
+    const externalCloseBtn = (
+      <i
+        className="zmdi zmdi-close zmdi-hc-3x"
+        style={{
+          position: 'relative',
+          color: '#ffffff',
+          marginLeft: '90%',
+          marginTop: '5%',
+        }}
+        onClick={this.props.handleCancel}
+      />
+    );
     return (
       <div className="app-wrapper">
-        <Modal isOpen={values.isOpen}>
+
+        <Modal isOpen={values.isOpen}
+          style={{
+            top: "10%",
+            outline: "none",
+            overflow: "hidden",
+          }}
+          external={externalCloseBtn}
+
+        >
+
           <ModalBody>
             <form
               className="row"
@@ -25,30 +42,33 @@ export default class AddMoocs extends Component {
               <div className="p- m-2 d-flex flex-wrap justify-content-center flex-column col-lg-12 col-md-11 col-sm-12">
                 <div
                   className="d-flex justify-content-center  mt-3"
-                  style={{ color: "#4C25B7", fontSize: "25px",fontWeight: "bold" }}
+                  style={{ color: "#4C25B7", fontSize: "25px", fontWeight: "bold" }}
                 >
-                  Ajouter Moocs
+
+                  <IntlMessages id="add.moocs" />
+
                 </div>
 
                 <br />
                 <br />
 
-            
-                
+
 
                 {/* add Moocs */}
                 <div className=" d-flex flex-row d-flex justify-content-between">
                   <div
                     className=" col-md-6"
-                    style={{ color: "primary", fontSize: "18px" ,}}
+                    style={{ color: "primary", fontSize: "18px", }}
                   >
-                    Sujet &nbsp;
+                    <IntlMessages id="subject.message" />
+
+
                   </div>
                   <div
                     className=" col-md-6"
-                    style={{ color: "primary", fontSize: "18px" , }}
+                    style={{ color: "primary", fontSize: "18px", }}
                   >
-                    Destiné aux 
+                    <IntlMessages id="Intended.for" />
                   </div>
                 </div>
 
@@ -66,7 +86,7 @@ export default class AddMoocs extends Component {
                             index
                           )
                         }
-                        
+
                         margin="normal"
                         fullWidth
                         size="small"
@@ -84,46 +104,47 @@ export default class AddMoocs extends Component {
                             index
                           )
                         }
-                        
+
                         margin="normal"
                         fullWidth
                         size="small"
                       >
-                      
+
                       </TextField>
                     </div>
                     <div className=" p-2 col-md-2">
-                      
+
                     </div>
                   </div>
                 ))}
 
-                
-                
 
-                
+
+
+
 
                 {/* description moocs */}
                 <div className="p-2 d-flex flex-row">
-                <div className="p-2  d-flex flex-column col-md-10">
-                  <div style={{ color: "primary", fontSize: "18px" ,}}>
-                    Description
-                  </div>
-                  <div>
-                    <TextField
-                      className="textfield"
-                      id="descriptionTraining"
-                      onChange={this.props.handleChange("descriptionTraining")}
-                      value={values.descriptionTraining}
-                      SelectProps={{}}
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                    ></TextField>
+                  <div className="p-2  d-flex flex-column col-md-10">
+                    <div style={{ color: "primary", fontSize: "18px", }}>
+                      <IntlMessages id="components.virtual.description" />
+
+                    </div>
+                    <div>
+                      <TextField
+                        className="textfield"
+                        id="descriptionTraining"
+                        onChange={this.props.handleChange("descriptionTraining")}
+                        value={values.descriptionTraining}
+                        SelectProps={{}}
+                        margin="normal"
+                        fullWidth
+                        size="small"
+                      ></TextField>
+                    </div>
                   </div>
                 </div>
-                </div>
-                
+
                 {/* joindre Moocs */}
 
                 <div className="p-2 d-flex flex-row">
@@ -131,27 +152,27 @@ export default class AddMoocs extends Component {
                     className="p-2"
                     style={{ fontSize: "18px" }}
                   >
-                    Joindre fichier
+                    <IntlMessages id="stuppUser.formadd.file" />
                   </div>
                   <div className="ml-5">
                     <Button
                       variant="contained"
                       color="default"
-                      
+                      style={{ borderRadius: "80px", fontWeight: "bold" }}
                       startIcon={<AttachmentIcon />}
                     >
-                      Pièce jointe
+                      <IntlMessages id="message.attach.file" />
                     </Button>
 
                   </div>
                 </div>
-      
-                  
-                
 
-                
 
-                
+
+
+
+
+
                 {/* les bouttons */}
                 <div className="p-2 d-flex flex-row justify-content-center">
                   <div className="p-2">
@@ -161,17 +182,17 @@ export default class AddMoocs extends Component {
                       style={{ borderRadius: "80px", fontWeight: "bold" }}
                       onClick={this.props.handleCancel}
                     >
-                      Annuler
+                     <IntlMessages id="button.no" />
                     </Button>
                   </div>
                   <div className="p-2 ml-3">
                     <Button
                       variant="contained"
                       color="primary"
-                      style={{ borderRadius: "80px",fontWeight: "bold" }}
+                      style={{ borderRadius: "80px", fontWeight: "bold" }}
                       type="submit"
                     >
-                      Confirmer
+                     <IntlMessages id="button.yes" />
                     </Button>
                   </div>
                 </div>
