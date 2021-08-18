@@ -1675,5 +1675,13 @@
   "duration": "Durée:",
   "trainer ":"Formateur:",
   "show.more": "Savoir Plus",
-  "register": "S'inscrire"
+  "register": "S'inscrire",
+  "add.moocs":"Ajouter Moocs",
+  "e-learning-moocs":"E-Learning - Moocs",
+  "moocs.online":"Moocs en ligne",
+  "Moocs.of.the.month":"Moocs du mois",
+  "Number.views":"Nombre de vue",
+  "Number.of.reactions":"Nombre de réaction",
+  "Intended.for":" Destiné aux",
+  "Management":"Gestion"
 }
