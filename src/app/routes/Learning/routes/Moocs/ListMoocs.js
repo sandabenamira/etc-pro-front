@@ -4,7 +4,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import ListMoocsItem from "./ListMoocsItem";
-
+import IntlMessages from "../../../../../util/IntlMessages";
 
 
 export default class ListMoocs extends Component {
@@ -22,14 +22,14 @@ export default class ListMoocs extends Component {
                 size="small"
                 
                 aria-label="Add"
-                onClick={this.props.openAddTraining}
+                onClick={this.props.openaddMoocs}
               >
                 
                 <AddIcon style={{ color: orange[500] }} />
               </Fab>
               &nbsp;&nbsp;&nbsp;
               <div style={{ fontSize: "25px", color: "orange" }}>
-                Ajouter Moocs
+              <IntlMessages id="add.moocs"/>
               </div>
             </div>
           </div>

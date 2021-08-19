@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
@@ -10,6 +10,7 @@ import img2 from '../../../../../assets/images/img2.jpeg';
 import img3 from '../../../../../assets/images/img3.jpeg';
 import img4 from '../../../../../assets/images/img4.jpeg';
 import IntlMessages from "../../../../../util/IntlMessages";
+import MaterialVisualisation from './MaterialVisualisation';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -20,10 +21,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function TrainingMaterialsItem() {
   const classes = useStyles();
   var things = [img1, img2, img3, img4];
   var thing = things[Math.floor(Math.random() * things.length)];
+
+  const [modalOpen, setModalOpen] = useState(false);
+  
   return (
     <div className="card package bg-white shadow">
 
@@ -43,27 +48,34 @@ export default function TrainingMaterialsItem() {
           </li>
           <li>
             <div>
-              <strong> <IntlMessages id="added.by" /></strong>  
+              <strong> <IntlMessages id="added.by" /></strong>
             </div>
             <div>
-              <strong> <IntlMessages id="added.on" /></strong> 
+              <strong> <IntlMessages id="added.on" /></strong>
             </div>
             <div>
-              <strong> <IntlMessages id="intended.for " /></strong>  
+              <strong> <IntlMessages id="intended.for " /></strong>
             </div>
             <div>
-              <strong><IntlMessages id="training" /></strong> 
+              <strong><IntlMessages id="training" /></strong>
             </div>
 
             <div>
+              
               Ce programme a pour objectif de former des techniciens de la relation client autour des métiers du marketing, de la vente et de la communication.
             </div>
           </li>
         </ul>
       </div>
       <div className="package-footer" >
-        <IconButton aria-label="delete" className={classes.margin} style={{ color: "#FFFFFF", backgroundColor: "#3F51B5", width: "30px", height: "30px" }}>
+        <IconButton
+          aria-label="delete"
+          onClick={() => {
+            setModalOpen(true);
+          }}
+          className={classes.margin} style={{ color: "#FFFFFF", backgroundColor: "#3F51B5", width: "30px", height: "30px" }}>
           <VisibilityOutlinedIcon />
+          {modalOpen && <MaterialVisualisation setOpenModal={setModalOpen} />}
         </IconButton>
         <IconButton aria-label="delete" className={classes.margin} style={{ color: "#FFFFFF", backgroundColor: "#3BBDD5", width: "30px", height: "30px" }}>
           <SaveAltRoundedIcon />

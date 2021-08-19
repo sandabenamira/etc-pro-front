@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Modal, ModalBody } from "reactstrap";
-import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import "react-circular-progressbar/dist/styles.css";
@@ -30,7 +29,7 @@ export default class AddTrainingMaterial extends Component {
                 </div>
                 <br /><br />
 
-                {/* Ajout d'un support de formation */}
+                {/* Add Training support  */}
                 <div className="p-2 d-flex flex-row ">
                   <div className="p-2  d-flex flex-column col-md-6 ">
                     <div style={{ fontSize: "18px" }}>
@@ -39,10 +38,6 @@ export default class AddTrainingMaterial extends Component {
                     <div>
                       <TextField
                         className="textfield"
-                        id="descriptionTraining"
-                        onChange={this.props.handleChange("descriptionTraining")}
-                        value={values.descriptionTraining}
-                        SelectProps={{}}
                         margin="normal"
                         fullWidth
                         size="small"
@@ -57,20 +52,11 @@ export default class AddTrainingMaterial extends Component {
                     <div>
                       <TextField
                         className="textfield"
-                        id="userId"
-                        onChange={this.props.handleChange("userId")}
                         select
-                        value={values.userId}
-                        SelectProps={{}}
                         margin="normal"
                         fullWidth
                         size="small"
                       >
-                        {this.props.users.map((item) => (
-                          <MenuItem key={item.id} value={item.id}>
-                            {item.firstName} {item.lastName}
-                          </MenuItem>
-                        ))}
                       </TextField>
                     </div>
 
@@ -87,10 +73,6 @@ export default class AddTrainingMaterial extends Component {
                     <div className="p-2">
                       <TextField
                         className="textfield"
-                        id="theme"
-                        onChange={this.props.handleChange("theme")}
-                        value={values.themeId}
-                        SelectProps={{}}
                         margin="normal"
                         fullWidth
                         size="small"
@@ -109,10 +91,6 @@ export default class AddTrainingMaterial extends Component {
                     <div className="p-2">
                       <TextField
                         className="textfield"
-                        id="theme"
-                        onChange={this.props.handleChange("theme")}
-                        value={values.themeId}
-                        SelectProps={{}}
                         margin="normal"
                         fullWidth
                         size="small"
@@ -122,7 +100,7 @@ export default class AddTrainingMaterial extends Component {
                 </div>
 
 
-                {/* joindre fichier */}
+                {/* upload file */}
 
                 <div className="p-2 d-flex flex-row">
                   <div
@@ -144,7 +122,7 @@ export default class AddTrainingMaterial extends Component {
                   </div>
                 </div>
 
-                {/* les bouttons */}
+                {/*  bouttons */}
                 <div className="p-2 d-flex flex-row justify-content-center">
                   <div className="p-2">
                     <Button

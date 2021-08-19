@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import IntlMessages from "../../../../../util/IntlMessages";
 import img1 from '../../../../../assets/images/img1.jpg';
 import img2 from '../../../../../assets/images/img2.jpeg';
 import img3 from '../../../../../assets/images/img3.jpeg';
@@ -34,7 +35,7 @@ export default function Item() {
         
         <img src={thing} alt="Moocs" style={{ width: '100%', height: '150px' }} />
         <div style={{ fontSize: "30px", color: "orange",fontWeight: "bold" ,textAlign:"center"}}>
-            Management
+        <IntlMessages id="Management" />
           </div>
       </div>
       
@@ -46,13 +47,13 @@ export default function Item() {
       >
         
           <div style={{fontWeight:"bold"}} >
-            <strong> Ajouté par  : </strong> &nbsp; Mohamed Hosni
+            <strong> <IntlMessages id="added.by" /> </strong> &nbsp; Mohamed Hosni
           </div>
           <div style={{fontWeight: "bold"}}>
-            <strong> Ajouté le : </strong> &nbsp; 01/06/2021
+            <strong><IntlMessages id="moocs.date.add"/> :</strong> &nbsp; 01/06/2021
           </div>
           <div style={{fontWeight: "bold"}}>
-            <strong> Déstiné aux :</strong> &nbsp; Managers
+            <strong><IntlMessages id="intended.for"/> :</strong> &nbsp; Managers
           </div>
           <div>
             
