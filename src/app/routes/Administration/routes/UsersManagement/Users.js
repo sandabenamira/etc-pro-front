@@ -9,11 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
 
 
-
-
-
-
-
 export class User extends Component {
   constructor(props) {
     super(props);

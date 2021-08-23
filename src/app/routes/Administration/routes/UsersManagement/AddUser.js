@@ -4,38 +4,47 @@ import TextField from "@material-ui/core/TextField";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import TodayIcon from '@material-ui/icons/Today';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import { orange } from "@material-ui/core/colors";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
-
 
 export default class AddUser extends Component {
 render() {
 const { values } = this.props;
 return (
-  <div className="app-wrapper">
-  <Modal isOpen={values.isOpen}>
-  <ModalBody>
+  <div className="app-wrapper" >
+  <Modal isOpen={values.isOpen}
+  
+  
+  >
+  <ModalBody
+  
+  
+  >
   <form
   className="row"
   autoComplete="off"
   onSubmit={this.props.handleSubmit}
   >
-  <div className="d-flex flex-column ml-5 col-lg-8 col-md-10 ">
+  <div className="p- m-2 d-flex flex-wrap justify-content-center flex-column col-lg-8 col-md-11 col-sm-12" 
+  
+  
+  >
   <div
-  className="d-flex justify-content-center mt-3"
+  className="d-flex justify-item-center justify-content-center mt-8"
   style={{ color: "#4C25B7", fontSize: "25px" }}
   >
-  Ajouter un utilisateur
+ <IntlMessages id="add.user" />
   </div>
   <br /><br />
   
   {/* Add caract */}
   <div className="p-2 d-flex flex-row ">
-  <div className="p-2 d-flex flex-column col-md-5 ">
+  <div className="p-2 d-flex flex-column col-md-6 ">
   <div style={{ fontSize: "18px" }}>
-  Nom
+  <IntlMessages id="user.name" />
   </div>
   <div>
   <TextField
@@ -49,9 +58,9 @@ return (
   
   </div>
   </div>
-  <div className="p-2 d-flex flex-column col-md-5 ">
+  <div className="p-2 d-flex flex-column col-md-6 ">
   <div style={{ fontSize: "18px" }}>
-  Prenom
+  <IntlMessages id="user.last.name" />
   </div>
   <div>
   <TextField
@@ -65,30 +74,31 @@ return (
   </div>
   
   </div>
-  <div className=" d-flex flex-row col-md-5 ">
+  <div className=" d-flex flex-row col-md-6 ">
   <div
                     className="p-2"
                     style={{ fontSize: "18px" }}
                   >
-                    Genre
+                    <IntlMessages id="user.genre" />
                   
-                  <div className="ml-5">
+                  <div className="">
                     <RadioGroup
-                      className="d-flex flex-row"
+                      className="d-flex flex-row justify-content-start"
                       
                       
                     >
                       <FormControlLabel
                         value="male"
                         control={<Radio color="primary" />}
-                        label="male"
+                       
                       />
-
+                       <i className="zmdi zmdi-male-alt zmdi-hc-3x" style={{color:"blue"}}></i>
                       <FormControlLabel
                         value="female"
                         control={<Radio color="primary" />}
-                        label="female"
+                        
                       />
+                      <i className="zmdi zmdi-female zmdi-hc-3x"style={{color:"orange"}}></i>
                     </RadioGroup>
                   </div>
                 </div>
@@ -100,30 +110,30 @@ return (
   </div>
   {/* Add date */}
   <div className="p-2 d-flex flex-row ">
-  <div className="p-2 d-flex flex-column col-md-6 ">
+  <div className="p-3 d-flex flex-column col-md-6 ">
   <div style={{ fontSize: "18px" }}>
-  Date de Naissance
+  <IntlMessages id="user.birthday.date" />
+  <TextField
+    id="date"
+    
+    type="date"
+    defaultValue="2017-05-24"
+    //className={classes.textField}
+    InputLabelProps={{
+      shrink: true,
+    }}
+  />
   </div>
   
   <div>
   
-  <TextField
-  className="textfield"
-  margin="normal"
-  fullWidth
-  size="small"
-  
-  >
-   
-   
-  </TextField>
-  <TodayIcon></TodayIcon>
+ 
   </div>
   
   </div>
-  <div className="p-2 d-flex flex-column col-md-6 ">
+  <div className="p-1 d-flex flex-column col-md-6 ">
   <div style={{ fontSize: "18px" }}>
-  Gouvernerat
+  <IntlMessages id="country.user" />
   </div>
   <div>
   <TextField
@@ -139,29 +149,12 @@ return (
   </div>
   </div>
   
-  <div className="p-2 d-flex flex-row">
-  <div className="p-2 flex-column col-lg-10 col-md-10">
-  <div
-  className="p-2"
-  style={{ fontSize: "18px" }}
-  >
-  Email
-  </div>
-  <div className="p-2">
-  <TextField
-  className="textfield"
-  margin="normal"
-  fullWidth
-  size="small"
-  ></TextField>
-  </div>
-  </div>
-  </div>
-  {/* Add Training support */}
+  
+  {/* Add contact */}
 <div className="p-2 d-flex flex-row ">
 <div className="p-2 d-flex flex-column col-md-6 ">
 <div style={{ fontSize: "18px" }}>
-Fax
+<IntlMessages id="user.mail" />
 </div>
 <div>
 <TextField
@@ -175,7 +168,22 @@ size="small"
 </div>
 <div className="p-2 d-flex flex-column col-md-6 ">
 <div style={{ fontSize: "18px" }}>
-Num de Téléphone
+<IntlMessages id="user.phone.number" />
+</div>
+<div>
+<TextField
+className="textfield"
+margin="normal"
+fullWidth
+size="small"
+>
+</TextField>
+</div>
+
+</div>
+<div className="p-2 d-flex flex-column col-md-6 ">
+<div style={{ fontSize: "18px" }}>
+<IntlMessages id="user.cin" />
 </div>
 <div>
 <TextField
@@ -189,7 +197,101 @@ size="small"
 
 </div>
 </div>
+{/* Add contact */}
+<div className="p-2 d-flex flex-row ">
+<div className="p-2 d-flex flex-column col-md-6 ">
+<div style={{ fontSize: "18px" }}>
+<IntlMessages id="user.cin" />
+</div>
+<div>
+<TextField
+className="textfield"
+margin="normal"
+fullWidth
+size="small"
+>
+</TextField>
+</div>
+</div>
+<div className="p-2 d-flex flex-column col-md-6 ">
+<div style={{ fontSize: "18px" }}>
+<IntlMessages id="zip.code.user" />
+</div>
+<div>
+<TextField
+className="textfield"
+margin="normal"
+fullWidth
+size="small"
+>
+</TextField>
+</div>
 
+</div>
+<div className="p-2 d-flex flex-row col-md-6 ">
+<div style={{ fontSize: "20px",color: "orange" }}>
+                  
+                 
+                
+                  
+                    <AddCircleOutlineOutlinedIcon style={{ color: orange[500]}} />
+                    
+                    <IntlMessages id="add.picture" />
+                    
+                  
+                </div>
+</div>
+
+</div>
+<div className="p-2 d-flex flex-row ">
+<div className="p-2 d-flex flex-column col-md-6 ">
+<div style={{ fontSize: "18px" }}>
+<IntlMessages id="user.role" />
+</div>
+<div>
+<TextField
+  className="textfield"
+  select
+  margin="normal"
+  fullWidth
+  size="small"
+  >
+  </TextField>
+</div>
+</div>
+<div className="p-2 d-flex flex-column col-md-6 ">
+<div style={{ fontSize: "18px" }}>
+<IntlMessages id="user.identifiant" />
+</div>
+<div>
+<TextField
+  className="textfield"
+  
+  margin="normal"
+  fullWidth
+  size="small"
+  >
+  </TextField>
+</div>
+
+</div>
+<div className="p-2 d-flex flex-column col-md-6 ">
+<div style={{ fontSize: "18px" }}>
+<IntlMessages id="user.agence" />
+</div>
+<div>
+<TextField
+  className="textfield"
+  select
+  margin="normal"
+  fullWidth
+  size="small"
+  >
+  </TextField>
+</div>
+
+</div>
+</div>
 
 {/* butons */}
 <div className="p-2 d-flex flex-row justify-content-center">
