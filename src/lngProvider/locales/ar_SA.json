@@ -1604,7 +1604,10 @@
   "Number.of.reactions":"عدد التفاعلات",
   "Intended.for":"موجهة إلى",
   "Management":"إدارة",
-
+  "user.role":"وظيفة",
+  "user.genre":"جنس",
+  "add.picture":"أضف صورة",
+  "user.agence":"وكالة",
   "agency.management": "إدارة الوكالات",
   "sort.by": "الترتيب حسب",
   "add.agency": "إضافة وكالة",

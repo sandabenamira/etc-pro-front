@@ -1685,7 +1685,12 @@
   "Number.of.reactions":"Nombre de réaction",
   "Intended.for":" Destiné aux",
   "Management":"Gestion",
-
+  "add.user":"Ajouter un utilisateur",
+  "user.role":"Role",
+  "user.genre":"Genre",
+  "add.picture":"Ajouter une Photo",
+  "user.agence":"Agence",
+  
   "agency.management": "Gestion des Agences",
   "sort.by": "Trier par",
   "add.agency": "Ajouter une agence",
@@ -1697,8 +1702,7 @@
   "fax": "Fax",
   "tel": "N Tel",
   "archive": "Archive",
-  "agency.type": "Type d'agence",
+  "agency.type": "Type d'agence"
 
-  "add.user":"Ajouter un utilisateur"
 
 }

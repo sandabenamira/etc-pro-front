@@ -18,6 +18,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 
 
+
 function createData(photo, nom, prenom, role, email, Ntel, ) {
     return { photo, nom, prenom, role, email, Ntel,  };
   }
@@ -55,7 +56,7 @@ export default class UserList extends Component {
                         textTransform:"capitalize"
                       }} 
                     >
-                     Tous les Roles 
+                    <IntlMessages id="permission.role.all"/>
                       <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
                     </Button>
     
@@ -106,7 +107,9 @@ export default class UserList extends Component {
                 
       
       
-      
+                
+                
+
       
       
       
@@ -145,17 +148,17 @@ export default class UserList extends Component {
 <thead>
     <tr style={{paddingBottom: "10px", textAlign:"start",}}>
         <th style={{borderBottom: "0", borderTop: "0"}} >
-            Photo</th>
+        <IntlMessages id="user.photo" /></th>
         <th style={{borderBottom: "0", borderTop: "0"}} >
-            Nom</th>
+        <IntlMessages id="user.name" /></th>
         <th style={{borderBottom: "0", borderTop: "0"}} >
-            Prénom</th>
+        <IntlMessages id="user.last.name" /></th>
         <th style={{borderBottom: "0", borderTop: "0"}} >
-            Role </th>
+        <IntlMessages id="user.role" /> </th>
         <th style={{borderBottom: "0", borderTop: "0"}} >
-            Email</th>
+        <IntlMessages id="user.mail" /></th>
         <th style={{borderBottom: "0", borderTop: "0"}} >
-            N tél</th>
+        <IntlMessages id="user.phone.number" /></th>
         <th style={{borderBottom: "0", borderTop: "0"}} >
        
             </th>
