@@ -1,18 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-
 import UsersList from "./UsersList";
+
+
 import AddUser from "./AddUser";
+
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
-
-
-
-
-import IntlMessages from "../../../../../util/IntlMessages";
-
 
 
 
@@ -339,7 +335,7 @@ export class User extends Component {
                   fontSize: "26px",
                 }}
               >
-                <IntlMessages id="sidebar.usersManagement" />
+                Gestion des Utilisateurs
               </h1>
             </div>
             
@@ -376,7 +372,6 @@ export class User extends Component {
           
               </div>
           </div>
-          
         
      
     );

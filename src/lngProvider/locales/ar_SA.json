@@ -1595,6 +1595,7 @@
   "trainer ":":المدرب",
   "show.more": "إظهار المزيد",
   "register": "تسجيل",
+
   "add.moocs":"اضف موكس",
   "e-learning-moocs":"التعلم الإلكتروني - موكس",
   "moocs.online":"موكس على الإنترنت",
@@ -1606,6 +1607,18 @@
   "user.role":"وظيفة",
   "user.genre":"جنس",
   "add.picture":"أضف صورة",
-  "user.agence":"وكالة"
+  "user.agence":"وكالة",
+  "agency.management": "إدارة الوكالات",
+  "sort.by": "الترتيب حسب",
+  "add.agency": "إضافة وكالة",
+  "agency": "الوكالة",
+  "type": "النوع",
+  "governorate": "المكان",
+  "address": "العنوان",
+  "mail": "البريد الالكتروني",
+  "fax": "فاكس",
+  "tel": "الهاتف",
+  "archive": "الأرشيف",
+  "agency.type": "نوع الوكالة"
 
 }

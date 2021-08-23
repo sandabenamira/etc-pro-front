@@ -1676,6 +1676,7 @@
   "trainer ":"Formateur:",
   "show.more": "Savoir Plus",
   "register": "S'inscrire",
+
   "add.moocs":"Ajouter Moocs",
   "e-learning-moocs":"E-Learning - Moocs",
   "moocs.online":"Moocs en ligne",
@@ -1688,6 +1689,20 @@
   "user.role":"Role",
   "user.genre":"Genre",
   "add.picture":"Ajouter une Photo",
-  "user.agence":"Agence"
+  "user.agence":"Agence",
   
+  "agency.management": "Gestion des Agences",
+  "sort.by": "Trier par",
+  "add.agency": "Ajouter une agence",
+  "agency": "Agence",
+  "type": "Type",
+  "governorate": "Gouvernerat",
+  "address": "Adresse",
+  "mail": "Email",
+  "fax": "Fax",
+  "tel": "N Tel",
+  "archive": "Archive",
+  "agency.type": "Type d'agence"
+
+
 }
