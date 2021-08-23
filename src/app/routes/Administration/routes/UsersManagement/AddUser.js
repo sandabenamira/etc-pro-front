@@ -261,7 +261,7 @@ size="small"
 </div>
 <div className="p-2 d-flex flex-column col-md-6 ">
 <div style={{ fontSize: "18px" }}>
-<IntlMessages id="user.role" />
+<IntlMessages id="user.identifiant" />
 </div>
 <div>
 <TextField
