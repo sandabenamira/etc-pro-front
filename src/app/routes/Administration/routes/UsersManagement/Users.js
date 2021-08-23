@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+
 import UsersList from "./UsersList";
-
-
 import AddUser from "./AddUser";
-
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
-
-
-
-
-
 
 
 export class User extends Component {
@@ -372,6 +365,7 @@ export class User extends Component {
           
               </div>
           </div>
+          
         
      
     );

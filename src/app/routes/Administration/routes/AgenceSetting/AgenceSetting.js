@@ -11,7 +11,6 @@ export class AgenceSetting extends React.Component {
     this.state = {
       isOpen: false,
       isOpenMaterial: false,
-     
     };
     this.openAddAgence = this.openAddAgence.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -38,18 +37,17 @@ export class AgenceSetting extends React.Component {
         }}
       >
         <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px", marginBottom: "1.5rem" }}>
-        <IntlMessages id="agency.management" />
+          <IntlMessages id="agency.management" />
         </div>
         <div className="p-2">
           <AgenceList openAddAgence={this.openAddAgence} />
         </div>
         {this.state.isOpen && (
-          <AddAgence 
+          <AddAgence
             values={this.state}
             handleCancel={this.handleCancel}
           />
         )}
-        
       </div>
     );
   }
