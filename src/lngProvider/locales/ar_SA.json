@@ -1595,6 +1595,7 @@
   "trainer ":":المدرب",
   "show.more": "إظهار المزيد",
   "register": "تسجيل",
+
   "add.moocs":"اضف موكس",
   "e-learning-moocs":"التعلم الإلكتروني - موكس",
   "moocs.online":"موكس على الإنترنت",
@@ -1602,6 +1603,19 @@
   "Number.views":"عدد المشاهدات",
   "Number.of.reactions":"عدد التفاعلات",
   "Intended.for":"موجهة إلى",
-  "Management":"إدارة"
+  "Management":"إدارة",
+
+  "agency.management": "إدارة الوكالات",
+  "sort.by": "الترتيب حسب",
+  "add.agency": "إضافة وكالة",
+  "agency": "الوكالة",
+  "type": "النوع",
+  "governorate": "المكان",
+  "address": "العنوان",
+  "mail": "البريد الالكتروني",
+  "fax": "فاكس",
+  "tel": "الهاتف",
+  "archive": "الأرشيف",
+  "agency.type": "نوع الوكالة"
 
 }
