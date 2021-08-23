@@ -1601,7 +1601,11 @@
   "Number.views":"Number of views",
   "Number.of.reactions":"Number of reactions",
   "Intended.for":"Intended for",
-  "Management":"Management"
+  "Management":"Management",
+  "user.role":"Role",
+  "user.genre":"Gender",
+  "add.picture":"Add a Picture",
+  "user.agence":"Agence"
 
   
 

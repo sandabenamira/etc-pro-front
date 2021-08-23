@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
-import Button from "@material-ui/core/Button";
+
 
 import UsersList from "./UsersList";
 import AddUser from "./AddUser";
@@ -10,14 +8,12 @@ import AddUser from "./AddUser";
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
 
-import { orange } from "@material-ui/core/colors";
+
 
 
 import IntlMessages from "../../../../../util/IntlMessages";
 
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/icons/Search";
+
 
 
 
@@ -343,7 +339,7 @@ export class User extends Component {
                   fontSize: "26px",
                 }}
               >
-                Gestion des Utilisateurs
+                <IntlMessages id="sidebar.usersManagement" />
               </h1>
             </div>
             

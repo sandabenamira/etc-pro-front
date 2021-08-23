@@ -1602,6 +1602,10 @@
   "Number.views":"عدد المشاهدات",
   "Number.of.reactions":"عدد التفاعلات",
   "Intended.for":"موجهة إلى",
-  "Management":"إدارة"
+  "Management":"إدارة",
+  "user.role":"وظيفة",
+  "user.genre":"جنس",
+  "add.picture":"أضف صورة",
+  "user.agence":"وكالة"
 
 }
