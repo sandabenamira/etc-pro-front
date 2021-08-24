@@ -134,8 +134,7 @@ export default class AddMoocs extends Component {
                       <TextField
                         className="textfield"
                         id="descriptionTraining"
-                        onChange={this.props.handleChange("descriptionTraining")}
-                        value={values.descriptionTraining}
+                        
                         SelectProps={{}}
                         margin="normal"
                         fullWidth
