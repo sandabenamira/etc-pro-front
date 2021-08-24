@@ -9,6 +9,9 @@ import { orange } from "@material-ui/core/colors";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
+import AttachmentIcon from '@material-ui/icons/Attachment';
+
+
 
 export default class AddUser extends Component {
 render() {
@@ -292,6 +295,25 @@ size="small"
 
 </div>
 </div>
+<div className="p-2 d-flex flex-row">
+                  <div
+                    className="p-2"
+                    style={{ fontSize: "18px" }}
+                  >
+                    <IntlMessages id="user.join.papiers" />
+                  </div>
+                  <div className="ml-5">
+                    <Button
+                      variant="contained"
+                      color="default"
+                      style={{ borderRadius: "80px", fontWeight: "bold" }}
+                      startIcon={<AttachmentIcon />}
+                    >
+                      <IntlMessages id="message.attach.file" />
+                    </Button>
+
+                  </div>
+                </div>
 
 {/* butons */}
 <div className="p-2 d-flex flex-row justify-content-center">
