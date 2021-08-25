@@ -1612,5 +1612,8 @@
   "fax": "فاكس",
   "tel": "الهاتف",
   "archive": "الأرشيف",
-  "agency.type": "نوع الوكالة"
+  "agency.type": "نوع الوكالة",
+  "user.role":"وظيفة",
+  "user.genre":"جنس",
+  "add.picture":"أضف صورة"
 }

@@ -1,20 +1,17 @@
 import React, { Component } from "react";
 
-import UserListItem from "./UserListItem";
+import ArshivedUserItems from "./ArshivedUserItems";
 
-import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-
-import { orange } from "@material-ui/core/colors";
 
 import IntlMessages from "../../../../../util/IntlMessages";
 
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-import UserDetails from './UserDetails'
+
 function createData(photo, nom, prenom, role, email, Ntel) {
   return { photo, nom, prenom, role, email, Ntel };
 }
@@ -40,27 +37,9 @@ const rows = [
 ];
 
 export default class UserList extends Component {
-
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-      opendetails:false
-    }
-    this.opendetailsUser=this.opendetailsUser.bind(this)
-
-  }
-  opendetailsUser() {
-    console.log('dddddddddddddddddd')
-    this.setState({ opendetails: !this.state.opendetails });
-  }
- 
   render() {
     return (
       <div className="app-wrapper ">
-          {this.state.opendetails && (
-            <UserDetails values={this.state} opendetailsUser={this.opendetailsUser} />
-          )}
         <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12"></div>
 
         <div className="d-flex justify-content-around">
@@ -112,26 +91,6 @@ export default class UserList extends Component {
               />
             </Paper>
           </div>
-
-          <div className="p-2">
-            <div className="d-flex ">
-              <div className="p-2 ml-auto ">
-                <div className="d-flex justify-content-start align-items-center">
-                  <Button
-                    style={{ width: "60px", borderRadius: "50px" }}
-                    onClick={this.props.openaddUser}
-                  >
-                    <AddCircleOutlineOutlinedIcon
-                      style={{ color: orange[500], width: 100 }}
-                    />
-                  </Button>
-                  <div style={{ fontSize: "30px", color: "orange" }}>
-                    <IntlMessages id="add.user" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <table
           className="table"
@@ -162,23 +121,17 @@ export default class UserList extends Component {
           </thead>
           <tbody>
             {rows.map((row) => (
-              <UserListItem
+              <ArshivedUserItems
                 photo={row.photo}
                 nom={row.nom}
                 prenom={row.prenom}
                 role={row.role}
                 email={row.email}
                 Ntel={row.Ntel}
-                opendetailsUser={this.opendetailsUser}
               />
             ))}
           </tbody>
         </table>
-
-
-      
-
-
       </div>
     );
   }

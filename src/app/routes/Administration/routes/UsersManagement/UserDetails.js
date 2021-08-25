@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Avatar from "@material-ui/core/Avatar";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import { orange } from "@material-ui/core/colors";
 import "react-circular-progressbar/dist/styles.css";
@@ -11,85 +9,47 @@ import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
 import AttachmentIcon from "@material-ui/icons/Attachment";
 
-export default class AddUser extends Component {
+export default class UserDetails extends Component {
   render() {
     const { values } = this.props;
     return (
       <div className="app-wrapper">
-        <Modal isOpen={values.isOpen}>
+        <Modal isOpen={true}>
           <ModalBody>
             <form
               className="row"
               autoComplete="off"
               onSubmit={this.props.handleSubmit}
             >
-              <div className="p- m-2 d-flex flex-wrap justify-content-center flex-column col-lg-8 col-md-11 col-sm-12">
-                <div
-                  className="d-flex justify-item-center justify-content-center mt-8"
-                  style={{ color: "#4C25B7", fontSize: "25px" }}
-                >
-                  <IntlMessages id="add.user" />
-                </div>
+              <div className="d-flex flex-wrap justify-content-between flex-column col-lg-8 col-md-12 col-sm-12">
                 <br />
-                <br />
-
-                {/* Add caract */}
-                <div className="p-2 d-flex flex-row ">
-                  <div className="p-2 d-flex flex-column col-md-6 ">
-                    <div style={{ fontSize: "18px" }}>
-                      <IntlMessages id="user.name" />
-                    </div>
-                    <div>
-                      <TextField
-                        className="textfield"
-                        margin="normal"
-                        fullWidth
-                        size="small"
-                      ></TextField>
-                    </div>
+                {/* caracter */}
+                <div className=" d-flex flex-row d-flex justify-content-start ">
+                  <div className=" m-2 d-flex flex-row col-md-6 d-flex justify-content-around align-items-center">
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="https://www.atlassian.com/fr/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg"
+                      style={{ width: 180, height: 180 }}
+                    />
                   </div>
-                  <div className="p-2 d-flex flex-column col-md-6 ">
-                    <div style={{ fontSize: "18px" }}>
-                      <IntlMessages id="user.last.name" />
-                    </div>
-                    <div>
-                      <TextField
-                        className="textfield"
-                        margin="normal"
-                        fullWidth
-                        size="small"
-                      ></TextField>
-                    </div>
+                  <div className=" d-flex flex-column col-md-12 d-flex justify-content-start align-items-start">
+                    <h1 style={{ fontSize: "35px", color: "#44548F" }}>
+                      oudherfi oumaima
+                    </h1>
+                    <h2 style={{ fontSize: "30px", color: "#8C8C8C" }}>
+                      Responsable Formation
+                    </h2>
+                    
+                    <h3 style={{ fontSize: "30px", color: "#8C8C8C" }} ><b>Identifiant : </b>oudherfi oumaima5</h3> 
+                    <h4 style={{ fontSize: "30px", color: "#8C8C8C" }} ><b>Agence : </b> Agence 5</h4> 
+                  
+                    
                   </div>
-                  <div className=" d-flex flex-row col-md-6 ">
-                    <div className="p-2" style={{ fontSize: "18px" }}>
-                      <IntlMessages id="user.genre" />
-
-                      <div className="">
-                        <RadioGroup className="d-flex flex-row justify-content-start">
-                          <FormControlLabel
-                            value="male"
-                            control={<Radio color="primary" />}
-                          />
-                          <i
-                            className="zmdi zmdi-male-alt zmdi-hc-3x"
-                            style={{ color: "blue" }}
-                          ></i>
-                          <FormControlLabel
-                            value="female"
-                            control={<Radio color="primary" />}
-                          />
-                          <i
-                            className="zmdi zmdi-female zmdi-hc-3x"
-                            style={{ color: "orange" }}
-                          ></i>
-                        </RadioGroup>
-                      </div>
-                    </div>
-                    <div></div>
-                  </div>
+                  
                 </div>
-                {/* Add date */}
+
+                
+                {/* Add coord */}
                 <div className="p-2 d-flex flex-row ">
                   <div className="p-3 d-flex flex-column col-md-6 ">
                     <div style={{ fontSize: "18px" }}>
@@ -105,7 +65,7 @@ export default class AddUser extends Component {
                       />
                     </div>
 
-                    <div></div>
+                   
                   </div>
                   <div className="p-1 d-flex flex-column col-md-6 ">
                     <div style={{ fontSize: "18px" }}>
@@ -269,7 +229,7 @@ export default class AddUser extends Component {
                       variant="outlined"
                       color="primary"
                       style={{ borderRadius: "80px" }}
-                      onClick={this.props.handleCancel}
+                      onClick={this.props.opendetailsUser}
                     >
                       <IntlMessages id="cancel" />
                     </Button>

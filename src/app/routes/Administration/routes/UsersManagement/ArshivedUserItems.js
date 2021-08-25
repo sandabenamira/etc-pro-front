@@ -1,22 +1,12 @@
-import React, { Component } from 'react'
+import React from "react";
+
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import CreateIcon from "@material-ui/icons/Create";
-import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
+
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-
-
-
-
-
-
-
-
-export default class UserListItem extends Component {
-  render() {
-    const { photo, nom, prenom, role, email, Ntel } =this.props
-    return (
-      <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
+import ReplayIcon from "@material-ui/icons/Replay";
+const ArshivedUserItems = ({ photo, nom, prenom, role, email, Ntel }) => (
+  <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
     <th
       scope="row"
       style={{
@@ -58,22 +48,10 @@ export default class UserListItem extends Component {
             width: "28px",
             height: "28px",
           }}
-          onClick={this.props.opendetailsUser}
         >
           <VisibilityOutlinedIcon />
         </IconButton>
 
-        <IconButton
-          aria-label="delete"
-          style={{
-            color: "#FFFFFF",
-            backgroundColor: "#F15381",
-            width: "28px",
-            height: "28px",
-          }}
-        >
-          <CreateIcon />
-        </IconButton>
         <IconButton
           aria-label="delete"
           style={{
@@ -83,11 +61,11 @@ export default class UserListItem extends Component {
             height: "28px",
           }}
         >
-          <DeleteOutlineRoundedIcon backgroundColor="white"  />
+          <ReplayIcon backgroundColor="white" />
         </IconButton>
       </div>
     </td>
   </tr>
-    )
-  }
-}
+);
+
+export default ArshivedUserItems;
