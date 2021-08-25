@@ -27,7 +27,6 @@ const ProgressBar = (props) => {
       color: 'white',
       fontWeight: 'bold'
     }
- //{`${percentage}%`} 
     return (
       <div style={containerStyles}>
         <div style={fillerStyles}>
