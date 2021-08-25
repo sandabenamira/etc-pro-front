@@ -1,26 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import UsersList from "./UsersList";
+import ArshivedUserList from "./ArshivedUserList";
 import AddUser from "./AddUser";
 import IntlMessages from "../../../../../util/IntlMessages";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
-import ArshivedUser from './ArshivedUser'
-export class User extends Component {
+import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
+
+export class ArshivedUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
-      archived:false
     };
     this.openaddUser = this.openaddUser.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.handleopenArchived=this.handleopenArchived.bind(this)
-  }
-
-  handleopenArchived() {
-    this.setState({ archived: !this.state.archived });
   }
 
   openaddUser() {
@@ -33,28 +27,42 @@ export class User extends Component {
   }
 
   render() {
-
-    if(this.state.archived!=true)
-    {
     return (
       <div className="app-wrapper ">
         <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12">
           <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  col-sm-12">
             <div className="p-2">
-              <h1
+            <div className="package-footer d-flex justify-content-start">
+        <IconButton
+          aria-label="delete"
+          style={{
+            color: "#blue",
+            backgroundColor: "#blue",
+            width: "28px",
+            height: "28px",
+          }}
+          onClick={this.props.handleopenArchived}
+
+
+        >
+          <ArrowBackIosOutlinedIcon  />
+        </IconButton>
+        <h1
                 style={{
                   color: "#484cb4",
                   marginBottom: "5%",
                   fontSize: "26px",
                 }}
               >
-                Gestion des Utilisateurs
+                Gestion des Utilisateurs- Archive
               </h1>
+        </div>
+              
             </div>
           </div>
 
           <div className="d-flex flex-row p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
-            <UsersList openaddUser={this.openaddUser} />
+            <ArshivedUserList openaddUser={this.openaddUser} />
           </div>
           {this.state.isOpen && (
             <AddUser values={this.state} handleCancel={this.handleCancel} />
@@ -70,27 +78,11 @@ export class User extends Component {
               fontSize: "20px",
             }}
           >
-            <IconButton
-              aria-label="delete"
-              style={{
-                color: "#A4A4A4",
-                backgroundColor: "#FFFFFF",
-                width: "40px",
-                height: "40px",
-              }}
-              onClick={this.handleopenArchived}
-            >
-              <DeleteOutlineRoundedIcon backgroundColor="white" />
-            </IconButton>
-            <div className="p-2"><IntlMessages id="archive" />(5)</div>
+            
           </div>
         </div>
       </div>
     );
-            }
-            else{
-              return <ArshivedUser handleopenArchived={this.handleopenArchived}/>
-            }
   }
 }
 
@@ -98,4 +90,4 @@ const mapStateToProps = (state) => {
   return {};
 };
 
-export default connect(mapStateToProps)(User);
+export default connect(mapStateToProps)(ArshivedUser);

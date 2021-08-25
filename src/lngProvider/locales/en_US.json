@@ -1611,5 +1611,8 @@
   "fax": "Fax",
   "tel": "Tel Number",
   "archive": "Archive",
-  "agency.type": "Agency type"
+  "agency.type": "Agency type",
+  "user.role":"Role",
+  "user.genre":"Genre",
+  "add.picture":"Ajouter une photo"
 }

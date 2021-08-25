@@ -1691,5 +1691,8 @@
   "fax": "Fax",
   "tel": "N Tel",
   "archive": "Archive",
-  "agency.type": "Type d'agence"
+  "agency.type": "Type d'agence",
+  "user.role":"Role",
+  "user.genre":"Genre",
+  "add.picture":"Ajouter une photo"
 }
