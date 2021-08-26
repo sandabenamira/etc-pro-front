@@ -1614,5 +1614,27 @@
   "agency.type": "Agency type",
   "user.role":"Role",
   "user.genre":"Genre",
-  "add.picture":"Ajouter une photo"
+  "add.picture":"Ajouter une photo",
+
+  "reporting.formation.title":"Training Reporting",
+  "reporting.formation.Genre":"Gender",
+  "reporting.formation.Manager":"Manager",
+  "reporting.formation.HautCadre":"Senior executive",
+  "reporting.formation.Cadre":"Executive",
+  "reporting.formation.Employé":"Employee",
+  "reporting.formation.MoyenneAge":"Average age",
+  "reporting.formation.Assiduité":"Attendance",
+  "reporting.formation.Absence":"Absence",
+  "reporting.formation.Retard":"Delay",
+  "reporting.formation.NIVsatisfaction":"Satisfaction level",  
+  "reporting.formation.NIVsatisfaction.1":"The relationship with the trainer",
+  "reporting.formation.NIVsatisfaction.2":"The methods used",
+  "reporting.formation.NIVsatisfaction.3":"The pace of training",
+  "reporting.formation.NIVsatisfaction.4":"Educational resources",
+  "reporting.formation.NIVsatisfaction.5":"Animation",
+  "reporting.formation.NIVsatisfaction.6":"Material organization",
+  "reporting.formation.NIVsatisfaction.7":"Help received when needed",
+  "reporting.formation.NIVsatisfaction.8":"Exchanges in the group",
+  "reporting.formation.NIVsatisfaction.9":"How much this training has taught you",
+  "reporting.formation.Commentaires":"Comments"
 }
