@@ -13,22 +13,16 @@ export default class TraiingMaterialsList extends Component {
         <div className="d-flex flex-row flex-wrap">
           <div className="p-2 col-md-2 col-sm-1 col-lg-1">
 
-
-
           </div>
           <div className="p-2 ml-auto ">
             <div className="d-flex justify-content-start align-items-center">
               <Fab
                 size="small"
-                // color="primary"
+             
                 aria-label="Add"
                 onClick={this.props.openAddTraining}
               >
-                {/* {this.props.values.open ? (
-                          <RemoveSharpIcon />
-                        ) : (
-                          <AddIcon />
-                        )} */}
+                {}
                 <AddIcon style={{ color: orange[500] }} />
               </Fab>
               &nbsp;&nbsp;&nbsp;

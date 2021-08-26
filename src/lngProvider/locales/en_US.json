@@ -1518,43 +1518,42 @@
   "parent.inforamtions.student": "Kids Informations",
   "alert.affect.student": "Please contact the administrator of your establishment in order to attach you to a class",
   "export.button": "export",
-  "user.type.export":"Choose the class to export",
-  "statut.import":"Import status" ,
-  "check.validity":"Check validity",
-   "student.notAffected.class":"the student is not assigned to a class",
-  "student.notAffected.level":"the student is not assigned to a level",
-  "student.notAffected.section":"the student is not assigned to a section",
-  "professor.notAffected.class":"professor is not assigned to class room",
-  "professor.notAffected.subject":"professor is not assigned to subject",
-  "alert.affect.student.to.parent":"Please contact the administrator of your establishment in order to connect with your child",
-  "profile.general.informations":"General information",
-  "profile.general.note":"Some of this information can be seen by the Educap super administrator.",
-  "profile.personel.note":"Basic information used on Educap (name, photo, etc.)",
-  "profile.personel.informations":"Personal information",
-  "video.conferencing.tool":"Video conferencing tool",
-  "configuration.of.generic.parameters":"Configuration of generic parameters",
+  "user.type.export": "Choose the class to export",
+  "statut.import": "Import status",
+  "check.validity": "Check validity",
+  "student.notAffected.class": "the student is not assigned to a class",
+  "student.notAffected.level": "the student is not assigned to a level",
+  "student.notAffected.section": "the student is not assigned to a section",
+  "professor.notAffected.class": "professor is not assigned to class room",
+  "professor.notAffected.subject": "professor is not assigned to subject",
+  "alert.affect.student.to.parent": "Please contact the administrator of your establishment in order to connect with your child",
+  "profile.general.informations": "General information",
+  "profile.general.note": "Some of this information can be seen by the Educap super administrator.",
+  "profile.personel.note": "Basic information used on Educap (name, photo, etc.)",
+  "profile.personel.informations": "Personal information",
+  "video.conferencing.tool": "Video conferencing tool",
+  "configuration.of.generic.parameters": "Configuration of generic parameters",
   "sidebar.components.evaluation": "Évaluation",
   "sidebar.components.note": "Note",
   "sidebar.components.reporting-kpi": "KPI Reporting",
   "sidebar.components.satisfaction-question": "Satisfaction survey",
-  "survey.satisfaction.list":"TRAINING SATISFACTION QUESTIONNAIRE",
+  "survey.satisfaction.list": "TRAINING SATISFACTION QUESTIONNAIRE",
   "sidebar.components.agenceSetting": "Agences setting",
   "add.new.agence": "Add new Agence",
   "component.agence.list": "List of agences",
-  "alert.permission" : "You do not have permissions for this module",
-  "sidebar.components.reporting-formation":"Reporting formation",
-  "sidebar.components.reporting-financier":"Reporting financier",
-  
+  "alert.permission": "You do not have permissions for this module",
+  "sidebar.components.reporting-formation": "Reporting formation",
+  "sidebar.components.reporting-financier": "Reporting financier",
   "add.formation": "Add Training",
   "add.material": "Add Support Material",
   "subject": "Subject",
   "asociate.training": "Associate with training",
   "intended.for": "Intended For",
   "description": "Description",
-  "upload.file":"Upload File",
+  "upload.file": "Upload File",
   "attachment": "Attachment",
   "cancel": "Cancel",
-  "confirm":"Confirm",
+  "confirm": "Confirm",
   "e-Learning": "E-Learning",
   "training.materials": "Training Materials",
   "total.supports": "Total supports",
@@ -1565,7 +1564,6 @@
   "added.on": "Ajouté On:",
   "intended.for ": "Intended For:",
   "training": "Training:",
-
   "general.information": "General Information",
   "training.theme": "Training Theme *",
   "add.session": "Add session",
@@ -1591,33 +1589,30 @@
   "registered.people.number": "Registered Peoples Number",
   "organizer": "Organizer:",
   "duration": "Duration:",
-  "trainer ":"Formateur:",
+  "trainer ": "Formateur:",
   "show.more": "Show More",
   "register": "Register",
-  "add.moocs":"Add Moocs",
-  "e-learning-moocs":"E-Learning - Moocs",
-  "moocs.online":"Moocs Online",
-  "Moocs.of.the.month":"Moocs of the month",
-  "Number.views":"Number of views",
-  "Number.of.reactions":"Number of reactions",
-  "Intended.for":"Intended for",
-  "Management":"Management"
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
+  "add.moocs": "Add Moocs",
+  "e-learning-moocs": "E-Learning - Moocs",
+  "moocs.online": "Moocs Online",
+  "Moocs.of.the.month": "Moocs of the month",
+  "Number.views": "Number of views",
+  "Number.of.reactions": "Number of reactions",
+  "Intended.for": "Intended for",
+  "Management": "Management",
+  "agency.management": "Agencies Management",
+  "sort.by": "Sort by",
+  "add.agency": "Add Agency",
+  "agency": "Agency",
+  "type": "Type",
+  "governorate": "Governorate",
+  "address": "Address",
+  "mail": "Email",
+  "fax": "Fax",
+  "tel": "Tel Number",
+  "archive": "Archive",
+  "agency.type": "Agency type",
+  "user.role":"Role",
+  "user.genre":"Genre",
+  "add.picture":"Ajouter une photo"
 }
