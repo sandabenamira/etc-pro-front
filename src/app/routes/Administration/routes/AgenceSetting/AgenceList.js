@@ -75,7 +75,7 @@ export default class AgenceList extends Component {
                                     fontWeight: "bold",
                                 }}
                                 placeholder="Recherche ..."
-                                inputProps={{ "aria-label": "search google maps" }}
+                                inputProps={{ "aria-label": "" }}
                             />
                         </Paper>
 
