@@ -30,8 +30,7 @@ export class AgenceSetting extends React.Component {
 
   render() {
     return (
-      <div
-        className="app-wrapper"
+      <div className="app-wrapper"
         style={{
 
         }}
