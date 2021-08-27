@@ -4,7 +4,7 @@ import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
 import Button from "@material-ui/core/Button";
-import AgenceItems from "./AgenceItem";
+import ArchiveItem from "./ArchiveItem";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
@@ -19,13 +19,11 @@ const rows = [
 
     createData('Agence Nabeul', 'Mixte', 'Nabeul', 'Avenue Habib Bourguiba', 'Biat00@biat.com.tn', 71234567, 954874555),
     createData('Agence Nabeul', 'Mixte', 'Nabeul', 'Avenue Habib Bourguiba', 'Biat00@biat.com.tn', 71234567, 954874555),
-    createData('Agence Nabeul', 'Mixte', 'Nabeul', 'Avenue Habib Bourguiba', 'Biat00@biat.com.tn', 71234567, 954874555),
-    createData('Agence Nabeul', 'Mixte', 'Nabeul', 'Avenue Habib Bourguiba', 'Biat00@biat.com.tn', 71234567, 954874555),
-    createData('Agence Nabeul', 'Mixte', 'Nabeul', 'Avenue Habib Bourguiba', 'Biat00@biat.com.tn', 71234567, 954874555),
+
 ];
 
 
-export default class AgenceList extends Component {
+export default class ArchiveList extends Component {
     render() {
         return (
             <div className="d-flex flex-column">
@@ -33,7 +31,6 @@ export default class AgenceList extends Component {
                     <div className="p-2 col-md-2 col-sm-1 col-lg-1">
 
                     </div>
-
                     <div className=" p-2 col-md-2 col-sm-2 col-lg-2">
                         <div className="p-2">
                             <Button
@@ -50,6 +47,7 @@ export default class AgenceList extends Component {
                             </Button>
                         </div>
                     </div>
+
                     <div className="p-2 col-md-2 col-sm-2 col-lg-2">
                         <Paper
                             component="form"
@@ -74,28 +72,10 @@ export default class AgenceList extends Component {
                                     fontWeight: "bold",
                                 }}
                                 placeholder="Recherche ..."
-                                inputProps={{ "aria-label": "" }}
+                                inputProps={{ "aria-label": "search google maps" }}
                             />
                         </Paper>
 
-                    </div>
-
-                    <div className="p-2 ml-auto ">
-                        <div className="d-flex justify-content-start align-items-center">
-                            <Fab
-                                size="small"
-
-                                aria-label="Add"
-                                onClick={this.props.openAddAgence}
-                            >
-                                { }
-                                <AddIcon style={{ color: orange[500] }} />
-                            </Fab>
-                            &nbsp;&nbsp;&nbsp;
-                            <div style={{ fontSize: "25px", color: "orange" }}>
-                                <IntlMessages id="add.agency" />
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -124,7 +104,7 @@ export default class AgenceList extends Component {
                     </thead>
                     <tbody>
                         {rows.map((row) => (
-                            <AgenceItems
+                            <ArchiveItem
                                 agence={row.agence}
                                 type={row.type}
                                 gouvernerat={row.gouvernerat}
@@ -137,7 +117,7 @@ export default class AgenceList extends Component {
                         ))}
                     </tbody>
                 </table>
-              
+
             </div>
 
         );
