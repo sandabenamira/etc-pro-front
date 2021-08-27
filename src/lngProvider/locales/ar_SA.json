@@ -1612,5 +1612,33 @@
   "fax": "فاكس",
   "tel": "الهاتف",
   "archive": "الأرشيف",
-  "agency.type": "نوع الوكالة"
+  "agency.type": "نوع الوكالة",
+  "user.role":"وظيفة",
+  "user.genre":"جنس",
+  "add.picture":"أضف صورة",
+
+  "reporting.formation.title":"الإبلاغ عن التدريب",
+  "reporting.formation.Genre":"الجنس",
+  "reporting.formation.Manager":"مدير",
+  "reporting.formation.HautCadre":"إطار عالي",
+  "reporting.formation.Cadre":"إطار",
+  "reporting.formation.Employé":"الموظف",
+  "reporting.formation.MoyenneAge":"متوسط ​​العمر",
+  "reporting.formation.Assiduité":"حضور",
+  "reporting.formation.Absence":"غياب",
+  "reporting.formation.Retard":"تأخير",
+  "reporting.formation.NIVsatisfaction":"مستوى الرضا",  
+  "reporting.formation.NIVsatisfaction.1":"العلاقة مع المدرب",
+  "reporting.formation.NIVsatisfaction.2":"الطرق المستخدمة",
+  "reporting.formation.NIVsatisfaction.3":"وتيرة التدريب",
+  "reporting.formation.NIVsatisfaction.4":"الوسائل التعليمية",
+  "reporting.formation.NIVsatisfaction.5":"حيوية",
+  "reporting.formation.NIVsatisfaction.6":"التنظيم المادي",
+  "reporting.formation.NIVsatisfaction.7":"تلقي المساعدة عند الحاجة",
+  "reporting.formation.NIVsatisfaction.8":"التبادلات في المجموعة",
+  "reporting.formation.NIVsatisfaction.9":"كم علمك هذا التدريب",
+  "reporting.formation.Commentaires":"تعليقات"
+
+
+
 }
