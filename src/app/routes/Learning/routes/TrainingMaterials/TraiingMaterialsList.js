@@ -27,7 +27,7 @@ export default class TraiingMaterialsList extends Component {
               </Fab>
               &nbsp;&nbsp;&nbsp;
               <div style={{ fontSize: "25px", color: "orange" }}>
-                <IntlMessages id="add.material" />
+                <IntlMessages id="training.materials.add.material" />
               </div>
             </div>
           </div>
