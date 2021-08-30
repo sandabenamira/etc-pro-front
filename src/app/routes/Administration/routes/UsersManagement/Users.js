@@ -34,7 +34,7 @@ export class User extends Component {
 
   render() {
 
-    if(this.state.archived!=true)
+    if(this.state.archived!==true)
     {
     return (
       <div className="app-wrapper ">
