@@ -39,22 +39,22 @@ export class SupportCours extends Component {
             <div className="col-lg-11 col-md-11 col-sm-12 d-flex flex-wrap justify-content-center flex-row  ">
 
               <div className="col-lg-2 col-md-4 col-sm-10 d-flex flex-wrap flex-column m-2 justify-content-center align-items-center" style={{ backgroundColor: "#3F51B5", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="total.supports" /></h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="training.materials.total.supports" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>200</h1>
               </div>
 
               <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column  justify-content-center align-items-center m-2" style={{ backgroundColor: "#3BBDD5", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="supports.of.the.month" /></h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="training.materials.supports.of.the.month" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>25</h1>
               </div>
 
               <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center  align-items-center m-2" style={{ backgroundColor: "#F9972D", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="downloads.number" /></h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="training.materials.downloads.number" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>5200</h1>
               </div>
 
               <div className="col-lg-2 col-md-4  col-sm-10 d-flex flex-wrap flex-column justify-content-center align-items-center m-2" style={{ backgroundColor: "#F15381", borderRadius: 10, height: "150px", paddingRight: "1rem", paddingLeft: "1rem" }}>
-                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="views.number" /></h1>
+                <h1 style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><IntlMessages id="training.materials.views.number" /></h1>
                 <h1 style={{ color: "white", fontWeight: "bold" }}>65</h1>
               </div>
             </div>

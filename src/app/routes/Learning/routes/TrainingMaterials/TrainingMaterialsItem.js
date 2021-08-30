@@ -48,16 +48,16 @@ export default function TrainingMaterialsItem() {
           </li>
           <li>
             <div>
-              <strong> <IntlMessages id="added.by" /></strong>
+              <strong> <IntlMessages id="training.materials.added.by" /></strong>
             </div>
             <div>
-              <strong> <IntlMessages id="added.on" /></strong>
+              <strong> <IntlMessages id="training.materials.added.on" /></strong>
             </div>
             <div>
-              <strong> <IntlMessages id="intended.for " /></strong>
+              <strong> <IntlMessages id="training.materials.intended.for " /></strong>
             </div>
             <div>
-              <strong><IntlMessages id="training" /></strong>
+              <strong><IntlMessages id="training.materials.training" /></strong>
             </div>
 
             <div>
