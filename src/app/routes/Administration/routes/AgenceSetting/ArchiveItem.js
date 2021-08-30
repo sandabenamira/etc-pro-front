@@ -4,15 +4,22 @@ import ReplayIcon from '@material-ui/icons/Replay';
 
 const ArchiveItem = ({ agence, type, gouvernerat, adresse, email, fax, Ntel, }) =>
 
-    <tr style={{ backgroundColor: "#F5F5F5", borderRadius: "15px" }}>
-        <td style={{ textAlign: "start" }}>{agence}</td>
-        <td style={{ textAlign: "start" }}>{type}</td>
-        <td style={{ textAlign: "start" }}>{gouvernerat}</td>
-        <td style={{ textAlign: "start" }}>{adresse}</td>
-        <td style={{ textAlign: "start" }}>{email}</td>
-        <td style={{ textAlign: "start" }}>{fax}</td>
-        <td style={{ textAlign: "start" }}>{Ntel}</td>
-        <td>
+    <tr style={{ backgroundColor: 'white', borderRadius: 15 }}>
+        <td style={{
+            textAlign: "start",
+            flexDirection: "row",
+            backgroundColor: "#F5F5F5",
+            borderTopLeftRadius: 15,
+            borderBottomLeftRadius: 15
+        }}>{agence}
+        </td>
+        <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>{type}</td>
+        <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>{gouvernerat}</td>
+        <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>{adresse}</td>
+        <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>{email}</td>
+        <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>{fax}</td>
+        <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>{Ntel}</td>
+        <td style={{ backgroundColor: "#F5F5F5" }}>
             <div className="package-footer d-flex justify-content-around " >
 
                 <IconButton aria-label="delete" style={{ color: "#FFFFFF", backgroundColor: "#F15381", width: "28px", height: "28px" }}>
@@ -20,6 +27,14 @@ const ArchiveItem = ({ agence, type, gouvernerat, adresse, email, fax, Ntel, }) 
                 </IconButton>
             </div>
         </td>
+        <td
+            style={{
+                textAlign: "center",
+                backgroundColor: "#F5F5F5",
+                borderTopRightRadius: 15,
+                borderBottomRightRadius: 15,
+            }}
+        ></td>
     </tr>
 
 export default ArchiveItem

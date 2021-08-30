@@ -37,17 +37,13 @@ export class ArchiveAgence extends Component {
                 </IconButton>
 
                 <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px", marginBottom: "1.5rem" }}>
-                    <IntlMessages id="agency.management" />- Archive
+                    <IntlMessages id="gestion.agence.agency.management" />- Archive
                 </div>
                 <div className="p-2">
                     <ArchiveList />
                 </div>
-
             </div>
-
         );
-
-
     }
 }
 

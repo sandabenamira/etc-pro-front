@@ -44,7 +44,7 @@ export class AgenceSetting extends React.Component {
           }}
         >
           <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px", marginBottom: "1.5rem" }}>
-            <IntlMessages id="agency.management" />
+            <IntlMessages id="gestion.agence.agency.management" />
           </div>
           <div className="p-2">
             <AgenceList openAddAgence={this.openAddAgence} />
@@ -74,7 +74,7 @@ export class AgenceSetting extends React.Component {
                 <ArchiveIcon onClick={this.props.OpenArchive} backgroundColor="white" />
               </IconButton>
               <div style={{ fontSize: "19px", color: "#616A6B" }}>
-                <IntlMessages id="archive" /> (2)
+                <IntlMessages id="gestion.agence.archive" /> (2)
               </div>
             </div>
           </div>

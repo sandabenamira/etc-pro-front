@@ -30,11 +30,9 @@ export default class AgenceList extends Component {
         return (
             <div className="d-flex flex-column">
                 <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12 col-sm-12">
-                    <div className="p-2 col-md-2 col-sm-1 col-lg-1">
 
-                    </div>
 
-                    <div className=" p-2 col-md-2 col-sm-2 col-lg-2">
+                    <div className=" col-lg-2 col-md-6 d-flex flex-wrap">
                         <div className="p-2">
                             <Button
                                 variant="contained"
@@ -42,15 +40,15 @@ export default class AgenceList extends Component {
                                 style={{
                                     borderRadius: "40px",
                                     fontSize: "15px", fontFamily: "sans-serif",
-                                    width: "150px", height: "40px"
+                                    width: "150px", height: "40px", textTransform: "capitalize"
                                 }}
                             >
-                                <IntlMessages id="sort.by" />
+                                <IntlMessages id="gestion.agence.sort.by" />
                                 <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
                             </Button>
                         </div>
                     </div>
-                    <div className="p-2 col-md-2 col-sm-2 col-lg-2">
+                    <div className="col-lg-4 col-md-6 col-sm-6 d-flex flex-wrap align-items-center m-2">
                         <Paper
                             component="form"
                             className="d-flex flex-row"
@@ -93,51 +91,52 @@ export default class AgenceList extends Component {
                             </Fab>
                             &nbsp;&nbsp;&nbsp;
                             <div style={{ fontSize: "25px", color: "orange" }}>
-                                <IntlMessages id="add.agency" />
+                                <IntlMessages id="gestion.agence.add.agency" />
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <table className="table" style={{ borderCollapse: "separate", borderSpacing: "0 15px" }} >
-                    <thead>
-                        <tr style={{ paddingBottom: "10px", textAlign: "start", }}>
+                <div className="table-responsive">
+                    <table className="table" style={{ borderCollapse: "separate", borderSpacing: "0 15px" }} >
+                        <thead>
+                            <tr style={{ paddingBottom: "10px", textAlign: "start", }}>
 
-                            <th style={{ borderBottom: "0", borderTop: "0" }} >
-                                <IntlMessages id="agency" /></th>
-                            <th style={{ borderBottom: "0", borderTop: "0" }} >
-                                <IntlMessages id="type" /></th>
-                            <th style={{ borderBottom: "0", borderTop: "0" }} >
-                                <IntlMessages id="governorate" /></th>
-                            <th style={{ borderBottom: "0", borderTop: "0" }} >
-                                <IntlMessages id="address" /></th>
-                            <th style={{ borderBottom: "0", borderTop: "0" }} >
-                                <IntlMessages id="mail" /></th>
-                            <th style={{ borderBottom: "0", borderTop: "0" }} >
-                                <IntlMessages id="fax" /></th>
-                            <th style={{ borderBottom: "0", borderTop: "0" }} >
-                                <IntlMessages id="tel" /></th>
-                            <th style={{ borderBottom: "0", borderTop: "0" }} >
+                                <th style={{ borderBottom: "0", borderTop: "0" }} >
+                                    <IntlMessages id="gestion.agence.agency" /></th>
+                                <th style={{ borderBottom: "0", borderTop: "0" }} >
+                                    <IntlMessages id="gestion.agence.type" /></th>
+                                <th style={{ borderBottom: "0", borderTop: "0" }} >
+                                    <IntlMessages id="gestion.agence.governorate" /></th>
+                                <th style={{ borderBottom: "0", borderTop: "0" }} >
+                                    <IntlMessages id="gestion.agence.address" /></th>
+                                <th style={{ borderBottom: "0", borderTop: "0" }} >
+                                    <IntlMessages id="gestion.agence.mail" /></th>
+                                <th style={{ borderBottom: "0", borderTop: "0" }} >
+                                    <IntlMessages id="gestion.agence.fax" /></th>
+                                <th style={{ borderBottom: "0", borderTop: "0" }} >
+                                    <IntlMessages id="gestion.agence.tel" /></th>
+                                <th style={{ borderBottom: "0", borderTop: "0" }} >
 
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows.map((row) => (
-                            <AgenceItems
-                                agence={row.agence}
-                                type={row.type}
-                                gouvernerat={row.gouvernerat}
-                                adresse={row.adresse}
-                                email={row.email}
-                                fax={row.fax}
-                                Ntel={row.Ntel}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows.map((row) => (
+                                <AgenceItems
+                                    agence={row.agence}
+                                    type={row.type}
+                                    gouvernerat={row.gouvernerat}
+                                    adresse={row.adresse}
+                                    email={row.email}
+                                    fax={row.fax}
+                                    Ntel={row.Ntel}
 
-                            />
-                        ))}
-                    </tbody>
-                </table>
-              
+                                />
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         );
