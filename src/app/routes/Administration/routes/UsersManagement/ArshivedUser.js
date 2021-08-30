@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import ArshivedUserList from "./ArshivedUserList";
 import AddUser from "./AddUser";
-import IntlMessages from "../../../../../util/IntlMessages";
+// import IntlMessages from "../../../../../util/IntlMessages";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 

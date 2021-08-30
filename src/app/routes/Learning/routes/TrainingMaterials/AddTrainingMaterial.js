@@ -25,7 +25,7 @@ export default class AddTrainingMaterial extends Component {
                   className="d-flex justify-content-center mt-3"
                   style={{ color: "#4C25B7", fontSize: "25px" }}
                 >
-                  <IntlMessages id="add.material" />
+                  <IntlMessages id="training.materials.add.material" />
                 </div>
                 <br /><br />
 
@@ -33,7 +33,7 @@ export default class AddTrainingMaterial extends Component {
                 <div className="p-2 d-flex flex-row ">
                   <div className="p-2  d-flex flex-column col-md-6 ">
                     <div style={{ fontSize: "18px" }}>
-                      <IntlMessages id="subject" />
+                      <IntlMessages id="training.materials.subject" />
                     </div>
                     <div>
                       <TextField
@@ -47,7 +47,7 @@ export default class AddTrainingMaterial extends Component {
                   </div>
                   <div className="p-2  d-flex flex-column col-md-6 ">
                     <div style={{ fontSize: "18px" }}>
-                      <IntlMessages id="asociate.training" />
+                      <IntlMessages id="training.materials.asociate.training" />
                     </div>
                     <div>
                       <TextField
@@ -68,7 +68,7 @@ export default class AddTrainingMaterial extends Component {
                       className="p-2"
                       style={{ fontSize: "18px" }}
                     >
-                      <IntlMessages id="intended.for" />
+                      <IntlMessages id="training.materials.intended.for" />
                     </div>
                     <div className="p-2">
                       <TextField
@@ -86,7 +86,7 @@ export default class AddTrainingMaterial extends Component {
                       className="p-2"
                       style={{ fontSize: "18px" }}
                     >
-                      <IntlMessages id="description" />
+                      <IntlMessages id="training.materials.description" />
                     </div>
                     <div className="p-2">
                       <TextField
@@ -107,7 +107,7 @@ export default class AddTrainingMaterial extends Component {
                     className="p-2"
                     style={{ fontSize: "18px" }}
                   >
-                    <IntlMessages id="upload.file" />
+                    <IntlMessages id="training.materials.upload.file" />
                   </div>
                   <div className="ml-5">
                     <Button
@@ -116,7 +116,7 @@ export default class AddTrainingMaterial extends Component {
 
                       startIcon={<AttachmentIcon />}
                     >
-                      <IntlMessages id="attachment" />
+                      <IntlMessages id="training.materials.attachment" />
                     </Button>
 
                   </div>

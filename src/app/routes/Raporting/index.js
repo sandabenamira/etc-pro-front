@@ -31,7 +31,7 @@ const Raporting = ({match, estabModule}) => {
                     <Can
                       role={role}
                       perform={`module-nav-reporting-formation`}
-                      yes={() => <RaportingFormation match={match} />}
+                      yes={() => <ReportingFinancier match={match} />}
                       no={() => (
                         <Route
                           component={asyncComponent(() =>
@@ -69,7 +69,7 @@ const Raporting = ({match, estabModule}) => {
                     <Can
                       role={role}
                       perform={`module-nav-reporting-financier`}
-                      yes={() => <ReportingFinancier match={match} />}
+                      yes={() => <RaportingFormation match={match} />}
                       no={() => (
                         <Route
                           component={asyncComponent(() =>

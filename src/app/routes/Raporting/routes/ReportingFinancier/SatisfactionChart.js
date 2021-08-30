@@ -10,7 +10,7 @@ const testData = [
   { color: "#F9972D", percentage: 53 },
   { color: "#F9972D", percentage: 60 },
   { color: "#F9972D", percentage: 30 },
-  { color: "#3BBDD5", percentage: 53 }
+  { color: "#3BBDD5", percentage: 93 }
 ];
 
 function SatisfactionChart() {

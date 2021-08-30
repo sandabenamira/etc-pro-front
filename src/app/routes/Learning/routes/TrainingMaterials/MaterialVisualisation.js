@@ -8,6 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import PrintIcon from '@material-ui/icons/Print';
+import IntlMessages from "../../../../../util/IntlMessages";
 
 const styles = (theme) => ({
   root: {
@@ -57,10 +58,10 @@ function MaterialVisualisation({ setOpenModal }) {
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Title 
+          <IntlMessages id="training.materials.title.support" />
         </DialogTitle>
         <Button variant="contained">
-          Page &nbsp; &nbsp; 1/1 &nbsp; &nbsp; &nbsp;
+          <IntlMessages id="training.materials.page" /> &nbsp; &nbsp; 1/1 &nbsp; &nbsp; &nbsp;
           <SaveAltIcon /> &nbsp; &nbsp;
           <PrintIcon />
         </Button>
