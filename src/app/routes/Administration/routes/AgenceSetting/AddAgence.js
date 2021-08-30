@@ -24,7 +24,7 @@ export default class AddAgence extends Component {
                                     className="d-flex justify-content-center mt-3"
                                     style={{ color: "#4C25B7", fontSize: "25px" }}
                                 >
-                                    <IntlMessages id="add.agency" />
+                                    <IntlMessages id="gestion.agence.add.agency" />
                                 </div>
                                 <br /><br />
 
@@ -32,7 +32,7 @@ export default class AddAgence extends Component {
                                 <div className="p-2 d-flex flex-row ">
                                     <div className="p-2 d-flex flex-column col-md-6 ">
                                         <div style={{ fontSize: "18px" }}>
-                                            <IntlMessages id="agency" />
+                                            <IntlMessages id="gestion.agence.agency" />
                                         </div>
                                         <div>
                                             <TextField
@@ -46,7 +46,7 @@ export default class AddAgence extends Component {
                                     </div>
                                     <div className="p-2 d-flex flex-column col-md-6 ">
                                         <div style={{ fontSize: "18px" }}>
-                                            <IntlMessages id="agency.type" />
+                                            <IntlMessages id="gestion.agence.agency.type" />
                                         </div>
                                         <div>
                                             <TextField
@@ -65,7 +65,7 @@ export default class AddAgence extends Component {
                                 <div className="p-2 d-flex flex-row ">
                                     <div className="p-2 d-flex flex-column col-md-6 ">
                                         <div style={{ fontSize: "18px" }}>
-                                            <IntlMessages id="address" />
+                                            <IntlMessages id="gestion.agence.address" />
                                         </div>
                                         <div>
                                             <TextField
@@ -79,7 +79,7 @@ export default class AddAgence extends Component {
                                     </div>
                                     <div className="p-2 d-flex flex-column col-md-6 ">
                                         <div style={{ fontSize: "18px" }}>
-                                            <IntlMessages id="governorate" />
+                                            <IntlMessages id="gestion.agence.governorate" />
                                         </div>
                                         <div>
                                             <TextField
@@ -101,7 +101,7 @@ export default class AddAgence extends Component {
                                             className="p-2"
                                             style={{ fontSize: "18px" }}
                                         >
-                                            <IntlMessages id="mail" />
+                                            <IntlMessages id="gestion.agence.mail" />
                                         </div>
                                         <div className="p-2">
                                             <TextField
@@ -117,7 +117,7 @@ export default class AddAgence extends Component {
                                 <div className="p-2 d-flex flex-row ">
                                     <div className="p-2 d-flex flex-column col-md-6 ">
                                         <div style={{ fontSize: "18px" }}>
-                                            <IntlMessages id="fax" />
+                                            <IntlMessages id="gestion.agence.fax" />
                                         </div>
                                         <div>
                                             <TextField
@@ -131,7 +131,7 @@ export default class AddAgence extends Component {
                                     </div>
                                     <div className="p-2 d-flex flex-column col-md-6 ">
                                         <div style={{ fontSize: "18px" }}>
-                                            <IntlMessages id="tel" />
+                                            <IntlMessages id="gestion.agence.tel" />
                                         </div>
                                         <div>
                                             <TextField
