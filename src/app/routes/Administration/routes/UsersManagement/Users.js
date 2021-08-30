@@ -12,11 +12,11 @@ export class User extends Component {
     super(props);
     this.state = {
       isOpen: false,
-      archived:false
+      archived: false
     };
     this.openaddUser = this.openaddUser.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.handleopenArchived=this.handleopenArchived.bind(this)
+    this.handleopenArchived = this.handleopenArchived.bind(this)
   }
 
   handleopenArchived() {
@@ -34,63 +34,62 @@ export class User extends Component {
 
   render() {
 
-    if(this.state.archived!=true)
-    {
-    return (
-      <div className="app-wrapper ">
-        <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12">
-          <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  col-sm-12">
-            <div className="p-2">
-              <h1
-                style={{
-                  color: "#484cb4",
-                  marginBottom: "5%",
-                  fontSize: "26px",
-                }}
-              >
-                Gestion des Utilisateurs
-              </h1>
+    if (this.state.archived !== true) {
+      return (
+        <div className="app-wrapper ">
+          <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12">
+            <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  col-sm-12">
+              <div className="p-2">
+                <h1
+                  style={{
+                    color: "#484cb4",
+                    marginBottom: "5%",
+                    fontSize: "26px",
+                  }}
+                >
+                  Gestion des Utilisateurs
+                </h1>
+              </div>
             </div>
-          </div>
 
-          <div className="d-flex flex-row p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
-            <UsersList openaddUser={this.openaddUser} />
+            <div className="d-flex flex-row p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
+              <UsersList openaddUser={this.openaddUser} />
+            </div>
+            {this.state.isOpen && (
+              <AddUser values={this.state} handleCancel={this.handleCancel} />
+            )}
           </div>
-          {this.state.isOpen && (
-            <AddUser values={this.state} handleCancel={this.handleCancel} />
-          )}
-        </div>
-        <div className="d-flex flex-row-reverse p-2 col-lg-10 col-md-12 col-sm-12 mt-4">
-          <div
-            className="d-flex "
-            style={{
-              color: "#A4A4A4",
-              fontWeight: "bold",
-              textAlign: "center",
-              fontSize: "20px",
-            }}
-          >
-            <IconButton
-              aria-label="delete"
+          <div className="d-flex flex-row-reverse p-2 col-lg-10 col-md-12 col-sm-12 mt-4">
+            <div
+              className="d-flex "
               style={{
                 color: "#A4A4A4",
-                backgroundColor: "#FFFFFF",
-                width: "40px",
-                height: "40px",
+                fontWeight: "bold",
+                textAlign: "center",
+                fontSize: "20px",
               }}
-              onClick={this.handleopenArchived}
             >
-              <DeleteOutlineRoundedIcon backgroundColor="white" />
-            </IconButton>
-            <div className="p-2"><IntlMessages id="archive" />(5)</div>
+              <IconButton
+                aria-label="delete"
+                style={{
+                  color: "#A4A4A4",
+                  backgroundColor: "#FFFFFF",
+                  width: "40px",
+                  height: "40px",
+                }}
+                onClick={this.handleopenArchived}
+              >
+                <DeleteOutlineRoundedIcon backgroundColor="white" />
+              </IconButton>
+              <div className="p-2"><IntlMessages id="archive" />(5)</div>
+            </div>
           </div>
         </div>
-      </div>
-    );
-            }
-            else{
-              return <ArshivedUser handleopenArchived={this.handleopenArchived}/>
-            }
+      );
+    }
+    else {
+      return <ArshivedUser handleopenArchived={this.handleopenArchived} />
+    }
   }
 }
 
