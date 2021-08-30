@@ -23,7 +23,7 @@ export default class AddUser extends Component {
               autoComplete="off"
               onSubmit={this.props.handleSubmit}
             >
-              <div className="p- m-2 d-flex flex-wrap justify-content-center flex-column col-lg-8 col-md-11 col-sm-12">
+              <div className=" d-flex flex-wrap justify-content-center flex-column col-lg-8 col-md-11 bd-highlight col-sm-12">
                 <div
                   className="d-flex justify-item-center justify-content-center mt-8"
                   style={{ color: "#4C25B7", fontSize: "25px" }}
@@ -35,7 +35,7 @@ export default class AddUser extends Component {
 
                 {/* Add caract */}
                 <div className="p-2 d-flex flex-row ">
-                  <div className="p-2 d-flex flex-column col-md-6 ">
+                  <div className="p-2 d-flex flex-column flex-wrap col-md-4">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.name" />
                     </div>
@@ -48,7 +48,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className="p-2 d-flex flex-column col-md-6 ">
+                  <div className="p-2 d-flex flex-wrap flex-column col-md-4 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.last.name" />
                     </div>
@@ -61,12 +61,12 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className=" d-flex flex-row col-md-6 ">
+                  <div className=" d-flex flex-row flex-wrap bd-highlight col-md-4 ">
                     <div className="p-2" style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.genre" />
 
                       <div className="">
-                        <RadioGroup className="d-flex flex-row justify-content-start">
+                        <RadioGroup className="d-flex flex-row  flex-wrap justify-content-start">
                           <FormControlLabel
                             value="male"
                             control={<Radio color="primary" />}
@@ -90,8 +90,8 @@ export default class AddUser extends Component {
                   </div>
                 </div>
                 {/* Add date */}
-                <div className="p-2 d-flex flex-row ">
-                  <div className="p-3 d-flex flex-column col-md-6 ">
+                <div className=" d-flex flex-row ">
+                  <div className="m-3 d-flex flex-column flex-wrap col-md-7">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.birthday.date" />
                       <TextField
@@ -107,7 +107,7 @@ export default class AddUser extends Component {
 
                     <div></div>
                   </div>
-                  <div className="p-1 d-flex flex-column col-md-6 ">
+                  <div className="m-1 d-flex bd-highlight flex-wrap flex-column col-md-5 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="country.user" />
                     </div>
@@ -125,8 +125,8 @@ export default class AddUser extends Component {
 
                 {/* Add contact */}
                 <div className="p-2 d-flex flex-row ">
-                  <div className="p-2 d-flex flex-column col-md-6 ">
-                    <div style={{ fontSize: "18px" }}>
+                  <div className=" d-flex flex-column flex-wrap col-md-4">
+                   <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.mail" />
                     </div>
                     <div>
@@ -138,7 +138,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className="p-2 d-flex flex-column col-md-6 ">
+                  <div className=" d-flex flex-wrap flex-column col-md-5 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.phone.number" />
                     </div>
@@ -151,7 +151,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className="p-2 d-flex flex-column col-md-6 ">
+                  <div className=" d-flex flex-wrap flex-column col-md-4 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.cin" />
                     </div>
@@ -167,9 +167,9 @@ export default class AddUser extends Component {
                 </div>
                 {/* Add contact */}
                 <div className="p-2 d-flex flex-row ">
-                  <div className="p-2 d-flex flex-column col-md-6 ">
-                    <div style={{ fontSize: "18px" }}>
-                      <IntlMessages id="user.cin" />
+                  <div className=" d-flex flex-column flex-wrap col-md-6">
+                   <div style={{ fontSize: "18px" }}>
+                      Adresse Postale
                     </div>
                     <div>
                       <TextField
@@ -180,7 +180,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className="p-2 d-flex flex-column col-md-6 ">
+                  <div className=" d-flex flex-wrap flex-column col-md-4 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="zip.code.user" />
                     </div>
@@ -193,7 +193,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className="p-2 d-flex flex-row col-md-6 ">
+                  <div className="p-2 d-flex flex-row  flex-wrap col-md-4 ">
                     <div style={{ fontSize: "20px", color: "orange" }}>
                       <AddCircleOutlineOutlinedIcon
                         style={{ color: orange[500] }}
@@ -203,8 +203,8 @@ export default class AddUser extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="p-2 d-flex flex-row ">
-                  <div className="p-2 d-flex flex-column col-md-6 ">
+                <div className="p-2 d-flex flex-wrap flex-row ">
+                  <div className="p-2 d-flex flex-column col-md-4 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.role" />
                     </div>
@@ -218,7 +218,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className="p-2 d-flex flex-column col-md-6 ">
+                  <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.identifiant" />
                     </div>
@@ -231,7 +231,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className="p-2 d-flex flex-column col-md-6 ">
+                  <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="agency" />
                     </div>
@@ -246,7 +246,7 @@ export default class AddUser extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="p-2 d-flex flex-row">
+                <div className="p-2 d-flex flex-wrap flex-row">
                   <div className="p-2" style={{ fontSize: "18px" }}>
                     <IntlMessages id="user.join.papiers" />
                   </div>
@@ -263,7 +263,7 @@ export default class AddUser extends Component {
                 </div>
 
                 {/* butons */}
-                <div className="p-2 d-flex flex-row justify-content-center">
+                <div className="p-2 d-flex flex-row  flex-wrap justify-content-center">
                   <div className="p-2">
                     <Button
                       variant="outlined"

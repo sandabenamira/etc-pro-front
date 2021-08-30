@@ -38,8 +38,8 @@ export class User extends Component {
     {
     return (
       <div className="app-wrapper ">
-        <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12">
-          <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  col-sm-12">
+        <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-1 bd-highlight flex-wrap">
+          <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  bd-highlight col-sm-1">
             <div className="p-2">
               <h1
                 style={{
@@ -59,6 +59,8 @@ export class User extends Component {
           {this.state.isOpen && (
             <AddUser values={this.state} handleCancel={this.handleCancel} />
           )}
+
+
         </div>
         <div className="d-flex flex-row-reverse p-2 col-lg-10 col-md-12 col-sm-12 mt-4">
           <div
