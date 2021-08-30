@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import { orange } from "@material-ui/core/colors";
 import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
 import Button from "@material-ui/core/Button";
 import ArchiveItem from "./ArchiveItem";

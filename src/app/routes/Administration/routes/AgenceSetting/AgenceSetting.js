@@ -36,7 +36,7 @@ export class AgenceSetting extends React.Component {
   }
 
   render() {
-    if (this.state.archived != true) {
+    if (this.state.archived !== true) {
       return (
         <div className="app-wrapper"
           style={{
