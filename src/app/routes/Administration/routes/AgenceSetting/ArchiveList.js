@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
-import Button from "@material-ui/core/Button";
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import ArchiveItem from "./ArchiveItem";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -28,18 +29,29 @@ export default class ArchiveList extends Component {
                     
                     <div className=" col-lg-2 col-md-6 d-flex flex-wrap ">
                         <div className="p-2">
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                style={{
-                                    borderRadius: "40px",
-                                    fontSize: "15px", fontFamily: "sans-serif",
-                                    width: "150px", height: "40px"
-                                }}
-                            >
-                                <IntlMessages id="gestion.agence.sort.by" />
-                                <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
-                            </Button>
+                        <FormControl variant="outlined" >
+                                <InputLabel htmlFor="outlined-age-native-simple">
+                                    <IntlMessages id="gestion.agence.sort.by" />
+                                </InputLabel>
+                                <Select
+                                    native
+
+                                    color="primary"
+                                    style={{
+                                        borderRadius: "30px",
+                                        fontSize: "15px",
+                                        fontFamily: "sans-serif",
+                                        width: "150px",
+                                        height: "50px",
+                                        textTransform: "capitalize",
+                                        backgroundColor: "primary",
+                                    }}
+                                >
+                                    <option ></option>
+                                    <option >Type</option>
+                                    <option >Gouvernerat</option>
+                                </Select>
+                            </FormControl>
                         </div>
                     </div>
 

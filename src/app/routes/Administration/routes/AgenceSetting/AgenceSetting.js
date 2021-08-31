@@ -17,7 +17,7 @@ export class AgenceSetting extends React.Component {
     };
     this.openAddAgence = this.openAddAgence.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.OpenArchive = this.OpenArchive.bind(this)
+    this.OpenArchive = this.OpenArchive.bind(this);
   }
 
   OpenArchive() {
