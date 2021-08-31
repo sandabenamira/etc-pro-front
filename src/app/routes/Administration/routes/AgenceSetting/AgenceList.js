@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
-import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
-import Button from "@material-ui/core/Button";
 import AgenceItems from "./AgenceItem";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import IconButton from '@material-ui/core/IconButton';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import IntlMessages from "../../../../../util/IntlMessages";
 
 function createData(agence, type, gouvernerat, adresse, email, fax, Ntel,) {
@@ -31,21 +32,35 @@ export default class AgenceList extends Component {
             <div className="d-flex flex-column">
                 <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12 col-sm-12">
 
-
                     <div className=" col-lg-2 col-md-6 d-flex flex-wrap">
                         <div className="p-2">
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                style={{
-                                    borderRadius: "40px",
-                                    fontSize: "15px", fontFamily: "sans-serif",
-                                    width: "150px", height: "40px", textTransform: "capitalize"
-                                }}
-                            >
-                                <IntlMessages id="gestion.agence.sort.by" />
-                                <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
-                            </Button>
+
+                            <FormControl variant="outlined" >
+                                <InputLabel htmlFor="outlined-age-native-simple">
+                                    <IntlMessages id="gestion.agence.sort.by" />
+                                </InputLabel>
+                                <Select
+                                    native
+
+                                    color="primary"
+                                    style={{
+                                        borderRadius: "30px",
+                                        fontSize: "15px",
+                                        fontFamily: "sans-serif",
+                                        width: "150px",
+                                        height: "50px",
+                                        textTransform: "capitalize",
+                                        backgroundColor: "primary",
+                                    }}
+                                >
+                                    <option ></option>
+                                    <option >Type</option>
+                                    <option >Gouvernerat</option>
+                                </Select>
+                            </FormControl>
+
+
+
                         </div>
                     </div>
                     <div className="col-lg-4 col-md-6 col-sm-6 d-flex flex-wrap align-items-center m-2">
