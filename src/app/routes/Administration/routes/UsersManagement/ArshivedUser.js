@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 
 import ArshivedUserList from "./ArshivedUserList";
 import AddUser from "./AddUser";
-//import IntlMessages from "../../../../../util/IntlMessages";
+// import IntlMessages from "../../../../../util/IntlMessages";
 import IconButton from "@material-ui/core/IconButton";
-import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
+import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 
 export class ArshivedUser extends Component {
   constructor(props) {
@@ -42,8 +42,6 @@ export class ArshivedUser extends Component {
                     height: "28px",
                   }}
                   onClick={this.props.handleopenArchived}
-
-
                 >
                   <ArrowBackIosOutlinedIcon />
                 </IconButton>
@@ -57,7 +55,6 @@ export class ArshivedUser extends Component {
                   Gestion des Utilisateurs- Archive
                 </h1>
               </div>
-
             </div>
           </div>
 
@@ -77,9 +74,7 @@ export class ArshivedUser extends Component {
               textAlign: "center",
               fontSize: "20px",
             }}
-          >
-
-          </div>
+          ></div>
         </div>
       </div>
     );

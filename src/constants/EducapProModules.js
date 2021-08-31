@@ -48,10 +48,16 @@ export const sousModuleAdministration = [
       id: 2,
     },
     {
+      name: 'partner-management',
+      pathName: 'administration/partner-management',
+      icon: 'accounts-alt',
+      id: 3,
+    },
+    {
       name: 'permissions-settings',
       pathName: 'administration/permissions-settings',
       icon: 'folder-outline',
-      id: 3,
+      id: 4,
     }
   ];
 

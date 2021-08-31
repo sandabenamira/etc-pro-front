@@ -40,28 +40,28 @@ export default class UserList extends Component {
   render() {
     return (
       <div className="app-wrapper ">
-        <div className="d-flex flex-row col-lg-12 col-md-12  col-sm-12 justify-content-around">
+         <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12 bd-highlight flex-wrap"></div>
 
-        <div className="d-flex ">
-          <div className="p-2">
-            <Button
-              variant="contained"
-              color="primary"
-              style={{
-                height: 40,
-                width: 220,
-                borderRadius: 60,
-                fontSize: "20px",
-                fontFamily: "Roboto",
-                textTransform: "capitalize",
-              }}
-            >
-              <IntlMessages id="permission.role.all" />
-              <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
-            </Button>
-          </div>
-          </div>
-          <div className=" d-flex flex-row flex-wrap p-2 col-lg-4 col-md-3  col-sm-3 justify-content-center">
+<div className="d-flex justify-content-around bd-highlight flex-wrap">
+  <div className="p-2">
+              <Button
+                variant="contained"
+                color="primary"
+                style={{
+                  height: 40,
+                  width: 220,
+                  borderRadius: 60,
+                  fontSize: "20px",
+                  fontFamily: "Roboto",
+                  textTransform: "capitalize",
+                }}
+              >
+                <IntlMessages id="permission.role.all" />
+                <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
+              </Button>
+            </div>
+          
+          <div className=" d-flex flex-column flex-wrap p-2 col-lg-4 col-md-6  col-sm-12 justify-content-center">
             <Paper
               component="form"
               className="d-flex flex-row"
@@ -91,49 +91,51 @@ export default class UserList extends Component {
               />
             </Paper>
           </div>
-        
         </div>
-        <table
-          className="table"
-          style={{ borderCollapse: "separate", borderSpacing: "0 15px" }}
-        >
-          <thead>
-            <tr style={{ paddingBottom: "10px", textAlign: "start" }}>
-              <th style={{ borderBottom: "0", borderTop: "0" }}>
-                <IntlMessages id="user.photo" />
-              </th>
-              <th style={{ borderBottom: "0", borderTop: "0" }}>
-                <IntlMessages id="user.name" />
-              </th>
-              <th style={{ borderBottom: "0", borderTop: "0" }}>
-                <IntlMessages id="user.last.name" />
-              </th>
-              <th style={{ borderBottom: "0", borderTop: "0" }}>
-                <IntlMessages id="user.role" />{" "}
-              </th>
-              <th style={{ borderBottom: "0", borderTop: "0" }}>
-                <IntlMessages id="user.mail" />
-              </th>
-              <th style={{ borderBottom: "0", borderTop: "0" }}>
-                <IntlMessages id="user.phone.number" />
-              </th>
-              <th style={{ borderBottom: "0", borderTop: "0" }}></th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <ArshivedUserItems
-                photo={row.photo}
-                nom={row.nom}
-                prenom={row.prenom}
-                role={row.role}
-                email={row.email}
-                Ntel={row.Ntel}
-              />
-            ))}
-          </tbody>
-        </table>
+        <div className="table-responsive">
+          <table
+            className="table"
+            style={{ borderCollapse: "separate", borderSpacing: "0 15px" }}
+          >
+            <thead>
+              <tr style={{ paddingBottom: "10px", textAlign: "start" }}>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>
+                  <IntlMessages id="user.photo" />
+                </th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>
+                  <IntlMessages id="user.name" />
+                </th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>
+                  <IntlMessages id="user.last.name" />
+                </th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>
+                  <IntlMessages id="user.role" />{" "}
+                </th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>
+                  <IntlMessages id="user.mail" />
+                </th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>
+                  <IntlMessages id="user.phone.number" />
+                </th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}></th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <ArshivedUserItems
+                  photo={row.photo}
+                  nom={row.nom}
+                  prenom={row.prenom}
+                  role={row.role}
+                  email={row.email}
+                  Ntel={row.Ntel}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
+      
     );
   }
 }
