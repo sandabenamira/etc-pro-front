@@ -23,9 +23,9 @@ export default class AddUser extends Component {
               autoComplete="off"
               onSubmit={this.props.handleSubmit}
             >
-              <div className=" d-flex flex-wrap justify-content-center flex-column col-lg-8 col-md-8 bd-highlight col-sm-12">
+              <div className="d-flex flex-wrap justify-content-start flex-column col-lg-12 col-md-12 col-sm-12">
                 <div
-                  className="d-flex align-item-center justify-content-around "
+                  className="d-flex align-item-center justify-content-center "
                   style={{ color: "#4C25B7", fontSize: "25px" }}
                 >
                   <IntlMessages id="add.user" />
@@ -61,7 +61,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className=" d-flex flex-row flex-wrap bd-highlight col-md-6 ">
+                  <div className=" d-flex flex-row flex-wrap bd-highlight col-md-4 ">
                     <div className="p-2" style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.genre" />
 
@@ -91,7 +91,7 @@ export default class AddUser extends Component {
                 </div>
                 {/* Add date */}
                 <div className=" d-flex flex-row ">
-                  <div className="m-3 d-flex flex-column flex-wrap col-md-7">
+                  <div className="m-3 d-flex flex-column flex-wrap col-md-4">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.birthday.date" />
                       <TextField
@@ -107,7 +107,7 @@ export default class AddUser extends Component {
 
                     <div></div>
                   </div>
-                  <div className="m-1 d-flex bd-highlight flex-wrap flex-column col-md-5 ">
+                  <div className="m-1 d-flex bd-highlight flex-wrap flex-column col-md-4 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="country.user" />
                     </div>
@@ -138,7 +138,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className=" d-flex flex-wrap flex-column col-md-5 ">
+                  <div className=" d-flex flex-wrap flex-column col-md-4 ">
                     <div style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.phone.number" />
                     </div>
@@ -167,7 +167,7 @@ export default class AddUser extends Component {
                 </div>
                 {/* Add contact */}
                 <div className="p-2 d-flex flex-row ">
-                  <div className=" d-flex flex-column flex-wrap col-md-6">
+                  <div className=" d-flex flex-column flex-wrap col-md-4">
                    <div style={{ fontSize: "18px" }}>
                       Adresse Postale
                     </div>
@@ -193,7 +193,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className="p-2 d-flex flex-row  flex-wrap col-md-6 ">
+                  <div className="p-2 d-flex flex-row  flex-wrap col-md-4 ">
                     <div style={{ fontSize: "20px", color: "orange" }}>
                       <AddCircleOutlineOutlinedIcon
                         style={{ color: orange[500] }}

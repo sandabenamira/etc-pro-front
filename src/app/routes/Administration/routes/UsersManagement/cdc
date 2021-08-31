@@ -1,0 +1,37 @@
+    {/* caracter */}
+                <div className="d-flex justify-content-start flex-row " style={{backgroundColor:"red"}}>
+                  <div className="col-lg-12 col-md-10 col-sm-12 d-flex flex-wrap justify-content-start flex-row  " style={{backgroundColor:"pink"}}>
+                    <div className="col-lg-4 col-md-4 col-sm-10 d-flex flex-wrap flex-column justify-content-start align-items-start" style={{backgroundColor:"orange"}}>
+                      <Avatar
+                        alt="Remy Sharp"
+                        src="https://www.atlassian.com/fr/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg"
+                        style={{ width: 180, height: 180 }}
+                      />
+                    </div>
+                    <div className="col-lg-8 col-md-6 col-sm-10 d-flex flex-wrap flex-column justify-content-start align-items-start" style={{backgroundColor:"yellow"}}>
+                      <h1 style={{ fontSize: "35px", color: "#44548F" }}>
+                        oudherfi oumaima
+                      </h1>
+                      <h2 style={{ fontSize: "30px", color: "#8C8C8C" }}>
+                        Responsable Formation
+                      </h2>
+
+                      <h3 style={{ fontSize: "30px", color: "#8C8C8C" }}>
+                        <b>
+                          <IntlMessages id="user.identifiant" /> :
+                        </b>
+                        oudherfi oumaima5
+                      </h3>
+                      <h4 style={{ fontSize: "30px", color: "#8C8C8C" }}>
+                        <b>
+                          <IntlMessages id="gestion.agence.agency" /> :
+                        </b>{" "}
+                        Agence 5
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <hr style={{ width: "700px", color: "black" }} />
+
+                {/* Add contact */}

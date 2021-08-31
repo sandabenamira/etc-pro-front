@@ -20,7 +20,7 @@ export default class UserDetails extends Component {
               autoComplete="off"
               onSubmit={this.props.handleSubmit}
             >
-              <div className="d-flex flex-wrap justify-content-between flex-column col-lg-8 col-md-12 col-sm-8">
+              <div className="d-flex flex-wrap justify-content-start flex-column col-lg-12 col-md-8 col-sm-12">
                 <div className=" d-flex flex-row d-flex justify-content-end ">
                   <div className=" p-1 m-6 d-flex flex-row col-md-1 d-flex align-items-start">
                     <Button
@@ -34,17 +34,22 @@ export default class UserDetails extends Component {
                     </Button>
                   </div>
                 </div>
-                <br />
-                {/* caracter */}
-                <div className=" d-flex flex-row justify-content-start col-lg-5 col-md-5 col-sm-12">
-                  <div className="  d-flex flex-column col-md-6  bd-highlight flex-wrap d-flex justify-content-center align-items-start">
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="https://www.atlassian.com/fr/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg"
-                      style={{ width: 180, height: 180 }}
-                    />
 
-                    <div className=" d-flex flex-column col-md-12  d-flex justify-content-center bd-highlight flex-wrap align-items-start">
+                <br />
+
+                <div className="d-flex justify-content-center flex-row flex-wrap ">
+                  <div className="col-lg-4 col-md-8 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start">
+                    <h1>
+                      <Avatar
+                        alt="Remy Sharp"
+                        src="https://www.atlassian.com/fr/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg"
+                        style={{ width: 180, height: 180 }}
+                      />
+                    </h1>
+                  </div>
+
+                  <div className="col-lg-8 col-md-12 col-sm-4 d-flex flex-column justify-content-start  ">
+                    <h1>
                       <h1 style={{ fontSize: "35px", color: "#44548F" }}>
                         oudherfi oumaima
                       </h1>
@@ -54,31 +59,21 @@ export default class UserDetails extends Component {
 
                       <h3 style={{ fontSize: "30px", color: "#8C8C8C" }}>
                         <b>
-                          <IntlMessages id="user.identifiant" /> :{" "}
+                          <IntlMessages id="user.identifiant" />    
                         </b>
+                        <b> :  </b>
                         oudherfi oumaima5
                       </h3>
                       <h4 style={{ fontSize: "30px", color: "#8C8C8C" }}>
                         <b>
-                          <IntlMessages id="gestion.agence.agency" /> :{" "}
+                          <IntlMessages id="gestion.agence.agency" /> :
                         </b>{" "}
                         Agence 5
                       </h4>
-                    </div>
-                  </div>
-                </div>
-
-                <div className=" d-flex flex-row d-flex justify-content-start bd-highlight flex-wrap ">
-                  <div className=" d-flex flex-column col-md-12 d-flex justify-content-start  bd-highlight flex-wrap align-items-start">
-                    <h1 style={{ fontSize: "35px", color: "#FFFFFF" }}>
-                      *********************************************
-                      <hr />
                     </h1>
-                    <br />
                   </div>
                 </div>
-
-                {/* Add contact */}
+                <hr style={{ width: "700px", color: "black" }} />
                 <div className=" d-flex flex-row d-flex justify-content-start bd-highlight flex-wrap ">
                   <div className=" d-flex flex-column col-md-5 d-flex justify-content-start align-items-start bd-highlight flex-wrap">
                     <h1 style={{ fontSize: "25px", color: "#44548F" }}>
@@ -93,7 +88,7 @@ export default class UserDetails extends Component {
                     <h1 style={{ fontSize: "25px", color: "#44548F" }}>CIN</h1>
 
                     <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>
-                      0000000
+                      00000007
                     </h2>
                   </div>
                 </div>
@@ -128,7 +123,7 @@ export default class UserDetails extends Component {
                       oumaima.afff@gmail.com
                     </h2>
                   </div>
-                  <div className=" d-flex flex-column col-md-4 d-flex justify-content-start align-items-start bd-highlight flex-wrap">
+                  <div className=" d-flex flex-column col-md-6 d-flex flex-wrap justify-content-start align-items-start bd-highlight flex-wrap">
                     <h1 style={{ fontSize: "25px", color: "#44548F" }}>
                       <IntlMessages id="stuppUser.formadd.phone" />
                     </h1>
@@ -151,7 +146,7 @@ export default class UserDetails extends Component {
                 </div>
                 <br />
                 <div className=" d-flex flex-row d-flex justify-content-start bd-highlight flex-wrap">
-                  <div className=" d-flex flex-column col-md-4 d-flex justify-content-start align-items-start bd-highlight flex-wrap">
+                  <div className=" d-flex flex-column col-md-7 d-flex justify-content-start align-items-start bd-highlight flex-wrap">
                     <h1 style={{ fontSize: "25px", color: "#44548F" }}>
                       {" "}
                       <IntlMessages id="user.join.papiers" /> (1)
