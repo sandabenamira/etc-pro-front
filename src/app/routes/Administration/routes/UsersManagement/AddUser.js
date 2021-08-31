@@ -23,9 +23,9 @@ export default class AddUser extends Component {
               autoComplete="off"
               onSubmit={this.props.handleSubmit}
             >
-              <div className=" d-flex flex-wrap justify-content-center flex-column col-lg-8 col-md-11 bd-highlight col-sm-12">
+              <div className=" d-flex flex-wrap justify-content-center flex-column col-lg-8 col-md-8 bd-highlight col-sm-12">
                 <div
-                  className="d-flex justify-item-center justify-content-center mt-8"
+                  className="d-flex align-item-center justify-content-around "
                   style={{ color: "#4C25B7", fontSize: "25px" }}
                 >
                   <IntlMessages id="add.user" />
@@ -61,7 +61,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className=" d-flex flex-row flex-wrap bd-highlight col-md-4 ">
+                  <div className=" d-flex flex-row flex-wrap bd-highlight col-md-6 ">
                     <div className="p-2" style={{ fontSize: "18px" }}>
                       <IntlMessages id="user.genre" />
 
@@ -193,7 +193,7 @@ export default class AddUser extends Component {
                       ></TextField>
                     </div>
                   </div>
-                  <div className="p-2 d-flex flex-row  flex-wrap col-md-4 ">
+                  <div className="p-2 d-flex flex-row  flex-wrap col-md-6 ">
                     <div style={{ fontSize: "20px", color: "orange" }}>
                       <AddCircleOutlineOutlinedIcon
                         style={{ color: orange[500] }}
