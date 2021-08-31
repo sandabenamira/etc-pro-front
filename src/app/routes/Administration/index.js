@@ -6,6 +6,8 @@ import Can from "../../../components/switchComponent/can";
 import { RoleContext } from "../../../components/switchComponent/Context";
 import PermissionSetting from "./routes/PermissionSetting/PermissionSetting";
 import AgenceSetting from "./routes/AgenceSetting/AgenceSetting";
+import PartnersManagement from "./routes/PartnersManagement/Partners";
+
 const Administration = ({ match, estabModule }) => (
   <div className="app-wrapper">
     <Switch>
@@ -109,6 +111,45 @@ const Administration = ({ match, estabModule }) => (
                     role={role}
                     perform={`module-nav-agency-management`}
                     yes={() => <AgenceSetting match={match} />}
+                    no={() => (
+                      <Route
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
+                      />
+                    )}
+                  />
+                )}
+                no={() => (
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
+                )}
+              />
+            )}
+          </RoleContext.Consumer>
+        )}
+      />
+
+      <Route
+        path={`${match.url}/partner-management`}
+        render={() => (
+          <RoleContext.Consumer>
+            {({ role }) => (
+              <Can
+                role={role}
+                perform="module-nav-access"
+                data={{
+                  mod: "administration",
+                  moduleList: estabModule,
+                }}
+                yes={() => (
+                  <Can
+                    role={role}
+                    perform={`module-nav-partner-management`}
+                    yes={() => <PartnersManagement match={match} />}
                     no={() => (
                       <Route
                         component={asyncComponent(() =>
