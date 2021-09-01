@@ -49,7 +49,7 @@ export default class UserList extends Component {
     this.opendetailsUser = this.opendetailsUser.bind(this);
   }
   opendetailsUser() {
-    console.log("dddddddddddddddddd");
+   
     this.setState({ opendetails: !this.state.opendetails });
   }
 

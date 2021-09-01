@@ -13,7 +13,8 @@ const rules = {
      'module-nav-training-materials',
      'module-nav-moocs',
      'module-nav-reporting-formation',
-     'module-nav-reporting-financier'
+     'module-nav-reporting-financier',
+     'module-nav-partner-management',
     ],
 
     dynamic: {
