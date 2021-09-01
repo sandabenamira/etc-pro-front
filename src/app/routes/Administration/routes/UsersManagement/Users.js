@@ -47,7 +47,7 @@ export class User extends Component {
                     fontSize: "26px",
                   }}
                 >
-                  Gestion des Utilisateurs
+                  <IntlMessages id="sidebar.usersManagement" />
                 </h1>
               </div>
             </div>
@@ -59,18 +59,18 @@ export class User extends Component {
               <AddUser values={this.state} handleCancel={this.handleCancel} />
             )}
           </div>
-          <div className="d-flex flex-row-reverse p-2 col-lg-10 col-md-12 col-sm-12 mt-4">
+          <div className="d-flex flex-row-reverse  col-lg-12 col-md-12 col-sm-12 ">
             <div
-              className="d-flex "
+              className="d-flex justify-content-start align-items-center "
               style={{
-                color: "#A4A4A4",
-                fontWeight: "bold",
+                color: "#616A6B",
                 textAlign: "center",
-                fontSize: "20px",
+                fontSize:"25px"
+                
               }}
             >
               <IconButton
-                aria-label="delete"
+                aria-label="archive"
                 style={{
                   color: "#A4A4A4",
                   backgroundColor: "#FFFFFF",

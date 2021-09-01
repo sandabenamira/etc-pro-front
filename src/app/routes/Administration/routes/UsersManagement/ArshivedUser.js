@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import ArshivedUserList from "./ArshivedUserList";
 import AddUser from "./AddUser";
-// import IntlMessages from "../../../../../util/IntlMessages";
+import IntlMessages from "../../../../../util/IntlMessages";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 
@@ -52,7 +52,8 @@ export class ArshivedUser extends Component {
                     fontSize: "26px",
                   }}
                 >
-                  Gestion des Utilisateurs- Archive
+                  <IntlMessages id="sidebar.usersManagement" /> - 
+                  <IntlMessages id="gestion.agence.archive" />
                 </h1>
               </div>
             </div>
