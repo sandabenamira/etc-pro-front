@@ -49,7 +49,6 @@ export default class UserList extends Component {
     this.opendetailsUser = this.opendetailsUser.bind(this);
   }
   opendetailsUser() {
-   
     this.setState({ opendetails: !this.state.opendetails });
   }
 
@@ -78,8 +77,10 @@ export default class UserList extends Component {
                 textTransform: "capitalize",
               }}
             >
+             
               <IntlMessages id="permission.role.all" />
               <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
+              
             </Button>
           </div>
 
