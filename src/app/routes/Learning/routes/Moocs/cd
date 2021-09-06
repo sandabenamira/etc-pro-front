@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
+import React from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
+
 import IconButton from "@material-ui/core/IconButton";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
@@ -10,13 +12,20 @@ import img2 from "../../../../../assets/images/img2.jpeg";
 import img3 from "../../../../../assets/images/img3.jpeg";
 import img4 from "../../../../../assets/images/img4.jpeg";
 
-
-export default class ListMoocsItem extends Component {
-  render() {
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+}));
+export default function Item() {
+  const classes = useStyles();
   var things = [img1, img2, img3, img4];
   var thing = things[Math.floor(Math.random() * things.length)];
-    return (
-      <div className="card package bg-white shadow">
+  return (
+    <div className="card package bg-white shadow">
       <div className="package-header  lighten-1 text-white">
         <img
           src={thing}
@@ -67,14 +76,14 @@ export default class ListMoocsItem extends Component {
       <div className="package-footer">
         <IconButton
           aria-label="delete"
-          
+          className={classes.margin}
           style={{
             color: "#FFFFFF",
             backgroundColor: "#3F51B5",
             width: "30px",
             height: "30px",
           }}
-          onClick={this.props.handleOpenDetails}
+          onClick={this.props.handleOpenDetails()}
 
         >
           <VisibilityOutlinedIcon />
@@ -82,7 +91,7 @@ export default class ListMoocsItem extends Component {
 
         <IconButton
           aria-label="delete"
-          
+          className={classes.margin}
           style={{
             color: "#FFFFFF",
             backgroundColor: "#F15381",
@@ -94,7 +103,7 @@ export default class ListMoocsItem extends Component {
         </IconButton>
         <IconButton
           aria-label="delete"
-          
+          className={classes.margin}
           style={{
             color: "#FFFFFF",
             backgroundColor: "#F9972D",
@@ -106,6 +115,5 @@ export default class ListMoocsItem extends Component {
         </IconButton>
       </div>
     </div>
-    )
-  }
+  );
 }

@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { orange } from "@material-ui/core/colors";
 
 import IntlMessages from "../../../../../util/IntlMessages";
+import Select from "react-select";
 
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -45,14 +46,49 @@ export default class UserList extends Component {
 
     this.state = {
       opendetails: false,
+      listRoles :[
+        
+        {
+          id: 0,
+          label: "Administrateur",
+          value: 0
+        },
+        {
+          id: 1,
+          label:"Directeurs des Ressouces Humaines",
+          value: 1
+        },
+        {
+          id: 2,
+          label: "Responsable des Formations",
+          value: 2
+        },
+        {
+          id: 1,
+          label:"Chef D'agences",
+          value: 1
+        },
+        {
+          id: 1,
+          label:"Formateurs",
+          value: 1
+        },
+        {
+          id: 1,
+          label:"Collaborateurs",
+          value: 1
+        },
+      ]
     };
     this.opendetailsUser = this.opendetailsUser.bind(this);
   }
   opendetailsUser() {
-   
     this.setState({ opendetails: !this.state.opendetails });
   }
 
+  handleChangeRole = (selectedOption) => {
+ 
+  };
   render() {
     return (
       <div className="app-wrapper ">
@@ -66,21 +102,27 @@ export default class UserList extends Component {
 
         <div className="d-flex justify-content-around bd-highlight flex-wrap">
           <div className="p-2">
-            <Button
-              variant="contained"
-              color="primary"
-              style={{
-                height: 40,
-                width: 220,
-                borderRadius: 60,
-                fontSize: "20px",
-                fontFamily: "Roboto",
-                textTransform: "capitalize",
-              }}
-            >
-              <IntlMessages id="permission.role.all" />
-              <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
-            </Button>
+          <Select
+                  required
+                  options={this.state.listRoles}
+                  onChange={this.handleChangeRole}
+                  id="role"
+                  name="role"
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      "&:hover": { borderColor: "gray" }, // border style on hover
+                      border: "1px solid lightgray", // default border color
+                      boxShadow: "none", // no box-shadow
+                      borderTopStyle: "none",
+                      borderRightStyle: "none",
+                      borderLeftStyle: "none",
+                      borderRadius: " none",
+                      width:200,
+
+                    }),
+                  }}
+                />{" "}
           </div>
 
           <div className=" d-flex flex-row flex-wrap p-2 col-lg-3 col-md-6  col-sm-4 bd-highlight flex-wrap">
