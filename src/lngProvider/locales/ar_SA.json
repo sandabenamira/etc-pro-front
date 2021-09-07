@@ -1640,7 +1640,9 @@
   "reporting.formation.NIVsatisfaction.8":"التبادلات في المجموعة",
   "reporting.formation.NIVsatisfaction.9":"كم علمك هذا التدريب",
   "reporting.formation.Commentaires":"تعليقات",
-  "sidebar.components.partner-management": "إدارة الشركاء"
+  "sidebar.components.partner-management": "إدارة الشركاء",
+  "internal.trainer":"مدرب داخلي",
+  "external.trainer":"مدرب خارجي"
 
 
 

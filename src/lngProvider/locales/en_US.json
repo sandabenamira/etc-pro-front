@@ -1639,5 +1639,7 @@
   "reporting.formation.NIVsatisfaction.8":"Exchanges in the group",
   "reporting.formation.NIVsatisfaction.9":"How much this training has taught you",
   "reporting.formation.Commentaires":"Comments",
-  "sidebar.components.partner-management": "Partners management"
+  "sidebar.components.partner-management": "Partners management",
+  "internal.trainer":"Internal Trainer",
+  "external.trainer":"External Trainer"
 }
