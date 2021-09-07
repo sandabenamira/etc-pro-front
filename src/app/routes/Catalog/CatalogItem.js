@@ -32,9 +32,7 @@ export default function CatalogItem() {
         </h3> */}
         <img src={thing} alt="formation" style={{ width: '100%', height: '200px' }} />
       </div>
-     <div className="package-items">
-         
-     
+     <div className="package-items">    
       <ul
         className="package-items package-items text-grey text-darken-3"
       >
