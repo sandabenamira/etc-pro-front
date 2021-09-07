@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import UserListItem from "./UserListItem";
 
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
+
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -46,7 +46,7 @@ export default class UserList extends Component {
 
     this.state = {
       opendetails: false,
-      listRoles :[
+      listRoles :[ 
         
         {
           id: 0,
@@ -64,19 +64,19 @@ export default class UserList extends Component {
           value: 2
         },
         {
-          id: 1,
+          id: 3,
           label:"Chef D'agences",
-          value: 1
+          value: 3
         },
         {
-          id: 1,
+          id: 4,
           label:"Formateurs",
-          value: 1
+          value: 4
         },
         {
-          id: 1,
+          id: 5,
           label:"Collaborateurs",
-          value: 1
+          value: 5
         },
       ]
     };
