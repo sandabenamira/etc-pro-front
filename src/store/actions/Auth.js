@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   HIDE_MESSAGE,
   INIT_URL,
@@ -19,10 +19,10 @@ import {
   SIGNUP_USER_SUCCESS,
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
-} from '../../constants/ActionTypes'; /* eslint eqeqeq: "off" */
+} from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 
-import { isEmail } from '../../constants/validationFunctions';
-import cst from '../../config/config';
+// import { isEmail } from "../../constants/validationFunctions";
+import cst from "../../config/config";
 export const userSignUp = (user) => {
   return {
     type: SIGNUP_USER,
@@ -31,51 +31,56 @@ export const userSignUp = (user) => {
 };
 
 export const userSignIn = (user) => {
-  var login = user.login;
-  var password = user.password;
-  var User = {};
-  if (isEmail(login)) {
-    User = {
-      email: login,
-      password: password,
-    };
-  } else {
-    User = {
-      username: login,
-      password: password,
-    };
-  }
+  // var login = user.login;
+  // var password = user.password;
+  // // var User = {};
+  // // if (isEmail(login)) {
+  // //   User = {
+  // //     email: login,
+  // //     password: password,
+  // //   };
+  // // } else {
+  // //   User = {
+  // //     username: login,
+  // //     password: password,
+  // //   };
+  // // }
 
   return (dispatch) => {
-    axios
-      .post(`${cst.baseUrl}/users/login`, User)
-      .then((res) => {
-        localStorage.setItem('token', res.data);
-        // localStorage.setItem('rtvrx_tgfsaju_G0loik', res.data.userId);
-        dispatch(userSignInSuccess(user));
-      })
-      .catch((err) => dispatch(showAuthMessage('Veuillez vérifier votre login et mot de passe')));
+    localStorage.setItem("token", "h1gh1hfgh3Z");
+    dispatch(userSignInSuccess(user));
+    // axios
+    //   .post(`${cst.baseUrl}/users/login`, User)
+    //   .then((res) => {
+    //     localStorage.setItem('token', res.data);
+    //     // localStorage.setItem('rtvrx_tgfsaju_G0loik', res.data.userId);
+    //     dispatch(userSignInSuccess(user));
+    //   })
+    //   .catch((err) => dispatch(showAuthMessage('Veuillez vérifier votre login et mot de passe')));
   };
 };
 
-
 export const resetAccountPassword = (data) => {
   return function (dispatch) {
-    var token = localStorage.getItem('token');
+    var token = localStorage.getItem("token");
     axios
-      .post(`${cst.baseUrl}/users/reset-initial-password?access_token=${token}`, data, {
-        headers: {
-          'content-type': 'application/json',
-        },
-      })
+      .post(
+        `${cst.baseUrl}/users/reset-initial-password?access_token=${token}`,
+        data,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      )
       .then((res) => {})
       .catch((error) => {});
   };
 };
 export const userSignOut = () => {
   axios.post(`${cst.baseUrl}/users/logout?access_token=${localStorage.token}`);
-  localStorage.removeItem('token');
-  localStorage.removeItem('rtvrx_tgfsaju_G0loik');
+  localStorage.removeItem("token");
+  localStorage.removeItem("rtvrx_tgfsaju_G0loik");
 
   return {
     type: SIGNOUT_USER_SUCCESS,
