@@ -11,11 +11,7 @@ const Learning = ({match, estabModule}) => {
   return (
     <div className="app-wrapper">
       <Switch>
-        <Redirect
-          exact
-          from={`${match.url}/`}
-          to={`${match.url}/online-training`}
-        />
+        <Redirect exact from={`${match.url}/`} to={`${match.url}/online-training`} />
         <Route
           path={`${match.url}/online-training`}
           render={() => (
@@ -35,18 +31,14 @@ const Learning = ({match, estabModule}) => {
                       yes={() => <OnlineTraining match={match} />}
                       no={() => (
                         <Route
-                          component={asyncComponent(() =>
-                            import('../../../components/Error404'),
-                          )}
+                          component={asyncComponent(() => import('../../../components/Error404'))}
                         />
                       )}
                     />
                   )}
                   no={() => (
                     <Route
-                      component={asyncComponent(() =>
-                        import('../../../components/Error404'),
-                      )}
+                      component={asyncComponent(() => import('../../../components/Error404'))}
                     />
                   )}
                 />
@@ -73,18 +65,14 @@ const Learning = ({match, estabModule}) => {
                       yes={() => <Moocs match={match} />}
                       no={() => (
                         <Route
-                          component={asyncComponent(() =>
-                            import('../../../components/Error404'),
-                          )}
+                          component={asyncComponent(() => import('../../../components/Error404'))}
                         />
                       )}
                     />
                   )}
                   no={() => (
                     <Route
-                      component={asyncComponent(() =>
-                        import('../../../components/Error404'),
-                      )}
+                      component={asyncComponent(() => import('../../../components/Error404'))}
                     />
                   )}
                 />
@@ -111,18 +99,14 @@ const Learning = ({match, estabModule}) => {
                       yes={() => <TrainingMaterials match={match} />}
                       no={() => (
                         <Route
-                          component={asyncComponent(() =>
-                            import('../../../components/Error404'),
-                          )}
+                          component={asyncComponent(() => import('../../../components/Error404'))}
                         />
                       )}
                     />
                   )}
                   no={() => (
                     <Route
-                      component={asyncComponent(() =>
-                        import('../../../components/Error404'),
-                      )}
+                      component={asyncComponent(() => import('../../../components/Error404'))}
                     />
                   )}
                 />
@@ -130,10 +114,6 @@ const Learning = ({match, estabModule}) => {
             </RoleContext.Consumer>
           )}
         />
-     
-
-
-  
       </Switch>
     </div>
   );

@@ -10,11 +10,7 @@ const Raporting = ({match, estabModule}) => {
   return (
     <div className="app-wrapper">
       <Switch>
-        <Redirect
-          exact
-          from={`${match.url}/`}
-          to={`${match.url}/reporting-formation`}
-        />
+        <Redirect exact from={`${match.url}/`} to={`${match.url}/reporting-formation`} />
         <Route
           path={`${match.url}/reporting-formation`}
           render={() => (
@@ -34,18 +30,14 @@ const Raporting = ({match, estabModule}) => {
                       yes={() => <ReportingFinancier match={match} />}
                       no={() => (
                         <Route
-                          component={asyncComponent(() =>
-                            import('../../../components/Error404'),
-                          )}
+                          component={asyncComponent(() => import('../../../components/Error404'))}
                         />
                       )}
                     />
                   )}
                   no={() => (
                     <Route
-                      component={asyncComponent(() =>
-                        import('../../../components/Error404'),
-                      )}
+                      component={asyncComponent(() => import('../../../components/Error404'))}
                     />
                   )}
                 />
@@ -72,18 +64,14 @@ const Raporting = ({match, estabModule}) => {
                       yes={() => <RaportingFormation match={match} />}
                       no={() => (
                         <Route
-                          component={asyncComponent(() =>
-                            import('../../../components/Error404'),
-                          )}
+                          component={asyncComponent(() => import('../../../components/Error404'))}
                         />
                       )}
                     />
                   )}
                   no={() => (
                     <Route
-                      component={asyncComponent(() =>
-                        import('../../../components/Error404'),
-                      )}
+                      component={asyncComponent(() => import('../../../components/Error404'))}
                     />
                   )}
                 />
@@ -91,11 +79,6 @@ const Raporting = ({match, estabModule}) => {
             </RoleContext.Consumer>
           )}
         />
-      
-     
-
-
-  
       </Switch>
     </div>
   );
