@@ -11,6 +11,7 @@ Bouraoui khlifi | 01/09/2019 | -/-/-
 Hamza KHLIFI | 15/10/2020 | -/-/-
 Amal BOUMIZA | 01/10/2020 | -/-/-
 Ibtihel Mejri | 07/06/2021
+Wifek Ben Rodmahane | 21/02/2022  | -/-/-
 
 
 # We bought the Jumbo React to fast delivrey the educap-pro application.
