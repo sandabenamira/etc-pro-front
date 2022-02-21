@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { ConnectedRouter } from 'connected-react-router';
-import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import React, {Component} from 'react';
+import {ConnectedRouter} from 'connected-react-router';
+import {Provider} from 'react-redux';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-import configureStore, { history } from './store';
+import configureStore, {history} from './store';
 import App from './components/containers/App';
 
 // import * as Sentry from '@sentry/react';
@@ -32,13 +32,17 @@ class MainApp extends Component {
     load: false,
   };
 
-  render() {   /* eslint eqeqeq: "off" */
-     return (
+  render() {
+    /* eslint eqeqeq: "off" */
+    return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <Switch>
-            <Route path="/" render={(props) => <App {...props} />} />
-          </Switch>
+           
+          <BrowserRouter>
+            <Switch>
+              <Route path="/" render={(props) => <App {...props} />} />
+            </Switch>
+          </BrowserRouter>
         </ConnectedRouter>
       </Provider>
     );

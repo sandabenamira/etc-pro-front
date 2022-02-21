@@ -10,6 +10,7 @@ import PartnersManagement from "./routes/PartnersManagement/Partners";
 
 const Administration = ({ match, estabModule }) => (
   <div className="app-wrapper">
+     
     <Switch>
       <Redirect
         exact

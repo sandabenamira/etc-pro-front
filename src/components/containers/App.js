@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { createTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Redirect, Route, Switch } from "react-router-dom";
@@ -90,71 +90,71 @@ class App extends Component {
   getColorTheme(themeColor, applyTheme) {
     switch (themeColor) {
       case INDIGO: {
-        applyTheme = createMuiTheme(indigoTheme);
+        applyTheme = createTheme(indigoTheme);
         break;
       }
       case CYAN: {
-        applyTheme = createMuiTheme(cyanTheme);
+        applyTheme = createTheme(cyanTheme);
         break;
       }
       case AMBER: {
-        applyTheme = createMuiTheme(amberTheme);
+        applyTheme = createTheme(amberTheme);
         break;
       }
       case DEEP_ORANGE: {
-        applyTheme = createMuiTheme(orangeTheme);
+        applyTheme = createTheme(orangeTheme);
         break;
       }
       case PINK: {
-        applyTheme = createMuiTheme(pinkTheme);
+        applyTheme = createTheme(pinkTheme);
         break;
       }
       case BLUE: {
-        applyTheme = createMuiTheme(blueTheme);
+        applyTheme = createTheme(blueTheme);
         break;
       }
       case DEEP_PURPLE: {
-        applyTheme = createMuiTheme(purpleTheme);
+        applyTheme = createTheme(purpleTheme);
         break;
       }
       case GREEN: {
-        applyTheme = createMuiTheme(greenTheme);
+        applyTheme = createTheme(greenTheme);
         break;
       }
       case DARK_INDIGO: {
-        applyTheme = createMuiTheme(indigoTheme);
+        applyTheme = createTheme(indigoTheme);
         break;
       }
       case DARK_CYAN: {
-        applyTheme = createMuiTheme(cyanTheme);
+        applyTheme = createTheme(cyanTheme);
         break;
       }
       case DARK_AMBER: {
-        applyTheme = createMuiTheme(amberTheme);
+        applyTheme = createTheme(amberTheme);
         break;
       }
       case DARK_DEEP_ORANGE: {
-        applyTheme = createMuiTheme(orangeTheme);
+        applyTheme = createTheme(orangeTheme);
         break;
       }
       case DARK_PINK: {
-        applyTheme = createMuiTheme(pinkTheme);
+        applyTheme = createTheme(pinkTheme);
         break;
       }
       case DARK_BLUE: {
-        applyTheme = createMuiTheme(blueTheme);
+        applyTheme = createTheme(blueTheme);
         break;
       }
       case DARK_DEEP_PURPLE: {
-        applyTheme = createMuiTheme(purpleTheme);
+        applyTheme = createTheme(purpleTheme);
         break;
       }
       case DARK_GREEN: {
-        applyTheme = createMuiTheme(greenTheme);
+        applyTheme = createTheme(greenTheme);
         break;
       }
       default:
-        createMuiTheme(indigoTheme);
+        createTheme(indigoTheme);
     }
     return applyTheme;
   }
@@ -165,10 +165,10 @@ class App extends Component {
     const { match, location, authUser, initURL, isDarkTheme, themeColor } =
       this.props;
 
-    let applyTheme = createMuiTheme(indigoTheme);
+    let applyTheme = createTheme(indigoTheme);
     if (isDarkTheme) {
       document.body.classList.add("dark-theme");
-      applyTheme = createMuiTheme(darkTheme);
+      applyTheme = createTheme(darkTheme);
     } else {
       applyTheme = this.getColorTheme(themeColor, applyTheme);
     }
@@ -193,6 +193,7 @@ class App extends Component {
             >
               <RTL>
                 <div className="app-main">
+                  
                   <Switch>
                     <RestrictedRoute
                       path={`${match.url}app`}
