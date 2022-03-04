@@ -16,9 +16,11 @@ export class UserProfile extends Component {
         style={{
           marginLeft: '5%',
           marginRight: '10%',
+
         }}
       >
-        <h2>module Profile</h2>
+        <h2 >module eeeeProfile</h2>
+
       </div>
     );
   }
