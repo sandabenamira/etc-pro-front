@@ -1,18 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
+
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import {
-  NotificationContainer,
-  NotificationManager,
+
 } from "react-notifications";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { Link } from "react-router-dom";
-import IntlMessages from "../../util/IntlMessages";
+
 import {
   hideMessage,
   showAuthLoader,
@@ -32,7 +27,7 @@ class SignUp extends React.Component {
       password: "",
       company: "",
       phone: "",
-      email: "",
+   
       message: "",
     };
   }
@@ -99,8 +94,7 @@ class SignUp extends React.Component {
 
   render() {
     /* eslint eqeqeq: "off" */
-    const { name, email, password } = this.state;
-    const { showMessage, loader, alertMessage } = this.props;
+    const { name, email } = this.state;
 
     return (
       <div
@@ -707,7 +701,6 @@ class SignUp extends React.Component {
               style={{
                 fontSize: "1.3rem",
                 color: "#1a85b3",
-                border: "none",
                 cursor: "pointer",
                 backgroundColor: "#ffffff",
                 padding: "5px 25px 5px 25px",
