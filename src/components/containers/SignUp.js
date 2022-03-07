@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 // import { connect } from "react-redux";
 
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import {} from "react-notifications";
 import axios from 'axios';
 
@@ -21,33 +21,31 @@ export default class SignUp extends React.Component {
   constructor() {
     super();
     this.state = {
-      nom_entreprise: "",
-      numero_serie: "",
-      addresse_entreprise: "",
-      gouvernorat: "",
-      pays: "",
-      numero_telephone_entreprise: "",
-      email_entreprise: "",
-      choix_devise: "",
-      code_postal:""
+      nom_entreprise: '',
+      numero_serie: '',
+      addresse_entreprise: '',
+      gouvernorat: '',
+      pays: '',
+      numero_telephone_entreprise: '',
+      email_entreprise: '',
+      choix_devise: '',
+      code_postal: '',
     };
   }
-  componentWillMount(){
+  componentWillMount() {
     this.getPays();
   }
-  getPays(){
-    axios.get('http://localhost:3000/api/')
-        .then(response=>{
-          console.log(response.data)
-          this.setState({pays:response.data},()=>{
-          })
-        })
+  getPays() {
+    axios.get('http://localhost:3000/api/').then((response) => {
+      console.log(response.data);
+      this.setState({pays: response.data}, () => {});
+    });
   }
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.nom_entreprise && this.isEmail())
-     this.sendFeedback(
-        "***TEMPLAYE_ID***",
+      this.sendFeedback(
+        '***TEMPLAYE_ID***',
         {
           nom_entreprise: this.nom_entreprise,
           numero_serie: this.numero_serie,
@@ -58,28 +56,27 @@ export default class SignUp extends React.Component {
           email: this.email,
           choix_devise: this.choix_devise,
         },
-        console.log(this.nom_entreprise + "est" + this.pays)
+        console.log(this.nom_entreprise + 'est' + this.pays)
       );
     else {
-      console.log("error !!!!!!!");
+      console.log('error !!!!!!!');
     }
   };
 
-
   sendFeedback = (templateId, variables) => {
     window.emailjs
-      .send("gmail", templateId, variables)
+      .send('gmail', templateId, variables)
       .then((res) => {
-        console.log("success !");
-        this.nom_entreprise("");
-        this.Company("");
-        this.Phone("");
-        this.Email("");
-        this.message("");
+        console.log('success !');
+        this.nom_entreprise('');
+        this.Company('');
+        this.Phone('');
+        this.Email('');
+        this.message('');
       })
       .catch(
         (err) =>
-          (document.querySelector(".form-message").innerHTML =
+          (document.querySelector('.form-message').innerHTML =
             "Une erreur s'est produite, veuillez réessayer.")
       );
   };
@@ -102,61 +99,57 @@ export default class SignUp extends React.Component {
     const {
       nom_entreprise,
       numero_serie,
-       addresse_entreprise,
-       code_postal,
-       gouvernorat,
-       pays,
-       numero_telephone_entreprise,
-       email_entreprise,
-       choix_devise,
+      addresse_entreprise,
+      code_postal,
+      gouvernorat,
+      pays,
+      numero_telephone_entreprise,
+      email_entreprise,
+      choix_devise,
     } = this.state;
-
-
-  
-    
 
     return (
       <div
         style={{
-          backgroundColor: "#1a85b3",
-          paddingLeft: "5%",
-          paddingRight: "5%",
-          paddingBottom: "5%",
-          paddingTop: "4%",
-          minHeight: "1000px",
-          width: "100%",
+          backgroundColor: '#1a85b3',
+          paddingLeft: '5%',
+          paddingRight: '5%',
+          paddingBottom: '5%',
+          paddingTop: '4%',
+          minHeight: '1000px',
+          width: '100%',
         }}
       >
         <div
           className="d-flex  flex-column col-lg-12 col-md-12 col-sm-12   "
           style={{
             // maxHeight: "90%",
-            fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-            backgroundColor: "white",
-            borderRadius: "10px",
-            boxShadow: "40px 20px #125f80",
-            width: "100%",
-            height: "100%",
+            fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+            backgroundColor: 'white',
+            borderRadius: '10px',
+            boxShadow: '40px 20px #125f80',
+            width: '100%',
+            height: '100%',
           }}
         >
           <div className="d-flex   justify-content-center mt-4  ">
             {/* /première ligne */}
             <img
               width={70}
-              src={require("../../assets/images/educapProLogo.png")}
+              src={require('../../assets/images/educapProLogo.png')}
               alt="logo"
               title="logo"
               style={{
-                height: "80px",
-                top: "90px",
+                height: '80px',
+                top: '90px',
               }}
             />
             <h1
               style={{
-                color: "#1a85b3",
-                fontSize: "30px",
+                color: '#1a85b3',
+                fontSize: '30px',
                 fontWeight: 700,
-                textAlign: "center",
+                textAlign: 'center',
               }}
             >
               <strong>Créer votre compte entreprise sur Educap Pro</strong>
@@ -165,8 +158,8 @@ export default class SignUp extends React.Component {
           <div
             className="d-flex flex-wrap flex-row  "
             style={{
-              width: "100%",
-              height: "100%",
+              width: '100%',
+              height: '100%',
             }}
           >
             <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-11  ">
@@ -175,10 +168,10 @@ export default class SignUp extends React.Component {
                   <h1
                     className="Accueil"
                     style={{
-                      color: "#1a85b3",
-                      fontSize: "24px",
+                      color: '#1a85b3',
+                      fontSize: '24px',
                       fontWeight: 400,
-                      textAlign: "center",
+                      textAlign: 'center',
                     }}
                   >
                     <strong>Votre société</strong>
@@ -189,7 +182,7 @@ export default class SignUp extends React.Component {
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -204,20 +197,20 @@ export default class SignUp extends React.Component {
                     value={nom_entreprise}
                     required
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -231,13 +224,13 @@ export default class SignUp extends React.Component {
                     value={numero_serie}
                     required
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
@@ -246,11 +239,11 @@ export default class SignUp extends React.Component {
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
-                    Adresse de la société*{" "}
+                    Adresse de la société*{' '}
                   </h3>
                   <input
                     type="text"
@@ -260,20 +253,20 @@ export default class SignUp extends React.Component {
                     value={addresse_entreprise}
                     required
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 ">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -288,13 +281,13 @@ export default class SignUp extends React.Component {
                     value={code_postal}
                     required
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
@@ -303,7 +296,7 @@ export default class SignUp extends React.Component {
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -316,20 +309,20 @@ export default class SignUp extends React.Component {
                     onChange={(e) => this.gouvernorat(e.target.value)}
                     value={gouvernorat}
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -342,13 +335,13 @@ export default class SignUp extends React.Component {
                     onChange={(e) => this.pays(e.target.value)}
                     value={pays}
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
@@ -357,7 +350,7 @@ export default class SignUp extends React.Component {
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -367,25 +360,23 @@ export default class SignUp extends React.Component {
                     type="text"
                     id="numero_telephone_entreprise"
                     name="numero_telephone_entreprise"
-                    onChange={(e) =>
-                      this.numero_telephone_entreprise(e.target.value)
-                    }
+                    onChange={(e) => this.numero_telephone_entreprise(e.target.value)}
                     value={numero_telephone_entreprise}
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -394,10 +385,10 @@ export default class SignUp extends React.Component {
                   <div className="email-content">
                     <h6
                       style={{
-                        display: "none",
+                        display: 'none',
                         // position: "absolute",
                         // top: "7px",
-                        color: "#ff4d4d",
+                        color: '#ff4d4d',
                         // right: "0",
                         // transformOrigin: "50% 50%",
                       }}
@@ -412,13 +403,13 @@ export default class SignUp extends React.Component {
                       value={email_entreprise}
                       required
                       style={{
-                        borderLeft: "none",
-                        borderRight: "none",
-                        borderTop: "none",
-                        fontFamily: "Verdana, Geneva, Tahoma",
-                        fontSize: "1.1rem",
-                        borderBottom: "1px solid #1a85b3",
-                        color: "#000000",
+                        borderLeft: 'none',
+                        borderRight: 'none',
+                        borderTop: 'none',
+                        fontFamily: 'Verdana, Geneva, Tahoma',
+                        fontSize: '1.1rem',
+                        borderBottom: '1px solid #1a85b3',
+                        color: '#000000',
                       }}
                     />
                   </div>
@@ -428,7 +419,7 @@ export default class SignUp extends React.Component {
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -441,13 +432,13 @@ export default class SignUp extends React.Component {
                     onChange={(e) => this.choix_devise(e.target.value)}
                     value={choix_devise}
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
@@ -458,9 +449,9 @@ export default class SignUp extends React.Component {
               <div class=" d-flex justify-content-start mr-5">
                 <p
                   style={{
-                    height: "600px",
-                    borderRight: "1px solid rgba(134, 134, 134, 0.548)",
-                    paddingLeft: " 2cm",
+                    height: '600px',
+                    borderRight: '1px solid rgba(134, 134, 134, 0.548)',
+                    paddingLeft: ' 2cm',
                   }}
                   class="bordure_verticale"
                 ></p>
@@ -472,10 +463,10 @@ export default class SignUp extends React.Component {
                   <h1
                     class="Accueil"
                     style={{
-                      color: "#1a85b3",
-                      fontSize: "24px",
+                      color: '#1a85b3',
+                      fontSize: '24px',
                       fontWeight: 400,
-                      textAlign: "center",
+                      textAlign: 'center',
                     }}
                   >
                     <strong>Vos coordonnées</strong>
@@ -486,7 +477,7 @@ export default class SignUp extends React.Component {
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -501,20 +492,20 @@ export default class SignUp extends React.Component {
                     // value={this.email_user}
                     required
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -528,13 +519,13 @@ export default class SignUp extends React.Component {
                     // value={name}
                     required
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
@@ -542,7 +533,7 @@ export default class SignUp extends React.Component {
               <div class="d-flex flex-wrap flex-row ml-5 mt-5">
                 <h3
                   style={{
-                    color: "#1a85b3",
+                    color: '#1a85b3',
                     fontWeight: 400,
                   }}
                 >
@@ -552,41 +543,32 @@ export default class SignUp extends React.Component {
                 <RadioGroup
                   className=" d-flex flex-row"
                   style={{
-                    marginLeft: "30px",
-                    marginTop: "-10px",
+                    marginLeft: '30px',
+                    marginTop: '-10px',
                   }}
                 >
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio color="primary" size="3px" />}
-                  />
+                  <FormControlLabel value="male" control={<Radio color="primary" size="3px" />} />
 
-                  <i
-                    className="zmdi zmdi-male-alt zmdi-hc-3x"
-                    style={{ color: "blue" }}
-                  ></i>
+                  <i className="zmdi zmdi-male-alt zmdi-hc-3x" style={{color: 'blue'}}></i>
                   <FormControlLabel
                     value="female"
                     control={
                       <Radio
                         color="primary"
                         style={{
-                          marginLeft: "1cm",
+                          marginLeft: '1cm',
                         }}
                       />
                     }
                   />
-                  <i
-                    className="zmdi zmdi-female zmdi-hc-3x"
-                    style={{ color: "orange" }}
-                  ></i>
+                  <i className="zmdi zmdi-female zmdi-hc-3x" style={{color: 'orange'}}></i>
                 </RadioGroup>
               </div>
               <div class="d-flex flex-wrap flex-row ml-5 mt-5">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -600,13 +582,13 @@ export default class SignUp extends React.Component {
                     // onChange={(e) => this.phone(e.target.value)}
                     // value={this.phone}
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
@@ -616,7 +598,7 @@ export default class SignUp extends React.Component {
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -629,13 +611,13 @@ export default class SignUp extends React.Component {
                     // onChange={(e) => this.phone(e.target.value)}
                     // value={this.phone}
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
@@ -645,11 +627,11 @@ export default class SignUp extends React.Component {
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
-                    N° de téléphone{" "}
+                    N° de téléphone{' '}
                   </h3>
                   <input
                     type="text"
@@ -658,20 +640,20 @@ export default class SignUp extends React.Component {
                     // onChange={(e) => this.phone(e.target.value)}
                     // value={this.phone}
                     style={{
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      fontFamily: "Verdana, Geneva, Tahoma",
-                      fontSize: "1.1rem",
-                      borderBottom: "1px solid #1a85b3",
-                      color: "#000000",
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderTop: 'none',
+                      fontFamily: 'Verdana, Geneva, Tahoma',
+                      fontSize: '1.1rem',
+                      borderBottom: '1px solid #1a85b3',
+                      color: '#000000',
                     }}
                   />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <h3
                     style={{
-                      color: "#1a85b3",
+                      color: '#1a85b3',
                       fontWeight: 400,
                     }}
                   >
@@ -680,10 +662,10 @@ export default class SignUp extends React.Component {
                   <div className="email-content">
                     <h6
                       style={{
-                        display: "none",
+                        display: 'none',
                         // position: "absolute",
                         // top: "7px",
-                        color: "#ff4d4d",
+                        color: '#ff4d4d',
                         // right: "0",
                         // transformOrigin: "50% 50%",
                       }}
@@ -698,13 +680,13 @@ export default class SignUp extends React.Component {
                       // value={email}
                       required
                       style={{
-                        borderLeft: "none",
-                        borderRight: "none",
-                        borderTop: "none",
-                        fontFamily: "Verdana, Geneva, Tahoma",
-                        fontSize: "1.1rem",
-                        borderBottom: "1px solid #1a85b3",
-                        color: "#000000",
+                        borderLeft: 'none',
+                        borderRight: 'none',
+                        borderTop: 'none',
+                        fontFamily: 'Verdana, Geneva, Tahoma',
+                        fontSize: '1.1rem',
+                        borderBottom: '1px solid #1a85b3',
+                        color: '#000000',
                       }}
                     />
                   </div>
@@ -718,14 +700,14 @@ export default class SignUp extends React.Component {
               className="button2"
               type="reset"
               style={{
-                fontSize: "1.3rem",
-                color: "#1a85b3",
-                cursor: "pointer",
-                backgroundColor: "#ffffff",
-                padding: "5px 25px 5px 25px",
-                borderRadius: "80px",
-                border: "#1a85b3 solid 1px",
-                marginRight: "26px",
+                fontSize: '1.3rem',
+                color: '#1a85b3',
+                cursor: 'pointer',
+                backgroundColor: '#ffffff',
+                padding: '5px 25px 5px 25px',
+                borderRadius: '80px',
+                border: '#1a85b3 solid 1px',
+                marginRight: '26px',
               }}
             >
               Annuler
@@ -735,14 +717,14 @@ export default class SignUp extends React.Component {
               type="submit"
               onClick={this.handleSubmit}
               style={{
-                fontSize: "1.3rem",
-                color: "#ffffff",
-                border: "none",
-                cursor: "pointer",
-                backgroundColor: "#1a85b3",
-                padding: "5px 25px 5px 25px",
-                borderRadius: "80px",
-                marginRight: "2cm",
+                fontSize: '1.3rem',
+                color: '#ffffff',
+                border: 'none',
+                cursor: 'pointer',
+                backgroundColor: '#1a85b3',
+                padding: '5px 25px 5px 25px',
+                borderRadius: '80px',
+                marginRight: '2cm',
               }}
             >
               Suivant
