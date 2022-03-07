@@ -1,67 +1,77 @@
 import React from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import {
+// import {} from "react-notifications";
+import axios from 'axios';
 
-} from "react-notifications";
+// import {
+//   hideMessage,
+//   showAuthLoader,
+//   userFacebookSignIn,
+//   userGithubSignIn,
+//   userGoogleSignIn,
+//   userSignUp,
+//   userTwitterSignIn,
+// } from "../../store/actions/Auth";
 
-import {
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGithubSignIn,
-  userGoogleSignIn,
-  userSignUp,
-  userTwitterSignIn,
-} from "../../store/actions/Auth";
-
-class SignUp extends React.Component {
+export default class SignUp extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: "",
-      email: "",
-      password: "",
-      company: "",
-      phone: "",
-   
-      message: "",
+      nom_entreprise: "",
+      numero_serie: "",
+      addresse_entreprise: "",
+      gouvernorat: "",
+      pays: "",
+      numero_telephone_entreprise: "",
+      email_entreprise: "",
+      choix_devise: "",
+      code_postal:""
     };
   }
-
-  componentDidUpdate() {
-    if (this.props.showMessage) {
-      setTimeout(() => {
-        this.props.hideMessage();
-      }, 500);
-    }
-    if (this.props.authUser !== null) {
-      this.props.history.push("/");
-    }
+  componentWillMount(){
+    this.getPays();
   }
-
-  isEmail = () => {
-    let mail = document.getElementById("not-mail");
-    let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (this.email.match(regex)) {
-      //esq mail kif regex
-      mail.style.display = "none"; //s'hyh tu disparait l'error non valide
-      return true;
-    } else {
-      mail.style.display = "block"; //apparaît
-      mail.style.animation = "dongle 1s"; //tet'harek non valid
-      return false;
+  getPays(){
+    axios.get('http://localhost:3000/api/')
+        .then(response=>{
+          console.log(response.data)
+          this.setState({pays:response.data},()=>{
+          })
+        })
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (this.nom_entreprise && this.isEmail())
+     this.sendFeedback(
+        "***TEMPLAYE_ID***",
+        {
+          nom_entreprise: this.nom_entreprise,
+          numero_serie: this.numero_serie,
+          addresse_entreprise: this.addresse_entreprise,
+          gouvernorat: this.gouvernorat,
+          pays: this.pays,
+          numero_telephone_entreprise: this.numero_telephone_entreprise,
+          email: this.email,
+          choix_devise: this.choix_devise,
+        },
+        console.log(this.nom_entreprise + "est" + this.pays)
+      );
+    else {
+      console.log("error !!!!!!!");
     }
   };
+
+
   sendFeedback = (templateId, variables) => {
     window.emailjs
       .send("gmail", templateId, variables)
       .then((res) => {
         console.log("success !");
-        this.name("");
+        this.nom_entreprise("");
         this.Company("");
         this.Phone("");
         this.Email("");
@@ -73,28 +83,37 @@ class SignUp extends React.Component {
             "Une erreur s'est produite, veuillez réessayer.")
       );
   };
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (this.name && this.isEmail() && this.message)
-  //     sendFeedback("***TEMPLAYE_ID***", {
-  //       name: this.name,
-  //       company: this.company,
-  //       phone: this.phone,
-  //       email: this.email,
-  //       message: this.message,
-  //       // company,
-  //       // phone,
-  //       // email,
-  //       // message,
-  //     });
-  //   else {
-  //     console.log("error");
-  //   }
-  // };
-
   render() {
-    /* eslint eqeqeq: "off" */
-    const { name, email } = this.state;
+    // const isEmail = () => {
+    //   let mail = document.getElementById("not-mail");
+    //   let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    //   if (this.email.match(regex)) {
+    //     //esq mail kif regex
+    //     mail.style.display = "none"; //s'hyh tu disparait l'error non valide
+    //     return true;
+    //   } else {
+    //     mail.style.display = "block"; //apparaît
+    //     mail.style.animation = "dongle 1s"; //tet'harek non valid
+    //     return false;
+    //   }
+    // };
+    // const [name, setName] = useState(this.state.name);
+
+    const {
+      nom_entreprise,
+      numero_serie,
+       addresse_entreprise,
+       code_postal,
+       gouvernorat,
+       pays,
+       numero_telephone_entreprise,
+       email_entreprise,
+       choix_devise,
+    } = this.state;
+
+
+  
+    
 
     return (
       <div
@@ -125,8 +144,8 @@ class SignUp extends React.Component {
             <img
               width={70}
               src={require("../../assets/images/educapProLogo.png")}
-              alt="STUPP"
-              title="STUPP"
+              alt="logo"
+              title="logo"
               style={{
                 height: "80px",
                 top: "90px",
@@ -179,10 +198,10 @@ class SignUp extends React.Component {
 
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    onChange={(e) => this.name(e.target.value)}
-                    value={name}
+                    id="nom_entreprise"
+                    name="nom_entreprise"
+                    onChange={(e) => this.nom_entreprise(e.target.value)}
+                    value={nom_entreprise}
                     required
                     style={{
                       borderLeft: "none",
@@ -206,10 +225,10 @@ class SignUp extends React.Component {
                   </h3>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    onChange={(e) => this.name(e.target.value)}
-                    value={name}
+                    id="numero_serie"
+                    name="numero_serie"
+                    onChange={(e) => this.numero_serie(e.target.value)}
+                    value={numero_serie}
                     required
                     style={{
                       borderLeft: "none",
@@ -235,10 +254,10 @@ class SignUp extends React.Component {
                   </h3>
                   <input
                     type="text"
-                    id="company"
-                    name="company"
-                    onChange={(e) => this.company(e.target.value)}
-                    value={this.company}
+                    id="addresse_entreprise"
+                    name="addresse_entreprise"
+                    onChange={(e) => this.addresse_entreprise(e.target.value)}
+                    value={addresse_entreprise}
                     required
                     style={{
                       borderLeft: "none",
@@ -266,7 +285,7 @@ class SignUp extends React.Component {
                     id="company"
                     name="company"
                     onChange={(e) => this.company(e.target.value)}
-                    value={this.ccompany}
+                    value={code_postal}
                     required
                     style={{
                       borderLeft: "none",
@@ -292,10 +311,10 @@ class SignUp extends React.Component {
                   </h3>
                   <input
                     type="text"
-                    id="phone"
-                    name="phone"
-                    onChange={(e) => this.phone(e.target.value)}
-                    value={this.phone}
+                    id="gouvernorat"
+                    name="gouvernorat"
+                    onChange={(e) => this.gouvernorat(e.target.value)}
+                    value={gouvernorat}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -318,10 +337,10 @@ class SignUp extends React.Component {
                   </h3>
                   <input
                     type="text"
-                    id="phone"
-                    name="phone"
-                    onChange={(e) => this.phone(e.target.value)}
-                    value={this.phone}
+                    id="pays"
+                    name="pays"
+                    onChange={(e) => this.pays(e.target.value)}
+                    value={pays}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -346,10 +365,12 @@ class SignUp extends React.Component {
                   </h3>
                   <input
                     type="text"
-                    id="phone"
-                    name="phone"
-                    onChange={(e) => this.phone(e.target.value)}
-                    value={this.phone}
+                    id="numero_telephone_entreprise"
+                    name="numero_telephone_entreprise"
+                    onChange={(e) =>
+                      this.numero_telephone_entreprise(e.target.value)
+                    }
+                    value={numero_telephone_entreprise}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -385,10 +406,10 @@ class SignUp extends React.Component {
                     </h6>
                     <input
                       type="mail"
-                      id="email"
-                      name="email"
-                      onChange={(e) => this.Email(e.target.value)}
-                      value={email}
+                      id="email_entreprise"
+                      name="email_entreprise"
+                      onChange={(e) => this.email_entreprise(e.target.value)}
+                      value={email_entreprise}
                       required
                       style={{
                         borderLeft: "none",
@@ -416,9 +437,9 @@ class SignUp extends React.Component {
                   <input
                     type="text"
                     id="phone"
-                    name="phone"
-                    onChange={(e) => this.phone(e.target.value)}
-                    value={this.phone}
+                    name="choix_devise"
+                    onChange={(e) => this.choix_devise(e.target.value)}
+                    value={choix_devise}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -476,8 +497,8 @@ class SignUp extends React.Component {
                     type="text"
                     id="name"
                     name="name"
-                    onChange={(e) => this.name(e.target.value)}
-                    value={name}
+                    // onChange={(e) => this.email_user(e.target.value)}
+                    // value={this.email_user}
                     required
                     style={{
                       borderLeft: "none",
@@ -503,8 +524,8 @@ class SignUp extends React.Component {
                     type="text"
                     id="name"
                     name="name"
-                    onChange={(e) => this.name(e.target.value)}
-                    value={name}
+                    // onChange={(e) => this.name(e.target.value)}
+                    // value={name}
                     required
                     style={{
                       borderLeft: "none",
@@ -576,8 +597,8 @@ class SignUp extends React.Component {
                     type="date"
                     id="phone"
                     name="phone"
-                    onChange={(e) => this.phone(e.target.value)}
-                    value={this.phone}
+                    // onChange={(e) => this.phone(e.target.value)}
+                    // value={this.phone}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -593,7 +614,6 @@ class SignUp extends React.Component {
               </div>
               <div class="d-flex flex-wrap flex-row ml-5 mt-5">
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                  {" "}
                   <h3
                     style={{
                       color: "#1a85b3",
@@ -606,8 +626,8 @@ class SignUp extends React.Component {
                     type="text"
                     id="phone"
                     name="phone"
-                    onChange={(e) => this.phone(e.target.value)}
-                    value={this.phone}
+                    // onChange={(e) => this.phone(e.target.value)}
+                    // value={this.phone}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -635,8 +655,8 @@ class SignUp extends React.Component {
                     type="text"
                     id="phone"
                     name="phone"
-                    onChange={(e) => this.phone(e.target.value)}
-                    value={this.phone}
+                    // onChange={(e) => this.phone(e.target.value)}
+                    // value={this.phone}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -674,8 +694,8 @@ class SignUp extends React.Component {
                       type="mail"
                       id="email"
                       name="email"
-                      onChange={(e) => this.Email(e.target.value)}
-                      value={email}
+                      // onChange={(e) => this.Email(e.target.value)}
+                      // value={email}
                       required
                       style={{
                         borderLeft: "none",
@@ -691,8 +711,7 @@ class SignUp extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1 ">
-</div>
+            <div className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1 "></div>
           </div>
           <div className="d-flex   justify-content-end mb-3 mr-5">
             <button
@@ -714,6 +733,7 @@ class SignUp extends React.Component {
             <button
               className="button1"
               type="submit"
+              onClick={this.handleSubmit}
               style={{
                 fontSize: "1.3rem",
                 color: "#ffffff",
@@ -734,17 +754,7 @@ class SignUp extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  const { loader, alertMessage, showMessage, authUser } = auth;
-  return { loader, alertMessage, showMessage, authUser };
-};
-
-export default connect(mapStateToProps, {
-  userSignUp,
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGoogleSignIn,
-  userGithubSignIn,
-  userTwitterSignIn,
-})(SignUp);
+// const mapStateToProps = ({ auth }) => {
+//   const { loader, alertMessage, showMessage, authUser } = auth;
+//   return { loader, alertMessage, showMessage, authUser };
+// };

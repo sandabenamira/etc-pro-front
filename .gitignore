@@ -16,6 +16,7 @@
 .strong-pm
 node_modules
 npm-debug.log
+build/
 
 # Coverage directory used by tools like istanbul
 coverage
