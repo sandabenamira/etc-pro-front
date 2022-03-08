@@ -1,3 +1,5 @@
+/* eslint-disable import/no-anonymous-default-export */
+
 import {GET_INSCRIPTION, ADD_INSCRIPTION} from '../../constants/ActionTypes';
 
 const initialState = {
