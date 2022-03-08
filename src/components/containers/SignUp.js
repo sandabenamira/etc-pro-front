@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
+import Alert from "@material-ui/lab/Alert";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { addInscription } from "../../store/actions/Inscription";
 import { useDispatch } from "react-redux";
@@ -20,7 +21,7 @@ function SignUp() {
   const [numero_telephone_entreprise, setNumero_telephone_entreprise] =
     useState(0);
   const [email_entreprise, setEmail_entreprise] = useState("");
-  const [choix_devise, setChoix_devise] = useState("");
+  const [choix_devise, setChoix_devise] = useState("ww");
   const [code_postal, setCode_postal] = useState("");
   //state of user
 
@@ -32,6 +33,7 @@ function SignUp() {
   const [numero_telephone_user, setNumero_telephone_user] = useState(0);
   const [email_user, setEmail_user] = useState("");
   const [gender, setGender] = useState("");
+  // const [Toggle, setToggle] = useState(false);
   let dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -81,19 +83,19 @@ function SignUp() {
         if (isEmail(email_user) && isEmail(email_entreprise)) {
           //postInscription
           dispatch(addInscription(finalData));
-          // console.log(date_naiss);
-
-          // let input = document.getElementById("nom_entreprise");
-          // console.log(input.value);
+          let i = document.getElementById("alert");
+          i.style.display = "block";
         } else {
-          alert("please put the format mail");
-          //     mail.style.animation = "dongle 1s"; //tet'harek non valid
+          let i = document.getElementById("alert-mail");
+          i.style.display = "block";
         }
       else {
-        alert("please put the format phone");
+        let i = document.getElementById("alert-phone");
+        i.style.display = "block";
       }
     else {
-      alert("please put all fields required ");
+      let i = document.getElementById("alert-all");
+      i.style.display = "block";
     }
   };
   const choisirGenre = (e) => {
@@ -269,8 +271,6 @@ function SignUp() {
 
                 <input
                   type="text"
-                  id="company"
-                  name="company"
                   onChange={(e) => setCode_postal(e.target.value)}
                   value={code_postal}
                   required
@@ -298,8 +298,6 @@ function SignUp() {
                 </h3>
                 <input
                   type="text"
-                  id="gouvernorat"
-                  name="gouvernorat"
                   onChange={(e) => setGouvernorat(e.target.value)}
                   value={gouvernorat}
                   style={{
@@ -408,22 +406,29 @@ function SignUp() {
                 >
                   Choix de la devise*
                 </h3>
-                {/* <select
-                  value={genre}
-                  onChange={setGenre.choixDevise}
+
+                <select
+                  value={choix_devise}
+                  onChange={(e) => setChoix_devise(e.target.value)}
+                  //   components={{ Option: IconOption }}
                   style={{
+                    borderLeft: "none",
+                    borderRight: "none",
+                    borderTop: "none",
                     fontFamily: "Verdana, Geneva, Tahoma",
                     fontSize: "1.1rem",
-                    borderBottom: "1px solid #1a85b3",
                     color: "#000000",
+                    borderBottom: "1px solid #1a85b3",
+                    width: "200px",
+                    background: "white",
                   }}
                 >
-                  <option value="grapefruit">Grapefruit</option>
-                  <option value="lime">Lime</option>
-                  <option value="coconut">Coconut</option>
-                  <option value="mango">Mango</option>
-                </select> */}
-                <input
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+                {/* <input
                   type="text"
                   id="phone"
                   name="choix_devise"
@@ -438,9 +443,39 @@ function SignUp() {
                     borderBottom: "1px solid #1a85b3",
                     color: "#000000",
                   }}
-                />
+                /> */}
               </div>
-              <div className="col-lg-6 col-md-6 col-sm-6"></div>
+              <div className="col-lg-6 col-md-6 col-sm-6">
+                <Alert
+                  style={{ display: "none" }}
+                  id="alert"
+                  severity="success"
+                >
+                  This is a success alert — check it out!
+                </Alert>
+                <Alert
+                  style={{ display: "none" }}
+                  id="alert-mail"
+                  severity="error"
+                >
+                  please put the format mail
+                </Alert>
+                <Alert
+                  style={{ display: "none" }}
+                  id="alert-phone"
+                  severity="error"
+                >
+                  please put the format phone
+                </Alert>
+
+                <Alert
+                  style={{ display: "none" }}
+                  id="alert-all"
+                  severity="error"
+                >
+                  please put all fields required
+                </Alert>
+              </div>
             </div>
           </div>
           <div className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1 ">
@@ -484,8 +519,8 @@ function SignUp() {
 
                 <input
                   type="text"
-                  id="name"
-                  name="name"
+                  id="nom"
+                  name="nom"
                   onChange={(e) => setNom_user(e.target.value)}
                   value={nom_user}
                   required
@@ -511,7 +546,7 @@ function SignUp() {
                 </h3>
                 <input
                   type="text"
-                  id="name"
+                  id="prenom"
                   name="prenom"
                   onChange={(e) => setPrenom(e.target.value)}
                   value={prenom}
@@ -544,7 +579,6 @@ function SignUp() {
                   marginLeft: "30px",
                   marginTop: "-10px",
                 }}
-                //    onChange={choisirGenre}
               >
                 <FormControlLabel
                   value="male"
@@ -594,8 +628,7 @@ function SignUp() {
 
                 <input
                   type="date"
-                  id="date"
-                  name="date"
+                  name="date_naiss"
                   onChange={(e) => setDate_naiss(e.target.value)}
                   value={date_naiss}
                   style={{
@@ -623,8 +656,8 @@ function SignUp() {
                 </h3>
                 <input
                   type="text"
-                  id="phone"
-                  name="phone"
+                  id="adresse_user"
+                  name="adresse_user"
                   onChange={(e) => setAdresse_user(e.target.value)}
                   value={adresse_user}
                   style={{
@@ -652,7 +685,6 @@ function SignUp() {
                 </h3>
                 <input
                   type="text"
-                  id="phone"
                   name="phone"
                   onChange={(e) => setNumero_telephone_user(e.target.value)}
                   value={numero_telephone_user}
