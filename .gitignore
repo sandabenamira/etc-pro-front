@@ -1,3 +1,5 @@
+#tous les fichiers que je veux l'ignorer dans le git
+
 *.csv
 *.dat
 *.iml
