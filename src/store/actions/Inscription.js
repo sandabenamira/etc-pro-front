@@ -2,8 +2,9 @@ import {service} from '../services/service';
 import {GET_INSCRIPTION, ADD_INSCRIPTION} from '../../constants/ActionTypes';
 
 export function getInscriptions() {
-  return (dispatch) => {
-    let apiEndpoint = `/inscriptions`; //path
+  return (dispatch) => { //// Now, dispatch some actions
+//The store calls rootReducer(state, action)
+    let apiEndpoint = `/inscriptions`;
     service.get(apiEndpoint).then((response) => {
       if (response) {
         dispatch({type: GET_INSCRIPTION, payload: response.data});

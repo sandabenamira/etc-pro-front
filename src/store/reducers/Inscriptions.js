@@ -15,7 +15,7 @@ export default function (state = initialState, action) {
 
   if (action.type === ADD_INSCRIPTION) {
     return Object.assign({}, state, {
-      inscriptions: [action.payload].concat(state.inscriptions),
+      inscriptions: [action.payload].concat(state.inscriptions), //...state
     });
   }
 
