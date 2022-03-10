@@ -1,25 +1,25 @@
 const rules = {
-
   admin: {
     static: [
-     'module-nav-administration',
-     'module-nav-e-learning',
-     'module-nav-catalog',
-     'module-nav-reporting',
-     'module-nav-agency-management',
-     'module-nav-user-management',
-     'module-nav-permissions-settings',
-     'module-nav-online-training',
-     'module-nav-training-materials',
-     'module-nav-moocs',
-     'module-nav-reporting-formation',
-     'module-nav-reporting-financier',
-     'module-nav-partner-management',
+      'module-nav-super-administration',
+      'module-nav-inscription',
+      'module-nav-administration',
+      'module-nav-e-learning',
+      'module-nav-catalog',
+      'module-nav-reporting',
+      'module-nav-agency-management',
+      'module-nav-user-management',
+      'module-nav-permissions-settings',
+      'module-nav-online-training',
+      'module-nav-training-materials',
+      'module-nav-moocs',
+      'module-nav-reporting-formation',
+      'module-nav-reporting-financier',
+      'module-nav-partner-management',
     ],
 
     dynamic: {
-      'module-nav-access': ({ mod, moduleList }) => {
-
+      'module-nav-access': ({mod, moduleList}) => {
         if (!moduleList || moduleList.length === 0) {
           return false;
         } else {
@@ -41,7 +41,6 @@ const rules = {
       // },
     },
   },
-
 };
 
 export default rules;
