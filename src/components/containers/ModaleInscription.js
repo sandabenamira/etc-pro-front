@@ -1,9 +1,11 @@
 import { Modal, ModalBody } from "reactstrap";
+import Avatar from "@material-ui/core/Avatar";
 
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
 export default function ModaleInscription(props) {
+  console.log(props)
   return (
     <div>
       <Modal isOpen={true}>
@@ -11,14 +13,14 @@ export default function ModaleInscription(props) {
           <form
             className="row"
             autoComplete="off"
-           // onSubmit={props.handleSubmit}
+            onSubmit={props.handleClick}
           >
             <div className="d-flex flex-wrap justify-content-start flex-column col-lg-12 col-md-8 col-sm-12">
               <div className=" d-flex flex-row d-flex justify-content-end ">
                 <div className=" d-flex flex-row col-md-6 col-sm-1 col-lg-1 d-flex align-items-end">
                   <Button
                     type="button"
-                    class="close"
+                    className="close"
                     aria-label="Close"
                     onClick={props.opendetailsUser}
                     style={{ width: 100, height: 100 }}
@@ -31,26 +33,50 @@ export default function ModaleInscription(props) {
               <br />
 
               <div className="d-flex justify-content-center flex-row flex-wrap ">
-                <div className="col-lg-4 col-md-8 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start">
-                  <h1></h1>
+                <div className="col-lg-6 col-md-6 col-sm-6 d-flex flex-wrap flex-column  justify-content-start align-items-start">
+             <table>
+
+<thread>
+
+  <tr>
+<th></th>
+
+  </tr>
+</thread>
+
+
+
+             </table>
+                  <h1 style={{ fontSize: "30px", color: "#44548F" }}>
+                     nom: 
+                    </h1>
+                    <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>{props.data.nom}</h2>
+                    <h1 style={{ fontSize: "30px", color: "#44548F" }}>
+                     nom: 
+                    </h1>
+                    <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>{props.data.nom}</h2>  <h1 style={{ fontSize: "30px", color: "#44548F" }}>
+                     nom: 
+                    </h1>
+                    <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>{props.data.nom}</h2>
                 </div>
 
-                <div className="col-lg-8 col-md-12 col-sm-4 d-flex flex-column justify-content-start  ">
+                <div className="col-lg-6 col-md-6 col-sm-6 d-flex flex-column justify-content-start  ">
                   <h1>
                     <h1 style={{ fontSize: "30px", color: "#44548F" }}>
-                      Oudherfi Oumaima
+                     nom: {props.data.nom}
                     </h1>
                     <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>
-                      Responsable Formation
+
+
+
+                   num° Série:   {props.data.numSerie}
                     </h2>
 
                     <h3 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                      <b></b>
-                      <b> : </b>
-                      oudherfioumaima5
+                      addresse: {props.data.addresse}
                     </h3>
                     <h4 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                      <b></b> Agence Mohamed V
+                      <b></b>code Postale: {props.data.codePostale}
                     </h4>
                   </h1>
                 </div>
@@ -59,20 +85,19 @@ export default function ModaleInscription(props) {
               <div className="d-flex justify-content-start flex-row flex-wrap  ">
                 <div className="col-lg-8 col-md-5 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start ">
                   <h1>
-                    <h1 style={{ fontSize: "20px", color: "#44548F" }}></h1>
+                    <h1 style={{ fontSize: "20px", color: "#44548F" }}>gouvernorat:</h1>
 
                     <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                      17/04/2000
-                    </h2>
+                    {props.data.gouvernorat}                    </h2>
                   </h1>
                 </div>
 
                 <div className="col-lg-4 col-md-4 col-sm-4 d-flex flex-column justify-content-start  ">
                   <h1>
-                    <h1 style={{ fontSize: "20px", color: "#44548F" }}>CIN</h1>
+                    <h1 style={{ fontSize: "20px", color: "#44548F" }}>numeroTelephone</h1>
 
                     <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                      00000007
+                    pays:{props.data.pays}
                     </h2>
                   </h1>
                 </div>
