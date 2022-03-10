@@ -33,12 +33,10 @@ function SignUp() {
   const [numero_telephone_user, setNumero_telephone_user] = useState(0);
   const [email_user, setEmail_user] = useState("");
   const [gender, setGender] = useState("");
-  // const [Toggle, setToggle] = useState(false);
   let dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(nom_entreprise);
     let finalData = {
       nom: nom_entreprise,
       numSerie: numero_serie,

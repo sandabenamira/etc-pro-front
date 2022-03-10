@@ -16,7 +16,7 @@ import blueTheme from "./themes/blueTheme";
 import purpleTheme from "./themes/purpleTheme";
 import darkTheme from "./themes/darkTheme";
 import AppLocale from "../../lngProvider";
-import ListesInscriptions from "./ListesInscription"
+import ListesInscriptions from "../../app/routes/Admine/ListesInscription"
 
 
 
