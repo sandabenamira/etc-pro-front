@@ -15,6 +15,7 @@ import UserProfile from './routes/UserProfile/index';
 import {educapProModules} from '../constants/EducapProModules';
 import Raporting from './routes/Raporting/index';
 import Catalog from './routes/Catalog/Catalog';
+import SuperAdministration from './routes/SuperAdministration';
 
 class App extends React.Component {
   constructor(props) {
@@ -55,26 +56,28 @@ class App extends React.Component {
                     <Administration match={match} estabModule={estabModule} {...props} />
                   )}
                 />
-
+                 <Route
+                  path={`${match.url}/super-administration`}
+                  render={(props) => (
+                    <SuperAdministration match={match} estabModule={estabModule} {...props} />
+                  )}
+                />
                 <Route
                   path={`${match.url}/e-learning`}
                   render={(props) => (
                     <Learning match={match} estabModule={estabModule} {...props} />
                   )}
                 />
-
                 <Route
                   path={`${match.url}/catalog`}
                   render={(props) => <Catalog match={match} estabModule={estabModule} {...props} />}
                 />
-
                 <Route
                   path={`${match.url}/reporting`}
                   render={(props) => (
                     <Raporting match={match} estabModule={estabModule} {...props} />
                   )}
                 />
-
                 <Route component={asyncComponent(() => import('../components/Error404'))} />
               </Switch>
             </div>

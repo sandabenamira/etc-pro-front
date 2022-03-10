@@ -6,7 +6,7 @@ import CustomScrollbars from "../../../util/CustomScrollbars";
 import { RoleContext } from "../../switchComponent/Context";
 import Can from "../../switchComponent/can";
 import {
-  sousModuleAdministration,
+  sousModuleAdministration,sousModuleSuperAdministration,
   sousModuleELearning,
   sousModuleReporting
 } from "../../../constants/EducapProModules";
@@ -191,6 +191,11 @@ class SidenavContent extends Component {
               </span>
             </NavLink>
           </li>
+          <MenuCollapseBoxItem
+            pathName={"super-administration"}
+            listModule={estabModule}
+            sousModuleEducapPro={sousModuleSuperAdministration}
+          />
 
           <MenuCollapseBoxItem
             pathName={"administration"}
