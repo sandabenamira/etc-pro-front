@@ -1,43 +1,42 @@
 /* eslint-disable import/no-anonymous-default-export */
 
-import {GET_INSCRIPTION, ADD_INSCRIPTION,PUT_INSCRIPTION} from '../../constants/ActionTypes';
+import {
+  GET_INSCRIPTION,
+  ADD_INSCRIPTION,
+  PUT_INSCRIPTION,
+} from "../../constants/ActionTypes";
 
+// Define an initial state value for the app
 const initialState = {
   inscriptions: [],
-
 };
-
+//The reducer receives two arguments, the current state and an action object
+// Create a "reducer" function that determines what the new state
+// should be when something happens in the app
 export default function (state = initialState, action) {
-  if (action.type === GET_INSCRIPTION) {
-    return Object.assign({}, state, {
-      inscriptions: action.payload,
-    });
+  // Reducers usually look at the type of action that happened
+  // to decide how to update the state
+
+  switch (action.type) {
+    case GET_INSCRIPTION: {
+      return Object.assign({}, state, {
+        inscriptions: action.payload,
+      });
+    }
+    case ADD_INSCRIPTION: {
+      return Object.assign({}, state, {
+        inscriptions: [action.payload].concat(state.inscriptions), //...state
+      });
+    }
+    case PUT_INSCRIPTION: {
+      return Object.assign({}, state, {
+        inscriptions: [action.payload].concat(
+          state.inscriptions.filter((e) => e.id !== action.payload.id) ///state modifier dans le premier lieu
+        ), //...state
+      });
+    }
+    //console.log("hello reducer",action.payload.params)
+    default:
+      return state;
   }
-
-  if (action.type === ADD_INSCRIPTION) {
-    return Object.assign({}, state, {
-      inscriptions: [action.payload].concat(state.inscriptions), //...state
-    });
-  }
-  if (action.type === PUT_INSCRIPTION) {
-    return Object.assign({}, state, {
-      inscriptions: [action.payload].concat(state.inscriptions.filter((e)=>e.id !==action.payload.id)), //...state
-    });
-  }
-  // if (action.type === PUT_INSCRIPTION) {
-  //   return  inscriptions: state.inscriptions.map(insc => {
-  //           if (insc.id === payload.id) {
-  //             return Object.assign({}, insc, payload.params);
-  //           }
-  //           return inscription;
-  //               }),
-  //             };
-            
-
-
-
-
-  //console.log("hello reducer",action.payload.params)
-
-  return state;
 }

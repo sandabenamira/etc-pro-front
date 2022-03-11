@@ -38,6 +38,7 @@ export function modifierInscription(id, params = {}) {
     });
   };
 }
+
 function getDataById(data, id) {
   return data.find(data => data.id === id);
 }

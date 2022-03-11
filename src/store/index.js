@@ -1,5 +1,7 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import reducers from './reducers/index';
+import { composeWithDevTools } from 'redux-devtools-extension'
+
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
@@ -10,8 +12,10 @@ const routeMiddleware = routerMiddleware(history);
 const sagaMiddleware = createSagaMiddleware();
 
 const middlewares = [sagaMiddleware, routeMiddleware, thunk];
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const composedEnhancers = compose(applyMiddleware(...middlewares));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
+//j'ai changé compose avec  composeWithDevTools 
+const composedEnhancers = composeWithDevTools(applyMiddleware(...middlewares));
+
 
 export default function configureStore(initialState) {
   var store;
