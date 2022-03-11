@@ -10,6 +10,7 @@ import {
   isPhonenumber,
   isNotEmpty,
 } from "../../constants/validationFunctions";
+import zIndex from "@material-ui/core/styles/zIndex";
 
 function SignUp() {
   //state of company
@@ -47,13 +48,13 @@ function SignUp() {
       numeroTelephone: parseInt(numero_telephone_entreprise),
       email: email_entreprise,
       choixDevise: choix_devise,
-      type: "string",
-      status: "string",
+      //type: "string",
+      //  status: "string",
       createdIn: "2022-03-07T14:15:46.884Z",
-      createdBy: 0,
+      // createdBy: 0,
       modifiedIn: "2022-03-07T14:15:46.884Z",
-      modifiedBy: 0,
-      deleted: "2022-03-07T14:15:46.884Z",
+      // modifiedBy: 0,
+      // deleted: "2022-03-07T14:15:46.884Z",
       nomUser: nom_user,
       prenoUser: prenom,
 
@@ -443,7 +444,13 @@ function SignUp() {
                   }}
                 /> */}
               </div>
-              <div className="col-lg-6 col-md-6 col-sm-6">
+              <div
+                className="col-lg-6 col-md-6 col-sm-6
+              "
+                style={{
+                  zIndex: 6
+                }}
+              >
                 <Alert
                   style={{ display: "none" }}
                   id="alert"

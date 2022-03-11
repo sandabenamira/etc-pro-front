@@ -1,5 +1,5 @@
 import {service} from '../services/service';
-import {GET_INSCRIPTION, ADD_INSCRIPTION} from '../../constants/ActionTypes';
+import {GET_INSCRIPTION,ADD_INSCRIPTION ,PUT_INSCRIPTION} from '../../constants/ActionTypes';
 
 export function getInscriptions() {
   return (dispatch) => { //// Now, dispatch some actions
@@ -24,4 +24,30 @@ export function addInscription(data) {
     });
   };
 }
+export function modifierInscription(id, params = {}) {
+  
+  return (dispatch,getState) => {
+    let apiEndpoint = `/inscriptions/{id}`;
+    const data = getDataById(getState().Inscriptions.inscriptions, id);
+    const updatdata=Object.assign({},data,params)
+
+    service.put(apiEndpoint, id).then((response) => {
+      if (response) {
+        dispatch({type: PUT_INSCRIPTION, payload: response.data});
+      }
+    });
+  };
+}
+function getDataById(data, id) {
+  return data.find(data => data.id === id);
+}
+// return (dispatch, getState) => {
+//   const task = getDataById(getState().tasks.tasks, id);
+//   const updatedTask = Object.assign({}, task, params);
+
+//   api.editTask(id, updatedTask).then(resp => {
+//     dispatch(editTaskSucceeded(resp.data));
+//   });
+// };
+// }
 

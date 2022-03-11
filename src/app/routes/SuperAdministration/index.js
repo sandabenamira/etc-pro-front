@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
   //Redirect,
   Route,
   Switch,
-} from 'react-router-dom';
-import asyncComponent from '../../../util/asyncComponent';
-import Can from '../../../components/switchComponent/can';
-import {RoleContext} from '../../../components/switchComponent/Context';
-import Inscription from './routes/InscriptionManagement/Inscription';
+} from "react-router-dom";
+import asyncComponent from "../../../util/asyncComponent";
+import Can from "../../../components/switchComponent/can";
+import { RoleContext } from "../../../components/switchComponent/Context";
+import Inscription from "./routes/InscriptionManagement/Inscription";
 
-const SuperAdministration = ({match, estabModule}) => (
+const SuperAdministration = ({ match, estabModule }) => (
   <div className="app-wrapper">
     <Switch>
       {/* <Redirect
@@ -22,12 +22,12 @@ const SuperAdministration = ({match, estabModule}) => (
         path={`${match.url}/inscription`}
         render={() => (
           <RoleContext.Consumer>
-            {({role}) => (
+            {({ role }) => (
               <Can
                 role={role}
                 perform="module-nav-access"
                 data={{
-                  mod: 'super-administration',
+                  mod: "super-administration",
                   moduleList: estabModule,
                 }}
                 yes={() => (
@@ -37,13 +37,19 @@ const SuperAdministration = ({match, estabModule}) => (
                     yes={() => <Inscription match={match} />}
                     no={() => (
                       <Route
-                        component={asyncComponent(() => import('../../../components/Error404'))}
+                        component={asyncComponent(() =>
+                          import("../../../components/Error404")
+                        )}
                       />
                     )}
                   />
                 )}
                 no={() => (
-                  <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+                  <Route
+                    component={asyncComponent(() =>
+                      import("../../../components/Error404")
+                    )}
+                  />
                 )}
               />
             )}
@@ -51,7 +57,9 @@ const SuperAdministration = ({match, estabModule}) => (
         )}
       />
 
-      <Route component={asyncComponent(() => import('../../../components/Error404'))} />
+      <Route
+        component={asyncComponent(() => import("../../../components/Error404"))}
+      />
     </Switch>
   </div>
 );

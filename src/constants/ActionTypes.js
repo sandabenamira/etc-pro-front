@@ -71,6 +71,8 @@ export const FETECHED_USERS = 'FETECHED_USERS';
 export const ADD_TRAINING = 'ADD_TRAINING';
 
 //---------- INSCRIPTION ------------------
+
 export const ADD_INSCRIPTION = 'ADD_INSCRIPTION';
 export const GET_INSCRIPTION = 'GET_INSCRIPTION';
+export const PUT_INSCRIPTION = 'PUT__INSCRIPTION'
 export const DELETE_INSCRIPTION = 'DELETE_INSCRIPTION';
