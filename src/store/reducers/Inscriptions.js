@@ -3,7 +3,7 @@
 import {
   GET_INSCRIPTION,
   ADD_INSCRIPTION,
-  PUT_INSCRIPTION,
+  EDIT_INSCRIPTION,
 } from "../../constants/ActionTypes";
 
 // Define an initial state value for the app
@@ -28,13 +28,17 @@ export default function (state = initialState, action) {
         inscriptions: [action.payload].concat(state.inscriptions), //...state
       });
     }
-    case PUT_INSCRIPTION: {
+    case EDIT_INSCRIPTION: {
       return Object.assign({}, state, {
-        inscriptions: [action.payload].concat(
-          state.inscriptions.filter((e) => e.id !== action.payload.id) ///state modifier dans le premier lieu
-        ), //...state
+        inscriptions: [
+          action.payload,
+          ...state.inscriptions.filter((e) => e.id !== action.payload.id), ///The spread syntax will allow us to get all of the properties of the object then we will be able to update only the wanted parts:  //state modifier dans le premier lieu
+
+          //
+        ],
       });
     }
+
     //console.log("hello reducer",action.payload.params)
     default:
       return state;

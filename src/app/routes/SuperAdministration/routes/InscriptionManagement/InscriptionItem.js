@@ -1,10 +1,11 @@
+
 import React, { useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import InscriptionModal from "./InscriptionModal";
 
-export default function InscriptionItem(props) {
+function InscriptionItem(props) {
   const [opendetails, setOpendetails] = useState(false);
 
   const opendetailsUser = () => {
@@ -57,14 +58,12 @@ export default function InscriptionItem(props) {
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
         {props.data.addresseUser}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.numeroTelephoneUser}
-      </td>
+
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
         {props.data.emailUser}
       </td>
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.confirme}
+        {props.data.confirm ? "oui" : "non"}
       </td>
       <td
         style={{
@@ -107,3 +106,4 @@ export default function InscriptionItem(props) {
     </tr>
   );
 }
+export default InscriptionItem;

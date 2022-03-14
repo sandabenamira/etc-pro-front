@@ -14,22 +14,23 @@ import { getInscriptions } from "../../../../../store/actions/Inscription";
 import { useDispatch, useSelector } from "react-redux";
 
 const mapStateToProps = (state) => {
+  //mise à jour du store
   return {};
 };
 function Inscription(props) {
   let dispatch = useDispatch();
   const data = useSelector((state) => state.Inscriptions.inscriptions);
+  console.log("this my useSelector", data);
   useEffect(() => {
     dispatch(getInscriptions());
-    console.log(dispatch(getInscriptions()));
+    console.log("this my useEffect", dispatch(getInscriptions()));
   }, []);
   //useEffect: exécuter avant l'afffichage , [] pour l'afficher une seule fois
 
   const [opendetails, setOpendetails] = useState(false);
   const [handleClick, setHandleClick] = useState(0);
 
-
-  console.log(opendetails);
+  console.log("this my opendetails:", opendetails);
   console.log(handleClick);
 
   const [filter, setFilter] = useState("");
@@ -113,7 +114,6 @@ function Inscription(props) {
                 </th>
 
                 <th style={{ borderBottom: "0", borderTop: "0" }}>createdIn</th>
-                <th style={{ borderBottom: "0", borderTop: "0" }}></th>
 
                 <th style={{ borderBottom: "0", borderTop: "0" }}>nomUser</th>
                 <th style={{ borderBottom: "0", borderTop: "0" }}>prenoUser</th>
@@ -125,7 +125,10 @@ function Inscription(props) {
                 <th style={{ borderBottom: "0", borderTop: "0" }}>
                   Email_User
                 </th>
-                <th style={{ borderBottom: "0", borderTop: "0" }}> Confirme</th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>
+                  {" "}
+                  Confirmer
+                </th>
                 <th style={{ borderBottom: "0", borderTop: "0" }}>boutons</th>
               </tr>
             </thead>
@@ -142,4 +145,4 @@ function Inscription(props) {
   );
 }
 
-export default connect(mapStateToProps)(Inscription);
+export default (Inscription);

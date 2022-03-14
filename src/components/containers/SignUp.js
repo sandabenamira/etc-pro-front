@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Alert from "@material-ui/lab/Alert";
@@ -10,7 +10,6 @@ import {
   isPhonenumber,
   isNotEmpty,
 } from "../../constants/validationFunctions";
-import zIndex from "@material-ui/core/styles/zIndex";
 
 function SignUp() {
   //state of company
@@ -20,21 +19,37 @@ function SignUp() {
   const [gouvernorat, setGouvernorat] = useState("");
   const [pays, setPays] = useState("");
   const [numero_telephone_entreprise, setNumero_telephone_entreprise] =
-    useState(0);
+    useState();
   const [email_entreprise, setEmail_entreprise] = useState("");
-  const [choix_devise, setChoix_devise] = useState("ww");
+  const [choix_devise, setChoix_devise] = useState("");
   const [code_postal, setCode_postal] = useState("");
   //state of user
 
   const [nom_user, setNom_user] = useState("");
   const [prenom, setPrenom] = useState("");
 
-  const [date_naiss, setDate_naiss] = useState("");
+  const [date_naiss, setDate_naiss] = useState(new Date());
   const [adresse_user, setAdresse_user] = useState("");
-  const [numero_telephone_user, setNumero_telephone_user] = useState(0);
+  const [numero_telephone_user, setNumero_telephone_user] = useState();
   const [email_user, setEmail_user] = useState("");
   const [gender, setGender] = useState("");
+  const [alert, setAlert] = useState(false);
+
   let dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (alert) {
+  //     setTimeout(() => {
+  //       setAlert(false);
+  //     }, 1000);
+  //   }
+  // }, [alert]);
+
+  var today = new Date();
+  var date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  var time =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var dateTime = date + " " + time;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,16 +63,15 @@ function SignUp() {
       numeroTelephone: parseInt(numero_telephone_entreprise),
       email: email_entreprise,
       choixDevise: choix_devise,
-      //type: "string",
-      //  status: "string",
-      createdIn: "2022-03-07T14:15:46.884Z",
-      // createdBy: 0,
-      modifiedIn: "2022-03-07T14:15:46.884Z",
-      // modifiedBy: 0,
-      // deleted: "2022-03-07T14:15:46.884Z",
+      type: "",
+      status: "",
+      createdIn: new Date(dateTime),
+      createdBy: 0,
+      modifiedIn: new Date(),
+      modifiedBy: 0,
+      deleted: new Date(),
       nomUser: nom_user,
       prenoUser: prenom,
-
       genreUser: gender,
       dateNaissanceUser: new Date(date_naiss),
       addresseUser: adresse_user,
@@ -81,9 +95,15 @@ function SignUp() {
       )
         if (isEmail(email_user) && isEmail(email_entreprise)) {
           //postInscription
-          dispatch(addInscription(finalData));
-          let i = document.getElementById("alert");
-          i.style.display = "block";
+          if (dispatch(addInscription(finalData)));
+          {
+            let i = document.getElementById("alert");
+            setAlert(true);
+
+            //i.style.display = "block";
+
+          }
+       
         } else {
           let i = document.getElementById("alert-mail");
           i.style.display = "block";
@@ -447,10 +467,8 @@ function SignUp() {
               <div
                 className="col-lg-6 col-md-6 col-sm-6
               "
-                style={{
-                  zIndex: 6
-                }}
               >
+                ;
                 <Alert
                   style={{ display: "none" }}
                   id="alert"
@@ -472,7 +490,6 @@ function SignUp() {
                 >
                   please put the format phone
                 </Alert>
-
                 <Alert
                   style={{ display: "none" }}
                   id="alert-all"
