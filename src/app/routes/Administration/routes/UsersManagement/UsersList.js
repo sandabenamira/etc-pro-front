@@ -122,7 +122,7 @@ export default class UserList extends Component {
 
                     }),
                   }}
-                />{" "}
+                />
           </div>
 
           <div className=" d-flex flex-row flex-wrap p-2 col-lg-3 col-md-6  col-sm-4 bd-highlight flex-wrap">

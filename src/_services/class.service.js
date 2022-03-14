@@ -13,8 +13,7 @@ import configureStore from "../store";
 const store = configureStore();
 
 function get(apiEndpoint) {
-  return axios
-    .get(config.baseUrl + apiEndpoint)
+  return axios.get(config.baseUrl + apiEndpoint)
     .then((response) => {
       return response;
     })

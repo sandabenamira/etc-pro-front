@@ -1,15 +1,15 @@
-import React, {useState} from "react"
+
+import React, { useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import ModaleInscription from "../../../components/containers/ModaleInscription";
+import InscriptionModal from "./InscriptionModal";
 
-function ListesInscriptionItem(props) {
+function InscriptionItem(props) {
   const [opendetails, setOpendetails] = useState(false);
 
   const opendetailsUser = () => {
-    setOpendetails(!opendetails );
-
+    setOpendetails(!opendetails);
   };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
@@ -18,12 +18,12 @@ function ListesInscriptionItem(props) {
         style={{
           flexDirection: "row",
           textAlign: "center",
-          backgroundColor: "#FFF0F5",
+          backgroundColor: "#F5F5F5",
           borderTopLeftRadius: 15,
           borderBottomLeftRadius: 15,
         }}
       >
-      <p className="fw-bold mb-1">  {props.data.nom}</p>
+        <p className="fw-bold mb-1"> {props.data.nom}</p>
       </th>
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
         {props.data.numSerie}
@@ -35,7 +35,7 @@ function ListesInscriptionItem(props) {
         {props.data.codePostale}
       </td>
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-     {props.data.gouvernorat}
+        {props.data.gouvernorat}
       </td>
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
         {props.data.pays}
@@ -47,7 +47,6 @@ function ListesInscriptionItem(props) {
         {props.data.createdIn}
       </td>
 
-     
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
         {props.data.nomUser}
       </td>
@@ -55,18 +54,16 @@ function ListesInscriptionItem(props) {
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
         {props.data.prenoUser}
       </td>
-     
+
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
         {props.data.addresseUser}
       </td>
+
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.numeroTelephoneUser}
-      </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }} >
         {props.data.emailUser}
       </td>
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.confirme}
+        {props.data.confirm ? "oui" : "non"}
       </td>
       <td
         style={{
@@ -89,18 +86,7 @@ function ListesInscriptionItem(props) {
           >
             <VisibilityOutlinedIcon />
           </IconButton>
-          {/* 
-        <IconButton
-          aria-label="delete"
-          style={{
-            color: "#FFFFFF",
-            backgroundColor: "#F15381",
-            width: "28px",
-            height: "28px",
-          }}
-        >
-          <CreateIcon />
-        </IconButton> */}
+
           <IconButton
             aria-label="delete"
             style={{
@@ -114,9 +100,10 @@ function ListesInscriptionItem(props) {
           </IconButton>
         </div>
       </td>
-      {opendetails && <ModaleInscription opendetailsUser={opendetailsUser} {...props}/>}
-    </tr> 
+      {opendetails && (
+        <InscriptionModal opendetailsUser={opendetailsUser} {...props} />
+      )}
+    </tr>
   );
 }
-
-export default ListesInscriptionItem;
+export default InscriptionItem;

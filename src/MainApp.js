@@ -26,7 +26,7 @@ import App from './components/containers/App';
 // });
 
 export const store = configureStore();
-
+//console.log("our store",store.getState().value.toString())
 class MainApp extends Component {
   state = {
     load: false,

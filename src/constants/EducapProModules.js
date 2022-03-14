@@ -76,6 +76,7 @@ export const sousModuleSuperAdministration = [
     icon: 'laptop-chromebook',
     id: 1,
   },
+  
    
    
 ];

@@ -16,7 +16,6 @@ import blueTheme from "./themes/blueTheme";
 import purpleTheme from "./themes/purpleTheme";
 import darkTheme from "./themes/darkTheme";
 import AppLocale from "../../lngProvider";
-import ListesInscriptions from "../../app/routes/Admine/ListesInscription"
 
 
 
@@ -208,7 +207,6 @@ class App extends Component {
                     />
                     <Route path="/signin" component={SignIn} />
                     <Route path="/signup" component={SignUp} />
-                    <Route path="/ListesInscriptions" component={ListesInscriptions} />
 
                     <Route
                       component={asyncComponent(() => import("../Error404"))}
