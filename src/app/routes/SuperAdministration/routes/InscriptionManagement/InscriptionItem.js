@@ -1,15 +1,20 @@
-
 import React, { useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import InscriptionModal from "./InscriptionModal";
+import { useDispatch } from "react-redux";
+import { deleteInscription } from "../../../../../store/actions/Inscription";
 
 function InscriptionItem(props) {
   const [opendetails, setOpendetails] = useState(false);
+  let dispatch = useDispatch();
 
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
+  };
+  const supprimerInsc = () => {
+    console.log(dispatch(deleteInscription(props.data.id)));
   };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
@@ -52,7 +57,7 @@ function InscriptionItem(props) {
       </td>
 
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.prenoUser}
+        {props.data.prenomUser}
       </td>
 
       <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
@@ -95,6 +100,7 @@ function InscriptionItem(props) {
               width: "14px",
               height: "14px",
             }}
+            onClick={supprimerInsc}
           >
             <DeleteOutlineRoundedIcon backgroundColor="white" />
           </IconButton>

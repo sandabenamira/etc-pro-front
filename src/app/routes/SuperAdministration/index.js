@@ -24,7 +24,7 @@ const SuperAdministration = ({ match, estabModule }) => (
           <RoleContext.Consumer>
             {({ role }) => (
               <Can
-                role={role}
+                role={"superadmine"}
                 perform="module-nav-access"
                 data={{
                   mod: "super-administration",

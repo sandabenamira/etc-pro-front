@@ -1,4 +1,3 @@
-import { connect } from "react-redux";
 import { useState } from "react";
 
 import IconButton from "@material-ui/core/IconButton";
@@ -13,10 +12,7 @@ import { useEffect } from "react";
 import { getInscriptions } from "../../../../../store/actions/Inscription";
 import { useDispatch, useSelector } from "react-redux";
 
-const mapStateToProps = (state) => {
-  //mise à jour du store
-  return {};
-};
+
 function Inscription(props) {
   let dispatch = useDispatch();
   const data = useSelector((state) => state.Inscriptions.inscriptions);
@@ -25,7 +21,6 @@ function Inscription(props) {
     dispatch(getInscriptions());
     console.log("this my useEffect", dispatch(getInscriptions()));
   }, []);
-  //useEffect: exécuter avant l'afffichage , [] pour l'afficher une seule fois
 
   const [opendetails, setOpendetails] = useState(false);
   const [handleClick, setHandleClick] = useState(0);
@@ -113,20 +108,20 @@ function Inscription(props) {
                   numero Telephone
                 </th>
 
-                <th style={{ borderBottom: "0", borderTop: "0" }}>createdIn</th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>created In</th>
 
-                <th style={{ borderBottom: "0", borderTop: "0" }}>nomUser</th>
-                <th style={{ borderBottom: "0", borderTop: "0" }}>prenoUser</th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>nom user</th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>prenom User</th>
 
                 <th style={{ borderBottom: "0", borderTop: "0" }}>
-                  addresseUser
+                  addresse User
                 </th>
 
                 <th style={{ borderBottom: "0", borderTop: "0" }}>
-                  Email_User
+                  Email User
                 </th>
                 <th style={{ borderBottom: "0", borderTop: "0" }}>
-                  {" "}
+                 
                   Confirmer
                 </th>
                 <th style={{ borderBottom: "0", borderTop: "0" }}>boutons</th>

@@ -1,44 +1,124 @@
-import { connect } from "react-redux";
-
 import { Modal, ModalBody } from "reactstrap";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editInscription } from "../../../../../store/actions/Inscription";
+import {
+  editInscription,
+  addUser,
+  addEntreprise,
+} from "../../../../../store/actions/Inscription";
 import "react-circular-progressbar/dist/styles.css";
 
-const mapStateToProps = (state) => {
-  //mise à jour du store
-  return {};
-};
 function InscriptionModal(props) {
-  // console.log("typeop props data confirm in model", typeof props.data.confirm);
-  // console.log("this is my props.data: ", props.data);
-  // console.log("hello confirmer", props.data.confirm);
-
   let dispatch = useDispatch();
+  let today = new Date().toISOString().slice(0, 10);
+  const GeneratePassword = (length) => {
+    const plength = length;
+    const keylistalpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const keylistint = "123456789";
+    const keylistspec = "!@#_+/?$%";
+    let temp = "";
+    let len = plength / 2;
+    len -= 1;
+    for (let i = 0; i < len; i += 1) {
+      temp += keylistalpha.charAt(
+        Math.floor(Math.random() * keylistalpha.length)
+      );
+    }
+    for (let i = 0; i < len; i += 1) {
+      temp += keylistspec.charAt(
+        Math.floor(Math.random() * keylistspec.length)
+      );
+    }
+    for (let i = 0; i < len; i += 1) {
+      temp += keylistint.charAt(Math.floor(Math.random() * keylistint.length));
+    }
+    temp = temp
+      .split("")
+      .sort(() => 0.5 - Math.random())
+      .join("");
 
-  const handleRefuser = (e) => {
-    e.preventDefault(); //ne pas charger formulaire au premier lieu
-    // finalData.confirm(false);
-    dispatch(editInscription(finalDataRefuse));
+    return temp;
   };
-  const handleConfirm = (e) => {
-    console.log("_________________________________");
-    e.preventDefault();
-    dispatch(editInscription(finalData));
-  };
+  const [password, setPassword] = useState(GeneratePassword(30).toString());
 
+  const comment =
+    "connecter vous avec cet email: " +
+    props.data.emailUser.toString() +
+    " et ce mot de passe" +
+    password.toString() +
+    "";
+    console.log("this a comment!!!!!!!!!!",comment)
+  const EntrepriseData = {
+    nom: props.data.nom,
+    numeroSerie: props.data.numSerie,
+    codePostal: props.data.codePostale,
+    gouvernorat: props.data.gouvernorat,
+    pays: props.data.pays,
+    numeroTelephone: props.data.numeroTelephone,
+    email: props.data.email,
+    choixDevise: props.data.choixDevise,
+    createdIn: new Date(today),
+  };
+  const userData = {
+    nom: props.data.nomUser,
+    prenom: props.data.prenomUser,
+    genre: props.data.genre,
+    dateNaissance: props.data.dateNaissance,
+    numeroTelephone: props.data.numeroTelephone,
+    email: props.data.emailUser,
+    adressePostale: props.data.addresseUser,
+    role: "admine",
+    createdIn: new Date(today),
+    password: password,
+  };
   const finalData = {
     ...props.data,
     confirm: true,
   };
   const finalDataRefuse = {
-   ...props.data,
+    ...props.data,
     confirm: false,
   };
-  //console.log("hey" ,typeof finalData.confirm)
+  const handleRefuser = (e) => {
+    e.preventDefault(); //ne pas charger formulaire au premier lieu
+    dispatch(editInscription(finalDataRefuse));
+  };
 
-  // const returnedTarget = Object.assign(props.data, finalData);
-  // console.log("this is my returnedTarget", returnedTarget);
+  const sendFeedback = (serviceID, templateId, variables) => {
+    window.emailjs
+      .send(serviceID, templateId, variables)
+      .then((res) => {
+        console.log("Email successfully sent!");
+      })
+      .catch((err) =>
+        console.error(
+          "There has been an error.  Here some thoughts on the error that occured:",
+          err
+        )
+      );
+  };
+  // const onSubmit = () => {
+
+  // };
+  const handleConfirm = (e) => {
+    console.log("_____________confirme____________________");
+    e.preventDefault();
+    dispatch(editInscription(finalData));
+    dispatch(addUser(userData));
+    dispatch(addEntreprise(EntrepriseData));
+    const templateId = "template_4tpeluy";
+    const serviceID = "service_xjl8cmj";
+    sendFeedback(serviceID, templateId, {
+      from_name: "Educap Pro",
+      reply_to: props.data.emailUser,
+      message: comment,
+    });
+
+    console.log(
+      "THIS IS MY CONFIRMATION addEntreprise(EntrepriseData)",
+      addEntreprise(EntrepriseData)
+    );
+  };
 
   return (
     <div>
@@ -113,11 +193,11 @@ function InscriptionModal(props) {
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 d-flex flex-column justify-content-start  ">
                   <h1 style={{ fontSize: "20px", color: "#44548F" }}>
-                    Created en :
+                    Code postale :
                   </h1>
 
                   <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                    {props.data.createdIn}
+                    {props.data.codePostale}
                   </h2>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 d-flex flex-wrap flex-column  justify-content-start align-items-start mt-0">
@@ -172,7 +252,6 @@ function InscriptionModal(props) {
               <div className="d-flex justify-content-start flex-row flex-wrap  ">
                 <div className=" d-flex flex-row col-md-12 col-sm-12 col-lg-12 d-flex align-items-end"></div>
                 <div className="col-lg-6 col-md-6 col-sm-6 d-flex flex-wrap flex-column  justify-content-start align-items-start mt-0">
-                  id={props.data.id} , confirme = {props.data.confirm.toString()} ---
                   <h1 style={{ fontSize: "20px", color: "#44548F" }}>
                     Nom utilisateur:
                     <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
@@ -186,13 +265,35 @@ function InscriptionModal(props) {
                   </h1>
 
                   <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                    {props.data.prenoUser}
+                    {props.data.prenomUser}
                   </h2>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 d-flex flex-wrap flex-column  justify-content-start align-items-start mt-0">
                   <h1>
                     <h1 style={{ fontSize: "20px", color: "#44548F" }}>
-                      addresseUser :
+                      Genre :
+                    </h1>
+
+                    <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
+                      {props.data.genreUser}
+                    </h2>
+                  </h1>
+                </div>
+                <div className="col-lg-6 col-md-6 col-sm-6 d-flex flex-wrap flex-column  justify-content-start align-items-start mt-0">
+                  <h1>
+                    <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                      Date de naissance :
+                    </h1>
+
+                    <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
+                      {props.data.dateNaissanceUser}
+                    </h2>
+                  </h1>
+                </div>
+                <div className="col-lg-6 col-md-6 col-sm-6 d-flex flex-wrap flex-column  justify-content-start align-items-start mt-0">
+                  <h1>
+                    <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                      Addresse :
                     </h1>
 
                     <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
