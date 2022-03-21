@@ -1,15 +1,20 @@
-
 import React, { useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import InscriptionModal from "./InscriptionModal";
+import { useDispatch } from "react-redux";
+import { deleteInscription } from "../../../../../store/actions/Inscription";
 
 function InscriptionItem(props) {
   const [opendetails, setOpendetails] = useState(false);
-
+  let dispatch = useDispatch();
+  const [date, setDate] = useState(props.data.createdIn);
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
+  };
+  const supprimerInsc = () => {
+    dispatch(deleteInscription(props.data.id));
   };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
@@ -25,45 +30,28 @@ function InscriptionItem(props) {
       >
         <p className="fw-bold mb-1"> {props.data.nom}</p>
       </th>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {props.data.numSerie}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {props.data.addresse}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.codePostale}
-      </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
+
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {props.data.gouvernorat}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {props.data.pays}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.numero_Telephone}
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
+        {props.data.numeroTelephone}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.createdIn}
-      </td>
-
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.nomUser}
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
+        {date.slice(0, 10)}
       </td>
 
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.prenoUser}
-      </td>
-
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.addresseUser}
-      </td>
-
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.emailUser}
-      </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {props.data.confirm ? "oui" : "non"}
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
+        {props.data.confirm}
       </td>
       <td
         style={{
@@ -95,6 +83,7 @@ function InscriptionItem(props) {
               width: "14px",
               height: "14px",
             }}
+            onClick={supprimerInsc}
           >
             <DeleteOutlineRoundedIcon backgroundColor="white" />
           </IconButton>

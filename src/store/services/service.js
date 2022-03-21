@@ -8,6 +8,7 @@ export const service = {
   patch,
   put,
   deleteDetail,
+  del,
 };
 // const store = configureStore();
 
@@ -73,6 +74,19 @@ function put(apiEndpoint, payload) {
       //   }
     });
 }
+function del(apiEndpoint,payload) {
+  return axios
+    .delete(config.baseUrl + apiEndpoint,payload)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      //   if (err.response.status === 401) {
+      //     store.dispatch(userSignOut());
+      //   } else {
+      //   }
+    });
+}
 
 function deleteDetail(apiEndpoint) {
   return axios
@@ -87,3 +101,4 @@ function deleteDetail(apiEndpoint) {
       //   }
     });
 }
+

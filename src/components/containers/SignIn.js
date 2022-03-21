@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
@@ -32,61 +32,50 @@ import {
 import baseUrl from "../../config/config";
 import axios from "axios";
 
-class SignIn extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      login: "",
-      password: "",
-      forgotPassword: "",
-      errorAlert: false,
-      succedAlert: false,
-      isopen: false,
-      showPassword: false,
-    };
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.ResetPassword = this.ResetPassword.bind(this);
-  }
-  handleCancel() {
-    this.setState({
-      isopen: false,
-    });
-  }
+function SignIn(props) {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [forgotPassword, setForgotPassword] = useState("");
+  const [errorAlert, setErrorAlert] = useState(false);
+  const [succedAlert, setSuccedAlert] = useState(false);
+  const [isopen, setIsopen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  componentDidUpdate() {
-    if (this.props.showMessage) {
-      setTimeout(() => {
-        this.props.hideMessage();
-      }, 500);
-    }
-    if (this.props.authUser !== null) {
-      this.props.history.push("/");
-    }
-  }
-  _handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      this.props.showAuthLoader();
-      const login = this.state.login.trim();
-      const password = this.state.password;
-      this.props.userSignIn({ login, password });
-    }
+  const handleCancel = () => {
+    setIsopen(false);
   };
 
-  handleChange = (name) => (event) => {
+  const componentDidUpdate = () => {
+    if (showMessage) {
+      setTimeout(() => {
+        props.hideMessage();
+      }, 500);
+    }
+    if (props.authUser !== null) {
+      props.history.push("/");
+    }
+  };
+  const _handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      props.showAuthLoader();
+      const login = setLogin.trim();
+      const password = setPassword;
+      props.userSignIn({ login, password });
+    }
+  };
+  const handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.value });
   };
 
-  handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  handleClickShowPasssword = () => {
-    this.setState({ showPassword: !this.state.showPassword });
+  const handleClickShowPasssword = () => {
+    setShowPassword(!showPassword);
   };
-
-  ResetPassword() {
-    var email1 = this.state.forgotPassword;
+  const ResetPassword = () => {
+    var email1 = forgotPassword;
 
     const params = {
       email: email1,
@@ -98,56 +87,73 @@ class SignIn extends React.Component {
           "content-type": "application/json",
         },
       })
-      .then((response) => {
-        if (response.data.existe === true) {
-          this.setState({
-            succedAlert: true,
-            forgotPassword: "",
-          });
-          setTimeout(
-            function () {
-              this.setState({ succedAlert: false, isopen: false });
-            }.bind(this),
-            2000
-          );
-        } else {
-          this.setState({
-            errorAlert: true,
-            forgotPassword: "",
-          });
-          setTimeout(
-            function () {
-              this.setState({ errorAlert: false });
-            }.bind(this),
-            2000
-          );
-        }
-      })
-      .catch((err) => {});
-  }
-  onConfirm = () => {
+      // .then((response) => {
+      //   if (response.data.existe === true) {
+      //     setSuccedAlert(true),
+      //       setForgotPassword(""),
+      //       // setTimeout(
+      //       //   function () {
+      //       //     setSuccedAlert(false);
+      //       //     setIsopen(false);
+      //       //   },
+      //       //   2000
+      //       // );
+      //   } else {
+      //     setErrorAlert(true),
+      //       setForgotPassword(""),
+      //       setTimeout(
+      //         function () {
+      //           setErrorAlert(false);
+      //         },
+      //         2000
+      //       );
+      //   }
+      // })
+      // .catch((err) => {});
+  };
+  const {
+    showMessage,
+    loader,
+    alertMessage,
+    showLicenceMessage,
+    alertLicenceMessage,
+  } = props;
+
+  const onConfirm = () => {
     this.props.hideLicenceMessage();
   };
 
-  render() {   /* eslint eqeqeq: "off" */
-    const { login, password } = this.state;
-    const {
-      showMessage,
-      loader,
-      alertMessage,
-      showLicenceMessage,
-      alertLicenceMessage,
-    } = this.props;
-    return (
-      <div className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
+  return (
+    // const { login, password } = this.state;
+    <div
+      style={{
+        backgroundColor: "#1a85b3",
+        paddingLeft: "5%",
+        paddingRight: "5%",
+        paddingBottom: "5%",
+        paddingTop: "4%",
+        minHeight: "1000px",
+        width: "100%",
+        overflow: "auto",
+        // position: "relative",
+      }}
+    >
+      <div 
+         style={{
+          top:"150px",
+
+        }}
+      className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
         <div className="app-login-main-content">
           <div className="app-logo-content d-flex align-items-center justify-content-center">
             <Link className="logo-lg" to="/" title="Educap Pro">
               <img
+             
                 width={220}
                 src={require("../../assets/images/educapProLogo.png")}
                 alt="Educap Pro"
                 title="Educap Pro"
+             
               />
             </Link>
           </div>
@@ -162,41 +168,34 @@ class SignIn extends React.Component {
                 <fieldset>
                   <TextField
                     label={<IntlMessages id="appModule.username" />}
-                    fullWidth
-                    // onChange={(event) => this.setState({ email: event.target.value })}
-                    onChange={(event) =>
-                      this.setState({ login: event.target.value.trim() })
-                    }
-                    // defaultValue={email}
+                    
+                    onChange={(event) => {
+                      setLogin(event.target.value.trim());
+                    }}
                     defaultValue={login}
-                    margin="normal"
                     className="mt-1 my-sm-3"
-                    onKeyPress={(event) => this._handleKeyPress(event)}
+                    onKeyPress={(event) => _handleKeyPress(event)}
                   />
-                   
-                  <FormControl className="mb-3" fullWidth>
+
+                  <FormControl className="mb-3" >
                     <InputLabel htmlFor="password-1">
                       <IntlMessages id="appModule.password" />
                     </InputLabel>
                     <Input
                       id="password-1"
-                      type={this.state.showPassword ? "text" : "password"}
-                      value={this.state.password}
+                      type={showPassword ? "text" : "password"}
+                      value={password}
                       onChange={(event) =>
-                        this.setState({ password: event.target.value.trim() })
+                        setPassword(event.target.value.trim())
                       }
-                      onKeyPress={(event) => this._handleKeyPress(event)}
+                      onKeyPress={(event) => _handleKeyPress(event)}
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
-                            onClick={this.handleClickShowPasssword}
-                            onMouseDown={this.handleMouseDownPassword}
+                            onClick={handleClickShowPasssword}
+                            onMouseDown={handleMouseDownPassword}
                           >
-                            {this.state.showPassword ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
                       }
@@ -205,20 +204,18 @@ class SignIn extends React.Component {
                   <div className="mb-3 d-flex align-items-center justify-content-between">
                     <Button
                       onClick={() => {
-                        this.props.showAuthLoader();
-                        this.props.userSignIn({ login, password });
+                        props.showAuthLoader();
+                        props.userSignIn({ login, password });
                       }}
                       variant="contained"
                       color="primary"
-                    >
-                      <IntlMessages id="appModule.signIn" />
-                    </Button>
+                    >connecter</Button>
                     <Link to=""></Link>
 
                     <Link
                       href="#"
                       onClick={() => {
-                        this.setState({ isopen: true });
+                        setIsopen(true);
                       }}
                       color="inherit"
                     >
@@ -267,15 +264,15 @@ class SignIn extends React.Component {
         )}
         {showMessage && NotificationManager.error(alertMessage)}
         <NotificationContainer />
-        {this.state.isopen === true ? (
+        {isopen === true ? (
           <ForgetPasswordModal
-            isopen={this.state.isopen}
-            handleCancel={this.handleCancel}
-            handleChange={this.handleChange}
-            ResetPassword={this.ResetPassword}
-            errorAlert={this.state.errorAlert}
-            forgotPassword={this.state.forgotPassword}
-            succedAlert={this.state.succedAlert}
+            isopen={isopen}
+            handleCancel={handleCancel}
+            handleChange={handleChange}
+            // ResetPassword={ResetPassword}
+            errorAlert={errorAlert}
+            forgotPassword={forgotPassword}
+            succedAlert={succedAlert}
           />
         ) : (
           ""
@@ -283,11 +280,11 @@ class SignIn extends React.Component {
         <SweetAlert
           show={showLicenceMessage}
           title={alertLicenceMessage}
-          onConfirm={this.onConfirm}
+          //onConfirm={this.onConfirm}
         ></SweetAlert>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 const mapStateToProps = ({ auth }) => {
@@ -308,7 +305,6 @@ const mapStateToProps = ({ auth }) => {
     alertLicenceMessage,
   };
 };
-
 export default connect(mapStateToProps, {
   userSignIn,
   hideMessage,

@@ -1,4 +1,3 @@
-import { connect } from "react-redux";
 import { useState } from "react";
 
 import IconButton from "@material-ui/core/IconButton";
@@ -13,27 +12,17 @@ import { useEffect } from "react";
 import { getInscriptions } from "../../../../../store/actions/Inscription";
 import { useDispatch, useSelector } from "react-redux";
 
-const mapStateToProps = (state) => {
-  //mise à jour du store
-  return {};
-};
 function Inscription(props) {
   let dispatch = useDispatch();
   const data = useSelector((state) => state.Inscriptions.inscriptions);
-  console.log("this my useSelector", data);
   useEffect(() => {
     dispatch(getInscriptions());
-    console.log("this my useEffect", dispatch(getInscriptions()));
   }, []);
-  //useEffect: exécuter avant l'afffichage , [] pour l'afficher une seule fois
 
-  const [opendetails, setOpendetails] = useState(false);
-  const [handleClick, setHandleClick] = useState(0);
-
-  console.log("this my opendetails:", opendetails);
-  console.log(handleClick);
-
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState({
+    label: "En attente",
+    value: "en attente",
+  });
 
   return (
     <div>
@@ -44,10 +33,28 @@ function Inscription(props) {
           <div className="p-2">
             <Select
               required
-              options={filter}
-              onChange={setFilter}
-              id="role"
-              name="role"
+              options={[
+                { label: "Confirmé", value: "confirmé" },
+                { label: "En attente", value: "en attente" },
+                { label: "Refusé", value: "refusé" },
+              ]}
+              onChange={(e) => setFilter(e)}
+              id="statut"
+              name="statut"
+              value={filter}
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  "&:hover": { borderColor: "gray" }, // border style on hover
+                  border: "1px solid lightgray", // default border color
+                  boxShadow: "none", // no box-shadow
+                  borderTopStyle: "none",
+                  borderRightStyle: "none",
+                  borderLeftStyle: "none",
+                  borderRadius: " none",
+                  width: 200,
+                }),
+              }}
             />
           </div>
 
@@ -102,41 +109,27 @@ function Inscription(props) {
                 <th style={{ borderBottom: "0", borderTop: "0" }}>
                   Adresse de la société
                 </th>
-                <th style={{ borderBottom: "0", borderTop: "0" }}>
-                  Code postal
-                </th>
+
                 <th style={{ borderBottom: "0", borderTop: "0" }}>
                   Gouvernorat
                 </th>
-                <th style={{ borderBottom: "0", borderTop: "0" }}>pays</th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>Pays</th>
                 <th style={{ borderBottom: "0", borderTop: "0" }}>
-                  numero Telephone
+                  Numéro Téléphone
                 </th>
 
-                <th style={{ borderBottom: "0", borderTop: "0" }}>createdIn</th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>Créer en</th>
 
-                <th style={{ borderBottom: "0", borderTop: "0" }}>nomUser</th>
-                <th style={{ borderBottom: "0", borderTop: "0" }}>prenoUser</th>
-
-                <th style={{ borderBottom: "0", borderTop: "0" }}>
-                  addresseUser
-                </th>
-
-                <th style={{ borderBottom: "0", borderTop: "0" }}>
-                  Email_User
-                </th>
-                <th style={{ borderBottom: "0", borderTop: "0" }}>
-                  {" "}
-                  Confirmer
-                </th>
-                <th style={{ borderBottom: "0", borderTop: "0" }}>boutons</th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>statut</th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>Actions</th>
               </tr>
             </thead>
-            {/* //key={person.id} */}
             <tbody>
-              {data.map((row, index) => (
-                <InscriptionItem key={index} data={row} />
-              ))}
+              {data
+                .filter((e) => e.confirm === filter.value)
+                .map((row, index) => (
+                  <InscriptionItem key={index} data={row} />
+                ))}
             </tbody>
           </table>
         </div>
@@ -145,4 +138,4 @@ function Inscription(props) {
   );
 }
 
-export default (Inscription);
+export default Inscription;

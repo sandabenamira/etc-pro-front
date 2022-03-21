@@ -3,6 +3,7 @@ const rules = {
     static: [
       'module-nav-super-administration',
       'module-nav-inscription',
+      'module-nav-entreprise',
       'module-nav-administration',
       'module-nav-e-learning',
       'module-nav-catalog',

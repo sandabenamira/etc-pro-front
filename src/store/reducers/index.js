@@ -5,7 +5,8 @@ import Auth from './Auth';
 import Users from './Users';
 import Trainings from './Trainings';
 import Inscriptions from './Inscriptions';
-
+import Entreprises from './Entreprise'
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (history) =>
   combineReducers({
     router: connectRouter(history),
@@ -14,4 +15,6 @@ export default (history) =>
     users: Users,
     trainings: Trainings,
     Inscriptions: Inscriptions,
+    Entreprise:Entreprises
+  
   });

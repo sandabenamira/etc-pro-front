@@ -65,7 +65,6 @@ export const SHOW_ERROR_MESSAGE = 'SHOW_ERROR_MESSAGE';
 export const SHOW_SUCCESS_MESSAGE = 'SHOW_SUCCESS_MESSAGE';
 
 //// Users
-export const FETECHED_USERS = 'FETECHED_USERS';
 
 ////Training
 export const ADD_TRAINING = 'ADD_TRAINING';
@@ -76,3 +75,19 @@ export const ADD_INSCRIPTION = 'ADD_INSCRIPTION';
 export const GET_INSCRIPTION = 'GET_INSCRIPTION';
 export const EDIT_INSCRIPTION = 'EDIT_INSCRIPTION'
 export const DELETE_INSCRIPTION = 'DELETE_INSCRIPTION';
+
+
+//-------------ENTREPRISE---------------------
+export const GET_ENTREPRISE="GET_ENTREPRISE";
+export const ADD_ENTREPRISE="ADD_ENTREPRISE";
+export const EDIT_ENTREPRISE="EDIT_ENTREPRISE";
+export const DELETE_ENTREPRISE="DELETE_ENTREPRISE";
+
+
+//--------------USER----------------------
+
+export const ADD_USER = 'ADD_USER';
+export const GET_USER="GET_USER";
+export const FETECHED_USERS = 'FETECHED_USERS';
+export const EDIT_USER="EDIT_USER"
+export const DELETE_USER="DELETE_USER"

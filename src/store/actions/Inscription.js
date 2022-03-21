@@ -7,6 +7,10 @@ import {
   HIDE_SUCCESS_MESSAGE,
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
+  DELETE_INSCRIPTION,
+  ADD_ENTREPRISE,
+  ADD_USER,
+  GET_ENTREPRISE,
 } from "../../constants/ActionTypes";
 
 export function getInscriptions() {
@@ -16,6 +20,7 @@ export function getInscriptions() {
     let apiEndpoint = `/inscriptions`;
     service.get(apiEndpoint).then((response) => {
       if (response) {
+      
         dispatch({ type: GET_INSCRIPTION, payload: response.data });
       }
     });
@@ -61,7 +66,7 @@ function getDataById(data, id) {
 // }
 
 export const editInscription = (data) => {
-  console.log(data,'----------editInscription');
+  console.log(data, "----------editInscription");
   return (dispatch) => {
     let apiEndpoint = `/inscriptions/` + data.id;
 
@@ -96,4 +101,19 @@ export const editInscription = (data) => {
         }, 4000);
       });
   };
+};
+
+export const deleteInscription = (id) => async (dispatch) => {
+  try {
+    let apiEndpoint = `/inscriptions/` + id;
+
+    await service.del(apiEndpoint, id);
+    dispatch({
+      type: DELETE_INSCRIPTION,
+      payload: id,
+    });
+    
+  } catch (err) {
+    console.log(err);
+  }
 };

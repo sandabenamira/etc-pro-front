@@ -76,6 +76,12 @@ export const sousModuleSuperAdministration = [
     icon: 'laptop-chromebook',
     id: 1,
   },
+  {
+    name: 'entreprise',
+    pathName: 'super-administration/entreprise',
+    icon: 'folder-outline',
+    id: 2,
+  },
   
    
    

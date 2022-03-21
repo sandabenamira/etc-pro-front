@@ -4,11 +4,13 @@ import {
   GET_INSCRIPTION,
   ADD_INSCRIPTION,
   EDIT_INSCRIPTION,
+  DELETE_INSCRIPTION,ADD_ENTREPRISE,ADD_USER
 } from "../../constants/ActionTypes";
 
 // Define an initial state value for the app
 const initialState = {
   inscriptions: [],
+
 };
 //The reducer receives two arguments, the current state and an action object
 // Create a "reducer" function that determines what the new state
@@ -33,13 +35,18 @@ export default function (state = initialState, action) {
         inscriptions: [
           action.payload,
           ...state.inscriptions.filter((e) => e.id !== action.payload.id), ///The spread syntax will allow us to get all of the properties of the object then we will be able to update only the wanted parts:  //state modifier dans le premier lieu
-
-          //
+        ],
+      });
+    }
+    case DELETE_INSCRIPTION: {
+      return Object.assign({}, state, {
+        inscriptions: [
+           ...state.inscriptions.filter(({ id }) => id !== action.payload),
         ],
       });
     }
 
-    //console.log("hello reducer",action.payload.params)
+
     default:
       return state;
   }
