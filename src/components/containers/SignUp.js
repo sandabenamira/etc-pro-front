@@ -5,6 +5,8 @@ import Alert from "@material-ui/lab/Alert";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { addInscription } from "../../store/actions/Inscription";
 import { useDispatch } from "react-redux";
+import MediaQuery from "react-responsive";
+
 import {
   isEmail,
   isPhonenumber,
@@ -46,9 +48,8 @@ function SignUp() {
   var dateTime = date + " " + time;
   const choisirGenre = (e) => {
     if (e === "male") {
-      setGender(e.target.value);
-      console.log(e.target.value);
-    } else setGender(e.target.value);
+      setGender("masculin");
+    } else setGender("féminin");
   };
   const reinitialiser = () => {
     document.getElementById("alert").style.display = "none";
@@ -96,7 +97,7 @@ function SignUp() {
       addresseUser: adresse_user,
       numeroTelephoneUser: parseInt(numero_telephone_user),
       emailUser: email_user,
-      confirm: false,
+      confirm: "en attente",
     };
 
     if (
@@ -116,8 +117,8 @@ function SignUp() {
           //postInscription
           if (dispatch(addInscription(finalData)));
           {
+            reinitialiser();
             setSuccess("success");
-
             document.getElementById("alert").style.display = "block";
             setAlert(" inscription bien enregistré !");
           }
@@ -142,6 +143,7 @@ function SignUp() {
 
   return (
     <div
+      className="d-flex flex-column "
       style={{
         backgroundColor: "#1a85b3",
         paddingLeft: "5%",
@@ -149,22 +151,23 @@ function SignUp() {
         paddingBottom: "5%",
         paddingTop: "4%",
         minHeight: "1000px",
-        maxWidth: "100%",
-        overflow:"auto",
-        position:"relative"
+        minWidth: "100%",
+        // position: "relative",
+        // overflowY: "auto",
       }}
     >
       <div
-        className="d-flex  flex-column col-lg-12 col-md-12 col-sm-12   "
+        className="d-flex  flex-column col-lg-12 col-md-12 col-sm-11  "
+        fullWidth
         style={{
           fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
           backgroundColor: "white",
           borderRadius: "10px",
           boxShadow: "40px 20px #125f80",
-          maxWidth: "100%",
-          height: "100%",
-          position:"relative",
 
+          //    minHeight: "100%",
+          //  maxWidth: "100%",
+          //overflow: "auto",
         }}
       >
         <div className="d-flex   justify-content-center mt-4  ">
@@ -182,11 +185,10 @@ function SignUp() {
           <h1
             style={{
               color: "#1a85b3",
-              fontSize: "30px",
+              maxFontSize: "40%",
               fontWeight: 700,
               textAlign: "center",
-              position:"relative",
-
+              position: "relative",
             }}
           >
             <strong>Créer votre compte entreprise sur Educap Pro</strong>
@@ -197,11 +199,10 @@ function SignUp() {
             className="d-flex flex-wrap flex-row  "
             style={{
               width: "100%",
-              height: "100%",
             }}
           >
-            <div className="d-flex flex-wrap flex-column col-lg-6 col-md-6 col-sm-11  ">
-              <div className=" d-flex justify-content-center mt-3">
+            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-4 col-sm-11  ">
+              <div className=" d-flex justify-content-center mt-2">
                 <div className="title">
                   <h1
                     className="Accueil"
@@ -216,16 +217,16 @@ function SignUp() {
                   </h1>
                 </div>
               </div>
-              <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+              <div className="d-flex flex-wrap flex-row ml-5  mt-3">
+                <div className="col-lg-6 col-md-6 col-sm-4">
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Nom* :
-                  </h3>
+                    Nom*
+                  </h4>
 
                   <input
                     type="text"
@@ -242,18 +243,20 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                <div className="col-lg-6 col-md-6 col-sm-4">
+                  <h4
                     style={{
                       color: "#1a85b3",
-                      fontWeight: 400,
+                      fontWeight: 200,
                     }}
                   >
-                    N° de SIRET* :
-                  </h3>
+                    N° de série*
+                  </h4>
                   <input
                     type="text"
                     id="numero_serie"
@@ -269,23 +272,24 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5 ">
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                <div className="col-lg-6 col-md-6 col-sm-4">
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Adresse* :
-                  </h3>
+                    Adresse*
+                  </h4>
                   <input
                     type="text"
-                    id="addresse_entreprise"
                     name="addresse_entreprise"
                     onChange={(e) => setAddresse_entreprise(e.target.value)}
                     value={addresse_entreprise}
@@ -298,18 +302,20 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6 ">
-                  <h3
+                <div className="col-lg-6 col-md-6 col-sm-4 ">
+                  <h4
                     style={{
                       color: "#1a85b3",
-                      fontWeight: 400,
+                      fontWeight: 300,
                     }}
                   >
                     Code Postal*
-                  </h3>
+                  </h4>
 
                   <input
                     type="text"
@@ -324,20 +330,22 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                <div className="col-lg-6 col-md-6 col-sm-4">
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Gouvernorat :
-                  </h3>
+                    Gouvernorat
+                  </h4>
                   <input
                     type="text"
                     onChange={(e) => setGouvernorat(e.target.value)}
@@ -350,18 +358,20 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                <div className="col-lg-6 col-md-6 col-sm-4">
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Pays :
-                  </h3>
+                    Pays
+                  </h4>
                   <input
                     type="text"
                     id="pays"
@@ -376,20 +386,22 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                <div className="col-lg-6 col-md-6 col-sm-4">
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    N° de téléphone :
-                  </h3>
+                    N° de téléphone
+                  </h4>
                   <input
                     type="text"
                     id="numero_telephone_entreprise"
@@ -406,18 +418,20 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                <div className="col-lg-6 col-md-6 col-sm-4">
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    E-mail* :
-                  </h3>
+                    E-mail*
+                  </h4>
 
                   <input
                     type="mail"
@@ -434,20 +448,22 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5 ">
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                <div className="col-lg-6 col-md-6 col-sm-4">
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Choix de la devise* :
-                  </h3>
+                    Choix de la devise*
+                  </h4>
 
                   <select
                     required
@@ -462,32 +478,39 @@ function SignUp() {
                       fontSize: "1.1rem",
                       color: "#000000",
                       borderBottom: "1px solid #1a85b3",
-                      width: "200px",
                       background: "white",
+                      minWidth: "70%",
+                      maxWidth: "70%",
                     }}
                   >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    <option value="1">{"\u0024"} Dollar</option>
+                    <option value="2"> {"\u20AC"} Euro</option>
+                    <option value="3"> {"\u00A5"} Yen</option>
+                    <option value="4">DT</option>
                   </select>
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6 ">
+                {/* 
+                <div className="col-lg-6 col-md-6 col-sm-4">
                   <Alert
-                    style={{ display: "none", height: "70px" }}
+                    style={{
+                      display: "none",
+                      maxHeight: "100%",
+                      maxWidth: "100%",
+                    }}
                     id="alert"
                     severity={success}
                   >
                     {alert}
                   </Alert>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1 ">
-              <div className=" d-flex justify-content-start mr-5">
+              <div className=" d-flex justify-content-start ">
                 <p
                   style={{
                     height: "600px",
+                    //    minHeight:"600px",
                     borderRight: "1px solid rgba(134, 134, 134, 0.548)",
                     paddingLeft: " 2cm",
                   }}
@@ -495,8 +518,8 @@ function SignUp() {
                 ></p>
               </div>
             </div>
-            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-11 ">
-              <div className=" d-flex justify-content-center mt-3">
+            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-2 col-sm-11 ">
+              <div className=" d-flex justify-content-center mt-2 ">
                 <div className="title">
                   <h1
                     className="Accueil"
@@ -511,16 +534,16 @@ function SignUp() {
                   </h1>
                 </div>
               </div>
-              <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+              <div className="d-flex flex-wrap flex-row ml-5 mt-3 ">
+                <div className="col-lg-6 col-md-6 col-sm-6 ">
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Nom* :
-                  </h3>
+                    Nom*
+                  </h4>
 
                   <input
                     type="text"
@@ -537,18 +560,21 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Prénom* :
-                  </h3>
+                    Prénom*
+                  </h4>
                   <input
                     type="text"
                     id="prenom"
@@ -564,19 +590,22 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
               </div>
-              <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <h3
+              <div className="d-flex flex-wrap flex-row ml-5 mt-5 ml-5">
+                <h4
                   style={{
                     color: "#1a85b3",
                     fontWeight: 400,
+                    marginLeft: "3%",
                   }}
                 >
-                  Vous êtes :
-                </h3>
+                  Vous êtes
+                </h4>
 
                 <RadioGroup
                   className=" d-flex flex-row"
@@ -622,14 +651,14 @@ function SignUp() {
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Date de naissance :
-                  </h3>
+                    Date de naissance
+                  </h4>
 
                   <input
                     type="date"
@@ -644,6 +673,8 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
@@ -651,14 +682,14 @@ function SignUp() {
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Adresse :
-                  </h3>
+                    Adresse
+                  </h4>
                   <input
                     type="text"
                     id="adresse_user"
@@ -673,6 +704,8 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
@@ -680,14 +713,14 @@ function SignUp() {
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    N° de téléphone :
-                  </h3>
+                    N° de téléphone
+                  </h4>
                   <input
                     type="text"
                     name="phone"
@@ -701,18 +734,20 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3
+                  <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
-                  > 
-                    E-mail* :
-                  </h3>
+                  >
+                    E-mail*
+                  </h4>
 
                   <input
                     type="mail"
@@ -729,6 +764,8 @@ function SignUp() {
                       fontSize: "1.1rem",
                       borderBottom: "1px solid #1a85b3",
                       color: "#000000",
+                      minWidth: "40%",
+                      maxWidth: "70%",
                     }}
                   />
                 </div>
@@ -736,41 +773,59 @@ function SignUp() {
             </div>
             {/* <div className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1 mt-5"></div> */}
           </div>
-          <div className="d-flex   justify-content-end mb-3 mr-5">
-            <button
-              className="button2"
-              type="reset"
-              onClick={reinitialiser}
-              style={{
-                fontSize: "1.3rem",
-                color: "#1a85b3",
-                cursor: "pointer",
-                backgroundColor: "#ffffff",
-                padding: "5px 25px 5px 25px",
-                borderRadius: "80px",
-                border: "#1a85b3 solid 1px",
-                marginRight: "26px",
-              }}
-            >
-              Annuler
-            </button>
-            <button
-              className="button1"
-              type="submit"
-              onClick={handleSubmit}
-              style={{
-                fontSize: "1.3rem",
-                color: "#ffffff",
-                border: "none",
-                cursor: "pointer",
-                backgroundColor: "#1a85b3",
-                padding: "5px 25px 5px 25px",
-                borderRadius: "80px",
-                marginRight: "2cm",
-              }}
-            >
-              Suivant
-            </button>
+          <div className="d-flex align-items-center  justify-content-end mt-3  ">
+            <div className="col-lg-6 col-md-6 col-sm-4 mr-5">
+              <Alert
+                style={{
+                  display: "none",
+                  maxHeight: "70px",
+                  // maxWidth: "100%",
+                }}
+                id="alert"
+                severity={success}
+              >
+                {alert}
+              </Alert>
+            </div>
+
+            <div className="col-lg-2 col-md-2 col-sm-2 mt-5 mr-2 ">
+              <button
+                className="button2"
+                type="reset"
+                onClick={reinitialiser}
+                style={{
+                  fontSize: "1.3rem",
+                  color: "#1a85b3",
+                  cursor: "pointer",
+                  backgroundColor: "#ffffff",
+                  padding: "5px 25px 5px 25px",
+                  borderRadius: "80px",
+                  border: "#1a85b3 solid 1px",
+                }}
+              >
+                Annuler
+              </button>
+            </div>
+
+            <div className="col-lg-2 col-md-2 col-sm-2  mt-5 mr-5">
+              <button
+                className="button1"
+                type="submit"
+                onClick={handleSubmit}
+                style={{
+                  fontSize: "1.3rem",
+                  color: "#ffffff",
+                  border: "none",
+                  cursor: "pointer",
+                  backgroundColor: "#1a85b3",
+                  padding: "5px 25px 5px 25px",
+                  borderRadius: "80px",
+                  marginRight: "2cm",
+                }}
+              >
+                Suivant
+              </button>
+            </div>
           </div>
         </form>
       </div>

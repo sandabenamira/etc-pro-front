@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
+import EntrepriseModal from "./EntrepriseModal";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import InscriptionModal from "./InscriptionModal";
-import { useDispatch } from "react-redux";
-import { deleteInscription } from "../../../../../store/actions/Inscription";
 
-function InscriptionItem(props) {
+export default function EntrepriseItem(props) {
   const [opendetails, setOpendetails] = useState(false);
-  let dispatch = useDispatch();
-  const [date, setDate] = useState(props.data.createdIn);
+
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
   };
-  const supprimerInsc = () => {
-    dispatch(deleteInscription(props.data.id));
-  };
+
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <th
@@ -47,12 +42,10 @@ function InscriptionItem(props) {
         {props.data.numeroTelephone}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {date.slice(0, 10)}
+      {props.data.createdIn.slice(0,10)}
+
       </td>
 
-      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.confirm}
-      </td>
       <td
         style={{
           textAlign: "center",
@@ -83,16 +76,15 @@ function InscriptionItem(props) {
               width: "14px",
               height: "14px",
             }}
-            onClick={supprimerInsc}
+         //   onClick={supprimerInsc}
           >
             <DeleteOutlineRoundedIcon backgroundColor="white" />
           </IconButton>
         </div>
       </td>
       {opendetails && (
-        <InscriptionModal opendetailsUser={opendetailsUser} {...props} />
+        <EntrepriseModal opendetailsUser={opendetailsUser} {...props} />
       )}
     </tr>
   );
 }
-export default InscriptionItem;

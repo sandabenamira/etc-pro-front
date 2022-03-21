@@ -74,43 +74,43 @@ function SignIn(props) {
   const handleClickShowPasssword = () => {
     setShowPassword(!showPassword);
   };
-  // const ResetPassword = () => {
-  //   var email1 = forgotPassword;
+  const ResetPassword = () => {
+    var email1 = forgotPassword;
 
-  //   const params = {
-  //     email: email1,
-  //   };
+    const params = {
+      email: email1,
+    };
 
-  //   axios
-  //     .post(`${baseUrl.baseUrl}/users/reset-user-password`, params, {
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //     })
-  //     // .then((response) => {
-  //     //   if (response.data.existe === true) {
-  //     //     setSuccedAlert(true),
-  //     //       setForgotPassword(""),
-  //     //       // setTimeout(
-  //     //       //   function () {
-  //     //       //     setSuccedAlert(false);
-  //     //       //     setIsopen(false);
-  //     //       //   },
-  //     //       //   2000
-  //     //       // );
-  //     //   } else {
-  //     //     setErrorAlert(true),
-  //     //       setForgotPassword(""),
-  //     //       setTimeout(
-  //     //         function () {
-  //     //           setErrorAlert(false);
-  //     //         },
-  //     //         2000
-  //     //       );
-  //     //   }
-  //     // })
-  //     // .catch((err) => {});
-  // };
+    axios
+      .post(`${baseUrl.baseUrl}/users/reset-user-password`, params, {
+        headers: {
+          "content-type": "application/json",
+        },
+      })
+      // .then((response) => {
+      //   if (response.data.existe === true) {
+      //     setSuccedAlert(true),
+      //       setForgotPassword(""),
+      //       // setTimeout(
+      //       //   function () {
+      //       //     setSuccedAlert(false);
+      //       //     setIsopen(false);
+      //       //   },
+      //       //   2000
+      //       // );
+      //   } else {
+      //     setErrorAlert(true),
+      //       setForgotPassword(""),
+      //       setTimeout(
+      //         function () {
+      //           setErrorAlert(false);
+      //         },
+      //         2000
+      //       );
+      //   }
+      // })
+      // .catch((err) => {});
+  };
   const {
     showMessage,
     loader,
@@ -133,168 +133,155 @@ function SignIn(props) {
         paddingBottom: "5%",
         paddingTop: "4%",
         minHeight: "1000px",
-        maxWidth: "100%",
+        width: "100%",
         overflow: "auto",
-        position: "relative",
+        // position: "relative",
       }}
     >
-      <div
-        className="d-flex  flex-column col-lg-12 col-md-12 col-sm-12   "
-        style={{
-          fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
-          backgroundColor: "white",
-          borderRadius: "10px",
-          boxShadow: "40px 20px #125f80",
-          maxWidth: "100%",
-          height: "100%",
-          position: "relative",
+      <div 
+         style={{
+          top:"150px",
+
         }}
-      >
-        <div className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
-          <div className="app-login-main-content">
-            <div className="app-logo-content d-flex align-items-center justify-content-center">
-              <Link className="logo-lg" to="/" title="Educap Pro">
-                <img
-                  width={220}
-                  src={require("../../assets/images/educapProLogo.png")}
-                  alt="Educap Pro"
-                  title="Educap Pro"
-                />
-              </Link>
+      className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
+        <div className="app-login-main-content">
+          <div className="app-logo-content d-flex align-items-center justify-content-center">
+            <Link className="logo-lg" to="/" title="Educap Pro">
+              <img
+             
+                width={220}
+                src={require("../../assets/images/educapProLogo.png")}
+                alt="Educap Pro"
+                title="Educap Pro"
+             
+              />
+            </Link>
+          </div>
+          <div className="app-login-content">
+            <div className="app-login-header mb-4">
+              <h1>
+                <IntlMessages id="appModule.log" />
+              </h1>
             </div>
-            <div className="app-login-content">
-              <div className="app-login-header mb-4">
-                <h1>
-                  <IntlMessages id="appModule.log" />
-                </h1>
-              </div>
-              <div className="app-login-form">
-                <form>
-                  <fieldset>
-                    <TextField
-                      label={<IntlMessages id="appModule.username" />}
-                      fullWidth
-                      // onChange={(event) => this.setState({ email: event.target.value })}
-                      onChange={(event) => {
-                        setLogin(event.target.value.trim);
-                      }}
-                      // defaultValue={email}
-                      defaultValue={login}
-                      margin="normal"
-                      className="mt-1 my-sm-3"
+            <div className="app-login-form">
+              <form>
+                <fieldset>
+                  <TextField
+                    label={<IntlMessages id="appModule.username" />}
+                    
+                    onChange={(event) => {
+                      setLogin(event.target.value.trim());
+                    }}
+                    defaultValue={login}
+                    className="mt-1 my-sm-3"
+                    onKeyPress={(event) => _handleKeyPress(event)}
+                  />
+
+                  <FormControl className="mb-3" >
+                    <InputLabel htmlFor="password-1">
+                      <IntlMessages id="appModule.password" />
+                    </InputLabel>
+                    <Input
+                      id="password-1"
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(event) =>
+                        setPassword(event.target.value.trim())
+                      }
                       onKeyPress={(event) => _handleKeyPress(event)}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={handleClickShowPasssword}
+                            onMouseDown={handleMouseDownPassword}
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
                     />
+                  </FormControl>
+                  <div className="mb-3 d-flex align-items-center justify-content-between">
+                    <Button
+                      onClick={() => {
+                        props.showAuthLoader();
+                        props.userSignIn({ login, password });
+                      }}
+                      variant="contained"
+                      color="primary"
+                    >connecter</Button>
+                    <Link to=""></Link>
 
-                    <FormControl className="mb-3" fullWidth>
-                      <InputLabel htmlFor="password-1">
-                        <IntlMessages id="appModule.password" />
-                      </InputLabel>
-                      <Input
-                        id="password-1"
-                        type={showPassword ? "text" : "password"}
-                        value={password}
-                        onChange={(event) =>
-                          setPassword(event.target.value.trim())
-                        }
-                        onKeyPress={(event) => _handleKeyPress(event)}
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <IconButton
-                              onClick={handleClickShowPasssword}
-                              onMouseDown={handleMouseDownPassword}
-                            >
-                              {showPassword ? (
-                                <VisibilityOff />
-                              ) : (
-                                <Visibility />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        }
-                      />
-                    </FormControl>
-                    <div className="mb-3 d-flex align-items-center justify-content-between">
-                      <Button
-                        onClick={() => {
-                          props.showAuthLoader();
-                          props.userSignIn({ login, password });
-                        }}
-                        variant="contained"
-                        color="primary"
-                      ></Button>
-                      <Link to=""></Link>
+                    <Link
+                      href="#"
+                      onClick={() => {
+                        setIsopen(true);
+                      }}
+                      color="inherit"
+                    >
+                      <IntlMessages id="forgot.password" />
+                    </Link>
+                  </div>
+                  <div className="app-social-block my-1 my-sm-3">
+                    <Link to="">
+                      <IntlMessages id="signIn.connectWith" />
+                    </Link>
 
-                      <Link
-                        href="#"
-                        onClick={() => {
-                          setIsopen(true);
-                        }}
-                        color="inherit"
-                      >
-                        <IntlMessages id="forgot.password" />
-                      </Link>
-                    </div>
-                    <div className="app-social-block my-1 my-sm-3">
-                      <Link to="">
-                        <IntlMessages id="signIn.connectWith" />
-                      </Link>
+                    <ul className="social-link">
+                      <li>
+                        <IconButton className="icon">
+                          <i className="zmdi zmdi-facebook" />
+                        </IconButton>
+                      </li>
 
-                      <ul className="social-link">
-                        <li>
-                          <IconButton className="icon">
-                            <i className="zmdi zmdi-facebook" />
-                          </IconButton>
-                        </li>
+                      <li>
+                        <IconButton className="icon">
+                          <i className="zmdi zmdi-twitter" />
+                        </IconButton>
+                      </li>
 
-                        <li>
-                          <IconButton className="icon">
-                            <i className="zmdi zmdi-twitter" />
-                          </IconButton>
-                        </li>
-
-                        <li>
-                          <IconButton className="icon">
-                            <i className="zmdi zmdi-google-plus" />
-                          </IconButton>
-                        </li>
-                        <li>
-                          <IconButton className="icon">
-                            <i className="zmdi zmdi-github" />
-                          </IconButton>
-                        </li>
-                      </ul>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
+                      <li>
+                        <IconButton className="icon">
+                          <i className="zmdi zmdi-google-plus" />
+                        </IconButton>
+                      </li>
+                      <li>
+                        <IconButton className="icon">
+                          <i className="zmdi zmdi-github" />
+                        </IconButton>
+                      </li>
+                    </ul>
+                  </div>
+                </fieldset>
+              </form>
             </div>
           </div>
-          {loader && (
-            <div className="loader-view">
-              <CircularProgress />
-            </div>
-          )}
-          {showMessage && NotificationManager.error(alertMessage)}
-          <NotificationContainer />
-          {isopen === true ? (
-            <ForgetPasswordModal
-              isopen={isopen}
-              handleCancel={handleCancel}
-              handleChange={handleChange}
-              // ResetPassword={ResetPassword}
-              errorAlert={errorAlert}
-              forgotPassword={forgotPassword}
-              succedAlert={succedAlert}
-            />
-          ) : (
-            ""
-          )}
-          <SweetAlert
-            show={showLicenceMessage}
-            title={alertLicenceMessage}
-            //onConfirm={this.onConfirm}
-          ></SweetAlert>
         </div>
+        {loader && (
+          <div className="loader-view">
+            <CircularProgress />
+          </div>
+        )}
+        {showMessage && NotificationManager.error(alertMessage)}
+        <NotificationContainer />
+        {isopen === true ? (
+          <ForgetPasswordModal
+            isopen={isopen}
+            handleCancel={handleCancel}
+            handleChange={handleChange}
+            // ResetPassword={ResetPassword}
+            errorAlert={errorAlert}
+            forgotPassword={forgotPassword}
+            succedAlert={succedAlert}
+          />
+        ) : (
+          ""
+        )}
+        <SweetAlert
+          show={showLicenceMessage}
+          title={alertLicenceMessage}
+          //onConfirm={this.onConfirm}
+        ></SweetAlert>
       </div>
     </div>
   );

@@ -6,7 +6,11 @@ import {
   SHOW_SUCCESS_MESSAGE,
   HIDE_SUCCESS_MESSAGE,
   SHOW_ERROR_MESSAGE,
-  HIDE_ERROR_MESSAGE,DELETE_INSCRIPTION,ADD_ENTREPRISE,ADD_USER
+  HIDE_ERROR_MESSAGE,
+  DELETE_INSCRIPTION,
+  ADD_ENTREPRISE,
+  ADD_USER,
+  GET_ENTREPRISE,
 } from "../../constants/ActionTypes";
 
 export function getInscriptions() {
@@ -16,6 +20,7 @@ export function getInscriptions() {
     let apiEndpoint = `/inscriptions`;
     service.get(apiEndpoint).then((response) => {
       if (response) {
+      
         dispatch({ type: GET_INSCRIPTION, payload: response.data });
       }
     });
@@ -102,36 +107,13 @@ export const deleteInscription = (id) => async (dispatch) => {
   try {
     let apiEndpoint = `/inscriptions/` + id;
 
-    await service.del(apiEndpoint,id);
+    await service.del(apiEndpoint, id);
     dispatch({
       type: DELETE_INSCRIPTION,
-      payload: { id },
+      payload: id,
     });
-    getInscriptions()
+    
   } catch (err) {
     console.log(err);
   }
 };
-
-export function addUser(data) {
-  return (dispatch) => {
-    console.log(data);
-    let apiEndpoint = `/users`;
-    service.post(apiEndpoint, data).then((response) => {
-      if (response) {
-        dispatch({ type: ADD_USER, payload: response.data });
-      }
-    });
-  };
-}
-export function addEntreprise(data) {
-  return (dispatch) => {
-    console.log(data);
-    let apiEndpoint = `/entreprises`;
-    service.post(apiEndpoint, data).then((response) => {
-      if (response) {
-        dispatch({ type: ADD_ENTREPRISE, payload: response.data });
-      }
-    });
-  };
-}
