@@ -20,7 +20,7 @@ import UserDetails from "./UserDetails";
 import { getUsers } from "../../../../../store/actions/User";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function UsersList() {
+export default function UsersList(props) {
   const [opendetails, setOpendetails] = useState(false);
   const [openadd, setOpenadd] = useState(false);
   const opendetailsUser = () => {
@@ -62,13 +62,13 @@ export default function UsersList() {
       value: 5,
     },
   ];
-  const handleChangeRole = (selectedOption) => {};
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.users.users);
-
   useEffect(() => {
     dispatch(getUsers());
   }, []);
+  const data = useSelector((state) => state.users.users);
+  const handleChangeRole = (selectedOption) => {};
+
   return (
     <div className="app-wrapper ">
       {opendetails && (
@@ -78,7 +78,7 @@ export default function UsersList() {
         />
       )}
 
-      {/* {openadd && <AddUser openaddUser={openaddUser} />} */}
+      {openadd && <AddUser openaddUser={openaddUser} />}
       <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12 bd-highlight flex-wrap"></div>
 
       <div className="d-flex justify-content-around bd-highlight flex-wrap">
@@ -140,7 +140,7 @@ export default function UsersList() {
               <div className="d-flex justify-content-start align-items-center">
                 <Button
                   style={{ width: "60px", borderRadius: "50px" }}
-               //   onClick={openaddUser}
+                  onClick={openaddUser}
                 >
                   <AddCircleOutlineOutlinedIcon
                     style={{ color: orange[500], width: 100 }}

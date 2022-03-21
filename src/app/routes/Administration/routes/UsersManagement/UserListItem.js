@@ -59,7 +59,7 @@ export default function UserListItem(props) {
             width: "28px",
             height: "28px",
           }}
-          onClick={this.props.opendetailsUser}
+          onClick={props.opendetailsUser}
         >
           <VisibilityOutlinedIcon />
         </IconButton>

@@ -40,12 +40,7 @@ function SignUp() {
 
   let dispatch = useDispatch();
 
-  var today = new Date();
-  var date =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  var time =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  var dateTime = date + " " + time;
+
   const choisirGenre = (e) => {
     if (e === "male") {
       setGender("masculin");
@@ -85,7 +80,7 @@ function SignUp() {
       choixDevise: choix_devise,
       type: "",
       status: "",
-      createdIn: new Date(dateTime),
+      createdIn: new Date(),
       createdBy: 0,
       modifiedIn: new Date(),
       modifiedBy: 0,
@@ -619,7 +614,7 @@ function SignUp() {
                     control={
                       <Radio
                         color="primary"
-                        size="3px"
+    
                         checked={gender === "male"}
                         onChange={choisirGenre}
                       />
