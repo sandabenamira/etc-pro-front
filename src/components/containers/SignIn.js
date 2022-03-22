@@ -40,7 +40,7 @@ function SignIn(props) {
   const [succedAlert, setSuccedAlert] = useState(false);
   const [isopen, setIsopen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
+  const [name, setName] = useState();
   const handleCancel = () => {
     setIsopen(false);
   };
@@ -81,35 +81,34 @@ function SignIn(props) {
       email: email1,
     };
 
-    axios
-      .post(`${baseUrl.baseUrl}/users/reset-user-password`, params, {
-        headers: {
-          "content-type": "application/json",
-        },
-      })
-      // .then((response) => {
-      //   if (response.data.existe === true) {
-      //     setSuccedAlert(true),
-      //       setForgotPassword(""),
-      //       // setTimeout(
-      //       //   function () {
-      //       //     setSuccedAlert(false);
-      //       //     setIsopen(false);
-      //       //   },
-      //       //   2000
-      //       // );
-      //   } else {
-      //     setErrorAlert(true),
-      //       setForgotPassword(""),
-      //       setTimeout(
-      //         function () {
-      //           setErrorAlert(false);
-      //         },
-      //         2000
-      //       );
-      //   }
-      // })
-      // .catch((err) => {});
+    axios.post(`${baseUrl.baseUrl}/users/reset-user-password`, params, {
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    // .then((response) => {
+    //   if (response.data.existe === true) {
+    //     setSuccedAlert(true),
+    //       setForgotPassword(""),
+    //       // setTimeout(
+    //       //   function () {
+    //       //     setSuccedAlert(false);
+    //       //     setIsopen(false);
+    //       //   },
+    //       //   2000
+    //       // );
+    //   } else {
+    //     setErrorAlert(true),
+    //       setForgotPassword(""),
+    //       setTimeout(
+    //         function () {
+    //           setErrorAlert(false);
+    //         },
+    //         2000
+    //       );
+    //   }
+    // })
+    // .catch((err) => {});
   };
   const {
     showMessage,
@@ -138,22 +137,20 @@ function SignIn(props) {
         // position: "relative",
       }}
     >
-      <div 
-         style={{
-          top:"150px",
-
+      <div
+        style={{
+          top: "150px",
         }}
-      className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
+        className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3"
+      >
         <div className="app-login-main-content">
           <div className="app-logo-content d-flex align-items-center justify-content-center">
             <Link className="logo-lg" to="/" title="Educap Pro">
               <img
-             
                 width={220}
                 src={require("../../assets/images/educapProLogo.png")}
                 alt="Educap Pro"
                 title="Educap Pro"
-             
               />
             </Link>
           </div>
@@ -168,7 +165,8 @@ function SignIn(props) {
                 <fieldset>
                   <TextField
                     label={<IntlMessages id="appModule.username" />}
-                    
+                    secureTextEntry={true}
+                    autoCorrect={false}
                     onChange={(event) => {
                       setLogin(event.target.value.trim());
                     }}
@@ -177,7 +175,7 @@ function SignIn(props) {
                     onKeyPress={(event) => _handleKeyPress(event)}
                   />
 
-                  <FormControl className="mb-3" >
+                  <FormControl className="mb-3">
                     <InputLabel htmlFor="password-1">
                       <IntlMessages id="appModule.password" />
                     </InputLabel>
@@ -209,7 +207,9 @@ function SignIn(props) {
                       }}
                       variant="contained"
                       color="primary"
-                    >connecter</Button>
+                    >
+                      connecter
+                    </Button>
                     <Link to=""></Link>
 
                     <Link

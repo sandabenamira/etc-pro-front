@@ -69,8 +69,13 @@ function InscriptionItem(props) {
               backgroundColor: "#3F51B5",
               width: "14px",
               height: "14px",
+
+              
             }}
             onClick={opendetailsUser}
+
+
+            
           >
             <VisibilityOutlinedIcon />
           </IconButton>

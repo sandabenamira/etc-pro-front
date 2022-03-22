@@ -21,11 +21,7 @@ import { getUsers } from "../../../../../store/actions/User";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function UsersList(props) {
-  const [opendetails, setOpendetails] = useState(false);
   const [openadd, setOpenadd] = useState(false);
-  const opendetailsUser = () => {
-    setOpendetails(!opendetails);
-  };
   const openaddUser = () => {
     setOpenadd(!openadd);
   };
@@ -71,13 +67,6 @@ export default function UsersList(props) {
 
   return (
     <div className="app-wrapper ">
-      {opendetails && (
-        <UserDetails
-          // values={...state}
-          opendetailsUser={opendetailsUser}
-        />
-      )}
-
       {openadd && <AddUser openaddUser={openaddUser} />}
       <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12 bd-highlight flex-wrap"></div>
 
@@ -137,7 +126,7 @@ export default function UsersList(props) {
         <div className="p-2">
           <div className="d-flex ">
             <div className="p-2 ml-auto ">
-              <div className="d-flex justify-content-start align-items-center">
+              <div className="d-flex justify-content-center align-items-center">
                 <Button
                   style={{ width: "60px", borderRadius: "50px" }}
                   onClick={openaddUser}
@@ -157,10 +146,10 @@ export default function UsersList(props) {
       <div className="table-responsive">
         <table
           className="table "
-          style={{ borderCollapse: "separate", borderSpacing: "0 15px" }}
+          style={{ borderCollapse: "separate", borderSpacing: "0px 15px" }}
         >
           <thead>
-            <tr style={{ paddingBottom: "10px", textAlign: "start" }}>
+            <tr style={{ paddingBottom: "10px", textAlign: "center" }}>
               <th style={{ borderBottom: "0", borderTop: "0" }}>
                 <IntlMessages id="user.photo" />
               </th>
@@ -171,28 +160,17 @@ export default function UsersList(props) {
                 <IntlMessages id="user.last.name" />
               </th>
               <th style={{ borderBottom: "0", borderTop: "0" }}>
-                <IntlMessages id="user.role" />{" "}
+                <IntlMessages id="user.role" />
               </th>
               <th style={{ borderBottom: "0", borderTop: "0" }}>
                 <IntlMessages id="user.mail" />
               </th>
-              <th style={{ borderBottom: "0", borderTop: "0" }}>
-                <IntlMessages id="user.phone.number" />
-              </th>
-              <th style={{ borderBottom: "0", borderTop: "0" }}></th>
+              <th style={{ borderBottom: "0", borderTop: "0" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((row) => (
-              <UserListItem
-                photo=""
-                nom={row.nom}
-                prenom={row.prenom}
-                role={row.role}
-                email={row.emailUser}
-                Ntel={row.numeroTel}
-                opendetailsUser={opendetailsUser}
-              />
+            {data.map((row, i) => (
+              <UserListItem key={i} data={row} />
             ))}
           </tbody>
         </table>

@@ -3,18 +3,16 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Alert from "@material-ui/lab/Alert";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { addInscription } from "../../store/actions/Inscription";
+import { addInscription } from "../../../store/actions/Inscription";
 import { useDispatch } from "react-redux";
-import MediaQuery from "react-responsive";
 
 import {
   isEmail,
   isPhonenumber,
   isNotEmpty,
-} from "../../constants/validationFunctions";
+} from "../../../constants/validationFunctions";
 
 function SignUp() {
-  //state of company
   const [nom_entreprise, setNom_entreprise] = useState("");
   const [numero_serie, setNumero_serie] = useState("");
   const [addresse_entreprise, setAddresse_entreprise] = useState("");
@@ -25,8 +23,6 @@ function SignUp() {
   const [email_entreprise, setEmail_entreprise] = useState("");
   const [choix_devise, setChoix_devise] = useState("");
   const [code_postal, setCode_postal] = useState("");
-  //state of user
-
   const [nom_user, setNom_user] = useState("");
   const [prenom, setPrenom] = useState("");
 
@@ -40,11 +36,11 @@ function SignUp() {
 
   let dispatch = useDispatch();
 
-
   const choisirGenre = (e) => {
-    if (e === "male") {
-      setGender("masculin");
-    } else setGender("féminin");
+    console.log("this is e ", e.target.value);
+    if (e.target.value.toString() === "masculin") {
+      setGender("male");
+    } else if (e.target.value.toString() === "féminin") setGender("female");
   };
   const reinitialiser = () => {
     document.getElementById("alert").style.display = "none";
@@ -135,41 +131,44 @@ function SignUp() {
       setAlert(" mettez les champs obligatoires");
     }
   };
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 767px)").matches
+  );
 
+  useEffect(() => {
+    window
+      .matchMedia("(min-width: 768px)")
+      .addEventListener("change", (e) => setMatches(e.matches));
+  }, []);
   return (
     <div
-      className="d-flex flex-column "
       style={{
         backgroundColor: "#1a85b3",
         paddingLeft: "5%",
         paddingRight: "5%",
-        paddingBottom: "5%",
         paddingTop: "4%",
-        minHeight: "1000px",
         minWidth: "100%",
-        // position: "relative",
-        // overflowY: "auto",
+        overflowY: "auto",
       }}
     >
       <div
         className="d-flex  flex-column col-lg-12 col-md-12 col-sm-11  "
         fullWidth
+        //  fullHight
         style={{
           fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
           backgroundColor: "white",
           borderRadius: "10px",
           boxShadow: "40px 20px #125f80",
+          //      overflow:"auto",
 
-          //    minHeight: "100%",
-          //  maxWidth: "100%",
-          //overflow: "auto",
+          //        height: "1000%",
         }}
       >
         <div className="d-flex   justify-content-center mt-4  ">
-          {/* /première ligne */}
           <img
             width={70}
-            src={require("../../assets/images/educapProLogo.png")}
+            src={require("../../../assets/images/educapProLogo.png")}
             alt="logo"
             title="logo"
             style={{
@@ -196,8 +195,8 @@ function SignUp() {
               width: "100%",
             }}
           >
-            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-4 col-sm-11  ">
-              <div className=" d-flex justify-content-center mt-2">
+            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-11  ">
+              <div className=" d-flex  justify-content-center mt-2">
                 <div className="title">
                   <h1
                     className="Accueil"
@@ -212,15 +211,15 @@ function SignUp() {
                   </h1>
                 </div>
               </div>
-              <div className="d-flex flex-wrap flex-row ml-5  mt-3">
-                <div className="col-lg-6 col-md-6 col-sm-4">
+              <div className="d-flex  flex-wrap flex-row ml-5  mt-3">
+                <div className="justify-content-center col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Nom*
+                    Nom de la société*
                   </h4>
 
                   <input
@@ -243,7 +242,7 @@ function SignUp() {
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-4">
+                <div className="justify-content-center  col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -274,14 +273,14 @@ function SignUp() {
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5 ">
-                <div className="col-lg-6 col-md-6 col-sm-4">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Adresse*
+                    Pays
                   </h4>
                   <input
                     type="text"
@@ -302,14 +301,14 @@ function SignUp() {
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-4 ">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 300,
                     }}
                   >
-                    Code Postal*
+                    Gouvernorat
                   </h4>
 
                   <input
@@ -332,14 +331,14 @@ function SignUp() {
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-4">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Gouvernorat
+                    Adresse de la société*
                   </h4>
                   <input
                     type="text"
@@ -358,14 +357,15 @@ function SignUp() {
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-4">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Pays
+                    {" "}
+                    Code Postal*
                   </h4>
                   <input
                     type="text"
@@ -388,7 +388,7 @@ function SignUp() {
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-4">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -418,7 +418,7 @@ function SignUp() {
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-4">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -450,7 +450,7 @@ function SignUp() {
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5 ">
-                <div className="col-lg-6 col-md-6 col-sm-4">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -484,36 +484,24 @@ function SignUp() {
                     <option value="4">DT</option>
                   </select>
                 </div>
-                {/* 
-                <div className="col-lg-6 col-md-6 col-sm-4">
-                  <Alert
+              </div>
+            </div>
+            {matches && (
+              <div className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1">
+                <div className=" d-flex justify-content-end  ">
+                  <p
                     style={{
-                      display: "none",
-                      maxHeight: "100%",
-                      maxWidth: "100%",
+                      height: "600px",
+                      //    minHeight:"600px",
+                      borderRight: "1px solid rgba(134, 134, 134, 0.548)",
+                      //  paddingLeft: " 3%",
                     }}
-                    id="alert"
-                    severity={success}
-                  >
-                    {alert}
-                  </Alert>
-                </div> */}
+                    className="bordure_verticale"
+                  ></p>
+                </div>
               </div>
-            </div>
-            <div className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1 ">
-              <div className=" d-flex justify-content-start ">
-                <p
-                  style={{
-                    height: "600px",
-                    //    minHeight:"600px",
-                    borderRight: "1px solid rgba(134, 134, 134, 0.548)",
-                    paddingLeft: " 2cm",
-                  }}
-                  className="bordure_verticale"
-                ></p>
-              </div>
-            </div>
-            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-2 col-sm-11 ">
+            )}
+            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-12">
               <div className=" d-flex justify-content-center mt-2 ">
                 <div className="title">
                   <h1
@@ -530,7 +518,7 @@ function SignUp() {
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-3 ">
-                <div className="col-lg-6 col-md-6 col-sm-6 ">
+                <div className="col-lg-6 col-md-6 col-sm-12 ">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -561,7 +549,7 @@ function SignUp() {
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -610,12 +598,11 @@ function SignUp() {
                   }}
                 >
                   <FormControlLabel
-                    value="male"
+                    value="masculin"
                     control={
                       <Radio
                         color="primary"
-    
-                        checked={gender === "male"}
+                        checked={gender === "masculin"}
                         onChange={choisirGenre}
                       />
                     }
@@ -626,11 +613,11 @@ function SignUp() {
                     style={{ color: "blue" }}
                   ></i>
                   <FormControlLabel
-                    value="female"
+                    value="féminin"
                     control={
                       <Radio
                         color="primary"
-                        checked={gender === "female"}
+                        checked={gender === "féminin"}
                         onChange={choisirGenre}
                         style={{
                           marginLeft: "1cm",
@@ -645,7 +632,7 @@ function SignUp() {
                 </RadioGroup>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-6">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -673,10 +660,10 @@ function SignUp() {
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6"></div>
+                <div className="col-lg-6 col-md-6 col-sm-12"></div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-6">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -704,10 +691,10 @@ function SignUp() {
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6"></div>
+                <div className="col-lg-6 col-md-6 col-sm-12"></div>
               </div>
               <div className="d-flex flex-wrap flex-row ml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-6">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -734,7 +721,7 @@ function SignUp() {
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6">
+                <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -768,8 +755,9 @@ function SignUp() {
             </div>
             {/* <div className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1 mt-5"></div> */}
           </div>
-          <div className="d-flex align-items-center  justify-content-end mt-3  ">
-            <div className="col-lg-6 col-md-6 col-sm-4 mr-5">
+          <div className="d-flex  flex-wrap  justify-content-end mt-3  ">
+            <div className="col-lg-6 col-md-6 col-sm-12  ">
+              {/* {!matches && ( */}
               <Alert
                 style={{
                   display: "none",
@@ -781,19 +769,20 @@ function SignUp() {
               >
                 {alert}
               </Alert>
+              {/* )} */}
             </div>
 
-            <div className="col-lg-2 col-md-2 col-sm-2 mt-5 mr-2 ">
+            <div className="col-lg-2 col-md-3 col-sm-2  mr mt-4 ">
               <button
                 className="button2"
                 type="reset"
                 onClick={reinitialiser}
                 style={{
-                  fontSize: "1.3rem",
+                  fontSize: "150%",
                   color: "#1a85b3",
                   cursor: "pointer",
                   backgroundColor: "#ffffff",
-                  padding: "5px 25px 5px 25px",
+                  padding: "2% 12% 2% 12%",
                   borderRadius: "80px",
                   border: "#1a85b3 solid 1px",
                 }}
@@ -801,26 +790,41 @@ function SignUp() {
                 Annuler
               </button>
             </div>
-
-            <div className="col-lg-2 col-md-2 col-sm-2  mt-5 mr-5">
+            <div className="col-lg-2 col-md-3 col-sm-2 justify-content-end  mt-4 ">
               <button
                 className="button1"
                 type="submit"
                 onClick={handleSubmit}
                 style={{
-                  fontSize: "1.3rem",
+                  fontSize: "150%",
                   color: "#ffffff",
                   border: "none",
                   cursor: "pointer",
                   backgroundColor: "#1a85b3",
-                  padding: "5px 25px 5px 25px",
+                  padding: "2% 12% 2% 12%",
                   borderRadius: "80px",
-                  marginRight: "2cm",
+                  marginRight: "13%",
+                  marginBottom: "5%",
                 }}
               >
                 Suivant
               </button>
             </div>
+            {/* {!matches && (
+              <div className=" col-sm-5">
+            <Alert
+                  style={{
+                    display: "none",
+                    maxHeight: "70px",
+                    // maxWidth: "100%",
+                  }}
+                  id="alert"
+                  severity={success}
+                >
+                  {alert}
+                </Alert>
+              </div>
+            )} */}
           </div>
         </form>
       </div>

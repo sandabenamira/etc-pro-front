@@ -43,7 +43,9 @@ import {
 
 import MainApp from "../../app/index";
 import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import SignUp from "./SignUp/SignUp";
+import SignUp1 from "./SignUp/SignUp";
+
 import RTL from "../../util/RTL";
 import asyncComponent from "../../util/asyncComponent";
 import { setInitUrl } from "../../store/actions/Auth";
@@ -207,6 +209,8 @@ class App extends Component {
                     />
                     <Route path="/signin" component={SignIn} />
                     <Route path="/signup" component={SignUp} />
+                    <Route path="/signup1" component={SignUp1} />
+
 
                     <Route
                       component={asyncComponent(() => import("../Error404"))}

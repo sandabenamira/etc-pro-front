@@ -28,7 +28,9 @@ export default function Entreprise(props) {
 
         <div className="d-flex justify-content-around bd-highlight flex-wrap">
          
-
+        <div className="p-2">
+            
+          </div>
           <div className=" d-flex flex-row flex-wrap p-2 col-lg-3 col-md-6  col-sm-4 bd-highlight flex-wrap">
             <Paper
               component="form"
@@ -53,6 +55,7 @@ export default function Entreprise(props) {
                   marginLeft: "5%",
                   flex: 1,
                   fontWeight: "bold",
+              //    position:"fixed"
                 }}
                 placeholder="Recherche ..."
                 inputProps={{ "aria-label": "search google maps" }}
