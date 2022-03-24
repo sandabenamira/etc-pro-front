@@ -658,6 +658,8 @@ function SignUp() {
                       minWidth: "40%",
                       maxWidth: "70%",
                     }}
+                    min="1900-01-01" max="2200-12-31"
+
                   />
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-12"></div>
