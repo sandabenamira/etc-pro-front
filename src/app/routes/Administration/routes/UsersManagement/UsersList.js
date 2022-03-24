@@ -16,11 +16,10 @@ import AddUser from "./AddUser";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-import UserDetails from "./UserDetails";
 import { getUsers } from "../../../../../store/actions/User";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function UsersList(props) {
+export default function UsersList() {
   const [openadd, setOpenadd] = useState(false);
   const openaddUser = () => {
     setOpenadd(!openadd);
@@ -59,16 +58,17 @@ export default function UsersList(props) {
     },
   ];
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.users.users);
   useEffect(() => {
     dispatch(getUsers());
+    console.log("get users : ", getUsers());
   }, []);
-  const data = useSelector((state) => state.users.users);
+
   const handleChangeRole = (selectedOption) => {};
 
   return (
     <div className="app-wrapper ">
       {openadd && <AddUser openaddUser={openaddUser} />}
-      <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12 bd-highlight flex-wrap"></div>
 
       <div className="d-flex justify-content-around bd-highlight flex-wrap">
         <div className="p-2">

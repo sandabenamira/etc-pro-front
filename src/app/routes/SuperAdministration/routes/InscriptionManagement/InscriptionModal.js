@@ -21,10 +21,10 @@ function InscriptionModal(props) {
   const EntrepriseData = {
     nom: props.data.nom,
     numeroSerie: props.data.numSerie,
-    codePostal: props.data.codePostale,
+    codePostal: parseInt(props.data.codePostale),
     gouvernorat: props.data.gouvernorat,
     pays: props.data.pays,
-    numeroTelephone: props.data.numeroTelephone,
+    numeroTelephone: parseInt(props.data.numeroTelephone),
     email: props.data.email,
     choixDevise: props.data.choixDevise,
     createdIn: props.data.createdIn,
@@ -33,12 +33,13 @@ function InscriptionModal(props) {
     nom: props.data.nomUser,
     prenom: props.data.prenomUser,
     genre: props.data.genre,
-    dateNaissance: props.data.dateNaissance,
-    numeroTelephone: props.data.numeroTelephone,
+    dateNaissance: new Date(props.data.dateNaissance),
+    numeroTelephone: parseInt(props.data.numeroTelephone),
     email: props.data.emailUser,
     adressePostale: props.data.addresseUser,
     role: "admine",
     createdIn: props.data.createdIn,
+    archive : false
     // password: password,
   };
   // const comment =
@@ -47,19 +48,20 @@ function InscriptionModal(props) {
   //   " et ce mot de passe" +
   //   props.data.password.toString() +
   //   "";
-  const sendFeedback = (serviceID, templateId, variables) => {
-    window.emailjs
-      .send(serviceID, templateId, variables)
-      .then((res) => {
-        console.log("Email successfully sent!");
-      })
-      .catch((err) =>
-        console.error(
-          "There has been an error.  Here some thoughts on the error that occured:",
-          err
-        )
-      );
-  };
+  
+  // const sendFeedback = (serviceID, templateId, variables) => {
+  //   window.emailjs
+  //     .send(serviceID, templateId, variables)
+  //     .then((res) => {
+  //       console.log("Email successfully sent!");
+  //     })
+  //     .catch((err) =>
+  //       console.error(
+  //         "There has been an error.  Here some thoughts on the error that occured:",
+  //         err
+  //       )
+  //     );
+  // };
   const handleRefuser = (e) => {
     e.preventDefault();
     setOpenModal(false);
@@ -68,19 +70,19 @@ function InscriptionModal(props) {
   };
 
   const handleConfirm = (e) => {
-    console.log("_____________confirme____________________");
+    console.log("_____________confirme____________________",finalData);
     setOpenModal(false);
     e.preventDefault();
     dispatch(editInscription(finalData));
     dispatch(addUser(userData));
     dispatch(addEntreprise(EntrepriseData));
-    const templateId = "template_4tpeluy";
-    const serviceID = "service_xjl8cmj";
-    sendFeedback(serviceID, templateId, {
-      from_name: "Educap Pro",
-      reply_to: props.data.emailUser,
+    // const templateId = "template_4tpeluy";
+    // const serviceID = "service_xjl8cmj";
+    // sendFeedback(serviceID, templateId, {
+    //   from_name: "Educap Pro",
+    //   reply_to: props.data.emailUser,
       // message: comment,
-    });
+  //  });
   };
 
   return (

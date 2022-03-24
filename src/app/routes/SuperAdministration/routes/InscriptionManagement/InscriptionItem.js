@@ -7,9 +7,8 @@ import { useDispatch } from "react-redux";
 import { deleteInscription } from "../../../../../store/actions/Inscription";
 
 function InscriptionItem(props) {
-  const [opendetails, setOpendetails] = useState(false);
   let dispatch = useDispatch();
-  const [date, setDate] = useState(props.data.createdIn);
+  const [opendetails, setOpendetails] = useState(false);
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
   };
@@ -47,7 +46,7 @@ function InscriptionItem(props) {
         {props.data.numeroTelephone}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {date.slice(0, 10)}
+        {props.data.createdIn.slice(0, 10)}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
@@ -69,13 +68,8 @@ function InscriptionItem(props) {
               backgroundColor: "#3F51B5",
               width: "14px",
               height: "14px",
-
-              
             }}
             onClick={opendetailsUser}
-
-
-            
           >
             <VisibilityOutlinedIcon />
           </IconButton>

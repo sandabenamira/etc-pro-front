@@ -90,4 +90,13 @@ export const ADD_USER = 'ADD_USER';
 export const GET_USER="GET_USER";
 export const FETECHED_USERS = 'FETECHED_USERS';
 export const EDIT_USER="EDIT_USER"
+export const ARCHIVE_USER="ARCHIVE_USER"
 export const DELETE_USER="DELETE_USER"
+
+//--------------AGENCE----------------------
+export const ADD_AGENCE = 'ADD_AGENCE';
+export const GET_AGENCE="GET_AGENCE";
+export const FETECHED_AGENCES = 'FETECHED_AGENCES';
+export const EDIT_AGENCE="EDIT_AGENCE"
+export const GET_ARCHIVE_AGENCE="GET_ARCHIVE_AGENCE"
+export const DELETE_AGENCE="DELETE_AGENCE"

@@ -4,7 +4,7 @@ import {
   GET_INSCRIPTION,
   ADD_INSCRIPTION,
   EDIT_INSCRIPTION,
-  DELETE_INSCRIPTION,ADD_ENTREPRISE,ADD_USER
+  DELETE_INSCRIPTION
 } from "../../constants/ActionTypes";
 
 // Define an initial state value for the app

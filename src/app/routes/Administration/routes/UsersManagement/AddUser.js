@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 import Radio from "@material-ui/core/Radio";
@@ -10,7 +12,6 @@ import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
 import AttachmentIcon from "@material-ui/icons/Attachment";
-import { useDispatch } from "react-redux";
 import { addUser } from "../../../../../store/actions/User";
 import MenuItem from "@mui/material/MenuItem";
 import { styled } from "@mui/material/styles";
@@ -18,28 +19,22 @@ import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 export default function AddUser(props) {
-  const [nom, setNom] = useState();
-  const [prenom, setPrenom] = useState();
-  const [genre, setGenre] = useState();
-  const [date_naissance, setDate_naissance] = useState();
-  const [pays, setPays] = useState();
-  const [adresse_postale, setAdresse_postale] = useState();
+  let dispatch = useDispatch(props);
+
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [genre, setGenre] = useState("");
+  const [date_naissance, setDate_naissance] = useState("");
+  const [pays, setPays] = useState("");
+  const [adresse_postale, setAdresse_postale] = useState("");
   const [code_postale, setCode_postale] = useState();
-
-  // const [selectedPhoto, setSelectedPhoto] = useState(null);
-
   const [photos, setPhotos] = useState([]);
   const [URLphoto, setURLPhoto] = useState([]);
-
-  const [formData, setFormData] = useState(new FormData());
-
-  const [role, setRole] = useState();
-  const [identifiant, setIdentifiant] = useState();
-  const [agency, setAgency] = useState();
-  const [papier, setPapier] = useState();
-  const [email, setEmail] = useState();
-
-  let dispatch = useDispatch(props);
+  const [role, setRole] = useState("");
+  const [identifiant, setIdentifiant] = useState("");
+  const [agency, setAgency] = useState("");
+  const [papier, setPapier] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,21 +42,21 @@ export default function AddUser(props) {
       nom: nom,
       prenom: prenom,
       genre: genre,
-      dateNaissance: date_naissance,
+      dateNaissance: new Date(date_naissance),
       pays: pays,
-      codePostal: code_postale,
+      codePostal: parseInt(code_postale),
       adressePostale: adresse_postale,
-      photo: URLphoto,
+      photo: URLphoto[0],
       role: role,
       identifiant: identifiant,
       agency: agency,
       email: email,
       //   "password": "string",
       pieceJointe: papier,
-
       createdIn: new Date(),
-      mdifiedIn: new Date(),
-      //numeroTelephone:
+      modifiedIn: new Date(),
+      // numeroTelephone: ,
+      archive: false,
     };
 
     dispatch(addUser(finalData));
@@ -74,7 +69,6 @@ export default function AddUser(props) {
     setPays("");
     setAdresse_postale("");
     setCode_postale("");
-    setCode_postale("");
     setPhotos("");
     setRole("");
     setIdentifiant("");
@@ -82,6 +76,7 @@ export default function AddUser(props) {
     setPapier("");
     setEmail("");
   };
+
   const choisirGenre = (e) => {
     if (e.target.value === "masculin") {
       setGenre("masculin");
@@ -134,7 +129,7 @@ export default function AddUser(props) {
     },
     {
       value: "BIAT Sfax",
-      label: "BIAT Sousse",
+      label: "BIAT Sfax",
     },
     {
       value: "BIAT Mounastir",
@@ -156,15 +151,12 @@ export default function AddUser(props) {
   };
 
   const onPapierChange = (event) => {
-    console.log("this is file",event.target.files[0]);
     if (event.target.files && event.target.files[0]) {
       let file = event.target.files[0];
-      setPapier({
-        file: URL.createObjectURL(file),
-      });
+      setPapier(URL.createObjectURL(file));
     }
-
   };
+
   const Input = styled("input")({
     display: "none",
   });
@@ -172,7 +164,7 @@ export default function AddUser(props) {
   return (
     <Modal isOpen={props.openaddUser}>
       <ModalBody>
-        <form className="row" autoComplete="off" onSubmit={props.handleSubmit}>
+        <form className="row" autoComplete="off">
           <div className="d-flex flex-wrap justify-content-start flex-column col-lg-12 col-md-12 col-sm-12">
             <div
               className="d-flex justify-content-end mt-2 "
@@ -188,6 +180,7 @@ export default function AddUser(props) {
                 onClick={props.openaddUser}
                 style={{
                   marginTop: "-2%",
+                  marginLeft:"88%"
                 }}
               >
                 <span aria-hidden="true">&times;</span>

@@ -1,17 +1,74 @@
-import {useState} from 'react';
+import { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import UserDetails from "./UserDetails";
+import { editUser } from "../../../../../store/actions/User";
+import { useDispatch } from "react-redux";
 
 export default function UserListItem(props) {
-  const data = props.data;
+  let dispatch = useDispatch();
   const [opendetails, setOpendetails] = useState(false);
-
+  const [dateNaissance, setDateNaissance] = useState("");
+  const [pays, setPays] = useState("");
+  const [codePostal, setCodePostal] = useState("");
+  const [adressePostale, setAdressePostale] = useState("");
+  const [agency, setAgency] = useState("");
+  const [genre, setGenre] = useState("");
+  const [pieceJointe, setPieceJointe] = useState("");
+  const [lastLogin, setLastLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [profilId, setProfilId] = useState("");
+  const [numeroTelephone, setNumeroTelephone] = useState("");
+  const [modifiedBy, setModifiedBy] = useState("");
+  const [entrepriseId, settEntrepriseId] = useState("");
+  const [createdBy, setCreatedBy] = useState("");
+  const data = props.data;
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
+  };
+
+  const finalData = {
+    ...props.data,
+
+    genre: "genre",
+    dateNaissance: dateNaissance,
+    pays: pays,
+    codePostal: codePostal,
+    adressePostale: adressePostale,
+
+    agency: agency,
+    pieceJointe: pieceJointe,
+    modifiedIn: new Date(),
+    deletedIn: new Date(),
+    archive: true,
+    lastLogin: "lastLogin",
+    numeroTelephone: numeroTelephone,
+    password: password,
+    profilId: profilId,
+    modifiedBy: modifiedBy,
+    entrepriseId: entrepriseId,
+  };
+  const handleArchive = (e) => {
+    e.preventDefault();
+    setDateNaissance(data.dateNaissance);
+    setPays(data.pays);
+    setCodePostal(data.codePostal);
+    setAdressePostale(data.adressePostale);
+    setAgency(data.agency);
+    setGenre(data.setGenre);
+    setPieceJointe(data.pieceJointe);
+    setLastLogin(data.lastlogin);
+    setNumeroTelephone(data.numeroTelephone);
+    setPassword(data.password);
+    setProfilId(data.profilId);
+    setModifiedBy(data.modifiedBy);
+    settEntrepriseId(data.entrepriseId);
+    setCreatedBy(data.createdBy);
+    console.log("final Data", finalData);
+    dispatch(editUser(finalData));
   };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
@@ -26,7 +83,7 @@ export default function UserListItem(props) {
         }}
       >
         <div>
-          <Avatar alt={data.nom} src={data.photo} />
+          <Avatar alt={data.prenom} src={data.photo} />
         </div>
       </th>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
@@ -60,7 +117,9 @@ export default function UserListItem(props) {
               height: "28px",
             }}
             onClick={opendetailsUser}
-          > {console.log(opendetailsUser)}
+          >
+            {" "}
+            {console.log(opendetailsUser)}
             <VisibilityOutlinedIcon />
           </IconButton>
 
@@ -83,15 +142,15 @@ export default function UserListItem(props) {
               width: "28px",
               height: "28px",
             }}
+            onClick={(e) => handleArchive(e)}
           >
             <DeleteOutlineRoundedIcon backgroundColor="white" />
           </IconButton>
         </div>
       </td>
-      {opendetails &&
-      (
-          <UserDetails opendetailsUser={opendetailsUser} {...props} />
-        )}
+      {opendetails && (
+        <UserDetails opendetailsUser={opendetailsUser} {...props} />
+      )}
     </tr>
   );
 }

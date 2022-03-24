@@ -18,11 +18,11 @@ export default function (state = initialState, action) {
         entreprises: action.payload,
       });
     }
-    case ADD_ENTREPRISE: {
-      return Object.assign({}, state, {
-        entreprises: [action.payload].concat(state.entreprises),
-      });
-    }
+    // case ADD_ENTREPRISE: {
+    //   return Object.assign({}, state, {
+    //     entreprises: [action.payload].concat(state.entreprises),
+    //   });
+    // }
     case EDIT_ENTREPRISE: {
       return Object.assign({}, state, {
         inscriptions: [

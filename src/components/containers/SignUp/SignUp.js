@@ -20,9 +20,9 @@ function SignUp() {
   const [pays, setPays] = useState("");
   const [numero_telephone_entreprise, setNumero_telephone_entreprise] =
     useState();
-  const [email_entreprise, setEmail_entreprise] = useState("");
-  const [choix_devise, setChoix_devise] = useState("");
-  const [code_postal, setCode_postal] = useState("");
+  const [email_entreprise, setEmail_entreprise] = useState();
+  const [choix_devise, setChoix_devise] = useState();
+  const [code_postal, setCode_postal] = useState();
   const [nom_user, setNom_user] = useState("");
   const [prenom, setPrenom] = useState("");
 
@@ -37,10 +37,9 @@ function SignUp() {
   let dispatch = useDispatch();
 
   const choisirGenre = (e) => {
-    console.log("this is e ", e.target.value);
-    if (e.target.value.toString() === "masculin") {
-      setGender("male");
-    } else if (e.target.value.toString() === "féminin") setGender("female");
+    if (e.target.value === "masculin") {
+      setGender("masculin");
+    } else if (e.target.value === "féminin") setGender("féminin");
   };
   const reinitialiser = () => {
     document.getElementById("alert").style.display = "none";
@@ -284,10 +283,9 @@ function SignUp() {
                   </h4>
                   <input
                     type="text"
-                    name="addresse_entreprise"
-                    onChange={(e) => setAddresse_entreprise(e.target.value)}
-                    value={addresse_entreprise}
-                    required
+                    name="pays"
+                    onChange={(e) => setPays(e.target.value)}
+                    value={pays}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -313,9 +311,8 @@ function SignUp() {
 
                   <input
                     type="text"
-                    onChange={(e) => setCode_postal(e.target.value)}
-                    value={code_postal}
-                    required
+                    onChange={(e) => setGouvernorat(e.target.value)}
+                    value={gouvernorat}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -342,8 +339,8 @@ function SignUp() {
                   </h4>
                   <input
                     type="text"
-                    onChange={(e) => setGouvernorat(e.target.value)}
-                    value={gouvernorat}
+                    onChange={(e) => setAddresse_entreprise(e.target.value)}
+                    value={addresse_entreprise}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -364,15 +361,14 @@ function SignUp() {
                       fontWeight: 400,
                     }}
                   >
-                    {" "}
                     Code Postal*
                   </h4>
                   <input
                     type="text"
                     id="pays"
                     name="pays"
-                    onChange={(e) => setPays(e.target.value)}
-                    value={pays}
+                    onChange={(e) => setCode_postal(e.target.value)}
+                    value={code_postal}
                     style={{
                       borderLeft: "none",
                       borderRight: "none",
@@ -478,10 +474,12 @@ function SignUp() {
                       maxWidth: "70%",
                     }}
                   >
-                    <option value="1">{"\u0024"} Dollar</option>
-                    <option value="2"> {"\u20AC"} Euro</option>
-                    <option value="3"> {"\u00A5"} Yen</option>
-                    <option value="4">DT</option>
+                    <option value=""></option>
+
+                    <option value="Dollar">{"\u0024"} Dollar</option>
+                    <option value="Euro"> {"\u20AC"} Euro</option>
+                    <option value="Yen"> {"\u00A5"} Yen</option>
+                    <option value="DT">DT</option>
                   </select>
                 </div>
               </div>
@@ -517,7 +515,7 @@ function SignUp() {
                   </h1>
                 </div>
               </div>
-              <div className="d-flex flex-wrap flex-row ml-5 mt-3 ">
+              <div className="d-flex flex-wrap flex-row  ml-5 mt-3 ">
                 <div className="col-lg-6 col-md-6 col-sm-12 ">
                   <h4
                     style={{
@@ -549,7 +547,7 @@ function SignUp() {
                     }}
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div className="col-lg-6 col-md-6 col-sm-12 ">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -579,12 +577,13 @@ function SignUp() {
                   />
                 </div>
               </div>
-              <div className="d-flex flex-wrap flex-row ml-5 mt-5 ml-5">
+              <div className="d-flex  flex-wrap flex-row ml-5 mt-4 ">
                 <h4
                   style={{
                     color: "#1a85b3",
                     fontWeight: 400,
-                    marginLeft: "3%",
+                    marginLeft: "3.5%",
+                    marginTop:"4%"
                   }}
                 >
                   Vous êtes
@@ -631,12 +630,13 @@ function SignUp() {
                   ></i>
                 </RadioGroup>
               </div>
-              <div className="d-flex flex-wrap flex-row ml-5 mt-5">
+              <div className="d-flex flex-wrap flex-row ml-5 mt-4">
                 <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
+                   
                     }}
                   >
                     Date de naissance
@@ -662,7 +662,7 @@ function SignUp() {
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-12"></div>
               </div>
-              <div className="d-flex flex-wrap flex-row ml-5 mt-5">
+              <div className="d-flex flex-wrap flex-row ml-5 mt-4">
                 <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
                     style={{

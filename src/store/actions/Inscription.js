@@ -8,9 +8,6 @@ import {
   SHOW_ERROR_MESSAGE,
   HIDE_ERROR_MESSAGE,
   DELETE_INSCRIPTION,
-  ADD_ENTREPRISE,
-  ADD_USER,
-  GET_ENTREPRISE,
 } from "../../constants/ActionTypes";
 
 export function getInscriptions() {
@@ -20,7 +17,6 @@ export function getInscriptions() {
     let apiEndpoint = `/inscriptions`;
     service.get(apiEndpoint).then((response) => {
       if (response) {
-      
         dispatch({ type: GET_INSCRIPTION, payload: response.data });
       }
     });
@@ -112,7 +108,6 @@ export const deleteInscription = (id) => async (dispatch) => {
       type: DELETE_INSCRIPTION,
       payload: id,
     });
-    
   } catch (err) {
     console.log(err);
   }

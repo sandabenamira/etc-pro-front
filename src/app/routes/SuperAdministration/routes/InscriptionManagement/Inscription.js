@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { getInscriptions } from "../../../../../store/actions/Inscription";
 import { useDispatch, useSelector } from "react-redux";
 
-function Inscription(props) {
+function Inscription() {
   let dispatch = useDispatch();
   const data = useSelector((state) => state.Inscriptions.inscriptions);
   useEffect(() => {
