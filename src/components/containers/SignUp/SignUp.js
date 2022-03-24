@@ -25,8 +25,11 @@ function SignUp() {
   const [code_postal, setCode_postal] = useState();
   const [nom_user, setNom_user] = useState("");
   const [prenom, setPrenom] = useState("");
-
-  const [date_naiss, setDate_naiss] = useState(new Date());
+  const today = new Date();
+  const h =
+   today.getFullYear()+ "-" + today.getMonth() + "-" + today.getDate()  ;
+  console.log(h);
+  const [date_naiss, setDate_naiss] = useState();
   const [adresse_user, setAdresse_user] = useState("");
   const [numero_telephone_user, setNumero_telephone_user] = useState();
   const [email_user, setEmail_user] = useState("");
@@ -583,7 +586,7 @@ function SignUp() {
                     color: "#1a85b3",
                     fontWeight: 400,
                     marginLeft: "3.5%",
-                    marginTop:"4%"
+                    marginTop: "4%",
                   }}
                 >
                   Vous êtes
@@ -636,7 +639,6 @@ function SignUp() {
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
-                   
                     }}
                   >
                     Date de naissance
@@ -658,8 +660,8 @@ function SignUp() {
                       minWidth: "40%",
                       maxWidth: "70%",
                     }}
-                    min="1900-01-01" max="2200-12-31"
-
+                    min="1900-01-01"
+                    max={h}
                   />
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-12"></div>
