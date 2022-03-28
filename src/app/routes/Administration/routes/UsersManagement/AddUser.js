@@ -33,7 +33,6 @@ export default class AddUser extends Component {
                 <br />
                 <br />
 
-                {/* Add caract */}
                 <div className="p-2 d-flex flex-row ">
                   <div className="p-2 d-flex flex-column flex-wrap col-md-4">
                     <div style={{ fontSize: "18px" }}>
