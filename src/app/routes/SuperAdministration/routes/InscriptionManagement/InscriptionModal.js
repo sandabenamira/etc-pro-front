@@ -20,11 +20,12 @@ function InscriptionModal(props) {
   };
   const EntrepriseData = {
     nom: props.data.nom,
-    numeroSerie: props.data.numSerie,
-    codePostal: parseInt(props.data.codePostale),
+    numSerie: props.data.numSerie,
+    addresse:props.data.addresse,
+    codePostale: props.data.codePostale,
     gouvernorat: props.data.gouvernorat,
     pays: props.data.pays,
-    numeroTelephone: parseInt(props.data.numeroTelephone),
+    numeroTelephone: props.data.numeroTelephone,
     email: props.data.email,
     choixDevise: props.data.choixDevise,
     createdIn: props.data.createdIn,
@@ -32,14 +33,14 @@ function InscriptionModal(props) {
   const userData = {
     nom: props.data.nomUser,
     prenom: props.data.prenomUser,
-    genre: props.data.genre,
-    dateNaissance: new Date(props.data.dateNaissance),
-    numeroTelephone: parseInt(props.data.numeroTelephone),
+    genre: props.data.genreUser,
+    dateNaissance: props.data.dateNaissanceUser,
+    numeroTelephone: props.data.numeroTelephoneUser,
     email: props.data.emailUser,
     adressePostale: props.data.addresseUser,
     role: "admine",
     createdIn: props.data.createdIn,
-    archive : false
+    archive: false,
     // password: password,
   };
   // const comment =
@@ -48,7 +49,7 @@ function InscriptionModal(props) {
   //   " et ce mot de passe" +
   //   props.data.password.toString() +
   //   "";
-  
+
   // const sendFeedback = (serviceID, templateId, variables) => {
   //   window.emailjs
   //     .send(serviceID, templateId, variables)
@@ -70,7 +71,7 @@ function InscriptionModal(props) {
   };
 
   const handleConfirm = (e) => {
-    console.log("_____________confirme____________________",finalData);
+    console.log("_____________confirme____________________", finalData);
     setOpenModal(false);
     e.preventDefault();
     dispatch(editInscription(finalData));
@@ -81,13 +82,14 @@ function InscriptionModal(props) {
     // sendFeedback(serviceID, templateId, {
     //   from_name: "Educap Pro",
     //   reply_to: props.data.emailUser,
-      // message: comment,
-  //  });
+    // message: comment,
+    //  });
   };
 
   return (
-    <Modal isOpen={openModal}
-   // onClose={handleClose}
+    <Modal
+      isOpen={openModal}
+      // onClose={handleClose}
     >
       <ModalBody>
         <form className="row" autoComplete="off">
@@ -197,7 +199,7 @@ function InscriptionModal(props) {
             <div className="p-2 d-flex flex-row ">
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
-                Choix Devise :
+                  Choix Devise :
                 </h1>
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   {props.data.choixDevise}
@@ -259,7 +261,7 @@ function InscriptionModal(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.dateNaissanceUser.slice(0, 10)}
+                  {props.data.dateNaissanceUser}
                 </h2>
               </div>
             </div>

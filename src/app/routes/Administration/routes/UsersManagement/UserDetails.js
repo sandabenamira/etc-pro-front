@@ -3,7 +3,6 @@ import { Modal, ModalBody } from "reactstrap";
 import Avatar from "@material-ui/core/Avatar";
 
 import "react-circular-progressbar/dist/styles.css";
-import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
 import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
 

@@ -68,7 +68,7 @@ export default function UsersList() {
 
   return (
     <div className="app-wrapper ">
-      {openadd && <AddUser openaddUser={openaddUser} />}
+      {openadd && <AddUser openaddUser={openaddUser}  />}
 
       <div className="d-flex justify-content-around bd-highlight flex-wrap">
         <div className="p-2">
@@ -164,6 +164,9 @@ export default function UsersList() {
               </th>
               <th style={{ borderBottom: "0", borderTop: "0" }}>
                 <IntlMessages id="user.mail" />
+              </th>
+              <th style={{ borderBottom: "0", borderTop: "0" }}>
+                Numéro de téléphone
               </th>
               <th style={{ borderBottom: "0", borderTop: "0" }}>Actions</th>
             </tr>

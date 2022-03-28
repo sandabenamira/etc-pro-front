@@ -99,6 +99,9 @@ export default function UserListItem(props) {
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.email}
       </td>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
+        {data.numeroTelephone}
+      </td>
       <td
         style={{
           textAlign: "center",
@@ -107,7 +110,7 @@ export default function UserListItem(props) {
           borderBottomRightRadius: 15,
         }}
       >
-        <div className="package-footer d-flex justify-content-around bd-highlight flex-wrap">
+        <div className="package-footer d-flex justify-content-center bd-highlight flex-wrap">
           <IconButton
             aria-label="delete"
             style={{
@@ -115,10 +118,11 @@ export default function UserListItem(props) {
               backgroundColor: "#3F51B5",
               width: "28px",
               height: "28px",
+              marginRight:"4%"
             }}
             onClick={opendetailsUser}
           >
-            {" "}
+         
             {console.log(opendetailsUser)}
             <VisibilityOutlinedIcon />
           </IconButton>
@@ -130,6 +134,8 @@ export default function UserListItem(props) {
               backgroundColor: "#F15381",
               width: "28px",
               height: "28px",
+              marginRight:"4%"
+
             }}
           >
             <CreateIcon />
@@ -141,6 +147,7 @@ export default function UserListItem(props) {
               backgroundColor: "#F9972D",
               width: "28px",
               height: "28px",
+
             }}
             onClick={(e) => handleArchive(e)}
           >
@@ -149,7 +156,7 @@ export default function UserListItem(props) {
         </div>
       </td>
       {opendetails && (
-        <UserDetails opendetailsUser={opendetailsUser} {...props} />
+        <UserDetails opendetailsUser={opendetailsUser} {...props}  />
       )}
     </tr>
   );

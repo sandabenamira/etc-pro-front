@@ -12,8 +12,7 @@ import {
 
 export function getInscriptions() {
   return (dispatch) => {
-    //// Now, dispatch some actions
-    //The store calls rootReducer(state, action)
+    //Now, dispatch some actions -The store calls rootReducer(state, action)
     let apiEndpoint = `/inscriptions`;
     service.get(apiEndpoint).then((response) => {
       if (response) {
@@ -29,7 +28,7 @@ export function addInscription(data) {
     let apiEndpoint = `/inscriptions`;
     service.post(apiEndpoint, data).then((response) => {
       if (response) {
-        dispatch({ type: ADD_INSCRIPTION, payload: response.data });
+        dispatch({ type: ADD_INSCRIPTION, payload: data });
       }
     });
   };
