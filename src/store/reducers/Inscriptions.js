@@ -4,13 +4,12 @@ import {
   GET_INSCRIPTION,
   ADD_INSCRIPTION,
   EDIT_INSCRIPTION,
-  DELETE_INSCRIPTION
+  DELETE_INSCRIPTION,
 } from "../../constants/ActionTypes";
 
 // Define an initial state value for the app
 const initialState = {
   inscriptions: [],
-
 };
 //The reducer receives two arguments, the current state and an action object
 // Create a "reducer" function that determines what the new state
@@ -22,9 +21,10 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case GET_INSCRIPTION: {
       return Object.assign({}, state, {
-        inscriptions: action.payload,
+        inscriptions: action.payload
       });
     }
+    
     case ADD_INSCRIPTION: {
       return Object.assign({}, state, {
         inscriptions: [action.payload].concat(state.inscriptions), //...state
@@ -41,11 +41,10 @@ export default function (state = initialState, action) {
     case DELETE_INSCRIPTION: {
       return Object.assign({}, state, {
         inscriptions: [
-           ...state.inscriptions.filter(({ id }) => id !== action.payload),
+          ...state.inscriptions.filter(({ id }) => id !== action.payload),
         ],
       });
     }
-
 
     default:
       return state;

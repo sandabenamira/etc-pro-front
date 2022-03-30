@@ -28,6 +28,7 @@ export default function (state = initialState, action) {
     case GET_USER: {
       return Object.assign({}, state, {
         users: action.payload,
+      //  ...state.users.filter((e) => e.archive === true),
       });
     }
     case EDIT_USER: {

@@ -22,33 +22,21 @@ export function getAgences() {
     });
   };
 }
-// export function getArchiveAgences() {
-//     return (dispatch) => {
-//       let apiEndpoint = `/agences`;
-//       service.get(apiEndpoint).then((response) => {
-//         if (response) {
-//           dispatch({
-//             type: GET_ARCHIVE_AGENCE,
-//             payload: response.data.filter((e) => e.archive === true),
-//           });
-//         }
-//       });
-//     };
-//   }
+
 
 export function addAgence(data) {
-  return (dispatch) => {
-    let apiEndpoint = `/agences`;
-    service.post(apiEndpoint, data).then((response) => {
-      console.log("HELLOOO ACTION",response,"dat",data)
+   return (dispatch) => {
+  //   let apiEndpoint = `/agences`;
+  //   service.post(apiEndpoint, data).then((response) => {
+  //     console.log("HELLOOO ACTION",response,"dat",data)
 
-      if (response) {
+  //     if (response) {
 
-        dispatch({ type: ADD_AGENCE, payload: response.data });
+        dispatch({ type: ADD_AGENCE, payload: data });
       }
-    });
-  };
-}
+//     });
+//   };
+ }
 
 // export const editAgence = (data) => {
 //   console.log(data, "----------editInscription");

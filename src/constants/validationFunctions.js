@@ -1,28 +1,28 @@
-
 /* eslint eqeqeq: "off" */
 const addUserRbac = {
-  Admin: 'add-admin',
-  Formateur: 'add-prof',
-  'Responsable formation': 'add-parent',
-  Participant: 'add-student',
-  'Vie scolaire': 'add-school-life',
-  Director: 'add-direction-membre',
+  Admin: "add-admin",
+  Formateur: "add-prof",
+  "Responsable formation": "add-parent",
+  Participant: "add-student",
+  "Vie scolaire": "add-school-life",
+  Director: "add-direction-membre",
 };
+
 const deleteUserRbac = {
-  Admin: 'delete-admin',
-  Professor: 'delete-prof',
-  Parent: 'delete-parent',
-  Student: 'delete-student',
-  'Vie scolaire': 'delete-school-life',
-  Director: 'delete-direction-membre',
+  Admin: "delete-admin",
+  Professor: "delete-prof",
+  Parent: "delete-parent",
+  Student: "delete-student",
+  "Vie scolaire": "delete-school-life",
+  Director: "delete-direction-membre",
 };
 const editUserRbac = {
-  Admin: 'edit-admin',
-  Professor: 'edit-prof',
-  Parent: 'edit-parent',
-  Student: 'edit-student',
-  'Vie scolaire': 'edit-school-life',
-  Director: 'edit-direction-membre',
+  Admin: "edit-admin",
+  Professor: "edit-prof",
+  Parent: "edit-parent",
+  Student: "edit-student",
+  "Vie scolaire": "edit-school-life",
+  Director: "edit-direction-membre",
 };
 
 module.exports = {
@@ -37,13 +37,15 @@ module.exports = {
       return false;
     }
   },
-
+  isStringDate(date) {
+   return date.toString().slice(0, 15);
+  },
   isPhonenumber(str) {
-    if (str.length > 1) return /^[2-9]\d{7}$/.test(str);
+    if (str.length > 1) return /^[0-9]\d{7}$/.test(str);
     else return true;
   },
   isZipCode(zipCode) {
-    if (zipCode.length > 0) return /^[1-9]\d{3}$/.test(zipCode);
+    if (zipCode.length > 0) return /^[0-9]\d{3}$/.test(zipCode);
     else return true;
   },
 
@@ -59,7 +61,10 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac === addUserRbac[roleLabel]) > -1;
+      permission =
+        userPermission.findIndex(
+          (element) => element.permission.rbac === addUserRbac[roleLabel]
+        ) > -1;
     }
 
     return permission;
@@ -68,7 +73,10 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac === deleteUserRbac[roleLabel]) > -1;
+      permission =
+        userPermission.findIndex(
+          (element) => element.permission.rbac === deleteUserRbac[roleLabel]
+        ) > -1;
     }
 
     return permission;
@@ -77,7 +85,10 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac === editUserRbac[roleLabel]) > -1;
+      permission =
+        userPermission.findIndex(
+          (element) => element.permission.rbac === editUserRbac[roleLabel]
+        ) > -1;
     }
 
     return permission;
@@ -86,7 +97,10 @@ module.exports = {
     let permission = false;
 
     if (userPermission != undefined) {
-      permission = userPermission.findIndex((element) => element.permission.rbac === editUserRbac[roleLabel]) > -1;
+      permission =
+        userPermission.findIndex(
+          (element) => element.permission.rbac === editUserRbac[roleLabel]
+        ) > -1;
     }
 
     return permission;
@@ -95,8 +109,10 @@ module.exports = {
     if (!permissionList || permissionList.length === 0) {
       return false;
     } else {
-      const found = permissionList.find((element) => element.permission.rbac === permission);
-      if (typeof found != 'undefined') {
+      const found = permissionList.find(
+        (element) => element.permission.rbac === permission
+      );
+      if (typeof found != "undefined") {
         return true;
       } else {
         return false;

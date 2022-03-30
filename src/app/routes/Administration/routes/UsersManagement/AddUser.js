@@ -22,14 +22,13 @@ import {
   isEmail,
   isPhonenumber,
   isNotEmpty,
+  isStringDate,
+  isCIN,
 } from "../../../../../constants/validationFunctions";
 
 export default function AddUser(props) {
   let dispatch = useDispatch(props);
-
-  const [papier, setPapier] = useState("");
-  const [photos, setPhotos] = useState([]);
-  const [URLphoto, setURLPhoto] = useState([]);
+  const d = new Date();
 
   const initialValues = {
     nom: "",
@@ -42,6 +41,9 @@ export default function AddUser(props) {
     agency: "",
     email: "",
     adresse_postale: "",
+    tel: "",
+    code_postale: "",
+    cin: "",
   };
   const paysList = [
     {
@@ -59,16 +61,34 @@ export default function AddUser(props) {
   ];
   const roleList = [
     {
-      value: "admine",
-      label: "admine",
+      id: 0,
+      label: "Administrateur",
+      value: "Administrateur",
     },
     {
-      value: "RH",
-      label: "RH",
+      id: 1,
+      label: "Directeurs des Ressouces Humaines",
+      value: "Directeurs des Ressouces Humaines",
     },
     {
-      value: "Employé",
-      label: "Employé",
+      id: 2,
+      label: "Responsable des Formations",
+      value: "Responsable des Formations",
+    },
+    {
+      id: 3,
+      label: "Chef D'agences",
+      value: "Chef D'agences",
+    },
+    {
+      id: 4,
+      label: "Formateurs",
+      value: "Formateurs",
+    },
+    {
+      id: 5,
+      label: "Collaborateurs",
+      value: "Collaborateurs",
     },
   ];
   const agencyList = [
@@ -85,45 +105,6 @@ export default function AddUser(props) {
       label: "BIAT Mounastir",
     },
   ];
-
-  useEffect(() => {
-    if (photos.length < 1) return;
-    const newImageURLs = [];
-    photos.forEach((photo) => newImageURLs.push(URL.createObjectURL(photo)));
-    setURLPhoto(newImageURLs);
-  }, [photos]);
-
-  const onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setPhotos([...event.target.files]);
-    }
-  };
-
-  const onPapierChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let file = event.target.files[0];
-      setPapier(URL.createObjectURL(file));
-    }
-  };
-  const [formValues, setFormValues] = useState(initialValues);
-
-  const handleChangee = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-      photos: URLphoto[0],
-    });
-    console.log(formValues);
-  };
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  });
   const validate = (values) => {
     const errors = {};
     if (!values.nom) {
@@ -133,8 +114,8 @@ export default function AddUser(props) {
     if (!values.prenom) {
       errors.prenom = "champ requis ! ";
     }
-    if (!values.genre) {
-      errors.genre = "champ requis ! ";
+    if (!values.gender) {
+      errors.gender = "champ requis ! ";
     }
     if (!values.pays) {
       errors.pays = "champ requis ! ";
@@ -154,34 +135,94 @@ export default function AddUser(props) {
     }
     if (!values.email) {
       errors.email = "champ requis ! ";
+    } else if (!isEmail(formValues.email)) {
+      errors.emailForme = "Veuillez entrer une adresse e-mail valide ! ";
     }
     if (!papier) {
       errors.papier = "champ requis ! ";
     }
-    if (!isEmail(formValues.email)) {
-      errors.emailForme = "forme email requis ! ";
-    }
 
+    if (!values.date_naissance) {
+      errors.date_naissance = "champ requis ! ";
+    }
     if (!values.tel) {
       errors.tel = "champ requis ! ";
+    } else if (!isPhonenumber(formValues.tel)) {
+      errors.telForme =
+        "Veuillez entrer un numéro de Téléphone de 8 chiffres ! ";
     }
 
     if (!values.cin) {
       errors.cin = "champ requis ! ";
+    } else if (!isCIN(formValues.cin)) {
+      errors.cinForme = " Veuillez entrer un numéro de CIN de 8 chiffres ! ";
     }
+
     return errors;
   };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [papier, setPapier] = useState("");
+  const [photos, setPhotos] = useState([]);
+  const [URLphoto, setURLPhoto] = useState([]);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [alert, setAlert] = useState("les champs non satisfés");
+  const [success, setSuccess] = useState("error");
+  const [isSubmit2, setIsSubmit2] = useState(false);
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit && isSubmit2) {
+      setAlert("Le formulaire est envoyé avec succès! ");
+      setSuccess("success");
+    } else if (Object.keys(formErrors).length === 0 && isSubmit) {
+      setAlert("Le formulaire non envoyé ");
+      setSuccess("error");
+    } else if (Object.keys(formErrors).length > 0) {
+      setAlert("les champs du fomulaire non satisfés");
+      setSuccess("error");
+    }
+  });
+  useEffect(() => {
+    if (photos.length < 1) return;
+    const newImageURLs = [];
+    photos.forEach((photo) => newImageURLs.push(URL.createObjectURL(photo)));
+    setURLPhoto(newImageURLs);
+  }, [photos]);
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setPhotos([...event.target.files]);
+    }
+  };
+  const onPapierChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      let file = event.target.files[0];
+      setPapier(URL.createObjectURL(file));
+    }
+  };
+  const handleChangee = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+      photos: URLphoto[0],
+    });
+    //  console.log("formulaire values", formValues);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
+    setShow(false);
 
-    if (setIsSubmit(true));
-    {
+    setFormErrors(validate(formValues));
+    let error = validate(formValues);
+
+    if (Object.keys(error).length === 0) {
+      setIsSubmit(true);
       let finalData = {
         nom: formValues.nom,
         prenom: formValues.prenom,
         genre: formValues.genre,
-        dateNaissance: new Date(formValues.date_naissance),
+        dateNaissance: formValues.date_naissance,
         pays: formValues.pays,
         codePostal: parseInt(formValues.code_postale),
         adressePostale: formValues.adresse_postale,
@@ -192,34 +233,24 @@ export default function AddUser(props) {
         email: formValues.email,
         //   "password": "string",
         pieceJointe: papier,
-        createdIn: new Date(),
-        modifiedIn: new Date(),
+        createdIn: isStringDate(d),
+        modifiedIn: isStringDate(d),
         numeroTelephone: formValues.tel,
         cin: formValues.cin,
         archive: false,
       };
       dispatch(addUser(finalData));
+      setIsSubmit2(true);
+      // setFormValues(initialValues);
     }
+    setShow(true);
   };
+
   const reinitialiser = () => {
     props.openaddUser();
   };
-  const [alert, setAlert] = useState("");
-  const [success, setSuccess] = useState("error");
-  const [view, setView] = useState(false);
-  // const alertt = () => {
-  //   console.log("heyyy");
 
-  //   setSuccess("success");
-  //   console.log("heyyy2");
 
-  //   // document.getElementById("alert").style.display = "block";
-  //   setView(true);
-  //   console.log("heyyy3");
-
-  //   setAlert("champ");
-  //   console.log("heyyy4");
-  // };
   const Input = styled("input")({
     display: "none",
   });
@@ -265,7 +296,7 @@ export default function AddUser(props) {
             >
               <div className="p-2 d-flex flex-column  col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="user.name" />
+                  <IntlMessages id="user.name" />*
                 </div>
                 <div>
                   <TextField
@@ -286,7 +317,7 @@ export default function AddUser(props) {
               </div>
               <div className="p-2 d-flex flex-column flex-wrap   col-md-4  ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="user.last.name" />
+                  <IntlMessages id="user.last.name" />*
                 </div>
                 <div>
                   <TextField
@@ -305,7 +336,7 @@ export default function AddUser(props) {
               </div>
               <div className="p-2 d-flex flex-column flex-wrap   col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="user.genre" />{" "}
+                  <IntlMessages id="user.genre" />*
                 </div>
                 <div className="">
                   <RadioGroup
@@ -325,11 +356,6 @@ export default function AddUser(props) {
                     ></i>
                     <FormControlLabel
                       value="féminin"
-                      style={
-                        {
-                          //   marginLeft:"2%"
-                        }
-                      }
                       control={<Radio color="primary" />}
                     />
                     <i
@@ -337,6 +363,9 @@ export default function AddUser(props) {
                       style={{ color: "orange" }}
                     ></i>
                   </RadioGroup>
+                  <div className="text-danger ">
+                    <small> {formErrors.gender}</small>
+                  </div>
                 </div>
               </div>
             </div>
@@ -347,21 +376,24 @@ export default function AddUser(props) {
             >
               <div className=" p-2 d-flex flex-column col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="user.birthday.date" />
-                  <TextField
-                    id="date"
-                    type="date"
-                    onChange={handleChangee}
-                    value={formValues.date_naissance}
-                    name="date_naissance"
-                    fullWidth
-                    style={{}}
-                  />
+                  <IntlMessages id="user.birthday.date" />*{" "}
+                </div>
+                <TextField
+                  id="date"
+                  type="date"
+                  onChange={handleChangee}
+                  value={formValues.date_naissance}
+                  name="date_naissance"
+                  fullWidth
+                  required
+                />
+                <div className="text-danger ">
+                  <small> {formErrors.date_naissance}</small>
                 </div>
               </div>
               <div className=" p-2 d-flex flex-column flex-wrap col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="country.user" />
+                  <IntlMessages id="country.user" />*
                 </div>
                 <TextField
                   id="outlined-select-currency"
@@ -389,7 +421,7 @@ export default function AddUser(props) {
               style={{ height: "120px" }}
             >
               <div className=" p-2 d-flex flex-column col-md-4 ">
-                <div style={{ fontSize: "18px" }}>Email </div>
+                <div style={{ fontSize: "18px" }}>Email* </div>
                 <TextField
                   className="textfield"
                   fullWidth
@@ -404,25 +436,26 @@ export default function AddUser(props) {
                 ></TextField>
 
                 <div className="text-danger ">
-                  <small>{formErrors.email} </small>{" "}
+                  <small>{formErrors.email} </small>
                   <small>{formErrors.emailForme}</small>
                 </div>
               </div>
               <div className=" p-2 d-flex flex-column flex-wrap col-md-4 ">
-                <div style={{ fontSize: "18px" }}>N° tel </div>
+                <div style={{ fontSize: "18px" }}>N° tel* </div>
                 <TextField
                   onChange={handleChangee}
                   value={formValues.tel}
                   name="tel"
                   fullWidth
-                  style={{}}
                 />
                 <div className="text-danger ">
-                  <small>{formErrors.tel} </small>
+                  <small>
+                    {formErrors.tel} {formErrors.telForme}{" "}
+                  </small>
                 </div>
               </div>
               <div className=" p-2 d-flex flex-column flex-wrap col-md-4 ">
-                <div style={{ fontSize: "18px" }}>CIN </div>
+                <div style={{ fontSize: "18px" }}>CIN* </div>
                 <div>
                   <TextField
                     className="textfield"
@@ -438,7 +471,7 @@ export default function AddUser(props) {
                   ></TextField>
                   <div className="text-danger ">
                     <small>
-                      {formErrors.cin} {formErrors.cin}
+                      {formErrors.cin} {formErrors.cinForme}
                     </small>
                   </div>
                 </div>
@@ -471,7 +504,7 @@ export default function AddUser(props) {
               </div>
               <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="zip.code.user" />
+                  <IntlMessages id="zip.code.user" />*
                 </div>
                 <div>
                   <TextField
@@ -543,7 +576,7 @@ export default function AddUser(props) {
             >
               <div className="p-2 d-flex flex-column col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="user.role" />
+                  <IntlMessages id="user.role" />*
                 </div>
 
                 <TextField
@@ -568,7 +601,7 @@ export default function AddUser(props) {
               </div>
               <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="user.identifiant" />
+                  <IntlMessages id="user.identifiant" />*
                 </div>
                 <div>
                   <TextField
@@ -587,7 +620,7 @@ export default function AddUser(props) {
               </div>
               <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="agency" />
+                  <IntlMessages id="agency" />*
                 </div>
                 <TextField
                   className="textfield"
@@ -614,8 +647,8 @@ export default function AddUser(props) {
               className="p-2 d-flex flex-wrap flex-row"
               style={{ height: "90px" }}
             >
-              <div className="p-2" style={{ fontSize: "18px" }}>
-                <IntlMessages id="user.join.papiers" />
+              <div className="p-1" style={{ fontSize: "18px" }}>
+                <IntlMessages id="user.join.papiers" />*
               </div>
               <div className="ml-5">
                 <label htmlFor="contained-button-file">
@@ -641,28 +674,27 @@ export default function AddUser(props) {
                   </div>
                 </label>
               </div>
-              <div
-                className="p-2 d-flex flex-column flex-wrap col-md-4 ml-3"
-                //alerte
-              >
-                {view && (
+            </div>
+            <div
+              className="p-2 d-flex  align-items-end flex-wrap justify-content-center "
+              style={{ height: "70px" }}
+            >
+              <div className="p-2">
+                {show && (
                   <Alert
                     style={{
-                      display: "none",
+                      //  display: "none",
                       maxHeight: "70px",
-                      // maxWidth: "100%",
                     }}
-                    // id="alert"
+                    id="alert"
                     severity={success}
                   >
-                    hello
                     {alert}
                   </Alert>
                 )}
               </div>
             </div>
-
-            <div className="p-2 d-flex flex-row  flex-wrap justify-content-center mt-3">
+            <div className="p-2 d-flex flex-row  flex-wrap justify-content-center ">
               <div className="p-2">
                 <Button
                   type="reset"

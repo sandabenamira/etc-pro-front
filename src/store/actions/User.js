@@ -30,30 +30,17 @@ export function getUsers() {
       if (response) {
         dispatch({
           type: GET_USER,
-          payload: response.data.filter(
-            (e) =>
-              // e.confirm === "confirmé" &&
-              e.archive === false
-          ),
+          payload: response.data,
+          //      .filter(  (e) =>
+          // e.confirm === "confirmé" &&
+          //  e.archive === true
+          //   ),
         });
       }
     });
   };
 }
 
-export function getArchiveUsers() {
-  return (dispatch) => {
-    let apiEndpoint = `/users`;
-    service.get(apiEndpoint).then((response) => {
-      if (response) {
-        dispatch({
-          type: GET_USER,
-          payload: response.data.filter((e) => e.archive === true),
-        });
-      }
-    });
-  };
-}
 export const editUser = (data) => {
   console.log(data, "----------editUser");
   return (dispatch) => {

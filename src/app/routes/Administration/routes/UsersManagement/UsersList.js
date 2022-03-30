@@ -24,37 +24,40 @@ export default function UsersList() {
   const openaddUser = () => {
     setOpenadd(!openadd);
   };
-
-  const listRoles = [
+  const [filter, setFilter] = useState({
+    label: "Administrateur",
+    value: "Administrateur",
+  });
+  const roleList = [
     {
       id: 0,
       label: "Administrateur",
-      value: 0,
+      value: "Administrateur",
     },
     {
       id: 1,
       label: "Directeurs des Ressouces Humaines",
-      value: 1,
+      value: "Directeurs des Ressouces Humaines",
     },
     {
       id: 2,
       label: "Responsable des Formations",
-      value: 2,
+      value: "Responsable des Formations",
     },
     {
       id: 3,
       label: "Chef D'agences",
-      value: 3,
+      value: "Chef D'agences",
     },
     {
       id: 4,
       label: "Formateurs",
-      value: 4,
+      value: "Formateurs",
     },
     {
       id: 5,
       label: "Collaborateurs",
-      value: 5,
+      value: "Collaborateurs",
     },
   ];
   const dispatch = useDispatch();
@@ -64,18 +67,17 @@ export default function UsersList() {
     console.log("get users : ", getUsers());
   }, []);
 
-  const handleChangeRole = (selectedOption) => {};
-
   return (
     <div className="app-wrapper ">
-      {openadd && <AddUser openaddUser={openaddUser}  />}
+      {openadd && <AddUser openaddUser={openaddUser} />}
 
       <div className="d-flex justify-content-around bd-highlight flex-wrap">
         <div className="p-2">
           <Select
             required
-            options={listRoles}
-            onChange={handleChangeRole}
+            options={roleList}
+            onChange={(e) => setFilter(e)}
+            value={filter}
             id="role"
             name="role"
             styles={{
@@ -172,9 +174,12 @@ export default function UsersList() {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, i) => (
-              <UserListItem key={i} data={row} />
-            ))}
+            {data
+              .filter((e) => e.role === filter.value)
+
+              .map((row, i) => (
+                <UserListItem key={i} data={row} />
+              ))}
           </tbody>
         </table>
       </div>

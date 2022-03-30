@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import Alert from "@material-ui/lab/Alert";
 
 import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
@@ -8,41 +9,46 @@ import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
 import { addAgence } from "../../../../../store/actions/Agence";
 import MenuItem from "@mui/material/MenuItem";
-
+import {
+  isEmail,
+  isPhonenumber,  isStringDate,
+  isNotEmpty,
+} from "../../../../../constants/validationFunctions";
 export default function AddAgence(props) {
   let dispatch = useDispatch();
+  const validate = (values) => {
+    const errors = {};
+    if (!values.nom) {
+      errors.nom = "champ requis ! ";
+    }
 
-  const [nom, setNom] = useState("");
-  const [type, setType] = useState("");
-  const [gouvernorat, setGouvernorat] = useState("");
-  const [fax, setFax] = useState();
-  const [numeroTel, setNumeroTel] = useState();
-  const [adresse, setAdresse] = useState("");
-  const [email, setEmail] = useState("");
+    if (!values.type) {
+      errors.type = "champ requis ! ";
+    }
+    if (!values.gouvernorat) {
+      errors.gouvernorat = "champ requis ! ";
+    }
+    if (!values.adresse) {
+      errors.adresse = "champ requis ! ";
+    }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let finalData = {
-      nom: nom,
-      type: type,
-      gouvernorat: gouvernorat,
-      adresse: adresse,
-      email: email,
-      fax: parseInt(fax),
-      numeroTel: parseInt(numeroTel),
+    if (!values.email) {
+      errors.email = "champ requis ! ";
+    } else if (!isEmail(formValues.email)) {
+      errors.emailForme = " Veuillez entrer une adresse e-mail valide ! ";
+    }
 
-      archive: false,
-    };
-
-    dispatch(addAgence(finalData));
-  };
-  const handleCancel = (e) => {
-    setNom("");
-    setType("");
-    setGouvernorat("");
-    setFax("");
-    setNumeroTel("");
-    setEmail("");
+    if (!values.fax) {
+      errors.fax = "champ requis ! ";
+    } else if (!isPhonenumber(formValues.fax)) {
+      errors.faxForme = "Veuillez entrer un numéro de Fax de 8 chiffres ! ";
+    }
+    if (!values.numeroTel) {
+      errors.numeroTel = "champ requis ! ";
+    } else if (!isPhonenumber(formValues.numeroTel)) {
+      errors.numeroTelForme = "Veuillez entrer un numéro de Téléphone de 8 chiffres ! ";
+    }
+    return errors;
   };
   const typeList = [
     {
@@ -73,6 +79,78 @@ export default function AddAgence(props) {
       label: " Tunis",
     },
   ];
+  const initialValues = {
+    nom: "",
+    type: "",
+    gouvernorat: "",
+    fax: "",
+    numeroTel: "",
+    adresse: "",
+    email: "",
+  };
+
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [alert, setAlert] = useState("les champs non satisfés");
+  const [success, setSuccess] = useState("error");
+  const [isSubmit2, setIsSubmit2] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleChangee = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit && isSubmit2) {
+      setAlert("Le formulaire est envoyé avec succès! ");
+      setSuccess("success");
+    } else if (Object.keys(formErrors).length === 0 && isSubmit) {
+      setAlert("Le formulaire non envoyé ");
+      setSuccess("error");
+    } else if (Object.keys(formErrors).length > 0) {
+      setAlert("les champs du fomulaire non satisfés");
+      setSuccess("error");
+    }
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setShow(false);
+
+    setFormErrors(validate(formValues));
+    let error = validate(formValues);
+
+    if (Object.keys(error).length === 0) {
+      setIsSubmit(true);
+      let finalData = {
+        nom: formValues.nom,
+        type: formValues.type,
+        gouvernorat: formValues.gouvernorat,
+        adresse: formValues.adresse,
+        email: formValues.email,
+        fax: parseInt(formValues.fax),
+        numeroTel: parseInt(formValues.numeroTel),
+        createdIn: isStringDate(new Date()),
+        modifiedIn: isStringDate(new Date()),
+        archive: false,
+      };
+      setShow(true);
+      setIsSubmit2(true);
+      dispatch(addAgence(finalData));
+     
+    }
+   /// setShow(true);
+  };
+
+  const handleCancel = (e) => {
+    props.openaddAgence();
+  };
+
   return (
     <Modal isOpen={props.openaddAgence}>
       <ModalBody>
@@ -108,36 +186,41 @@ export default function AddAgence(props) {
               <br />
               <br />
             </div>
-            <div className="p-2 d-flex flex-row ">
-              <div className="p-2 d-flex flex-column col-md-6 ">
+            <div className="p-2 d-flex flex-row  " style={{ height: "120px" }}>
+              <div className="p-2 d-flex flex-column col-md-6  ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="gestion.agence.agency" />
+                  <IntlMessages id="gestion.agence.agency" />*
                 </div>
                 <div>
                   <TextField
                     className="textfield"
                     margin="normal"
+                    name="nom"
                     fullWidth
                     size="small"
-                    onChange={(e) => setNom(e.target.value)}
-                    value={nom}
+                    onChange={handleChangee}
+                    value={formValues.nom}
                     required
                   ></TextField>
+                  <div className="text-danger ">
+                    <small>{formErrors.nom}</small>
+                  </div>
                 </div>
               </div>
               <div className="p-2 d-flex flex-column col-md-6 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="gestion.agence.agency.type" />
+                  <IntlMessages id="gestion.agence.agency.type" />*
                 </div>
                 <div>
                   <TextField
                     className="textfield"
                     select
+                    name="type"
                     margin="normal"
                     fullWidth
                     size="small"
-                    onChange={(e) => setType(e.target.value)}
-                    value={type}
+                    onChange={handleChangee}
+                    value={formValues.type}
                     required
                   >
                     {typeList.map((option) => (
@@ -145,42 +228,50 @@ export default function AddAgence(props) {
                         {option.label}
                       </MenuItem>
                     ))}
-                  </TextField>
+                  </TextField>{" "}
+                  <div className="text-danger ">
+                    <small>{formErrors.type}</small>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="p-2 d-flex flex-row ">
+            <div className="p-2 d-flex flex-row " style={{ height: "120px" }}>
               <div className="p-2 d-flex flex-column col-md-6 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="gestion.agence.address" />
+                  <IntlMessages id="gestion.agence.address" />*
                 </div>
                 <div>
                   <TextField
+                    name="adresse"
                     className="textfield"
                     margin="normal"
                     fullWidth
                     size="small"
-                    onChange={(e) => setAdresse(e.target.value)}
-                    value={adresse}
+                    onChange={handleChangee}
+                    value={formValues.adresse}
                     required
                   ></TextField>
+                  <div className="text-danger ">
+                    <small>{formErrors.adresse}</small>
+                  </div>
                 </div>
               </div>
               <div className="p-2 d-flex flex-column col-md-6 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="gestion.agence.governorate" />
+                  <IntlMessages id="gestion.agence.governorate" />*
                 </div>
                 <div>
                   <TextField
                     className="textfield"
                     select
+                    name="gouvernorat"
                     margin="normal"
                     fullWidth
                     size="small"
                     required
-                    onChange={(e) => setGouvernorat(e.target.value)}
-                    value={gouvernorat}
+                    onChange={handleChangee}
+                    value={formValues.gouvernorat}
                   >
                     {gouvernoratList.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
@@ -188,64 +279,101 @@ export default function AddAgence(props) {
                       </MenuItem>
                     ))}
                   </TextField>
+                  <div className="text-danger ">
+                    <small>{formErrors.gouvernorat}</small>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="p-2 d-flex flex-row">
+            <div className="p-2 d-flex flex-row" style={{ height: "120px" }}>
               <div className="p-2 flex-column col-lg-10 col-md-10">
                 <div className="p-2" style={{ fontSize: "18px" }}>
-                  <IntlMessages id="gestion.agence.mail" />
+                  <IntlMessages id="gestion.agence.mail" />*
                 </div>
                 <div className="p-2">
                   <TextField
                     className="textfield"
+                    name="email"
                     margin="normal"
                     fullWidth
                     size="small"
                     required
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
+                    onChange={handleChangee}
+                    value={formValues.email}
                   ></TextField>
+                  <div className="text-danger ">
+                    <small>{formErrors.email}</small>
+                    <small>{formErrors.emailForme}</small>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="p-2 d-flex flex-row ">
+            <div className="p-2 d-flex flex-row " style={{ height: "120px" }}>
               <div className="p-2 d-flex flex-column col-md-6 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="gestion.agence.fax" />
+                  <IntlMessages id="gestion.agence.fax" />*
                 </div>
                 <div>
                   <TextField
                     className="textfield"
+                    name="fax"
                     margin="normal"
                     fullWidth
                     size="small"
                     required
-                    onChange={(e) => setFax(e.target.value)}
-                    value={fax}
+                    onChange={handleChangee}
+                    value={formValues.fax}
                   ></TextField>
+                  <div className="text-danger ">
+                    <small>{formErrors.fax}</small>
+                    <small>{formErrors.faxForme}</small>
+                  </div>
                 </div>
               </div>
               <div className="p-2 d-flex flex-column col-md-6 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="gestion.agence.tel" />
+                  <IntlMessages id="gestion.agence.tel" />*
                 </div>
                 <div>
                   <TextField
                     className="textfield"
+                    name="numeroTel"
                     margin="normal"
                     fullWidth
                     required
-                    onChange={(e) => setNumeroTel(e.target.value)}
-                    value={numeroTel}
+                    onChange={handleChangee}
+                    value={formValues.numeroTel}
                     size="small"
                   ></TextField>
+                  <div className="text-danger ">
+                    <small>{formErrors.numeroTel}</small>
+                    <small>{formErrors.numeroTelForme}</small>
+                  </div>
                 </div>
               </div>
             </div>
-
+            <div
+              className="p-2 d-flex flex-row justify-content-center  align-items-end"
+              style={{
+                height: "120px",
+              }}
+            >
+              <div className="p-2">
+                {show && (
+                  <Alert
+                    style={{
+                      maxHeight: "70px",
+                    }}
+                    id="alert"
+                    severity={success}
+                  >
+                    {alert}
+                  </Alert>
+                )}
+              </div>
+            </div>
             <div className="p-2 d-flex flex-row justify-content-center">
               <div className="p-2">
                 <Button

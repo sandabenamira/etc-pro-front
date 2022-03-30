@@ -22,13 +22,56 @@ function SignUp() {
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 767px)").matches
   );
+  const validate = (values) => {
+    const errors = {};
+    if (!isNotEmpty(values.nomE)) {
+      errors.nomE = "champ requis ! ";
+    }
 
-  useEffect(() => {
-    window
-      .matchMedia("(min-width: 768px)")
-      .addEventListener("change", (e) => setMatches(e.matches));
-  }, []);
+    if (!isNotEmpty(values.numero_serie)) {
+      errors.numero_serie = "champ requis !";
+    }
+    if (!isNotEmpty(values.addresse_entreprise)) {
+      errors.addresse_entreprise = "champ requis ! ";
+    }
+    if (!isNotEmpty(values.code_postal)) {
+      errors.code_postal = "champ requis ! ";
+    }
 
+    if (!isNotEmpty(formValues.numero_telephone_entreprise)) {
+      errors.numero_telephone_entreprise = "champ requis ! ";
+    } else if (!isPhonenumber(formValues.numero_telephone_entreprise)) {
+      errors.numero_telephone_entrepriseForme =
+        "Veuillez renseigner un numéro de téléphone de 8 chiffres ! ";
+    }
+    if (!isNotEmpty(formValues.numero_telephone_user)) {
+      errors.numero_telephone_user = "champ requis ! ";
+    } else if (!isPhonenumber(formValues.numero_telephone_user)) {
+      errors.numero_telephone_userForme =
+        "Veuillez renseigner un numéro de téléphone de 8 chiffres ! ";
+    }
+    if (!isNotEmpty(values.email_entreprise)) {
+      errors.email_entreprise = "champ requis !  ";
+    } else if (!isEmail(formValues.email_entreprise)) {
+      errors.email_entrepriseForme =
+        "Veuillez entrer une adresse e-mail valide ! ";
+    }
+    if (!isNotEmpty(values.choixDevise)) {
+      errors.choixDevise = "champ requis !  ";
+    }
+    if (!isNotEmpty(values.nom_user)) {
+      errors.nom_user = "champ requis !";
+    }
+    if (!isNotEmpty(values.prenom)) {
+      errors.prenom = "champ requis ! ";
+    }
+    if (!isNotEmpty(values.emailUU)) {
+      errors.emailUU = "champ requis ! ";
+    } else if (!isEmail(formValues.emailUU)) {
+      errors.emailUUForme = "Veuillez entrer une adresse e-mail valide";
+    }
+    return errors;
+  };
   const ListeDevise = [
     {
       value: "Dollar",
@@ -67,6 +110,30 @@ function SignUp() {
     gender: "",
   };
   const [formValues, setFormValues] = useState(initialValues);
+  const [alert, setAlert] = useState("");
+  const [success, setSuccess] = useState("error");
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [isSubmit2, setIsSubmit2] = useState(false);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    window
+      .matchMedia("(min-width: 768px)")
+      .addEventListener("change", (e) => setMatches(e.matches));
+  }, []);
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit && isSubmit2) {
+      setAlert("Le formulaire est envoyé avec succès! ");
+      setSuccess("success");
+    } else if (Object.keys(formErrors).length === 0 && isSubmit) {
+      setAlert("Le formulaire non envoyé ");
+      setSuccess("error");
+    } else if (Object.keys(formErrors).length > 0) {
+      setAlert("les champs du fomulaire non satisfés");
+      setSuccess("error");
+    }
+  });
 
   const handleChangee = (e) => {
     const { name, value } = e.target;
@@ -74,167 +141,59 @@ function SignUp() {
       ...formValues,
       [name]: value,
     });
-    //  console.log(formValues);
+    // console.log(formValues);
   };
-
-  const [alert, setAlert] = useState("");
-  const [success, setSuccess] = useState("error");
-
-  const reinitialiser = () => {
-    document.getElementById("alert").style.display = "none";
-    setFormValues(initialValues);
-  };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   //   let Data = {
-  //   //     nom: formValues.nomE,
-  //   //     numSerie: formValues.numero_serie,
-  //   //     addresse: formValues.addresse_entreprise,
-  //   //     codePostale: formValues.code_postal,
-  //   //     gouvernorat: formValues.gouvernorat,
-  //   //     pays: formValues.pays,
-  //   //     numeroTelephone: formValues.numero_telephone_entreprise,
-  //   //     email: formValues.email_entreprise,
-  //   //     choixDevise: formValues.choixDevise,
-  //   //     type: "",
-  //   //     status: "",
-  //   //     createdIn: new Date(),
-  //   //     createdBy: 0,
-  //   //     modifiedIn: new Date(),
-  //   //     modifiedBy: 0,
-  //   //     deleted: new Date(),
-  //   //     nomUser: formValues.nom_user,
-  //   //     prenomUser: formValues.prenom,
-  //   //     genreUser: formValues.gender,
-  //   //     dateNaissanceUser: formValues.dateNaiss,
-  //   //     addresseUser: formValues.adresse_user,
-  //   //     numeroTelephoneUser: formValues.numero_telephone_user,
-  //   //     emailUser: formValues.emailUU,
-  //   //     confirm: "en attente",
-  //   //   };
-
-  //   // //  console.log(Data);
-
-  //   //   if (
-  //   //     isNotEmpty(formValues.nomE) &&
-  //   //     isNotEmpty(formValues.numero_serie) &&
-  //   //     isNotEmpty(formValues.addresse_entreprise) &&
-  //   //     isNotEmpty(formValues.code_postal) &&
-  //   //     isNotEmpty(formValues.choixDevise) &&
-  //   //     isNotEmpty(formValues.nom_user) &&
-  //   //     isNotEmpty(formValues.prenom)
-  //   //   )
-  //   //     if (
-  //   //       isPhonenumber(formValues.numero_telephone_user) &&
-    //       isPhonenumber(formValues.numero_telephone_entreprise)
-  //   //     )
-  //   //       if (
-  //   //         isEmail(formValues.emailUU) ||
-  //   //         isEmail(formValues.email_entreprise)
-  //   //       ) {
-  //   //         //postInscription
-  //   //         if (dispatch(addInscription(Data)));
-  //   //         {
-  //   //           reinitialiser();
-  //   //           setSuccess("success");
-  //   //           document.getElementById("alert").style.display = "block";
-  //   //           setAlert(" inscription bien enregistré !");
-  //   //         }
-  //   //       } else {
-  //   //         setSuccess("error");
-  //   //         document.getElementById("alert").style.display = "block";
-  //   //         setAlert(" vous devez mettre un style mail");
-  //   //       }
-  //   //     else {
-  //   //       setSuccess("error");
-
-  //   //       document.getElementById("alert").style.display = "block";
-  //   //       setAlert(" vous devez mettre des chiffres pour numéro du téléphone");
-  //   //     }
-  //   //   else {
-  //   //     setSuccess("error");
-
-  //   //     document.getElementById("alert").style.display = "block";
-  //   //     setAlert(" mettez les champs obligatoires");
-  //   //   }
-  // };
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
+    setShow(true);
+
     setFormErrors(validate(formValues));
 
-    if (setIsSubmit(true));
-   { let Data = {
-          nom: formValues.nomE,
-          numSerie: formValues.numero_serie,
-          addresse: formValues.addresse_entreprise,
-          codePostale: formValues.code_postal,
-          gouvernorat: formValues.gouvernorat,
-          pays: formValues.pays,
-          numeroTelephone: formValues.numero_telephone_entreprise,
-          email: formValues.email_entreprise,
-          choixDevise: formValues.choixDevise,
-          type: "",
-          status: "",
-          createdIn: new Date(),
-          createdBy: 0,
-          modifiedIn: new Date(),
-          modifiedBy: 0,
-          deleted: new Date(),
-          nomUser: formValues.nom_user,
-          prenomUser: formValues.prenom,
-          genreUser: formValues.gender,
-          dateNaissanceUser: formValues.dateNaiss,
-          addresseUser: formValues.adresse_user,
-          numeroTelephoneUser: formValues.numero_telephone_user,
-          emailUser: formValues.emailUU,
-          confirm: "en attente",
-        };
-        dispatch(addInscription(Data))
-      
-      
-      }
+    let error = validate(formValues);
+
+    if (Object.keys(error).length === 0) {
+      setIsSubmit(true);
+
+      let Data = {
+        nom: formValues.nomE,
+        numSerie: formValues.numero_serie,
+        addresse: formValues.addresse_entreprise,
+        codePostale: formValues.code_postal,
+        gouvernorat: formValues.gouvernorat,
+        pays: formValues.pays,
+        numeroTelephone: formValues.numero_telephone_entreprise,
+        email: formValues.email_entreprise,
+        choixDevise: formValues.choixDevise,
+        type: "",
+        status: "",
+        createdIn: new Date(),
+        createdBy: 0,
+        modifiedIn: new Date(),
+        modifiedBy: 0,
+        deleted: new Date(),
+        nomUser: formValues.nom_user,
+        prenomUser: formValues.prenom,
+        genreUser: formValues.gender,
+        dateNaissanceUser: formValues.dateNaiss,
+        addresseUser: formValues.adresse_user,
+        numeroTelephoneUser: formValues.numero_telephone_user,
+        emailUser: formValues.emailUU,
+        confirm: "en attente",
+      };
+      // setShow(false);
+      setIsSubmit2(true);
+      setShow(true);
+
+      dispatch(addInscription(Data));
+    }
+    setFormValues(initialValues);
+
+    // setShow(true);
   };
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  });
-  const validate = (values) => {
-    const errors = {};
-    if (!values.nomE) {
-      errors.nomE = "champ requis ! ";
-    }
 
-    if (!values.numero_serie) {
-      errors.numero_serie = "champ requis ! ";
-    }
-    if (!values.addresse_entreprise) {
-      errors.addresse_entreprise = "champ requis ! ";
-    }
-    if (!values.code_postal) {
-      errors.code_postal = "champ requis ! ";
-    }
-
-    if (!values.email_entreprise) {
-      errors.email_entreprise = "champ requis ! ";
-    } 
-    if (!values.choixDevise) {
-      errors.choixDevise = "champ requis ! ";
-    }
-    if (!values.nom_user) {
-      errors.nom_user = "champ requis ! ";
-    } 
-    if (!values.prenom) {
-      errors.prenom = "champ requis ! ";
-    }
-    if (!values.emailUU) {
-      errors.emailUU = "champ requis ! ";
-    }
-    return errors;
+  const reinitialiser = () => {
+    setFormValues(initialValues);
+    setShow(false);
   };
 
   return (
@@ -245,6 +204,7 @@ function SignUp() {
         paddingRight: "5%",
         paddingTop: "4%",
         minWidth: "100%",
+        height: "100%",
         overflow: "auto",
       }}
     >
@@ -254,10 +214,7 @@ function SignUp() {
           fontFamily: "Verdana, Geneva, Tahoma, sans-serif",
           backgroundColor: "white",
           borderRadius: "10px",
-          boxShadow: "40px 20px #125f80",
-          //      overflow:"auto",
-
-          //        height: "1000%",
+          boxShadow: "50px 20px #125f80",
         }}
       >
         <div className="d-flex   justify-content-center mt-4  ">
@@ -287,7 +244,7 @@ function SignUp() {
           <div
             className="d-flex flex-wrap flex-row ml-5"
             style={{
-              width: "80%",
+              width: "100%",
             }}
           >
             <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-12  ">
@@ -306,17 +263,22 @@ function SignUp() {
                   </h1>
                 </div>
               </div>
-              <div className="d-flex  flex-wrap flex-row   mt-3">
-                <div className="justify-content-center col-lg-6 col-md-6 col-sm-12">
+              <div
+                className="d-flex  flex-wrap flex-row   mt-3 "
+                style={{ height: "50px" }}
+              >
+                <div
+                  className="justify-content-center col-lg-6 col-md-6 col-sm-8"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
                     }}
                   >
-                    Nom de la société*
+                    Nom*
                   </h4>
-                  <p style={{ fontSize: "70%", color: "red" }}></p>
 
                   <InputBase
                     fullWidth
@@ -325,14 +287,18 @@ function SignUp() {
                     value={formValues.nomE}
                     required
                     style={{
-                      borderBottom: "2px solid  #1a85b3",
+                      borderBottom: "1px solid  #1a85b3",
                     }}
+                    helperText="Please enter your name"
                   />
                   <p style={{ fontSize: "60%", color: "red" }}>
                     {formErrors.nomE}
                   </p>
                 </div>
-                <div className="justify-content-center  col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="justify-content-center  col-lg-6 col-md-6 col-sm-8"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -350,7 +316,7 @@ function SignUp() {
                     value={formValues.numero_serie}
                     required
                     style={{
-                      borderBottom: "2px solid  #1a85b3",
+                      borderBottom: "1px solid  #1a85b3",
                     }}
                     fullWidth
                   />
@@ -359,8 +325,11 @@ function SignUp() {
                   </p>
                 </div>
               </div>
-              <div className="d-flex flex-wrap flex-row  mt-5 ">
-                <div className="col-lg-6 col-md-6 col-sm-12">
+              <div
+                className="d-flex flex-wrap flex-row  mt-5 "
+                style={{ height: "50px" }}
+              >
+                <div className="col-lg-6 col-md-6 col-sm-8 mt-2">
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -375,12 +344,15 @@ function SignUp() {
                     onChange={handleChangee}
                     value={formValues.pays}
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                     fullWidth
                   />
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-8 mt-2"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -396,14 +368,17 @@ function SignUp() {
                     onChange={handleChangee}
                     value={formValues.gouvernorat}
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                     fullWidth
                   />
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-8"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -418,7 +393,7 @@ function SignUp() {
                     onChange={handleChangee}
                     value={formValues.addresse_entreprise}
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                     fullWidth
                     required
@@ -427,7 +402,10 @@ function SignUp() {
                     {formErrors.addresse_entreprise}
                   </p>
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-12"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -442,7 +420,7 @@ function SignUp() {
                     onChange={handleChangee}
                     value={formValues.code_postal}
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                     fullWidth
                     required
@@ -453,8 +431,14 @@ function SignUp() {
                   </p>
                 </div>
               </div>
-              <div className="d-flex flex-wrap flex-row mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-12">
+              <div
+                className="d-flex flex-wrap flex-row mt-5"
+                style={{ height: "50px" }}
+              >
+                <div
+                  className="col-lg-6 col-md-6 col-sm-12"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -470,12 +454,18 @@ function SignUp() {
                     onChange={handleChangee}
                     value={formValues.numero_telephone_entreprise}
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
+                  <p style={{ fontSize: "60%", color: "red" }}>
+                    {formErrors.numero_telephone_entrepriseForme}
+                  </p>
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-12"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -487,22 +477,26 @@ function SignUp() {
 
                   <InputBase
                     fullWidth
-                    type="mail"
+                    type="email"
                     name="email_entreprise"
                     onChange={handleChangee}
                     value={formValues.email_entreprise}
                     required
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                   />
                   <p style={{ fontSize: "60%", color: "red" }}>
                     {formErrors.email_entreprise}
+                    {formErrors.email_entrepriseForme}
                   </p>
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row mt-5 ">
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-12"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -521,7 +515,7 @@ function SignUp() {
                     value={formValues.choixDevise}
                     onChange={handleChangee}
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                   >
                     {ListeDevise.map((option) => (
@@ -537,13 +531,16 @@ function SignUp() {
               </div>
             </div>
             {matches && (
-              <div className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1">
+              <div
+                className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1"
+                style={{ marginRight: "2%" }}
+              >
                 <div className=" d-flex justify-content-end  ">
                   <p
                     style={{
-                      height: "600px",
+                      height: "570px",
                       //    minHeight:"600px",
-                      borderRight: "2px solid rgba(134, 134, 134, 0.548)",
+                      borderRight: "1px solid rgba(134, 134, 134, 0.548)",
                       //  paddingLeft: " 3%",
                     }}
                     className="bordure_verticale"
@@ -551,7 +548,7 @@ function SignUp() {
                 </div>
               </div>
             )}
-            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-11">
+            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-11 ">
               <div className=" d-flex justify-content-center mt-2 ">
                 <div className="title">
                   <h1
@@ -568,7 +565,10 @@ function SignUp() {
                 </div>
               </div>
               <div className="d-flex flex-wrap flex-row  mt-3 ">
-                <div className="col-lg-6 col-md-6 col-sm-12 ">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-12 "
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -586,14 +586,17 @@ function SignUp() {
                     value={formValues.nom_user}
                     required
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                   />
                   <p style={{ fontSize: "60%", color: "red" }}>
                     {formErrors.nom_user}
                   </p>
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-12 ">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-12 "
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -610,7 +613,7 @@ function SignUp() {
                     value={formValues.prenom}
                     required
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                   />
                   <p style={{ fontSize: "60%", color: "red" }}>
@@ -618,12 +621,15 @@ function SignUp() {
                   </p>
                 </div>
               </div>
-              <div className="d-flex  flex-wrap flex-rowml-5 mt-4 ">
+              <div
+                className="d-flex  flex-wrap flex-rowml-5 mt-5"
+                style={{ height: "60px" }}
+              >
                 <h4
                   style={{
                     color: "#1a85b3",
                     fontWeight: 400,
-                    marginLeft: "3.5%",
+                    marginLeft: "2%",
                     marginTop: "4%",
                   }}
                 >
@@ -667,7 +673,10 @@ function SignUp() {
                 </RadioGroup>
               </div>
               <div className="d-flex flex-wrap flex-rowml-5 mt-4">
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-12"
+                  style={{ height: "80px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -684,7 +693,7 @@ function SignUp() {
                     onChange={handleChangee}
                     value={formValues.dateNaiss}
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                     // min="2022-01-01"
                     // max={h}
@@ -693,7 +702,10 @@ function SignUp() {
                 <div className="col-lg-6 col-md-6 col-sm-12"></div>
               </div>
               <div className="d-flex flex-wrap flex-rowml-5 mt-4">
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-12"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -709,14 +721,17 @@ function SignUp() {
                     onChange={handleChangee}
                     value={formValues.adresse_user}
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                   />
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-12"></div>
               </div>
               <div className="d-flex flex-wrap flex-rowml-5 mt-5">
-                <div className="col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="col-lg-6 col-md-6 col-sm-12"
+                  style={{ height: "50px" }}
+                >
                   <h4
                     style={{
                       color: "#1a85b3",
@@ -732,10 +747,13 @@ function SignUp() {
                     onChange={handleChangee}
                     value={formValues.numero_telephone_user}
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
+                  <p style={{ fontSize: "60%", color: "red" }}>
+                    {formErrors.numero_telephone_userForme}
+                  </p>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-12">
                   <h4
@@ -749,47 +767,47 @@ function SignUp() {
 
                   <InputBase
                     fullWidth
-                    type="mail"
+                    type="email"
                     name="emailUU"
                     onChange={handleChangee}
                     value={formValues.emailUU}
                     required
                     style={{
-                      borderBottom: "2px solid #1a85b3",
+                      borderBottom: "1px solid #1a85b3",
                     }}
                   />
                   <p style={{ fontSize: "60%", color: "red" }}>
                     {formErrors.emailUU}
+                    {formErrors.emailUUForme}
                   </p>
                 </div>
               </div>
             </div>
           </div>
           <div
-            className="d-flex  flex-wrap  justify-content-end mt-3  
-           "
+            className="d-flex flex-wrap align-items-start   justify-content-end  "
             style={{
               fontSize: "200%",
-              fontFamilyy: "Arial, sans-serif",
+              fontFamilyy: "Arial, sans-serif",height:"70px"
             }}
           >
-            <div className="col-lg-6 col-md-6 col-sm-12  ">
+            <div className="col-lg-7 col-md-7 col-sm-3 mb-5 ">
               {/* {!matches && ( */}
-              <Alert
-                style={{
-                  display: "none",
-                  maxHeight: "70px",
-                  // maxWidth: "100%",
-                }}
-                id="alert"
-                severity={success}
-              >
-                {alert}
-              </Alert>
-              {/* )} */}
+              {show && (
+                <Alert
+                  style={{
+                    height:"8%"
+                  //  maxHeight: "10%",
+                  }}
+                  id="alert"
+                  severity={success}
+                >
+                  {alert}
+                </Alert>
+              )}
             </div>
 
-            <div className="col-lg-2 col-md-3 col-sm-2  mr mt-4 ">
+            <div className="col-lg-2 col-md-2 col-sm-3  justify-content-end  mr">
               <Button
                 className="button2"
                 type="reset"
@@ -799,13 +817,13 @@ function SignUp() {
                   backgroundColor: "#ffffff",
                   padding: "2% 12% 2% 12%",
                   borderRadius: "80px",
-                  border: "#1a85b3 solid 2px",
+                  border: "#1a85b3 solid 1px",
                 }}
               >
                 Annuler
               </Button>
             </div>
-            <div className="col-lg-2 col-md-3 col-sm-2 justify-content-end  mt-4 ">
+            <div className="col-lg-2 col-md-2 col-sm-3 justify-content-end ">
               <Button
                 type="submit"
                 onClick={handleSubmit}
@@ -817,7 +835,7 @@ function SignUp() {
                   padding: "2% 12% 2% 12%",
                   borderRadius: "80px",
                   marginRight: "13%",
-                  marginBottom: "5%",
+                  // marginBottom: "5%",
                 }}
               >
                 Suivant

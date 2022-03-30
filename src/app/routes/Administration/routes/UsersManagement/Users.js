@@ -1,41 +1,30 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-
 import UsersList from "./UsersList";
 import AddUser from "./AddUser";
 import IntlMessages from "../../../../../util/IntlMessages";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
-import ArshivedUser from './ArshivedUser'
-export class User extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-      archived: false
-    };
-    this.openaddUser = this.openaddUser.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleopenArchived = this.handleopenArchived.bind(this)
-  }
+import ArshivedUser from "./ArshivedUser";
 
-  handleopenArchived() {
-    this.setState({ archived: !this.state.archived });
-  }
+function User(props) {
+  const [archived, setArchived] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  openaddUser() {
-    this.setState({ isOpen: true });
-  }
-  handleCancel() {
-    this.setState({
-      isOpen: false,
-    });
-  }
+  const handleopenArchived = () => {
+    setArchived(!archived);
+  };
 
-  render() {
+  const openaddUser = () => {
+    setIsOpen(true);
+  };
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
 
-    if (this.state.archived !== true) {
-      return (
+  return (
+    <div>
+      {!archived && (
         <div className="app-wrapper ">
           <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12">
             <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  col-sm-12">
@@ -53,11 +42,9 @@ export class User extends Component {
             </div>
 
             <div className="d-flex flex-row p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
-              <UsersList openaddUser={this.openaddUser} />
+              <UsersList openaddUser={openaddUser} />
             </div>
-            {this.state.isOpen && (
-              <AddUser values={this.state} handleCancel={this.handleCancel} />
-            )}
+          
           </div>
           <div className="d-flex flex-row-reverse  col-lg-12 col-md-12 col-sm-12 ">
             <div
@@ -65,8 +52,7 @@ export class User extends Component {
               style={{
                 color: "#616A6B",
                 textAlign: "center",
-                fontSize:"25px"
-                
+                fontSize: "25px",
               }}
             >
               <IconButton
@@ -77,24 +63,25 @@ export class User extends Component {
                   width: "40px",
                   height: "40px",
                 }}
-                onClick={this.handleopenArchived}
+                onClick={handleopenArchived}
               >
                 <DeleteOutlineRoundedIcon backgroundColor="white" />
               </IconButton>
-              <div className="p-2"><IntlMessages id="archive" />(5)</div>
+              <div className="p-2">
+                <IntlMessages id="archive" />
+                (5)
+              </div>
             </div>
           </div>
         </div>
-      );
-    }
-    else {
-      return <ArshivedUser handleopenArchived={this.handleopenArchived} />
-    }
-  }
+      )}
+      {archived && (
+        <ArshivedUser handleopenArchived={handleopenArchived} />
+      )}
+    </div>
+  );
 }
-
 const mapStateToProps = (state) => {
   return {};
 };
-
 export default connect(mapStateToProps)(User);
