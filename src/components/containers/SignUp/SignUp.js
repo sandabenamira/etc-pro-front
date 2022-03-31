@@ -38,15 +38,11 @@ function SignUp() {
       errors.code_postal = "champ requis ! ";
     }
 
-    if (!isNotEmpty(formValues.numero_telephone_entreprise)) {
-      errors.numero_telephone_entreprise = "champ requis ! ";
-    } else if (!isPhonenumber(formValues.numero_telephone_entreprise)) {
+    if (!isPhonenumber(formValues.numero_telephone_entreprise)) {
       errors.numero_telephone_entrepriseForme =
         "Veuillez renseigner un numéro de téléphone de 8 chiffres ! ";
     }
-    if (!isNotEmpty(formValues.numero_telephone_user)) {
-      errors.numero_telephone_user = "champ requis ! ";
-    } else if (!isPhonenumber(formValues.numero_telephone_user)) {
+    if (!isPhonenumber(formValues.numero_telephone_user)) {
       errors.numero_telephone_userForme =
         "Veuillez renseigner un numéro de téléphone de 8 chiffres ! ";
     }
@@ -116,7 +112,7 @@ function SignUp() {
   const [isSubmit, setIsSubmit] = useState(false);
   const [isSubmit2, setIsSubmit2] = useState(false);
   const [show, setShow] = useState(false);
-
+  console.log(formErrors);
   useEffect(() => {
     window
       .matchMedia("(min-width: 768px)")
@@ -124,6 +120,7 @@ function SignUp() {
   }, []);
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit && isSubmit2) {
+      setFormValues(initialValues);
       setAlert("Le formulaire est envoyé avec succès! ");
       setSuccess("success");
     } else if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -186,7 +183,6 @@ function SignUp() {
 
       dispatch(addInscription(Data));
     }
-    setFormValues(initialValues);
 
     // setShow(true);
   };
@@ -788,7 +784,8 @@ function SignUp() {
             className="d-flex flex-wrap align-items-start   justify-content-end  "
             style={{
               fontSize: "200%",
-              fontFamilyy: "Arial, sans-serif",height:"70px"
+              fontFamilyy: "Arial, sans-serif",
+              height: "70px",
             }}
           >
             <div className="col-lg-7 col-md-7 col-sm-3 mb-5 ">
@@ -796,8 +793,8 @@ function SignUp() {
               {show && (
                 <Alert
                   style={{
-                    height:"8%"
-                  //  maxHeight: "10%",
+                    height: "8%",
+                    //  maxHeight: "10%",
                   }}
                   id="alert"
                   severity={success}

@@ -9,14 +9,20 @@ import { editUser } from "../../../../../store/actions/User";
 import { useDispatch } from "react-redux";
 
 export default function UserListItem(props) {
-  // let dispatch = useDispatch();
+  let dispatch = useDispatch();
   const [opendetails, setOpendetails] = useState(false);
-
+  const finalData = {
+    ...props.data,
+    archive: true,
+  };
   const data = props.data;
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
   };
-
+  const handleArchive = (e) => {
+    dispatch(editUser(finalData));
+    console.log(finalData);
+  };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <th
@@ -92,7 +98,7 @@ export default function UserListItem(props) {
               width: "28px",
               height: "28px",
             }}
-            //   onClick={(e) => handleArchive(e)}
+            onClick={(e) => handleArchive(e)}
           >
             <DeleteOutlineRoundedIcon backgroundColor="white" />
           </IconButton>

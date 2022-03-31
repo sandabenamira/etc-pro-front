@@ -37,8 +37,11 @@ module.exports = {
       return false;
     }
   },
+  isUndefinedString(str) {
+    if (typeof str == "undefined" || typeof str == "NaN") return "";
+  },
   isStringDate(date) {
-   return date.toString().slice(0, 15);
+    return date.toString().slice(0, 15);
   },
   isPhonenumber(str) {
     if (str.length > 1) return /^[0-9]\d{7}$/.test(str);

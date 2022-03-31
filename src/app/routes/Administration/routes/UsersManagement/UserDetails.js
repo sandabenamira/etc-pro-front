@@ -19,7 +19,6 @@ export default function UserDetails(props) {
                 color: "#4C25B7",
                 fontSize: "25px",
                 marginRight: "2%",
-              
               }}
             >
               <button
@@ -31,8 +30,6 @@ export default function UserDetails(props) {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            {console.log(data)}
-
             <div className="d-flex justify-content-start flex-row flex-wrap ">
               <div className="col-lg-4 col-md-4 col-sm-4 d-flex flex-wrap flex-column  justify-content-start mb-4">
                 <Avatar
@@ -42,20 +39,17 @@ export default function UserDetails(props) {
                 />
               </div>
 
-              <div className="col-lg-8 col-md-4 col-sm-4 d-flex flex-column justify-content-start ">
+              <div className="col-lg-7 col-md-4 col-sm-4 d-flex flex-column justify-content-start ">
                 <h1 style={{ fontSize: "30px", color: "#44548F" }}>
                   {data.nom + " " + data.prenom}
                 </h1>
                 <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>
                   {data.role}
                 </h2>
+                <h1>hello {data.archive.toString()}</h1>
 
                 <h3 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  <b>
-                    <IntlMessages id="user.identifiant" />
-                  </b>
-                  <b> : </b>
-                  {data.identifiant}
+                  <IntlMessages id="user.identifiant" />:{data.identifiant}
                 </h3>
                 <h4 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   <IntlMessages id="gestion.agence.agency" /> <b> : </b>
@@ -65,7 +59,7 @@ export default function UserDetails(props) {
             </div>
             <hr style={{ width: "650px", color: "black" }} />
             <div className="d-flex justify-content-start flex-row flex-wrap  ">
-              <div className="col-lg-8 col-md-5 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start ">
+              <div className="col-lg-7 col-md-6 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start ">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
                   <IntlMessages id="user.birthday.date" />
                 </h1>
@@ -85,7 +79,7 @@ export default function UserDetails(props) {
             </div>
 
             <div className="d-flex justify-content-start flex-row flex-wrap  ">
-              <div className="col-lg-8 col-md-5 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start ">
+              <div className="col-lg-7 col-md-6 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start ">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
                   <IntlMessages id="user.address.postal" />
                 </h1>
@@ -106,7 +100,7 @@ export default function UserDetails(props) {
               </div>
             </div>
             <div className="d-flex justify-content-start flex-row flex-wrap  ">
-              <div className="col-lg-8 col-md-5 col-sm-10 d-flex flex-wrap flex-column  justify-content-start  ">
+              <div className="col-lg-7 col-md-6 col-sm-10 d-flex flex-wrap flex-column  justify-content-start  ">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
                   <IntlMessages id="appModule.email" />
                 </h1>
@@ -125,8 +119,8 @@ export default function UserDetails(props) {
               </div>
             </div>
 
-            <div className=" d-flex flex-row d-flex justify-content-start bd-highlight flex-wrap">
-              <div className=" d-flex flex-column col-md-5 col-lg-7 d-flex justify-content-start align-items-start bd-highlight flex-wrap">
+            <div className=" d-flex justify-content-start flex-row flex-wrap ">
+              <div className=" d-flex flex-column col-md-6 col-lg-7 d-flex justify-content-start align-items-start bd-highlight flex-wrap">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
                   <IntlMessages id="country.user" />
                 </h1>
@@ -134,7 +128,6 @@ export default function UserDetails(props) {
                   {data.pays}
                 </h2>
               </div>
-
               <div className="col-lg-4 col-md-4 col-sm-4 d-flex flex-column justify-content-start  ">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>CIN</h1>
 
@@ -145,7 +138,7 @@ export default function UserDetails(props) {
             </div>
 
             <div className="d-flex justify-content-start flex-row flex-wrap  ">
-              <div className="col-lg-8 col-md-5 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start ">
+              <div className="col-lg-7 col-md-6 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start ">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
                   <IntlMessages id="user.join.papiers" /> (1)
                 </h1>

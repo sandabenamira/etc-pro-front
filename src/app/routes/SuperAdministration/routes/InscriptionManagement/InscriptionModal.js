@@ -237,7 +237,7 @@ function InscriptionModal(props) {
             <div className="p-2 d-flex flex-row  ml-4 ">
               <div className="p-2 d-flex flex-column col-md-6 ">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
-                  Nom utilisateur :{" "}
+                  Nom utilisateur :
                 </h1>
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   {props.data.nomUser}

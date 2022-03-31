@@ -19,7 +19,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { getUsers } from "../../../../../store/actions/User";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function UsersList() {
+export default function UsersList(props) {
   const [openadd, setOpenadd] = useState(false);
   const openaddUser = () => {
     setOpenadd(!openadd);
@@ -60,12 +60,13 @@ export default function UsersList() {
       value: "Collaborateurs",
     },
   ];
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.users.users);
-  useEffect(() => {
-    dispatch(getUsers());
-    console.log("get users : ", getUsers());
-  }, []);
+  // const dispatch = useDispatch();
+  const data = props.data;
+  // useSelector((state) => state.users.users);
+  // useEffect(() => {
+  //   dispatch(getUsers());
+  //   console.log("get users : ", getUsers());
+  // }, []);
 
   return (
     <div className="app-wrapper ">
@@ -177,6 +178,7 @@ export default function UsersList() {
             {data
               .filter((e) => e.role === filter.value)
 
+              .filter((e) => e.archive === false)
               .map((row, i) => (
                 <UserListItem key={i} data={row} />
               ))}

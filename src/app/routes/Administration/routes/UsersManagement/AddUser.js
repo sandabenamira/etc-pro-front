@@ -23,6 +23,7 @@ import {
   isPhonenumber,
   isNotEmpty,
   isStringDate,
+  isUndefinedString,
   isCIN,
 } from "../../../../../constants/validationFunctions";
 
@@ -224,9 +225,9 @@ export default function AddUser(props) {
         genre: formValues.genre,
         dateNaissance: formValues.date_naissance,
         pays: formValues.pays,
-        codePostal: parseInt(formValues.code_postale),
+        codePostal: formValues.code_postale,
         adressePostale: formValues.adresse_postale,
-        photo: URLphoto[0],
+        photo: isUndefinedString(URLphoto[0]),
         role: formValues.role,
         identifiant: formValues.identifiant,
         agency: formValues.agency,
@@ -249,7 +250,6 @@ export default function AddUser(props) {
   const reinitialiser = () => {
     props.openaddUser();
   };
-
 
   const Input = styled("input")({
     display: "none",

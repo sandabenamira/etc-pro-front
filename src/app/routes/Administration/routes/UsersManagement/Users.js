@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import UsersList from "./UsersList";
 import AddUser from "./AddUser";
@@ -6,10 +6,19 @@ import IntlMessages from "../../../../../util/IntlMessages";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import ArshivedUser from "./ArshivedUser";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../../../../store/actions/User";
 
-function User(props) {
-  const [archived, setArchived] = useState(false);
+function User() {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.users.users);
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+  console.log("get users : ", data);
+
+  const [archived, setArchived] = useState(false);
 
   const handleopenArchived = () => {
     setArchived(!archived);
@@ -22,9 +31,10 @@ function User(props) {
     setIsOpen(false);
   };
 
+
   return (
     <div>
-      {!archived && (
+      { !archived &&(
         <div className="app-wrapper ">
           <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12">
             <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  col-sm-12">
@@ -42,9 +52,8 @@ function User(props) {
             </div>
 
             <div className="d-flex flex-row p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
-              <UsersList openaddUser={openaddUser} />
+              <UsersList openaddUser={openaddUser} data={data}/>
             </div>
-          
           </div>
           <div className="d-flex flex-row-reverse  col-lg-12 col-md-12 col-sm-12 ">
             <div
@@ -75,9 +84,7 @@ function User(props) {
           </div>
         </div>
       )}
-      {archived && (
-        <ArshivedUser handleopenArchived={handleopenArchived} />
-      )}
+      {archived &&<ArshivedUser handleopenArchived={handleopenArchived}  data={data} />}
     </div>
   );
 }

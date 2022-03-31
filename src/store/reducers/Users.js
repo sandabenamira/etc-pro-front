@@ -28,7 +28,7 @@ export default function (state = initialState, action) {
     case GET_USER: {
       return Object.assign({}, state, {
         users: action.payload,
-      //  ...state.users.filter((e) => e.archive === true),
+        //  ...state.users.filter((e) => e.archive === true),
       });
     }
     case EDIT_USER: {
@@ -36,14 +36,6 @@ export default function (state = initialState, action) {
         users: [
           action.payload,
           ...state.users.filter((e) => e.id !== action.payload.id),
-        ],
-      });
-    }
-    case DELETE_USER: {
-      return Object.assign({}, state, {
-        users: [
-          action.payload,
-          ...state.users.filter(({ id }) => id !== action.payload.id),
         ],
       });
     }

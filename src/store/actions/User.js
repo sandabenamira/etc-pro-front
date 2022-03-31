@@ -44,41 +44,42 @@ export function getUsers() {
 export const editUser = (data) => {
   console.log(data, "----------editUser");
   return (dispatch) => {
-    let apiEndpoint = `/users/` + data.id;
-    service
-      .patch(apiEndpoint, data)
-      .then((res) => {
-        dispatch({
-          type: EDIT_USER,
-          payload: data,
-        });
-        dispatch({
-          type: SHOW_SUCCESS_MESSAGE,
-          payload: "La modification  est effectuée avec succès",
-        });
-        setTimeout(() => {
-          dispatch({ type: HIDE_SUCCESS_MESSAGE });
-        }, 4000);
-      })
-      .catch((err) => {
-        let errorMsg =
-          err.response === undefined
-            ? "Merci  de réessayer ultérieurement , une erreur s'est produite de notre coté"
-            : err.response.data.error.message === "Internal Server Error"
-            ? "name duplicated"
-            : err.response.data.error.message;
-        dispatch({
-          type: SHOW_ERROR_MESSAGE,
-          payload: errorMsg,
-        });
-        setTimeout(() => {
-          dispatch({ type: HIDE_ERROR_MESSAGE });
-        }, 4000);
-      });
+    // let apiEndpoint = `/users/` + data.id;
+    // service
+    //   .patch(apiEndpoint, data)
+    //   .then((res) => {
+    dispatch({
+      type: EDIT_USER,
+      payload: data,
+    });
+    //       dispatch({
+    //         type: SHOW_SUCCESS_MESSAGE,
+    //         payload: "La modification  est effectuée avec succès",
+    //       });
+    //       setTimeout(() => {
+    //         dispatch({ type: HIDE_SUCCESS_MESSAGE });
+    //       }, 4000);
+    //     })
+    //     .catch((err) => {
+    //       let errorMsg =
+    //         err.response === undefined
+    //           ? "Merci  de réessayer ultérieurement , une erreur s'est produite de notre coté"
+    //           : err.response.data.error.message === "Internal Server Error"
+    //           ? "name duplicated"
+    //           : err.response.data.error.message;
+    //       dispatch({
+    //         type: SHOW_ERROR_MESSAGE,
+    //         payload: errorMsg,
+    //       });
+    //       setTimeout(() => {
+    //         dispatch({ type: HIDE_ERROR_MESSAGE });
+    //       }, 4000);
+    //     });
   };
+
 };
 
-export const deleteInscription = (id) => async (dispatch) => {
+export const deleteUser = (id) => async (dispatch) => {
   try {
     let apiEndpoint = `/users/` + id;
 
