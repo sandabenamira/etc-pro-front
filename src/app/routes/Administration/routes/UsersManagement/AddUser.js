@@ -484,7 +484,7 @@ export default function AddUser(props) {
             >
               <div className="p-2 d-flex flex-column col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="user.address.postal" />
+                  <IntlMessages id="user.address.postal" />*
                 </div>
                 <div>
                   <TextField
@@ -500,11 +500,11 @@ export default function AddUser(props) {
                   <div className="text-danger ">
                     <small> {formErrors.adresse_postale}</small>
                   </div>
-                </div>
+                </div> 
               </div>
               <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="zip.code.user" />*
+                  <IntlMessages id="zip.code.user" /> 
                 </div>
                 <div>
                   <TextField
