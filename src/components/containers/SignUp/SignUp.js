@@ -37,10 +37,9 @@ function SignUp() {
     }
     if (!isNotEmpty(values.code_postal)) {
       errors.code_postal = "champ requis ! ";
+    } else if (!isZipCode(formValues.code_postal)) {
+      errors.code_postaleForme = "Veuillez entrer 4 nombres !  ";
     }
-    // else if (!isZipCode(formValues.code_postale)) {
-    //   errors.code_postaleForme = "Veuillez entrer 4 nombres !  ";
-    // }
 
     if (!isPhonenumber(formValues.numero_telephone_entreprise)) {
       errors.numero_telephone_entrepriseForme =
@@ -428,6 +427,7 @@ function SignUp() {
                   />
                   <p style={{ fontSize: "60%", color: "red" }}>
                     {formErrors.code_postal}
+                    {formErrors.code_postaleForme}
                   </p>
                 </div>
               </div>

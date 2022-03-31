@@ -246,7 +246,7 @@ export default function AddUser(props) {
       };
       dispatch(addUser(finalData));
       setIsSubmit2(true);
-      // setFormValues(initialValues);
+       setFormValues(initialValues);
     }
     setShow(true);
   };
@@ -454,7 +454,7 @@ export default function AddUser(props) {
                 />
                 <div className="text-danger ">
                   <small>
-                    {formErrors.tel} {formErrors.telForme}{" "}
+                    {formErrors.tel} {formErrors.telForme}
                   </small>
                 </div>
               </div>

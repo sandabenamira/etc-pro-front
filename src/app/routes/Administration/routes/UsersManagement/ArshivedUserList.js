@@ -6,18 +6,13 @@ import ArshivedUserItems from "./ArshivedUserItems";
 import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-
 import IntlMessages from "../../../../../util/IntlMessages";
-
+import Select from "react-select";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 
 export default function ArshivedUserList(props) {
-  const [openadd, setOpenadd] = useState(false);
-  // const openaddUser = () => {
-  //   setOpenadd(!openadd);
-  // };
   const [filter, setFilter] = useState({
     label: "Administrateur",
     value: "Administrateur",
@@ -54,6 +49,7 @@ export default function ArshivedUserList(props) {
       value: "Collaborateurs",
     },
   ];
+
   const data = props.data;
   return (
     <div className="app-wrapper ">
@@ -61,7 +57,7 @@ export default function ArshivedUserList(props) {
 
       <div className="d-flex justify-content-around bd-highlight flex-wrap">
         <div className="p-2">
-          <Button
+          {/* <Button
             variant="contained"
             color="primary"
             style={{
@@ -75,7 +71,29 @@ export default function ArshivedUserList(props) {
           >
             <IntlMessages id="permission.role.all" />
             <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
-          </Button>
+          </Button> */}
+
+          <Select
+            required
+            options={roleList}
+            onChange={(e) => setFilter(e)}
+            value={filter}
+            id="role"
+            name="role"
+            styles={{
+              control: (base) => ({
+                ...base,
+                "&:hover": { borderColor: "gray" }, // border style on hover
+                border: "1px solid lightgray", // default border color
+                boxShadow: "none", // no box-shadow
+                borderTopStyle: "none",
+                borderRightStyle: "none",
+                borderLeftStyle: "none",
+                borderRadius: " none",
+                width: 200,
+              }),
+            }}
+          />
         </div>
 
         <div className=" d-flex flex-column flex-wrap p-2 col-lg-4 col-md-6  col-sm-12 justify-content-center">
@@ -113,8 +131,19 @@ export default function ArshivedUserList(props) {
           style={{ borderCollapse: "separate", borderSpacing: "0px 15px" }}
         >
           <thead>
-            <tr style={{ paddingBottom: "10px", textAlign: "center" }}>
-              <th style={{ borderBottom: "0", borderTop: "0" }}>
+            <tr
+              style={{
+                paddingBottom: "10px",
+                textAlign: "center"
+              }}
+            >
+              <th
+                style={{
+                  borderBottom: "0",
+                  borderTop: "0",
+                  textAlign: "start",
+                }}
+              >
                 <IntlMessages id="user.photo" />
               </th>
               <th style={{ borderBottom: "0", borderTop: "0" }}>
@@ -141,9 +170,13 @@ export default function ArshivedUserList(props) {
               .filter((e) => e.role === filter.value)
 
               .map((row, i) => (
-                <ArshivedUserItems key={i} data={row} />
+                <ArshivedUserItems
+                  key={i}
+                  data={row}
+                  increment={props.increment}
+                  count={props.count}
+                />
               ))}
-          
           </tbody>
         </table>
       </div>

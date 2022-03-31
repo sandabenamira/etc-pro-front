@@ -44,8 +44,10 @@ module.exports = {
     return date.toString().slice(0, 15);
   },
   isPhonenumber(str) {
-    if (str.length > 1) return /^[0-9]\d{7}$/.test(str);
-    else return true;
+    if (str.length > 1 && /^-?\d+$/.test(str)) {
+
+      return /^[0-9]\d{7}$/.test(str);
+    } else return true;
   },
   isZipCode(zipCode) {
     if (zipCode.length > 1) return /^[0-9]\d{3}$/.test(zipCode);

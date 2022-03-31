@@ -11,11 +11,14 @@ import { useDispatch } from "react-redux";
 export default function UserListItem(props) {
   let dispatch = useDispatch();
   const [opendetails, setOpendetails] = useState(false);
+  const data = props.data;
+
   const finalData = {
     ...props.data,
     archive: true,
+
   };
-  const data = props.data;
+  console.log("hello final data",finalData)
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
   };

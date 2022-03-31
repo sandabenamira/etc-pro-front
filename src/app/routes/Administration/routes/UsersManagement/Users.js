@@ -30,7 +30,10 @@ function User() {
   const handleCancel = () => {
     setIsOpen(false);
   };
-
+  const [count, setCount] = useState(0);
+  const increment = () => {
+    setCount(count + 1)
+  }
 
   return (
     <div>
@@ -78,13 +81,13 @@ function User() {
               </IconButton>
               <div className="p-2">
                 <IntlMessages id="archive" />
-                (5)
+                {count}
               </div>
             </div>
           </div>
         </div>
       )}
-      {archived &&<ArshivedUser handleopenArchived={handleopenArchived}  data={data} />}
+      {archived &&<ArshivedUser handleopenArchived={handleopenArchived}  data={data} increment={increment} count={count}/>}
     </div>
   );
 }

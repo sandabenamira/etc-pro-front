@@ -21,7 +21,9 @@ export default function (state = initialState, action) {
 
     case ADD_USER: {
       return Object.assign({}, state, {
-        users: [action.payload].concat(state.users), //...state
+        users: [{ ...action.payload, id: state.users.length + 1 }].concat(
+          state.users
+        ), //...state
       });
     }
 
@@ -35,7 +37,7 @@ export default function (state = initialState, action) {
       return Object.assign({}, state, {
         users: [
           action.payload,
-          ...state.users.filter((e) => e.id !== action.payload.id),
+          ...state.users.filter((e) => e.id !== action.payload.id), ///The spread syntax will allow us to get all of the properties of the object then we will be able to update only the wanted parts:  //state modifier dans le premier lieu
         ],
       });
     }

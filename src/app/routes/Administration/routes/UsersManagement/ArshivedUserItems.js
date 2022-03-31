@@ -3,19 +3,32 @@ import { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import UserDetails from "./UserDetails";
+import { editUser } from "../../../../../store/actions/User";
+import { useDispatch } from "react-redux";
 
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import ReplayIcon from "@material-ui/icons/Replay";
 
 export default function ArshivedUserItems(props) {
   const [opendetails, setOpendetails] = useState(false);
+  let dispatch = useDispatch();
 
   const data = props.data;
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
   };
-  console.log("dataaaaaaaaaaaaaa archive", data);
+  const finalData = {
+    ...props.data,
+    archive: false,
 
+  };
+  // const i = 0;
+  // i += 1;
+  // props.increment = i;
+  const handleArchive = (e) => {
+    dispatch(editUser(finalData));
+    console.log(finalData);
+  };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <th
@@ -23,14 +36,15 @@ export default function ArshivedUserItems(props) {
         style={{
           display: "flex",
           flexDirection: "row",
-          textAlign: "center",
+         // textAlign: "end",
           backgroundColor: "#F5F5F5",
           borderTopLeftRadius: 15,
           borderBottomLeftRadius: 15,
         }}
       >
         <div style={{ textAlign: "center" }}>
-          <Avatar alt={data.prenom} src={data.photo} />
+          <Avatar style={{
+          }} alt={data.prenom} src={data.photo} />
         </div>
       </th>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
@@ -79,6 +93,7 @@ export default function ArshivedUserItems(props) {
               width: "28px",
               height: "28px",
             }}
+            onClick={(e) => handleArchive(e)}
           >
             <ReplayIcon backgroundColor="white" />
           </IconButton>

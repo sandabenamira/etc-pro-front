@@ -46,7 +46,6 @@ export default function UserDetails(props) {
                 <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>
                   {data.role}
                 </h2>
-                <h1>hello {data.archive.toString()}</h1>
 
                 <h3 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   <IntlMessages id="user.identifiant" />:{data.identifiant}

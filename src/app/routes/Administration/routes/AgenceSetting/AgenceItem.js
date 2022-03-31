@@ -2,10 +2,21 @@ import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
+import { editUser } from "../../../../../store/actions/User";
+import { useDispatch } from "react-redux";
 
 export default function AgenceItem(props) {
-  const data = props.data;
+  let dispatch = useDispatch();
 
+  const data = props.data;
+  const finalData = {
+    ...props.data,
+    archive: true,
+  };
+  const handleArchive = (e) => {
+    dispatch(editUser(finalData));
+    console.log(finalData);
+  };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <td
@@ -59,6 +70,7 @@ export default function AgenceItem(props) {
               width: "28px",
               height: "28px",
             }}
+            onClick={(e) => handleArchive(e)}
           >
             <DeleteOutlineRoundedIcon backgroundColor="white" />
           </IconButton>

@@ -21,13 +21,21 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case GET_INSCRIPTION: {
       return Object.assign({}, state, {
-        inscriptions: action.payload
+        inscriptions: action.payload,
       });
     }
-    
+
+    // case ADD_INSCRIPTION: {
+    //   return Object.assign({}, state, {
+    //     inscriptions: [action.payload].concat(state.inscriptions), //...state
+    //   });
+    // }
+
     case ADD_INSCRIPTION: {
       return Object.assign({}, state, {
-        inscriptions: [action.payload].concat(state.inscriptions), //...state
+        inscriptions: [
+          { ...action.payload, id: state.inscriptions.length + 1 },
+        ].concat(state.inscriptions), //...state
       });
     }
     case EDIT_INSCRIPTION: {

@@ -6,18 +6,13 @@ import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOut
 
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import { useEffect } from "react";
-
 import { orange } from "@material-ui/core/colors";
-
 import IntlMessages from "../../../../../util/IntlMessages";
 import Select from "react-select";
 import AddUser from "./AddUser";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-import { getUsers } from "../../../../../store/actions/User";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function UsersList(props) {
   const [openadd, setOpenadd] = useState(false);
@@ -60,13 +55,7 @@ export default function UsersList(props) {
       value: "Collaborateurs",
     },
   ];
-  // const dispatch = useDispatch();
   const data = props.data;
-  // useSelector((state) => state.users.users);
-  // useEffect(() => {
-  //   dispatch(getUsers());
-  //   console.log("get users : ", getUsers());
-  // }, []);
 
   return (
     <div className="app-wrapper ">
@@ -153,7 +142,13 @@ export default function UsersList(props) {
         >
           <thead>
             <tr style={{ paddingBottom: "10px", textAlign: "center" }}>
-              <th style={{ borderBottom: "0", borderTop: "0" }}>
+              <th
+                style={{
+                  borderBottom: "0",
+                  borderTop: "0",
+                  textAlign: "start",
+                }}
+              >
                 <IntlMessages id="user.photo" />
               </th>
               <th style={{ borderBottom: "0", borderTop: "0" }}>
