@@ -21,6 +21,7 @@ import Alert from "@material-ui/lab/Alert";
 import {
   isEmail,
   isPhonenumber,
+  isZipCode,
   isNotEmpty,
   isStringDate,
   isUndefinedString,
@@ -133,6 +134,9 @@ export default function AddUser(props) {
     }
     if (!values.identifiant) {
       errors.identifiant = "champ requis ! ";
+    }
+    if (!isZipCode(values.code_postale)) {
+      errors.code_postale = "Veuillez entrer 4 nombres ! ";
     }
     if (!values.email) {
       errors.email = "champ requis ! ";
@@ -500,11 +504,11 @@ export default function AddUser(props) {
                   <div className="text-danger ">
                     <small> {formErrors.adresse_postale}</small>
                   </div>
-                </div> 
+                </div>
               </div>
               <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
                 <div style={{ fontSize: "18px" }}>
-                  <IntlMessages id="zip.code.user" /> 
+                  <IntlMessages id="zip.code.user" />
                 </div>
                 <div>
                   <TextField
@@ -517,6 +521,9 @@ export default function AddUser(props) {
                     name="code_postale"
                     required
                   ></TextField>
+                  <div className="text-danger ">
+                    <small>{formErrors.code_postale}</small>
+                  </div>
                 </div>
               </div>
               <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">

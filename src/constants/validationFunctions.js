@@ -48,7 +48,7 @@ module.exports = {
     else return true;
   },
   isZipCode(zipCode) {
-    if (zipCode.length > 0) return /^[0-9]\d{3}$/.test(zipCode);
+    if (zipCode.length > 1) return /^[0-9]\d{3}$/.test(zipCode);
     else return true;
   },
 

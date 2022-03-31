@@ -13,6 +13,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 
 import {
   isEmail,
+  isZipCode,
   isPhonenumber,
   isNotEmpty,
 } from "../../../constants/validationFunctions";
@@ -37,6 +38,9 @@ function SignUp() {
     if (!isNotEmpty(values.code_postal)) {
       errors.code_postal = "champ requis ! ";
     }
+    // else if (!isZipCode(formValues.code_postale)) {
+    //   errors.code_postaleForme = "Veuillez entrer 4 nombres !  ";
+    // }
 
     if (!isPhonenumber(formValues.numero_telephone_entreprise)) {
       errors.numero_telephone_entrepriseForme =
@@ -46,6 +50,7 @@ function SignUp() {
       errors.numero_telephone_userForme =
         "Veuillez renseigner un numéro de téléphone de 8 chiffres ! ";
     }
+
     if (!isNotEmpty(values.email_entreprise)) {
       errors.email_entreprise = "champ requis !  ";
     } else if (!isEmail(formValues.email_entreprise)) {
@@ -91,7 +96,6 @@ function SignUp() {
     numero_serie: "",
     addresse_entreprise: "",
     code_postal: "",
-
     gouvernorat: "",
     pays: "",
     numero_telephone_entreprise: "",
