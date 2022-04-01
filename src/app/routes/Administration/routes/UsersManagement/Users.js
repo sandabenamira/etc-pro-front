@@ -81,7 +81,7 @@ function User() {
               </IconButton>
               <div className="p-2">
                 <IntlMessages id="archive" />
-                {count}
+                {/* {count} */}
               </div>
             </div>
           </div>

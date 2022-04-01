@@ -118,7 +118,7 @@ function InscriptionModal(props) {
             <div className="d-flex justify-content-center mt-2 ">
               <h1
                 style={{
-                  color: "#44548F",
+                  color: "#3f51b5",
                 }}
               >
                 Détails de la société
@@ -127,14 +127,14 @@ function InscriptionModal(props) {
 
             <div className="p-2 d-flex flex-row ml-4">
               <div className="p-2 d-flex flex-column col-md-6">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>nom :</h1>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>nom :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   {props.data.nom}
                 </h2>
               </div>
               <div className="p-2 d-flex flex-column col-md-6  ">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Numéro Série :
                 </h1>
 
@@ -145,7 +145,7 @@ function InscriptionModal(props) {
             </div>
             <div className="p-2 d-flex flex-row ml-4 ">
               <div className="p-2 d-flex flex-column col-md-6  ">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Addresse :
                 </h1>
 
@@ -155,7 +155,7 @@ function InscriptionModal(props) {
               </div>
 
               <div className="col-lg-6 col-md-6 col-sm-12">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Choix Devise :
                 </h1>
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
@@ -165,7 +165,7 @@ function InscriptionModal(props) {
             </div>
             <div className="p-2 d-flex flex-row ml-4">
               <div className="p-2 d-flex flex-column col-md-6 ">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Gouvernorat :
                 </h1>
 
@@ -174,7 +174,7 @@ function InscriptionModal(props) {
                 </h2>
               </div>
               <div className="p-2 d-flex flex-column col-md-6 ">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Code postale :
                 </h1>
 
@@ -185,14 +185,14 @@ function InscriptionModal(props) {
             </div>
             <div className="p-2 d-flex flex-row  ml-4">
               <div className="col-lg-6 col-md-6 col-sm-12">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>Pays :</h1>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Pays :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   {props.data.pays}
                 </h2>
               </div>
               <div className="col-lg-6 col-md-6 col-sm-12  ">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Créer en :
                 </h1>
 
@@ -202,15 +202,15 @@ function InscriptionModal(props) {
               </div>
             </div>
             <div className="p-2 d-flex flex-row ml-4 ">
-              <div className="p-2 d-flex flex-column col-md-6 flex-wrap">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>Email :</h1>
+              <div className="col-lg-6 col-md-6 col-sm-12">
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Email :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   {props.data.email}
                 </h2>
               </div>
               <div className="col-lg-6 col-md-6 col-sm-12  ">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   {/* choix */}
                 </h1>
 
@@ -227,7 +227,7 @@ function InscriptionModal(props) {
             <div className="d-flex justify-content-center mt-2 ">
               <h1
                 style={{
-                  color: "#44548F",
+                  color: "#3f51b5",
                 }}
               >
                 Détails de la responsable
@@ -236,7 +236,7 @@ function InscriptionModal(props) {
 
             <div className="p-2 d-flex flex-row  ml-4 ">
               <div className="p-2 d-flex flex-column col-md-6 ">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Nom utilisateur :
                 </h1>
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
@@ -244,7 +244,7 @@ function InscriptionModal(props) {
                 </h2>
               </div>
               <div className="p-2 d-flex flex-column col-md-6 ">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>Prénom :</h1>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Prénom :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   {props.data.prenomUser}
@@ -253,14 +253,14 @@ function InscriptionModal(props) {
             </div>
             <div className="p-2 d-flex flex-row ml-4 ">
               <div className="p-2 d-flex flex-column col-md-6">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>Genre :</h1>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Genre :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   {props.data.genreUser}
                 </h2>
               </div>
               <div className="p-2 d-flex flex-column col-md-6">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Date de naissance :
                 </h1>
 
@@ -271,7 +271,7 @@ function InscriptionModal(props) {
             </div>
             <div className="p-2 d-flex flex-row ml-4 ">
               <div className="p-2 d-flex flex-column col-md-6">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Addresse :
                 </h1>
 
@@ -281,7 +281,7 @@ function InscriptionModal(props) {
               </div>
 
               <div className="p-2 d-flex flex-column col-md-6">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Numéro Téléphone :
                 </h1>
 
@@ -292,7 +292,7 @@ function InscriptionModal(props) {
             </div>
             <div className="p-2 d-flex flex-row ml-4">
               <div className="p-2 d-flex flex-column col-md-6 ">
-                <h1 style={{ fontSize: "20px", color: "#44548F" }}>Email :</h1>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Email :</h1>
 
                 <h2
                   style={{
@@ -313,7 +313,14 @@ function InscriptionModal(props) {
                   <Button
                     variant="outlined"
                     color="primary"
-                    style={{ borderRadius: "80px" }}
+                    style={{
+                      borderRadius: "80px",
+                      fontSize: "18px",
+                      fontFamily: " sans-serif",
+                      textTransform: "none",
+                      paddingLeft: "30px",
+                      paddingRight: "30px",
+                    }}
                     onClick={(e) => handleRefuser(e)}
                   >
                     Refuser
@@ -323,7 +330,14 @@ function InscriptionModal(props) {
                   <Button
                     variant="contained"
                     color="primary"
-                    style={{ borderRadius: "80px" }}
+                    style={{
+                      borderRadius: "80px",
+                      fontSize: "18px",
+                      fontFamily: " sans-serif",
+                      textTransform: "none",
+                      paddingLeft: "30px",
+                      paddingRight: "30px",
+                    }}
                     type="submit"
                     onClick={(e) => handleConfirm(e)}
                   >

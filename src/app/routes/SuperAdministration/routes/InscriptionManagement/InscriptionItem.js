@@ -9,6 +9,13 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 
+import IntlMessages from "../../../../../util/IntlMessages";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import Slide from "@material-ui/core/Slide";
+
 function InscriptionItem(props) {
   let dispatch = useDispatch();
   const [opendetails, setOpendetails] = useState(false);
@@ -110,23 +117,24 @@ function InscriptionItem(props) {
           >
             <DeleteOutlineRoundedIcon backgroundColor="white" />
           </IconButton>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="parent-modal-title"
-            aria-describedby="parent-modal-description"
-          >
-            <Box sx={{ ...style, width: 400 }}>
-              <h2 id="parent-modal-title" style={{}}>
-                Supprimer l'inscription de l'entreprise {props.data.nom} ??
-              </h2>
-              <br />
-              <div style={{ marginLeft: "30%" }}>
-                <Button onClick={handleClose}>non </Button>
-                <Button onClick={supprimerInsc}>oui </Button>
-              </div>
-            </Box>
-          </Modal>
+  
+
+          <Dialog open={open} TransitionComponent={Slide}>
+            <DialogContent>
+              <DialogContentText>
+                {<IntlMessages id="message.confirm.modal" />}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>
+                <div style={{ textTransform: "none" }}>{<IntlMessages id="button.no" />}</div>
+              </Button>
+
+              <Button onClick={supprimerInsc}>
+                <div style={{ textTransform: "none" }}>{<IntlMessages id="button.yes" />}</div>
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </td>
       {opendetails && (

@@ -2,7 +2,7 @@ import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
-import { editUser } from "../../../../../store/actions/User";
+import { editAgence, deleteAgence } from "../../../../../store/actions/Agence";
 import { useDispatch } from "react-redux";
 
 export default function AgenceItem(props) {
@@ -11,17 +11,18 @@ export default function AgenceItem(props) {
   const data = props.data;
   const finalData = {
     ...props.data,
-    archive: true,
+    //  archive: true,
   };
   const handleArchive = (e) => {
-    dispatch(editUser(finalData));
-    console.log(finalData);
+   // dispatch(deleteAgence(props.data.id));
+   // dispatch(deleteAgence(finalData));
+
   };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <td
         style={{
-          textAlign: "start",
+          textAlign: "center",
           flexDirection: "row",
           backgroundColor: "#F5F5F5",
           borderTopLeftRadius: 15,
@@ -30,22 +31,22 @@ export default function AgenceItem(props) {
       >
         {data.nom}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.type}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
-        {data.gouvernerat}
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
+        {data.gouvernorat}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.adresse}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.email}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.fax}
       </td>
-      <td style={{ textAlign: "start", backgroundColor: "#F5F5F5" }}>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.numeroTel}
       </td>
 
@@ -76,14 +77,14 @@ export default function AgenceItem(props) {
           </IconButton>
         </div>
       </td>
-      <td
+      {/* <td
         style={{
           textAlign: "center",
           backgroundColor: "#F5F5F5",
           borderTopRightRadius: 15,
           borderBottomRightRadius: 15,
         }}
-      ></td>
+      ></td> */}
     </tr>
   );
 }

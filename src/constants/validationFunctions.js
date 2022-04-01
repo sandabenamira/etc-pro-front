@@ -45,12 +45,13 @@ module.exports = {
   },
   isPhonenumber(str) {
     if (str.length > 1 && /^-?\d+$/.test(str)) {
-
       return /^[0-9]\d{7}$/.test(str);
     } else return true;
   },
   isZipCode(zipCode) {
-    if (zipCode.length > 1) return /^[0-9]\d{3}$/.test(zipCode);
+    const s = zipCode.trim();
+    console.log("hello", s);
+    if (s.length > 0) return /^[0-9]\d{3}$/.test(s);
     else return true;
   },
 
@@ -59,7 +60,8 @@ module.exports = {
     else return true;
   },
   isNotEmpty(value) {
-    if (value.length > 0) return true;
+    const s = value.trim();
+    if (s.length > 0) return true;
     else return false;
   },
   addUserPermitted(roleLabel, userPermission) {

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import EntrepriseModal from "./EntrepriseModal";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 
@@ -42,8 +41,7 @@ export default function EntrepriseItem(props) {
         {props.data.numeroTelephone}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-      {props.data.createdIn.slice(0,10)}
-
+        {props.data.createdIn.slice(0, 10)}
       </td>
 
       <td
@@ -66,19 +64,6 @@ export default function EntrepriseItem(props) {
             onClick={opendetailsUser}
           >
             <VisibilityOutlinedIcon />
-          </IconButton>
-
-          <IconButton
-            aria-label="delete"
-            style={{
-              color: "#FFFFFF",
-              backgroundColor: "#F9972D",
-              width: "14px",
-              height: "14px",
-            }}
-         //   onClick={supprimerInsc}
-          >
-            <DeleteOutlineRoundedIcon backgroundColor="white" />
           </IconButton>
         </div>
       </td>

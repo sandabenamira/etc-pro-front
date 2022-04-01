@@ -11,42 +11,44 @@ import { addAgence } from "../../../../../store/actions/Agence";
 import MenuItem from "@mui/material/MenuItem";
 import {
   isEmail,
-  isPhonenumber,  isStringDate,
+  isPhonenumber,
+  isStringDate,
   isNotEmpty,
 } from "../../../../../constants/validationFunctions";
 export default function AddAgence(props) {
   let dispatch = useDispatch();
   const validate = (values) => {
     const errors = {};
-    if (!values.nom) {
+    if (!isNotEmpty(values.nom)) {
       errors.nom = "champ requis ! ";
     }
 
-    if (!values.type) {
+    if (!isNotEmpty(values.type)) {
       errors.type = "champ requis ! ";
     }
-    if (!values.gouvernorat) {
+    if (!isNotEmpty(values.gouvernorat)) {
       errors.gouvernorat = "champ requis ! ";
     }
-    if (!values.adresse) {
+    if (!isNotEmpty(values.adresse)) {
       errors.adresse = "champ requis ! ";
     }
 
-    if (!values.email) {
+    if (!isNotEmpty(values.email)) {
       errors.email = "champ requis ! ";
     } else if (!isEmail(formValues.email)) {
       errors.emailForme = " Veuillez entrer une adresse e-mail valide ! ";
     }
 
-    if (!values.fax) {
+    if (!isNotEmpty(values.fax)) {
       errors.fax = "champ requis ! ";
     } else if (!isPhonenumber(formValues.fax)) {
       errors.faxForme = "Veuillez entrer un numéro de Fax de 8 chiffres ! ";
     }
-    if (!values.numeroTel) {
+    if (!isNotEmpty(values.numeroTel)) {
       errors.numeroTel = "champ requis ! ";
     } else if (!isPhonenumber(formValues.numeroTel)) {
-      errors.numeroTelForme = "Veuillez entrer un numéro de Téléphone de 8 chiffres ! ";
+      errors.numeroTelForme =
+        "Veuillez entrer un numéro de Téléphone de 8 chiffres ! ";
     }
     return errors;
   };
@@ -142,9 +144,10 @@ export default function AddAgence(props) {
       setShow(true);
       setIsSubmit2(true);
       dispatch(addAgence(finalData));
-     
+      props.openaddAgence();
+
     }
-   /// setShow(true);
+    /// setShow(true);
   };
 
   const handleCancel = (e) => {
@@ -175,10 +178,10 @@ export default function AddAgence(props) {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div className="d-flex flex-row justify-content-center ">
+            <div className="d-flex flex-row justify-content-center mb-5">
               <div
-                className="d-flex justify-content-center  col-lg-11 col-md-11 col-sm-11"
-                style={{ color: "#4C25B7", fontSize: "25px" }}
+                className="d-flex justify-content-center  col-lg-11 col-md-11 col-sm-11 "
+                style={{ color: "#3f51b5", fontSize: "25px" }}
               >
                 <IntlMessages id="gestion.agence.add.agency" />
               </div>
@@ -186,8 +189,11 @@ export default function AddAgence(props) {
               <br />
               <br />
             </div>
-            <div className="p-2 d-flex flex-row  " style={{ height: "120px" }}>
-              <div className="p-2 d-flex flex-column col-md-6  ">
+            <div
+              className="p-2 d-flex flex-row  "
+              style={{ height: "120px", marginLeft: "40px" }}
+            >
+              <div className="p-2 d-flex flex-column col-md-5  ">
                 <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="gestion.agence.agency" />*
                 </div>
@@ -196,8 +202,8 @@ export default function AddAgence(props) {
                     className="textfield"
                     margin="normal"
                     name="nom"
-                    fullWidth
                     size="small"
+                    fullWidth
                     onChange={handleChangee}
                     value={formValues.nom}
                     required
@@ -207,37 +213,53 @@ export default function AddAgence(props) {
                   </div>
                 </div>
               </div>
-              <div className="p-2 d-flex flex-column col-md-6 ">
+
+              <div
+                className="p-2 d-flex flex-column col-md-5  "
+                style={{ width: "50px", marginLeft: "80px" }}
+              >
                 <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="gestion.agence.agency.type" />*
                 </div>
-                <div>
-                  <TextField
+                {/* <TextField
                     className="textfield"
                     select
                     name="type"
                     margin="normal"
                     fullWidth
-                    size="small"
                     onChange={handleChangee}
                     value={formValues.type}
                     required
-                  >
-                    {typeList.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>{" "}
-                  <div className="text-danger ">
-                    <small>{formErrors.type}</small>
-                  </div>
+                  > */}
+                <TextField
+                  className="textfield"
+                  select
+                  name="type"
+                  margin="normal"
+                  fullWidth
+                  size="small"
+                  onChange={handleChangee}
+                  value={formValues.type}
+                  required
+                >
+                  {typeList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <div className="text-danger ">
+                  <small>{formErrors.type}</small>
                 </div>
+                <div></div>
               </div>
             </div>
 
-            <div className="p-2 d-flex flex-row " style={{ height: "120px" }}>
-              <div className="p-2 d-flex flex-column col-md-6 ">
+            <div
+              className="p-2 d-flex flex-row  "
+              style={{ height: "120px", marginLeft: "40px" }}
+            >
+              <div className="p-2 d-flex flex-column col-md-5  ">
                 <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="gestion.agence.address" />*
                 </div>
@@ -257,7 +279,10 @@ export default function AddAgence(props) {
                   </div>
                 </div>
               </div>
-              <div className="p-2 d-flex flex-column col-md-6 ">
+              <div
+                className="p-2 d-flex flex-column col-md-5  "
+                style={{ width: "50px", marginLeft: "80px" }}
+              >
                 <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="gestion.agence.governorate" />*
                 </div>
@@ -286,12 +311,15 @@ export default function AddAgence(props) {
               </div>
             </div>
 
-            <div className="p-2 d-flex flex-row" style={{ height: "120px" }}>
-              <div className="p-2 flex-column col-lg-10 col-md-10">
-                <div className="p-2" style={{ fontSize: "18px" }}>
+            <div
+              className="p-2 d-flex flex-row  "
+              style={{ height: "120px", marginLeft: "40px" }}
+            >
+              <div className="p-2 d-flex flex-column col-md-5  ">
+                <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="gestion.agence.mail" />*
                 </div>
-                <div className="p-2">
+                <div>
                   <TextField
                     className="textfield"
                     name="email"
@@ -308,10 +336,17 @@ export default function AddAgence(props) {
                   </div>
                 </div>
               </div>
+              <div
+                className="p-2 d-flex flex-column col-md-5  "
+                style={{ width: "50px", marginLeft: "80px" }}
+              ></div>
             </div>
 
-            <div className="p-2 d-flex flex-row " style={{ height: "120px" }}>
-              <div className="p-2 d-flex flex-column col-md-6 ">
+            <div
+              className="p-2 d-flex flex-row  "
+              style={{ height: "120px", marginLeft: "40px" }}
+            >
+              <div className="p-2 d-flex flex-column col-md-5  ">
                 <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="gestion.agence.fax" />*
                 </div>
@@ -332,7 +367,10 @@ export default function AddAgence(props) {
                   </div>
                 </div>
               </div>
-              <div className="p-2 d-flex flex-column col-md-6 ">
+              <div
+                className="p-2 d-flex flex-column col-md-5 "
+                style={{ marginLeft: "80px" }}
+              >
                 <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="gestion.agence.tel" />*
                 </div>
@@ -355,9 +393,9 @@ export default function AddAgence(props) {
               </div>
             </div>
             <div
-              className="p-2 d-flex flex-row justify-content-center  align-items-end"
+              className="p-2 d-flex flex-row justify-content-center "
               style={{
-                height: "120px",
+                height: "70px",
               }}
             >
               <div className="p-2">
@@ -379,7 +417,15 @@ export default function AddAgence(props) {
                 <Button
                   variant="outlined"
                   color="primary"
-                  style={{ borderRadius: "80px" }}
+                  style={{
+                    borderRadius: "80px",
+                    marginRight: "80px",
+                    fontSize: "18px",
+                    fontFamily: " sans-serif",
+                    textTransform: "none",
+                    paddingLeft: "30px",
+                    paddingRight: "30px",
+                  }}
                   onClick={handleCancel}
                 >
                   <IntlMessages id="cancel" />
@@ -389,7 +435,14 @@ export default function AddAgence(props) {
                 <Button
                   variant="contained"
                   color="primary"
-                  style={{ borderRadius: "80px" }}
+                  style={{
+                    borderRadius: "80px",
+                    fontSize: "18px",
+                    fontFamily: " sans-serif",
+                    textTransform: "none",
+                    paddingLeft: "30px",
+                    paddingRight: "30px",
+                  }}
                   type="submit"
                   onClick={handleSubmit}
                 >

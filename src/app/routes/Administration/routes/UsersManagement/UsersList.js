@@ -79,8 +79,9 @@ export default function UsersList(props) {
                 borderTopStyle: "none",
                 borderRightStyle: "none",
                 borderLeftStyle: "none",
-                borderRadius: " none",
                 width: 200,
+                borderRadius: 60,
+                //  background:"#3f51b5",
               }),
             }}
           />
@@ -98,6 +99,7 @@ export default function UsersList(props) {
               borderStyle: "solid",
               borderWidth: "1px",
               borderColor: "#565C79",
+              height: "50px",
             }}
           >
             <IconButton aria-label="search">
@@ -120,16 +122,23 @@ export default function UsersList(props) {
             <div className="p-2 ml-auto ">
               <div className="d-flex justify-content-center align-items-center">
                 <Button
-                  style={{ width: "60px", borderRadius: "50px" }}
+                  style={{ width: "400px", borderRadius: "50px" }}
                   onClick={openaddUser}
                 >
                   <AddCircleOutlineOutlinedIcon
-                    style={{ color: orange[500], width: 100 }}
+                    style={{ color: orange[500], marginRight: "20px" }}
                   />
+                  <div
+                    style={{
+                      fontSize: "25px",
+                      color: "orange",
+                      marginRight: "40px",
+                      textTransform: "none",
+                    }}
+                  >
+                    <IntlMessages id="add.user" />
+                  </div>
                 </Button>
-                <div style={{ fontSize: "30px", color: "orange" }}>
-                  <IntlMessages id="add.user" />
-                </div>
               </div>
             </div>
           </div>

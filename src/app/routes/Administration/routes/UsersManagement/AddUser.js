@@ -6,8 +6,8 @@ import TextField from "@material-ui/core/TextField";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-//import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-//import { orange } from "@material-ui/core/colors";
+import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
+import { orange } from "@material-ui/core/colors";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
@@ -31,11 +31,14 @@ import {
 export default function AddUser(props) {
   let dispatch = useDispatch(props);
   const d = new Date();
+  const Input = styled("input")({
+    display: "none",
+  });
 
   const initialValues = {
     nom: "",
     prenom: "",
-    genre: "",
+    gender: "",
     date_naissance: "",
     pays: "",
     role: "",
@@ -109,36 +112,36 @@ export default function AddUser(props) {
   ];
   const validate = (values) => {
     const errors = {};
-    if (!values.nom) {
+    if (!isNotEmpty(values.nom)) {
       errors.nom = "champ requis ! ";
     }
 
-    if (!values.prenom) {
+    if (!isNotEmpty(values.prenom)) {
       errors.prenom = "champ requis ! ";
     }
     if (!values.gender) {
       errors.gender = "champ requis ! ";
     }
-    if (!values.pays) {
+    if (!isNotEmpty(values.pays)) {
       errors.pays = "champ requis ! ";
     }
 
-    if (!values.adresse_postale) {
+    if (!isNotEmpty(values.adresse_postale)) {
       errors.adresse_postale = "champ requis ! ";
     }
-    if (!values.role) {
+    if (!isNotEmpty(values.role)) {
       errors.role = "champ requis ! ";
     }
-    if (!values.agency) {
+    if (!isNotEmpty(values.agency)) {
       errors.agency = "champ requis ! ";
     }
-    if (!values.identifiant) {
+    if (!isNotEmpty(values.identifiant)) {
       errors.identifiant = "champ requis ! ";
     }
     if (!isZipCode(values.code_postale)) {
-      errors.code_postale = "Veuillez entrer 4 nombres ! ";
+      errors.code_postale = "Veuillez entrer 4 chiffres ! ";
     }
-    if (!values.email) {
+    if (!isNotEmpty(values.email)) {
       errors.email = "champ requis ! ";
     } else if (!isEmail(formValues.email)) {
       errors.emailForme = "Veuillez entrer une adresse e-mail valide ! ";
@@ -147,17 +150,17 @@ export default function AddUser(props) {
       errors.papier = "champ requis ! ";
     }
 
-    if (!values.date_naissance) {
+    if (!isNotEmpty(values.date_naissance)) {
       errors.date_naissance = "champ requis ! ";
     }
-    if (!values.tel) {
+    if (!isNotEmpty(values.tel)) {
       errors.tel = "champ requis ! ";
     } else if (!isPhonenumber(formValues.tel)) {
       errors.telForme =
         "Veuillez entrer un numéro de Téléphone de 8 chiffres ! ";
     }
 
-    if (!values.cin) {
+    if (!isNotEmpty(formValues.cin)) {
       errors.cin = "champ requis ! ";
     } else if (!isCIN(formValues.cin)) {
       errors.cinForme = " Veuillez entrer un numéro de CIN de 8 chiffres ! ";
@@ -246,7 +249,7 @@ export default function AddUser(props) {
       };
       dispatch(addUser(finalData));
       setIsSubmit2(true);
-       setFormValues(initialValues);
+      props.openaddUser();
     }
     setShow(true);
   };
@@ -255,9 +258,8 @@ export default function AddUser(props) {
     props.openaddUser();
   };
 
-  const Input = styled("input")({
-    display: "none",
-  });
+  const max = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
+  console.log("hello", max);
 
   return (
     <Modal isOpen={props.openaddUser}>
@@ -286,7 +288,7 @@ export default function AddUser(props) {
             </div>
             <div
               className="d-flex align-item-center justify-content-center "
-              style={{ color: "#4C25B7", fontSize: "25px" }}
+              style={{ color: "#3f51b5", fontSize: "25px" }}
             >
               <IntlMessages id="add.user" />
             </div>
@@ -390,6 +392,9 @@ export default function AddUser(props) {
                   name="date_naissance"
                   fullWidth
                   required
+                  InputProps={{
+                    max: "2020-04-01",
+                  }}
                 />
                 <div className="text-danger ">
                   <small> {formErrors.date_naissance}</small>
@@ -416,9 +421,7 @@ export default function AddUser(props) {
                   <small> {formErrors.pays}</small>
                 </div>
               </div>
-              <div className=" p-2 d-flex flex-column flex-wrap col-md-4 ">
-                {/* <div style={{ fontSize: "18px" }}>Email </div> */}
-              </div>
+              <div className=" p-2 d-flex flex-column flex-wrap col-md-4 "></div>
             </div>
             <div
               className="p-2 d-flex flex-wrap flex-row "
@@ -490,20 +493,22 @@ export default function AddUser(props) {
                 <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="user.address.postal" />*
                 </div>
-                <div>
-                  <TextField
-                    className="textfield"
-                    name="adresse_postale"
-                    margin="normal"
-                    fullWidth
-                    size="small"
-                    onChange={handleChangee}
-                    value={formValues.adresse_postale}
-                    required
-                  ></TextField>
-                  <div className="text-danger ">
-                    <small> {formErrors.adresse_postale}</small>
-                  </div>
+
+                <TextField
+                  className="textfield"
+                  name="adresse_postale"
+                  margin="normal"
+                  fullWidth
+                  size="small"
+                  onChange={handleChangee}
+                  value={formValues.adresse_postale}
+                  required
+                  style={{
+                    marginTop: "1.3%",
+                  }}
+                ></TextField>
+                <div className="text-danger ">
+                  <small> {formErrors.adresse_postale}</small>
                 </div>
               </div>
               <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
@@ -520,6 +525,9 @@ export default function AddUser(props) {
                     value={formValues.code_postale}
                     name="code_postale"
                     required
+                    style={{
+                      marginTop: "1.3%",
+                    }}
                   ></TextField>
                   <div className="text-danger ">
                     <small>{formErrors.code_postale}</small>
@@ -531,6 +539,7 @@ export default function AddUser(props) {
                   htmlFor="icon-button-file"
                   style={{
                     marginLeft: "9%",
+                    marginTop: "-7%",
                   }}
                 >
                   <Input
@@ -551,30 +560,19 @@ export default function AddUser(props) {
                     style={{
                       color: "#696969",
                     }}
-                    // onClick={onImageUpload}
                   >
-                    <PhotoCamera />
-                    <div style={{ fontSize: "18px", marginRight: "5%" }}>
+                    <PhotoCamera style={{ color: orange[500] }} />
+                    <div
+                      style={{
+                        fontSize: "18px",
+                        marginRight: "5%",
+                        color: "orange",
+                      }}
+                    >
                       <IntlMessages id="add.picture" />
                     </div>
                   </IconButton>
                 </label>
-
-                {/* <Button
-                  style={{
-                    fontSize: "18px",
-                    marginBottom: "10%",
-                    color: "orange",
-                  }}
-                  onChange={onImageChange}
-                  startIcon={
-                    <AddCircleOutlineOutlinedIcon
-                      style={{ marginTop: "17%", color: orange[500] }}
-                    />
-                  }
-                >
-                </Button> */}
-                {/* <input type="file" name="myImage" onChange={onImageChange} /> */}
               </div>
             </div>
             <div
@@ -652,10 +650,14 @@ export default function AddUser(props) {
             </div>
             <div
               className="p-2 d-flex flex-wrap flex-row"
-              style={{ height: "90px" }}
+              style={{ height: "50px" }}
             >
-              <div className="p-1" style={{ fontSize: "18px" }}>
-                <IntlMessages id="user.join.papiers" />*
+              <div className="p-2 mr-2">
+                {/* <IntlMessages id="user.join.papiers" /> */}
+                <div style={{ fontSize: "18px" }}>Papier Administratif *</div>
+                <div className="text-danger ">
+                  <small> {formErrors.papier}</small>
+                </div>
               </div>
               <div className="ml-5">
                 <label htmlFor="contained-button-file">
@@ -669,30 +671,36 @@ export default function AddUser(props) {
 
                   <Button
                     color="default"
-                    style={{ borderRadius: "80px", fontWeight: "bold" }}
+                    style={{
+                      borderRadius: "5px",
+                      textTransform: "none",
+                      paddingRight: "60px",
+                    }}
                     startIcon={<AttachmentIcon />}
                     variant="contained"
                     component="span"
                   >
-                    <IntlMessages id="message.attach.file" />
+                    <IntlMessages
+                      id="message.attach.file"
+                      style={{ color: "default" }}
+                    />
                   </Button>
-                  <div className="text-danger ">
-                    <small> {formErrors.papier}</small>
-                  </div>
                 </label>
               </div>
             </div>
             <div
-              className="p-2 d-flex  align-items-end flex-wrap justify-content-center "
-              style={{ height: "70px" }}
+              className="p-2 d-flex   flex-wrap justify-content-center mb-4 "
+              style={{ height: "50px" }}
             >
               <div className="p-2">
                 {show && (
                   <Alert
-                    style={{
-                      //  display: "none",
-                      maxHeight: "70px",
-                    }}
+                    style={
+                      {
+                        //  display: "none",
+                        //  maxHeight: "50px",
+                      }
+                    }
                     id="alert"
                     severity={success}
                   >
@@ -704,10 +712,17 @@ export default function AddUser(props) {
             <div className="p-2 d-flex flex-row  flex-wrap justify-content-center ">
               <div className="p-2">
                 <Button
-                  type="reset"
                   variant="outlined"
                   color="primary"
-                  style={{ borderRadius: "80px" }}
+                  style={{
+                    borderRadius: "80px",
+                    marginRight: "80px",
+                    fontSize: "18px",
+                    fontFamily: " sans-serif",
+                    textTransform: "none",
+                    paddingLeft: "30px",
+                    paddingRight: "30px",
+                  }}
                   onClick={reinitialiser}
                 >
                   <IntlMessages id="cancel" />
@@ -717,7 +732,14 @@ export default function AddUser(props) {
                 <Button
                   variant="contained"
                   color="primary"
-                  style={{ borderRadius: "80px" }}
+                  style={{
+                    borderRadius: "80px",
+                    fontSize: "18px",
+                    fontFamily: " sans-serif",
+                    textTransform: "none",
+                    paddingLeft: "30px",
+                    paddingRight: "30px",
+                  }}
                   type="submit"
                   onClick={handleSubmit}
                 >

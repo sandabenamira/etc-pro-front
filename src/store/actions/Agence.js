@@ -25,7 +25,7 @@ export function addAgence(data) {
 
 export function getAgences() {
   return (dispatch) => {
-    let apiEndpoint = `/users`;
+    let apiEndpoint = `/agences`;
     service.get(apiEndpoint).then((response) => {
       if (response) {
         dispatch({
@@ -40,7 +40,7 @@ export function getAgences() {
 export const editAgence = (data) => {
   console.log(data, "----------editAgence");
   return (dispatch) => {
-    // let apiEndpoint = `/users/` + data.id;
+    // let apiEndpoint = `/agences/` + data.id;
     // service
     //   .patch(apiEndpoint, data)
     //   .then((res) => {
@@ -72,4 +72,15 @@ export const editAgence = (data) => {
     //       }, 4000);
     //     });
   };
+};
+export const deleteAgence = (id) => async (dispatch) => {
+  try {
+
+    dispatch({
+      type: DELETE_AGENCE,
+      payload: id,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };

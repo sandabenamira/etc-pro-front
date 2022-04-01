@@ -15,16 +15,55 @@ import IntlMessages from "../../../../../util/IntlMessages";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAgences } from "../../../../../store/actions/Agence";
+import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 
+import Button from "@material-ui/core/Button";
 import AddAgence from "./AddAgence";
 
 export default function AgenceList() {
+  const roleList = [
+    {
+      id: 0,
+      label: "Administrateur",
+      value: "Administrateur",
+    },
+    {
+      id: 1,
+      label: "Directeurs des Ressouces Humaines",
+      value: "Directeurs des Ressouces Humaines",
+    },
+    {
+      id: 2,
+      label: "Responsable des Formations",
+      value: "Responsable des Formations",
+    },
+    {
+      id: 3,
+      label: "Chef D'agences",
+      value: "Chef D'agences",
+    },
+    {
+      id: 4,
+      label: "Formateurs",
+      value: "Formateurs",
+    },
+    {
+      id: 5,
+      label: "Collaborateurs",
+      value: "Collaborateurs",
+    },
+  ];
+  const dispatch = useDispatch();
+
+  // const [filter, setFilter] = useState({
+  //   label: "Gouvernerat",
+  //   value: "Gouvernerat",
+  // });
   const [openadd, setOpenadd] = useState(false);
+
   const openaddAgence = () => {
     setOpenadd(!openadd);
-    console.log("hello add", openadd);
   };
-  const dispatch = useDispatch();
   const data = useSelector((state) => state.Agences.agences);
   useEffect(() => {
     dispatch(getAgences());
@@ -36,34 +75,32 @@ export default function AgenceList() {
       {openadd && <AddAgence openaddAgence={openaddAgence} />}
 
       <div className="d-flex flex-column">
-        <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12 col-sm-12">
-          <div className=" col-lg-2 col-md-6 d-flex flex-wrap">
-            <div className="p-2">
-              <FormControl variant="outlined">
-                <InputLabel htmlFor="outlined-age-native-simple">
-                  <IntlMessages id="gestion.agence.sort.by" />
-                </InputLabel>
-                <Select
-                  native
-                  color="primary"
-                  style={{
-                    borderRadius: "30px",
-                    fontSize: "15px",
-                    fontFamily: "sans-serif",
-                    width: "150px",
-                    height: "50px",
-                    textTransform: "capitalize",
-                    backgroundColor: "primary",
-                  }}
-                >
-                  <option></option>
-                  <option>Type</option>
-                  <option>Gouvernerat</option>
-                </Select>
-              </FormControl>
-            </div>
+        <div className="d-flex justify-content-around bd-highlight flex-wrap">
+          <div className="p-2">
+          <Select
+            required
+            options={roleList}
+         //   onChange={(e) => setFilter(e)}
+        //    value={filter}
+            id="role"
+            name="role"
+            styles={{
+              control: (base) => ({
+                ...base,
+                "&:hover": { borderColor: "gray" }, // border style on hover
+                border: "1px solid lightgray", // default border color
+                boxShadow: "none", // no box-shadow
+                borderTopStyle: "none",
+                borderRightStyle: "none",
+                borderLeftStyle: "none",
+                borderRadius: " none",
+                width: 200,
+              }),
+            }}
+          />
           </div>
-          <div className="col-lg-4 col-md-6 col-sm-6 d-flex flex-wrap align-items-center m-2 ">
+
+          <div className=" d-flex flex-row flex-wrap p-2 col-lg-3 col-md-6  col-sm-4 bd-highlight flex-wrap">
             <Paper
               component="form"
               className="d-flex flex-row"
@@ -75,6 +112,7 @@ export default function AgenceList() {
                 borderStyle: "solid",
                 borderWidth: "1px",
                 borderColor: "#565C79",
+                height: "50px",
               }}
             >
               <IconButton aria-label="search">
@@ -89,20 +127,34 @@ export default function AgenceList() {
                   fontWeight: "bold",
                 }}
                 placeholder="Recherche ..."
-                inputProps={{ "aria-label": "" }}
+                inputProps={{ "aria-label": "search google maps" }}
               />
             </Paper>
           </div>
 
-          <div className="p-2 ml-auto ">
-            <div className="d-flex justify-content-start align-items-center">
-              <Fab size="small" aria-label="Add" onClick={openaddAgence}>
-                {}
-                <AddIcon style={{ color: orange[500] }} />
-              </Fab>
-              &nbsp;&nbsp;&nbsp;
-              <div style={{ fontSize: "25px", color: "orange" }}>
-                <IntlMessages id="gestion.agence.add.agency" />
+          <div className="p-2">
+            <div className="d-flex ">
+              <div className="p-2 ml-auto ">
+                <div className="d-flex justify-content-center align-items-center">
+                  <Button
+                    style={{ width: "400px", borderRadius: "50px" }}
+                    onClick={openaddAgence}
+                  >
+                    <AddCircleOutlineOutlinedIcon
+                      style={{ color: orange[500] ,marginRight:"20px"}}
+                    />
+                    <div
+                      style={{
+                        fontSize: "25px",
+                        color: "orange",
+                        marginRight: "40px",
+                        textTransform: "none",
+                      }}
+                    >
+                      <IntlMessages id="gestion.agence.add.agency" />
+                    </div>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -113,7 +165,7 @@ export default function AgenceList() {
             style={{ borderCollapse: "separate", borderSpacing: "0 15px" }}
           >
             <thead>
-              <tr style={{ paddingBottom: "10px", textAlign: "start" }}>
+              <tr style={{ paddingBottom: "10px", textAlign: "center" }}>
                 <th style={{ borderBottom: "0", borderTop: "0" }}>
                   <IntlMessages id="gestion.agence.agency" />
                 </th>
@@ -135,13 +187,13 @@ export default function AgenceList() {
                 <th style={{ borderBottom: "0", borderTop: "0" }}>
                   <IntlMessages id="gestion.agence.tel" />
                 </th>
-                <th style={{ borderBottom: "0", borderTop: "0" }}></th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {data.map((row) => (
-              <AgenceItems data={row} />
-            ))}
+                <AgenceItems data={row} />
+              ))}
             </tbody>
           </table>
         </div>

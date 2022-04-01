@@ -1161,6 +1161,7 @@
   "cantine.prix": "Prix",
   "sidebar.components.service-allocation": "Affectation de prestation",
   "sidebar.components.payment": "Paiement",
+  "sidebar.components.partner-management":"Gestion des partenaires",
   "sidebar.components.billing": "Facturation",
   "financial_management": "Reporting financier",
   "homework.detail": "Voir les détails...",

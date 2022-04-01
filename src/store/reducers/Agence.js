@@ -3,7 +3,6 @@ import {
   ADD_AGENCE,
   GET_AGENCE,
   EDIT_AGENCE,
-  DELETE_AGENCE,
 } from "../../constants/ActionTypes";
 
 const initialState = {
@@ -21,7 +20,9 @@ export default function (state = initialState, action) {
 
     case ADD_AGENCE: {
       return Object.assign({}, state, {
-        agences: [action.payload].concat(state.agences), //...state
+        agences: [{ ...action.payload, id: state.agences.length + 1 }].concat(
+          state.agences
+        ), 
       });
     }
 
@@ -34,16 +35,7 @@ export default function (state = initialState, action) {
       return Object.assign({}, state, {
         agences: [
           action.payload,
-          ...state.agences.filter((e) => e.id !== action.payload.id),
-        ],
-      });
-    }
-    case DELETE_AGENCE: {
-      return Object.assign({}, state, {
-        agences: [
-          action.payload,
-          ...state.agences.filter(({ id }) => id !== action.payload.id),
-        ],
+          ...state.agences.filter((e) => e.id !== action.payload.id),       ],
       });
     }
 

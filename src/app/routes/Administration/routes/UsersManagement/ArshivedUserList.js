@@ -61,25 +61,21 @@ export default function ArshivedUserList(props) {
             variant="contained"
             color="primary"
             style={{
-              height: 40,
-              width: 220,
-              borderRadius: 60,
-              fontSize: "20px",
-              fontFamily: "Roboto",
-              textTransform: "capitalize",
+             
+              
             }}
           >
             <IntlMessages id="permission.role.all" />
-            <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
           </Button> */}
 
           <Select
             required
+            id="role"
+            name="role"
+            // label="Tous les roles"
             options={roleList}
             onChange={(e) => setFilter(e)}
             value={filter}
-            id="role"
-            name="role"
             styles={{
               control: (base) => ({
                 ...base,
@@ -89,8 +85,16 @@ export default function ArshivedUserList(props) {
                 borderTopStyle: "none",
                 borderRightStyle: "none",
                 borderLeftStyle: "none",
-                borderRadius: " none",
-                width: 200,
+                textTransform: "capitalize",
+                fontFamily: "Roboto",
+                height: 40,
+                width: 220,
+
+                //fontSize: "20px",
+                // borderRadius: " none",
+                //  width: 200,
+                borderRadius: 60,
+                background: "primary",
               }),
             }}
           />
@@ -134,7 +138,7 @@ export default function ArshivedUserList(props) {
             <tr
               style={{
                 paddingBottom: "10px",
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               <th
