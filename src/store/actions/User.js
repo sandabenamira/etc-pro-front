@@ -14,12 +14,12 @@ export function addUser(data) {
   return (dispatch) => {
     console.log(data, "add User-------------------------------");
     dispatch({ type: ADD_USER, payload: data });
-    // let apiEndpoint = `/users`;
-    // service.post(apiEndpoint, data).then((response) => {
-    //   if (response) {
-    //     dispatch({ type: ADD_USER, payload: response.data });
-    //   }
-    // });
+    let apiEndpoint = `/users`;
+    service.post(apiEndpoint, data).then((response) => {
+      if (response) {
+        dispatch({ type: ADD_USER, payload: response.data });
+      }
+    });
   };
 }
 

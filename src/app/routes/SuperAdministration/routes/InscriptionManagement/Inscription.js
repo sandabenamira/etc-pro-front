@@ -120,7 +120,7 @@ function Inscription() {
 
                 <th style={{ borderBottom: "0", borderTop: "0" }}>Créer en</th>
 
-                <th style={{ borderBottom: "0", borderTop: "0" }}>statut</th>
+                <th style={{ borderBottom: "0", borderTop: "0" }}>status</th>
                 <th style={{ borderBottom: "0", borderTop: "0" }}>Actions</th>
               </tr>
             </thead>
