@@ -44,9 +44,18 @@ module.exports = {
     return date.toString().slice(0, 15);
   },
   isPhonenumber(str) {
-    if (str.length > 1 && /^-?\d+$/.test(str)) {
-      return /^[0-9]\d{7}$/.test(str);
-    } else return true;
+    if (!isNaN(str) && str.length > 0 && /^-?\d+$/.test(str)) {
+      // if (str.length > 0 && /^-?\d+$/.test(str)) {
+      //   return /^[0-9]\d{7}$/.test(str);
+      console.log("helloooooooooooooo2", str);
+
+      var phoneno = /^\d{8}$/;
+      if (str.length > 0 && str.value.match(phoneno)) {
+        console.log("helloooooooo3", str);
+
+        return false;
+      }
+   } else return true;
   },
   isZipCode(zipCode) {
     const s = zipCode.trim();

@@ -7,8 +7,7 @@ import {
 import { service } from "../services/service";
 
 export function addEntreprise(data) {
-  console.log(data, "addEntreprise");
-  return (dispatch) => {
+   return (dispatch) => {
     dispatch({ type: ADD_ENTREPRISE, payload: data });
   };
 }
@@ -17,7 +16,7 @@ export function getEntreprises() {
     let apiEndpoint = `/inscriptions`;
     service.get(apiEndpoint).then((response) => {
       if (response) {
-        dispatch({ type: GET_ENTREPRISE, payload: response.data.filter((e)=> e.confirm==='confirmé') });
+        dispatch({ type: GET_ENTREPRISE, payload: response.data.filter((e)=> e.status==='confirmé') });
       }
     });
   };

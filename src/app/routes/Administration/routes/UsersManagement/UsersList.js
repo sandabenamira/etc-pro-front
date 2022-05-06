@@ -180,9 +180,9 @@ export default function UsersList(props) {
           </thead>
           <tbody>
             {data
-              .filter((e) => e.role === filter.value)
+            //  .filter((e) => e.role === filter.value)
 
-              .filter((e) => e.archive === false)
+              .filter((e) => e.isArchived === false)
               .map((row, i) => (
                 <UserListItem key={i} data={row} />
               ))}

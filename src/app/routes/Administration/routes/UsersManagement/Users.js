@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import UsersList from "./UsersList";
-import AddUser from "./AddUser";
 import IntlMessages from "../../../../../util/IntlMessages";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
@@ -27,9 +26,7 @@ function User() {
   const openaddUser = () => {
     setIsOpen(true);
   };
-  const handleCancel = () => {
-    setIsOpen(false);
-  };
+
   const [count, setCount] = useState(0);
   const increment = () => {
     setCount(count + 1)
@@ -81,8 +78,7 @@ function User() {
               </IconButton>
               <div className="p-2">
                 <IntlMessages id="archive" />
-                {/* {count} */}
-              </div>
+               </div>
             </div>
           </div>
         </div>

@@ -46,7 +46,7 @@ function EntrepriseModal(props) {
                 <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Nom :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.nom}
+                  {props.data.nameEntreprise}
                 </h2>
               </div>
               <div className="p-2 d-flex flex-column col-md-6  ">
@@ -55,7 +55,7 @@ function EntrepriseModal(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.numSerie}
+                  {props.data.serialNumberEntreprise}
                 </h2>
               </div>
             </div>
@@ -66,7 +66,7 @@ function EntrepriseModal(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.addresse}
+                  {props.data.addressEntreprise}
                 </h2>
               </div>
 
@@ -75,7 +75,7 @@ function EntrepriseModal(props) {
                   Choix Devise :
                 </h1>
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.choixDevise}
+                  {props.data.choiceCurrencyEntreprise}
                 </h2>
               </div>
             </div>
@@ -86,7 +86,7 @@ function EntrepriseModal(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.gouvernorat}
+                  {props.data.governorateEntreprise}
                 </h2>
               </div>
               <div className="p-2 d-flex flex-column col-md-6 ">
@@ -95,7 +95,7 @@ function EntrepriseModal(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.codePostale}
+                  {props.data.postalCodeEntreprise}
                 </h2>
               </div>
             </div>
@@ -104,7 +104,7 @@ function EntrepriseModal(props) {
                 <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Pays :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.pays}
+                  {props.data.countryEntreprise}
                 </h2>
               </div>
               <div className="col-lg-6 col-md-6 col-sm-12  ">
@@ -122,7 +122,7 @@ function EntrepriseModal(props) {
                 <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Email :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.email}
+                  {props.data.emailEntreprise}
                 </h2>
               </div>
               <div className="col-lg-6 col-md-6 col-sm-12  ">
@@ -156,14 +156,14 @@ function EntrepriseModal(props) {
                   Nom utilisateur :
                 </h1>
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.nomUser}
+                  {props.data.firstNameUser}
                 </h2>
               </div>
               <div className="p-2 d-flex flex-column col-md-6 ">
                 <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Prénom :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.prenomUser}
+                  {props.data.lastNameUser}
                 </h2>
               </div>
             </div>
@@ -172,7 +172,7 @@ function EntrepriseModal(props) {
                 <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Genre :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.genreUser}
+                  {props.data.genderUser}
                 </h2>
               </div>
               <div className="p-2 d-flex flex-column col-md-6">
@@ -181,7 +181,7 @@ function EntrepriseModal(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.dateNaissanceUser}
+                  {props.data.dateBirthUser}
                 </h2>
               </div>
             </div>
@@ -192,7 +192,7 @@ function EntrepriseModal(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.addresseUser}
+                  {props.data.addressUser}
                 </h2>
               </div>
 
@@ -202,7 +202,7 @@ function EntrepriseModal(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {props.data.numeroTelephoneUser}
+                  {props.data.telephoneNumberUser}
                 </h2>
               </div>
             </div>

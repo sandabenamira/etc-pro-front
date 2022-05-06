@@ -22,26 +22,26 @@ export default function EntrepriseItem(props) {
           borderBottomLeftRadius: 15,
         }}
       >
-        <p className="fw-bold mb-1"> {props.data.nom}</p>
+        <p className="fw-bold mb-1"> {props.data.nameEntreprise}</p>
       </th>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.numSerie}
+        {props.data.serialNumberEntreprise}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.addresse}
+        {props.data.addressEntreprise}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.gouvernorat}
+        {props.data.governorateEntreprise}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.pays}
+        {props.data.countryEntreprise}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.numeroTelephone}
+        {props.data.telephoneNumberEntreprise}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.createdIn.slice(0, 10)}
+        {/* {props.data.createdIn.slice(0, 10)} */}
       </td>
 
       <td

@@ -15,7 +15,7 @@ export default function UserListItem(props) {
 
   const finalData = {
     ...props.data,
-    archive: true,
+    isArchived: true,
 
   };
   console.log("hello final data",finalData)
@@ -43,20 +43,20 @@ export default function UserListItem(props) {
         </div>
       </th>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.nom}
+        {data.firstName}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.prenom}
+        {data.lastName}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.role}
+        {/* {data.role} */}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.email}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.numeroTelephone}
+        {data.telephoneNumber}
       </td>
       <td
         style={{

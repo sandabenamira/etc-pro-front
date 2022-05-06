@@ -170,8 +170,8 @@ export default function ArshivedUserList(props) {
           </thead>
           <tbody>
             {data
-              .filter((e) => e.archive === true)
-              .filter((e) => e.role === filter.value)
+              .filter((e) => e.isArchived === true)
+          //    .filter((e) => e.role === filter.value)
 
               .map((row, i) => (
                 <ArshivedUserItems

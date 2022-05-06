@@ -41,18 +41,18 @@ export default function UserDetails(props) {
 
               <div className="col-lg-7 col-md-4 col-sm-4 d-flex flex-column justify-content-start ">
                 <h1 style={{ fontSize: "30px", color: "#44548F" }}>
-                  {data.nom + " " + data.prenom}
+                  {data.firstName + " " + data.lastName}
                 </h1>
                 <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>
-                  {data.role}
+                  {/* {data.role} */}
                 </h2>
 
                 <h3 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  <IntlMessages id="user.identifiant" />:{data.identifiant}
+                  <IntlMessages id="user.identifiant" />:{data.identifier}
                 </h3>
                 <h4 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   <IntlMessages id="gestion.agence.agency" /> <b> : </b>
-                  {data.agency}
+                  {/* {data.agency} */}
                 </h4>
               </div>
             </div>
@@ -64,7 +64,7 @@ export default function UserDetails(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {data.dateNaissance}
+                  {data.dateBirth}
                 </h2>
               </div>
 
@@ -72,7 +72,7 @@ export default function UserDetails(props) {
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>Pays</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {data.pays}
+                  {data.country}
                 </h2>
               </div>
             </div>
@@ -84,7 +84,7 @@ export default function UserDetails(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {data.adressePostale}
+                  {data.address}
                 </h2>
               </div>
 
@@ -94,7 +94,7 @@ export default function UserDetails(props) {
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {data.codePostal}
+                  {data.postalCode}
                 </h2>
               </div>
             </div>
@@ -113,20 +113,20 @@ export default function UserDetails(props) {
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>N° tel</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {data.numeroTelephone}
+                  {data.telephoneNumber}
                 </h2>
               </div>
             </div>
 
             <div className=" d-flex justify-content-start flex-row flex-wrap ">
-              <div className=" d-flex flex-column col-md-6 col-lg-7 d-flex justify-content-start align-items-start bd-highlight flex-wrap">
+              {/* <div className=" d-flex flex-column col-md-6 col-lg-7 d-flex justify-content-start align-items-start bd-highlight flex-wrap">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
                   <IntlMessages id="country.user" />
                 </h1>
                 <h2 style={{ fontSize: "19px", color: "#8C8C8C" }}>
-                  {data.pays}
+                  {data.country}
                 </h2>
-              </div>
+              </div> */}
               <div className="col-lg-4 col-md-4 col-sm-4 d-flex flex-column justify-content-start  ">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>CIN</h1>
 
@@ -141,7 +141,7 @@ export default function UserDetails(props) {
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
                   <IntlMessages id="user.join.papiers" /> (1)
                 </h1>
-                <h2> {data.papier} </h2>
+                <h2> {data.attachment} </h2>
               </div>
 
               <div className="col-lg-4 col-md-4 col-sm-4 d-flex flex-column justify-content-start  ">

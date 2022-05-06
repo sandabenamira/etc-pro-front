@@ -18,6 +18,7 @@ function Inscription() {
   useEffect(() => {
     dispatch(getInscriptions());
   }, []);
+  console.log("hello data",data)
 
   const [filter, setFilter] = useState({
     label: "En attente",
@@ -38,7 +39,7 @@ function Inscription() {
                 { label: "En attente", value: "en attente" },
                 { label: "Refusé", value: "refusé" },
               ]}
-              onChange={(e) => setFilter(e)}
+               onChange={(e) => setFilter(e)}
               id="statut"
               name="statut"
               value={filter}
@@ -126,7 +127,7 @@ function Inscription() {
             </thead>
             <tbody>
               {data
-                .filter((e) => e.confirm === filter.value)
+                .filter((e) => e.status === filter.value)
                 .map((row, index) => (
                   <InscriptionItem key={index} data={row} />
                 ))}

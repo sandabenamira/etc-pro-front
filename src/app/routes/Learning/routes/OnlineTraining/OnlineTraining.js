@@ -21,7 +21,7 @@ export class OnlineTraining extends Component {
       goal: "",
       methodology: "",
       Prerequisites: "",
-      nbrDays: null,
+      nbrDays: 1,
       price: null,
       certificate: false,
       trainingFormat: "",
@@ -120,7 +120,7 @@ export class OnlineTraining extends Component {
   }
 
   handleChange = (name) => (event) => {
-    console.log(name, event.target.value);
+    console.log("hello onlineTraining",name, event.target.value);
     this.setState({ [name]: event.target.value });
   };
   addNewChoice = (index, name) => {

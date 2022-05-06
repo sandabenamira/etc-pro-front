@@ -17,6 +17,7 @@ function get(apiEndpoint) {
   return axios
     .get(config.baseUrl + apiEndpoint)
     .then((response) => {
+      console.log("hello axios",response)
       return response;
     })
     .catch((err) => {

@@ -25,49 +25,49 @@ function SignUp() {
   );
   const validate = (values) => {
     const errors = {};
-    if (!isNotEmpty(values.nomE)) {
+    if (!isNotEmpty(values.nameEntreprise)) {
       errors.nomE = "champ requis ! ";
     }
 
-    if (!isNotEmpty(values.numero_serie)) {
+    if (!isNotEmpty(values.serialNumberEntreprise)) {
       errors.numero_serie = "champ requis !";
     }
-    if (!isNotEmpty(values.addresse_entreprise)) {
+    if (!isNotEmpty(values.addressEntreprise)) {
       errors.addresse_entreprise = "champ requis ! ";
     }
-    if (!isNotEmpty(values.code_postal)) {
+    if (!isNotEmpty(values.postalCodeEntreprise)) {
       errors.code_postal = "champ requis ! ";
-    } else if (!isZipCode(formValues.code_postal)) {
+    } else if (!isZipCode(formValues.governorateEntreprise)) {
       errors.code_postaleForme = "Veuillez entrer 4 nombres !  ";
     }
 
-    if (!isPhonenumber(formValues.numero_telephone_entreprise)) {
+    if (!isPhonenumber(formValues.telephoneNumberEntreprise)) {
       errors.numero_telephone_entrepriseForme =
         "Veuillez renseigner un numéro de téléphone de 8 chiffres ! ";
     }
-    if (!isPhonenumber(formValues.numero_telephone_user)) {
+    if (!isPhonenumber(formValues.telephoneNumberUser)) {
       errors.numero_telephone_userForme =
         "Veuillez renseigner un numéro de téléphone de 8 chiffres ! ";
     }
 
-    if (!isNotEmpty(values.email_entreprise)) {
+    if (!isNotEmpty(values.emailEntreprise)) {
       errors.email_entreprise = "champ requis !  ";
-    } else if (!isEmail(formValues.email_entreprise)) {
+    } else if (!isEmail(formValues.emailEntreprise)) {
       errors.email_entrepriseForme =
         "Veuillez entrer une adresse e-mail valide ! ";
     }
-    if (!isNotEmpty(values.choixDevise)) {
+    if (!isNotEmpty(values.choiceCurrencyEntreprise)) {
       errors.choixDevise = "champ requis !  ";
     }
-    if (!isNotEmpty(values.nom_user)) {
+    if (!isNotEmpty(values.lastNameUser)) {
       errors.nom_user = "champ requis !";
     }
-    if (!isNotEmpty(values.prenom)) {
+    if (!isNotEmpty(values.firstNameUser)) {
       errors.prenom = "champ requis ! ";
     }
-    if (!isNotEmpty(values.emailUU)) {
+    if (!isNotEmpty(values.emailUser)) {
       errors.emailUU = "champ requis ! ";
-    } else if (!isEmail(formValues.emailUU)) {
+    } else if (!isEmail(formValues.emailUser)) {
       errors.emailUUForme = "Veuillez entrer une adresse e-mail valide";
     }
     return errors;
@@ -91,23 +91,27 @@ function SignUp() {
     },
   ];
   const initialValues = {
-    nomE: "",
-    numero_serie: "",
-    addresse_entreprise: "",
-    code_postal: "",
-    gouvernorat: "",
-    pays: "",
-    numero_telephone_entreprise: "",
-    email_entreprise: "",
-    choixDevise: "",
-    nom_user: "",
-    prenom: "",
-    dateNaiss: "",
-    adresse_user: "",
-    numero_telephone_user: "",
-    emailUU: "",
-    gender: "",
-  };
+    nameEntreprise: "",
+    serialNumberEntreprise:"",
+    addressEntreprise: "",
+    postalCodeEntreprise: "",
+    governorateEntreprise: "",
+    countryEntreprise: "",
+    telephoneNumberEntreprise: "",
+    emailEntreprise: "",
+    choiceCurrencyEntreprise: "",
+    // createdBy: "",
+    // modifiedIn: "",
+    // modifiedBy: "",
+    // deleted: "",
+    lastNameUser: "",
+    firstNameUser:  "",
+    genderUser:  "",
+    dateBirthUser: "",
+    addressUser: "",
+    telephoneNumberUser:  "" ,
+    emailUser: ""
+};
   const [formValues, setFormValues] = useState(initialValues);
   const [alert, setAlert] = useState("");
   const [success, setSuccess] = useState("error");
@@ -155,30 +159,29 @@ function SignUp() {
       setIsSubmit(true);
 
       let Data = {
-        nom: formValues.nomE,
-        numSerie: formValues.numero_serie,
-        addresse: formValues.addresse_entreprise,
-        codePostale: formValues.code_postal,
-        gouvernorat: formValues.gouvernorat,
-        pays: formValues.pays,
-        numeroTelephone: formValues.numero_telephone_entreprise,
-        email: formValues.email_entreprise,
-        choixDevise: formValues.choixDevise,
-        type: "",
-        status: "",
-        createdIn: new Date(),
-        createdBy: 0,
-        modifiedIn: new Date(),
-        modifiedBy: 0,
-        deleted: new Date(),
-        nomUser: formValues.nom_user,
-        prenomUser: formValues.prenom,
-        genreUser: formValues.gender,
-        dateNaissanceUser: formValues.dateNaiss,
-        addresseUser: formValues.adresse_user,
+        nameEntreprise: formValues.nameEntreprise,
+        serialNumberEntreprise: formValues.serialNumberEntreprise,
+        addressEntreprise: formValues.addressEntreprise,
+        postalCodeEntreprise: formValues.postalCodeEntreprise,
+        governorateEntreprise: formValues.governorateEntreprise,
+        countryEntreprise: formValues.countryEntreprise,
+        telephoneNumberEntreprise: formValues.telephoneNumberEntreprise,
+        emailEntreprise: formValues.emailEntreprise,
+        choiceCurrencyEntreprise: formValues.choiceCurrencyEntreprise,
+       // type: "",
+        // status: "",
+       //  createdIn: new Date(),
+        // createdBy: 0,
+        // modifiedIn: new Date(),
+        // modifiedBy: 0,
+        // deleted: new Date(),
+        lastNameUser: formValues.lastNameUser,
+        firstNameUser: formValues.firstNameUser,
+        genderUser: formValues.genderUser,
+        dateBirthUser: formValues.dateBirthUser,
+        addressUser: formValues.addressUser,
         numeroTelephoneUser: formValues.numero_telephone_user,
-        emailUser: formValues.emailUU,
-        confirm: "en attente",
+        telephoneNumberUser: formValues.telephoneNumberUser,
       };
       // setShow(false);
       setIsSubmit2(true);
@@ -281,9 +284,9 @@ function SignUp() {
 
                   <InputBase
                     fullWidth
-                    name="nomE"
+                    name="nameEntreprise"
                     onChange={handleChangee}
-                    value={formValues.nomE}
+                    value={formValues.nameEntreprise}
                     required
                     style={{
                       borderBottom: "1px solid  #1a85b3",
@@ -310,9 +313,9 @@ function SignUp() {
                   <InputBase
                     helperText="Incorrect entry."
                     type="text"
-                    name="numero_serie"
+                    name="serialNumberEntreprise"
                     onChange={handleChangee}
-                    value={formValues.numero_serie}
+                    value={formValues.serialNumberEntreprise}
                     required
                     style={{
                       borderBottom: "1px solid  #1a85b3",
@@ -339,9 +342,9 @@ function SignUp() {
                   </h4>
                   <InputBase
                     type="text"
-                    name="pays"
+                    name="countryEntreprise"
                     onChange={handleChangee}
-                    value={formValues.pays}
+                    value={formValues.countryEntreprise}
                     style={{
                       borderBottom: "1px solid #1a85b3",
                     }}
@@ -362,10 +365,10 @@ function SignUp() {
                   </h4>
 
                   <InputBase
-                    name="gouvernorat"
+                    name="governorateEntreprise"
                     type="text"
                     onChange={handleChangee}
-                    value={formValues.gouvernorat}
+                    value={formValues.governorateEntreprise}
                     style={{
                       borderBottom: "1px solid #1a85b3",
                     }}
@@ -387,10 +390,10 @@ function SignUp() {
                     Adresse de la société*
                   </h4>
                   <InputBase
-                    name="addresse_entreprise"
+                    name="addressEntreprise"
                     type="text"
                     onChange={handleChangee}
-                    value={formValues.addresse_entreprise}
+                    value={formValues.addressEntreprise}
                     style={{
                       borderBottom: "1px solid #1a85b3",
                     }}
@@ -415,9 +418,9 @@ function SignUp() {
                   </h4>
                   <InputBase
                     type="text"
-                    name="code_postal"
+                    name="postalCodeEntreprise"
                     onChange={handleChangee}
-                    value={formValues.code_postal}
+                    value={formValues.postalCodeEntreprise}
                     style={{
                       borderBottom: "1px solid #1a85b3",
                     }}
@@ -450,9 +453,9 @@ function SignUp() {
                   <InputBase
                     fullWidth
                     type="text"
-                    name="numero_telephone_entreprise"
+                    name="telephoneNumberEntreprise"
                     onChange={handleChangee}
-                    value={formValues.numero_telephone_entreprise}
+                    value={formValues.telephoneNumberEntreprise}
                     style={{
                       borderBottom: "1px solid #1a85b3",
                     }}
@@ -478,9 +481,9 @@ function SignUp() {
                   <InputBase
                     fullWidth
                     type="email"
-                    name="email_entreprise"
+                    name="emailEntreprise"
                     onChange={handleChangee}
-                    value={formValues.email_entreprise}
+                    value={formValues.emailEntreprise}
                     required
                     style={{
                       borderBottom: "1px solid #1a85b3",
@@ -510,9 +513,9 @@ function SignUp() {
                     fullWidth
                     select
                     required
-                    name="choixDevise"
+                    name="choiceCurrencyEntreprise"
                     variant="standard"
-                    value={formValues.choixDevise}
+                    value={formValues.choiceCurrencyEntreprise}
                     onChange={handleChangee}
                     style={{
                       borderBottom: "1px solid #1a85b3",
@@ -581,9 +584,9 @@ function SignUp() {
                   <InputBase
                     fullWidth
                     type="text"
-                    name="nom_user"
+                    name="lastNameUser"
                     onChange={handleChangee}
-                    value={formValues.nom_user}
+                    value={formValues.lastNameUser}
                     required
                     style={{
                       borderBottom: "1px solid #1a85b3",
@@ -608,9 +611,9 @@ function SignUp() {
                   <InputBase
                     fullWidth
                     type="text"
-                    name="prenom"
+                    name="firstNameUser"
                     onChange={handleChangee}
-                    value={formValues.prenom}
+                    value={formValues.firstNameUser}
                     required
                     style={{
                       borderBottom: "1px solid #1a85b3",
@@ -637,13 +640,13 @@ function SignUp() {
                 </h4>
 
                 <RadioGroup
-                  name="gender"
+                  name="genderUser"
                   className=" d-flex flex-row"
                   style={{
                     marginLeft: "30px",
                     marginTop: "-10px",
                   }}
-                  value={formValues.gender}
+                  value={formValues.genderUser}
                   onChange={handleChangee}
                 >
                   <FormControlLabel
@@ -689,9 +692,9 @@ function SignUp() {
                   <InputBase
                     fullWidth
                     type="date"
-                    name="dateNaiss"
+                    name="dateBirthUser"
                     onChange={handleChangee}
-                    value={formValues.dateNaiss}
+                    value={formValues.dateBirthUser}
                     style={{
                       borderBottom: "1px solid #1a85b3",
                     }}
@@ -717,9 +720,9 @@ function SignUp() {
                   <InputBase
                     fullWidth
                     type="text"
-                    name="adresse_user"
+                    name="addressUser"
                     onChange={handleChangee}
-                    value={formValues.adresse_user}
+                    value={formValues.addressUser}
                     style={{
                       borderBottom: "1px solid #1a85b3",
                     }}
@@ -743,9 +746,9 @@ function SignUp() {
                   <InputBase
                     fullWidth
                     type="text"
-                    name="numero_telephone_user"
+                    name="telephoneNumberUser"
                     onChange={handleChangee}
-                    value={formValues.numero_telephone_user}
+                    value={formValues.telephoneNumberUser}
                     style={{
                       borderBottom: "1px solid #1a85b3",
                     }}
@@ -768,9 +771,9 @@ function SignUp() {
                   <InputBase
                     fullWidth
                     type="email"
-                    name="emailUU"
+                    name="emailUser"
                     onChange={handleChangee}
-                    value={formValues.emailUU}
+                    value={formValues.emailUser}
                     required
                     style={{
                       borderBottom: "1px solid #1a85b3",

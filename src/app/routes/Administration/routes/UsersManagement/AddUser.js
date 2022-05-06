@@ -227,25 +227,23 @@ export default function AddUser(props) {
     if (Object.keys(error).length === 0) {
       setIsSubmit(true);
       let finalData = {
-        nom: formValues.nom,
-        prenom: formValues.prenom,
-        genre: formValues.genre,
-        dateNaissance: formValues.date_naissance,
-        pays: formValues.pays,
-        codePostal: formValues.code_postale,
-        adressePostale: formValues.adresse_postale,
+        firstName: formValues.nom,
+        lastName: formValues.prenom,
+        gender: formValues.genre,
+        dateBirth: formValues.date_naissance,
+        country: formValues.pays,
+        postalCode: formValues.code_postale,
+        address: formValues.adresse_postale,
         photo: isUndefinedString(URLphoto[0]),
-        role: formValues.role,
-        identifiant: formValues.identifiant,
+        //   role: formValues.role,
+        identifier: formValues.identifiant,
         agency: formValues.agency,
         email: formValues.email,
-        //   "password": "string",
-        pieceJointe: papier,
+        attachment: papier,
         createdIn: isStringDate(d),
         modifiedIn: isStringDate(d),
-        numeroTelephone: formValues.tel,
+        telephoneNumber: formValues.tel,
         cin: formValues.cin,
-        archive: false,
       };
       dispatch(addUser(finalData));
       setIsSubmit2(true);

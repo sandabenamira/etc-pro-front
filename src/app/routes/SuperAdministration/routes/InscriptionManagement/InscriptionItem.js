@@ -5,8 +5,7 @@ import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import InscriptionModal from "./InscriptionModal";
 import { useDispatch } from "react-redux";
 import { deleteInscription } from "../../../../../store/actions/Inscription";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
+ 
 import Button from "@mui/material/Button";
 
 import IntlMessages from "../../../../../util/IntlMessages";
@@ -58,30 +57,30 @@ function InscriptionItem(props) {
           borderBottomLeftRadius: 15,
         }}
       >
-        <p className="fw-bold mb-1"> {props.data.nom}</p>
+        <p className="fw-bold mb-1"> {props.data.nameEntreprise}</p>
       </th>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.numSerie}
+        {props.data.serialNumberEntreprise}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.addresse}
-      </td>
-
-      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.gouvernorat}
-      </td>
-      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.pays}
-      </td>
-      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.numeroTelephone}
-      </td>
-      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.createdIn.slice(0, 10)}
+        {props.data.addressEntreprise}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.confirm}
+        {props.data.governorateEntreprise}
+      </td>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
+        {props.data.countryEntreprise}
+      </td>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
+        {props.data.telephoneNumberEntreprise}
+      </td>
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
+        {/* {props.data.createdIn.slice(0, 10)} */}
+      </td>
+
+      <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
+        {props.data.status}
       </td>
       <td
         style={{

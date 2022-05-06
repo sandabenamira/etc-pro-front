@@ -15,7 +15,7 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case GET_ENTREPRISE: {
       return Object.assign({}, state, {
-        entreprises: action.payload,
+        entreprises: action.payload.filter((e)=> e.status==='confirmé') ,
       });
     }
     // case ADD_ENTREPRISE: {

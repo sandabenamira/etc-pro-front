@@ -44,24 +44,24 @@ export default function ArshivedUserItems(props) {
       >
         <div style={{ textAlign: "center" }}>
           <Avatar style={{
-          }} alt={data.prenom} src={data.photo} />
+          }} alt={data.firstName} src={data.photo} />
         </div>
       </th>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.nom}
+        {data.lastName}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.prenom}
+        {data.firstName}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.role}
+        {/* {data.role} */}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.email}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.numeroTelephone}
+        {data.telephoneNumber}
       </td>
       <td
         style={{
