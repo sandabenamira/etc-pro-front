@@ -15,6 +15,9 @@ import {
   isStringDate,
   isNotEmpty,
 } from "../../../../../constants/validationFunctions";
+
+// import { Form, Row, InputGroup, Col } from "react-bootstrap";
+
 export default function AddAgence(props) {
   let dispatch = useDispatch();
   const validate = (values) => {
@@ -107,20 +110,20 @@ export default function AddAgence(props) {
     });
   };
 
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit && isSubmit2) {
-      setAlert("Le formulaire est envoyé avec succès! ");
-      setSuccess("success");
-    } else if (Object.keys(formErrors).length === 0 && isSubmit) {
-      setAlert("Le formulaire non envoyé ");
-      setSuccess("error");
-    } else if (Object.keys(formErrors).length > 0) {
-      setAlert("les champs du fomulaire non satisfés");
-      setSuccess("error");
-    }
-  });
+  // useEffect(() => {
+  //   if (Object.keys(formErrors).length === 0 && isSubmit && isSubmit2) {
+  //     setAlert("Le formulaire est envoyé avec succès! ");
+  //     setSuccess("success");
+  //   } else if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //     setAlert("Le formulaire non envoyé ");
+  //     setSuccess("error");
+  //   } else if (Object.keys(formErrors).length > 0) {
+  //     setAlert("les champs du fomulaire non satisfés");
+  //     setSuccess("error");
+  //   }
+  // });
 
-  const handleSubmit = (e) => {
+  const handleSubmitt = (e) => {
     e.preventDefault();
     setShow(false);
 
@@ -140,24 +143,124 @@ export default function AddAgence(props) {
         createdIn: isStringDate(new Date()),
         modifiedIn: isStringDate(new Date()),
         archive: false,
+        entrepriseId: 1,
       };
       setShow(true);
       setIsSubmit2(true);
       dispatch(addAgence(finalData));
       props.openaddAgence();
-
     }
     /// setShow(true);
   };
+  const handleSubmittt = (e) => {
+    // if (Object.keys(error).length === 0) {
+    let finalData = {
+      nom: formValues.nom,
+      type: formValues.type,
+      gouvernorat: formValues.gouvernorat,
+      adresse: formValues.adresse,
+      email: formValues.email,
+      fax: parseInt(formValues.fax),
+      numeroTel: parseInt(formValues.numeroTel),
+      createdIn: isStringDate(new Date()),
+      modifiedIn: isStringDate(new Date()),
+      archive: false,
+      entrpriseId: 2,
+    };
 
+    dispatch(addAgence(finalData));
+  };
   const handleCancel = (e) => {
     props.openaddAgence();
+  };
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
   };
 
   return (
     <Modal isOpen={props.openaddAgence}>
       <ModalBody>
-        <form className="row" autoComplete="off">
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Row className="mb-3">
+            <Form.Group as={Col} md="4" controlId="validationCustom01">
+              <Form.Label>First name</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="First name"
+                defaultValue="Mark"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4" controlId="validationCustom02">
+              <Form.Label>Last name</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="Last name"
+                defaultValue="Otto"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+              <Form.Label>Username</Form.Label>
+              <InputGroup hasValidation>
+                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  placeholder="Username"
+                  aria-describedby="inputGroupPrepend"
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please choose a username.
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} md="6" controlId="validationCustom03">
+              <Form.Label>City</Form.Label>
+              <Form.Control type="text" placeholder="City" required />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid city.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="3" controlId="validationCustom04">
+              <Form.Label>State</Form.Label>
+              <Form.Control type="text" placeholder="State" required />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid state.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="3" controlId="validationCustom05">
+              <Form.Label>Zip</Form.Label>
+              <Form.Control type="text" placeholder="Zip" required />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid zip.
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <Form.Group className="mb-3">
+            <Form.Check
+              required
+              label="Agree to terms and conditions"
+              feedback="You must agree before submitting."
+              feedbackType="invalid"
+            />
+          </Form.Group>
+          <Button type="submit">Submit form</Button>
+        </Form>
+
+        {/* <form className="row " autoComplete="off">
           <div className="d-flex flex-column col-lg-12 col-md-12 ">
             <div
               className="d-flex justify-content-end mt-2 "
@@ -193,13 +296,12 @@ export default function AddAgence(props) {
               className="p-2 d-flex flex-row  "
               style={{ height: "120px", marginLeft: "40px" }}
             >
-              <div className="p-2 d-flex flex-column col-md-5  ">
+              <div className="p-2 d-flex flex-column col-md-5 form-group  ">
                 <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="gestion.agence.agency" />*
                 </div>
                 <div>
                   <TextField
-                    className="textfield"
                     margin="normal"
                     name="nom"
                     size="small"
@@ -208,7 +310,8 @@ export default function AddAgence(props) {
                     value={formValues.nom}
                     required
                   ></TextField>
-                  <div className="text-danger ">
+
+                  <div>
                     <small>{formErrors.nom}</small>
                   </div>
                 </div>
@@ -221,16 +324,7 @@ export default function AddAgence(props) {
                 <div style={{ fontSize: "18px" }}>
                   <IntlMessages id="gestion.agence.agency.type" />*
                 </div>
-                {/* <TextField
-                    className="textfield"
-                    select
-                    name="type"
-                    margin="normal"
-                    fullWidth
-                    onChange={handleChangee}
-                    value={formValues.type}
-                    required
-                  > */}
+
                 <TextField
                   className="textfield"
                   select
@@ -444,14 +538,14 @@ export default function AddAgence(props) {
                     paddingRight: "30px",
                   }}
                   type="submit"
-                  onClick={handleSubmit}
+                  // onClick={handleSubmit}
                 >
                   <IntlMessages id="confirm" />
                 </Button>
               </div>
             </div>
           </div>
-        </form>
+        </form> */}
       </ModalBody>
     </Modal>
   );

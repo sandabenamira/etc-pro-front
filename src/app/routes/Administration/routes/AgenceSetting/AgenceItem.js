@@ -29,16 +29,16 @@ export default function AgenceItem(props) {
           borderBottomLeftRadius: 15,
         }}
       >
-        {data.nom}
+        {data.name}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.type}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.gouvernorat}
+        {data.governorate}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.adresse}
+        {data.address}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {data.email}
@@ -47,7 +47,7 @@ export default function AgenceItem(props) {
         {data.fax}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.numeroTel}
+        {data.telephoneNumber}
       </td>
 
       <td style={{ backgroundColor: "#F5F5F5" }}>

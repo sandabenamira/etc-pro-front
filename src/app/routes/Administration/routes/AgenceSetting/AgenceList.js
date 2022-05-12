@@ -54,11 +54,7 @@ export default function AgenceList() {
     },
   ];
   const dispatch = useDispatch();
-
-  // const [filter, setFilter] = useState({
-  //   label: "Gouvernerat",
-  //   value: "Gouvernerat",
-  // });
+ 
   const [openadd, setOpenadd] = useState(false);
 
   const openaddAgence = () => {
@@ -67,8 +63,7 @@ export default function AgenceList() {
   const data = useSelector((state) => state.Agences.agences);
   useEffect(() => {
     dispatch(getAgences());
-    console.log("get agences : ", getAgences());
-  }, []);
+   }, []);
 
   return (
     <div className="app-wrapper ">

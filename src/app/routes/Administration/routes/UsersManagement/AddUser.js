@@ -66,32 +66,32 @@ export default function AddUser(props) {
   ];
   const roleList = [
     {
-      id: 0,
+      id: 2,
       label: "Administrateur",
       value: "Administrateur",
     },
     {
-      id: 1,
+      id: 3,
       label: "Directeurs des Ressouces Humaines",
       value: "Directeurs des Ressouces Humaines",
     },
     {
-      id: 2,
+      id: 4,
       label: "Responsable des Formations",
       value: "Responsable des Formations",
     },
     {
-      id: 3,
+      id: 5,
       label: "Chef D'agences",
       value: "Chef D'agences",
     },
     {
-      id: 4,
+      id: 6,
       label: "Formateurs",
       value: "Formateurs",
     },
     {
-      id: 5,
+      id: 7,
       label: "Collaborateurs",
       value: "Collaborateurs",
     },
@@ -235,7 +235,7 @@ export default function AddUser(props) {
         postalCode: formValues.code_postale,
         address: formValues.adresse_postale,
         photo: isUndefinedString(URLphoto[0]),
-        //   role: formValues.role,
+          role: formValues.role,
         identifier: formValues.identifiant,
         agency: formValues.agency,
         email: formValues.email,

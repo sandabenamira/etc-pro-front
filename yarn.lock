@@ -3745,9 +3745,9 @@
   "version" "1.2.2"
 
 "classnames@^2.1.1", "classnames@^2.2.3", "classnames@^2.2.5", "classnames@^2.2.6":
-  "integrity" "sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q=="
-  "resolved" "https://registry.npmjs.org/classnames/-/classnames-2.2.6.tgz"
-  "version" "2.2.6"
+  "integrity" "sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA=="
+  "resolved" "https://registry.npmjs.org/classnames/-/classnames-2.3.1.tgz"
+  "version" "2.3.1"
 
 "clean-css@^5.2.2":
   "integrity" "sha512-nKseG8wCzEuji/4yrgM/5cthL9oTDc5UOQyFMvW/Q53oP6gLH690o1NbuTh6Y18nujr7BxlsFuS7gXLnLzKJGg=="
@@ -8739,13 +8739,13 @@
     "warning" "^4.0.0"
 
 "prop-types@^15.0.0", "prop-types@^15.5.10", "prop-types@^15.5.4", "prop-types@^15.5.7", "prop-types@^15.5.8", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@>=15":
-  "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
-  "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
-  "version" "15.7.2"
+  "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
+  "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
+  "version" "15.8.1"
   dependencies:
     "loose-envify" "^1.4.0"
     "object-assign" "^4.1.1"
-    "react-is" "^16.8.1"
+    "react-is" "^16.13.1"
 
 "proxy-addr@~2.0.5":
   "integrity" "sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg=="
@@ -9018,7 +9018,7 @@
     "intl-relativeformat" "^2.1.0"
     "invariant" "^2.1.1"
 
-"react-is@^16.13.1", "react-is@^16.3.2", "react-is@^16.6.0", "react-is@^16.6.3", "react-is@^16.7.0", "react-is@^16.8.0 || ^17.0.0", "react-is@^16.8.1", "react-is@^16.8.6 || ^17.0.0", "react-is@^16.9.0":
+"react-is@^16.13.1", "react-is@^16.3.2", "react-is@^16.6.0", "react-is@^16.6.3", "react-is@^16.7.0", "react-is@^16.8.0 || ^17.0.0", "react-is@^16.8.6 || ^17.0.0", "react-is@^16.9.0":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"

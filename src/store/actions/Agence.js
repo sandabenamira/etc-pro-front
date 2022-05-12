@@ -13,19 +13,18 @@ import {
 export function addAgence(data) {
   return (dispatch) => {
     console.log(data, "add AGENCE-------------------------------");
-    dispatch({ type: ADD_AGENCE, payload: data });
-    // let apiEndpoint = `/AGENCEs`;
-    // service.post(apiEndpoint, data).then((response) => {
-    //   if (response) {
-    //     dispatch({ type: ADD_AGENCE, payload: response.data });
-    //   }
-    // });
+     let apiEndpoint = `/agences`;
+    service.post(apiEndpoint, data).then((response) => {
+      if (response) {
+        dispatch({ type: ADD_AGENCE, payload: response.data });
+      }
+    });
   };
 }
 
 export function getAgences() {
   return (dispatch) => {
-    let apiEndpoint = `/agences`;
+    let apiEndpoint = `/agences?entrepriseId=1`;
     service.get(apiEndpoint).then((response) => {
       if (response) {
         dispatch({
