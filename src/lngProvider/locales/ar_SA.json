@@ -925,6 +925,7 @@
   "message.Recent.activities": "الأنشطة الأخيرة ",
   "message.Transactions": "المعاملات ",
   "message.Inscriptions": "تسجيل ",
+  "message.Profile":"الملف الشخصي",
   "title.payment": "الخدمات المستوجب دفعها للشهر",
   "filter.unpaid.service": "خدمات غير خالصة الثمن",
   "filter.paid.service": "خدمات خالصة الثمن",

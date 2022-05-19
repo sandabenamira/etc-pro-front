@@ -17,5 +17,5 @@ export default (history) =>
     trainings: Trainings,
     Inscriptions: Inscriptions,
     Entreprise: Entreprises,
-    Agences: Agence
+    Agences: Agence,
   });

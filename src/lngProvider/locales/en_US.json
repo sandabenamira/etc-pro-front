@@ -934,6 +934,7 @@
   "message.Recent.activities": "Recent activities",
   "message.Transactions": "Transactions",
   "message.Inscriptions": "Inscriptions",
+  "message.Profile":"Profile",
   "title.payment": "Lines of payment for the month",
   "filter.unpaid.service": "Unpaid",
   "filter.paid.service": "Paid",

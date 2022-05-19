@@ -5,9 +5,7 @@ import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import InscriptionModal from "./InscriptionModal";
 import { useDispatch } from "react-redux";
 import { deleteInscription } from "../../../../../store/actions/Inscription";
- 
 import Button from "@mui/material/Button";
-
 import IntlMessages from "../../../../../util/IntlMessages";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -22,19 +20,7 @@ function InscriptionItem(props) {
     setOpendetails(!opendetails);
   };
   const [open, setOpen] = useState(false);
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-  };
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -76,7 +62,7 @@ function InscriptionItem(props) {
         {props.data.telephoneNumberEntreprise}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {/* {props.data.createdIn.slice(0, 10)} */}
+        {props.data.createdIn}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
@@ -116,7 +102,6 @@ function InscriptionItem(props) {
           >
             <DeleteOutlineRoundedIcon backgroundColor="white" />
           </IconButton>
-  
 
           <Dialog open={open} TransitionComponent={Slide}>
             <DialogContent>
@@ -126,11 +111,15 @@ function InscriptionItem(props) {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>
-                <div style={{ textTransform: "none" }}>{<IntlMessages id="button.no" />}</div>
+                <div style={{ textTransform: "none" }}>
+                  {<IntlMessages id="button.no" />}
+                </div>
               </Button>
 
               <Button onClick={supprimerInsc}>
-                <div style={{ textTransform: "none" }}>{<IntlMessages id="button.yes" />}</div>
+                <div style={{ textTransform: "none" }}>
+                  {<IntlMessages id="button.yes" />}
+                </div>
               </Button>
             </DialogActions>
           </Dialog>

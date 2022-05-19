@@ -1,19 +1,13 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
   HIDE_MESSAGE,
   INIT_URL,
-  ON_HIDE_LOADER,
-  ON_SHOW_LOADER,
   SHOW_MESSAGE,
-  SIGNIN_FACEBOOK_USER_SUCCESS,
-  SIGNIN_GITHUB_USER_SUCCESS,
-  SIGNIN_GOOGLE_USER_SUCCESS,
-  SIGNIN_TWITTER_USER_SUCCESS,
   SIGNIN_USER_SUCCESS,
   SIGNOUT_USER_SUCCESS,
-  SIGNUP_USER_SUCCESS,
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
-  SWITCH_APP_LANGUAGE,
+  SWITCH_APP_LANGUAGE,GET_USERSPROFILES
 } from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 
 
@@ -31,17 +25,6 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
-
-
-
-
-    case SIGNUP_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload,
-      };
-    }
     case SIGNIN_USER_SUCCESS: {
       return {
         ...state,
@@ -49,6 +32,13 @@ export default (state = INIT_STATE, action) => {
         authUser: action.payload,
         initURL: "/app/home",
       };
+    }
+
+
+    case GET_USERSPROFILES: {
+      return Object.assign({}, state, {
+        profile: action.payload,
+       });
     }
     case INIT_URL: {
       return {
@@ -96,60 +86,17 @@ export default (state = INIT_STATE, action) => {
         loader: false,
       };
     }
-
-    case SIGNIN_GOOGLE_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload,
-      };
-    }
-    case SIGNIN_FACEBOOK_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload,
-      };
-    }
-    case SIGNIN_TWITTER_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload,
-      };
-    }
-    case SIGNIN_GITHUB_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload,
-      };
-    }
-    case ON_SHOW_LOADER: {
-      return {
-        ...state,
-        loader: true,
-      };
-    }
-    case ON_HIDE_LOADER: {
-      return {
-        ...state,
-        loader: false,
-      };
-    }
-
-
-    case "SOW_MODAL_SELECT_ESTABLISHMENT": {
-      return Object.assign({}, state, {
-        multiple: true,
-        profile: action.payload,
-      });
-    }
-    case "HIDE_MODAL_SELECT_ESTABLISHMENT": {
-      return Object.assign({}, state, {
-        multiple: false,
-      });
-    }
+    // case "SOW_MODAL_SELECT_ESTABLISHMENT": {
+    //   return Object.assign({}, state, {
+    //     multiple: true,
+    //     profile: action.payload,
+    //   });
+    // }
+    // case "HIDE_MODAL_SELECT_ESTABLISHMENT": {
+    //   return Object.assign({}, state, {
+    //     multiple: false,
+    //   });
+    // }
 
     case SWITCH_APP_LANGUAGE: {
       return Object.assign({}, state, {

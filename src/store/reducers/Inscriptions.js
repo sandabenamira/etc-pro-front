@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 /* eslint-disable import/no-anonymous-default-export */
 
 import {
@@ -5,11 +6,17 @@ import {
   ADD_INSCRIPTION,
   EDIT_INSCRIPTION,
   DELETE_INSCRIPTION,
+  SHOW_MESSAGE_INSC,
+  HIDE_SUCCESS_MESSAGE_INSC,
+  SHOW_ERROR_MESSAGE_INSC,
 } from "../../constants/ActionTypes";
 
 // Define an initial state value for the app
 const initialState = {
   inscriptions: [],
+  showMessage: false,
+  alertMessage: "",
+  success:"success"
 };
 //The reducer receives two arguments, the current state and an action object
 // Create a "reducer" function that determines what the new state
@@ -25,18 +32,36 @@ export default function (state = initialState, action) {
       });
     }
 
-    // case ADD_INSCRIPTION: {
-    //   return Object.assign({}, state, {
-    //     inscriptions: [action.payload].concat(state.inscriptions), //...state
-    //   });
-    // }
-
     case ADD_INSCRIPTION: {
       return Object.assign({}, state, {
         inscriptions: [
           { ...action.payload, id: state.inscriptions.length + 1 },
         ].concat(state.inscriptions), //...state
       });
+    }
+    case SHOW_MESSAGE_INSC: {
+      return {
+        ...state,
+        showMessage: true,
+        alertMessage: "Le formulaire est envoyé avec succès! ",
+        success:"success"
+      };
+    }
+    case HIDE_SUCCESS_MESSAGE_INSC: {
+      return {
+        ...state,
+        showMessage: false,
+        alertMessage: "",
+      };
+    }
+
+    case SHOW_ERROR_MESSAGE_INSC: {
+      return {
+        ...state,
+        showMessage: true,
+        alertMessage: action.payload,
+        success:"warning"
+      };
     }
     case EDIT_INSCRIPTION: {
       return Object.assign({}, state, {

@@ -3,36 +3,62 @@ import {
   GET_AGENCE,
   ADD_AGENCE,
   EDIT_AGENCE,
-  DELETE_AGENCE,
-  HIDE_SUCCESS_MESSAGE,
-  SHOW_ERROR_MESSAGE,
-  HIDE_ERROR_MESSAGE,
-  SHOW_SUCCESS_MESSAGE,
+  SHOW_MESSAGE_AGENCE,
+  HIDE_SUCCESS_MESSAGE_AGENCE,SHOW_ERROR_MESSAGE_AGENCE,HIDE_ERROR_MESSAGE_AGENCE
 } from "../../constants/ActionTypes";
+var token = localStorage.getItem("token");
 
 export function addAgence(data) {
   return (dispatch) => {
     console.log(data, "add AGENCE-------------------------------");
-     let apiEndpoint = `/agences`;
-    service.post(apiEndpoint, data).then((response) => {
-      if (response) {
+    let apiEndpoint = `/agences`;
+    service
+      .post(
+        apiEndpoint,
+        { headers: { Authorization: `Bearer ${token}` } },
+        data
+      )
+      .then((response) => {
         dispatch({ type: ADD_AGENCE, payload: response.data });
-      }
-    });
+
+        dispatch({
+          type: SHOW_MESSAGE_AGENCE,
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE_AGENCE });
+        }, 4000);
+      })
+      .catch((err) => {
+        let errorMsg =
+          err.response === undefined
+            ? "Merci  de réessayer ultérieurement , une erreur s'est produite de notre coté"
+            : err.response.data.error.message === "Internal Server Error"
+            ? "name duplicated"
+            : err.response.data.error.message;
+        dispatch({
+          type: SHOW_ERROR_MESSAGE_AGENCE,
+          payload: errorMsg,
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_ERROR_MESSAGE_AGENCE });
+        }, 4000);
+      });
   };
 }
 
 export function getAgences() {
   return (dispatch) => {
     let apiEndpoint = `/agences?entrepriseId=1`;
-    service.get(apiEndpoint).then((response) => {
-      if (response) {
-        dispatch({
-          type: GET_AGENCE,
-          payload: response.data,
-        });
-      }
-    });
+    service
+      .get(apiEndpoint, { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        if (response) {
+          dispatch({
+            type: GET_AGENCE,
+            payload: response.data,
+          });
+        }
+      });
   };
 }
 
@@ -41,7 +67,7 @@ export const editAgence = (data) => {
   return (dispatch) => {
     // let apiEndpoint = `/agences/` + data.id;
     // service
-    //   .patch(apiEndpoint, data)
+    //   .patch(apiEndpoint ,{ headers: {"Authorization" : `Bearer ${token}`}}, data)
     //   .then((res) => {
     dispatch({
       type: EDIT_AGENCE,
@@ -71,15 +97,4 @@ export const editAgence = (data) => {
     //       }, 4000);
     //     });
   };
-};
-export const deleteAgence = (id) => async (dispatch) => {
-  try {
-
-    dispatch({
-      type: DELETE_AGENCE,
-      payload: id,
-    });
-  } catch (err) {
-    console.log(err);
-  }
 };

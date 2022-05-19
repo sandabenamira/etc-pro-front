@@ -12,12 +12,6 @@ import Entreprise from "./routes/EntrepriseMangement/Entreprise";
 const SuperAdministration = ({ match, estabModule }) => (
   <div className="app-wrapper">
     <Switch>
-      {/* <Redirect
-        exact
-        from={`${match.url}/`}
-        to={`${match.url}/establishment`}
-      /> */}
-
       <Route
         path={`${match.url}/inscription`}
         render={() => (

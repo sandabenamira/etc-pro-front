@@ -1,33 +1,20 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+ import { getUsersProfiles } from "../../../../src/store/actions/Auth";
+import { useDispatch ,useSelector} from "react-redux";
 
-/* eslint eqeqeq: "off" */
-export class UserProfile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+import  { useState, useEffect } from "react";
 
-  render() {
-    /* eslint eqeqeq: "off" */
-    return (
-      <div
-        className="app-wrapper"
-        style={{
-          marginLeft: '5%',
-          marginRight: '10%',
 
-        }}
-      >
-        <h2 >module eeeeProfile</h2>
+export default function Index(props) {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.users.users);
+  useEffect(() => {
+    dispatch(getUsersProfiles());
+  }, []);
+   console.log("get profile : ", data);
 
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h1> module profile</h1>
+    </div>
+  );
 }
-
-const mapStateToProps = state => {
-  return {};
-};
-
-export default connect(mapStateToProps)(UserProfile);

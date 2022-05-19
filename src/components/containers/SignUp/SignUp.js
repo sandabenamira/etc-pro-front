@@ -7,71 +7,29 @@ import { addInscription } from "../../../store/actions/Inscription";
 import { useDispatch } from "react-redux";
 import { InputBase, TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import NativeSelect from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
+import { connect } from "react-redux";
 
-import {
-  isEmail,
-  isZipCode,
-  isPhonenumber,
-  isNotEmpty,
-} from "../../../constants/validationFunctions";
+import { Formik, useFormik, Form } from "formik";
+import * as Yup from "yup";
+ 
+function SignUp(props) {
+  const {
+    showMessage,
+    success,
 
-function SignUp() {
-  let dispatch = useDispatch();
+    alertMessage,
+  } = props;
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 767px)").matches
   );
-  const validate = (values) => {
-    const errors = {};
-    if (!isNotEmpty(values.nameEntreprise)) {
-      errors.nomE = "champ requis ! ";
-    }
+  useEffect(() => {
+    window
+      .matchMedia("(min-width: 768px)")
+      .addEventListener("change", (e) => setMatches(e.matches));
+  }, []);
+  let dispatch = useDispatch();
 
-    if (!isNotEmpty(values.serialNumberEntreprise)) {
-      errors.numero_serie = "champ requis !";
-    }
-    if (!isNotEmpty(values.addressEntreprise)) {
-      errors.addresse_entreprise = "champ requis ! ";
-    }
-    if (!isNotEmpty(values.postalCodeEntreprise)) {
-      errors.code_postal = "champ requis ! ";
-    } else if (!isZipCode(formValues.governorateEntreprise)) {
-      errors.code_postaleForme = "Veuillez entrer 4 nombres !  ";
-    }
-
-    if (!isPhonenumber(formValues.telephoneNumberEntreprise)) {
-      errors.numero_telephone_entrepriseForme =
-        "Veuillez renseigner un numéro de téléphone de 8 chiffres ! ";
-    }
-    if (!isPhonenumber(formValues.telephoneNumberUser)) {
-      errors.numero_telephone_userForme =
-        "Veuillez renseigner un numéro de téléphone de 8 chiffres ! ";
-    }
-
-    if (!isNotEmpty(values.emailEntreprise)) {
-      errors.email_entreprise = "champ requis !  ";
-    } else if (!isEmail(formValues.emailEntreprise)) {
-      errors.email_entrepriseForme =
-        "Veuillez entrer une adresse e-mail valide ! ";
-    }
-    if (!isNotEmpty(values.choiceCurrencyEntreprise)) {
-      errors.choixDevise = "champ requis !  ";
-    }
-    if (!isNotEmpty(values.lastNameUser)) {
-      errors.nom_user = "champ requis !";
-    }
-    if (!isNotEmpty(values.firstNameUser)) {
-      errors.prenom = "champ requis ! ";
-    }
-    if (!isNotEmpty(values.emailUser)) {
-      errors.emailUU = "champ requis ! ";
-    } else if (!isEmail(formValues.emailUser)) {
-      errors.emailUUForme = "Veuillez entrer une adresse e-mail valide";
-    }
-    return errors;
-  };
   const ListeDevise = [
     {
       value: "Dollar",
@@ -90,9 +48,10 @@ function SignUp() {
       label: "DT",
     },
   ];
+
   const initialValues = {
     nameEntreprise: "",
-    serialNumberEntreprise:"",
+    serialNumberEntreprise: "",
     addressEntreprise: "",
     postalCodeEntreprise: "",
     governorateEntreprise: "",
@@ -100,104 +59,110 @@ function SignUp() {
     telephoneNumberEntreprise: "",
     emailEntreprise: "",
     choiceCurrencyEntreprise: "",
-    // createdBy: "",
-    // modifiedIn: "",
-    // modifiedBy: "",
-    // deleted: "",
     lastNameUser: "",
-    firstNameUser:  "",
-    genderUser:  "",
+    firstNameUser: "",
+    genderUser: "",
     dateBirthUser: "",
     addressUser: "",
-    telephoneNumberUser:  "" ,
-    emailUser: ""
-};
-  const [formValues, setFormValues] = useState(initialValues);
-  const [alert, setAlert] = useState("");
-  const [success, setSuccess] = useState("error");
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [isSubmit2, setIsSubmit2] = useState(false);
-  const [show, setShow] = useState(false);
-  console.log(formErrors);
-  useEffect(() => {
-    window
-      .matchMedia("(min-width: 768px)")
-      .addEventListener("change", (e) => setMatches(e.matches));
-  }, []);
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit && isSubmit2) {
-      setFormValues(initialValues);
-      setAlert("Le formulaire est envoyé avec succès! ");
-      setSuccess("success");
-    } else if (Object.keys(formErrors).length === 0 && isSubmit) {
-      setAlert("Le formulaire non envoyé ");
-      setSuccess("error");
-    } else if (Object.keys(formErrors).length > 0) {
-      setAlert("les champs du fomulaire non satisfés");
-      setSuccess("error");
-    }
+    telephoneNumberUser: "",
+    emailUser: "",
+  };
+  const phoneRegExp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/;
+
+  const validationSchema = Yup.object().shape({
+    nameEntreprise: Yup.string()
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire")
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer un nom valide")
+      .max(40, "Trop long ! maximum 40")
+
+      .min(2, "Trop court! minimum 2"),
+    serialNumberEntreprise: Yup.string()
+      .required("Champ obligatoire !")
+      .matches(phoneRegExp, "Entrer un numéro valide")
+      .max(20, "Trop long ! maximum 20 chiffres ")
+      .min(4, "Trop court ! minimum 4 chiffres"),
+    addressEntreprise: Yup.string()
+      .required("Champ obligatoire !")
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une adresse valide")
+      .max(40, "Trop long ! maximum 40")
+      .min(2, "Trop court! minimum 2"),
+    postalCodeEntreprise: Yup.string()
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
+      .matches(phoneRegExp, "Entrer un code valide")
+      .max(20, "Trop long ! maximum 20 chiffres ")
+      .min(4, "Trop court ! minimum 4 chiffres"),
+    governorateEntreprise: Yup.string()
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer un gouvernorat valide")
+      .max(40, "Trop long ! maximum 40")
+      .min(2, "Trop court! minimum 2"),
+    countryEntreprise: Yup.string()
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une pays valide")
+      .max(40, "Trop long ! maximum 40")
+      .min(2, "Trop court! minimum 2"),
+    telephoneNumberEntreprise: Yup.string()
+      .matches(phoneRegExp, "Entrer un numéro valide")
+      .max(40, "Trop long ! maximum 40 chiffres ")
+      .min(6, "Trop court ! minimum 6 chiffres"),
+    emailEntreprise: Yup.string()
+      .trim("Champ obligatoire !")
+      .email("Entrer une adresse e-mail valide  ")
+      .required("Champ obligatoire !")
+      .max(40, "Trop long ! maximum 40")
+      .min(3, "Trop court! minimum 3"),
+    choiceCurrencyEntreprise: Yup.string()
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
+      .matches(
+        /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
+        "Entrer un Choix de la devise valide"
+      )
+      .max(40, "Trop long !")
+      .min(2, "Trop court!"),
+    lastNameUser: Yup.string()
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer un nom valide")
+      .max(40, "Trop long !")
+      .min(2, "Trop court!"),
+    firstNameUser: Yup.string()
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer un prénom valide")
+      .max(40, "Trop long !")
+      .min(2, "Trop court!"),
+
+    dateBirthUser: Yup.date().max(new Date(), "Entrer une date valide"),
+    addressUser: Yup.string()
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une adresse valide")
+      .max(40, "Trop long !")
+      .min(2, "Trop court!"),
+    telephoneNumberUser: Yup.string()
+      .matches(phoneRegExp, "Entrer un numéro valide")
+      .max(40, "Trop long !")
+      .min(2, "Trop court!"),
+    emailUser: Yup.string()
+      .trim("Champ obligatoire !")
+      .email("Entrer une adresse e-mail valide  ")
+      .required("Champ obligatoire !")
+      .max(40, "Trop long ! maximum 40")
+      .min(3, "Trop court! minimum 3"),
   });
 
-  const handleChangee = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-    // console.log(formValues);
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("helloooo", values);
+      dispatch(addInscription(values));
+      // setAlert("Le formulaire est envoyé avec succès! ");
+      formik.resetForm({ values: "" });
+    },
+  });
+  const handleReset = () => {
+    formik.resetForm({ values: "" });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setShow(true);
-
-    setFormErrors(validate(formValues));
-
-    let error = validate(formValues);
-
-    if (Object.keys(error).length === 0) {
-      setIsSubmit(true);
-
-      let Data = {
-        nameEntreprise: formValues.nameEntreprise,
-        serialNumberEntreprise: formValues.serialNumberEntreprise,
-        addressEntreprise: formValues.addressEntreprise,
-        postalCodeEntreprise: formValues.postalCodeEntreprise,
-        governorateEntreprise: formValues.governorateEntreprise,
-        countryEntreprise: formValues.countryEntreprise,
-        telephoneNumberEntreprise: formValues.telephoneNumberEntreprise,
-        emailEntreprise: formValues.emailEntreprise,
-        choiceCurrencyEntreprise: formValues.choiceCurrencyEntreprise,
-       // type: "",
-        // status: "",
-       //  createdIn: new Date(),
-        // createdBy: 0,
-        // modifiedIn: new Date(),
-        // modifiedBy: 0,
-        // deleted: new Date(),
-        lastNameUser: formValues.lastNameUser,
-        firstNameUser: formValues.firstNameUser,
-        genderUser: formValues.genderUser,
-        dateBirthUser: formValues.dateBirthUser,
-        addressUser: formValues.addressUser,
-        numeroTelephoneUser: formValues.numero_telephone_user,
-        telephoneNumberUser: formValues.telephoneNumberUser,
-      };
-      // setShow(false);
-      setIsSubmit2(true);
-      setShow(true);
-
-      dispatch(addInscription(Data));
-    }
-
-    // setShow(true);
-  };
-
-  const reinitialiser = () => {
-    setFormValues(initialValues);
-    setShow(false);
-  };
-
   return (
     <div
       style={{
@@ -242,610 +207,658 @@ function SignUp() {
             <strong>Créer votre compte entreprise sur Educap Pro</strong>
           </h1>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div
-            className="d-flex flex-wrap flex-row ml-5"
-            style={{
-              width: "100%",
-            }}
-          >
-            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-12  ">
-              <div className=" d-flex  justify-content-center mt-2">
-                <div className="title">
-                  <h1
-                    className="Accueil"
-                    style={{
-                      color: "#1a85b3",
-                      fontSize: "24px",
-                      fontWeight: 400,
-                      textAlign: "center",
-                    }}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          validateOnChange={false}
+          validateOnBlur={false}
+        >
+          <Form onSubmit={formik.handleSubmit} noValidate>
+            <div
+              className="d-flex flex-wrap flex-row ml-5 from-control"
+              style={{
+                width: "100%",
+              }}
+            >
+              <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-12  ">
+                <div className=" d-flex  justify-content-center mt-2">
+                  <div className="title">
+                    <h1
+                      className="Accueil"
+                      style={{
+                        color: "#1a85b3",
+                        fontSize: "24px",
+                        fontWeight: 400,
+                        textAlign: "center",
+                      }}
+                    >
+                      <strong>Votre société</strong>
+                    </h1>
+                  </div>
+                </div>
+                <div
+                  className="d-flex  flex-wrap flex-row   mt-3 "
+                  style={{ height: "50px" }}
+                >
+                  <div
+                    className="justify-content-center col-lg-6 col-md-6 col-sm-8 form-controller"
+                    style={{ height: "50px" }}
                   >
-                    <strong>Votre société</strong>
-                  </h1>
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Nom*
+                    </h4>
+
+                    <InputBase
+                      fullWidth
+                      name="nameEntreprise"
+                      required
+                      {...formik.getFieldProps("nameEntreprise")}
+                      style={{
+                        borderBottom: "1px solid  #1a85b3",
+                      }}
+                    />
+                    {formik.touched.nameEntreprise &&
+                    formik.errors.nameEntreprise ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.nameEntreprise}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div
+                    className="justify-content-center  col-lg-6 col-md-6 col-sm-8 form-controller"
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 200,
+                      }}
+                    >
+                      N° de la matricule*
+                    </h4>
+
+                    <InputBase
+                      name="serialNumberEntreprise"
+                      required
+                      style={{
+                        borderBottom: "1px solid  #1a85b3",
+                      }}
+                      fullWidth
+                      {...formik.getFieldProps("serialNumberEntreprise")}
+                    />
+                    {formik.touched.serialNumberEntreprise &&
+                    formik.errors.serialNumberEntreprise ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.serialNumberEntreprise}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                <div
+                  className="d-flex flex-wrap flex-row  mt-5 form-controller "
+                  style={{ height: "50px" }}
+                >
+                  <div className="col-lg-6 col-md-6 col-sm-8 mt-2">
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Pays
+                    </h4>
+                    <InputBase
+                      name="countryEntreprise"
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      fullWidth
+                      {...formik.getFieldProps("countryEntreprise")}
+                    />
+                    {formik.touched.countryEntreprise &&
+                    formik.errors.countryEntreprise ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.countryEntreprise}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-8 mt-2"
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 300,
+                      }}
+                    >
+                      Gouvernorat
+                    </h4>
+                    <InputBase
+                      name="governorateEntreprise"
+                      type="text"
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      fullWidth
+                      {...formik.getFieldProps("governorateEntreprise")}
+                    />
+                    {formik.touched.governorateEntreprise &&
+                    formik.errors.governorateEntreprise ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.governorateEntreprise}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="d-flex flex-wrap flex-row mt-5">
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-8"
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Adresse de la société*
+                    </h4>
+                    <InputBase
+                      name="addressEntreprise"
+                      type="text"
+                      required
+                      fullWidth
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      {...formik.getFieldProps("addressEntreprise")}
+                    />
+                    {formik.touched.addressEntreprise &&
+                    formik.errors.addressEntreprise ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.addressEntreprise}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-12"
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Code Postal*
+                    </h4>
+                    <InputBase
+                      type="text"
+                      name="postalCodeEntreprise"
+                      required
+                      inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      fullWidth
+                      {...formik.getFieldProps("postalCodeEntreprise")}
+                    />
+                    {formik.touched.postalCodeEntreprise &&
+                    formik.errors.postalCodeEntreprise ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.postalCodeEntreprise}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                <div
+                  className="d-flex flex-wrap flex-row mt-5"
+                  style={{ height: "50px" }}
+                >
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-12"
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      N° de téléphone
+                    </h4>
+                    <InputBase
+                      fullWidth
+                      type="text"
+                      name="telephoneNumberEntreprise"
+                      {...formik.getFieldProps("telephoneNumberEntreprise")}
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    />
+                    {formik.touched.telephoneNumberEntreprise &&
+                    formik.errors.telephoneNumberEntreprise ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.telephoneNumberEntreprise}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-12"
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      E-mail*
+                    </h4>
+
+                    <InputBase
+                      fullWidth
+                      type="email"
+                      name="emailEntreprise"
+                      required
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      {...formik.getFieldProps("emailEntreprise")}
+                    />
+                    {formik.touched.emailEntreprise &&
+                    formik.errors.emailEntreprise ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.emailEntreprise}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="d-flex flex-wrap flex-row mt-5 ">
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-12"
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Choix de la devise*
+                    </h4>
+
+                    <TextField
+                      fullWidth
+                      select
+                      required
+                      name="choiceCurrencyEntreprise"
+                      variant="standard"
+                      {...formik.getFieldProps("choiceCurrencyEntreprise")}
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                    >
+                      {ListeDevise.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    {formik.touched.choiceCurrencyEntreprise &&
+                    formik.errors.choiceCurrencyEntreprise ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.choiceCurrencyEntreprise}</small>
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               </div>
-              <div
-                className="d-flex  flex-wrap flex-row   mt-3 "
-                style={{ height: "50px" }}
-              >
+              {matches && (
                 <div
-                  className="justify-content-center col-lg-6 col-md-6 col-sm-8"
-                  style={{ height: "50px" }}
+                  className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1"
+                  style={{ marginRight: "2%" }}
+                >
+                  <div className=" d-flex justify-content-end  ">
+                    <p
+                      style={{
+                        height: "570px",
+                        //    minHeight:"600px",
+                        borderRight: "1px solid rgba(134, 134, 134, 0.548)",
+                        //  paddingLeft: " 3%",
+                      }}
+                      className="bordure_verticale"
+                    ></p>
+                  </div>
+                </div>
+              )}
+              <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-11 ">
+                <div className=" d-flex justify-content-center mt-2 ">
+                  <div className="title">
+                    <h1
+                      className="Accueil"
+                      style={{
+                        color: "#1a85b3",
+                        fontSize: "24px",
+                        fontWeight: 400,
+                        textAlign: "center",
+                      }}
+                    >
+                      <strong>Vos coordonnées</strong>
+                    </h1>
+                  </div>
+                </div>
+                <div className="d-flex flex-wrap flex-row  mt-3 ">
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-12 "
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Nom*
+                    </h4>
+
+                    <InputBase
+                      fullWidth
+                      type="text"
+                      name="lastNameUser"
+                      required
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      {...formik.getFieldProps("lastNameUser")}
+                    />
+                    {formik.touched.lastNameUser &&
+                    formik.errors.lastNameUser ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.lastNameUser}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-12 "
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Prénom*
+                    </h4>
+                    <InputBase
+                      fullWidth
+                      type="text"
+                      name="firstNameUser"
+                      required
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      {...formik.getFieldProps("firstNameUser")}
+                    />
+                    {formik.touched.firstNameUser &&
+                    formik.errors.firstNameUser ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.firstNameUser}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                <div
+                  className="d-flex  flex-wrap flex-rowml-5 mt-5"
+                  style={{ height: "60px" }}
                 >
                   <h4
                     style={{
                       color: "#1a85b3",
                       fontWeight: 400,
+                      marginLeft: "2%",
+                      marginTop: "4%",
                     }}
                   >
-                    Nom*
+                    Vous êtes
                   </h4>
 
-                  <InputBase
-                    fullWidth
-                    name="nameEntreprise"
-                    onChange={handleChangee}
-                    value={formValues.nameEntreprise}
-                    required
+                  <RadioGroup
+                    name="genderUser"
+                    className=" d-flex flex-row"
                     style={{
-                      borderBottom: "1px solid  #1a85b3",
+                      marginLeft: "30px",
+                      marginTop: "-10px",
                     }}
-                    helperText="Please enter your name"
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.nomE}
-                  </p>
-                </div>
-                <div
-                  className="justify-content-center  col-lg-6 col-md-6 col-sm-8"
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 200,
-                    }}
+                    {...formik.getFieldProps("genderUser")}
                   >
-                    N° de série*
-                  </h4>
+                    <FormControlLabel
+                      value="masculin"
+                      control={<Radio color="primary" />}
+                    />
 
-                  <InputBase
-                    helperText="Incorrect entry."
-                    type="text"
-                    name="serialNumberEntreprise"
-                    onChange={handleChangee}
-                    value={formValues.serialNumberEntreprise}
-                    required
-                    style={{
-                      borderBottom: "1px solid  #1a85b3",
-                    }}
-                    fullWidth
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.numero_serie}
-                  </p>
+                    <i
+                      className="zmdi zmdi-male-alt zmdi-hc-3x"
+                      style={{ color: "blue" }}
+                    ></i>
+                    <FormControlLabel
+                      value="féminin"
+                      control={
+                        <Radio
+                          color="primary"
+                          style={{
+                            marginLeft: "1cm",
+                          }}
+                        />
+                      }
+                    />
+                    <i
+                      className="zmdi zmdi-female zmdi-hc-3x"
+                      style={{ color: "orange" }}
+                    ></i>
+                  </RadioGroup>
                 </div>
-              </div>
-              <div
-                className="d-flex flex-wrap flex-row  mt-5 "
-                style={{ height: "50px" }}
-              >
-                <div className="col-lg-6 col-md-6 col-sm-8 mt-2">
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
+                <div className="d-flex flex-wrap flex-rowml-5 mt-4">
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-12"
+                    style={{ height: "80px" }}
                   >
-                    Pays
-                  </h4>
-                  <InputBase
-                    type="text"
-                    name="countryEntreprise"
-                    onChange={handleChangee}
-                    value={formValues.countryEntreprise}
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                    fullWidth
-                  />
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Date de naissance
+                    </h4>
+                    <InputBase
+                      fullWidth
+                      type="date"
+                      name="dateBirthUser"
+                      {...formik.getFieldProps("dateBirthUser")}
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                    />
+                    {formik.touched.dateBirthUser &&
+                    formik.errors.dateBirthUser ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.dateBirthUser}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="col-lg-6 col-md-6 col-sm-12"></div>
                 </div>
-                <div
-                  className="col-lg-6 col-md-6 col-sm-8 mt-2"
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 300,
-                    }}
+                <div className="d-flex flex-wrap flex-rowml-5 mt-4">
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-12"
+                    style={{ height: "50px" }}
                   >
-                    Gouvernorat
-                  </h4>
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Adresse
+                    </h4>
+                    <InputBase
+                      fullWidth
+                      type="text"
+                      name="addressUser"
+                      {...formik.getFieldProps("addressUser")}
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                    />{" "}
+                    {formik.touched.addressUser && formik.errors.addressUser ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.addressUser}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="col-lg-6 col-md-6 col-sm-12"></div>
+                </div>
+                <div className="d-flex flex-wrap flex-rowml-5 mt-5">
+                  <div
+                    className="col-lg-6 col-md-6 col-sm-12"
+                    style={{ height: "50px" }}
+                  >
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      N° de téléphone
+                    </h4>
+                    <InputBase
+                      fullWidth
+                      type="text"
+                      name="telephoneNumberUser"
+                      {...formik.getFieldProps("telephoneNumberUser")}
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    />
+                    {formik.touched.telephoneNumberUser &&
+                    formik.errors.telephoneNumberUser ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.telephoneNumberUser}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="col-lg-6 col-md-6 col-sm-12">
+                    <h4
+                      style={{
+                        color: "#1a85b3",
+                        fontWeight: 400,
+                      }}
+                    >
+                      E-mail*
+                    </h4>
 
-                  <InputBase
-                    name="governorateEntreprise"
-                    type="text"
-                    onChange={handleChangee}
-                    value={formValues.governorateEntreprise}
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                    fullWidth
-                  />
-                </div>
-              </div>
-              <div className="d-flex flex-wrap flex-row mt-5">
-                <div
-                  className="col-lg-6 col-md-6 col-sm-8"
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    Adresse de la société*
-                  </h4>
-                  <InputBase
-                    name="addressEntreprise"
-                    type="text"
-                    onChange={handleChangee}
-                    value={formValues.addressEntreprise}
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                    fullWidth
-                    required
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.addresse_entreprise}
-                  </p>
-                </div>
-                <div
-                  className="col-lg-6 col-md-6 col-sm-12"
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    Code Postal*
-                  </h4>
-                  <InputBase
-                    type="text"
-                    name="postalCodeEntreprise"
-                    onChange={handleChangee}
-                    value={formValues.postalCodeEntreprise}
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                    fullWidth
-                    required
-                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.code_postal}
-                    {formErrors.code_postaleForme}
-                  </p>
-                </div>
-              </div>
-              <div
-                className="d-flex flex-wrap flex-row mt-5"
-                style={{ height: "50px" }}
-              >
-                <div
-                  className="col-lg-6 col-md-6 col-sm-12"
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    N° de téléphone
-                  </h4>
-                  <InputBase
-                    fullWidth
-                    type="text"
-                    name="telephoneNumberEntreprise"
-                    onChange={handleChangee}
-                    value={formValues.telephoneNumberEntreprise}
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.numero_telephone_entrepriseForme}
-                  </p>
-                </div>
-                <div
-                  className="col-lg-6 col-md-6 col-sm-12"
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    E-mail*
-                  </h4>
-
-                  <InputBase
-                    fullWidth
-                    type="email"
-                    name="emailEntreprise"
-                    onChange={handleChangee}
-                    value={formValues.emailEntreprise}
-                    required
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.email_entreprise}
-                    {formErrors.email_entrepriseForme}
-                  </p>
-                </div>
-              </div>
-              <div className="d-flex flex-wrap flex-row mt-5 ">
-                <div
-                  className="col-lg-6 col-md-6 col-sm-12"
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    Choix de la devise*
-                  </h4>
-
-                  <TextField
-                    fullWidth
-                    select
-                    required
-                    name="choiceCurrencyEntreprise"
-                    variant="standard"
-                    value={formValues.choiceCurrencyEntreprise}
-                    onChange={handleChangee}
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                  >
-                    {ListeDevise.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.choixDevise}
-                  </p>
+                    <InputBase
+                      fullWidth
+                      type="email"
+                      name="emailUser"
+                      required
+                      style={{
+                        borderBottom: "1px solid #1a85b3",
+                      }}
+                      {...formik.getFieldProps("emailUser")}
+                    />
+                    {formik.touched.emailUser && formik.errors.emailUser ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.emailUser}</small>
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>
-            {matches && (
-              <div
-                className="d-flex flex-wrap flex-column col-lg-1 col-md-1 col-sm-1"
-                style={{ marginRight: "2%" }}
-              >
-                <div className=" d-flex justify-content-end  ">
-                  <p
+            <div
+              className="d-flex flex-wrap align-items-start   justify-content-end  "
+              style={{
+                fontSize: "200%",
+                fontFamilyy: "Arial, sans-serif",
+                height: "70px",
+              }}
+            >
+              <div className="col-lg-7 col-md-7 col-sm-3 mb-5 ">
+                {showMessage && (
+                  <Alert
                     style={{
-                      height: "570px",
-                      //    minHeight:"600px",
-                      borderRight: "1px solid rgba(134, 134, 134, 0.548)",
-                      //  paddingLeft: " 3%",
+                      height: "8%",
+                      //  maxHeight: "10%",
                     }}
-                    className="bordure_verticale"
-                  ></p>
-                </div>
-              </div>
-            )}
-            <div className="d-flex flex-wrap flex-column col-lg-5 col-md-5 col-sm-11 ">
-              <div className=" d-flex justify-content-center mt-2 ">
-                <div className="title">
-                  <h1
-                    className="Accueil"
-                    style={{
-                      color: "#1a85b3",
-                      fontSize: "24px",
-                      fontWeight: 400,
-                      textAlign: "center",
-                    }}
+                    id="alert"
+                    severity={success}
                   >
-                    <strong>Vos coordonnées</strong>
-                  </h1>
-                </div>
+                    {alertMessage}
+                  </Alert>
+                )}
               </div>
-              <div className="d-flex flex-wrap flex-row  mt-3 ">
-                <div
-                  className="col-lg-6 col-md-6 col-sm-12 "
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    Nom*
-                  </h4>
 
-                  <InputBase
-                    fullWidth
-                    type="text"
-                    name="lastNameUser"
-                    onChange={handleChangee}
-                    value={formValues.lastNameUser}
-                    required
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.nom_user}
-                  </p>
-                </div>
-                <div
-                  className="col-lg-6 col-md-6 col-sm-12 "
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    Prénom*
-                  </h4>
-                  <InputBase
-                    fullWidth
-                    type="text"
-                    name="firstNameUser"
-                    onChange={handleChangee}
-                    value={formValues.firstNameUser}
-                    required
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.prenom}
-                  </p>
-                </div>
-              </div>
-              <div
-                className="d-flex  flex-wrap flex-rowml-5 mt-5"
-                style={{ height: "60px" }}
-              >
-                <h4
+              <div className="col-lg-2 col-md-2 col-sm-3  justify-content-end  mr">
+                <Button
+                  type="reset"
+                  onClick={handleReset.bind(null, Formik.resetForm)}
                   style={{
                     color: "#1a85b3",
-                    fontWeight: 400,
-                    marginLeft: "2%",
-                    marginTop: "4%",
+                    backgroundColor: "#ffffff",
+                    padding: "2% 12% 2% 12%",
+                    borderRadius: "80px",
+                    border: "#1a85b3 solid 1px",
                   }}
                 >
-                  Vous êtes
-                </h4>
-
-                <RadioGroup
-                  name="genderUser"
-                  className=" d-flex flex-row"
+                  <span
+                    style={{
+                      textTransform: "none",
+                      fontSize: "18px",
+                      fontFamily: " sans-serif",
+                    }}
+                  >
+                    Annuler
+                  </span>
+                </Button>
+              </div>
+              <div className="col-lg-2 col-md-2 col-sm-3 justify-content-end ">
+                <Button
+                  // disabled={!(formik.isValid || formik.isSubmitting)}
                   style={{
-                    marginLeft: "30px",
-                    marginTop: "-10px",
+                    color: "#ffffff",
+                    border: "none",
+                    cursor: "pointer",
+                    backgroundColor: "#1a85b3",
+                    padding: "2% 12% 2% 12%",
+                    borderRadius: "80px",
+                    marginRight: "13%",
+                    // marginBottom: "5%",
                   }}
-                  value={formValues.genderUser}
-                  onChange={handleChangee}
+                  type="submit"
                 >
-                  <FormControlLabel
-                    value="masculin"
-                    control={<Radio color="primary" />}
-                  />
-
-                  <i
-                    className="zmdi zmdi-male-alt zmdi-hc-3x"
-                    style={{ color: "blue" }}
-                  ></i>
-                  <FormControlLabel
-                    value="féminin"
-                    control={
-                      <Radio
-                        color="primary"
-                        style={{
-                          marginLeft: "1cm",
-                        }}
-                      />
-                    }
-                  />
-                  <i
-                    className="zmdi zmdi-female zmdi-hc-3x"
-                    style={{ color: "orange" }}
-                  ></i>
-                </RadioGroup>
-              </div>
-              <div className="d-flex flex-wrap flex-rowml-5 mt-4">
-                <div
-                  className="col-lg-6 col-md-6 col-sm-12"
-                  style={{ height: "80px" }}
-                >
-                  <h4
+                  <span
                     style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
+                      textTransform: "none",
+                      fontSize: "18px",
+                      fontFamily: " sans-serif",
                     }}
                   >
-                    Date de naissance
-                  </h4>
-
-                  <InputBase
-                    fullWidth
-                    type="date"
-                    name="dateBirthUser"
-                    onChange={handleChangee}
-                    value={formValues.dateBirthUser}
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                    // min="2022-01-01"
-                    // max={h}
-                  />
-                </div>
-                <div className="col-lg-6 col-md-6 col-sm-12"></div>
+                    Submit
+                  </span>
+                </Button>
               </div>
-              <div className="d-flex flex-wrap flex-rowml-5 mt-4">
-                <div
-                  className="col-lg-6 col-md-6 col-sm-12"
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    Adresse
-                  </h4>
-                  <InputBase
-                    fullWidth
-                    type="text"
-                    name="addressUser"
-                    onChange={handleChangee}
-                    value={formValues.addressUser}
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                  />
-                </div>
-                <div className="col-lg-6 col-md-6 col-sm-12"></div>
-              </div>
-              <div className="d-flex flex-wrap flex-rowml-5 mt-5">
-                <div
-                  className="col-lg-6 col-md-6 col-sm-12"
-                  style={{ height: "50px" }}
-                >
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    N° de téléphone
-                  </h4>
-                  <InputBase
-                    fullWidth
-                    type="text"
-                    name="telephoneNumberUser"
-                    onChange={handleChangee}
-                    value={formValues.telephoneNumberUser}
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.numero_telephone_userForme}
-                  </p>
-                </div>
-                <div className="col-lg-6 col-md-6 col-sm-12">
-                  <h4
-                    style={{
-                      color: "#1a85b3",
-                      fontWeight: 400,
-                    }}
-                  >
-                    E-mail*
-                  </h4>
-
-                  <InputBase
-                    fullWidth
-                    type="email"
-                    name="emailUser"
-                    onChange={handleChangee}
-                    value={formValues.emailUser}
-                    required
-                    style={{
-                      borderBottom: "1px solid #1a85b3",
-                    }}
-                  />
-                  <p style={{ fontSize: "60%", color: "red" }}>
-                    {formErrors.emailUU}
-                    {formErrors.emailUUForme}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="d-flex flex-wrap align-items-start   justify-content-end  "
-            style={{
-              fontSize: "200%",
-              fontFamilyy: "Arial, sans-serif",
-              height: "70px",
-            }}
-          >
-            <div className="col-lg-7 col-md-7 col-sm-3 mb-5 ">
-              {/* {!matches && ( */}
-              {show && (
-                <Alert
-                  style={{
-                    height: "8%",
-                    //  maxHeight: "10%",
-                  }}
-                  id="alert"
-                  severity={success}
-                >
-                  {alert}
-                </Alert>
-              )}
-            </div>
-
-            <div className="col-lg-2 col-md-2 col-sm-3  justify-content-end  mr">
-              <Button
-                className="button2"
-                type="reset"
-                onClick={reinitialiser}
-                style={{
-                  color: "#1a85b3",
-                  backgroundColor: "#ffffff",
-                  padding: "2% 12% 2% 12%",
-                  borderRadius: "80px",
-                  border: "#1a85b3 solid 1px",
-                }}
-              >
-                Annuler
-              </Button>
-            </div>
-            <div className="col-lg-2 col-md-2 col-sm-3 justify-content-end ">
-              <Button
-                type="submit"
-                onClick={handleSubmit}
-                style={{
-                  color: "#ffffff",
-                  border: "none",
-                  cursor: "pointer",
-                  backgroundColor: "#1a85b3",
-                  padding: "2% 12% 2% 12%",
-                  borderRadius: "80px",
-                  marginRight: "13%",
-                  // marginBottom: "5%",
-                }}
-              >
-                Suivant
-              </Button>
-            </div>
-            {/* {!matches && (
+              {/* {!matches && (
               <div className=" col-sm-5">
             <Alert
                   style={{
@@ -860,11 +873,19 @@ function SignUp() {
                 </Alert>
               </div>
             )} */}
-          </div>
-        </form>
+            </div>
+          </Form>
+        </Formik>
       </div>
     </div>
   );
 }
-
-export default SignUp;
+const mapStateToProps = ({ Inscriptions }) => {
+  const { showMessage, alertMessage, success } = Inscriptions;
+  return {
+    showMessage,
+    alertMessage,
+    success,
+  };
+};
+export default connect(mapStateToProps, {})(SignUp);

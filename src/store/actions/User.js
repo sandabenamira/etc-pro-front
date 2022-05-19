@@ -9,35 +9,43 @@ import {
   HIDE_ERROR_MESSAGE,
   SHOW_SUCCESS_MESSAGE,
 } from "../../constants/ActionTypes";
-
+var token = localStorage.getItem("token");
 export function addUser(data) {
   return (dispatch) => {
     console.log(data, "add User-------------------------------");
     dispatch({ type: ADD_USER, payload: data });
     let apiEndpoint = `/users`;
-    service.post(apiEndpoint, data).then((response) => {
-      if (response) {
-        dispatch({ type: ADD_USER, payload: response.data });
-      }
-    });
+    service
+      .post(
+        apiEndpoint,
+        { headers: { Authorization: `Bearer ${token}` } },
+        data
+      )
+      .then((response) => {
+        if (response) {
+          dispatch({ type: ADD_USER, payload: response.data });
+        }
+      });
   };
 }
 
 export function getUsers() {
   return (dispatch) => {
     let apiEndpoint = `/users`;
-    service.get(apiEndpoint).then((response) => {
-      if (response) {
-        dispatch({
-          type: GET_USER,
-          payload: response.data,
-          //      .filter(  (e) =>
-          // e.confirm === "confirmé" &&
-          //  e.archive === true
-          //   ),
-        });
-      }
-    });
+    service
+      .get(apiEndpoint, { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        if (response) {
+          dispatch({
+            type: GET_USER,
+            payload: response.data,
+            //      .filter(  (e) =>
+            // e.confirm === "confirmé" &&
+            //  e.archive === true
+            //   ),
+          });
+        }
+      });
   };
 }
 
@@ -46,7 +54,7 @@ export const editUser = (data) => {
   return (dispatch) => {
     // let apiEndpoint = `/users/` + data.id;
     // service
-    //   .patch(apiEndpoint, data)
+    //   .patch(apiEndpoint, { headers: { Authorization: `Bearer ${token}` } }, data)
     //   .then((res) => {
     dispatch({
       type: EDIT_USER,
@@ -76,19 +84,4 @@ export const editUser = (data) => {
     //       }, 4000);
     //     });
   };
-
-};
-
-export const deleteUser = (id) => async (dispatch) => {
-  try {
-    let apiEndpoint = `/users/` + id;
-
-    await service.del(apiEndpoint, id);
-    dispatch({
-      type: DELETE_USER,
-      payload: id,
-    });
-  } catch (err) {
-    console.log(err);
-  }
 };

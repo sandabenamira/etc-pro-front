@@ -26,6 +26,22 @@ const editUserRbac = {
 };
 
 module.exports = {
+  isEmail(inputText) {
+    if (inputText != null && typeof inputText != undefined && inputText.length > 4) {
+     if (
+       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+         inputText
+       )
+     ) {
+       return true;
+     } else {
+       return false;
+     }
+   } else {
+     return false;
+   }
+  },
+
   isEmail(value) {
     if (value != null) {
       if (value.length > 0)
@@ -37,12 +53,11 @@ module.exports = {
       return false;
     }
   },
+ 
   isUndefinedString(str) {
     if (typeof str == "undefined" || typeof str == "NaN") return "";
   },
-  isStringDate(date) {
-    return date.toString().slice(0, 15);
-  },
+ 
   isPhonenumber(str) {
     if (!isNaN(str) && str.length > 0 && /^-?\d+$/.test(str)) {
       // if (str.length > 0 && /^-?\d+$/.test(str)) {
@@ -55,7 +70,13 @@ module.exports = {
 
         return false;
       }
-   } else return true;
+    } else return true;
+  },
+
+  phonenumber(str) {
+    let phoneno = /^\+?([0-9]{})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+    if (str.value.match(phoneno)) return false;
+    else return true;
   },
   isZipCode(zipCode) {
     const s = zipCode.trim();

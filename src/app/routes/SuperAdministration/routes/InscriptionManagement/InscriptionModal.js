@@ -8,7 +8,7 @@ import "react-circular-progressbar/dist/styles.css";
 function InscriptionModal(props) {
   let dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(true);
-  const finalData = {
+  const finalDataConfirme = {
     ...props.data,
     status: "confirmé",
   };
@@ -16,8 +16,6 @@ function InscriptionModal(props) {
     ...props.data,
     status: "refusé",
   };
-
-
   const handleRefuser = (e) => {
     e.preventDefault();
     dispatch(editInscription(finalDataRefuse));
@@ -25,12 +23,10 @@ function InscriptionModal(props) {
   };
 
   const handleConfirm = (e) => {
-    console.log("_____________confirme____________________", finalData);
+    console.log("_____________confirme____________________", finalDataConfirme);
     setOpenModal(false);
     e.preventDefault();
-    dispatch(editInscription(finalData));
-
-
+    dispatch(editInscription(finalDataConfirme));
   };
 
   return (

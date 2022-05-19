@@ -21,95 +21,21 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {
   hideMessage,
   showAuthLoader,
-  userFacebookSignIn,
-  userGithubSignIn,
-  userGoogleSignIn,
   userSignIn,
-  userTwitterSignIn,
   hideLicenceMessage,
 } from "../../store/actions/Auth";
-//  store/actions
-import baseUrl from "../../config/config";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { Formik, useFormik, Form } from "formik";
+import * as Yup from "yup";
 
 function SignIn(props) {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-  const [forgotPassword, setForgotPassword] = useState("");
+  //eye password
+  const [showPassword, setShowPassword] = useState(false);
+  //forget password
+  const [isopen, setIsopen] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const [succedAlert, setSuccedAlert] = useState(false);
-  const [isopen, setIsopen] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [name, setName] = useState();
-  const handleCancel = () => {
-    setIsopen(false);
-  };
-
-  const componentDidUpdate = () => {
-    if (showMessage) {
-      setTimeout(() => {
-        props.hideMessage();
-      }, 500);
-    }
-    if (props.authUser !== null) {
-      props.history.push("/");
-    }
-  };
-  const _handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      props.showAuthLoader();
-      const login = setLogin.trim();
-      const password = setPassword;
-      props.userSignIn({ login, password });
-    }
-  };
-  const handleChange = (name) => (event) => {
-    this.setState({ [name]: event.target.value });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const handleClickShowPasssword = () => {
-    setShowPassword(!showPassword);
-  };
-  const ResetPassword = () => {
-    var email1 = forgotPassword;
-
-    const params = {
-      email: email1,
-    };
-
-    axios.post(`${baseUrl.baseUrl}/users/reset-user-password`, params, {
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    // .then((response) => {
-    //   if (response.data.existe === true) {
-    //     setSuccedAlert(true),
-    //       setForgotPassword(""),
-    //       // setTimeout(
-    //       //   function () {
-    //       //     setSuccedAlert(false);
-    //       //     setIsopen(false);
-    //       //   },
-    //       //   2000
-    //       // );
-    //   } else {
-    //     setErrorAlert(true),
-    //       setForgotPassword(""),
-    //       setTimeout(
-    //         function () {
-    //           setErrorAlert(false);
-    //         },
-    //         2000
-    //       );
-    //   }
-    // })
-    // .catch((err) => {});
-  };
   const {
     showMessage,
     loader,
@@ -117,174 +43,211 @@ function SignIn(props) {
     showLicenceMessage,
     alertLicenceMessage,
   } = props;
+  let dispatch = useDispatch();
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+  const handleClickShowPasssword = () => {
+    setShowPassword(!showPassword);
+  };
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values) => {
+      dispatch(userSignIn(values));
+      // setAlert("Le formulaire est envoyé avec succès! ");
+      // setSuccess("success");
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string()
+        .trim("Champ obligatoire !")
+        .email("Entrer une adresse e-mail valide  "),
+      // .required("Champ obligatoire !")
+      // .max(40, "Trop long ! maximum 40")
+      // .min(3, "Trop court! minimum 3"),
 
-  const onConfirm = () => {
-    this.props.hideLicenceMessage();
+      // password: Yup.string()
+      //   .trim("Champ obligatoire !")
+      //   .required("Champ obligatoire !")
+      //   .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer un nom valide")
+      //   .max(40, "Trop long !")
+      //   .min(2, "Trop court!"),
+    }),
+  });
+
+  const handleCancel = () => {
+    setIsopen(false);
   };
 
-  return (
-    // const { login, password } = this.state;
-    <div
-      style={{
-        backgroundColor: "#1a85b3",
-        paddingLeft: "5%",
-        paddingRight: "5%",
-        paddingBottom: "5%",
-        paddingTop: "4%",
-        minHeight: "1000px",
-        width: "100%",
-        overflow: "auto",
-        // position: "relative",
-      }}
-    >
+  if (props.authUser) {
+    return <Redirect to={"/app/home"} />;
+  } else {
+    return (
       <div
         style={{
-          top: "150px",
+          backgroundColor: "#1a85b3",
+          paddingLeft: "5%",
+          paddingRight: "5%",
+          paddingBottom: "5%",
+          paddingTop: "4%",
+          minHeight: "1000px",
+          width: "100%",
+          overflow: "auto",
         }}
-        className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3"
       >
-        <div className="app-login-main-content">
-          <div className="app-logo-content d-flex align-items-center justify-content-center">
-            <Link className="logo-lg" to="/" title="Educap Pro">
-              <img
-                width={220}
-                src={require("../../assets/images/educapProLogo.png")}
-                alt="Educap Pro"
-                title="Educap Pro"
-              />
-            </Link>
-          </div>
-          <div className="app-login-content">
-            <div className="app-login-header mb-4">
-              <h1>
-                <IntlMessages id="appModule.log" />
-              </h1>
+        <div
+          style={{
+            top: "150px",
+          }}
+          className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3"
+        >
+          <div className="app-login-main-content">
+            <div className="app-logo-content d-flex align-items-center justify-content-center">
+              <Link className="logo-lg" to="/" title="Educap Pro">
+                <img
+                  width={220}
+                  src={require("../../assets/images/educapProLogo.png")}
+                  alt="Educap Pro"
+                  title="Educap Pro"
+                />
+              </Link>
             </div>
-            <div className="app-login-form">
-              <form>
-                <fieldset>
-                  <TextField
-                    label={<IntlMessages id="appModule.username" />}
-                    secureTextEntry={true}
-                    autoCorrect={false}
-                    onChange={(event) => {
-                      setLogin(event.target.value.trim());
-                    }}
-                    defaultValue={login}
-                    className="mt-1 my-sm-3"
-                    onKeyPress={(event) => _handleKeyPress(event)}
-                  />
+            <div className="app-login-content">
+              <div className="app-login-header mb-4">
+                <h1>
+                  <IntlMessages id="appModule.log" />
+                </h1>
+              </div>
+              <div className="app-login-form">
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema
+                  validateOnChange={false}
+                  validateOnBlur={false}
+                >
+                  <Form onSubmit={formik.handleSubmit} noValidate>
+                    <fieldset>
+                      <TextField
+                        label={<IntlMessages id="appModule.username" />}
+                        secureTextEntry={true}
+                        autoCorrect={false}
+                        {...formik.getFieldProps("email")}
+                        defaultValue={initialValues.email}
+                        name="email"
+                        className="mt-1 my-sm-3"
+                      />
+                      {/* {formik.touched.email && formik.errors.email ? (
+                        <div className="error" style={{ color: "red" }}>
+                          <small>{formik.errors.email}</small>
+                        </div>
+                      ) : null} */}
+                      <FormControl className="mb-3">
+                        <InputLabel htmlFor="password-1">
+                          <IntlMessages id="appModule.password" />
+                        </InputLabel>
+                        <Input
+                          id="password-1"
+                          type={showPassword ? "text" : "password"}
+                          name="password"
+                          {...formik.getFieldProps("password")}
+                          defaultValue={initialValues.password}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton onClick={handleClickShowPasssword}>
+                                {showPassword ? (
+                                  <Visibility />
+                                ) : (
+                                  <VisibilityOff />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                      </FormControl>
+                      <div className="mb-3 d-flex align-items-center justify-content-between">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          type="submit"
+                        >
+                        
+                          <span style={{ textTransform: "none" }}>
+                            Connecter
+                          </span>
+                        </Button>
+                        <Link
+                          href="#"
+                          onClick={() => {
+                            setIsopen(true);
+                          }}
+                          color="inherit"
+                        >
+                          <IntlMessages id="forgot.password" />
+                        </Link>
+                      </div>
+                      <div className="app-social-block my-1 my-sm-3">
+                        <Link to="">
+                          <IntlMessages id="signIn.connectWith" />
+                        </Link>
 
-                  <FormControl className="mb-3">
-                    <InputLabel htmlFor="password-1">
-                      <IntlMessages id="appModule.password" />
-                    </InputLabel>
-                    <Input
-                      id="password-1"
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(event) =>
-                        setPassword(event.target.value.trim())
-                      }
-                      onKeyPress={(event) => _handleKeyPress(event)}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            onClick={handleClickShowPasssword}
-                            onMouseDown={handleMouseDownPassword}
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
-                  <div className="mb-3 d-flex align-items-center justify-content-between">
-                    <Button
-                      onClick={() => {
-                        props.showAuthLoader();
-                        props.userSignIn({ login, password });
-                      }}
-                      variant="contained"
-                      color="primary"
-                    >
-                      connecter
-                    </Button>
-                    <Link to=""></Link>
+                        <ul className="social-link">
+                          <li>
+                            <IconButton className="icon">
+                              <i className="zmdi zmdi-facebook" />
+                            </IconButton>
+                          </li>
 
-                    <Link
-                      href="#"
-                      onClick={() => {
-                        setIsopen(true);
-                      }}
-                      color="inherit"
-                    >
-                      <IntlMessages id="forgot.password" />
-                    </Link>
-                  </div>
-                  <div className="app-social-block my-1 my-sm-3">
-                    <Link to="">
-                      <IntlMessages id="signIn.connectWith" />
-                    </Link>
+                          <li>
+                            <IconButton className="icon">
+                              <i className="zmdi zmdi-twitter" />
+                            </IconButton>
+                          </li>
 
-                    <ul className="social-link">
-                      <li>
-                        <IconButton className="icon">
-                          <i className="zmdi zmdi-facebook" />
-                        </IconButton>
-                      </li>
-
-                      <li>
-                        <IconButton className="icon">
-                          <i className="zmdi zmdi-twitter" />
-                        </IconButton>
-                      </li>
-
-                      <li>
-                        <IconButton className="icon">
-                          <i className="zmdi zmdi-google-plus" />
-                        </IconButton>
-                      </li>
-                      <li>
-                        <IconButton className="icon">
-                          <i className="zmdi zmdi-github" />
-                        </IconButton>
-                      </li>
-                    </ul>
-                  </div>
-                </fieldset>
-              </form>
+                          <li>
+                            <IconButton className="icon">
+                              <i className="zmdi zmdi-google-plus" />
+                            </IconButton>
+                          </li>
+                          <li>
+                            <IconButton className="icon">
+                              <i className="zmdi zmdi-github" />
+                            </IconButton>
+                          </li>
+                        </ul>
+                      </div>
+                    </fieldset>
+                  </Form>
+                </Formik>
+              </div>
             </div>
           </div>
+          {loader && (
+            <div className="loader-view">
+              <CircularProgress />
+            </div>
+          )}
+          {showMessage && NotificationManager.error(alertMessage)}
+          <NotificationContainer />
+
+          {isopen === true ? (
+            <ForgetPasswordModal
+              isopen={isopen}
+              handleCancel={handleCancel}
+              errorAlert={errorAlert}
+              succedAlert={succedAlert}
+            />
+          ) : (
+            ""
+          )}
+          <SweetAlert
+            show={showLicenceMessage}
+            title={alertLicenceMessage}
+            //   onConfirm={this.onConfirm}
+          ></SweetAlert>
         </div>
-        {loader && (
-          <div className="loader-view">
-            <CircularProgress />
-          </div>
-        )}
-        {showMessage && NotificationManager.error(alertMessage)}
-        <NotificationContainer />
-        {isopen === true ? (
-          <ForgetPasswordModal
-            isopen={isopen}
-            handleCancel={handleCancel}
-            handleChange={handleChange}
-            // ResetPassword={ResetPassword}
-            errorAlert={errorAlert}
-            forgotPassword={forgotPassword}
-            succedAlert={succedAlert}
-          />
-        ) : (
-          ""
-        )}
-        <SweetAlert
-          show={showLicenceMessage}
-          title={alertLicenceMessage}
-          //onConfirm={this.onConfirm}
-        ></SweetAlert>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const mapStateToProps = ({ auth }) => {
@@ -309,9 +272,6 @@ export default connect(mapStateToProps, {
   userSignIn,
   hideMessage,
   showAuthLoader,
-  userFacebookSignIn,
-  userGoogleSignIn,
-  userGithubSignIn,
-  userTwitterSignIn,
+
   hideLicenceMessage,
 })(SignIn);

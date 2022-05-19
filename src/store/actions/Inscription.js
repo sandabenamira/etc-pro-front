@@ -4,9 +4,11 @@ import {
   ADD_INSCRIPTION,
   EDIT_INSCRIPTION,
   SHOW_SUCCESS_MESSAGE,
-  HIDE_SUCCESS_MESSAGE,
+  HIDE_SUCCESS_MESSAGE_INSC,
   SHOW_ERROR_MESSAGE,
+  SHOW_MESSAGE_INSC,
   HIDE_ERROR_MESSAGE,
+  SHOW_ERROR_MESSAGE_INSC,
   DELETE_INSCRIPTION,
 } from "../../constants/ActionTypes";
 
@@ -26,22 +28,39 @@ export function addInscription(data) {
   return (dispatch) => {
     console.log(data);
     let apiEndpoint = `/inscriptions`;
-    service.post(apiEndpoint, data).then((response) => {
-      if (response) {
+    service
+      .post(apiEndpoint, data)
+      .then((response) => {
         dispatch({ type: ADD_INSCRIPTION, payload: data });
-        console.log(
-          "dispatch",
-          dispatch({ type: ADD_INSCRIPTION, payload: data })
-        );
-      }
-    });
+        dispatch({
+          type: SHOW_MESSAGE_INSC,
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_SUCCESS_MESSAGE_INSC });
+        }, 4000);
+      })
+      .catch((err) => {
+        let errorMsg =
+          err.response === undefined
+            ? "Merci  de réessayer ultérieurement , une erreur s'est produite de notre coté"
+            : err.response.data.error.message === "Internal Server Error"
+            ? "name duplicated"
+            : err.response.data.error.message;
+        dispatch({
+          type: SHOW_ERROR_MESSAGE_INSC,
+          payload: errorMsg,
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_ERROR_MESSAGE });
+        }, 4000);
+      });
   };
 }
 
 export const editInscription = (data) => {
   console.log(data, "----------editInscription");
   return (dispatch) => {
-    let apiEndpoint = `/inscriptions/` + data.id;
+    let apiEndpoint = `/inscriptions/` + data.id + "/status";
 
     service
       .patch(apiEndpoint, data)
@@ -55,7 +74,7 @@ export const editInscription = (data) => {
           payload: "La modification  est effectuée avec succès",
         });
         setTimeout(() => {
-          dispatch({ type: HIDE_SUCCESS_MESSAGE });
+          dispatch({ type: HIDE_SUCCESS_MESSAGE_INSC });
         }, 4000);
       })
       .catch((err) => {
@@ -66,7 +85,7 @@ export const editInscription = (data) => {
             ? "name duplicated"
             : err.response.data.error.message;
         dispatch({
-          type: SHOW_ERROR_MESSAGE,
+          type: SHOW_ERROR_MESSAGE_INSC,
           payload: errorMsg,
         });
         setTimeout(() => {

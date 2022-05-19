@@ -17,9 +17,6 @@ import purpleTheme from "./themes/purpleTheme";
 import darkTheme from "./themes/darkTheme";
 import AppLocale from "../../lngProvider";
 
-
-
-
 import { RoleContext } from "../switchComponent/Context";
 import "@material-ui/core/TextField";
 import {
@@ -166,11 +163,10 @@ class App extends Component {
   }
 
   render() {
-    /* eslint eqeqeq: "off" */
-
+ 
     const { match, location, authUser, initURL, isDarkTheme, themeColor } =
       this.props;
-
+    console.log(authUser, ")))))))))))))))authUser)))))))))))))");
     let applyTheme = createTheme(indigoTheme);
     if (isDarkTheme) {
       document.body.classList.add("dark-theme");
@@ -189,6 +185,7 @@ class App extends Component {
       }
     }
 
+ 
     return (
       <RoleContext.Provider value={this.state.contextValue}>
         <MuiThemeProvider theme={applyTheme}>
@@ -199,7 +196,6 @@ class App extends Component {
             >
               <RTL>
                 <div className="app-main">
-                  
                   <Switch>
                     <RestrictedRoute
                       path={`${match.url}app`}
@@ -210,7 +206,6 @@ class App extends Component {
                     <Route path="/signin" component={SignIn} />
                     <Route path="/signup" component={SignUp} />
                     <Route path="/signup1" component={SignUp1} />
-
 
                     <Route
                       component={asyncComponent(() => import("../Error404"))}
