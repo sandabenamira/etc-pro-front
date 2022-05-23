@@ -4,20 +4,17 @@ import {
   ADD_AGENCE,
   EDIT_AGENCE,
   SHOW_MESSAGE_AGENCE,
-  HIDE_SUCCESS_MESSAGE_AGENCE,SHOW_ERROR_MESSAGE_AGENCE,HIDE_ERROR_MESSAGE_AGENCE
+  HIDE_SUCCESS_MESSAGE_AGENCE,
+  SHOW_ERROR_MESSAGE_AGENCE,
+  HIDE_ERROR_MESSAGE_AGENCE,
 } from "../../constants/ActionTypes";
-var token = localStorage.getItem("token");
-
+ 
 export function addAgence(data) {
   return (dispatch) => {
     console.log(data, "add AGENCE-------------------------------");
     let apiEndpoint = `/agences`;
     service
-      .post(
-        apiEndpoint,
-        { headers: { Authorization: `Bearer ${token}` } },
-        data
-      )
+      .post(apiEndpoint, data)
       .then((response) => {
         dispatch({ type: ADD_AGENCE, payload: response.data });
 
@@ -49,16 +46,14 @@ export function addAgence(data) {
 export function getAgences() {
   return (dispatch) => {
     let apiEndpoint = `/agences?entrepriseId=1`;
-    service
-      .get(apiEndpoint, { headers: { Authorization: `Bearer ${token}` } })
-      .then((response) => {
-        if (response) {
-          dispatch({
-            type: GET_AGENCE,
-            payload: response.data,
-          });
-        }
-      });
+    service.get(apiEndpoint).then((response) => {
+      if (response) {
+        dispatch({
+          type: GET_AGENCE,
+          payload: response.data,
+        });
+      }
+    });
   };
 }
 

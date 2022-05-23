@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 
 import { Formik, useFormik, Form } from "formik";
 import * as Yup from "yup";
- 
+
 function SignUp(props) {
   const {
     showMessage,
@@ -156,7 +156,6 @@ function SignUp(props) {
     onSubmit: (values) => {
       console.log("helloooo", values);
       dispatch(addInscription(values));
-      // setAlert("Le formulaire est envoyé avec succès! ");
       formik.resetForm({ values: "" });
     },
   });

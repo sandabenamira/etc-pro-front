@@ -7,7 +7,7 @@ import {
   EDIT_INSCRIPTION,
   DELETE_INSCRIPTION,
   SHOW_MESSAGE_INSC,
-  HIDE_SUCCESS_MESSAGE_INSC,
+  HIDE_MESSAGE_INSC,
   SHOW_ERROR_MESSAGE_INSC,
 } from "../../constants/ActionTypes";
 
@@ -47,7 +47,7 @@ export default function (state = initialState, action) {
         success:"success"
       };
     }
-    case HIDE_SUCCESS_MESSAGE_INSC: {
+    case HIDE_MESSAGE_INSC: {
       return {
         ...state,
         showMessage: false,
