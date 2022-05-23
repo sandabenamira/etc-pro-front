@@ -18,8 +18,7 @@ function Inscription() {
   useEffect(() => {
     dispatch(getInscriptions());
   }, []);
-  console.log("hello data",data)
-
+ 
   const [filter, setFilter] = useState({
     label: "En attente",
     value: "en attente",

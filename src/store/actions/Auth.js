@@ -38,14 +38,25 @@ export const getUsersProfiles = () => {
   return (dispatch) => {
     var token = localStorage.getItem("token");
     let apiEndpoint = `${cst.baseUrl}/auth/me`;
-    axios.get(apiEndpoint,{ headers: {"Authorization" : `Bearer ${token}`}}).then((response) => {
-      if (response) {
-        dispatch({
-          type: GET_USERSPROFILES,
-          payload: response.data,
-        });
-      }
-    });
+    axios
+      .get(apiEndpoint, { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        if (response) {
+          dispatch({
+            type: GET_USERSPROFILES,
+            payload: response.data,
+          });
+        }
+      });
+  };
+};
+
+export const userSignOut = () => {
+  // axios.post(`${cst.baseUrl}/users/logout?access_token=${localStorage.token}`);
+  // localStorage.removeItem("token");
+  localStorage.clear();
+  return {
+    type: SIGNOUT_USER_SUCCESS,
   };
 };
 
@@ -66,22 +77,6 @@ export const resetAccountPassword = (data) => {
       .catch((error) => {});
   };
 };
-export const userSignOut = () => {
-  axios.post(`${cst.baseUrl}/users/logout?access_token=${localStorage.token}`);
-  localStorage.removeItem("token");
-  localStorage.removeItem("rtvrx_tgfsaju_G0loik");
-
-  return {
-    type: SIGNOUT_USER_SUCCESS,
-  };
-};
-
-export const userSignUpSuccess = (authUser) => {
-  return {
-    type: SIGNUP_USER_SUCCESS,
-    payload: authUser,
-  };
-};
 
 export const userSignInSuccess = (authUser) => {
   return {
@@ -89,6 +84,7 @@ export const userSignInSuccess = (authUser) => {
     payload: authUser,
   };
 };
+
 export const userSignOutSuccess = () => {
   return {
     type: SIGNOUT_USER_SUCCESS,

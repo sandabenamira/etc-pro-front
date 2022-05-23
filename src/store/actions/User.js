@@ -1,51 +1,31 @@
 import { service } from "../services/service";
-import {
-  GET_USER,
-  ADD_USER,
-  EDIT_USER,
-  DELETE_USER,
-  HIDE_SUCCESS_MESSAGE,
-  SHOW_ERROR_MESSAGE,
-  HIDE_ERROR_MESSAGE,
-  SHOW_SUCCESS_MESSAGE,
-} from "../../constants/ActionTypes";
+import { GET_USER, ADD_USER, EDIT_USER } from "../../constants/ActionTypes";
+
 var token = localStorage.getItem("token");
 export function addUser(data) {
   return (dispatch) => {
     console.log(data, "add User-------------------------------");
     dispatch({ type: ADD_USER, payload: data });
     let apiEndpoint = `/users`;
-    service
-      .post(
-        apiEndpoint,
-        { headers: { Authorization: `Bearer ${token}` } },
-        data
-      )
-      .then((response) => {
-        if (response) {
-          dispatch({ type: ADD_USER, payload: response.data });
-        }
-      });
+    service.post(apiEndpoint, data).then((response) => {
+      if (response) {
+        dispatch({ type: ADD_USER, payload: response.data });
+      }
+    });
   };
 }
 
 export function getUsers() {
   return (dispatch) => {
     let apiEndpoint = `/users`;
-    service
-      .get(apiEndpoint, { headers: { Authorization: `Bearer ${token}` } })
-      .then((response) => {
-        if (response) {
-          dispatch({
-            type: GET_USER,
-            payload: response.data,
-            //      .filter(  (e) =>
-            // e.confirm === "confirmé" &&
-            //  e.archive === true
-            //   ),
-          });
-        }
-      });
+    service.get(apiEndpoint).then((response) => {
+      if (response) {
+        dispatch({
+          type: GET_USER,
+          payload: response.data,
+        });
+      }
+    });
   };
 }
 

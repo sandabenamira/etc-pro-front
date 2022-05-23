@@ -239,11 +239,11 @@ function SignIn(props) {
           ) : (
             ""
           )}
-          <SweetAlert
+          {/* <SweetAlert
             show={showLicenceMessage}
             title={alertLicenceMessage}
             //   onConfirm={this.onConfirm}
-          ></SweetAlert>
+          ></SweetAlert> */}
         </div>
       </div>
     );
@@ -256,7 +256,7 @@ const mapStateToProps = ({ auth }) => {
     alertMessage,
     showMessage,
     authUser,
-    showLicenceMessage,
+   // showLicenceMessage,
     alertLicenceMessage,
   } = auth;
   return {
@@ -264,7 +264,7 @@ const mapStateToProps = ({ auth }) => {
     alertMessage,
     showMessage,
     authUser,
-    showLicenceMessage,
+ //   showLicenceMessage,
     alertLicenceMessage,
   };
 };

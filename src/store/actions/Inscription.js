@@ -3,14 +3,13 @@ import {
   GET_INSCRIPTION,
   ADD_INSCRIPTION,
   EDIT_INSCRIPTION,
-  SHOW_SUCCESS_MESSAGE,
-  HIDE_SUCCESS_MESSAGE_INSC,
-  SHOW_ERROR_MESSAGE,
   SHOW_MESSAGE_INSC,
-  HIDE_ERROR_MESSAGE,
+  HIDE_MESSAGE_INSC,
   SHOW_ERROR_MESSAGE_INSC,
   DELETE_INSCRIPTION,
 } from "../../constants/ActionTypes";
+import cst from "../../config/config";
+import axios from "axios";
 
 export function getInscriptions() {
   return (dispatch) => {
@@ -26,17 +25,16 @@ export function getInscriptions() {
 
 export function addInscription(data) {
   return (dispatch) => {
-    console.log(data);
-    let apiEndpoint = `/inscriptions`;
-    service
-      .post(apiEndpoint, data)
+      axios
+      .post(`${cst.baseUrl}/inscriptions`, data)
+    
       .then((response) => {
         dispatch({ type: ADD_INSCRIPTION, payload: data });
         dispatch({
           type: SHOW_MESSAGE_INSC,
         });
         setTimeout(() => {
-          dispatch({ type: HIDE_SUCCESS_MESSAGE_INSC });
+          dispatch({ type: HIDE_MESSAGE_INSC });
         }, 4000);
       })
       .catch((err) => {
@@ -51,7 +49,7 @@ export function addInscription(data) {
           payload: errorMsg,
         });
         setTimeout(() => {
-          dispatch({ type: HIDE_ERROR_MESSAGE });
+          dispatch({ type: HIDE_MESSAGE_INSC });
         }, 4000);
       });
   };
@@ -63,18 +61,22 @@ export const editInscription = (data) => {
     let apiEndpoint = `/inscriptions/` + data.id + "/status";
 
     service
-      .patch(apiEndpoint, data)
+      .patch(
+        apiEndpoint,
+
+        data
+      )
       .then((res) => {
         dispatch({
           type: EDIT_INSCRIPTION,
           payload: data,
         });
         dispatch({
-          type: SHOW_SUCCESS_MESSAGE,
+          type: HIDE_MESSAGE_INSC,
           payload: "La modification  est effectuée avec succès",
         });
         setTimeout(() => {
-          dispatch({ type: HIDE_SUCCESS_MESSAGE_INSC });
+          dispatch({ type: HIDE_MESSAGE_INSC });
         }, 4000);
       })
       .catch((err) => {
@@ -89,7 +91,7 @@ export const editInscription = (data) => {
           payload: errorMsg,
         });
         setTimeout(() => {
-          dispatch({ type: HIDE_ERROR_MESSAGE });
+          dispatch({ type: HIDE_MESSAGE_INSC });
         }, 4000);
       });
   };
@@ -99,7 +101,11 @@ export const deleteInscription = (id) => async (dispatch) => {
   try {
     let apiEndpoint = `/inscriptions/` + id;
 
-    await service.del(apiEndpoint, id);
+    await service.del(
+      apiEndpoint,
+
+      id
+    );
     dispatch({
       type: DELETE_INSCRIPTION,
       payload: id,
