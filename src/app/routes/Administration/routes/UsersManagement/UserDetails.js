@@ -44,7 +44,7 @@ export default function UserDetails(props) {
                   {data.firstName + " " + data.lastName}
                 </h1>
                 <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>
-                  {/* {data.role} */}
+                  {data.name}
                 </h2>
 
                 <h3 style={{ fontSize: "20px", color: "#8C8C8C" }}>
@@ -52,7 +52,7 @@ export default function UserDetails(props) {
                 </h3>
                 <h4 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   <IntlMessages id="gestion.agence.agency" /> <b> : </b>
-                  {/* {data.agency} */}
+                  {data.agenceName}
                 </h4>
               </div>
             </div>
