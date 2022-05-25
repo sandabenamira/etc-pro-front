@@ -182,7 +182,7 @@ export default function UsersList(props) {
             {data
             //  .filter((e) => e.role === filter.value)
 
-              .filter((e) => e.isArchived === false)
+            //  .filter((e) => e.isArchived === false)
               .map((row, i) => (
                 <UserListItem key={i} data={row} />
               ))}

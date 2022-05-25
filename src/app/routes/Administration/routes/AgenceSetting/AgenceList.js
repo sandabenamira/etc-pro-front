@@ -60,7 +60,7 @@ export default function AgenceList() {
   const openaddAgence = () => {
     setOpenadd(!openadd);
   };
-  const data = useSelector((state) => state.Agences.agences);
+  const data = useSelector((state) => state.Agence.agences);
   useEffect(() => {
     dispatch(getAgences());
    }, []);

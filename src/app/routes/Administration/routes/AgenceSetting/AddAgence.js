@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Alert from "@material-ui/lab/Alert";
-
+import { connect } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 import "react-circular-progressbar/dist/styles.css";
@@ -9,13 +8,17 @@ import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
 import { addAgence } from "../../../../../store/actions/Agence";
 import MenuItem from "@mui/material/MenuItem";
-
 import { Formik, useFormik, Form } from "formik";
 import * as Yup from "yup";
 
-export default function AddAgence(props) {
+function AddAgence(props) {
   let dispatch = useDispatch();
-  
+  const {
+    showMessage,
+    success,
+
+    alertMessage,
+  } = props;
   const initialValues = {
     name: "",
     type: "",
@@ -106,22 +109,10 @@ export default function AddAgence(props) {
       .max(40, "Trop long ! maximum 40 caractères")
       .min(3, "Trop court! minimum 3 caractères"),
   });
-  const onSubmit = (values, onSubmitProps) => {
-    console.log("Form data", values);
-    console.log("submit props", onSubmitProps);
-    onSubmitProps.setSubmitting(false);
-    // const finalData = {
-    //   name: values.name,
-    //   type: values.type,
-    //   governorate: values.governorate,
-    //   address: values.address,
-    //   email: values.email,
-    //   fax: values.fax,
-    //   telephoneNumber: values.telephoneNumber,
-    //   entrpriseId: 1,
-    // };
 
-    dispatch(addAgence({...values,entrpriseId: 1}));
+  const onSubmit = (values, onSubmitProps) => {
+    onSubmitProps.setSubmitting(false);
+    dispatch(addAgence({ ...values }));
   };
 
   const formik = useFormik({
@@ -136,9 +127,15 @@ export default function AddAgence(props) {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={onSubmit}
+          validateOnChange={false}
+          validateOnBlur={false}
         >
-          <Form className="row " autoComplete="off">
+          <Form
+            className="row "
+            autoComplete="off"
+            onSubmit={formik.handleSubmit}
+            noValidate
+          >
             <div className="d-flex flex-column col-lg-12 col-md-12 ">
               <div
                 className="d-flex justify-content-end mt-2 "
@@ -375,19 +372,19 @@ export default function AddAgence(props) {
                   height: "70px",
                 }}
               >
-                {/* <div className="p-2">
-                {show && (
-                  <Alert
-                    style={{
-                      maxHeight: "70px",
-                    }}
-                    id="alert"
-                    severity={success}
-                  >
-                    {alert}
-                  </Alert>
-                )}
-              </div> */}
+                <div className="p-2">
+                  {showMessage && (
+                    <Alert
+                      style={{
+                        maxHeight: "70px",
+                      }}
+                      id="alert"
+                      severity={success}
+                    >
+                      {alertMessage}
+                    </Alert>
+                  )}
+                </div>
               </div>
               <div className="p-2 d-flex flex-row justify-content-center">
                 <div className="p-2">
@@ -403,7 +400,7 @@ export default function AddAgence(props) {
                       paddingLeft: "30px",
                       paddingRight: "30px",
                     }}
-                    //      onClick={handleCancel}
+                    onClick={props.openaddAgence}
                   >
                     <IntlMessages id="cancel" />
                   </Button>
@@ -422,7 +419,6 @@ export default function AddAgence(props) {
                     }}
                     type="submit"
                     disabled={!(formik.isValid || formik.isSubmitting)}
-                    // onClick={handleSubmit}
                   >
                     <IntlMessages id="confirm" />
                   </Button>
@@ -435,3 +431,13 @@ export default function AddAgence(props) {
     </Modal>
   );
 }
+
+const mapStateToProps = ({ Agence }) => {
+  const { showMessage, alertMessage, success } = Agence;
+  return {
+    showMessage,
+    alertMessage,
+    success,
+  };
+};
+export default connect(mapStateToProps, {})(AddAgence);
