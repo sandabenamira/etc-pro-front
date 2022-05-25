@@ -2,8 +2,7 @@
 
 import {
   GET_ENTREPRISE,
-  ADD_ENTREPRISE,
-  EDIT_ENTREPRISE,
+   EDIT_ENTREPRISE,
   DELETE_ENTREPRISE,
 } from "../../constants/ActionTypes";
 

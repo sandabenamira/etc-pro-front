@@ -1,7 +1,8 @@
 import axios from "axios";
 import config from "../../config/config";
-import { userSignOut } from "../actions/Auth";
+//import { userSignOut } from "../actions/Auth";
 import configureStore from "../index";
+
 export const service = {
   get,
   post,
@@ -10,22 +11,24 @@ export const service = {
   deleteDetail,
   del,
 };
+
 const store = configureStore();
 var token = localStorage.getItem("token");
 
 function get(apiEndpoint) {
   return axios
-    .get(config.baseUrl + apiEndpoint,
-       {  headers: { Authorization: `Bearer ${token}` },  })
+    .get(config.baseUrl + apiEndpoint, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
     .then((response) => {
       console.log("hello axios", response);
       return response;
-    })
-    .catch((err) => {
-      if (err.response.status === 401) {
-        store.dispatch(userSignOut());
-      }
     });
+  // .catch((err) => {
+  //   if (err.response.status === 401) {
+  //     store.dispatch(userSignOut());
+  //  }
+  //});
 }
 
 function post(apiEndpoint, payload) {
@@ -36,65 +39,71 @@ function post(apiEndpoint, payload) {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": " X-Requested-With, Content-Type",
         "Access-Control-Allow-Methods": "POST, GET",
-        "Authorization": `Bearer ${token}` 
+        Authorization: `Bearer ${token}`,
       },
     })
     .then((response) => {
       return response;
-    })
-    .catch((err) => {
-      if (err.response.status === 401) {
-        store.dispatch(userSignOut());
-      } else {
-      }
     });
+  // .catch((err) => {
+  //   if (err.response.status === 401) {
+  //     store.dispatch(userSignOut());
+  //   } else {
+  //   }
+  //  });
 }
 
 function patch(apiEndpoint, payload) {
   return axios
-    .patch(config.baseUrl + apiEndpoint,
-      {  headers: { Authorization: `Bearer ${token}` },  },
-
-      payload)
+    .patch(
+      config.baseUrl + apiEndpoint,
+      { headers: { Authorization: `Bearer ${token}` } },
+      payload
+    )
     .then((response) => {
       return response;
     })
     .catch((err) => {
-      if (err.response.status === 401) {
-        store.dispatch(userSignOut());
-      } else {
-      }
+      // if (err.response.status === 401) {
+      //   store.dispatch(userSignOut());
+      // } else {
+      // }
     });
 }
 
 function put(apiEndpoint, payload) {
   return axios
-    .put(config.baseUrl + apiEndpoint, 
-      {  headers: { Authorization: `Bearer ${token}` },  },
+    .put(
+      config.baseUrl + apiEndpoint,
+      { headers: { Authorization: `Bearer ${token}` } },
 
-      payload)
+      payload
+    )
     .then((response) => {
       return response;
     })
     .catch((err) => {
-      if (err.response.status === 401) {
-        store.dispatch(userSignOut());
-      } else {
-      }
+      // if (err.response.status === 401) {
+      //   store.dispatch(userSignOut());
+      // } else {
+      // }
     });
 }
 function del(apiEndpoint, payload) {
   return axios
-    .delete(config.baseUrl + apiEndpoint,        {  headers: { Authorization: `Bearer ${token}` },  }
-    ,payload)
+    .delete(
+      config.baseUrl + apiEndpoint,
+      { headers: { Authorization: `Bearer ${token}` } },
+      payload
+    )
     .then((response) => {
       return response;
     })
     .catch((err) => {
-      if (err.response.status === 401) {
-        store.dispatch(userSignOut());
-      } else {
-      }
+      // if (err.response.status === 401) {
+      //   store.dispatch(userSignOut());
+      // } else {
+      // }
     });
 }
 
@@ -105,9 +114,9 @@ function deleteDetail(apiEndpoint) {
       return response;
     })
     .catch((err) => {
-      if (err.response.status === 401) {
-        store.dispatch(userSignOut());
-      } else {
-      }
+      //   if (err.response.status === 401) {
+      //  //   store.dispatch(userSignOut());
+      //   } else {
+      //   }
     });
 }

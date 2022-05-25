@@ -1,11 +1,11 @@
 import { service } from "../services/service";
 import { GET_USER, ADD_USER, EDIT_USER } from "../../constants/ActionTypes";
 
-var token = localStorage.getItem("token");
 export function addUser(data) {
   return (dispatch) => {
     console.log(data, "add User-------------------------------");
-    dispatch({ type: ADD_USER, payload: data });
+
+  //  dispatch({ type: ADD_USER, payload: data });
     let apiEndpoint = `/users`;
     service.post(apiEndpoint, data).then((response) => {
       if (response) {

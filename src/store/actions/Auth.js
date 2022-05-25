@@ -7,7 +7,6 @@ import {
   SHOW_MESSAGE,
   SIGNIN_USER_SUCCESS,
   SIGNOUT_USER_SUCCESS,
-  SIGNUP_USER_SUCCESS,
   SHOW_Licence_MESSAGE,
   HIDE_Licence_MESSAGE,
   GET_USERSPROFILES,
@@ -19,12 +18,11 @@ export const userSignIn = (user) => {
     axios
       .post(`${cst.baseUrl}/auth/signin`, user)
       .then((response) => {
-        console.log(response.data.accessToken);
-        if (response.data.accessToken) {
-          localStorage.setItem("token", response.data.accessToken);
-        }
+        localStorage.setItem("token", response.data.accessToken);
+ 
         // localStorage.setItem('rtvrx_tgfsaju_G0loik', response.data.userId);
         dispatch(userSignInSuccess(response.data.accessToken));
+
         return response.data;
       })
       .catch((err) =>
@@ -32,8 +30,9 @@ export const userSignIn = (user) => {
           showAuthMessage("Veuillez vérifier votre login et mot de passe")
         )
       );
+   
   };
-};
+ };
 export const getUsersProfiles = () => {
   return (dispatch) => {
     var token = localStorage.getItem("token");
@@ -53,8 +52,8 @@ export const getUsersProfiles = () => {
 
 export const userSignOut = () => {
   // axios.post(`${cst.baseUrl}/users/logout?access_token=${localStorage.token}`);
-  // localStorage.removeItem("token");
-  localStorage.clear();
+  localStorage.removeItem("token");
+  // localStorage.clear();
   return {
     type: SIGNOUT_USER_SUCCESS,
   };

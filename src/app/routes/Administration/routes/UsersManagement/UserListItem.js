@@ -16,9 +16,7 @@ export default function UserListItem(props) {
   const finalData = {
     ...props.data,
     isArchived: true,
-
   };
-  console.log("hello final data",finalData)
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
   };
@@ -49,7 +47,7 @@ export default function UserListItem(props) {
         {data.lastName}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {/* {data.role} */}
+        {data.name}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>

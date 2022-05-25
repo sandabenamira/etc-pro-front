@@ -3,15 +3,14 @@ import {
   GET_AGENCE,
   EDIT_AGENCE,
   SHOW_MESSAGE_AGENCE,
-  HIDE_SUCCESS_MESSAGE_AGENCE,
-  SHOW_ERROR_MESSAGE_AGENCE,
+   SHOW_ERROR_MESSAGE_AGENCE,HIDE_MESSAGE_AGENCE
 } from "../../constants/ActionTypes";
 
 const initialState = {
   agences: [],
-  showMessage: "",
+  showMessage: false,
   alertMessage: "",
-  success: "",
+  success:"success"
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -24,6 +23,10 @@ export default function (state = initialState, action) {
         ),
       });
     }
+
+  
+    
+ 
     case SHOW_MESSAGE_AGENCE: {
       return {
         ...state,
@@ -32,7 +35,7 @@ export default function (state = initialState, action) {
         success: "success",
       };
     }
-    case HIDE_SUCCESS_MESSAGE_AGENCE: {
+    case HIDE_MESSAGE_AGENCE: {
       return {
         ...state,
         showMessage: false,
