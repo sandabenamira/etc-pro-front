@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
@@ -19,7 +19,11 @@ import { connect } from "react-redux";
 import Alert from "@material-ui/lab/Alert";
 import { Formik, useFormik, Form } from "formik";
 import * as Yup from "yup";
-import { isUndefinedString } from "../../../../../constants/validationFunctions";
+import {
+  countryList,
+  roleList,
+  agencyList,
+} from "../../../../../../src/constants/variables and listes";
 const phoneRegExp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/;
 
 function AddUser(props) {
@@ -48,82 +52,17 @@ function AddUser(props) {
     postalCode: "",
     cin: "",
   };
-  const countryList = [
-    {
-      value: "France",
-      label: "France",
-    },
-    {
-      value: "Tunisie",
-      label: "Tunisie",
-    },
-    {
-      value: "Canada",
-      label: "Canada",
-    },
-  ];
-  const roleList = [
-    {
-      id: 2,
-      label: "Administrateur",
-      value: "2",
-    },
-    {
-      id: 3,
-      label: "Directeurs des Ressouces Humaines",
-      value: "3",
-    },
-    {
-      id: 4,
-      label: "Responsable des Formations",
-      value: "4",
-    },
-    {
-      id: 5,
-      label: "Chef D'agences",
-      value: "5",
-    },
-    {
-      id: 6,
-      label: "Formateurs",
-      value: "6",
-    },
-    {
-      id: 7,
-      label: "Collaborateurs",
-      value: "7",
-    },
-  ];
-  const agencyList = [
-    {
-      value: "BIAT Sousse",
-      label: "BIAT Sousse",
-    },
-    {
-      value: "BIAT Sfax",
-      label: "BIAT Sfax",
-    },
-    {
-      value: "BIAT Mounastir",
-      label: "BIAT Mounastir",
-    },
-  ];
-  const [verif, setVerif] = useState(true);
+
+  const [verif, setVerif] = useState(false);
   const [papier, setPapier] = useState("");
-  const [photos, setPhotos] = useState([]);
-  const [URLphoto, setURLPhoto] = useState([]);
-  useEffect(() => {
-    if (photos.length < 1) return;
-    const newImageURLs = [];
-    photos.forEach((photo) => newImageURLs.push(URL.createObjectURL(photo)));
-    setURLPhoto(newImageURLs);
-    setVerif(false);
-  }, [photos]);
+  const [photo, setPhoto] = useState("");
 
   const onImageChange = (event) => {
+    setVerif(true);
     if (event.target.files && event.target.files[0]) {
-      setPhotos([...event.target.files]);
-      formik.validationSchema.photo = isUndefinedString(URLphoto[0]);
+      let file = event.target.files[0];
+      setPhoto(URL.createObjectURL(file));
+      setVerif(false);
     }
   };
   const onPapierChange = (event) => {
@@ -139,50 +78,49 @@ function AddUser(props) {
 
   const validationSchema = Yup.object({
     firstName: Yup.string()
-      .trim("champ obligatoire !")
-      .required("champ obligatoire !")
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Veuillez entrer un nom valide")
       .max(40, "Trop long ! maximum 40 caractères")
       .min(2, "Trop court! minimum 2 caractères"),
     lastName: Yup.string()
-      .required("champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(
         /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
         "Veuillez entrer un prénom valide"
       )
       .max(40, "Trop long ! maximum 40 caractères")
       .min(2, "Trop court! minimum 2 caractères"),
-    gender: Yup.string().required("champ obligatoire !"),
+    gender: Yup.string().required("Champ obligatoire !"),
 
     dateBirth: Yup.date()
-      .required("champ obligatoire !")
+      .required("Champ obligatoire !")
       .max(new Date(), "Entrer une date valide"),
 
     email: Yup.string()
-      .trim("champ obligatoire !")
+      .trim("Champ obligatoire !")
       .email("Veuillez entrer une adresse e-mail valide  ")
-      .required("champ obligatoire !")
+      .required("Champ obligatoire !")
       .max(40, "Trop long ! maximum 40 caractères")
       .min(3, "Trop court! minimum 3 caractères"),
 
     telephoneNumber: Yup.string()
-      .trim("champ obligatoire !")
-      .required("champ obligatoire !")
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(phoneRegExp, "Veuillez entrer un numéro téléphone valide")
       .max(40, "Trop long ! maximum 40 chiffres ")
       .min(6, "Trop court ! minimum 6 chiffres"),
 
     cin: Yup.string()
-      .trim("champ obligatoire !")
-      .required("champ obligatoire !")
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(phoneRegExp, "Veuillez entrer un numéro cin valide")
       .max(8, "indiquer 8 chiffres ")
       .min(8, "ndiquer 8 chiffres"),
     country: Yup.string()
       .required("Champ obligatoire !")
-      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une pays valide")
-      .max(40, "Trop long ! maximum 40")
-      .min(2, "Trop court! minimum 2"),
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une pays valide"),
+
     address: Yup.string()
       .required("Champ obligatoire !")
       .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une adresse valide")
@@ -190,7 +128,7 @@ function AddUser(props) {
       .min(2, "Trop court! minimum 2"),
     postalCode: Yup.string()
       .trim("Champ obligatoire !")
-      .required("Champ obligatoire !")
+
       .matches(phoneRegExp, "Entrer un code valide")
       .max(20, "Trop long ! maximum 20 chiffres ")
       .min(4, "Trop court ! minimum 4 chiffres"),
@@ -199,9 +137,6 @@ function AddUser(props) {
     identifiant: Yup.string()
       .required("Champ obligatoire !")
       .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une identifiant valide"),
-    agency: Yup.string()
-      .required("Champ obligatoire !")
-      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une agence valide"),
     photo: Yup.string().matches(
       /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
       "Entrer une photo valide"
@@ -214,9 +149,9 @@ function AddUser(props) {
     dispatch(
       addUser({
         ...values,
-        attachment: papier,
-        photo: isUndefinedString(URLphoto[0]),
-        role: parseInt(values.role),
+        attachment: papier.slice(5),
+        photo: photo.slice(5),
+        roleId: parseInt(values.role),
       })
     );
   };
@@ -272,11 +207,8 @@ function AddUser(props) {
               <br />
               <br />
 
-              <div
-                className="p-2 d-flex  flex-wrap flex-row  "
-                style={{ height: "120px" }}
-              >
-                <div className="p-2 d-flex flex-column  col-md-4 ">
+              <div className="p-2 d-flex  flex-wrap flex-row  ">
+                <div className="p-2 d-flex flex-column  col-md-4   col-sm-12">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="user.name" />*
                   </div>
@@ -298,7 +230,7 @@ function AddUser(props) {
                     ) : null}
                   </div>
                 </div>
-                <div className="p-2 d-flex flex-column flex-wrap   col-md-4  ">
+                <div className="p-2 d-flex flex-column flex-wrap   col-md-4 col-sm-12 ">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="user.last.name" />*
                   </div>
@@ -318,7 +250,7 @@ function AddUser(props) {
                     ) : null}
                   </div>
                 </div>
-                <div className="p-2 d-flex flex-column flex-wrap   col-md-4 ">
+                <div className="p-2 d-flex flex-column flex-wrap   col-md-4 col-sm-12">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="user.genre" />*
                   </div>
@@ -330,20 +262,23 @@ function AddUser(props) {
                     >
                       <FormControlLabel
                         value="masculin"
-                        control={<Radio color="primary" />}
+                        control={<Radio color="primary" size="small" />}
                       />
 
                       <i
                         className="zmdi zmdi-male-alt zmdi-hc-3x"
-                        style={{ color: "blue" }}
+                        style={{ color: "blue", marginLeft: "-25px" }}
                       ></i>
                       <FormControlLabel
                         value="féminin"
-                        control={<Radio color="primary" />}
+                        control={<Radio color="primary" size="small" />}
+                        style={{
+                          marginLeft: "10px",
+                        }}
                       />
                       <i
                         className="zmdi zmdi-female zmdi-hc-3x"
-                        style={{ color: "orange" }}
+                        style={{ color: "orange", marginLeft: "-25px" }}
                       ></i>
                     </RadioGroup>
                     {formik.touched.gender && formik.errors.gender ? (
@@ -355,13 +290,10 @@ function AddUser(props) {
                 </div>
               </div>
 
-              <div
-                className="p-2 d-flex flex-wrap flex-row "
-                style={{ height: "120px" }}
-              >
-                <div className=" p-2 d-flex flex-column col-md-4 ">
+              <div className="p-2 d-flex flex-wrap flex-row ">
+                <div className=" p-2 d-flex flex-column col-md-4 col-sm-12 ">
                   <div style={{ fontSize: "18px" }}>
-                    <IntlMessages id="user.birthday.date" />*{" "}
+                    <IntlMessages id="user.birthday.date" />* 
                   </div>
                   <TextField
                     id="date"
@@ -375,7 +307,10 @@ function AddUser(props) {
                     }}
                   />
                   {formik.touched.dateBirth && formik.errors.dateBirth ? (
-                    <div className="error" style={{ color: "red" }}>
+                    <div
+                      className="error"
+                      style={{ color: "red" }}
+                    >
                       <small>{formik.errors.dateBirth}</small>
                     </div>
                   ) : null}
@@ -397,17 +332,17 @@ function AddUser(props) {
                     ))}
                   </TextField>
                   {formik.touched.country && formik.errors.country ? (
-                    <div className="error" style={{ color: "red" }}>
+                    <div
+                      className="error"
+                      style={{ color: "red" }}
+                    >
                       <small>{formik.errors.country}</small>
                     </div>
                   ) : null}
                 </div>
                 <div className=" p-2 d-flex flex-column flex-wrap col-md-4 "></div>
               </div>
-              <div
-                className="p-2 d-flex flex-wrap flex-row "
-                style={{ height: "120px" }}
-              >
+              <div className="p-2 d-flex flex-wrap flex-row ">
                 <div className=" p-2 d-flex flex-column col-md-4 ">
                   <div style={{ fontSize: "18px" }}>Email* </div>
                   <TextField
@@ -417,13 +352,14 @@ function AddUser(props) {
                     {...formik.getFieldProps("email")}
                     name="email"
                     required
-                    style={{
-                      marginTop: "1.3%",
-                    }}
+                   
                   ></TextField>
 
                   {formik.touched.email && formik.errors.email ? (
-                    <div className="error" style={{ color: "red" }}>
+                    <div
+                      className="error"
+                      style={{ color: "red" }}
+                    >
                       <small>{formik.errors.email}</small>
                     </div>
                   ) : null}
@@ -437,7 +373,10 @@ function AddUser(props) {
                   />
                   {formik.touched.telephoneNumber &&
                   formik.errors.telephoneNumber ? (
-                    <div className="error" style={{ color: "red" }}>
+                    <div
+                      className="error"
+                      style={{ color: "red" }}
+                    >
                       <small>{formik.errors.telephoneNumber}</small>
                     </div>
                   ) : null}
@@ -452,12 +391,13 @@ function AddUser(props) {
                       {...formik.getFieldProps("cin")}
                       name="cin"
                       required
-                      style={{
-                        marginTop: "1.3%",
-                      }}
+                    
                     ></TextField>
                     {formik.touched.cin && formik.errors.cin ? (
-                      <div className="error" style={{ color: "red" }}>
+                      <div
+                        className="error"
+                        style={{ color: "red" }}
+                      >
                         <small>{formik.errors.cin}</small>
                       </div>
                     ) : null}
@@ -465,10 +405,7 @@ function AddUser(props) {
                 </div>
               </div>
 
-              <div
-                className="p-2 d-flex flex-wrap flex-row "
-                style={{ height: "120px" }}
-              >
+              <div className="p-2 d-flex flex-wrap flex-row ">
                 <div className="p-2 d-flex flex-column col-md-4 ">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="user.address.postal" />*
@@ -482,9 +419,7 @@ function AddUser(props) {
                     size="small"
                     {...formik.getFieldProps("address")}
                     required
-                    style={{
-                      marginTop: "1.3%",
-                    }}
+                   
                   ></TextField>
                   {formik.touched.address && formik.errors.address ? (
                     <div className="error" style={{ color: "red" }}>
@@ -504,27 +439,16 @@ function AddUser(props) {
                       fullWidth
                       size="small"
                       {...formik.getFieldProps("postalCode")}
-                      required
-                      style={{
-                        marginTop: "1.3%",
-                      }}
+                    
                     ></TextField>
                   </div>
                 </div>
-                <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
-                  <label
-                    htmlFor="icon-button-file"
-                    style={{
-                      marginLeft: "9%",
-                      marginTop: "-7%",
-                    }}
-                  >
+                <div className="p-2 d-flex flex-column flex-wrap col-md-4 col-md-4 mt-2 ">
+                  <label htmlFor="icon-button-file">
                     <Input
                       accept="image/*"
                       id="icon-button-file"
                       type="file"
-                      // value={formik.values.photo}
-                      // onBlur={formik.handleBlur}
                       onChange={onImageChange}
                       style={{
                         marginLeft: "5%",
@@ -540,6 +464,11 @@ function AddUser(props) {
                       style={{
                         color: "#696969",
                       }}
+                      onClick={() => {
+                        if (photo === "") {
+                          setVerif(true);
+                        }
+                      }}
                     >
                       <PhotoCamera style={{ color: orange[500] }} />
                       <div
@@ -552,18 +481,18 @@ function AddUser(props) {
                         <IntlMessages id="add.picture" />*
                       </div>
                     </IconButton>
-                    {formik.touched.photo && verif ? (
-                      <div className="error" style={{ color: "red" }}>
-                        <small>{formik.errors.address}</small>
+                    {verif ? (
+                      <div
+                        className="error"
+                        style={{ color: "red" }}
+                      >
+                        <small>{"Champ obligatoire !"}</small>
                       </div>
                     ) : null}
                   </label>
                 </div>
               </div>
-              <div
-                className="p-2 d-flex flex-wrap flex-row "
-                style={{ height: "120px" }}
-              >
+              <div className="p-2 d-flex flex-wrap flex-row ">
                 <div className="p-2 d-flex flex-column col-md-4 ">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="user.role" />*
@@ -575,6 +504,7 @@ function AddUser(props) {
                     margin="normal"
                     fullWidth
                     size="small"
+                    required
                     {...formik.getFieldProps("role")}
                     name="role"
                   >
@@ -601,6 +531,7 @@ function AddUser(props) {
                       margin="normal"
                       fullWidth
                       size="small"
+                      required
                       {...formik.getFieldProps("identifiant")}
                     ></TextField>
                     {formik.touched.identifiant && formik.errors.identifiant ? (
@@ -612,7 +543,7 @@ function AddUser(props) {
                 </div>
                 <div className="p-2 d-flex flex-column flex-wrap col-md-4 ">
                   <div style={{ fontSize: "18px" }}>
-                    <IntlMessages id="user.Agency" />*
+                    <IntlMessages id="user.Agency" />
                   </div>
                   <TextField
                     className="textfield"
@@ -629,17 +560,9 @@ function AddUser(props) {
                       </MenuItem>
                     ))}
                   </TextField>
-                  {formik.touched.agency && formik.errors.agency ? (
-                    <div className="error" style={{ color: "red" }}>
-                      <small>{formik.errors.agency}</small>
-                    </div>
-                  ) : null}
                 </div>
               </div>
-              <div
-                className="p-2 d-flex flex-wrap flex-row"
-                style={{ height: "50px" }}
-              >
+              <div className="p-2 d-flex flex-wrap flex-row">
                 <div className="p-2 mr-2">
                   <div style={{ fontSize: "18px" }}>Papier Administratif </div>
                 </div>
@@ -673,10 +596,7 @@ function AddUser(props) {
                   </label>
                 </div>
               </div>
-              <div
-                className="p-2 d-flex   flex-wrap justify-content-center mb-4 "
-                style={{ height: "50px" }}
-              >
+              <div className="p-2 d-flex   flex-wrap justify-content-center mb-4 ">
                 <div className="p-2">
                   {showMessage && (
                     <Alert
@@ -723,7 +643,12 @@ function AddUser(props) {
                       paddingRight: "30px",
                     }}
                     type="submit"
-                    disabled={!(formik.isValid && formik.isSubmitting)}
+                    onClick={() => {
+                      if (photo === "") {
+                        setVerif(true);
+                      }
+                    }}
+                    // disabled={!(formik.isValid && formik.isSubmitting && verif===true)}
                   >
                     <IntlMessages id="confirm" />
                   </Button>

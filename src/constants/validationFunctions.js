@@ -27,37 +27,28 @@ const editUserRbac = {
 
 module.exports = {
   isEmail(inputText) {
-    if (inputText != null && typeof inputText != undefined && inputText.length > 4) {
-     if (
-       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-         inputText
-       )
-     ) {
-       return true;
-     } else {
-       return false;
-     }
-   } else {
-     return false;
-   }
-  },
-
-  isEmail(value) {
-    if (value != null) {
-      if (value.length > 0)
-        return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-          value
-        );
-      else return true;
+    if (
+      inputText != null &&
+       inputText.length > 0
+    ) {
+      if (
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+          inputText
+        )
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
   },
- 
+
   isUndefinedString(str) {
-    if (typeof str == "undefined" || typeof str == "NaN") return "";
+    if (typeof str == "undefined") return "";
   },
- 
+
   isPhonenumber(str) {
     if (!isNaN(str) && str.length > 0 && /^-?\d+$/.test(str)) {
       // if (str.length > 0 && /^-?\d+$/.test(str)) {

@@ -1,10 +1,7 @@
 import { useState } from "react";
-
 import IconButton from "@material-ui/core/IconButton";
 import InscriptionItem from "./InscriptionItem";
-
 import Select from "react-select";
-
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";

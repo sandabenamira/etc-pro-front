@@ -13,12 +13,7 @@ import * as Yup from "yup";
 
 function AddAgence(props) {
   let dispatch = useDispatch();
-  const {
-    showMessage,
-    success,
-
-    alertMessage,
-  } = props;
+  const { showMessage, success, alertMessage } = props;
   const initialValues = {
     name: "",
     type: "",
@@ -63,18 +58,18 @@ function AddAgence(props) {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .trim("champ obligatoire !")
-      .required("champ obligatoire !")
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Veuillez entrer un name valide")
       .max(40, "Trop long ! maximum 40 caractères")
       .min(2, "Trop court! minimum 2 caractères"),
     type: Yup.string()
-      .required("champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Veuillez entrer un type valide")
       .max(40, "Trop long ! maximum 40 caractères")
       .min(2, "Trop court! minimum 2 caractères"),
     governorate: Yup.string()
-      .required("champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(
         /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
         "Veuillez entrer un governorate valide"
@@ -82,20 +77,20 @@ function AddAgence(props) {
       .max(40, "Trop long ! maximum 40 caractères")
       .min(2, "Trop court! minimum 2 caractères"),
     fax: Yup.string()
-      .trim("champ obligatoire !")
-      .required("champ obligatoire !")
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(phoneRegExp, "Veuillez entrer un fax valide")
       .max(40, "Trop long ! maximum 40 chiffres ")
       .min(6, "Trop court ! minimum 6 chiffres"),
     telephoneNumber: Yup.string()
-      .trim("champ obligatoire !")
-      .required("champ obligatoire !")
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(phoneRegExp, "Veuillez entrer un numéro du tel valide")
       .max(40, "Trop long ! maximum 40 chiffres ")
       .min(6, "Trop court ! minimum 6 chiffres"),
     address: Yup.string()
-      .trim("champ obligatoire !")
-      .required("champ obligatoire !")
+      .trim("Champ obligatoire !")
+      .required("Champ obligatoire !")
       .matches(
         /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
         "Veuillez entrer un adresse valide"
@@ -103,9 +98,9 @@ function AddAgence(props) {
       .max(40, "Trop long ! maximum 40 caractères")
       .min(2, "Trop court! minimum 2 caractères"),
     email: Yup.string()
-      .trim("champ obligatoire !")
+      .trim("Champ obligatoire !")
       .email("Veuillez entrer une adresse e-mail valide  ")
-      .required("champ obligatoire !")
+      .required("Champ obligatoire !")
       .max(40, "Trop long ! maximum 40 caractères")
       .min(3, "Trop court! minimum 3 caractères"),
   });
@@ -167,11 +162,11 @@ function AddAgence(props) {
                 <br />
                 <br />
               </div>
-              <div
-                className="p-2 d-flex flex-row  "
-                style={{ height: "120px", marginLeft: "40px" }}
-              >
-                <div className="p-2 d-flex flex-column col-md-5 form-group  ">
+              <div className="p-2 d-flex flex-row  ">
+                <div
+                  className="p-2 d-flex flex-column col-md-6 form-group   "
+                  style={{ height: "80px" }}
+                >
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="gestion.agence.agency" />*
                   </div>
@@ -193,10 +188,7 @@ function AddAgence(props) {
                   </div>
                 </div>
 
-                <div
-                  className="p-2 d-flex flex-column col-md-5  "
-                  style={{ width: "50px", marginLeft: "80px" }}
-                >
+                <div className="p-2 d-flex flex-column col-md-6  ">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="gestion.agence.agency.type" />*
                   </div>
@@ -226,11 +218,8 @@ function AddAgence(props) {
                 </div>
               </div>
 
-              <div
-                className="p-2 d-flex flex-row  "
-                style={{ height: "120px", marginLeft: "40px" }}
-              >
-                <div className="p-2 d-flex flex-column col-md-5  ">
+              <div className="p-2 d-flex flex-row  ">
+                <div className="p-2 d-flex flex-column col-md-6  ">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="gestion.agence.address" />*
                   </div>
@@ -251,10 +240,7 @@ function AddAgence(props) {
                     ) : null}
                   </div>
                 </div>
-                <div
-                  className="p-2 d-flex flex-column col-md-5  "
-                  style={{ width: "50px", marginLeft: "80px" }}
-                >
+                <div className="p-2 d-flex flex-column col-md-6  ">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="gestion.agence.governorate" />*
                   </div>
@@ -284,11 +270,8 @@ function AddAgence(props) {
                 </div>
               </div>
 
-              <div
-                className="p-2 d-flex flex-row  "
-                style={{ height: "120px", marginLeft: "40px" }}
-              >
-                <div className="p-2 d-flex flex-column col-md-5  ">
+              <div className="p-2 d-flex flex-row  ">
+                <div className="p-2 d-flex flex-column col-md-6  ">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="gestion.agence.mail" />*
                   </div>
@@ -309,17 +292,11 @@ function AddAgence(props) {
                     ) : null}
                   </div>
                 </div>
-                <div
-                  className="p-2 d-flex flex-column col-md-5  "
-                  style={{ width: "50px", marginLeft: "80px" }}
-                ></div>
+                <div className="p-2 d-flex flex-column col-md-6  "></div>
               </div>
 
-              <div
-                className="p-2 d-flex flex-row  "
-                style={{ height: "120px", marginLeft: "40px" }}
-              >
-                <div className="p-2 d-flex flex-column col-md-5  ">
+              <div className="p-2 d-flex flex-row  ">
+                <div className="p-2 d-flex flex-column col-md-6  ">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="gestion.agence.fax" />*
                   </div>
@@ -340,10 +317,7 @@ function AddAgence(props) {
                     ) : null}
                   </div>
                 </div>
-                <div
-                  className="p-2 d-flex flex-column col-md-5 "
-                  style={{ marginLeft: "80px" }}
-                >
+                <div className="p-2 d-flex flex-column col-md-6 ">
                   <div style={{ fontSize: "18px" }}>
                     <IntlMessages id="gestion.agence.tel" />*
                   </div>
@@ -393,7 +367,6 @@ function AddAgence(props) {
                     color="primary"
                     style={{
                       borderRadius: "80px",
-                      marginRight: "80px",
                       fontSize: "18px",
                       fontFamily: " sans-serif",
                       textTransform: "none",
@@ -405,7 +378,7 @@ function AddAgence(props) {
                     <IntlMessages id="cancel" />
                   </Button>
                 </div>
-                <div className="p-2 ml-3">
+                <div className="p-2 ">
                   <Button
                     variant="contained"
                     color="primary"

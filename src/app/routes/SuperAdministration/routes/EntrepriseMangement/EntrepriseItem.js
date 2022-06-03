@@ -41,7 +41,7 @@ export default function EntrepriseItem(props) {
         {props.data.telephoneNumberEntreprise}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {/* {props.data.createdIn.slice(0, 10)} */}
+        {props.data.createdIn}
       </td>
 
       <td

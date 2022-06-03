@@ -46,9 +46,13 @@ export const SIGNOUT_USER_SUCCESS = "signout_user_success";
 export const INIT_URL = "init_url";
 export const SIGNOUT_USER = "signout_user";
 export const GET_USERSPROFILES = "get_usersprofiles";
-
 export const ON_HIDE_LOADER = "ON_HIDE_LOADER";
 export const ON_SHOW_LOADER = "ON_SHOW_LOADER";
+export const HIDE_MESSAGE_FORGET_PASSWORD = "HIDE_MESSAGE_FORGET_PASSWORD";
+ export const SHOW_ERROR_MESSAGE_FORGOT = "SHOW_ERROR_MESSAGE_FORGOT";
+export const SHOW_MESSAGE_FORGOT="SHOW_MESSAGE_FORGOT";
+export const HIDE_MESSAGE_FORGOT="HIDE_MESSAGE_FORGOT";
+
 
 // ESTABLISMENT Module const
 
@@ -77,13 +81,15 @@ export const DELETE_INSCRIPTION = "DELETE_INSCRIPTION";
 export const SHOW_MESSAGE_INSC = "SHOW_MESSAGE_INSC";
 export const HIDE_MESSAGE_INSC = "HIDE_MESSAGE_INSC";
 export const SHOW_ERROR_MESSAGE_INSC = "SHOW_ERROR_MESSAGE_INSC";
- 
+
 //-------------ENTREPRISE---------------------
 export const GET_ENTREPRISE = "GET_ENTREPRISE";
 export const ADD_ENTREPRISE = "ADD_ENTREPRISE";
 export const EDIT_ENTREPRISE = "EDIT_ENTREPRISE";
 export const DELETE_ENTREPRISE = "DELETE_ENTREPRISE";
-
+export const SHOW_MESSAGE_USER = "SHOW_MESSAGE_USER";
+export const SHOW_ERROR_MESSAGE_USER = "SHOW_ERROR_MESSAGE_USER";
+export const HIDE_MESSAGE_USER = "HIDE_MESSAGE_USER";
 //--------------USER----------------------
 
 export const ADD_USER = "ADD_USER";
@@ -91,7 +97,6 @@ export const GET_USER = "GET_USER";
 export const FETECHED_USERS = "FETECHED_USERS";
 export const EDIT_USER = "EDIT_USER";
 export const ARCHIVE_USER = "ARCHIVE_USER";
-export const DELETE_USER = "DELETE_USER";
 
 //--------------AGENCE----------------------
 export const ADD_AGENCE = "ADD_AGENCE";
@@ -100,12 +105,10 @@ export const FETECHED_AGENCES = "FETECHED_AGENCES";
 export const EDIT_AGENCE = "EDIT_AGENCE";
 export const GET_ARCHIVE_AGENCE = "GET_ARCHIVE_AGENCE";
 export const DELETE_AGENCE = "DELETE_AGENCE";
-export const SHOW_MESSAGE_AGENCE="SHOW_MESSAGE_AGENCE";
-export const HIDE_MESSAGE_AGENCE="HIDE_MESSAGE_AGENCE";
-export const SHOW_ERROR_MESSAGE_AGENCE="SHOW_ERROR_MESSAGE_AGENCE";
- 
+export const SHOW_MESSAGE_AGENCE = "SHOW_MESSAGE_AGENCE";
+export const HIDE_MESSAGE_AGENCE = "HIDE_MESSAGE_AGENCE";
+export const SHOW_ERROR_MESSAGE_AGENCE = "SHOW_ERROR_MESSAGE_AGENCE";
+
 //-------------PROFILE-----------------------
 export const GET_PROFILE = "GET_PROFILE";
 export const EDIT_PROFILE = "EDIT_PROFILE";
- 
-

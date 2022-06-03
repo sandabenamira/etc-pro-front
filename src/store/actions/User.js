@@ -1,17 +1,45 @@
 import { service } from "../services/service";
-import { GET_USER, ADD_USER, EDIT_USER } from "../../constants/ActionTypes";
+import {
+  GET_USER,
+  ADD_USER,
+  EDIT_USER,
+  SHOW_MESSAGE_USER,
+  SHOW_ERROR_MESSAGE_USER,
+  HIDE_MESSAGE_USER,
+} from "../../constants/ActionTypes";
 
 export function addUser(data) {
   return (dispatch) => {
     console.log(data, "add User-------------------------------");
 
-  //  dispatch({ type: ADD_USER, payload: data });
     let apiEndpoint = `/users`;
-    service.post(apiEndpoint, data).then((response) => {
-      if (response) {
-        dispatch({ type: ADD_USER, payload: response.data });
-      }
-    });
+    service
+      .post(apiEndpoint, data)
+      .then((response) => {
+        if (response) {
+          dispatch({ type: ADD_USER, payload: response.data });
+          dispatch({
+            type: SHOW_MESSAGE_USER,
+          });
+          setTimeout(() => {
+            dispatch({ type: HIDE_MESSAGE_USER });
+          }, 4000);
+        }
+      })
+      .catch((err) => {
+        let errorMsg =
+          err.response === undefined
+            ? "Error: Request failed with status code 500"
+            : "Internal Server Error";
+
+        dispatch({
+          type: SHOW_ERROR_MESSAGE_USER,
+          payload: errorMsg,
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_MESSAGE_USER });
+        }, 4000);
+      });
   };
 }
 

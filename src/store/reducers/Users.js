@@ -3,7 +3,7 @@ import {
   ADD_USER,
   GET_USER,
   EDIT_USER,
-  DELETE_USER,
+  SHOW_MESSAGE_USER,SHOW_ERROR_MESSAGE_USER,HIDE_MESSAGE_USER
 } from "../../constants/ActionTypes";
 
 const initialState = {
@@ -25,6 +25,30 @@ export default function (state = initialState, action) {
           state.users
         ), //...state
       });
+    }
+    case SHOW_MESSAGE_USER: {
+      return {
+        ...state,
+        showMessage: true,
+        alertMessage: "Le formulaire est envoyé avec succès! ",
+        success: "success",
+      };
+    }
+    case HIDE_MESSAGE_USER: {
+      return {
+        ...state,
+        showMessage: false,
+        alertMessage: "",
+      };
+    }
+
+    case SHOW_ERROR_MESSAGE_USER: {
+      return {
+        ...state,
+        showMessage: true,
+        alertMessage: action.payload,
+        success: "warning",
+      };
     }
 
     case GET_USER: {

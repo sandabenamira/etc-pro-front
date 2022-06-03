@@ -56,14 +56,13 @@ export function addInscription(data) {
 }
 
 export const editInscription = (data) => {
-  console.log(data, "----------editInscription");
+  console.log(data, "----------editInscription" ,data);
   return (dispatch) => {
     let apiEndpoint = `/inscriptions/` + data.id + "/status";
 
     service
       .patch(
         apiEndpoint,
-
         data
       )
       .then((res) => {

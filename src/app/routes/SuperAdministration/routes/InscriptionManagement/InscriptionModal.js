@@ -53,7 +53,7 @@ function InscriptionModal(props) {
                 className="close"
                 aria-label="Close"
                 onClick={props.opendetailsUser}
-                // style={{ width: 100, height: 100 }}
+                style={{ marginRight: "-2%" }}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -70,7 +70,7 @@ function InscriptionModal(props) {
 
             <div className="p-2 d-flex flex-row ml-4">
               <div className="p-2 d-flex flex-column col-md-6">
-                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>nom :</h1>
+                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Nom :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   {props.data.nameEntreprise}
@@ -97,7 +97,7 @@ function InscriptionModal(props) {
                 </h2>
               </div>
 
-              <div className="col-lg-6 col-md-6 col-sm-12">
+              <div className="col-lg-6 col-md-6 ">
                 <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Choix Devise :
                 </h1>
@@ -127,20 +127,20 @@ function InscriptionModal(props) {
               </div>
             </div>
             <div className="p-2 d-flex flex-row  ml-4">
-              <div className="col-lg-6 col-md-6 col-sm-12">
+              <div className="col-lg-6 col-md-6  ">
                 <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>Pays :</h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   {props.data.countryEntreprise}
                 </h2>
               </div>
-              <div className="col-lg-6 col-md-6 col-sm-12  ">
+              <div className="col-lg-6 col-md-6    ">
                 <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
                   Créer en :
                 </h1>
 
                 <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {/* {props.data.createdIn.slice(0, 10)} */}
+                  {props.data.createdIn}
                 </h2>
               </div>
             </div>
