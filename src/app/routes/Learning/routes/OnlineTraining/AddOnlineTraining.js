@@ -5,16 +5,14 @@ import DateRangeComponent from "./DateRangeComponent";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import CircularProgressbar from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+ import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import RemoveIcon from "@material-ui/icons/Remove";
 import IntlMessages from "../../../../../util/IntlMessages";
-import Icon from "@mui/material/Icon";
-import Programs from "./Programs";
+ import Programs from "./Programs";
 
 export default function AddOnlineTraining(props) {
   const { values } = props;

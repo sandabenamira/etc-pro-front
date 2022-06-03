@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {ADD_TRAINING} from "../../constants/ActionTypes"
 
 const initialState = {

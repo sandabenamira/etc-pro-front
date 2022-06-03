@@ -5,7 +5,7 @@ import IntlMessages from '../../util/IntlMessages';
 const Footer = () => {
     return (
       <footer className="app-footer">
-        <span className="d-inline-block">ADN Expertise &copy; 2021</span>
+        <span className="d-inline-block">ADN Expertise &copy; 2022</span>
         <Button
           href="https://www.educap.io/"
           target="_blank"

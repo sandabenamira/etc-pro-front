@@ -9,13 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../../../../store/actions/User";
 
 function User() {
+  // eslint-disable-next-line no-unused-vars
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.users.users);
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
-  console.log("get users : ", data);
+  }, [dispatch]);
 
   const [archived, setArchived] = useState(false);
 
@@ -29,12 +29,12 @@ function User() {
 
   const [count, setCount] = useState(0);
   const increment = () => {
-    setCount(count + 1)
-  }
+    setCount(count + 1);
+  };
 
   return (
     <div>
-      { !archived &&(
+      {!archived && (
         <div className="app-wrapper ">
           <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12">
             <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  col-sm-12">
@@ -52,7 +52,7 @@ function User() {
             </div>
 
             <div className="d-flex flex-row p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
-              <UsersList openaddUser={openaddUser} data={data}/>
+              <UsersList openaddUser={openaddUser} data={data} />
             </div>
           </div>
           <div className="d-flex flex-row-reverse  col-lg-12 col-md-12 col-sm-12 ">
@@ -78,12 +78,19 @@ function User() {
               </IconButton>
               <div className="p-2">
                 <IntlMessages id="archive" />
-               </div>
+              </div>
             </div>
           </div>
         </div>
       )}
-      {archived &&<ArshivedUser handleopenArchived={handleopenArchived}  data={data} increment={increment} count={count}/>}
+      {archived && (
+        <ArshivedUser
+          handleopenArchived={handleopenArchived}
+          data={data}
+          increment={increment}
+          count={count}
+        />
+      )}
     </div>
   );
 }

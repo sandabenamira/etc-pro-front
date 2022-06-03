@@ -1,10 +1,7 @@
 import React from "react";
-import { useState } from "react";
-
-import IconButton from "@material-ui/core/IconButton";
+ import IconButton from "@material-ui/core/IconButton";
 import EntrepriseItem from "./EntrepriseItem";
-import Select from "react-select";
-import Paper from "@material-ui/core/Paper";
+ import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { useEffect } from "react";
@@ -17,10 +14,9 @@ export default function Entreprise(props) {
 
   useEffect(() => {
     dispatch(getEntreprises());
-  }, []);
+  }, [dispatch]);
 
-  const [filter, setFilter] = useState("");
-
+ 
   return (
     <div>
       <div className="app-wrapper ">

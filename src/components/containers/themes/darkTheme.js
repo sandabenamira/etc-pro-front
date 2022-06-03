@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import grey from '@material-ui/core/colors/grey';
 
 export default {

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import pink from '@material-ui/core/colors/pink';
 import teal from '@material-ui/core/colors/teal';
 
