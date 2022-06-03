@@ -24,6 +24,7 @@ export default function UserListItem(props) {
     dispatch(editUser(finalData));
     console.log(finalData);
   };
+
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <th
@@ -37,7 +38,7 @@ export default function UserListItem(props) {
         }}
       >
         <div>
-          <Avatar alt={data.prenom} src={data.photo} />
+          <Avatar alt={data.firstName} src={data.photo} />
         </div>
       </th>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>

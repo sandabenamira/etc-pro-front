@@ -17,7 +17,6 @@ function SignUp(props) {
   const {
     showMessage,
     success,
-
     alertMessage,
   } = props;
   const [matches, setMatches] = useState(
@@ -132,7 +131,6 @@ function SignUp(props) {
       .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer un prénom valide")
       .max(40, "Trop long !")
       .min(2, "Trop court!"),
-
     dateBirthUser: Yup.date().max(new Date(), "Entrer une date valide"),
     addressUser: Yup.string()
       .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une adresse valide")
@@ -154,8 +152,7 @@ function SignUp(props) {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      console.log("helloooo", values);
-      dispatch(addInscription(values));
+       dispatch(addInscription(values));
       formik.resetForm({ values: "" });
     },
   });

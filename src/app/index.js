@@ -19,8 +19,8 @@ import { educapProModules } from "../constants/EducapProModules";
 import Raporting from "./routes/Raporting/index";
 import Catalog from "./routes/Catalog/Catalog";
 import SuperAdministration from "./routes/SuperAdministration";
-import { getUsersProfiles } from "../../src/store/actions/Auth";
-import { useDispatch, useSelector } from "react-redux";
+//import { getUsersProfiles } from "../../src/store/actions/Auth";
+//import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 function App(props) {
@@ -36,9 +36,9 @@ function App(props) {
   } else if (document.body.classList.contains("ios-mobile-view-height")) {
     document.body.classList.remove("ios-mobile-view-height");
   }
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
    useEffect(() => {
-    dispatch(getUsersProfiles());
+   // dispatch(getUsersProfiles());
   }, []);
  
   return (

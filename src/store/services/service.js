@@ -1,7 +1,6 @@
 import axios from "axios";
 import config from "../../config/config";
 //import { userSignOut } from "../actions/Auth";
-import configureStore from "../index";
 
 export const service = {
   get,
@@ -12,7 +11,6 @@ export const service = {
   del,
 };
 
-const store = configureStore();
 var token = localStorage.getItem("token");
 
 function get(apiEndpoint) {
@@ -55,11 +53,9 @@ function post(apiEndpoint, payload) {
 
 function patch(apiEndpoint, payload) {
   return axios
-    .patch(
-      config.baseUrl + apiEndpoint,
-      { headers: { Authorization: `Bearer ${token}` } },
-      payload
-    )
+    .patch(config.baseUrl + apiEndpoint, payload, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
     .then((response) => {
       return response;
     })

@@ -13,36 +13,28 @@ import {
 import IntlMessages from "../../util/IntlMessages";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ForgetPasswordModal from "./ForgetPasswordModal";
-import SweetAlert from "react-bootstrap-sweetalert";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import {
-  hideMessage,
-  showAuthLoader,
-  userSignIn,
-  hideLicenceMessage,
-} from "../../store/actions/Auth";
+import { hideMessage, userSignIn } from "../../store/actions/Auth";
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Formik, useFormik, Form } from "formik";
 import * as Yup from "yup";
 
 function SignIn(props) {
-  //eye password
-  const [showPassword, setShowPassword] = useState(false);
-  //forget password
-  const [isopen, setIsopen] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(false);
-  const [succedAlert, setSuccedAlert] = useState(false);
   const {
     showMessage,
+    success,
     loader,
     alertMessage,
-    showLicenceMessage,
-    alertLicenceMessage,
+    errorAlert,
+    succedAlert,
   } = props;
+  const [showPassword, setShowPassword] = useState(false);
+  const [isopen, setIsopen] = useState(false);
+
   let dispatch = useDispatch();
   const initialValues = {
     email: "",
@@ -55,8 +47,6 @@ function SignIn(props) {
     initialValues,
     onSubmit: (values) => {
       dispatch(userSignIn(values));
-      // setAlert("Le formulaire est envoyé avec succès! ");
-      // setSuccess("success");
     },
     validationSchema: Yup.object().shape({
       email: Yup.string()
@@ -126,96 +116,94 @@ function SignIn(props) {
                   validateOnBlur={false}
                 >
                   <Form onSubmit={formik.handleSubmit} noValidate>
-                    <fieldset>
-                      <TextField
-                        label={<IntlMessages id="appModule.username" />}
-                        secureTextEntry={true}
-                        autoCorrect={false}
-                        {...formik.getFieldProps("email")}
-                        defaultValue={initialValues.email}
-                        name="email"
-                        className="mt-1 my-sm-3"
-                      />
-                      {/* {formik.touched.email && formik.errors.email ? (
+                    <div className="d-flex flex-column">
+                      <div className="p-2">
+                        <TextField
+                          label={<IntlMessages id="appModule.username" />}
+                          secureTextEntry={true}
+                          autoCorrect={false}
+                          {...formik.getFieldProps("email")}
+                          defaultValue={initialValues.email}
+                          name="email"
+                          className="mt-1 my-sm-3"
+                        />
+                        {/* {formik.touched.email && formik.errors.email ? (
                         <div className="error" style={{ color: "red" }}>
                           <small>{formik.errors.email}</small>
                         </div>
                       ) : null} */}
-                      <FormControl className="mb-3">
-                        <InputLabel htmlFor="password-1">
-                          <IntlMessages id="appModule.password" />
-                        </InputLabel>
-                        <Input
-                          id="password-1"
-                          type={showPassword ? "text" : "password"}
-                          name="password"
-                          {...formik.getFieldProps("password")}
-                          defaultValue={initialValues.password}
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton onClick={handleClickShowPasssword}>
-                                {showPassword ? (
-                                  <Visibility />
-                                ) : (
-                                  <VisibilityOff />
-                                )}
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                        />
-                      </FormControl>
-                      <div className="mb-3 d-flex align-items-center justify-content-between">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                        >
-                        
-                          <span style={{ textTransform: "none" }}>
-                            Connecter
-                          </span>
-                        </Button>
-                        <Link
-                          href="#"
-                          onClick={() => {
-                            setIsopen(true);
-                          }}
-                          color="inherit"
-                        >
-                          <IntlMessages id="forgot.password" />
-                        </Link>
                       </div>
-                      <div className="app-social-block my-1 my-sm-3">
-                        <Link to="">
-                          <IntlMessages id="signIn.connectWith" />
-                        </Link>
-
-                        <ul className="social-link">
-                          <li>
-                            <IconButton className="icon">
-                              <i className="zmdi zmdi-facebook" />
-                            </IconButton>
-                          </li>
-
-                          <li>
-                            <IconButton className="icon">
-                              <i className="zmdi zmdi-twitter" />
-                            </IconButton>
-                          </li>
-
-                          <li>
-                            <IconButton className="icon">
-                              <i className="zmdi zmdi-google-plus" />
-                            </IconButton>
-                          </li>
-                          <li>
-                            <IconButton className="icon">
-                              <i className="zmdi zmdi-github" />
-                            </IconButton>
-                          </li>
-                        </ul>
+                      <div className="p-2">
+                        <FormControl className="mb-3">
+                          <InputLabel htmlFor="password-1">
+                            <IntlMessages id="appModule.password" />
+                          </InputLabel>
+                          <Input
+                            id="password-1"
+                            fullWidth
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            {...formik.getFieldProps("password")}
+                            defaultValue={initialValues.password}
+                            endAdornment={
+                              <InputAdornment position="end">
+                                <IconButton onClick={handleClickShowPasssword}>
+                                  {showPassword ? (
+                                    <Visibility />
+                                  ) : (
+                                    <VisibilityOff />
+                                  )}
+                                </IconButton>
+                              </InputAdornment>
+                            }
+                          />
+                        </FormControl>
                       </div>
-                    </fieldset>
+                    </div>
+                    <div className="mb-3 d-flex align-items-center justify-content-between">
+                      <Button variant="contained" color="primary" type="submit">
+                        <span style={{ textTransform: "none" }}>Connecter</span>
+                      </Button>
+                      <Link
+                        href="#"
+                        onClick={() => {
+                          setIsopen(true);
+                        }}
+                        color="inherit"
+                      >
+                        <IntlMessages id="forgot.password" />
+                      </Link>
+                    </div>
+                    <div className="app-social-block my-1 my-sm-3">
+                      <Link to="">
+                        <IntlMessages id="signIn.connectWith" />
+                      </Link>
+
+                      <ul className="social-link">
+                        <li>
+                          <IconButton className="icon">
+                            <i className="zmdi zmdi-facebook" />
+                          </IconButton>
+                        </li>
+
+                        <li>
+                          <IconButton className="icon">
+                            <i className="zmdi zmdi-twitter" />
+                          </IconButton>
+                        </li>
+
+                        <li>
+                          <IconButton className="icon">
+                            <i className="zmdi zmdi-google-plus" />
+                          </IconButton>
+                        </li>
+                        <li>
+                          <IconButton className="icon">
+                            <i className="zmdi zmdi-github" />
+                          </IconButton>
+                        </li>
+                      </ul>
+                    </div>
                   </Form>
                 </Formik>
               </div>
@@ -233,17 +221,14 @@ function SignIn(props) {
             <ForgetPasswordModal
               isopen={isopen}
               handleCancel={handleCancel}
+              alertMessage={alertMessage}
+              success={success}
               errorAlert={errorAlert}
               succedAlert={succedAlert}
             />
           ) : (
             ""
           )}
-          {/* <SweetAlert
-            show={showLicenceMessage}
-            title={alertLicenceMessage}
-            //   onConfirm={this.onConfirm}
-          ></SweetAlert> */}
         </div>
       </div>
     );
@@ -256,22 +241,21 @@ const mapStateToProps = ({ auth }) => {
     alertMessage,
     showMessage,
     authUser,
-   // showLicenceMessage,
-    alertLicenceMessage,
+    errorAlert,
+    success,
+    succedAlert,
   } = auth;
   return {
     loader,
     alertMessage,
     showMessage,
     authUser,
- //   showLicenceMessage,
-    alertLicenceMessage,
+    errorAlert,
+    succedAlert,
+    success,
   };
 };
 export default connect(mapStateToProps, {
   userSignIn,
   hideMessage,
-  showAuthLoader,
-
-  hideLicenceMessage,
 })(SignIn);

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-
 import UserListItem from "./UserListItem";
-
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import { orange } from "@material-ui/core/colors";
@@ -56,7 +53,7 @@ export default function UsersList(props) {
     },
   ];
   const data = props.data;
-
+  console.log("data",data);
   return (
     <div className="app-wrapper ">
       {openadd && <AddUser openaddUser={openaddUser} />}
@@ -181,7 +178,6 @@ export default function UsersList(props) {
           <tbody>
             {data
               .filter((e) => e.name === filter.value)
-
               .filter((e) => e.isArchived === false)
               .map((row, i) => (
                 <UserListItem key={i} data={row} />

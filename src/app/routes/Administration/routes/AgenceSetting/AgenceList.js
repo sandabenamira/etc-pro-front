@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import { orange } from "@material-ui/core/colors";
+  import { orange } from "@material-ui/core/colors";
 import AgenceItems from "./AgenceItem";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+  import Select from "@material-ui/core/Select";
 import IntlMessages from "../../../../../util/IntlMessages";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -63,7 +59,7 @@ export default function AgenceList() {
   const data = useSelector((state) => state.Agence.agences);
   useEffect(() => {
     dispatch(getAgences());
-   }, []);
+   }, [dispatch]);
 
   return (
     <div className="app-wrapper ">

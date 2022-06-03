@@ -3,13 +3,13 @@ import {
   HIDE_MESSAGE,
   INIT_URL,
   ON_HIDE_LOADER,
-  ON_SHOW_LOADER,
   SHOW_MESSAGE,
   SIGNIN_USER_SUCCESS,
   SIGNOUT_USER_SUCCESS,
-  SHOW_Licence_MESSAGE,
-  HIDE_Licence_MESSAGE,
   GET_USERSPROFILES,
+  SHOW_ERROR_MESSAGE_FORGOT,
+  SHOW_MESSAGE_FORGOT,
+  HIDE_MESSAGE_FORGOT,
 } from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 import cst from "../../config/config";
 
@@ -19,20 +19,16 @@ export const userSignIn = (user) => {
       .post(`${cst.baseUrl}/auth/signin`, user)
       .then((response) => {
         localStorage.setItem("token", response.data.accessToken);
- 
-        // localStorage.setItem('rtvrx_tgfsaju_G0loik', response.data.userId);
         dispatch(userSignInSuccess(response.data.accessToken));
-
         return response.data;
       })
       .catch((err) =>
         dispatch(
-          showAuthMessage("Veuillez vérifier votre login et mot de passe")
+          showAuthMessage("Veuillez vérifier votre login ou mot de passe")
         )
       );
-   
   };
- };
+};
 export const getUsersProfiles = () => {
   return (dispatch) => {
     var token = localStorage.getItem("token");
@@ -50,6 +46,34 @@ export const getUsersProfiles = () => {
   };
 };
 
+export const verifMail = (mail) => {
+  return (dispatch) => {
+    axios
+      .post(`${cst.baseUrl}/auth/verifmail`, mail)
+      .then((response) => {
+        dispatch({
+          type: SHOW_MESSAGE_FORGOT,
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_MESSAGE_FORGOT });
+        }, 4000);
+      })
+      .catch((err) => {
+        let errorMsg =
+          err.response === undefined
+            ? "Error: Request failed with status code 500"
+            : "Internal Server Error";
+
+        dispatch({
+          type: SHOW_ERROR_MESSAGE_FORGOT,
+          payload: errorMsg,
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_MESSAGE_FORGOT });
+        }, 4000);
+      });
+  };
+};
 export const userSignOut = () => {
   // axios.post(`${cst.baseUrl}/users/logout?access_token=${localStorage.token}`);
   localStorage.removeItem("token");
@@ -97,29 +121,14 @@ export const showAuthMessage = (message) => {
   };
 };
 
-export const showLicenceMessage = (message) => {
-  return {
-    type: SHOW_Licence_MESSAGE,
-    payload: message,
-  };
-};
-export const hideLicenceMessage = (message) => {
-  return {
-    type: HIDE_Licence_MESSAGE,
-  };
-};
-
+//donner history location
 export const setInitUrl = (url) => {
   return {
     type: INIT_URL,
     payload: url,
   };
 };
-export const showAuthLoader = () => {
-  return {
-    type: ON_SHOW_LOADER,
-  };
-};
+
 export const hideMessage = () => {
   return {
     type: HIDE_MESSAGE,
