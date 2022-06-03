@@ -1,7 +1,4 @@
 import { Modal, ModalBody } from "reactstrap";
-
-import Button from "@material-ui/core/Button";
-
 import "react-circular-progressbar/dist/styles.css";
 
 function EntrepriseModal(props) {
@@ -14,8 +11,6 @@ function EntrepriseModal(props) {
           style={{
             color: "#4C25B7",
             fontSize: "25px",
-            // marginRight: "-10%",
-
             width: "100%",
           }}
         >
@@ -26,7 +21,6 @@ function EntrepriseModal(props) {
                 className="close"
                 aria-label="Close"
                 onClick={props.opendetailsUser}
-                // style={{ width: 100, height: 100 }}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -126,14 +120,7 @@ function EntrepriseModal(props) {
                 </h2>
               </div>
               <div className="col-lg-6 col-md-6 col-sm-12  ">
-                <h1 style={{ fontSize: "20px", color: "#3f51b5" }}>
-                  {/* choix */}
-                </h1>
-
-                <h2 style={{ fontSize: "20px", color: "#8C8C8C" }}>
-                  {/* {props.data.choixDevise} */}
-                </h2>
-              </div>
+               </div>
             </div>
           </div>
 

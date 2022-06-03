@@ -8,7 +8,7 @@ import {
   SHOW_ERROR_MESSAGE_AGENCE,
 } from "../../constants/ActionTypes";
 //import configureStore from "../index";
-import configureStore, { history } from "./../../store";
+import configureStore from "./../../store";
 const store = configureStore();
 const data = store.auth;
 console.log("data", data);

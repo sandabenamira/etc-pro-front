@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function OnlineTrainingItem() {
   const classes = useStyles();
+  // eslint-disable-next-line no-unused-vars
   const [favoris, setFavoris] = useState(false);
   var things = [img1, img2, img3, img4];
   var thing = things[Math.floor(Math.random() * things.length)];

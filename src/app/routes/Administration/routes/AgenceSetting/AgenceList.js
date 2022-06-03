@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-
-  import { orange } from "@material-ui/core/colors";
+import { orange } from "@material-ui/core/colors";
 import AgenceItems from "./AgenceItem";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
-  import Select from "@material-ui/core/Select";
+import Select from "@material-ui/core/Select";
 import IntlMessages from "../../../../../util/IntlMessages";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -50,7 +49,7 @@ export default function AgenceList() {
     },
   ];
   const dispatch = useDispatch();
- 
+
   const [openadd, setOpenadd] = useState(false);
 
   const openaddAgence = () => {
@@ -59,7 +58,7 @@ export default function AgenceList() {
   const data = useSelector((state) => state.Agence.agences);
   useEffect(() => {
     dispatch(getAgences());
-   }, [dispatch]);
+  }, [dispatch]);
 
   return (
     <div className="app-wrapper ">
@@ -68,27 +67,27 @@ export default function AgenceList() {
       <div className="d-flex flex-column">
         <div className="d-flex justify-content-around bd-highlight flex-wrap">
           <div className="p-2">
-          <Select
-            required
-            options={roleList}
-         //   onChange={(e) => setFilter(e)}
-        //    value={filter}
-            id="role"
-            name="role"
-            styles={{
-              control: (base) => ({
-                ...base,
-                "&:hover": { borderColor: "gray" }, // border style on hover
-                border: "1px solid lightgray", // default border color
-                boxShadow: "none", // no box-shadow
-                borderTopStyle: "none",
-                borderRightStyle: "none",
-                borderLeftStyle: "none",
-                borderRadius: " none",
-                width: 200,
-              }),
-            }}
-          />
+            <Select
+              required
+              options={roleList}
+              //   onChange={(e) => setFilter(e)}
+              //    value={filter}
+              id="role"
+              name="role"
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  "&:hover": { borderColor: "gray" }, // border style on hover
+                  border: "1px solid lightgray", // default border color
+                  boxShadow: "none", // no box-shadow
+                  borderTopStyle: "none",
+                  borderRightStyle: "none",
+                  borderLeftStyle: "none",
+                  borderRadius: " none",
+                  width: 200,
+                }),
+              }}
+            />
           </div>
 
           <div className=" d-flex flex-row flex-wrap p-2 col-lg-3 col-md-6  col-sm-4 bd-highlight flex-wrap">
@@ -132,7 +131,7 @@ export default function AgenceList() {
                     onClick={openaddAgence}
                   >
                     <AddCircleOutlineOutlinedIcon
-                      style={{ color: orange[500] ,marginRight:"20px"}}
+                      style={{ color: orange[500], marginRight: "20px" }}
                     />
                     <div
                       style={{

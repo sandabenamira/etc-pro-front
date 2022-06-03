@@ -1,6 +1,7 @@
 import green from '@material-ui/core/colors/green';
 import orange from '@material-ui/core/colors/orange';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   palette: {
     primary: {

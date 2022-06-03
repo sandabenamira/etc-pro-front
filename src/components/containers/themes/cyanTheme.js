@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import cyan from '@material-ui/core/colors/cyan';
 import green from '@material-ui/core/colors/green';
 

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import blue from '@material-ui/core/colors/blue';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 

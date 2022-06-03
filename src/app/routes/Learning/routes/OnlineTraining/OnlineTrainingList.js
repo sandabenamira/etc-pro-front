@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import OnlineTrainingItem from "./OnlineTrainingItem";
 import SearchIcon from "@material-ui/icons/Search";
@@ -9,25 +7,14 @@ import IntlMessages from "../../../../../util/IntlMessages";
 import InputBase from "@material-ui/core/InputBase";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
-import InputLabel from "@mui/material/InputLabel";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import BootstrapInput from "./CostumInput";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 
 import styles from "./styles.module.css";
 
 export default function OnlineTrainingList(props) {
+  // eslint-disable-next-line no-unused-vars
   const [filter, setFilter] = useState({
     id: 1,
     label: "Plus récent",

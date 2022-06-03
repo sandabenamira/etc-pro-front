@@ -14,7 +14,7 @@ function Inscription() {
   const data = useSelector((state) => state.Inscriptions.inscriptions);
   useEffect(() => {
     dispatch(getInscriptions());
-  }, []);
+  }, [dispatch]);
  
   const [filter, setFilter] = useState({
     label: "En attente",

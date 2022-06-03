@@ -1,9 +1,7 @@
 import {
   GET_ENTREPRISE,
   ADD_ENTREPRISE,
-  EDIT_ENTREPRISE,
-  DELETE_ENTREPRISE,
-} from "../../constants/ActionTypes";
+  } from "../../constants/ActionTypes";
 import { service } from "../services/service";
 
 export function addEntreprise(data) {
