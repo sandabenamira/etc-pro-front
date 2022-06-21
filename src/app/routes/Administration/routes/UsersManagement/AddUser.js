@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 import Radio from "@material-ui/core/Radio";

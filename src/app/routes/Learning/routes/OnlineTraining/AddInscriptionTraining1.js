@@ -1,6 +1,5 @@
 import React,{useState} from "react";
-import {useDispatch} from "react-redux"
-import { Modal, ModalBody } from "reactstrap";
+ import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 import AttachmentIcon from "@material-ui/icons/Attachment";
 import "react-circular-progressbar/dist/styles.css";
@@ -13,9 +12,8 @@ export default function AddInscriptionTraining1(props) {
     const Input = styled("input")({
     display: "none",
   });  
-  let dispatch = useDispatch(props);
-
-  const [papier, setPapier] = useState("");
+ 
+  const [ setPapier] = useState("");
   const reinitialiser = () => {
     props.openInscriptionModal();
   };

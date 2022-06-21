@@ -1,42 +1,25 @@
-import React,{useState} from "react";
-import {useDispatch} from "react-redux"
+import React from "react";
 import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
-import AttachmentIcon from "@material-ui/icons/Attachment";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
-import { styled } from "@mui/material/styles";
-import { Formik, useFormik, Form } from "formik";
+ import { Formik, useFormik, Form } from "formik";
 import * as Yup from "yup";
 export default function AddInscriptionTraining2(props) {
-  const Input = styled("input")({
-    display: "none",
-  });  
-  let dispatch = useDispatch(props);
-
-  const [papier, setPapier] = useState("");
   const reinitialiser = () => {
     props.openInscriptionModal();
-  };
-  const onPapierChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let file = event.target.files[0];
-      setPapier(URL.createObjectURL(file));
-    }
   };
 
   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.setSubmitting(false);
-  
   };
   const initialValues = {
     firstName: "",
     lastName: "",
-   
-  };   const validationSchema = Yup.object({
- 
-      modeFinncement: Yup.string()
+  };
+  const validationSchema = Yup.object({
+    modeFinncement: Yup.string()
       .required("Champ obligatoire !")
       .matches(
         /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
@@ -44,20 +27,17 @@ export default function AddInscriptionTraining2(props) {
       )
       .max(40, "Trop long ! maximum 40 caractères")
       .min(2, "Trop court! minimum 2 caractères"),
-    
   });
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema,
   });
- 
-  
- 
+
   return (
     <Modal isOpen={props.openInscriptionModal}>
       <ModalBody>
-      <Formik
+        <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           validateOnChange={false}
@@ -69,8 +49,8 @@ export default function AddInscriptionTraining2(props) {
             onSubmit={formik.handleSubmit}
             noValidate
           >
-          <div className="d-flex flex-wrap justify-content-start flex-column col-lg-12 col-md-12 col-sm-6 ">
-          <div
+            <div className="d-flex flex-wrap justify-content-start flex-column col-lg-12 col-md-12 col-sm-6 ">
+              <div
                 className="d-flex justify-content-end  "
                 style={{
                   color: "#4C25B7",
@@ -84,76 +64,74 @@ export default function AddInscriptionTraining2(props) {
                   onClick={reinitialiser}
                   style={{
                     marginTop: "-2%",
-                   }}
+                  }}
                 >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-            <div
-              className="d-flex justify-content-center"
-              style={{ color: "#3f51b5", fontSize: "25px" }}            >
-              <IntlMessages id="reporting.formation.Inscription" />
-            </div>
-            <br />
-            <br />
+              <div
+                className="d-flex justify-content-center"
+                style={{ color: "#3f51b5", fontSize: "25px" }}
+              >
+                <IntlMessages id="reporting.formation.Inscription" />
+              </div>
+              <br />
+              <br />
 
-            <div className="p-2 d-flex flex-row ">
-              <div className="p-2  d-flex flex-column col-md-10 col-sm-6 ">
-                <div style={{ fontSize: "18px",color: "#3f51b5" }}>
-                  <IntlMessages id="reporting.formation.session" />
-                </div>
-                <div>
-                  <TextField
-                    className="textfield"
-                    margin="normal"
-                    fullWidth
-                    size="small"
-
-                   ></TextField>
+              <div className="p-2 d-flex flex-row ">
+                <div className="p-2  d-flex flex-column col-md-10 col-sm-6 ">
+                  <div style={{ fontSize: "18px", color: "#3f51b5" }}>
+                    <IntlMessages id="reporting.formation.session" />
+                  </div>
+                  <div>
+                    <TextField
+                      className="textfield"
+                      margin="normal"
+                      fullWidth
+                      size="small"
+                    ></TextField>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="p-2 d-flex flex-row">
-            <div className="p-2  d-flex flex-column col-md-10 col-sm-6 ">
-                <div style={{ fontSize: "18px",color: "#3f51b5" }}>
-                  <IntlMessages id="reporting.formation.invitePeople" />
-                </div>
-                <div>
-                  <TextField
-                    className="textfield"
-                    margin="normal"
-                    fullWidth
-                    size="small"
-
-                   ></TextField>
-                </div>
-              </div>
-            </div>
-            <div className="p-2 d-flex flex-row">
-            <div className="p-2  d-flex flex-column col-md-10 col-sm-6 ">
-                <div style={{ fontSize: "18px",color: "#3f51b5" }}>
-                  <IntlMessages id="reporting.formation.questionFinancement" />
-                </div>
-                <div>
-                  <TextField
-                    className="textfield"
-                    margin="normal"
-                    fullWidth
-                    size="small"
-
-                   ></TextField>
+              <div className="p-2 d-flex flex-row">
+                <div className="p-2  d-flex flex-column col-md-10 col-sm-6 ">
+                  <div style={{ fontSize: "18px", color: "#3f51b5" }}>
+                    <IntlMessages id="reporting.formation.invitePeople" />
+                  </div>
+                  <div>
+                    <TextField
+                      className="textfield"
+                      margin="normal"
+                      fullWidth
+                      size="small"
+                    ></TextField>
+                  </div>
                 </div>
               </div>
-            </div>
-            {/*  bouttons */}
-            <div className="p-2 d-flex flex-row justify-content-center">
-            <div className="p-2">
+              <div className="p-2 d-flex flex-row">
+                <div className="p-2  d-flex flex-column col-md-10 col-sm-6 ">
+                  <div style={{ fontSize: "18px", color: "#3f51b5" }}>
+                    <IntlMessages id="reporting.formation.questionFinancement" />
+                  </div>
+                  <div>
+                    <TextField
+                      className="textfield"
+                      margin="normal"
+                      fullWidth
+                      size="small"
+                    ></TextField>
+                  </div>
+                </div>
+              </div>
+              {/*  bouttons */}
+              <div className="p-2 d-flex flex-row justify-content-center">
+                <div className="p-2">
                   <Button
                     variant="outlined"
                     color="primary"
                     style={{
                       borderRadius: "80px",
-                       fontSize: "18px",
+                      fontSize: "18px",
                       fontFamily: " sans-serif",
                       textTransform: "none",
                       paddingLeft: "30px",
@@ -177,14 +155,14 @@ export default function AddInscriptionTraining2(props) {
                       paddingRight: "30px",
                     }}
                     type="submit"
-                    
+
                     // disabled={!(formik.isValid && formik.isSubmitting && verif===true)}
                   >
                     <IntlMessages id="confirm" />
                   </Button>
                 </div>
+              </div>
             </div>
-          </div>
           </Form>
         </Formik>
       </ModalBody>
