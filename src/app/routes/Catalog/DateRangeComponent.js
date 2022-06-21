@@ -30,8 +30,7 @@ class DateRangeComponent extends React.Component {
   }
 
   render() {
-    console.log('this.props.dateSession',this.props.dateSession);
-    return (
+     return (
       <div className="col-md-12">
         <DateRangePicker
           required={true}

@@ -6,25 +6,20 @@ import "react-dates/lib/css/_datepicker.css";
 class DateRangeComponent extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-
-    };
+    this.state = {};
     this.dateFrequency = this.dateFrequency.bind(this);
   }
 
-
   dateFrequency(startDate, endDate) {
-    console.log('dateFrequencydateFrequencydateFrequency');
+    console.log("dateFrequencydateFrequencydateFrequency");
     this.setState({ startDate: startDate, endDate: endDate });
     if (startDate !== null && endDate !== null) {
-      console.log('ttttt', startDate._d, endDate._d);
+      console.log("start Date ,end Date", startDate._d, endDate._d);
       this.props.setDate(startDate, endDate, this.props.index);
     }
   }
 
   render() {
-    console.log('this.props.dateSession', this.props.dateSession);
     return (
       <div className="col-md-12">
         <DateRangePicker

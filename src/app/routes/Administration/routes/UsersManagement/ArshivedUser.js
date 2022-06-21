@@ -24,12 +24,12 @@ export default function ArshivedUser(props) {
               </IconButton>
               <h1
                 style={{
-                  color: "#484cb4",
-                  marginBottom: "5%",
-                  fontSize: "26px",
+                  color: "#3f51b5",
+                  fontSize: "24px",
+                  fontWeight: "bold",
                 }}
               >
-                <IntlMessages id="sidebar.usersManagement" /> -
+                <IntlMessages id="sidebar.usersManagement" /> -{" "}
                 <IntlMessages id="gestion.agence.archive" />
               </h1>
             </div>
@@ -37,19 +37,13 @@ export default function ArshivedUser(props) {
         </div>
 
         <div className="d-flex flex-row p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
-          <ArshivedUserList data={props.data} setNumero={props.setNumero} increment={props.increment} count={props.count}/>
+          <ArshivedUserList
+            data={props.data}
+            setNumero={props.setNumero}
+            increment={props.increment}
+            count={props.count}
+          />
         </div>
-      </div>
-      <div className="d-flex flex-row-reverse p-2 col-lg-10 col-md-12 col-sm-12 mt-4">
-        <div
-          className="d-flex "
-          style={{
-            color: "#A4A4A4",
-            fontWeight: "bold",
-            textAlign: "center",
-            fontSize: "20px",
-          }}
-        ></div>
       </div>
     </div>
   );

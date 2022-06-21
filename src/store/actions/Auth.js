@@ -77,7 +77,7 @@ export const verifMail = (mail) => {
 export const userSignOut = () => {
   // axios.post(`${cst.baseUrl}/users/logout?access_token=${localStorage.token}`);
   localStorage.removeItem("token");
-  // localStorage.clear();
+   localStorage.clear();
   return {
     type: SIGNOUT_USER_SUCCESS,
   };

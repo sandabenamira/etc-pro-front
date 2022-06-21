@@ -1,30 +1,23 @@
 import { useState } from "react";
-
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import UserDetails from "./UserDetails";
 import { editUser } from "../../../../../store/actions/User";
 import { useDispatch } from "react-redux";
-
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import ReplayIcon from "@material-ui/icons/Replay";
 
 export default function ArshivedUserItems(props) {
-  const [opendetails, setOpendetails] = useState(false);
   let dispatch = useDispatch();
-
+  const [opendetails, setOpendetails] = useState(false);
   const data = props.data;
   const opendetailsUser = () => {
     setOpendetails(!opendetails);
   };
   const finalData = {
     ...props.data,
-    archive: false,
-
+    isArchived: false,
   };
-  // const i = 0;
-  // i += 1;
-  // props.increment = i;
   const handleArchive = (e) => {
     dispatch(editUser(finalData));
     console.log(finalData);
@@ -36,15 +29,13 @@ export default function ArshivedUserItems(props) {
         style={{
           display: "flex",
           flexDirection: "row",
-         // textAlign: "end",
           backgroundColor: "#F5F5F5",
           borderTopLeftRadius: 15,
           borderBottomLeftRadius: 15,
         }}
       >
         <div style={{ textAlign: "center" }}>
-          <Avatar style={{
-          }} alt={data.firstName} src={data.photo} />
+          <Avatar style={{}} alt={data.firstName} src={data.photo} />
         </div>
       </th>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
@@ -54,7 +45,7 @@ export default function ArshivedUserItems(props) {
         {data.firstName}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {/* {data.role} */}
+        {data.name}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
@@ -95,7 +86,7 @@ export default function ArshivedUserItems(props) {
             }}
             onClick={(e) => handleArchive(e)}
           >
-            <ReplayIcon backgroundColor="white" />
+            <ReplayIcon />
           </IconButton>
         </div>
       </td>

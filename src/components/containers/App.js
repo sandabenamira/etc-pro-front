@@ -77,7 +77,7 @@ class App extends Component {
     currentAppLocale: AppLocale["fr"],
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
     if (this.props.initURL === "") {
       this.props.setInitUrl(this.props.history.location.pathname);

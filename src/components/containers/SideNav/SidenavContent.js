@@ -129,7 +129,7 @@ class SidenavContent extends Component {
     } catch (error) {}
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { history } = nextProps;
     const pathname = `${history.location.pathname}`; // get current path
     const activeLi = document.querySelector('a[href="' + pathname + '"]'); // select current a element

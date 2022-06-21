@@ -3,7 +3,7 @@ import { connectRouter } from "connected-react-router";
 import Settings from "./Settings";
 import Auth from "./Auth";
 import Users from "./Users";
-import Trainings from "./Trainings";
+import trainings from "./Trainings";
 import Inscriptions from "./Inscriptions";
 import Entreprises from "./Entreprise";
 import Agence from "./Agence";
@@ -14,7 +14,7 @@ export default (history) =>
     settings: Settings, // used
     auth: Auth, // used
     users: Users,
-    trainings: Trainings,
+    trainings: trainings,
     Inscriptions: Inscriptions,
     Entreprise: Entreprises,
     Agence: Agence,

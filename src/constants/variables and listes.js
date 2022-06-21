@@ -34,27 +34,14 @@ export const countryList = [
       value: "5",
     },
     {
-      id: 6,
-      label: "Formateurs",
-      value: "6",
-    },
-    {
       id: 7,
-      label: "Collaborateurs",
+      label: "Formateurs",
       value: "7",
     },
-  ];
-  export const agencyList = [
     {
-      value: "BIAT Sousse",
-      label: "BIAT Sousse",
-    },
-    {
-      value: "BIAT Sfax",
-      label: "BIAT Sfax",
-    },
-    {
-      value: "BIAT Mounastir",
-      label: "BIAT Mounastir",
+      id: 6,
+      label: "Collaborateurs",
+      value: "6",
     },
   ];
+ 

@@ -3,14 +3,19 @@ import {
   GET_AGENCE,
   EDIT_AGENCE,
   SHOW_MESSAGE_AGENCE,
-   SHOW_ERROR_MESSAGE_AGENCE,HIDE_MESSAGE_AGENCE
+  SHOW_ERROR_MESSAGE_AGENCE,
+  HIDE_MESSAGE_AGENCE,
+  SHOW_ERROR_ALERTE_AGENCE,
+  HIDE_ERROR_ALERTE_AGENCE,
+  SHOW_ALERTE_AGENCE,
 } from "../../constants/ActionTypes";
 
 const initialState = {
   agences: [],
   showMessage: false,
-  alertMessage: "",
-  success:"success"
+  alertMessageAgence: "",
+  successAgence: "success",
+  showAlerteNavAgence: false,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -23,10 +28,6 @@ export default function (state = initialState, action) {
         ),
       });
     }
-
-  
-    
- 
     case SHOW_MESSAGE_AGENCE: {
       return {
         ...state,
@@ -64,7 +65,29 @@ export default function (state = initialState, action) {
         ],
       });
     }
-
+    case SHOW_ALERTE_AGENCE: {
+      return {
+        ...state,
+        showAlerteNavAgence: true,
+        alertMessageAgence: action.payload,
+        successAgence: "success",
+      };
+    }
+    case SHOW_ERROR_ALERTE_AGENCE: {
+      return {
+        ...state,
+        showAlerteNavAgence: true,
+        alertMessageAgence: action.payload,
+        successAgence: "warning",
+      };
+    }
+    case HIDE_ERROR_ALERTE_AGENCE: {
+      return {
+        ...state,
+        showAlerteNavAgence: false,
+        alertMessageAgence: "",
+      };
+    }
     default:
       return state;
   }

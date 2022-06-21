@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { orange } from "@material-ui/core/colors";
 import OnlineTrainingItem from "./OnlineTrainingItem";
 import SearchIcon from "@material-ui/icons/Search";
 import IntlMessages from "../../../../../util/IntlMessages";
-// import Select from "react-select";
 import InputBase from "@material-ui/core/InputBase";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
@@ -12,10 +12,14 @@ import Button from "@material-ui/core/Button";
 import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 
 import styles from "./styles.module.css";
-
+export const typeList = [
+  { id: 1, label: "Plus récent", value: "Plus récent" },
+  { id: 2, label: "Favoris", value: "Favoris" },
+  { id: 3, label: "Inscription", value: "Inscription" },
+];
 export default function OnlineTrainingList(props) {
-  // eslint-disable-next-line no-unused-vars
-  const [filter, setFilter] = useState({
+  const data = useSelector((state) => state.trainings.trainings);
+   const [setFilter] = useState({
     id: 1,
     label: "Plus récent",
     value: "Plus récent",
@@ -34,11 +38,9 @@ export default function OnlineTrainingList(props) {
     setDropDownIsOpen((prevState) => !prevState);
   };
 
-  const typeList = [
-    { id: 1, label: "Plus récent", value: "Plus récent" },
-    { id: 2, label: "Favoris", value: "Favoris" },
-    { id: 3, label: "Inscription", value: "Inscription" },
-  ];
+  // useEffect(() => {
+  //   dispatch(getTrainings());
+  // }, [dispatch]);
   return (
     <div className="d-flex flex-column">
       <div className="d-flex flex-row flex-wrap">
@@ -128,11 +130,11 @@ export default function OnlineTrainingList(props) {
       </div>
       <br />
       <div className="p-2 price-tables row pt-default d-flex justify-content-start ">
-        {[1, 2, 3, 4]
+        {data.length && data
           // .filter((e) => e.type === filter.value)
           .map((element, index) => (
             <div className="col-md-6 col-lg-3 col-sm-6 " key={index}>
-              <OnlineTrainingItem key={index} />
+              <OnlineTrainingItem key={index} data={element}  />
             </div>
           ))}
       </div>

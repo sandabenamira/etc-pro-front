@@ -5,21 +5,19 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import { orange } from "@material-ui/core/colors";
 import IntlMessages from "../../../../../util/IntlMessages";
-import Select from "react-select";
 import AddUser from "./AddUser";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
+import styles from "../../../Learning/routes/OnlineTraining/styles.module.css";
 
 export default function UsersList(props) {
   const [openadd, setOpenadd] = useState(false);
   const openaddUser = () => {
     setOpenadd(!openadd);
   };
-  const [filter, setFilter] = useState({
-    label: "Administrateur",
-    value: "Administrateur",
-  });
+
   const roleList = [
     {
       id: 0,
@@ -53,38 +51,54 @@ export default function UsersList(props) {
     },
   ];
   const data = props.data;
-  console.log("data",data);
+
+  const handleChange = (value, label) => {
+    props.setFilter({
+      label,
+      value,
+    });
+  };
+  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+  const toggleDropDown = () => {
+    setDropDownIsOpen((prevState) => !prevState);
+  };
   return (
     <div className="app-wrapper ">
       {openadd && <AddUser openaddUser={openaddUser} />}
 
       <div className="d-flex justify-content-around bd-highlight flex-wrap">
         <div className="p-2">
-          <Select
-            required
-            options={roleList}
-            onChange={(e) => setFilter(e)}
-            value={filter}
-            id="role"
-            name="role"
-            styles={{
-              control: (base) => ({
-                ...base,
-                "&:hover": { borderColor: "gray" }, // border style on hover
-                border: "1px solid lightgray", // default border color
-                boxShadow: "none", // no box-shadow
-                borderTopStyle: "none",
-                borderRightStyle: "none",
-                borderLeftStyle: "none",
-                width: 200,
-                borderRadius: 60,
-                //  background:"#3f51b5",
-              }),
-            }}
-          />
+          <Dropdown isOpen={dropDownIsOpen} toggle={toggleDropDown}>
+            <DropdownToggle caret className={styles.container}>
+              Tous les rôles
+            </DropdownToggle>
+            <DropdownMenu>
+              {roleList.map((option, index) => (
+                <div
+                  className="d-flex flex-column m-2"
+                  key={index}
+                  onClick={() => {
+                    handleChange(option.label, option.value);
+                  }}
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      name="radio" //il faut avoir la même name
+                      value={option.value}
+                      className="mr-2"
+                    />
+
+                    {option.label}
+                  </label>
+                </div>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
         </div>
 
         <div className=" d-flex flex-row flex-wrap p-2 col-lg-3 col-md-6  col-sm-4 bd-highlight flex-wrap">
+         
           <Paper
             component="form"
             className="d-flex flex-row"
@@ -95,12 +109,18 @@ export default function UsersList(props) {
               borderRadius: "100px",
               borderStyle: "solid",
               borderWidth: "1px",
-              borderColor: "#565C79",
-              height: "50px",
+              borderColor: "#3f51b5",
+              height: "40px",
             }}
           >
             <IconButton aria-label="search">
-              <SearchIcon style={{ marginRight: "-100%", color: "#565C79" }} />
+              <SearchIcon
+                style={{
+                  marginRight: "-100%",
+                  color: "#565C79",
+                  transform: "scaleX(-1)",
+                }}
+              />
             </IconButton>
             <InputBase
               style={{
@@ -177,7 +197,7 @@ export default function UsersList(props) {
           </thead>
           <tbody>
             {data
-              .filter((e) => e.name === filter.value)
+              .filter((e) => e.name === props.filter.value)
               .filter((e) => e.isArchived === false)
               .map((row, i) => (
                 <UserListItem key={i} data={row} />

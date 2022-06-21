@@ -5,7 +5,7 @@ import {
   EDIT_AGENCE,
   SHOW_MESSAGE_AGENCE,
   HIDE_MESSAGE_AGENCE,
-  SHOW_ERROR_MESSAGE_AGENCE,
+  SHOW_ERROR_MESSAGE_AGENCE,SHOW_ERROR_ALERTE_AGENCE,HIDE_ERROR_ALERTE_AGENCE,SHOW_ALERTE_AGENCE
 } from "../../constants/ActionTypes";
 //import configureStore from "../index";
 import configureStore from "./../../store";
@@ -41,7 +41,7 @@ export function addAgence(data) {
         });
         setTimeout(() => {
           dispatch({ type: HIDE_MESSAGE_AGENCE });
-        }, 4000);
+        }, 3000);
       });
   };
 }
@@ -63,36 +63,36 @@ export function getAgences() {
 export const editAgence = (data) => {
   console.log(data, "----------editAgence");
   return (dispatch) => {
-    // let apiEndpoint = `/agences/` + data.id;
-    // service
-    //   .patch(apiEndpoint ,{ headers: {"Authorization" : `Bearer ${token}`}}, data)
-    //   .then((res) => {
-    dispatch({
-      type: EDIT_AGENCE,
-      payload: data,
-    });
-    //       dispatch({
-    //         type: SHOW_SUCCESS_MESSAGE,
-    //         payload: "La modification  est effectuée avec succès",
-    //       });
-    //       setTimeout(() => {
-    //         dispatch({ type: HIDE_SUCCESS_MESSAGE });
-    //       }, 4000);
-    //     })
-    //     .catch((err) => {
-    //       let errorMsg =
-    //         err.response === undefined
-    //           ? "Merci  de réessayer ultérieurement , une erreur s'est produite de notre coté"
-    //           : err.response.data.error.message === "Internal Server Error"
-    //           ? "name duplicated"
-    //           : err.response.data.error.message;
-    //       dispatch({
-    //         type: SHOW_ERROR_MESSAGE,
-    //         payload: errorMsg,
-    //       });
-    //       setTimeout(() => {
-    //         dispatch({ type: HIDE_ERROR_MESSAGE });
-    //       }, 4000);
-    //     });
+    let apiEndpoint = `/agences/` + data.id + "/isArchived";
+    service
+      .patch(apiEndpoint, data)
+      .then((res) => {
+        dispatch({
+          type: EDIT_AGENCE,
+          payload: data,
+        });
+        dispatch({
+          type: SHOW_ALERTE_AGENCE,
+          payload: "La modification  est effectuée avec succès",
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
+        }, 3000);
+      })
+      .catch((err) => {
+        let errorMsg =
+          err.response === undefined
+            ? "Merci  de réessayer ultérieurement , une erreur s'est produite de notre coté"
+            : err.response.data.error.message === "Internal Server Error"
+            ? "name duplicated"
+            : err.response.data.error.message;
+        dispatch({
+          type: SHOW_ERROR_ALERTE_AGENCE,
+          payload: errorMsg,
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
+        }, 4000);
+      });
   };
 };

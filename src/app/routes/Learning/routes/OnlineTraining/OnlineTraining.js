@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,useEffect } from "react";
 import { connect } from "react-redux";
 import OnlineTrainingList from "./OnlineTrainingList";
 import AddOnlineTraining from "./AddOnlineTraining";
@@ -16,8 +16,7 @@ export class OnlineTraining extends Component {
       descriptionTraining: "",
       placeTraining: "",
       linkTraining: "",
-      formerId: null,
-      descriptionFormer: "",
+       descriptionFormer: "",
       goal: "",
       methodology: "",
       Prerequisites: "",
@@ -25,11 +24,11 @@ export class OnlineTraining extends Component {
       price: null,
       certificate: false,
       trainingFormat: "",
-      userId: null,
+      trainer: null,
       sessions: [
         {
           id: 0,
-          startDate: "",
+          startDate:"",
           endDate: "",
           start: "",
           end: "",
@@ -66,7 +65,7 @@ export class OnlineTraining extends Component {
   }
 
   openAddTraining() {
-    this.setState({ isOpen: true });
+    this.setState({ isOpen: !this.state.isOpen });
   }
   handleCancel() {
     this.setState({
@@ -81,11 +80,11 @@ export class OnlineTraining extends Component {
       goal: "",
       methodology: "",
       Prerequisites: "",
-      nbrDays: null,
+      nbrDays: 1,
       price: null,
       certificate: false,
       trainingFormat: "",
-      userId: null,
+      trainer: null,
       sessions: [
         {
           id: 0,
@@ -117,11 +116,23 @@ export class OnlineTraining extends Component {
         },
       ],
     });
+    this.openAddTraining();
   }
 
   handleChange = (name) => (event) => {
-    console.log("hello onlineTraining", name, event.target.value);
-    this.setState({ [name]: event.target.value });
+    if (name === "nbrDays") {
+      if (
+        this.state.programs[event.target.value - 2].title.trim() !== "" &&
+        this.state.programs[event.target.value - 2].description.trim() !== ""
+      ) {
+        this.addNewChoice(event.target.value - 1, "programs");
+        this.setState({ [name]: event.target.value });
+      } else {
+      }
+    }
+    if (name !== "nbrDays") {
+      this.setState({ [name]: event.target.value });
+    }
   };
   addNewChoice = (index, name) => {
     if (name === "modules") {
@@ -145,7 +156,7 @@ export class OnlineTraining extends Component {
     } else if (name === "sessions") {
       let sessions = [];
       this.state.sessions.map((element) => {
-        sessions.push({
+         sessions.push({
           id: element.id,
           startDate: element.startDate,
           endDate: element.endDate,
@@ -189,7 +200,7 @@ export class OnlineTraining extends Component {
           id: element.id,
           title: element.title,
           description: element.description,
-          isAdded: true,
+          // isAdded: true,
         });
         return element;
       });
@@ -197,7 +208,7 @@ export class OnlineTraining extends Component {
         id: index,
         title: "",
         description: "",
-        isAdded: false,
+        // isAdded: false,
       });
       this.setState({ programs });
     }
@@ -318,11 +329,11 @@ export class OnlineTraining extends Component {
     let data = {
       theme: this.state.theme,
       title: this.state.titleTraining,
-      certificat: this.state.certificate,
+      certificate: this.state.certificate,
       format: this.state.trainingFormat,
       description: this.state.descriptionTraining,
       link: this.state.linkTraining,
-      former: this.state.userId,
+      trainer: this.state.trainer,
       descriptionFormer: this.state.descriptionFormer,
       methodology: this.state.methodology,
       location: this.state.placeTraining,
@@ -330,12 +341,12 @@ export class OnlineTraining extends Component {
       prerequiste: this.state.Prerequisites,
       numberDay: this.state.nbrDays,
       modules: this.state.modules,
-      levels: [],
+      levelsModules: this.state.levelsModules,
       program: this.state.levelsModules,
       price: this.state.price,
       sessions: this.state.sessions,
       fk_id_company: 1,
-      creationDate: new Date(),
+      creationDate: "",
       fk_id_creator: 1,
     };
     console.log("data,", data);
@@ -343,12 +354,18 @@ export class OnlineTraining extends Component {
     this.handleCancel();
   }
 
+//user=props.users.filter(({ name }) => name === "Formateurs");
+
   render() {
+
     return (
       <div className="app-wrapper">
         <div className="d-flex flex-column">
-          <div className="p-2" style={{ color: "#3f51b5", fontSize: "24px" ,fontWeight:"bold"}}>
-            <IntlMessages id="e-Learning" /> &nbsp; - &nbsp;{" "}
+          <div
+            className="p-2"
+            style={{ color: "#3f51b5", fontSize: "24px", fontWeight: "bold" }}
+          >
+            <IntlMessages id="e-Learning" /> &nbsp; - &nbsp;
             {/* <IntlMessages id="scheduled.online.training" /> */}
             Catalogue de formations
           </div>
@@ -462,6 +479,7 @@ export class OnlineTraining extends Component {
               handleChangePrograms={this.handleChangePrograms.bind(this)}
               users={this.props.users}
               handleSubmit={this.handleSubmit.bind(this)}
+              openAddTraining={this.openAddTraining}
             />
           )}
         </div>

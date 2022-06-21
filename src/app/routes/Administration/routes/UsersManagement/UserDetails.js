@@ -34,7 +34,7 @@ export default function UserDetails(props) {
               <div className="col-lg-4 col-md-4 col-sm-4 d-flex flex-wrap flex-column  justify-content-start mb-4">
                 <Avatar
                   alt={data.firstName}
-                  src={data.photo}
+                //  src={require(data.photo)}
                   style={{ width: 180, height: 180 }}
                 />
               </div>

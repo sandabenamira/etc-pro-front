@@ -14,7 +14,7 @@ export default function asyncComponent(importComponent) {
       };
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       Nprogress.start();
     }
 

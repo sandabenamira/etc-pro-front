@@ -11,8 +11,13 @@ import { getUsers } from "../../../../../store/actions/User";
 function User() {
   // eslint-disable-next-line no-unused-vars
   const [isOpen, setIsOpen] = useState(false);
+  const [filter, setFilter] = useState({
+    label: "Administrateur",
+    value: "Administrateur",
+  });
   const dispatch = useDispatch();
   const data = useSelector((state) => state.users.users);
+  
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
@@ -40,10 +45,11 @@ function User() {
             <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12  col-sm-12">
               <div className="p-2">
                 <h1
+            
                   style={{
-                    color: "#484cb4",
-                    marginBottom: "5%",
-                    fontSize: "26px",
+                    color: "#3f51b5",
+                    fontSize: "24px",
+                    fontWeight: "bold",
                   }}
                 >
                   <IntlMessages id="sidebar.usersManagement" />
@@ -52,7 +58,12 @@ function User() {
             </div>
 
             <div className="d-flex flex-row p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
-              <UsersList openaddUser={openaddUser} data={data} />
+              <UsersList
+                openaddUser={openaddUser}
+                data={data}
+                filter={filter}
+                setFilter={setFilter}
+              />
             </div>
           </div>
           <div className="d-flex flex-row-reverse  col-lg-12 col-md-12 col-sm-12 ">
@@ -74,7 +85,7 @@ function User() {
                 }}
                 onClick={handleopenArchived}
               >
-                <DeleteOutlineRoundedIcon backgroundColor="white" />
+                <DeleteOutlineRoundedIcon />
               </IconButton>
               <div className="p-2">
                 <IntlMessages id="archive" />

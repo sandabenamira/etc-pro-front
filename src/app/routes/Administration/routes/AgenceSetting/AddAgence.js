@@ -202,7 +202,7 @@ function AddAgence(props) {
                     {...formik.getFieldProps("type")}
                     required
                   >
-                    {typeList.map((option) => (
+                    {typeList.map((option ) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>

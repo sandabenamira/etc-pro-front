@@ -23,7 +23,7 @@ class SideNav extends React.PureComponent {
     this.props.toggleCollapsedNav(val);
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     window.addEventListener("resize", () => {
       this.props.updateWindowWidth(window.innerWidth);
     });

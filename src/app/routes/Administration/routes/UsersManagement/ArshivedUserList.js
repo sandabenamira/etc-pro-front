@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import ArshivedUserItems from "./ArshivedUserItems";
 import IconButton from "@material-ui/core/IconButton";
 import IntlMessages from "../../../../../util/IntlMessages";
-import Select from "react-select";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
+import styles from "../../../Learning/routes/OnlineTraining/styles.module.css";
 
 export default function ArshivedUserList(props) {
   const [filter, setFilter] = useState({
@@ -46,53 +47,50 @@ export default function ArshivedUserList(props) {
   ];
 
   const data = props.data;
+
+  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+  const toggleDropDown = () => {
+    setDropDownIsOpen((prevState) => !prevState);
+  };
+  const handleChange = (value, label) => {
+    setFilter({
+      label,
+      value,
+    });
+  };
   return (
     <div className="app-wrapper ">
       <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12 bd-highlight flex-wrap"></div>
 
       <div className="d-flex justify-content-around bd-highlight flex-wrap">
         <div className="p-2">
-          {/* <Button
-            variant="contained"
-            color="primary"
-            style={{
-             
-              
-            }}
-          >
-            <IntlMessages id="permission.role.all" />
-          </Button> */}
+          <Dropdown isOpen={dropDownIsOpen} toggle={toggleDropDown}>
+            <DropdownToggle caret className={styles.container}>
+              Tous les rôles
+            </DropdownToggle>
+            <DropdownMenu>
+              {roleList.map((option, index) => (
+                <div
+                  className="d-flex flex-column m-2"
+                  key={index}
+                  onClick={() => {
+                    handleChange(option.label, option.value);
+                  }}
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      name="radio" //il faut avoir la même name
+                      value={option.value}
+                      className="mr-2"
+                    />
 
-          <Select
-            required
-            id="role"
-            name="role"
-            // label="Tous les roles"
-            options={roleList}
-            onChange={(e) => setFilter(e)}
-            value={filter}
-            styles={{
-              control: (base) => ({
-                ...base,
-                "&:hover": { borderColor: "gray" }, // border style on hover
-                border: "1px solid lightgray", // default border color
-                boxShadow: "none", // no box-shadow
-                borderTopStyle: "none",
-                borderRightStyle: "none",
-                borderLeftStyle: "none",
-                textTransform: "capitalize",
-                fontFamily: "Roboto",
-                height: 40,
-                width: 220,
-
-                //fontSize: "20px",
-                // borderRadius: " none",
-                //  width: 200,
-                borderRadius: 60,
-                background: "primary",
-              }),
-            }}
-          />
+                    {option.label}
+                  </label>
+                </div>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
         </div>
 
         <div className=" d-flex flex-column flex-wrap p-2 col-lg-4 col-md-6  col-sm-12 justify-content-center">
@@ -106,11 +104,18 @@ export default function ArshivedUserList(props) {
               borderRadius: "100px",
               borderStyle: "solid",
               borderWidth: "1px",
-              borderColor: "#565C79",
+              borderColor: "#3f51b5",
+              height: "40px",
             }}
           >
             <IconButton aria-label="search">
-              <SearchIcon style={{ marginRight: "-100%", color: "#565C79" }} />
+              <SearchIcon
+                style={{
+                  marginRight: "-100%",
+                  color: "#565C79",
+                  transform: "scaleX(-1)",
+                }}
+              />
             </IconButton>
             <InputBase
               style={{
@@ -166,8 +171,7 @@ export default function ArshivedUserList(props) {
           <tbody>
             {data
               .filter((e) => e.isArchived === true)
-              //    .filter((e) => e.role === filter.value)
-
+              .filter((e) => e.name === filter.value)
               .map((row, i) => (
                 <ArshivedUserItems
                   key={i}

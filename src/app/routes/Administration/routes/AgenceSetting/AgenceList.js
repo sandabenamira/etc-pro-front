@@ -5,61 +5,63 @@ import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
-import Select from "@material-ui/core/Select";
 import IntlMessages from "../../../../../util/IntlMessages";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getAgences } from "../../../../../store/actions/Agence";
-import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-
 import Button from "@material-ui/core/Button";
+
+import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
+import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
+import styles from "../../../Learning/routes/OnlineTraining/styles.module.css";
+
 import AddAgence from "./AddAgence";
 
-export default function AgenceList() {
+export default function AgenceList(props) {
   const roleList = [
     {
       id: 0,
-      label: "Administrateur",
-      value: "Administrateur",
+      label: "Sousse",
+      value: "Sousse",
     },
     {
       id: 1,
-      label: "Directeurs des Ressouces Humaines",
-      value: "Directeurs des Ressouces Humaines",
+      label: "Sfax",
+      value: "Sfax",
     },
     {
       id: 2,
-      label: "Responsable des Formations",
-      value: "Responsable des Formations",
+      label: "Tunis",
+      value: "Tunis",
     },
     {
       id: 3,
-      label: "Chef D'agences",
-      value: "Chef D'agences",
+      label: "Mounastir",
+      value: "Mounastir",
     },
     {
       id: 4,
-      label: "Formateurs",
-      value: "Formateurs",
-    },
-    {
-      id: 5,
-      label: "Collaborateurs",
-      value: "Collaborateurs",
+      label: "Nabeul",
+      value: "Nabeul",
     },
   ];
-  const dispatch = useDispatch();
 
   const [openadd, setOpenadd] = useState(false);
-
+  const [filter, setFilter] = useState({
+    label: "Sousse",
+    value: "Sousse",
+  });
   const openaddAgence = () => {
     setOpenadd(!openadd);
   };
-  const data = useSelector((state) => state.Agence.agences);
-  useEffect(() => {
-    dispatch(getAgences());
-  }, [dispatch]);
 
+  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+  const toggleDropDown = () => {
+    setDropDownIsOpen((prevState) => !prevState);
+  };
+  const handleChange = (value, label) => {
+    setFilter({
+      label,
+      value,
+    });
+  };
   return (
     <div className="app-wrapper ">
       {openadd && <AddAgence openaddAgence={openaddAgence} />}
@@ -67,27 +69,33 @@ export default function AgenceList() {
       <div className="d-flex flex-column">
         <div className="d-flex justify-content-around bd-highlight flex-wrap">
           <div className="p-2">
-            <Select
-              required
-              options={roleList}
-              //   onChange={(e) => setFilter(e)}
-              //    value={filter}
-              id="role"
-              name="role"
-              styles={{
-                control: (base) => ({
-                  ...base,
-                  "&:hover": { borderColor: "gray" }, // border style on hover
-                  border: "1px solid lightgray", // default border color
-                  boxShadow: "none", // no box-shadow
-                  borderTopStyle: "none",
-                  borderRightStyle: "none",
-                  borderLeftStyle: "none",
-                  borderRadius: " none",
-                  width: 200,
-                }),
-              }}
-            />
+            <Dropdown isOpen={dropDownIsOpen} toggle={toggleDropDown}>
+              <DropdownToggle caret className={styles.container}>
+                Tous les gouvernerats
+              </DropdownToggle>
+              <DropdownMenu>
+                {roleList.map((option, index) => (
+                  <div
+                    className="d-flex flex-column m-2"
+                    key={index}
+                    onClick={() => {
+                      handleChange(option.label, option.value);
+                    }}
+                  >
+                    <label>
+                      <input
+                        type="radio"
+                        name="radio" //il faut avoir la même name
+                        value={option.value}
+                        className="mr-2"
+                      />
+
+                      {option.label}
+                    </label>
+                  </div>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
           </div>
 
           <div className=" d-flex flex-row flex-wrap p-2 col-lg-3 col-md-6  col-sm-4 bd-highlight flex-wrap">
@@ -101,13 +109,17 @@ export default function AgenceList() {
                 borderRadius: "100px",
                 borderStyle: "solid",
                 borderWidth: "1px",
-                borderColor: "#565C79",
-                height: "50px",
+                borderColor: "#3f51b5",
+                height: "40px",
               }}
             >
               <IconButton aria-label="search">
                 <SearchIcon
-                  style={{ marginRight: "-100%", color: "#565C79" }}
+                  style={{
+                    marginRight: "-100%",
+                    color: "#565C79",
+                    transform: "scaleX(-1)",
+                  }}
                 />
               </IconButton>
               <InputBase
@@ -181,9 +193,12 @@ export default function AgenceList() {
               </tr>
             </thead>
             <tbody>
-              {data.map((row) => (
-                <AgenceItems data={row} />
-              ))}
+              {props.data
+                .filter((e) => e.isArchived === false)
+                .filter((e) => e.governorate === filter.value)
+                .map((row, index) => (
+                  <AgenceItems data={row} key={index} />
+                ))}
             </tbody>
           </table>
         </div>

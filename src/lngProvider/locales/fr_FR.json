@@ -759,7 +759,7 @@
   "comoponent.supplie": "Fourniture",
   "button.reset": "réinitialiser",
   "components.student.formadd.addressStudent": "Adresse",
-  "start.date": "Date de début",
+  "start.date": "Date de début: ",
   "end.date": "Date fin",
   "message.info.access.denied": "Accés Refusé , seul le role Professeur peut faire l'appel",
   "message.info.access.allowed": "Accés Autorisée mais vous n'avez pas de séance pour maintenant",
@@ -1665,7 +1665,7 @@
   "methodology": "Méthodologie",
   "Prerequisites": "Prérequis",
   "program": "Programme",
-  "days.number": "nombres de jours",
+  "days.number": "Nombres de jours",
   "title": "Titre",
   "training.price.per.person": "Prix de la formation par personne *",
   "scheduled.online.training": "Formations programmées en ligne",
@@ -1698,7 +1698,7 @@
   "gestion.agence.mail": "Email",
   "gestion.agence.fax": "Fax",
   "gestion.agence.tel": "N Tel",
-  "gestion.agence.archive": "Archive",
+  "gestion.agence.archive": "Archives",
   "gestion.agence.agency.type": "Type d'agence",
   "user.role": "Role",
   "user.genre": "Genre",
@@ -1725,6 +1725,18 @@
   "reporting.formation.NIVsatisfaction.8": "Les échanges dans le groupe",
   "reporting.formation.NIVsatisfaction.9": "Combien cette formation Vous a appris",
   "reporting.formation.Commentaires": "Commentaires",
+  "reporting.formation.Inscription": "Inscription à la formation ",
+"reporting.formation.question":"Quel est votre mode de financement?",
+"reporting.formation.session":"Session",
+"reporting.formation.invitePeople":"Inviter des personnes",
+"reporting.formation.questionFinancement":"Avez-vous un financement pour la formation?",
+"reporting.formation.yes":"Oui",
+"reporting.formation.no":"Non",
+
+
+"reporting.formation.paper":"Veuillez mettre en pièce jointe la pièce justificative",
+
   "internal.trainer": "Formateur Interne",
-  "external.trainer": "Formateur Externe"
+  "external.trainer": "Formateur Externe",
+  "Description":"Description"
 }

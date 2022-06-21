@@ -17,11 +17,7 @@ export default function (state = initialState, action) {
         entreprises: action.payload.filter((e)=> e.status==='confirmé') ,
       });
     }
-    // case ADD_ENTREPRISE: {
-    //   return Object.assign({}, state, {
-    //     entreprises: [action.payload].concat(state.entreprises),
-    //   });
-    // }
+ 
     case EDIT_ENTREPRISE: {
       return Object.assign({}, state, {
         inscriptions: [

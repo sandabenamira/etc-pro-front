@@ -9,28 +9,35 @@ import img3 from "../../../../../assets/images/img3.jpeg";
 import img4 from "../../../../../assets/images/img4.jpeg";
 import IntlMessages from "../../../../../util/IntlMessages";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+ import AddInscriptionTraining2 from "./AddInscriptionTraining2";
 const useStyles = makeStyles((theme) => ({
   button1: {
     marginBottom: "7px",
-    marginRight:"5%",
-     borderRadius: "20px",
-     textTransform: "none",
-     padding:"5px 1àpx 5px 10px"
+    marginRight: "5%",
+    borderRadius: "20px",
+    textTransform: "none",
+    padding: "5px 1àpx 5px 10px",
   },
   button2: {
     marginBottom: "7px",
-     borderRadius: "20px",
-      textTransform: "none",
+    borderRadius: "20px",
+    textTransform: "none",
   },
- 
 }));
-export default function OnlineTrainingItem() {
+export default function OnlineTrainingItem(props) {
   const classes = useStyles();
-  // eslint-disable-next-line no-unused-vars
-  const [favoris, setFavoris] = useState(false);
-  var things = [img1, img2, img3, img4];
+  const [favoris] = useState(false);
+  const [isOpen,setIsOpen]=useState(false)
+   var things = [img1, img2, img3, img4];
   var thing = things[Math.floor(Math.random() * things.length)];
+  const data = props.data;
+
+ const openInscriptionModal=()=>{
+  setIsOpen(!isOpen)
+ }
+ 
   return (
+   
     <div className="card package bg-white shadow">
       <div className="package-items">
         <div>
@@ -43,35 +50,34 @@ export default function OnlineTrainingItem() {
         <ul className="package-items package-items text-grey text-darken-3">
           <li>
             <div style={{ fontSize: "20px", color: "orange" }}>
-              <strong>Marketing Digital : Les bases </strong>
+              <strong>{data.theme} </strong>
+              <br />
+              {data.title}
             </div>
           </li>
           <li>
-            <div>
-              <strong>
-                <IntlMessages id="organizer" />
-              </strong>
-            </div>
-            <div>
+            <div className="d-flex justify-content-start">
               <strong>
                 <IntlMessages id="trainer " />
               </strong>
+              <pre> </pre>
+              {data.trainer}
             </div>
-            <div>
+            <div className="d-flex justify-content-start">
               <strong>
-                <IntlMessages id="start.date" />
+                <IntlMessages id="start.date" />{" "}
               </strong>
+              <pre> </pre>
+              {data.sessions[0].startDate.toString().slice(4, 16)}
             </div>
-            <div>
+            <div className="d-flex justify-content-start">
               <strong>
                 <IntlMessages id="duration" />
               </strong>
+              <pre> </pre>
+              {data.numberDay + " jours"}
             </div>
-            <div>
-              Ce programme a pour objectif de former des techniciens de la
-              relation client autour des métiers du marketing, de la vente et de
-              la communication.
-            </div>
+            <div>{data.description}</div>
           </li>
         </ul>
       </div>
@@ -90,6 +96,7 @@ export default function OnlineTrainingItem() {
             size="small"
             color="primary"
             className={classes.button2}
+            onClick={openInscriptionModal}
           >
             <IntlMessages id="register" />
           </Button>
@@ -105,7 +112,7 @@ export default function OnlineTrainingItem() {
             )}
             {/* secondary */}
           </IconButton>
-        </div>
+        </div> {isOpen && (<AddInscriptionTraining2 openInscriptionModal={openInscriptionModal}/>)}
       </div>
     </div>
   );

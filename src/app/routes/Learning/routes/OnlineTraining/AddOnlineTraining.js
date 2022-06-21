@@ -5,18 +5,17 @@ import DateRangeComponent from "./DateRangeComponent";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
- import "react-circular-progressbar/dist/styles.css";
+import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import { orange } from "@material-ui/core/colors";
 import RemoveIcon from "@material-ui/icons/Remove";
 import IntlMessages from "../../../../../util/IntlMessages";
- import Programs from "./Programs";
+import Programs from "./Programs";
 
 export default function AddOnlineTraining(props) {
   const { values } = props;
-  console.log("hello values", values);
   const themeList = [
     {
       value: "Design thinking",
@@ -35,7 +34,10 @@ export default function AddOnlineTraining(props) {
       label: "UX/UI Design",
     },
   ];
- const number = parseInt(values.nbrDays)
+  const number = parseInt(values.nbrDays);
+  const formateurs = props.users.filter(
+    ({ name, isArchived }) => name === "Formateurs" && isArchived === false
+  );
   return (
     <Modal isOpen={values.isOpen}>
       <ModalBody>
@@ -47,15 +49,18 @@ export default function AddOnlineTraining(props) {
                 color: "#4C25B7",
                 fontSize: "25px",
               }}
+              onClick={() => {
+                props.openAddTraining();
+                props.handleCancel();
+              }}
             >
               <button
                 type="button"
                 className="close"
                 aria-label="Close"
-                onClick={props.isOpen}
                 style={{
-                  marginTop: "-2%",
-                  marginLeft: "40%",
+                  marginTop: "0.1%",
+                  marginRight: "3%",
                 }}
               >
                 <span aria-hidden="true">&times;</span>
@@ -88,6 +93,8 @@ export default function AddOnlineTraining(props) {
                 <div className="p-2">
                   <TextField
                     select
+                    required={true}
+                    defaultValue=""
                     onChange={props.handleChange("theme")}
                     value={values.themeId}
                     SelectProps={{}}
@@ -113,6 +120,7 @@ export default function AddOnlineTraining(props) {
                   style={{ color: "#3f51b5", fontSize: "18px" }}
                 >
                   <IntlMessages id="add.session" />
+                  {" *"}
                 </div>
                 {values.sessions.map((sessionItem, index) => (
                   <div className="p-2 d-flex flex-row">
@@ -121,6 +129,7 @@ export default function AddOnlineTraining(props) {
                         index={index}
                         setDate={props.setDate}
                         dateSession={sessionItem || ""}
+                        key={index}
                       />
                     </div>
                     <div className="p-2 ml-2">
@@ -129,6 +138,7 @@ export default function AddOnlineTraining(props) {
                         aria-label="Add"
                         value={`${index}`}
                         onClick={() => {
+                          console.log("onClick", sessionItem);
                           if (!sessionItem.isAdded) {
                             if (sessionItem.startDate !== "") {
                               props.addNewChoice(index + 1, "sessions");
@@ -156,14 +166,15 @@ export default function AddOnlineTraining(props) {
                   className="p-2 "
                   style={{ color: "#3f51b5", fontSize: "18px" }}
                 >
-                  <IntlMessages id="add.module" />
+                  <IntlMessages id="add.module" /> {" *"}
                 </div>
 
                 {values.modules.map((moduleItem, index) => (
-                  <div className="p-2 d-flex flex-row">
-                    <div>
+                  <div className="p-2 d-flex flex-row col-12  ">
+                    <div className="p-2 d-flex col-10  ">
                       <TextField
                         className="textfield"
+                        required={true}
                         id="module"
                         value={moduleItem.title || ""}
                         onChange={(e) =>
@@ -173,21 +184,31 @@ export default function AddOnlineTraining(props) {
                         margin="normal"
                         fullWidth
                         size="small"
-                      />
-                      <TextField
-                        className="textfield"
-                        id="module"
-                        value={moduleItem.title || ""}
-                        onChange={(e) =>
-                          props.handleChangeModules(e, "title", index)
-                        }
-                        SelectProps={{}}
-                        margin="normal"
-                        fullWidth
-                        size="small"
+                        key={index}
                       />
                     </div>
-                    <div className="p-2 ml-2"></div>
+                    <div className="p-2 col-10  ml-2">
+                      <Fab
+                        size="small"
+                        aria-label="Add"
+                        value={`${index}`}
+                        onClick={() => {
+                          if (!moduleItem.isAdded) {
+                            if (moduleItem.title !== "") {
+                              props.addNewChoice(index + 1, "modules");
+                            }
+                          } else {
+                            props.deleteChoice(index, "modules");
+                          }
+                        }}
+                      >
+                        {moduleItem.isAdded ? (
+                          <RemoveIcon style={{ color: orange[500] }} />
+                        ) : (
+                          <AddIcon style={{ color: orange[500] }} />
+                        )}
+                      </Fab>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -196,31 +217,15 @@ export default function AddOnlineTraining(props) {
             {/* add level */}
             <div className=" d-flex flex-row">
               <div
-                className=" col-md-6"
+                className="d-flex  col-md-5 col-5   justify-content-start"
                 style={{ color: "#3f51b5", fontSize: "18px" }}
               >
                 <IntlMessages id="add.level" /> &nbsp;
-                <Fab size="small" aria-label="Add">
-                  {/* //   value={`${index}`}
-                  //   onClick={() => {
-                  //     if (!item.isAdded) {
-                  //       if (item.title !== "") {
-                  //         props.addNewChoice(index + 1, "levelsModules");
-                  //       }
-                  //     } else {
-                  //       props.deleteChoice(index, "levelsModules");
-                  //     }
-                  //   }}
-                  // >
-                  //   {item.isAdded ? (
-                  //     <RemoveIcon style={{ color: orange[500] }} />
-                  //   ) : (
-                  //     <AddIcon style={{ color: orange[500] }} />
-                  //   )} */}
-                </Fab>
               </div>
+              <div className="d-flex  col-md-1 justify-content-start align-items-start"></div>
+
               <div
-                className=" col-md-6"
+                className="d-flex  col-md-5 col-5  justify-content-start"
                 style={{ color: "#3f51b5", fontSize: "18px" }}
               >
                 <IntlMessages id="associate.module" />
@@ -229,19 +234,7 @@ export default function AddOnlineTraining(props) {
 
             {values.levelsModules.map((item, index) => (
               <div className=" d-flex flex-row">
-                <div className=" col-md-5">
-                  <TextField
-                    className="textfield"
-                    id="levelName"
-                    value={item.levelName || ""}
-                    onChange={(e) =>
-                      props.handleChangeLevelsModules(e, "levelName", index)
-                    }
-                    SelectProps={{}}
-                    margin="normal"
-                    fullWidth
-                    size="small"
-                  ></TextField>
+                <div className="d-flex flex-column  col-md-5 justify-content-center align-items-center">
                   <TextField
                     className="textfield"
                     id="levelName"
@@ -255,27 +248,33 @@ export default function AddOnlineTraining(props) {
                     size="small"
                   ></TextField>
                 </div>
-                <div className=" col-md-5">
-                  <TextField
-                    className="textfield"
-                    id="moduleName"
-                    value={item.moduleName || ""}
-                    onChange={(e) =>
-                      props.handleChangeLevelsModules(e, "moduleName", index)
-                    }
-                    select
-                    SelectProps={{}}
-                    margin="normal"
-                    fullWidth
+                <div className="p-2 ml-2">
+                  <Fab
                     size="small"
+                    aria-label="Add"
+                    value={`${index}`}
+                    onClick={() => {
+                      console.log("onClick", item);
+                      if (!item.isAdded) {
+                        if (item.levelName !== "") {
+                          props.addNewChoice(index + 1, "levelsModules");
+                        }
+                      } else {
+                        props.deleteChoice(index, "levelsModules");
+                      }
+                    }}
                   >
-                    {values.modules.map((item) => (
-                      <MenuItem key={item.id} value={item.value}>
-                        {item.title}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    {item.isAdded ? (
+                      <RemoveIcon style={{ color: orange[500] }} />
+                    ) : (
+                      <AddIcon style={{ color: orange[500] }} />
+                    )}
+                  </Fab>
+                </div>
+
+                <div className="d-flex  flex-column col-md-5 justify-content-center align-items-center">
                   <TextField
+                    defaultValue=""
                     className="textfield"
                     id="moduleName"
                     value={item.moduleName || ""}
@@ -308,6 +307,7 @@ export default function AddOnlineTraining(props) {
               </div>
               <div className="ml-5">
                 <RadioGroup
+                  required={true}
                   className="d-flex flex-row"
                   aria-label="certificate"
                   name="certificate"
@@ -339,6 +339,7 @@ export default function AddOnlineTraining(props) {
               </div>
               <div className="ml-5">
                 <RadioGroup
+                  required={true}
                   className="d-flex flex-row"
                   aria-label="trainingFormat"
                   name="trainingFormat"
@@ -373,6 +374,7 @@ export default function AddOnlineTraining(props) {
                 <div>
                   <TextField
                     className="textfield"
+                    required={true}
                     id="titleTraining"
                     onChange={props.handleChange("titleTraining")}
                     value={values.titleTraining}
@@ -389,11 +391,13 @@ export default function AddOnlineTraining(props) {
             <div className="p-2 d-flex flex-row">
               <div className="p-2  d-flex flex-column col-md-10">
                 <div style={{ color: "#3f51b5", fontSize: "18px" }}>
-                  <IntlMessages id="description" />
+                  <IntlMessages id="Description" />
+                  {" *"}
                 </div>
                 <div>
                   <TextField
                     className="textfield"
+                    required
                     id="descriptionTraining"
                     onChange={props.handleChange("descriptionTraining")}
                     value={values.descriptionTraining}
@@ -430,6 +434,7 @@ export default function AddOnlineTraining(props) {
                 </div>
                 <div>
                   <TextField
+                    required
                     className="textfield"
                     id="linkTraining"
                     onChange={props.handleChange("linkTraining")}
@@ -451,18 +456,23 @@ export default function AddOnlineTraining(props) {
                 </div>
                 <div>
                   <TextField
+                    defaultValue=""
+                    required
                     className="textfield"
-                    id="userId"
-                    onChange={props.handleChange("userId")}
+                    id="trainer"
+                    onChange={props.handleChange("trainer")}
                     select
-                    value={values.userId}
+                    value={values.trainer}
                     SelectProps={{}}
                     margin="normal"
                     fullWidth
                     size="small"
                   >
-                    {props.users.map((item) => (
-                      <MenuItem key={item.id} value={item.id}>
+                    {formateurs.map((item) => (
+                      <MenuItem
+                        key={item.id}
+                        value={item.firstName + item.lastName}
+                      >
                         {item.firstName} {item.lastName}
                       </MenuItem>
                     ))}
@@ -471,7 +481,7 @@ export default function AddOnlineTraining(props) {
               </div>
               <div className="p-2  d-flex flex-column col-md-6 ">
                 <div style={{ color: "#3f51b5", fontSize: "18px" }}>
-                  <IntlMessages id="description" />
+                  <IntlMessages id="Description" />
                 </div>
 
                 <div>
@@ -494,11 +504,13 @@ export default function AddOnlineTraining(props) {
               <div className="p-2  d-flex flex-column col-md-6">
                 <div style={{ color: "#3f51b5", fontSize: "18px" }}>
                   <IntlMessages id="training.goal" />
+                  {" *"}
                 </div>
                 <div>
                   <TextField
                     className="textfield"
                     id="goal"
+                    required
                     onChange={props.handleChange("goal")}
                     value={values.goal}
                     SelectProps={{}}
@@ -553,6 +565,7 @@ export default function AddOnlineTraining(props) {
             <div className="p-2 " style={{ fontSize: "20px" }}>
               <b>
                 <IntlMessages id="program" />
+                {" *"}
               </b>
             </div>
             {/* nombre de jours */}
@@ -573,13 +586,19 @@ export default function AddOnlineTraining(props) {
                   margin="normal"
                   fullWidth
                   size="small"
-                  inputProps={{ min: 1 }}
+                  inputProps={{ min: 1, max: 7 }}
                 ></TextField>
               </div>
             </div>
             {[...Array(number)].map((item, index) => (
-              <Programs key={index} index={index} item={item} {...props} values={values} />
-             ))}
+              <Programs
+                key={index}
+                index={index}
+                item={item}
+                {...props}
+                values={values}
+              />
+            ))}
             <br />
             {/* prix */}
             <div className="p-2  d-flex flex-column ">
@@ -594,6 +613,7 @@ export default function AddOnlineTraining(props) {
                     onChange={props.handleChange("price")}
                     value={values.price}
                     SelectProps={{}}
+                    required
                     margin="normal"
                     fullWidth
                     size="small"
@@ -610,14 +630,15 @@ export default function AddOnlineTraining(props) {
                   color="primary"
                   style={{
                     borderRadius: "80px",
-                    marginRight: "80px",
-                    fontSize: "18px",
+                     fontSize: "18px",
                     fontFamily: " sans-serif",
                     textTransform: "none",
                     paddingLeft: "30px",
                     paddingRight: "30px",
                   }}
-                  onClick={props.handleCance}
+                  onClick={() => {
+                    props.handleCancel();
+                  }}
                 >
                   <IntlMessages id="cancel" />
                 </Button>

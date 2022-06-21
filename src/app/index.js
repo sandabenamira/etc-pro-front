@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
@@ -21,10 +21,19 @@ import Catalog from "./routes/Catalog/Catalog";
 import SuperAdministration from "./routes/SuperAdministration";
 //import { getUsersProfiles } from "../../src/store/actions/Auth";
 //import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+ import Alert from "@mui/material/Alert";
 
 function App(props) {
-  const { match, drawerType } = props;
+  const {
+    match,
+    drawerType,
+    showAlerteNavAgence,
+    successAgence,
+    alertMessageAgence,
+    showAlerteNavUser,
+    successUser,
+    alertMessageUser,
+  } = props;
   const estabModule = educapProModules;
   const drawerStyle = drawerType.includes(FIXED_DRAWER)
     ? "fixed-drawer"
@@ -37,17 +46,23 @@ function App(props) {
     document.body.classList.remove("ios-mobile-view-height");
   }
   //const dispatch = useDispatch();
-   useEffect(() => {
-   // dispatch(getUsersProfiles());
+  useEffect(() => {
+    // dispatch(getUsersProfiles());
   }, []);
- 
+
   return (
     <div className={`app-container ${drawerStyle}`}>
       <Sidebar estabModule={estabModule} />
       <div className="app-main-container bg-white">
         <div className="app-header app-header-horizontal">
           <Header />
-        </div>
+        </div>{" "}
+        {showAlerteNavUser && (
+          <Alert severity={successUser}>{alertMessageUser}</Alert>
+        )}
+        {showAlerteNavAgence && (
+          <Alert severity={successAgence}>{alertMessageAgence}</Alert>
+        )}
         <main className="app-main-content-wrapper">
           <div className="app-main-content">
             <Switch>
@@ -115,15 +130,23 @@ function App(props) {
     </div>
   );
 }
-const mapStateToProps = ({ settings, auth }) => {
+const mapStateToProps = ({ settings, auth, Agence, users }) => {
   const { drawerType, navigationStyle, horizontalNavPosition } = settings;
   const { multiple } = auth;
+  const { showAlerteNavAgence, alertMessageAgence, successAgence } = Agence;
+  const { showAlerteNavUser, alertMessageUser, successUser } = users;
 
   return {
     drawerType,
     navigationStyle,
     horizontalNavPosition,
     multiple,
+    showAlerteNavAgence,
+    alertMessageAgence,
+    successAgence,
+    showAlerteNavUser,
+    alertMessageUser,
+    successUser,
   };
 };
 export default withRouter(connect(mapStateToProps)(App));

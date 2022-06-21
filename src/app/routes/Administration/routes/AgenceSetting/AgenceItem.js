@@ -2,17 +2,21 @@ import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
- 
-export default function AgenceItem(props) {
- 
-  const data = props.data;
-  // const finalData = {
-  //   ...props.data,
-  //   //  archive: true,
-  // };
-  const handleArchive = (e) => {
- 
+import { editAgence } from "../../../../../store/actions/Agence";
+import { useDispatch } from "react-redux";
 
+export default function AgenceItem(props) {
+  const data = props.data;
+
+  const finalData = {
+    ...props.data,
+    isArchived: true,
+  };
+  let dispatch = useDispatch();
+
+  const handleArchive = (e) => {
+    dispatch(editAgence(finalData));
+    console.log(finalData);
   };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
