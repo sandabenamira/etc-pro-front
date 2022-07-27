@@ -119,8 +119,7 @@ export class Catalog extends Component {
   }
 
   handleChange = (name) => (event) => {
-    console.log(name, event.target.value );
-    this.setState({ [name]: event.target.value });
+     this.setState({ [name]: event.target.value });
   };
   addNewChoice = (index, name) => {
     if (name === "modules") {
@@ -337,8 +336,7 @@ export class Catalog extends Component {
       creationDate: new Date(),
       fk_id_creator: 1,
     };
-    console.log("data,", data);
-    this.props.dispatch(addTraining(data))
+     this.props.dispatch(addTraining(data))
     this.handleCancel()
   }
 

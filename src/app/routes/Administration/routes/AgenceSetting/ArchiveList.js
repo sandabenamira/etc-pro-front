@@ -8,56 +8,24 @@ import IconButton from "@material-ui/core/IconButton";
 import IntlMessages from "../../../../../util/IntlMessages";
 import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import styles from "../../../Learning/routes/OnlineTraining/styles.module.css";
+import { typeList } from "../../../../../constants/variables and listes";
 
 export default function ArchiveList(props) {
+  const [filter, setFilter] = useState({});
+  console.log("dddddd",filter)
+  const [radio, setRadio] = useState("");
+  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+  const data = props.data;
   const handleChange = (value, label) => {
     setFilter({
       label,
       value,
     });
   };
-  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
   const toggleDropDown = () => {
     setDropDownIsOpen((prevState) => !prevState);
   };
 
-  const [filter, setFilter] = useState({
-    label: "Administrateur",
-    value: "Administrateur",
-  });
-  const roleList = [
-    {
-      id: 0,
-      label: "Administrateur",
-      value: "Administrateur",
-    },
-    {
-      id: 1,
-      label: "Directeurs des Ressouces Humaines",
-      value: "Directeurs des Ressouces Humaines",
-    },
-    {
-      id: 2,
-      label: "Responsable des Formations",
-      value: "Responsable des Formations",
-    },
-    {
-      id: 3,
-      label: "Chef D'agences",
-      value: "Chef D'agences",
-    },
-    {
-      id: 4,
-      label: "Formateurs",
-      value: "Formateurs",
-    },
-    {
-      id: 5,
-      label: "Collaborateurs",
-      value: "Collaborateurs",
-    },
-  ];
-  const data = props.data;
   return (
     <div className="d-flex flex-column">
       <div className="d-flex justify-content-around bd-highlight flex-wrap">
@@ -67,7 +35,7 @@ export default function ArchiveList(props) {
               Tous les gouvernerats
             </DropdownToggle>
             <DropdownMenu>
-              {roleList.map((option, index) => (
+              {typeList.map((option, index) => (
                 <div
                   className="d-flex flex-column m-2"
                   key={index}
@@ -81,6 +49,10 @@ export default function ArchiveList(props) {
                       name="radio" //il faut avoir le même name
                       value={option.value}
                       className="mr-2"
+                      checked={radio === option.value}
+                      onChange={(e) => {
+                        setRadio(e.target.value);
+                      }}
                     />
 
                     {option.label}
@@ -160,12 +132,17 @@ export default function ArchiveList(props) {
             </tr>
           </thead>
           <tbody>
-            {data
-              .filter((e) => e.isArchived === true)
-              //  .filter((e) => e.name === filter.value)
-              .map((row, index) => (
-                <ArchiveItem data={row} key={index} />
-              ))}
+            {radio === "" &&
+              data
+                .filter((e) => e.isArchived === true)
+                .map((row, index) => (
+                  <ArchiveItem data={row} key={index} />
+                ))}{" "}
+            {radio !== "" &&
+              data
+                .filter((e) => e.isArchived === true)
+                .filter((e) => e.type === filter.value)
+                .map((row, index) => <ArchiveItem data={row} key={index} />)}
           </tbody>
         </table>
       </div>

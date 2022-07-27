@@ -5,12 +5,15 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import UserDetails from "./UserDetails";
-import { editUser } from "../../../../../store/actions/User";
+import { editUserisArchived } from "../../../../../store/actions/User";
 import { useDispatch } from "react-redux";
+import AddUser from './AddUser';
+import { roleList } from "../../../../../constants/variables and listes";
 
 export default function UserListItem(props) {
   let dispatch = useDispatch();
   const [opendetails, setOpendetails] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const data = props.data;
 
   const finalData = {
@@ -21,11 +24,17 @@ export default function UserListItem(props) {
     setOpendetails(!opendetails);
   };
   const handleArchive = (e) => {
-    dispatch(editUser(finalData));
-    console.log(finalData);
+    dispatch(editUserisArchived(finalData));
+   };
+  const openEditUser = () => {
+    setIsOpen(!isOpen);
   };
-
-  return (
+  var roleName
+  for (const element of roleList) {
+    if (element.value===data.roleId) {
+      roleName = element.label;
+    }
+  }  return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <th
         scope="row"
@@ -48,7 +57,7 @@ export default function UserListItem(props) {
         {data.lastName}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.name}
+        {roleName}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
@@ -89,6 +98,8 @@ export default function UserListItem(props) {
               height: "28px",
               marginRight: "4%",
             }}
+            onClick={openEditUser}
+
           >
             <CreateIcon />
           </IconButton>
@@ -111,7 +122,10 @@ export default function UserListItem(props) {
           opendetailsUser={opendetailsUser}
           {...props}
           key={data.id}
+          roleName={roleName}
         />
+      )}{isOpen &&(
+        <AddUser  openUser={openEditUser} data={data} isOpen={isOpen}/>
       )}
     </tr>
   );

@@ -7,52 +7,24 @@ import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
 import IntlMessages from "../../../../../util/IntlMessages";
 import Button from "@material-ui/core/Button";
-
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import styles from "../../../Learning/routes/OnlineTraining/styles.module.css";
-
 import AddAgence from "./AddAgence";
+import { typeList } from "../../../../../constants/variables and listes";
 
 export default function AgenceList(props) {
-  const roleList = [
-    {
-      id: 0,
-      label: "Sousse",
-      value: "Sousse",
-    },
-    {
-      id: 1,
-      label: "Sfax",
-      value: "Sfax",
-    },
-    {
-      id: 2,
-      label: "Tunis",
-      value: "Tunis",
-    },
-    {
-      id: 3,
-      label: "Mounastir",
-      value: "Mounastir",
-    },
-    {
-      id: 4,
-      label: "Nabeul",
-      value: "Nabeul",
-    },
-  ];
-
+  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+  const [radio,setRadio]=useState("")
   const [openadd, setOpenadd] = useState(false);
   const [filter, setFilter] = useState({
-    label: "Sousse",
-    value: "Sousse",
+    label: "",
+    value: "",
   });
   const openaddAgence = () => {
     setOpenadd(!openadd);
   };
 
-  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
   const toggleDropDown = () => {
     setDropDownIsOpen((prevState) => !prevState);
   };
@@ -61,8 +33,8 @@ export default function AgenceList(props) {
       label,
       value,
     });
-  };
-  return (
+   };
+   return (
     <div className="app-wrapper ">
       {openadd && <AddAgence openaddAgence={openaddAgence} />}
 
@@ -71,15 +43,15 @@ export default function AgenceList(props) {
           <div className="p-2">
             <Dropdown isOpen={dropDownIsOpen} toggle={toggleDropDown}>
               <DropdownToggle caret className={styles.container}>
-                Tous les gouvernerats
+                Tous les Types
               </DropdownToggle>
               <DropdownMenu>
-                {roleList.map((option, index) => (
+                {typeList.map((option, index) => (
                   <div
                     className="d-flex flex-column m-2"
                     key={index}
                     onClick={() => {
-                      handleChange(option.label, option.value);
+                      handleChange(option.label, option.value); 
                     }}
                   >
                     <label>
@@ -88,6 +60,8 @@ export default function AgenceList(props) {
                         name="radio" //il faut avoir la même name
                         value={option.value}
                         className="mr-2"
+                        checked={radio===option.value}
+                        onChange={(e)=>{setRadio(e.target.value)}}
                       />
 
                       {option.label}
@@ -193,12 +167,18 @@ export default function AgenceList(props) {
               </tr>
             </thead>
             <tbody>
-              {props.data
+              { radio !== "" &&( props.data
                 .filter((e) => e.isArchived === false)
-                .filter((e) => e.governorate === filter.value)
+                .filter((e) => e.type === filter.value)
                 .map((row, index) => (
                   <AgenceItems data={row} key={index} />
-                ))}
+                )))}
+                  { radio === "" &&( props.data
+                .filter((e) => e.isArchived === false)
+                 .map((row, index) => (
+                  <AgenceItems data={row} key={index} />
+                )))}
+
             </tbody>
           </table>
         </div>

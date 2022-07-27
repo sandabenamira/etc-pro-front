@@ -43,14 +43,14 @@ function Inscription() {
                 control: (base) => ({
                   ...base,
                   "&:hover": { borderColor: "gray" }, // border style on hover
-                  border: "1px solid lightgray", // default border color
-                  boxShadow: "none", // no box-shadow
+                   boxShadow: "none", // no box-shadow
                   borderTopStyle: "none",
                   borderRightStyle: "none",
                   borderLeftStyle: "none",
-                  borderRadius: " none",
-                  width: 200,
-                }),
+                   width: 200,
+                   backgroundColor: "rgb(63, 81, 181)",
+           
+                 }),
               }}
             />
           </div>

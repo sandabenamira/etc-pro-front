@@ -6,10 +6,9 @@ import {
   SHOW_MESSAGE,
   SIGNIN_USER_SUCCESS,
   SIGNOUT_USER_SUCCESS,
-  GET_USERSPROFILES,
-  SHOW_ERROR_MESSAGE_FORGOT,
+   SHOW_ERROR_MESSAGE_FORGOT,
   SHOW_MESSAGE_FORGOT,
-  HIDE_MESSAGE_FORGOT,
+  HIDE_MESSAGE_FORGOT, 
 } from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 import cst from "../../config/config";
 
@@ -29,22 +28,7 @@ export const userSignIn = (user) => {
       );
   };
 };
-export const getUsersProfiles = () => {
-  return (dispatch) => {
-    var token = localStorage.getItem("token");
-    let apiEndpoint = `${cst.baseUrl}/auth/me`;
-    axios
-      .get(apiEndpoint, { headers: { Authorization: `Bearer ${token}` } })
-      .then((response) => {
-        if (response) {
-          dispatch({
-            type: GET_USERSPROFILES,
-            payload: response.data,
-          });
-        }
-      });
-  };
-};
+ 
 
 export const verifMail = (mail) => {
   return (dispatch) => {

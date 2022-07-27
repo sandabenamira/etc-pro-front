@@ -21,11 +21,9 @@ class DateRangeComponent extends React.Component {
   // }
 
   dateFrequency(startDate, endDate) {
-    console.log('dateFrequencydateFrequencydateFrequency');
-    this.setState({ startDate: startDate, endDate: endDate });
+     this.setState({ startDate: startDate, endDate: endDate });
     if (startDate !== null && endDate !== null) {
-      console.log('ttttt',startDate._d, endDate._d);
-      this.props.setDate(startDate, endDate, this.props.index);
+       this.props.setDate(startDate, endDate, this.props.index);
     }
   }
 

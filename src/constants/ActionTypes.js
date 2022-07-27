@@ -45,7 +45,6 @@ export const SIGNIN_USER_SUCCESS = "signin_user_success";
 export const SIGNOUT_USER_SUCCESS = "signout_user_success";
 export const INIT_URL = "init_url";
 export const SIGNOUT_USER = "signout_user";
-export const GET_USERSPROFILES = "get_usersprofiles";
 export const ON_HIDE_LOADER = "ON_HIDE_LOADER";
 export const ON_SHOW_LOADER = "ON_SHOW_LOADER";
 export const HIDE_MESSAGE_FORGET_PASSWORD = "HIDE_MESSAGE_FORGET_PASSWORD";
@@ -90,7 +89,7 @@ export const DELETE_ENTREPRISE = "DELETE_ENTREPRISE";
 //--------------USER----------------------
 
 export const ADD_USER = "ADD_USER";
-export const GET_USER = "GET_USER";
+export const GET_USERR = "GET_USERR";
 export const FETECHED_USERS = "FETECHED_USERS";
 export const EDIT_USER = "EDIT_USER";
 export const ARCHIVE_USER = "ARCHIVE_USER";
@@ -100,6 +99,9 @@ export const HIDE_MESSAGE_USER = "HIDE_MESSAGE_USER";
 export const SHOW_ERROR_ALERTE_USER = "SHOW_ERROR_ALERTE_USER";
 export const HIDE_ERROR_ALERTE_USER = "HIDE_ERROR_ALERTE_USER";
 export const SHOW_ALERTE_USER = "SHOW_ALERTE_USER";
+export const GET_USERSPROFILES = "GET_USERSPROFILES";
+export const GET_USERPROFILE="GET_USERPROFILE"
+
 //--------------AGENCE----------------------
 export const ADD_AGENCE = "ADD_AGENCE";
 export const GET_AGENCE = "GET_AGENCE";
@@ -113,6 +115,4 @@ export const SHOW_ERROR_MESSAGE_AGENCE = "SHOW_ERROR_MESSAGE_AGENCE";
 export const SHOW_ERROR_ALERTE_AGENCE = "SHOW_ERROR_ALERTE_AGENCE";
 export const HIDE_ERROR_ALERTE_AGENCE = "HIDE_ERROR_ALERTE_AGENCE";
 export const SHOW_ALERTE_AGENCE = "SHOW_ALERTE_AGENCE";
-//-------------PROFILE-----------------------
-export const GET_PROFILE = "GET_PROFILE";
-export const EDIT_PROFILE = "EDIT_PROFILE";
+   

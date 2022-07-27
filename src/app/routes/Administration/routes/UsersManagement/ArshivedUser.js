@@ -39,10 +39,7 @@ export default function ArshivedUser(props) {
         <div className="d-flex flex-row p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
           <ArshivedUserList
             data={props.data}
-            setNumero={props.setNumero}
-            increment={props.increment}
-            count={props.count}
-          />
+           />
         </div>
       </div>
     </div>

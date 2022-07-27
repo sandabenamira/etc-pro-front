@@ -2,7 +2,7 @@ import { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import UserDetails from "./UserDetails";
-import { editUser } from "../../../../../store/actions/User";
+import { editUserisArchived } from "../../../../../store/actions/User";
 import { useDispatch } from "react-redux";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import ReplayIcon from "@material-ui/icons/Replay";
@@ -19,9 +19,8 @@ export default function ArshivedUserItems(props) {
     isArchived: false,
   };
   const handleArchive = (e) => {
-    dispatch(editUser(finalData));
-    console.log(finalData);
-  };
+    dispatch(editUserisArchived(finalData));
+   };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <th

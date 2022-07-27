@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 import Radio from "@material-ui/core/Radio";
@@ -10,145 +10,104 @@ import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
 import AttachmentIcon from "@material-ui/icons/Attachment";
-import { addUser } from "../../../../../store/actions/User";
+import { addUser, editUser } from "../../../../../store/actions/User";
 import MenuItem from "@mui/material/MenuItem";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { connect } from "react-redux";
-import Alert from "@material-ui/lab/Alert";
 import { Formik, useFormik, Form } from "formik";
-import * as Yup from "yup";
+import { validationSchema } from "../../../../../constants/validationSchemaUser";
 import {
   countryList,
   roleList,
 } from "../../../../../../src/constants/variables and listes";
-const phoneRegExp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/;
-function month(date) {
-  return date.getMonth() + 1;
-}
+import { getRoleId } from "../../../../../constants/validationFunctions";
+
 function AddUser(props) {
   let dispatch = useDispatch(props);
   const Input = styled("input")({
     display: "none",
   });
-  const { showMessage, successUser, alertMessageUser, agences } = props;
-  const initialValues = {
-    firstName: "",
-    lastName: "",
-    gender: "",
-    dateBirth: "",
-    country: "",
-    role: "",
-    identifiant: "",
-    agency: "",
-    email: "",
-    address: "",
-    telephoneNumber: "",
-    postalCode: "",
-    cin: "",
-  };
-
-   const [papier, setPapier] = useState("");
+  const { agences } = props;
+  const agenceListName = agences.filter(({ name }) => name != null);
+  const [papier, setPapier] = useState("");
   const [photo, setPhoto] = useState("");
+  var initialValues;
+  
 
+ 
+  if (props.isOpen === true) {
+    initialValues = {
+      firstName: props.data.firstName,
+      lastName: props.data.lastName,
+      gender: props.data.gender,
+      dateBirth: props.data.dateBirth,
+      country: props.data.country,
+      roleId: props.data.roleId,
+      identifier: props.data.identifier,
+      agenceId: props.data.agenceId,
+      email: props.data.email,
+      address: props.data.address,
+      telephoneNumber: props.data.telephoneNumber,
+      postalCode: props.data.postalCode,
+      cin: props.data.cin,
+    };
+ 
+  } else {
+    initialValues = {
+      firstName: "",
+      lastName: "",
+      gender: "",
+      dateBirth: "",
+      country: "",
+      roleId: "",
+      identifier: "",
+      agenceId: "",
+      email: "",
+      address: "",
+      telephoneNumber: "",
+      postalCode: "",
+      cin: "",
+    };
+  }
   const onImageChange = (event) => {
-     if (event.target.files && event.target.files[0]) {
+    if (event.target.files && event.target.files[0]) {
       let file = event.target.files[0];
-      setPhoto(URL.createObjectURL(file));
-     }
+      setPhoto(URL.createObjectURL(file).slice(5));
+    }
   };
   const onPapierChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let file = event.target.files[0];
-      setPapier(URL.createObjectURL(file));
+      setPapier(URL.createObjectURL(file).slice(5));
     }
   };
-
   const reinitialiser = () => {
-    props.openaddUser();
+    props.openUser();
   };
-   const agenceListName = agences.filter(({ name }) => name != null);
-   const validationSchema = Yup.object({
-    firstName: Yup.string()
-      .trim("Champ obligatoire !")
-      .required("Champ obligatoire !")
-      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Veuillez entrer un nom valide")
-      .max(40, "Trop long ! maximum 40 caractères")
-      .min(2, "Trop court! minimum 2 caractères"),
-    lastName: Yup.string()
-      .required("Champ obligatoire !")
-      .matches(
-        /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
-        "Veuillez entrer un prénom valide"
-      )
-      .max(40, "Trop long ! maximum 40 caractères")
-      .min(2, "Trop court! minimum 2 caractères"),
-    gender: Yup.string().required("Champ obligatoire !"),
 
-    dateBirth: Yup.date()
-      .required("Champ obligatoire !")
-      .max(new Date(), "Entrer une date valide"),
-
-    email: Yup.string()
-      .trim("Champ obligatoire !")
-      .email("Veuillez entrer une adresse e-mail valide  ")
-      .required("Champ obligatoire !")
-      .max(40, "Trop long ! maximum 40 caractères")
-      .min(3, "Trop court! minimum 3 caractères"),
-
-    telephoneNumber: Yup.string()
-      .trim("Champ obligatoire !")
-      .required("Champ obligatoire !")
-      .matches(phoneRegExp, "Veuillez entrer un numéro téléphone valide")
-      .max(40, "Trop long ! maximum 40 chiffres ")
-      .min(6, "Trop court ! minimum 6 chiffres"),
-
-    cin: Yup.string()
-      .trim("Champ obligatoire !")
-      .required("Champ obligatoire !")
-      .matches(phoneRegExp, "Veuillez entrer un numéro cin valide")
-      .max(8, "indiquer 8 chiffres ")
-      .min(8, "ndiquer 8 chiffres"),
-    country: Yup.string()
-      .required("Champ obligatoire !")
-      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une pays valide"),
-
-    address: Yup.string()
-      .required("Champ obligatoire !")
-      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une adresse valide")
-      .max(40, "Trop long ! maximum 40")
-      .min(2, "Trop court! minimum 2"),
-    postalCode: Yup.string()
-      .trim("Champ obligatoire !")
-
-      .matches(phoneRegExp, "Entrer un code valide")
-      .max(20, "Trop long ! maximum 20 chiffres ")
-      .min(4, "Trop court ! minimum 4 chiffres"),
-
-    role: Yup.string().required("Champ obligatoire !"),
-    identifiant: Yup.string()
-      .required("Champ obligatoire !")
-      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Entrer une identifiant valide"),
-    photo: Yup.string().matches(
-      /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
-      "Entrer une photo valide"
-    ),
-  });
-
-  //       attachment: papier,
   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.setSubmitting(false);
-    dispatch(
-      addUser({
-        ...values,
-        attachment: papier.slice(5),
-        photo: photo.slice(5),
-        roleId: parseInt(values.role),
-        identifier: values.identifiant,
-        agenceName: values.agency,
-      })
-    );
+    if (props.isOpen === true) {
+      dispatch(
+        editUser({
+          ...values,
+          attachment: papier,
+          photo: photo,
+          id:props.data.id
+        })
+      );
+    } else {
+      dispatch(
+        addUser({
+          ...values,
+          attachment: papier,
+          photo: photo,
+        })
+      );
+    }
+    props.openUser();
   };
 
   const formik = useFormik({
@@ -156,20 +115,9 @@ function AddUser(props) {
     onSubmit,
     validationSchema,
   });
-  var toDay = new Date();
-  var day = toDay.getDate() + "";
-  var monthh = month(toDay) + "";
-  if (day.length === 1) {
-    day = "0" + day;
-  }
-  if (monthh.length === 1) {
-    monthh = "0" + monthh;
-  }
-  toDay = toDay.getFullYear() + "-" + monthh + "-" + day;
-  console.log(toDay);
 
   return (
-    <Modal isOpen={props.openaddUser}>
+    <Modal isOpen={props.openUser}>
       <ModalBody>
         <Formik
           initialValues={initialValues}
@@ -195,7 +143,7 @@ function AddUser(props) {
                   type="button"
                   className="close"
                   aria-label="Close"
-                  onClick={props.openaddUser}
+                  onClick={props.openUser}
                   style={{
                     marginTop: "-2%",
                     marginLeft: "88%",
@@ -305,7 +253,6 @@ function AddUser(props) {
                   <TextField
                     id="date"
                     type="date"
-                    defaultValue={toDay}
                     {...formik.getFieldProps("dateBirth")}
                     name="dateBirth"
                     fullWidth
@@ -427,6 +374,11 @@ function AddUser(props) {
                       size="small"
                       {...formik.getFieldProps("postalCode")}
                     ></TextField>
+                    {formik.touched.postalCode && formik.errors.postalCode ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.postalCode}</small>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
                 <div className="p-2 d-flex flex-column flex-wrap col-md-4 col-md-4 mt-2 ">
@@ -450,9 +402,7 @@ function AddUser(props) {
                       style={{
                         color: "#696969",
                       }}
-                      onClick={() => {
-                     
-                      }}
+                      onClick={() => {}}
                     >
                       <PhotoCamera style={{ color: orange[500] }} />
                       <div
@@ -465,7 +415,6 @@ function AddUser(props) {
                         <IntlMessages id="add.picture" />
                       </div>
                     </IconButton>
-                   
                   </label>
                 </div>
               </div>
@@ -477,13 +426,13 @@ function AddUser(props) {
 
                   <TextField
                     className="textfield"
+                    name="roleId"
                     select
                     margin="normal"
                     fullWidth
                     size="small"
                     required
-                    {...formik.getFieldProps("role")}
-                    name="role"
+                    {...formik.getFieldProps("roleId")}
                   >
                     {roleList.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
@@ -491,9 +440,9 @@ function AddUser(props) {
                       </MenuItem>
                     ))}
                   </TextField>
-                  {formik.touched.role && formik.errors.role ? (
+                  {formik.touched.roleId && formik.errors.roleId ? (
                     <div className="error" style={{ color: "red" }}>
-                      <small>{formik.errors.role}</small>
+                      <small>{formik.errors.roleId}</small>
                     </div>
                   ) : null}
                 </div>
@@ -503,17 +452,17 @@ function AddUser(props) {
                   </div>
                   <div>
                     <TextField
-                      name="identifiant"
+                      name="identifier"
                       className="textfield"
                       margin="normal"
                       fullWidth
                       size="small"
                       required
-                      {...formik.getFieldProps("identifiant")}
+                      {...formik.getFieldProps("identifier")}
                     ></TextField>
-                    {formik.touched.identifiant && formik.errors.identifiant ? (
+                    {formik.touched.identifier && formik.errors.identifier ? (
                       <div className="error" style={{ color: "red" }}>
-                        <small>{formik.errors.identifiant}</small>
+                        <small>{formik.errors.identifier}</small>
                       </div>
                     ) : null}
                   </div>
@@ -524,15 +473,15 @@ function AddUser(props) {
                   </div>
                   <TextField
                     className="textfield"
-                    name="agency"
+                    name="agenceId"
                     select
                     margin="normal"
                     fullWidth
                     size="small"
-                    {...formik.getFieldProps("agency")}
+                    {...formik.getFieldProps("agenceId")}
                   >
                     {agenceListName.map((option) => (
-                      <MenuItem key={option.name} value={option.name}>
+                      <MenuItem key={option.name} value={option.id}>
                         {option.name}
                       </MenuItem>
                     ))}
@@ -573,29 +522,15 @@ function AddUser(props) {
                   </label>
                 </div>
               </div>
-              <div className="p-2 d-flex   flex-wrap justify-content-center mb-4 ">
-                <div className="p-2">
-                  {showMessage && (
-                    <Alert
-                      style={{
-                        maxHeight: "70px",
-                      }}
-                      id="alert"
-                      severity={successUser}
-                    >
-                      {alertMessageUser}
-                    </Alert>
-                  )}
-                </div>
-              </div>
-              <div className="p-2 d-flex flex-row  flex-wrap justify-content-center ">
+
+              <div className="p-2 d-flex flex-row  flex-wrap justify-content-center mt-4 ">
                 <div className="p-2">
                   <Button
                     variant="outlined"
                     color="primary"
                     style={{
                       borderRadius: "80px",
-                       fontSize: "18px",
+                      fontSize: "18px",
                       fontFamily: " sans-serif",
                       textTransform: "none",
                       paddingLeft: "30px",
@@ -619,8 +554,7 @@ function AddUser(props) {
                       paddingRight: "30px",
                     }}
                     type="submit"
-                    
-                    // disabled={!(formik.isValid && formik.isSubmitting && verif===true)}
+                    disabled={!(formik.isValid || formik.isSubmitting)}
                   >
                     <IntlMessages id="confirm" />
                   </Button>
@@ -633,13 +567,9 @@ function AddUser(props) {
     </Modal>
   );
 }
-const mapStateToProps = ({ users, Agence }) => {
-  const { showMessage, alertMessageUser, successUser } = users;
+const mapStateToProps = ({ Agence }) => {
   const { agences } = Agence;
   return {
-    showMessage,
-    alertMessageUser,
-    successUser,
     agences,
   };
 };

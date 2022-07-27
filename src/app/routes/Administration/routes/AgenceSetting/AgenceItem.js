@@ -16,8 +16,7 @@ export default function AgenceItem(props) {
 
   const handleArchive = (e) => {
     dispatch(editAgence(finalData));
-    console.log(finalData);
-  };
+   };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <td

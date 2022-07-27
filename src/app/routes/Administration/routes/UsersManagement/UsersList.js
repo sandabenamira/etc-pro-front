@@ -11,60 +11,29 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import styles from "../../../Learning/routes/OnlineTraining/styles.module.css";
+import { roleList } from "../../../../../constants/variables and listes";
 
 export default function UsersList(props) {
   const [openadd, setOpenadd] = useState(false);
+  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+  const [radio, setRadio] = useState("");
   const openaddUser = () => {
     setOpenadd(!openadd);
   };
-
-  const roleList = [
-    {
-      id: 0,
-      label: "Administrateur",
-      value: "Administrateur",
-    },
-    {
-      id: 1,
-      label: "Directeurs des Ressouces Humaines",
-      value: "Directeurs des Ressouces Humaines",
-    },
-    {
-      id: 2,
-      label: "Responsable des Formations",
-      value: "Responsable des Formations",
-    },
-    {
-      id: 3,
-      label: "Chef D'agences",
-      value: "Chef D'agences",
-    },
-    {
-      id: 4,
-      label: "Formateurs",
-      value: "Formateurs",
-    },
-    {
-      id: 5,
-      label: "Collaborateurs",
-      value: "Collaborateurs",
-    },
-  ];
   const data = props.data;
-
   const handleChange = (value, label) => {
     props.setFilter({
       label,
       value,
     });
   };
-  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
   const toggleDropDown = () => {
     setDropDownIsOpen((prevState) => !prevState);
   };
+
   return (
     <div className="app-wrapper ">
-      {openadd && <AddUser openaddUser={openaddUser} />}
+      {openadd && <AddUser openUser={openaddUser} />}
 
       <div className="d-flex justify-content-around bd-highlight flex-wrap">
         <div className="p-2">
@@ -87,6 +56,10 @@ export default function UsersList(props) {
                       name="radio" //il faut avoir la même name
                       value={option.value}
                       className="mr-2"
+                      checked={radio === option.value}
+                      onChange={(e) => {
+                        setRadio(e.target.value);
+                      }}
                     />
 
                     {option.label}
@@ -98,7 +71,6 @@ export default function UsersList(props) {
         </div>
 
         <div className=" d-flex flex-row flex-wrap p-2 col-lg-3 col-md-6  col-sm-4 bd-highlight flex-wrap">
-         
           <Paper
             component="form"
             className="d-flex flex-row"
@@ -196,12 +168,16 @@ export default function UsersList(props) {
             </tr>
           </thead>
           <tbody>
-            {data
-              .filter((e) => e.name === props.filter.value)
-              .filter((e) => e.isArchived === false)
-              .map((row, i) => (
-                <UserListItem key={i} data={row} />
-              ))}
+            {radio !== "" &&
+              data
+                .filter((e) => e.name === props.filter.value)
+                .filter((e) => e.isArchived === false)
+                .map((row, i) => <UserListItem key={i} data={row} />)}
+
+            {radio === "" &&
+              data
+                 .filter((e) => e.isArchived === false)
+                .map((row, i) => <UserListItem key={i} data={row} />)}
           </tbody>
         </table>
       </div>

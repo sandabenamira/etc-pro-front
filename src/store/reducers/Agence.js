@@ -2,10 +2,7 @@ import {
   ADD_AGENCE,
   GET_AGENCE,
   EDIT_AGENCE,
-  SHOW_MESSAGE_AGENCE,
-  SHOW_ERROR_MESSAGE_AGENCE,
-  HIDE_MESSAGE_AGENCE,
-  SHOW_ERROR_ALERTE_AGENCE,
+    SHOW_ERROR_ALERTE_AGENCE,
   HIDE_ERROR_ALERTE_AGENCE,
   SHOW_ALERTE_AGENCE,
 } from "../../constants/ActionTypes";
@@ -28,30 +25,9 @@ export default function (state = initialState, action) {
         ),
       });
     }
-    case SHOW_MESSAGE_AGENCE: {
-      return {
-        ...state,
-        showMessage: true,
-        alertMessage: "Le formulaire est envoyé avec succès! ",
-        success: "success",
-      };
-    }
-    case HIDE_MESSAGE_AGENCE: {
-      return {
-        ...state,
-        showMessage: false,
-        alertMessage: "",
-      };
-    }
+ 
 
-    case SHOW_ERROR_MESSAGE_AGENCE: {
-      return {
-        ...state,
-        showMessage: true,
-        alertMessage: action.payload,
-        success: "warning",
-      };
-    }
+ 
     case GET_AGENCE: {
       return Object.assign({}, state, {
         agences: action.payload,

@@ -19,10 +19,10 @@ import { educapProModules } from "../constants/EducapProModules";
 import Raporting from "./routes/Raporting/index";
 import Catalog from "./routes/Catalog/Catalog";
 import SuperAdministration from "./routes/SuperAdministration";
-//import { getUsersProfiles } from "../../src/store/actions/Auth";
-//import { useDispatch } from "react-redux";
+ import { useDispatch } from "react-redux";
  import Alert from "@mui/material/Alert";
-
+ import { getUsers, getUserProfile, getUsersProfiles } from '../store/actions/User';
+import { getAgences } from "../store/actions/Agence";
 function App(props) {
   const {
     match,
@@ -45,10 +45,14 @@ function App(props) {
   } else if (document.body.classList.contains("ios-mobile-view-height")) {
     document.body.classList.remove("ios-mobile-view-height");
   }
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(getUsersProfiles());
-  }, []);
+     dispatch(getUserProfile());
+     dispatch(getUsersProfiles());
+     dispatch(getAgences());
+     dispatch(getUsers());
+
+  }, [dispatch]);
 
   return (
     <div className={`app-container ${drawerStyle}`}>
@@ -121,6 +125,8 @@ function App(props) {
                 component={asyncComponent(() =>
                   import("../components/Error404")
                 )}
+ 
+
               />
             </Switch>
           </div>

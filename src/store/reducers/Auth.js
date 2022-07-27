@@ -6,9 +6,9 @@ import {
   SIGNOUT_USER_SUCCESS,
   SHOW_ERROR_MESSAGE_FORGOT,
   HIDE_MESSAGE_FORGOT,
-  SHOW_MESSAGE_FORGOT,
+  SHOW_MESSAGE_FORGOT,  
   SWITCH_APP_LANGUAGE,
-  GET_USERSPROFILES,
+ 
 } from "../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 
 const INIT_STATE = {
@@ -18,8 +18,7 @@ const INIT_STATE = {
   initURL: "",
   authUser: localStorage.getItem("token"),
   multiple: false,
-  profile: [],
-  errorAlert: false,
+   errorAlert: false,
   succedAlert: false,
 };
 
@@ -34,12 +33,9 @@ export default (state = INIT_STATE, action) => {
       };
     }
 
-    case GET_USERSPROFILES: {
-      return Object.assign({}, state, {
-        profile: action.payload,
-      });
-    }
+   
 
+   
     case SIGNOUT_USER_SUCCESS: {
       return {
         ...state,

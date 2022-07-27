@@ -1,7 +1,5 @@
 import { useDispatch } from "react-redux";
-import Alert from "@material-ui/lab/Alert";
-import { connect } from "react-redux";
-import { Modal, ModalBody } from "reactstrap";
+  import { Modal, ModalBody } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
@@ -9,105 +7,15 @@ import IntlMessages from "../../../../../util/IntlMessages";
 import { addAgence } from "../../../../../store/actions/Agence";
 import MenuItem from "@mui/material/MenuItem";
 import { Formik, useFormik, Form } from "formik";
-import * as Yup from "yup";
+ import { gouvernoratList, typeList } from "../../../../../constants/variables and listes";
+import { validationSchema , initialValues} from '../../../../../constants/validationSchemaAgence';
 
 function AddAgence(props) {
   let dispatch = useDispatch();
-  const { showMessage, success, alertMessage } = props;
-  const initialValues = {
-    name: "",
-    type: "",
-    governorate: "",
-    fax: "",
-    telephoneNumber: "",
-    address: "",
-    email: "",
-  };
-
-  const typeList = [
-    {
-      value: "BIAT Sousse",
-      label: "BIAT Sousse",
-    },
-    {
-      value: "BIAT Sfax",
-      label: "BIAT Sfax",
-    },
-    {
-      value: "BIAT Tunis",
-      label: "BIAT Tunis",
-    },
-  ];
-
-  const gouvernoratList = [
-    {
-      value: "Sousse",
-      label: " Sousse",
-    },
-    {
-      value: " Sfax",
-      label: " Sfax",
-    },
-    {
-      value: "Tunis",
-      label: " Tunis",
-    },
-  ];
-
-  const phoneRegExp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/;
-
-  const validationSchema = Yup.object({
-    name: Yup.string()
-      .trim("Champ obligatoire !")
-      .required("Champ obligatoire !")
-      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Veuillez entrer un name valide")
-      .max(40, "Trop long ! maximum 40 caractères")
-      .min(2, "Trop court! minimum 2 caractères"),
-    type: Yup.string()
-      .required("Champ obligatoire !")
-      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Veuillez entrer un type valide")
-      .max(40, "Trop long ! maximum 40 caractères")
-      .min(2, "Trop court! minimum 2 caractères"),
-    governorate: Yup.string()
-      .required("Champ obligatoire !")
-      .matches(
-        /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
-        "Veuillez entrer un governorate valide"
-      )
-      .max(40, "Trop long ! maximum 40 caractères")
-      .min(2, "Trop court! minimum 2 caractères"),
-    fax: Yup.string()
-      .trim("Champ obligatoire !")
-      .required("Champ obligatoire !")
-      .matches(phoneRegExp, "Veuillez entrer un fax valide")
-      .max(40, "Trop long ! maximum 40 chiffres ")
-      .min(6, "Trop court ! minimum 6 chiffres"),
-    telephoneNumber: Yup.string()
-      .trim("Champ obligatoire !")
-      .required("Champ obligatoire !")
-      .matches(phoneRegExp, "Veuillez entrer un numéro du tel valide")
-      .max(40, "Trop long ! maximum 40 chiffres ")
-      .min(6, "Trop court ! minimum 6 chiffres"),
-    address: Yup.string()
-      .trim("Champ obligatoire !")
-      .required("Champ obligatoire !")
-      .matches(
-        /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
-        "Veuillez entrer un adresse valide"
-      )
-      .max(40, "Trop long ! maximum 40 caractères")
-      .min(2, "Trop court! minimum 2 caractères"),
-    email: Yup.string()
-      .trim("Champ obligatoire !")
-      .email("Veuillez entrer une adresse e-mail valide  ")
-      .required("Champ obligatoire !")
-      .max(40, "Trop long ! maximum 40 caractères")
-      .min(3, "Trop court! minimum 3 caractères"),
-  });
-
-  const onSubmit = (values, onSubmitProps) => {
+   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.setSubmitting(false);
-    dispatch(addAgence({ ...values }));
+    dispatch(addAgence({ ...values }));props.openaddAgence()
+
   };
 
   const formik = useFormik({
@@ -340,27 +248,8 @@ function AddAgence(props) {
                   </div>
                 </div>
               </div>
-              <div
-                className="p-2 d-flex flex-row justify-content-center "
-                style={{
-                  height: "70px",
-                }}
-              >
-                <div className="p-2">
-                  {showMessage && (
-                    <Alert
-                      style={{
-                        maxHeight: "70px",
-                      }}
-                      id="alert"
-                      severity={success}
-                    >
-                      {alertMessage}
-                    </Alert>
-                  )}
-                </div>
-              </div>
-              <div className="p-2 d-flex flex-row justify-content-center">
+              
+              <div className="p-2 d-flex flex-row justify-content-center mt-2">
                 <div className="p-2">
                   <Button
                     variant="outlined"
@@ -405,12 +294,5 @@ function AddAgence(props) {
   );
 }
 
-const mapStateToProps = ({ Agence }) => {
-  const { showMessage, alertMessage, success } = Agence;
-  return {
-    showMessage,
-    alertMessage,
-    success,
-  };
-};
-export default connect(mapStateToProps, {})(AddAgence);
+ 
+export default  (AddAgence);

@@ -1,6 +1,7 @@
 import { Modal, ModalBody } from "reactstrap";
 
 import Avatar from "@material-ui/core/Avatar";
+import { useSelector } from "react-redux";
 
 import "react-circular-progressbar/dist/styles.css";
 import IntlMessages from "../../../../../util/IntlMessages";
@@ -8,6 +9,8 @@ import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
 
 export default function UserDetails(props) {
   const data = props.data;
+  const agences = useSelector((state) => state.Agence.agences);
+  const agenceName = agences.filter((e) => e.id === data.agenceId)[0].name
   return (
     <Modal isOpen={true}>
       <ModalBody>
@@ -34,7 +37,7 @@ export default function UserDetails(props) {
               <div className="col-lg-4 col-md-4 col-sm-4 d-flex flex-wrap flex-column  justify-content-start mb-4">
                 <Avatar
                   alt={data.firstName}
-                //  src={require(data.photo)}
+                  //  src={require(data.photo)}
                   style={{ width: 180, height: 180 }}
                 />
               </div>
@@ -44,7 +47,7 @@ export default function UserDetails(props) {
                   {data.firstName + " " + data.lastName}
                 </h1>
                 <h2 style={{ fontSize: "25px", color: "#8C8C8C" }}>
-                  {data.name}
+                  {props.roleName}
                 </h2>
 
                 <h3 style={{ fontSize: "20px", color: "#8C8C8C" }}>
@@ -52,7 +55,7 @@ export default function UserDetails(props) {
                 </h3>
                 <h4 style={{ fontSize: "20px", color: "#8C8C8C" }}>
                   <IntlMessages id="gestion.agence.agency" /> <b> : </b>
-                  {data.agenceName}
+                  {agenceName}
                 </h4>
               </div>
             </div>

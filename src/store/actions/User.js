@@ -1,11 +1,13 @@
 import { service } from "../services/service";
 import {
-  GET_USER,
+  GET_USERR,
   ADD_USER,
   EDIT_USER,
-  SHOW_MESSAGE_USER,
-  SHOW_ERROR_MESSAGE_USER,HIDE_ERROR_ALERTE_USER,SHOW_ERROR_ALERTE_USER,
-  HIDE_MESSAGE_USER,SHOW_ALERTE_USER
+  HIDE_ERROR_ALERTE_USER,
+  SHOW_ERROR_ALERTE_USER,
+  GET_USERPROFILE,
+  GET_USERSPROFILES,
+  SHOW_ALERTE_USER,
 } from "../../constants/ActionTypes";
 
 export function addUser(data) {
@@ -17,28 +19,29 @@ export function addUser(data) {
       .post(apiEndpoint, data)
       .then((response) => {
         if (response) {
-          dispatch({ type: ADD_USER });
-           dispatch({
-            type: SHOW_MESSAGE_USER,
+          dispatch({ type: ADD_USER, payload: response.data });
+          dispatch({
+            type: SHOW_ALERTE_USER,
+            payload: "L'ajout est effectuée avec succès",
           });
           setTimeout(() => {
-            dispatch({ type: HIDE_MESSAGE_USER });
-          }, 4000);
+            dispatch({ type: HIDE_ERROR_ALERTE_USER });
+          }, 2000);
         }
       })
       .catch((err) => {
         let errorMsg =
           err.response === undefined
-            ? "Error: Request failed with status code 500"
-            : "Internal Server Error";
+            ? "Erreur : Échec de la demande avec le code d'état 500"
+            : "Erreur interne du serveur";
 
         dispatch({
-          type: SHOW_ERROR_MESSAGE_USER,
+          type: SHOW_ERROR_ALERTE_USER,
           payload: errorMsg,
         });
         setTimeout(() => {
-          dispatch({ type: HIDE_MESSAGE_USER });
-        }, 4000);
+          dispatch({ type: HIDE_ERROR_ALERTE_USER });
+        }, 2000);
       });
   };
 }
@@ -49,7 +52,7 @@ export function getUsers() {
     service.get(apiEndpoint).then((response) => {
       if (response) {
         dispatch({
-          type: GET_USER,
+          type: GET_USERR,
           payload: response.data,
         });
       }
@@ -57,9 +60,8 @@ export function getUsers() {
   };
 }
 
-export const editUser = (data) => {
-  console.log(data, "----------editUser");
-  return (dispatch) => {
+export const editUserisArchived = (data) => {
+   return (dispatch) => {
     let apiEndpoint = `/users/` + data.id + "/isArchived";
     service
       .patch(apiEndpoint, data)
@@ -80,8 +82,8 @@ export const editUser = (data) => {
         let errorMsg =
           err.response === undefined
             ? "Merci  de réessayer ultérieurement , une erreur s'est produite de notre coté"
-            : err.response.data.error.message === "Internal Server Error"
-            ? "name duplicated"
+            : err.response.data.error.message === "Erreur interne du serveur"
+            ? "duplication de nom"
             : err.response.data.error.message;
         dispatch({
           type: SHOW_ERROR_ALERTE_USER,
@@ -92,4 +94,66 @@ export const editUser = (data) => {
         }, 3000);
       });
   };
+};
+
+export function getUserProfile() {
+  return (dispatch) => {
+    let apiEndpoint = `/auth/me`;
+    service.get(apiEndpoint).then((response) => {
+      if (response) {
+        dispatch({
+          type: GET_USERPROFILE,
+          payload: response.data,
+        });
+      }
+    });
+  };
+}
+export function getUsersProfiles() {
+  return (dispatch) => {
+    let apiEndpoint = `/auth/all`;
+    service.get(apiEndpoint).then((response) => {
+      if (response) {
+        dispatch({
+          type: GET_USERSPROFILES,
+          payload: response.data,
+        });
+      }
+    });
+  };
+}
+export const editUser = (data) => {
+  return (dispatch) => {
+  //  let apiEndpoint = `/users/` + data.id ;
+  //  service
+  //    .patch(apiEndpoint, data)
+  //    .then((res) => {
+       dispatch({
+         type: EDIT_USER,
+         payload: data,
+       });
+       dispatch({
+         type: SHOW_ALERTE_USER,
+         payload: "La modification  est effectuée avec succès",
+       });
+       setTimeout(() => {
+         dispatch({ type: HIDE_ERROR_ALERTE_USER });
+       }, 3000);
+    //  })
+    //  .catch((err) => {
+    //    let errorMsg =
+    //      err.response === undefined
+    //        ? "Merci  de réessayer ultérieurement , une erreur s'est produite de notre coté"
+    //        : err.response.data.error.message === "Erreur interne du serveur"
+    //        ? "duplication de nom"
+    //        : err.response.data.error.message;
+    //    dispatch({
+    //      type: SHOW_ERROR_ALERTE_USER,
+    //      payload: errorMsg,
+    //    });
+    //    setTimeout(() => {
+    //      dispatch({ type: HIDE_ERROR_ALERTE_USER });
+    //    }, 3000);
+    //  });
+ };
 };

@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { connect, useSelector } from "react-redux";
 import AgenceList from "./AgenceList";
 import ArchiveIcon from "@material-ui/icons/Archive";
 import ArchiveAgence from "./ArchiveAgence";
 import IconButton from "@material-ui/core/IconButton";
 import IntlMessages from "../../../../../util/IntlMessages";
-import { getAgences } from "../../../../../store/actions/Agence";
 
 function AgenceSetting() {
-  const dispatch = useDispatch();
   const [archived, setArchived] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,10 +18,8 @@ function AgenceSetting() {
     setIsOpen(true);
   };
   const data = useSelector((state) => state.Agence.agences);
-  useEffect(() => {
-    dispatch(getAgences());
-  }, [dispatch]);
-  return (
+  const n= data.filter((e) => e.isArchived === true).length
+   return (
     <div>
       {!archived && (
         <div className="app-wrapper" style={{}}>
@@ -62,7 +58,7 @@ function AgenceSetting() {
                 <ArchiveIcon backgroundColor="white" />
               </IconButton>
               <div style={{ fontSize: "19px", color: "#616A6B" }}>
-                <IntlMessages id="gestion.agence.archive" /> (2)
+                <IntlMessages id="gestion.agence.archive" /> ({n})
               </div>
             </div>
           </div>

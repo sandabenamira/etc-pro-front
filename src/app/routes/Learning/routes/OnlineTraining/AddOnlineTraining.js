@@ -471,7 +471,7 @@ export default function AddOnlineTraining(props) {
                     {formateurs.map((item) => (
                       <MenuItem
                         key={item.id}
-                        value={item.firstName + item.lastName}
+                        value={item.id}
                       >
                         {item.firstName} {item.lastName}
                       </MenuItem>

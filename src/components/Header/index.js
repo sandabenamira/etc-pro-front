@@ -124,8 +124,8 @@ class Header extends React.Component {
   }
 
   render() {
-    const { drawerType, locale, navigationStyle } = this.props;
-    const drawerStyle = drawerType.includes(FIXED_DRAWER)
+    const { drawerType, locale, navigationStyle,entreprise } = this.props;
+     const drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? "d-block d-xl-none"
       : drawerType.includes(COLLAPSED_DRAWER)
       ? "d-block"
@@ -154,7 +154,7 @@ class Header extends React.Component {
             </IconButton>
           )}
           <h4 className="mb-0 mr-auto text-white">
-            {"BIAT Sousse"+
+            {entreprise+
                 '   ' +
                 '(' +
                 ' ' +
@@ -349,7 +349,7 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = ({ settings, auth }) => {
+const mapStateToProps = ({ settings, auth,users }) => {
   const {
     drawerType,
     locale,
@@ -357,12 +357,13 @@ const mapStateToProps = ({ settings, auth }) => {
     horizontalNavPosition,
     languageId,
   } = settings;
+  const {entreprise}=users
   return {
     drawerType,
     locale,
     navigationStyle,
     horizontalNavPosition,
-    languageId,
+    languageId,entreprise
    
   };
 };

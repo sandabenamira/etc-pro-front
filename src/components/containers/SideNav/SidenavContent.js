@@ -6,9 +6,10 @@ import CustomScrollbars from "../../../util/CustomScrollbars";
 import { RoleContext } from "../../switchComponent/Context";
 import Can from "../../switchComponent/can";
 import {
-  sousModuleAdministration,sousModuleSuperAdministration,
+  sousModuleAdministration,
+  sousModuleSuperAdministration,
   sousModuleELearning,
-  sousModuleReporting
+  sousModuleReporting,
 } from "../../../constants/EducapProModules";
 
 const NavlinkItem = ({ pathName, listMoule }) => {
@@ -43,7 +44,6 @@ const NavlinkItem = ({ pathName, listMoule }) => {
 };
 
 const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleEducapPro }) => {
-
   return (
     <li className="menu collapse-box">
       <RoleContext.Consumer>
@@ -177,9 +177,8 @@ class SidenavContent extends Component {
   }
 
   render() {
-    /* eslint eqeqeq: "off" */
-    const estabModule = this.props.estabModule;
-    return (
+      const estabModule = this.props.estabModule;
+     return (
       <CustomScrollbars className=" scrollbar">
         <ul className="nav-menu">
           <li>
@@ -191,11 +190,13 @@ class SidenavContent extends Component {
               </span>
             </NavLink>
           </li>
-          <MenuCollapseBoxItem
-            pathName={"super-administration"}
-            listModule={estabModule}
-            sousModuleEducapPro={sousModuleSuperAdministration}
-          />
+          {this.props.roleId ===1 && (
+            <MenuCollapseBoxItem
+              pathName={"super-administration"}
+              listModule={estabModule}
+              sousModuleEducapPro={sousModuleSuperAdministration}
+            />
+          )}
 
           <MenuCollapseBoxItem
             pathName={"administration"}
@@ -213,10 +214,10 @@ class SidenavContent extends Component {
           <li>
             {/* <NavlinkItem pathName={"reporting"} listMoule={estabModule} /> */}
             <MenuCollapseBoxItem
-            pathName={"reporting"}
-            listModule={estabModule}
-            sousModuleEducapPro={sousModuleReporting}
-          />
+              pathName={"reporting"}
+              listModule={estabModule}
+              sousModuleEducapPro={sousModuleReporting}
+            />
           </li>
         </ul>
       </CustomScrollbars>
@@ -224,4 +225,4 @@ class SidenavContent extends Component {
   }
 }
 
-export default withRouter(SidenavContent);
+ export default withRouter(SidenavContent);

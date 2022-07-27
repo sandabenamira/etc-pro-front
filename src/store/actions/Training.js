@@ -3,19 +3,19 @@ import { ADD_TRAINING, GET_TRAINING } from "../../constants/ActionTypes";
 
 export function addTraining(data) {
   return (dispatch) => {
-    // let apiEndpoint = `/formations`;
+     let apiEndpoint = `/formations`;
 
-    // service.post(apiEndpoint, data).then((response) => {
+   // service.post(apiEndpoint, data).then((response) => {
     dispatch({ type: ADD_TRAINING, payload: data });
     console.log("response333", data);
 
-    //   dispatch({
-    //     type: SHOW_MESSAGE_AGENCE,
-    //   });
-    //   setTimeout(() => {
-    //     dispatch({ type: HIDE_MESSAGE_AGENCE });
-    //   }, 4000);
-    //   });
+      // dispatch({
+      //   type: SHOW_MESSAGE_AGENCE,
+      // });
+      // setTimeout(() => {
+      //   dispatch({ type: HIDE_MESSAGE_AGENCE });
+      // }, 4000);
+      // });
   };
   //   });
   // };

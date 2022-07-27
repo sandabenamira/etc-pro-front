@@ -17,7 +17,6 @@ class SideNav extends React.PureComponent {
     super();
     this.state = {};
   }
-
   onToggleCollapsedNav = (e) => {
     const val = !this.props.navCollapsed;
     this.props.toggleCollapsedNav(val);
@@ -29,43 +28,27 @@ class SideNav extends React.PureComponent {
     });
   }
 
-  render() {   /* eslint eqeqeq: "off" */
+  render() {   
     const estabModule = this.props.estabModule;
+
     const {
       navCollapsed,
       drawerType,
-      // width,
-      navigationStyle,
+       navigationStyle,roleId
     } = this.props;
      let drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? "d-xl-flex"
       : drawerType.includes(COLLAPSED_DRAWER)
       ? ""
       : "d-flex";
-    // let type = "permanent";
-    // if (
-    //   drawerType.includes(COLLAPSED_DRAWER) ||
-    //   (drawerType.includes(FIXED_DRAWER) && width < 1200)
-    // ) {
-    //   type = "temporary";
-    // }
+ 
 
     if (navigationStyle === HORIZONTAL_NAVIGATION) {
       drawerStyle = "";
-      // type = "temporary";
-    }
+     }
     return (
       <div className={`app-sidebar d-none ${drawerStyle}`}>
-        {/* <Drawer
-          className="app-sidebar-content"
-          variant={type}
-          open={type.includes("temporary") ? navCollapsed : true}
-          onClose={this.onToggleCollapsedNav}
-          classes={{
-            paper: "side-nav",
-          }}
-          
-        > */}
+    
         <Drawer
           className="app-sidebar-content"
           variant="temporary"
@@ -85,16 +68,17 @@ class SideNav extends React.PureComponent {
               title="EDUCAP-PRO"
             />
           </div>
-          <SidenavContent estabModule={estabModule} />
+          <SidenavContent estabModule={estabModule} roleId={roleId} />
         </Drawer>
       </div>
     );
   }
 }
-
-const mapStateToProps = ({ settings, auth }) => {
+ 
+const mapStateToProps = ({ settings,users }) => {
   const { navCollapsed, drawerType, width, navigationStyle } = settings;
-  return { navCollapsed, drawerType, width, navigationStyle, };
+  const {roleId}=users
+  return { navCollapsed, drawerType, width, navigationStyle,roleId };
 };
 
 export default withRouter(

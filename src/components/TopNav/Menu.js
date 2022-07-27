@@ -1,20 +1,21 @@
-import React, {Component} from 'react';
-import {NavLink, withRouter} from 'react-router-dom';
-import IntlMessages from '../../util/IntlMessages';
-
-import {sousModuleSuperAdministration,
+import React, { Component } from "react";
+import { NavLink, withRouter } from "react-router-dom";
+import IntlMessages from "../../util/IntlMessages";
+import { connect } from "react-redux";
+import {
+  sousModuleSuperAdministration,
   sousModuleAdministration,
   sousModuleELearning,
   sousModuleReporting,
-} from '../../constants/EducapProModules';
-import {RoleContext} from '../switchComponent/Context';
-import Can from '../switchComponent/can';
+} from "../../constants/EducapProModules";
+import { RoleContext } from "../switchComponent/Context";
+import Can from "../switchComponent/can";
 
-const MenuCollapseBoxItem = ({pathName, listModule, sousModuleEducapPro}) => {
+const MenuCollapseBoxItem = ({ pathName, listModule, sousModuleEducapPro }) => {
   return (
     <>
       <RoleContext.Consumer>
-        {({role}) => (
+        {({ role }) => (
           <Can
             role={role}
             perform={`module-nav-${pathName}`}
@@ -35,16 +36,19 @@ const MenuCollapseBoxItem = ({pathName, listModule, sousModuleEducapPro}) => {
                       {sousModuleEducapPro.map((mod, index) => (
                         <li key={index}>
                           <RoleContext.Consumer>
-                            {({role}) => (
+                            {({ role }) => (
                               <Can
                                 role={role}
                                 perform={`module-nav-${mod.name}`}
                                 yes={() => (
-                                  <NavLink to={{pathname: '/app/' + mod.pathName}}>
+                                  <NavLink
+                                    to={{ pathname: "/app/" + mod.pathName }}
+                                  >
                                     <i className={`zmdi zmdi-${mod.icon}`} />
                                     <span className="nav-text">
-                                      <IntlMessages id={`sidebar.components.${mod.name}`} />
-                                       
+                                      <IntlMessages
+                                        id={`sidebar.components.${mod.name}`}
+                                      />
                                     </span>
                                   </NavLink>
                                 )}
@@ -64,10 +68,10 @@ const MenuCollapseBoxItem = ({pathName, listModule, sousModuleEducapPro}) => {
     </>
   );
 };
-const NavlinkItem = ({pathName, listMoule}) => {
+const NavlinkItem = ({ pathName, listMoule }) => {
   return (
     <RoleContext.Consumer>
-      {({role}) => (
+      {({ role }) => (
         <Can
           role={role}
           perform={`module-nav-${pathName}`}
@@ -80,9 +84,9 @@ const NavlinkItem = ({pathName, listMoule}) => {
                 moduleList: listMoule,
               }}
               yes={() => (
-                <NavLink to={{pathname: '/app/' + pathName}}>
+                <NavLink to={{ pathname: "/app/" + pathName }}>
                   <span className="nav-text">
-                    <IntlMessages id={`sidebar.components.${pathName}`} />{' '}
+                    <IntlMessages id={`sidebar.components.${pathName}`} />{" "}
                   </span>
                 </NavLink>
               )}
@@ -96,42 +100,42 @@ const NavlinkItem = ({pathName, listMoule}) => {
 
 class Menu extends Component {
   componentDidMount() {
-    const {history} = this.props;
+    const { history } = this.props;
 
     const pathname = `#${history.location.pathname}`; // get current path
-    const mainMenu = document.getElementsByClassName('nav-item');
+    const mainMenu = document.getElementsByClassName("nav-item");
     for (let i = 0; i < mainMenu.length; i++) {
       mainMenu[i].onclick = function () {
         for (let j = 0; j < mainMenu.length; j++) {
-          if (mainMenu[j].classList.contains('active')) {
-            mainMenu[j].classList.remove('active');
+          if (mainMenu[j].classList.contains("active")) {
+            mainMenu[j].classList.remove("active");
           }
         }
-        this.classList.toggle('active');
+        this.classList.toggle("active");
       };
     }
-    const subMenuLi = document.getElementsByClassName('nav-arrow');
+    const subMenuLi = document.getElementsByClassName("nav-arrow");
     for (let i = 0; i < subMenuLi.length; i++) {
       subMenuLi[i].onclick = function () {
         for (let j = 0; j < subMenuLi.length; j++) {
-          if (subMenuLi[j].classList.contains('active')) {
-            subMenuLi[j].classList.remove('active');
+          if (subMenuLi[j].classList.contains("active")) {
+            subMenuLi[j].classList.remove("active");
           }
         }
-        this.classList.toggle('active');
+        this.classList.toggle("active");
       };
     }
     const activeLi = document.querySelector('a[href="' + pathname + '"]'); // select current a element
     try {
-      const activeNav = this.closest(activeLi, 'ul'); // select closest ul
-      if (activeNav.classList.contains('sub-menu')) {
-        this.closest(activeNav, 'li').classList.add('active');
+      const activeNav = this.closest(activeLi, "ul"); // select closest ul
+      if (activeNav.classList.contains("sub-menu")) {
+        this.closest(activeNav, "li").classList.add("active");
       } else {
-        this.closest(activeLi, 'li').classList.add('active');
+        this.closest(activeLi, "li").classList.add("active");
       }
-      const parentNav = this.closest(activeNav, '.nav-item');
+      const parentNav = this.closest(activeNav, ".nav-item");
       if (parentNav) {
-        parentNav.classList.add('active');
+        parentNav.classList.add("active");
       }
     } catch (e) {}
   }
@@ -141,13 +145,13 @@ class Menu extends Component {
       let matchesFn;
       // find vendor prefix
       [
-        'matches',
-        'webkitMatchesSelector',
-        'mozMatchesSelector',
-        'msMatchesSelector',
-        'oMatchesSelector',
+        "matches",
+        "webkitMatchesSelector",
+        "mozMatchesSelector",
+        "msMatchesSelector",
+        "oMatchesSelector",
       ].some(function (fn) {
-        if (typeof document.body[fn] === 'function') {
+        if (typeof document.body[fn] === "function") {
           matchesFn = fn;
           return true;
         }
@@ -173,7 +177,10 @@ class Menu extends Component {
     /* eslint eqeqeq: "off" */
     /* eslint jsx-a11y/anchor-is-valid: "off" */
     const estabModule = this.props.estabModule;
-    return (
+
+    const { roleId } = this.props;
+
+     return (
       <div className="d-none d-xl-block">
         <div className="app-main-menu ">
           <ul className="navbar-nav  ">
@@ -185,17 +192,19 @@ class Menu extends Component {
               </NavLink>
             </li>
 
-            <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={'super-administration'}
-                listModule={estabModule}
-                sousModuleEducapPro={sousModuleSuperAdministration}
-              />
-            </li>
+            {roleId === 1 && (
+              <li className="nav-item">
+                <MenuCollapseBoxItem
+                  pathName={"super-administration"}
+                  listModule={estabModule}
+                  sousModuleEducapPro={sousModuleSuperAdministration}
+                />
+              </li>
+            )}
 
             <li className="nav-item">
               <MenuCollapseBoxItem
-                pathName={'administration'}
+                pathName={"administration"}
                 listModule={estabModule}
                 sousModuleEducapPro={sousModuleAdministration}
               />
@@ -203,18 +212,18 @@ class Menu extends Component {
 
             <li className="nav-item">
               <MenuCollapseBoxItem
-                pathName={'e-learning'}
+                pathName={"e-learning"}
                 listModule={estabModule}
                 sousModuleEducapPro={sousModuleELearning}
               />
             </li>
             <li className="nav-item">
-              <NavlinkItem pathName={'catalog'} listMoule={estabModule} />
+              <NavlinkItem pathName={"catalog"} listMoule={estabModule} />
             </li>
 
             <li className="nav-item">
               <MenuCollapseBoxItem
-                pathName={'reporting'}
+                pathName={"reporting"}
                 listModule={estabModule}
                 sousModuleEducapPro={sousModuleReporting}
               />
@@ -225,5 +234,9 @@ class Menu extends Component {
     );
   }
 }
+const mapStateToProps = ({ users }) => {
+  const { roleId } = users;
+  return { roleId };
+};
 
-export default withRouter(Menu);
+export default withRouter(connect(mapStateToProps)(Menu));

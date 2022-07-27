@@ -325,8 +325,7 @@ export class OnlineTraining extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log("handleSubmit");
-    let data = {
+     let data = {
       theme: this.state.theme,
       title: this.state.titleTraining,
       certificate: this.state.certificate,
@@ -349,8 +348,7 @@ export class OnlineTraining extends Component {
       creationDate: "",
       fk_id_creator: 1,
     };
-    console.log("data,", data);
-    this.props.dispatch(addTraining(data));
+     this.props.dispatch(addTraining(data));
     this.handleCancel();
   }
 

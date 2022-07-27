@@ -3,16 +3,9 @@ import {
   GET_AGENCE,
   ADD_AGENCE,
   EDIT_AGENCE,
-  SHOW_MESSAGE_AGENCE,
-  HIDE_MESSAGE_AGENCE,
-  SHOW_ERROR_MESSAGE_AGENCE,SHOW_ERROR_ALERTE_AGENCE,HIDE_ERROR_ALERTE_AGENCE,SHOW_ALERTE_AGENCE
+SHOW_ERROR_ALERTE_AGENCE,HIDE_ERROR_ALERTE_AGENCE,SHOW_ALERTE_AGENCE
 } from "../../constants/ActionTypes";
-//import configureStore from "../index";
-import configureStore from "./../../store";
-const store = configureStore();
-const data = store.auth;
-console.log("data", data);
-
+     
 export function addAgence(data) {
   return (dispatch) => {
     console.log(data, "add AGENCE-------------------------------");
@@ -23,25 +16,27 @@ export function addAgence(data) {
         dispatch({ type: ADD_AGENCE, payload: response.data });
 
         dispatch({
-          type: SHOW_MESSAGE_AGENCE,
+          type: SHOW_ALERTE_AGENCE,
+          payload: "L'ajout est effectuée avec succès",
         });
         setTimeout(() => {
-          dispatch({ type: HIDE_MESSAGE_AGENCE });
-        }, 4000);
+          dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
+        }, 2000);
+      
       })
       .catch((err) => {
         let errorMsg =
           err.response === undefined
-            ? "Error: Request failed with status code 500"
-            : "Internal Server Error";
+            ? "Erreur : Échec de la demande avec le code d'état 500"
+            : "Erreur interne du serveur";
 
-        dispatch({
-          type: SHOW_ERROR_MESSAGE_AGENCE,
-          payload: errorMsg,
-        });
-        setTimeout(() => {
-          dispatch({ type: HIDE_MESSAGE_AGENCE });
-        }, 3000);
+            dispatch({
+              type: SHOW_ERROR_ALERTE_AGENCE,
+              payload: errorMsg,
+            });
+            setTimeout(() => {
+              dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
+            }, 2000);
       });
   };
 }
@@ -83,8 +78,8 @@ export const editAgence = (data) => {
         let errorMsg =
           err.response === undefined
             ? "Merci  de réessayer ultérieurement , une erreur s'est produite de notre coté"
-            : err.response.data.error.message === "Internal Server Error"
-            ? "name duplicated"
+            : err.response.data.error.message === "Erreur interne du serveur"
+            ? "duplication de nom"
             : err.response.data.error.message;
         dispatch({
           type: SHOW_ERROR_ALERTE_AGENCE,
@@ -92,7 +87,7 @@ export const editAgence = (data) => {
         });
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
-        }, 4000);
+        }, 3000);
       });
   };
 };

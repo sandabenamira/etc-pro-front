@@ -1,7 +1,6 @@
 import axios from "axios";
 import config from "../../config/config";
-//import { userSignOut } from "../actions/Auth";
-
+ 
 export const service = {
   get,
   post,
@@ -12,21 +11,20 @@ export const service = {
 };
 
 var token = localStorage.getItem("token");
-
-function get(apiEndpoint) {
+ function get(apiEndpoint) {
   return axios
     .get(config.baseUrl + apiEndpoint, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
-      console.log("hello axios", response);
+      // console.log("hello axios", response);
       return response;
-    });
+    })
   // .catch((err) => {
   //   if (err.response.status === 401) {
   //     store.dispatch(userSignOut());
   //  }
-  //});
+  // });
 }
 
 function post(apiEndpoint, payload) {
