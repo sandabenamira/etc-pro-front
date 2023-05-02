@@ -2,9 +2,11 @@ import {
   ADD_AGENCE,
   GET_AGENCE,
   EDIT_AGENCE,
-    SHOW_ERROR_ALERTE_AGENCE,
+  SHOW_ERROR_ALERTE_AGENCE,
   HIDE_ERROR_ALERTE_AGENCE,
   SHOW_ALERTE_AGENCE,
+  SET_AGENCE,
+  EDIT_AGENCE_E,
 } from "../../constants/ActionTypes";
 
 const initialState = {
@@ -13,6 +15,7 @@ const initialState = {
   alertMessageAgence: "",
   successAgence: "success",
   showAlerteNavAgence: false,
+  agence: {},
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -25,9 +28,7 @@ export default function (state = initialState, action) {
         ),
       });
     }
- 
 
- 
     case GET_AGENCE: {
       return Object.assign({}, state, {
         agences: action.payload,
@@ -62,6 +63,18 @@ export default function (state = initialState, action) {
         ...state,
         showAlerteNavAgence: false,
         alertMessageAgence: "",
+      };
+    }
+    case SET_AGENCE: {
+      return { ...state, agence: action.payload };
+    }
+    case EDIT_AGENCE_E: {
+      return {
+        ...state,
+        agences: [
+          action.payload,
+          ...state.agences.filter((row) => row.id !== action.payload.id),
+        ],
       };
     }
     default:

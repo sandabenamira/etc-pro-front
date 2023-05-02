@@ -38,7 +38,7 @@ export default function EntrepriseItem(props) {
         {props.data.countryEntreprise}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.telephoneNumberEntreprise}
+        {props.data.telephoneNumberEntreprise? props.data.telephoneNumberEntreprise :99568356}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {props.data.createdIn}

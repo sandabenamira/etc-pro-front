@@ -32,8 +32,8 @@ export const validationSchema = Yup.object({
     .trim("Champ obligatoire !")
     .required("Champ obligatoire !")
     .matches(phoneRegExp, "Veuillez entrer un numéro téléphone valide")
-    .max(40, "Trop long ! maximum 40 chiffres ")
-    .min(6, "Trop court ! minimum 6 chiffres"),
+    .max(8, "Indiquer 8 chiffres ")
+    .min(8, "Indiquer 8 chiffres"),
 
   cin: Yup.string()
     .trim("Champ obligatoire !")

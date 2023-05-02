@@ -6,6 +6,8 @@ import {
   SHOW_MESSAGE_INSC,
   HIDE_MESSAGE_INSC,
   SHOW_ERROR_MESSAGE_INSC,
+  SHOW_ALERTE_AGENCE,
+  HIDE_ERROR_ALERTE_AGENCE,
   DELETE_INSCRIPTION,
 } from "../../constants/ActionTypes";
 import cst from "../../config/config";
@@ -25,9 +27,9 @@ export function getInscriptions() {
 
 export function addInscription(data) {
   return (dispatch) => {
-      axios
+    axios
       .post(`${cst.baseUrl}/inscriptions`, data)
-    
+
       .then((response) => {
         dispatch({ type: ADD_INSCRIPTION, payload: data });
         dispatch({
@@ -56,20 +58,13 @@ export function addInscription(data) {
 }
 
 export const editInscription = (data) => {
-  console.log(data, "----------editInscription" ,data);
+  console.log(data, "----------editInscription", data);
   return (dispatch) => {
     let apiEndpoint = `/inscriptions/` + data.id + "/status";
 
     service
-      .patch(
-        apiEndpoint,
-        data
-      )
+      .patch(apiEndpoint, data)
       .then((res) => {
-        dispatch({
-          type: EDIT_INSCRIPTION,
-          payload: data,
-        });
         dispatch({
           type: HIDE_MESSAGE_INSC,
           payload: "La modification  est effectuée avec succès",
@@ -77,6 +72,10 @@ export const editInscription = (data) => {
         setTimeout(() => {
           dispatch({ type: HIDE_MESSAGE_INSC });
         }, 4000);
+        dispatch({
+          type: EDIT_INSCRIPTION,
+          payload: data,
+        });
       })
       .catch((err) => {
         let errorMsg =
@@ -109,6 +108,13 @@ export const deleteInscription = (id) => async (dispatch) => {
       type: DELETE_INSCRIPTION,
       payload: id,
     });
+    dispatch({
+      type: SHOW_ALERTE_AGENCE,
+      payload: "La suppression est effectué avec succès",
+    });
+    setTimeout(() => {
+      dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
+    }, 2000);
   } catch (err) {
     console.log(err);
   }

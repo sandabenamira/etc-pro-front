@@ -29,12 +29,13 @@ export default function UserListItem(props) {
   const openEditUser = () => {
     setIsOpen(!isOpen);
   };
-  var roleName
+   var roleName
   for (const element of roleList) {
     if (element.value===data.roleId) {
       roleName = element.label;
     }
-  }  return (
+  } 
+return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <th
         scope="row"
@@ -51,10 +52,10 @@ export default function UserListItem(props) {
         </div>
       </th>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.firstName}
+      {data.lastName} 
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.lastName}
+       {data.firstName}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {roleName}

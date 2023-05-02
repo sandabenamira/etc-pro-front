@@ -6,6 +6,7 @@ import { editUserisArchived } from "../../../../../store/actions/User";
 import { useDispatch } from "react-redux";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import ReplayIcon from "@material-ui/icons/Replay";
+import { roleList } from "../../../../../constants/variables and listes";
 
 export default function ArshivedUserItems(props) {
   let dispatch = useDispatch();
@@ -21,6 +22,12 @@ export default function ArshivedUserItems(props) {
   const handleArchive = (e) => {
     dispatch(editUserisArchived(finalData));
    };
+   var roleName
+  for (const element of roleList) {
+    if (element.value===data.roleId) {
+      roleName = element.label;
+    }
+  } 
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <th
@@ -44,7 +51,7 @@ export default function ArshivedUserItems(props) {
         {data.firstName}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {data.name}
+      {roleName}
       </td>
 
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>

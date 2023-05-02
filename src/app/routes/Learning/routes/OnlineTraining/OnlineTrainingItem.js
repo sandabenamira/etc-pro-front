@@ -3,14 +3,14 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import img1 from "../../../../../assets/images/img1.jpg";
-import img2 from "../../../../../assets/images/img2.jpeg";
-import img3 from "../../../../../assets/images/img3.jpeg";
+import img1 from "../../../../../assets/images/img1.png";
+import img2 from "../../../../../assets/images/img2.jpg";
+import img3 from "../../../../../assets/images/ff.jpeg"
 import img4 from "../../../../../assets/images/img4.jpeg";
 import IntlMessages from "../../../../../util/IntlMessages";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
- import AddInscriptionTraining2 from "./AddInscriptionTraining2";
-const useStyles = makeStyles((theme) => ({
+ import AddInscriptionTraining1 from "./AddInscriptionTraining1";
+ const useStyles = makeStyles((theme) => ({
   button1: {
     marginBottom: "7px",
     marginRight: "5%",
@@ -42,7 +42,7 @@ export default function OnlineTrainingItem(props) {
       <div className="package-items">
         <div>
           <img
-            src={thing}
+            src={data.img==="img2" ? img2: data.img==="img1"? img1: img3}
             alt="formation"
             style={{ width: "100%", height: "200px" }}
           />
@@ -62,6 +62,13 @@ export default function OnlineTrainingItem(props) {
               </strong>
               <pre> </pre>
               {data.trainer}
+            </div>
+            <div className="d-flex justify-content-start">
+              <strong>
+              {data.formation}
+              </strong>
+              <pre> </pre>
+              
             </div>
             <div className="d-flex justify-content-start">
               <strong>
@@ -112,7 +119,7 @@ export default function OnlineTrainingItem(props) {
             )}
             {/* secondary */}
           </IconButton>
-        </div> {isOpen && (<AddInscriptionTraining2 openInscriptionModal={openInscriptionModal}/>)}
+        </div> {isOpen && (<AddInscriptionTraining1 openInscriptionModal={openInscriptionModal}/>)}
       </div>
     </div>
   );

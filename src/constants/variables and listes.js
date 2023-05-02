@@ -20,17 +20,17 @@ export const roleList = [
   },
   {
     id: 3,
-    label: "Directeurs des Ressouces Humaines",
+    label: "Directeur des Ressouces Humaines",
     value: 3,
   },
   {
     id: 4,
-    label: "Formateurs",
+    label: "Formateur",
     value: 4,
   },
   {
     id: 5,
-    label: "Collaborateurs",
+    label: "Collaborateur",
     value: 5,
   },
   {
@@ -176,6 +176,11 @@ export const typeList = [
     label: "Agence de content marketing",
   },
   { id: 8, value: "Agence en e-réputation", label: "Agence en e-réputation" },
+  {
+    id: 1,
+    value: "Agence bancaire",
+    label: "Agence bancaire",
+  },
 ];
 
 export const ListeDevise = [

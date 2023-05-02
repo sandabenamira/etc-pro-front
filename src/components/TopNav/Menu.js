@@ -160,8 +160,7 @@ class Menu extends Component {
 
       let parent;
 
-      // traverse parents
-      while (el) {
+       while (el) {
         parent = el.parentElement;
         if (parent && parent[matchesFn](selector)) {
           return parent;
@@ -174,16 +173,15 @@ class Menu extends Component {
   }
 
   render() {
-    /* eslint eqeqeq: "off" */
-    /* eslint jsx-a11y/anchor-is-valid: "off" */
+ 
     const estabModule = this.props.estabModule;
 
     const { roleId } = this.props;
 
-     return (
+    return (
       <div className="d-none d-xl-block">
-        <div className="app-main-menu ">
-          <ul className="navbar-nav  ">
+        <div className="app-main-menu "style={{ justifyContent: "center" }}>
+          <ul className="navbar-nav  " >
             <li className="nav-item ">
               <NavLink className="prepend-icon" to="/app/home">
                 <span className="nav-text">
@@ -201,33 +199,36 @@ class Menu extends Component {
                 />
               </li>
             )}
+            {this.props.roleId !== 1 && (
+              <>
+                <li className="nav-item">
+                  <MenuCollapseBoxItem
+                    pathName={"administration"}
+                    listModule={estabModule}
+                    sousModuleEducapPro={sousModuleAdministration}
+                  />
+                </li>
 
-            <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={"administration"}
-                listModule={estabModule}
-                sousModuleEducapPro={sousModuleAdministration}
-              />
-            </li>
+                <li className="nav-item">
+                  <MenuCollapseBoxItem
+                    pathName={"e-learning"}
+                    listModule={estabModule}
+                    sousModuleEducapPro={sousModuleELearning}
+                  />
+                </li>
+                <li className="nav-item">
+                  <NavlinkItem pathName={"catalog"} listMoule={estabModule} />
+                </li>
 
-            <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={"e-learning"}
-                listModule={estabModule}
-                sousModuleEducapPro={sousModuleELearning}
-              />
-            </li>
-            <li className="nav-item">
-              <NavlinkItem pathName={"catalog"} listMoule={estabModule} />
-            </li>
-
-            <li className="nav-item">
-              <MenuCollapseBoxItem
-                pathName={"reporting"}
-                listModule={estabModule}
-                sousModuleEducapPro={sousModuleReporting}
-              />
-            </li>
+                <li className="nav-item">
+                  <MenuCollapseBoxItem
+                    pathName={"reporting"}
+                    listModule={estabModule}
+                    sousModuleEducapPro={sousModuleReporting}
+                  />
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

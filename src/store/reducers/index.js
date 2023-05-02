@@ -7,6 +7,7 @@ import trainings from "./Trainings";
 import Inscriptions from "./Inscriptions";
 import Entreprises from "./Entreprise";
 import Agence from "./Agence";
+import Partner from "./Partner"
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (history) =>
   combineReducers({
@@ -18,4 +19,5 @@ export default (history) =>
     Inscriptions: Inscriptions,
     Entreprise: Entreprises,
     Agence: Agence,
+    Partner:Partner
   });

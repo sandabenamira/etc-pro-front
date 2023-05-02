@@ -86,6 +86,12 @@ export const sousModuleSuperAdministration = [
     icon: 'folder-outline',
     id: 2,
   },
+  {
+    name: 'partner-management',
+  pathName: 'super-administration/partner-management',
+  icon: 'accounts-alt',
+  id: 3,
+},
   
    
    

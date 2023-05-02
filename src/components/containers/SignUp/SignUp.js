@@ -5,17 +5,18 @@ import Alert from "@material-ui/lab/Alert";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { addInscription } from "../../../store/actions/Inscription";
 import { useDispatch } from "react-redux";
-import { MenuItem, Select,FormControl, InputBase } from "@material-ui/core";
+import { MenuItem, Select, FormControl, InputBase } from "@material-ui/core";
 
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import Grid from "@mui/material/Grid";
 import { Formik, useFormik, Form } from "formik";
 import Box from "@material-ui/core/Box";
-import { validationSchema ,initialValues} from "../../../constants/validationSchema";
 import {
-  ListeDevise,
- } from "../../../constants/variables and listes";
+  validationSchema,
+  initialValues,
+} from "../../../constants/validationSchema";
+import { ListeDevise } from "../../../constants/variables and listes";
 import BootstrapInput from "../../../app/routes/Learning/routes/OnlineTraining/CostumInput";
 
 function SignUp(props) {
@@ -368,25 +369,25 @@ function SignUp(props) {
                         Choix de la devise*
                       </h4>
                       <FormControl fullWidth variant="outlined">
-
-                      <Select
-                        fullWidth
-                        variant="outlined"
-                        select
-                        required
-                        name="choiceCurrencyEntreprise"
-                        {...formik.getFieldProps("choiceCurrencyEntreprise")}
-                        // style={{
-                        //   borderBottom: "1px solid #1a85b3",
-                        // }}
-                        input={<BootstrapInput />}
-                      >
-                        {ListeDevise.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </Select>              </FormControl>
+                        <Select
+                          fullWidth
+                          variant="outlined"
+                          select
+                          required
+                          name="choiceCurrencyEntreprise"
+                          {...formik.getFieldProps("choiceCurrencyEntreprise")}
+                          // style={{
+                          //   borderBottom: "1px solid #1a85b3",
+                          // }}
+                          input={<BootstrapInput />}
+                        >
+                          {ListeDevise.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </Select>{" "}
+                      </FormControl>
 
                       {formik.touched.choiceCurrencyEntreprise &&
                       formik.errors.choiceCurrencyEntreprise ? (
@@ -673,10 +674,12 @@ function SignUp(props) {
             </div>
 
             <div
-              className="d-flex flex-wrap align-items-start   justify-content-end  "
+              className="d-flex flex-wrap align-items-start      "
               style={{
                 fontSize: "200%",
                 fontFamilyy: "Arial, sans-serif",
+                justifyContent: 'space-between' ,
+                display:"flex"
               }}
             >
               <div className="col-lg-7 col-md-7 col-sm-3 mb-5 ">
@@ -685,6 +688,7 @@ function SignUp(props) {
                     style={{
                       height: "8%",
                       //  maxHeight: "10%",
+                    
                     }}
                     id="alert"
                     severity={success}
@@ -693,15 +697,16 @@ function SignUp(props) {
                   </Alert>
                 )}
               </div>
-              <Box display="flex" justifyContent="flex-end" mb={4}>
+              <Box display="flex" justifyContent="flex-end" mb={4}  >
                 <Button
                   type="reset"
                   onClick={handleReset.bind(null, Formik.resetForm)}
                   style={{
                     color: "#1a85b3",
                     backgroundColor: "#ffffff",
-                    padding: "2% 12% 2% 12%",
+                    padding: "4px 22px 4px 22px",
                     borderRadius: "80px",
+                    marginRight: "23px",
                     border: "#1a85b3 solid 1px",
                   }}
                 >
@@ -716,16 +721,15 @@ function SignUp(props) {
                   </span>
                 </Button>
                 <Button
-                  // disabled={!(formik.isValid || formik.isSubmitting)}
-                  style={{
+                   style={{
                     color: "#ffffff",
                     border: "none",
                     cursor: "pointer",
                     backgroundColor: "#1a85b3",
-                    padding: "2% 12% 2% 12%",
+                    padding: "4px 22px 4px 22px",
                     borderRadius: "80px",
-                    marginRight: "13%",
-                    // marginBottom: "5%",
+
+                   marginRight: "23px",
                   }}
                   type="submit"
                 >
@@ -736,25 +740,11 @@ function SignUp(props) {
                       fontFamily: " sans-serif",
                     }}
                   >
-                    Submit
+                    Envoyer
                   </span>
                 </Button>
               </Box>{" "}
-              {/* {!matches && (
-              <div className=" col-sm-5">
-            <Alert
-                  style={{
-                    display: "none",
-                    maxHeight: "70px",
-                    // maxWidth: "100%",
-                  }}
-                  id="alert"
-                  severity={success}
-                >
-                  {alert}
-                </Alert>
-              </div>
-            )} */}
+          
             </div>
           </Form>
         </Formik>

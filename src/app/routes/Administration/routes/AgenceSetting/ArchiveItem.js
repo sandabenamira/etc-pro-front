@@ -13,8 +13,7 @@ export default function ArchiveItem(props) {
   };
   const handleArchive = (e) => {
     dispatch(editAgence(finalData));
-    console.log(finalData);
-  };
+   };
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <td

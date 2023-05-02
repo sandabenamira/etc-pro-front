@@ -12,8 +12,7 @@ import { typeList } from "../../../../../constants/variables and listes";
 
 export default function ArchiveList(props) {
   const [filter, setFilter] = useState({});
-  console.log("dddddd",filter)
-  const [radio, setRadio] = useState("");
+   const [radio, setRadio] = useState("");
   const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
   const data = props.data;
   const handleChange = (value, label) => {

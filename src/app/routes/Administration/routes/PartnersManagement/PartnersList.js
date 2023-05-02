@@ -21,7 +21,7 @@ export default class PartnersList extends Component {
                 <div className="table-responsive">
                     <table className="table" style={{ borderCollapse: "separate", borderSpacing: "0 15px" }} >
                         <thead>
-                            <tr style={{ paddingBottom: "10px", textAlign: "start", }}>
+                            <tr style={{ paddingBottom: "10px", textAlign: "center", }}>
 
                                 <th style={{ borderBottom: "0", borderTop: "0" }} >
                                     Nom</th>

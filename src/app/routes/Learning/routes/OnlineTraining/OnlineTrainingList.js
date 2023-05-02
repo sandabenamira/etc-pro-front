@@ -10,8 +10,8 @@ import IconButton from "@material-ui/core/IconButton";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import Button from "@material-ui/core/Button";
 import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
-
 import styles from "./styles.module.css";
+
 export const typeList = [
   { id: 1, label: "Plus récent", value: "Plus récent" },
   { id: 2, label: "Favoris", value: "Favoris" },
@@ -42,7 +42,7 @@ export default function OnlineTrainingList(props) {
   //   dispatch(getTrainings());
   // }, [dispatch]);
   return (
-    <div className="d-flex flex-column">
+    <div className="d-flex flex-column ">
       <div className="d-flex flex-row flex-wrap">
         <div className="p-2 col-md-3 col-sm-3 col-lg-2">
           <Dropdown isOpen={dropDownIsOpen} toggle={toggleDropDown}>

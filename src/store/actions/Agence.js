@@ -3,9 +3,13 @@ import {
   GET_AGENCE,
   ADD_AGENCE,
   EDIT_AGENCE,
-SHOW_ERROR_ALERTE_AGENCE,HIDE_ERROR_ALERTE_AGENCE,SHOW_ALERTE_AGENCE
+  SET_AGENCE,
+  EDIT_AGENCE_E,
+  SHOW_ERROR_ALERTE_AGENCE,
+  HIDE_ERROR_ALERTE_AGENCE,
+  SHOW_ALERTE_AGENCE,
 } from "../../constants/ActionTypes";
-     
+
 export function addAgence(data) {
   return (dispatch) => {
     console.log(data, "add AGENCE-------------------------------");
@@ -22,7 +26,6 @@ export function addAgence(data) {
         setTimeout(() => {
           dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
         }, 2000);
-      
       })
       .catch((err) => {
         let errorMsg =
@@ -30,13 +33,13 @@ export function addAgence(data) {
             ? "Erreur : Échec de la demande avec le code d'état 500"
             : "Erreur interne du serveur";
 
-            dispatch({
-              type: SHOW_ERROR_ALERTE_AGENCE,
-              payload: errorMsg,
-            });
-            setTimeout(() => {
-              dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
-            }, 2000);
+        dispatch({
+          type: SHOW_ERROR_ALERTE_AGENCE,
+          payload: errorMsg,
+        });
+        setTimeout(() => {
+          dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
+        }, 2000);
       });
   };
 }
@@ -89,5 +92,27 @@ export const editAgence = (data) => {
           dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
         }, 3000);
       });
+  };
+};
+
+export const setCurrentAgence = (data) => {
+  return (dispatch) => {
+    dispatch({ type: SET_AGENCE, payload: data });
+  };
+};
+export const editAgence2 = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: EDIT_AGENCE_E,
+      payload: data,
+    });
+
+    dispatch({
+      type: SHOW_ALERTE_AGENCE,
+      payload: "La modification  est effectuée avec succès",
+    });
+    setTimeout(() => {
+      dispatch({ type: HIDE_ERROR_ALERTE_AGENCE });
+    }, 3000);
   };
 };

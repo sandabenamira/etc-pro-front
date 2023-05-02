@@ -177,9 +177,9 @@ class SidenavContent extends Component {
   }
 
   render() {
-      const estabModule = this.props.estabModule;
-     return (
-      <CustomScrollbars className=" scrollbar">
+    const estabModule = this.props.estabModule;
+    return (
+      <CustomScrollbars  >
         <ul className="nav-menu">
           <li>
             <NavLink className="prepend-icon" to="/app/home">
@@ -190,39 +190,42 @@ class SidenavContent extends Component {
               </span>
             </NavLink>
           </li>
-          {this.props.roleId ===1 && (
+          {this.props.roleId === 1 && (
             <MenuCollapseBoxItem
               pathName={"super-administration"}
               listModule={estabModule}
               sousModuleEducapPro={sousModuleSuperAdministration}
             />
           )}
-
-          <MenuCollapseBoxItem
-            pathName={"administration"}
-            listModule={estabModule}
-            sousModuleEducapPro={sousModuleAdministration}
-          />
-          <MenuCollapseBoxItem
-            pathName={"e-learning"}
-            listModule={estabModule}
-            sousModuleEducapPro={sousModuleELearning}
-          />
-          <li>
-            <NavlinkItem pathName={"catalog"} listMoule={estabModule} />
-          </li>
-          <li>
-            {/* <NavlinkItem pathName={"reporting"} listMoule={estabModule} /> */}
-            <MenuCollapseBoxItem
-              pathName={"reporting"}
-              listModule={estabModule}
-              sousModuleEducapPro={sousModuleReporting}
-            />
-          </li>
+          {this.props.roleId !== 1 && (
+            <>
+              <MenuCollapseBoxItem
+                pathName={"administration"}
+                listModule={estabModule}
+                sousModuleEducapPro={sousModuleAdministration}
+              />
+              <MenuCollapseBoxItem
+                pathName={"e-learning"}
+                listModule={estabModule}
+                sousModuleEducapPro={sousModuleELearning}
+              />
+              <li>
+                <NavlinkItem pathName={"catalog"} listMoule={estabModule} />
+              </li>
+              <li>
+                {/* <NavlinkItem pathName={"reporting"} listMoule={estabModule} /> */}
+                <MenuCollapseBoxItem
+                  pathName={"reporting"}
+                  listModule={estabModule}
+                  sousModuleEducapPro={sousModuleReporting}
+                />
+              </li>
+            </>
+          )}
         </ul>
       </CustomScrollbars>
     );
   }
 }
 
- export default withRouter(SidenavContent);
+export default withRouter(SidenavContent);

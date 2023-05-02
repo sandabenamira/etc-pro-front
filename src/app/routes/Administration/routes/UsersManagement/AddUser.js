@@ -1,18 +1,15 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Modal, ModalBody } from "reactstrap";
-import TextField from "@material-ui/core/TextField";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
+import { RadioGroup, TextField, Grid, Radio } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { orange } from "@material-ui/core/colors";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
-import AttachmentIcon from "@material-ui/icons/Attachment";
 import { addUser, editUser } from "../../../../../store/actions/User";
 import MenuItem from "@mui/material/MenuItem";
-import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { connect } from "react-redux";
@@ -22,87 +19,86 @@ import {
   countryList,
   roleList,
 } from "../../../../../../src/constants/variables and listes";
-import { getRoleId } from "../../../../../constants/validationFunctions";
 
 function AddUser(props) {
   let dispatch = useDispatch(props);
-  const Input = styled("input")({
-    display: "none",
-  });
+
   const { agences } = props;
   const agenceListName = agences.filter(({ name }) => name != null);
-  const [papier, setPapier] = useState("");
+  // const [papier, setPapier] = useState("");
   const [photo, setPhoto] = useState("");
-  var initialValues;
-  
 
- 
-  if (props.isOpen === true) {
-    initialValues = {
-      firstName: props.data.firstName,
-      lastName: props.data.lastName,
-      gender: props.data.gender,
-      dateBirth: props.data.dateBirth,
-      country: props.data.country,
-      roleId: props.data.roleId,
-      identifier: props.data.identifier,
-      agenceId: props.data.agenceId,
-      email: props.data.email,
-      address: props.data.address,
-      telephoneNumber: props.data.telephoneNumber,
-      postalCode: props.data.postalCode,
-      cin: props.data.cin,
-    };
- 
-  } else {
-    initialValues = {
-      firstName: "",
-      lastName: "",
-      gender: "",
-      dateBirth: "",
-      country: "",
-      roleId: "",
-      identifier: "",
-      agenceId: "",
-      email: "",
-      address: "",
-      telephoneNumber: "",
-      postalCode: "",
-      cin: "",
-    };
-  }
-  const onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let file = event.target.files[0];
-      setPhoto(URL.createObjectURL(file).slice(5));
-    }
+  let initialValues = {
+    firstName: "",
+    lastName: "",
+    gender: "",
+    dateBirth: "",
+    country: "",
+    roleId: "",
+    identifier: "",
+    agenceId: "",
+    email: "",
+    address: "",
+    telephoneNumber: "",
+    postalCode: "",
+    cin: "",
+    attachment: "",
+    photo: "",
   };
-  const onPapierChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let file = event.target.files[0];
-      setPapier(URL.createObjectURL(file).slice(5));
+  useEffect(() => {
+    if (props.isOpen === true) {
+      initialValues = {
+        firstName: props.data.firstName,
+        lastName: props.data.lastName,
+        gender: props.data.gender,
+        dateBirth: props.data.dateBirth,
+        country: props.data.country,
+        roleId: props.data.roleId,
+        identifier: props.data.identifier,
+        agenceId: props.data.agenceId,
+        email: props.data.email,
+        address: props.data.address,
+        telephoneNumber: props.data.telephoneNumber,
+        postalCode: props.data.postalCode,
+        cin: props.data.cin,
+      };
+      setPhoto(
+        props.data?.photo
+          ? props.data?.photo.slice(9, props.data.photo.length - 2)
+          : ""
+      );
+
+      // setPapier(
+      //   props.data?.attachment
+      //     ? props.data?.attachment.slice(9, props.data.attachment.length - 2)
+      //     : ""
+      // );
+      formik.setValues(initialValues);
     }
-  };
+  }, [props.isOpen]);
+
   const reinitialiser = () => {
     props.openUser();
   };
 
   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.setSubmitting(false);
+    console.log(values, "values");
     if (props.isOpen === true) {
+      console.log(props.data.id)
       dispatch(
         editUser({
           ...values,
-          attachment: papier,
+          //attachment: papier,
           photo: photo,
-          id:props.data.id
+          id: props.data.id,
         })
       );
     } else {
       dispatch(
         addUser({
           ...values,
-          attachment: papier,
+          // attachment: papier,
           photo: photo,
         })
       );
@@ -115,6 +111,14 @@ function AddUser(props) {
     onSubmit,
     validationSchema,
   });
+  console.log("photo---------------", photo);
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      let file = event.target.files[0];
+      setPhoto(URL.createObjectURL(file));
+    }
+  };
 
   return (
     <Modal isOpen={props.openUser}>
@@ -156,7 +160,11 @@ function AddUser(props) {
                 className="d-flex align-item-center justify-content-center "
                 style={{ color: "#3f51b5", fontSize: "25px" }}
               >
-                <IntlMessages id="add.user" />
+                {props.isOpen === true ? (
+                  "Modifier l'utilisateur " + props.data.firstName
+                ) : (
+                  <IntlMessages id="add.user" />
+                )}
               </div>
 
               <br />
@@ -382,40 +390,42 @@ function AddUser(props) {
                   </div>
                 </div>
                 <div className="p-2 d-flex flex-column flex-wrap col-md-4 col-md-4 mt-2 ">
-                  <label htmlFor="icon-button-file">
-                    <Input
-                      accept="image/*"
-                      id="icon-button-file"
-                      type="file"
-                      onChange={onImageChange}
-                      style={{
-                        marginLeft: "5%",
-                        color: "#4C25B7",
-                        fontSize: "25px",
-                      }}
-                      name="photo"
-                    />
-                    <IconButton
-                      color="primary"
-                      aria-label="upload picture"
-                      component="span"
-                      style={{
-                        color: "#696969",
-                      }}
-                      onClick={() => {}}
-                    >
-                      <PhotoCamera style={{ color: orange[500] }} />
-                      <div
+                  <Grid htmlFor="contained-button-file">
+                    <label>
+                      <input
+                        accept="image/*"
+                        id="icon-button-file"
+                        type="file"
                         style={{
-                          fontSize: "18px",
-                          marginRight: "5%",
-                          color: "orange",
+                          marginLeft: "5%",
+                          color: "#4C25B7",
+                          fontSize: "25px",
+                          display: "none",
+                        }}
+                        onChange={onImageChange}
+                        name="photo"
+                      />
+                      <IconButton
+                        color="primary"
+                        aria-label="upload picture"
+                        component="span"
+                        style={{
+                          color: "#696969",
                         }}
                       >
-                        <IntlMessages id="add.picture" />
-                      </div>
-                    </IconButton>
-                  </label>
+                        <PhotoCamera style={{ color: orange[500] }} />
+                        <div
+                          style={{
+                            fontSize: "18px",
+                            marginRight: "5%",
+                            color: "orange",
+                          }}
+                        >
+{                         photo? "photo-ajoutée" : <IntlMessages id="add.picture" />}
+                        </div>
+                      </IconButton>
+                    </label>
+                  </Grid>
                 </div>
               </div>
               <div className="p-2 d-flex flex-wrap flex-row ">
@@ -488,19 +498,19 @@ function AddUser(props) {
                   </TextField>
                 </div>
               </div>
-              <div className="p-2 d-flex flex-wrap flex-row">
+              {/* <div className="p-2 d-flex flex-wrap flex-row">
                 <div className="p-2 mr-2">
                   <div style={{ fontSize: "18px" }}>Papier Administratif </div>
                 </div>
                 <div className="ml-5">
-                  <label htmlFor="contained-button-file">
-                    <Input
+                  <Grid htmlFor="contained-button-file" {...getRootPropsFile()}>
+                    <input
                       accept="image/*"
                       id="contained-button-file"
                       multiple
                       type="file"
                       name="papier"
-                      onChange={onPapierChange}
+                      {...getInputPropsFile()}
                     />
 
                     <Button
@@ -514,14 +524,22 @@ function AddUser(props) {
                       variant="contained"
                       component="span"
                     >
-                      <IntlMessages
-                        id="message.attach.file"
-                        style={{ color: "default" }}
-                      />
+                      {papier ? (
+                        props.isOpen === true ? (
+                          <p>{papier + ""}</p>
+                        ) : (
+                          <p>{papier.name}</p>
+                        )
+                      ) : (
+                        <IntlMessages
+                          id="message.attach.file"
+                          style={{ color: "default" }}
+                        />
+                      )}
                     </Button>
-                  </label>
+                  </Grid>
                 </div>
-              </div>
+              </div> */}
 
               <div className="p-2 d-flex flex-row  flex-wrap justify-content-center mt-4 ">
                 <div className="p-2">

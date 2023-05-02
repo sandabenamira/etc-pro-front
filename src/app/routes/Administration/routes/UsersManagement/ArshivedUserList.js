@@ -23,6 +23,7 @@ export default function ArshivedUserList(props) {
       value,
     });
   };
+  
   return (
     <div className="app-wrapper ">
       <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12 bd-highlight flex-wrap"></div>

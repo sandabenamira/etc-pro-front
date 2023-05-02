@@ -6,6 +6,7 @@ import moment from "moment";
 import ActivityItem from "./ActivityItem";
 import { Card, CardBody, CardHeader } from "reactstrap";
 import CalendarComponent from "./CalendarComponentNew";
+import { useSelector } from 'react-redux';
   export default function Home() {
 
   const listOnLineCourse = [
@@ -24,14 +25,11 @@ import CalendarComponent from "./CalendarComponentNew";
       end_time_class: new Date(),
     },
   ];
- 
-  return (
+ const name=useSelector((state=>state.users.profile))
+   return (
     <div
     className="app-wrapper"
-    // style={{
-    //   marginLeft: '5%',
-    //   marginRight: '10%',
-    // }}
+ 
   >
     <div className="d-flex flex-wrap flex-row bd-highlight mb-3 col-lg-12 col-md-12  col-sm-12">
       <div className="p-2 bd-highlight col-lg-8 col-md-12  col-sm-12 ">
@@ -44,7 +42,7 @@ import CalendarComponent from "./CalendarComponentNew";
               <div className="media-body jr-featured-content">
                 <div className="jr-featured-content-left">
                   <h1 className="mb-2 text-white p-3">
-                    Bienvenue M/Mme. Admin ADMIN{" "}
+                    Bienvenue M/Mme. {name ? name[0]?.lastName? name[0]?.lastName +" " +name[0]?.firstName :"Super Administrateur":"Super Administrateur"}
                   </h1>
                   <div className="row-flex">
                     <div className="media text-white p-3">

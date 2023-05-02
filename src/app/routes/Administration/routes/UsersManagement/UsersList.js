@@ -17,11 +17,13 @@ export default function UsersList(props) {
   const [openadd, setOpenadd] = useState(false);
   const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
   const [radio, setRadio] = useState("");
+  const [searchTerm,setSearchTerm]=useState("")
+
   const openaddUser = () => {
     setOpenadd(!openadd);
   };
   const data = props.data;
-  const handleChange = (value, label) => {
+   const handleChange = (value, label) => {
     props.setFilter({
       label,
       value,
@@ -30,7 +32,10 @@ export default function UsersList(props) {
   const toggleDropDown = () => {
     setDropDownIsOpen((prevState) => !prevState);
   };
-
+  const handleSearchTerm =(e)=>{
+    let value=e.target.value
+    setSearchTerm(value)
+   }
   return (
     <div className="app-wrapper ">
       {openadd && <AddUser openUser={openaddUser} />}
@@ -84,6 +89,8 @@ export default function UsersList(props) {
               borderColor: "#3f51b5",
               height: "40px",
             }}
+            onChange={handleSearchTerm}
+
           >
             <IconButton aria-label="search">
               <SearchIcon
@@ -176,6 +183,7 @@ export default function UsersList(props) {
 
             {radio === "" &&
               data
+           .filter((e)=>e.lastName.toLowerCase().includes(searchTerm.toLowerCase()))
                  .filter((e) => e.isArchived === false)
                 .map((row, i) => <UserListItem key={i} data={row} />)}
           </tbody>

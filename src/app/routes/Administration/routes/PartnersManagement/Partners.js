@@ -1,154 +1,124 @@
-import React, { useState, useEffect } from "react";
-import PartnersList from "./PartnersList";
-import ArchiveIcon from "@material-ui/icons/Archive";
-import PartnersArchive from "./PartnersArchive";
-import AddPartner from "./AddPartner";
-import IconButton from "@material-ui/core/IconButton";
-import IntlMessages from "../../../../../util/IntlMessages";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
-import { orange } from "@material-ui/core/colors";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/icons/Search";
-import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import { connect, useDispatch } from "react-redux";
+import { editPARTNER2 } from "../../../../../store/actions/Partner";
 
-export default function Partners() {
-  const dispatch = useDispatch();
-  const [archived, setArchived] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+function Partners() {
+  const data = useSelector((state) => state.Partner.PARTNERs);
+  let dispatch = useDispatch();
 
-  const handleopenArchived = () => {
-    setArchived(!archived);
+  const handleAdd = (row) => {
+    dispatch(
+      editPARTNER2({
+        nom: row.nom,
+        pays: row.pays,
+        gouvernerat: row.gouvernerat,
+        adresse: row.adresse,
+        email: row.email,
+        Ntel: row.Ntel,
+        add: true,
+      })
+    );
   };
-  const openaddUser = () => {
-    setIsOpen(true);
+  const handleAdd2 = (row) => {
+    dispatch(
+      editPARTNER2({
+        nom: row.nom,
+        pays: row.pays,
+        gouvernerat: row.gouvernerat,
+        adresse: row.adresse,
+        email: row.email,
+        Ntel: row.Ntel,
+        add: false,
+      })
+    );
   };
-  //const data = useSelector((state) => state.Agence.agences);
-  useEffect(() => {
-    //dispatch(getAgences());
-  }, [dispatch]);
-  if (isOpen) {
-    return <>{isOpen && <AddPartner openAddPartner={openaddUser} />} </>;
-  } else if (archived) {
-    return <>{<PartnersArchive OpenArchive={handleopenArchived} />}</>;
-  } else if (!archived) {
-    return (
-      <>
-        {
-          <div className="app-wrapper" style={{}}>
+  return (
+    <div className="app-wrapper">
+      <div
+        className="p-2"
+        style={{ color: "#4C25B7", fontSize: "26px", marginBottom: "6%" }}
+      >
+        Vous pouvez choisir vos partenaires !
+      </div>
+      <div className="d-flex flex-wrap flex-row col-lg-12 col-md-12 col-sm-12">
+        {data.map((row) => (
+          <div
+            className="d-flex col-lg-6 col-md-6 col-sm-6"
+            style={{ borderRight: "1px solid grey" }}
+          >
             <div
-              className="p-2"
-              style={{ color: "#3f51b5", fontSize: "24px", fontWeight: "bold" }}
+              className="d-flex flex-row col-lg-5 col-md-5 col-sm-5"
+              style={{ padding: 0 }}
             >
-              Gestion des partenaires
-            </div>
-            <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12 col-sm-12">
-              <div className=" col-lg-2 col-md-6 d-flex flex-wrap">
-                <div className="p-2">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={{
-                      borderRadius: "15px",
-                      fontSize: "15px",
-                      fontFamily: "Roboto",
-                    }}
-                  >
-                    Trier par
-                    <ArrowDropDownOutlinedIcon></ArrowDropDownOutlinedIcon>
-                  </Button>
-                </div>
-              </div>
-              <div className="col-lg-4 col-md-6 col-sm-6 d-flex flex-wrap align-items-center m-2">
-                <Paper
-                  component="form"
-                  className="d-flex flex-row"
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    alignItems: "center",
-                    borderRadius: "100px",
-                    borderStyle: "solid",
-                    borderWidth: "1px",
-                    borderColor: "#565C79",
-                  }}
-                >
-                  <IconButton aria-label="search">
-                    <SearchIcon
-                      style={{ marginRight: "-100%", color: "#565C79" }}
-                    />
-                  </IconButton>
-                  <InputBase
-                    style={{
-                      marginLeft: "5%",
-                      flex: 1,
-                      fontWeight: "bold",
-                    }}
-                    placeholder="Recherche ..."
-                    inputProps={{ "aria-label": "" }}
-                  />
-                </Paper>
-              </div>
-
-              <div className="p-2 ml-auto ">
-                <div
-                  className="d-flex justify-content-start align-items-center "
-                  style={{
-                    color: "#616A6B",
-                    textAlign: "center",
-                  }}
-                >
-                  <div className="d-flex justify-content-start align-items-center">
-                    <Fab size="small" aria-label="Add" onClick={openaddUser}>
-                      {}
-                      <AddIcon
-                        onClick={openaddUser}
-                        style={{ color: orange[500] }}
-                      />
-                    </Fab>
-                    &nbsp;&nbsp;&nbsp;
-                    <div style={{ fontSize: "25px", color: "orange" }}>add</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="p-2">
-              <PartnersList openaddUser={openaddUser} />
-            </div>
-
-            <div className="d-flex flex-row-reverse p-2 col-lg-12 col-md-12 col-sm-12 mt-4">
+              <Avatar
+                alt="go my code"
+                src="https://scontent.ftun15-1.fna.fbcdn.net/v/t1.6435-9/120805521_3329728503784965_2984770882616413953_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=973b4a&_nc_ohc=vbnp_4xquz0AX_Yim4t&_nc_oc=AQkW2XHfakV7hkLrJ5k9pjbQofkR1StF5kZU5NK5FZzZYeTdzz3mWLgaNsq0pqPDkR4&_nc_ht=scontent.ftun15-1.fna&oh=43803f658fe1942a63615850e24b8331&oe=61569C5E"
+                style={{ height: 50, width: 50 }}
+              />
               <div
-                className="d-flex justify-content-start align-items-center "
-                style={{
-                  color: "#616A6B",
-                  textAlign: "center",
-                }}
+                className="d-flex flex-column"
+                style={{ marginLeft: "15px" }}
               >
-                <IconButton
-                  aria-label="delete"
+                <div
                   style={{
-                    color: "#616A6B",
+                    marginBottom: 5,
+                    fontSize: "1.25vw",
                   }}
-                  onClick={handleopenArchived}
                 >
-                  <ArchiveIcon backgroundColor="white" />
-                  <div style={{ fontSize: "19px", color: "#616A6B" }}>
-                    <IntlMessages id="gestion.agence.archive" /> (2){" "}
-                  </div>
-                </IconButton>
+                  {row.nom}
+                </div>
+                <div
+                  style={{
+                    fontSize: "1.15vw",
+                  }}
+                >
+                  {row.pays}
+                </div>
               </div>
+            </div>
+            <div className="col-lg-7 col-md-7 col-sm-7">
+              {row.add ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{
+                    borderRadius: "25px",
+                    fontSize: "1.3vw",
+                    fontFamily: "Roboto",
+                    textTransform: "none",
+                    float: "right",
+                  }}
+                  onClick={() => handleAdd2(row)}
+                >
+                  Annuler
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{
+                    borderRadius: "25px",
+                    fontSize: "1.3vw",
+                    fontFamily: "Roboto",
+                    textTransform: "none",
+                    float: "right",
+                  }}
+                  onClick={() => handleAdd(row)}
+                >
+                  Ajouter à mon réseau
+                </Button>
+              )}
             </div>
           </div>
-        }
-      </>
-    );
-  }
+        ))}
+        <div className="col-lg-6 col-md-6 col-sm-6">
+          <div></div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
-connect(mapStateToProps)(Partners);
+export default Partners;

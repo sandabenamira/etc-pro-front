@@ -40,7 +40,7 @@ export class AddPartner extends Component {
                     </IconButton>
 
                     <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px", marginBottom: "6%" }}>
-                        Resultat de recherches pour GO MY CODE
+                        Vous pouvez choisir vos partenaires !
                     </div>
                     <div className="d-flex flex-wrap flex-row col-lg-12 col-md-12 col-sm-12">
                         <div className="d-flex col-lg-6 col-md-6 col-sm-6" style={{borderRight:"1px solid grey",}}>

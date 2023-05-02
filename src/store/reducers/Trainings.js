@@ -5,19 +5,21 @@ import { ADD_TRAINING,GET_TRAINING } from "../../constants/ActionTypes";
 const initialState = {
   trainings: [
     {
-      theme: "Design thinking",
-      title: "React 17 hooks",
+      theme: "React 17",
+      title: "override function / Hooks",
       certificate: "true",
       format: "INLINE",
-      description: "c'est une formation ",
+      description: "Pour débutant ",
+      trainer:"Salma Belaid",
       link: "www.react.new.com",
       formerId: 7,
       descriptionFormer: "c'et ingénieur so smart",
       methodology: "scrum",
+      formation:"avec Go My Code",
       location: "",
       objective: "créer un projet innovant",
       prerequiste: "not found",
-      numberDay: 1,
+      numberDay: 7,
       modules: [
         {
           id: 0,
@@ -52,21 +54,24 @@ const initialState = {
       fk_id_company: 1,
       creationDate: "2022-06-10T09:19:33.768Z",
       fk_id_creator: 1,
+      img:"img1"
     },
 
     {
-      theme: " thinking",
-      title: "React 16 without hooks",
+      theme: "Design Thinking",
+      title: "Innovation centrée sur l’humain",
       certificate: "false",
-      format: "presentiel",
-      description: "formation not online ",
+      format: "Presentiel",
+      trainer:"Ahmed Trabelsi",
+      formation:"avec Go My Code",
+      description: " Le design thinking permet de réaliser des produits ou des services ",
       link: "www.react.16.com",
        descriptionFormer: "c'est ingénieure so smart so beautiful",
       methodology: "scrum",
       location: "",
       objective: "créer un projet innovant",
       prerequiste: "not found",
-      numberDay: 1,
+      numberDay: 5,
       modules: [
         {
           id: 0,
@@ -101,6 +106,7 @@ const initialState = {
       fk_id_company: 1,
       creationDate: "2022-06-10T09:19:33.768Z",
       fk_id_creator: 1,
+      img:"img2"
     },
   ],
 };

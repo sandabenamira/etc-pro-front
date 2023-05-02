@@ -32,7 +32,7 @@ function App(props) {
     alertMessageAgence,
     showAlerteNavUser,
     successUser,
-    alertMessageUser,
+    alertMessageUser,successPartner,showAlerteNavPartner,alertMessagePartner
   } = props;
   const estabModule = educapProModules;
   const drawerStyle = drawerType.includes(FIXED_DRAWER)
@@ -66,6 +66,9 @@ function App(props) {
         )}
         {showAlerteNavAgence && (
           <Alert severity={successAgence}>{alertMessageAgence}</Alert>
+        )}
+        {showAlerteNavPartner && (
+          <Alert severity={successPartner}>{alertMessagePartner}</Alert>
         )}
         <main className="app-main-content-wrapper">
           <div className="app-main-content">
@@ -136,11 +139,13 @@ function App(props) {
     </div>
   );
 }
-const mapStateToProps = ({ settings, auth, Agence, users }) => {
+const mapStateToProps = ({ settings, auth, Agence, users,Partner }) => {
   const { drawerType, navigationStyle, horizontalNavPosition } = settings;
   const { multiple } = auth;
   const { showAlerteNavAgence, alertMessageAgence, successAgence } = Agence;
   const { showAlerteNavUser, alertMessageUser, successUser } = users;
+  const { showAlerteNavPartner, alertMessagePartner, successPartner } = Partner;
+
 
   return {
     drawerType,
@@ -152,7 +157,7 @@ const mapStateToProps = ({ settings, auth, Agence, users }) => {
     successAgence,
     showAlerteNavUser,
     alertMessageUser,
-    successUser,
+    successUser,showAlerteNavPartner,alertMessagePartner,successPartner
   };
 };
 export default withRouter(connect(mapStateToProps)(App));

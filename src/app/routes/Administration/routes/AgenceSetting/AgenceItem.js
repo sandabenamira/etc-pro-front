@@ -17,6 +17,7 @@ export default function AgenceItem(props) {
   const handleArchive = (e) => {
     dispatch(editAgence(finalData));
    };
+ 
   return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <td
@@ -59,6 +60,7 @@ export default function AgenceItem(props) {
               width: "28px",
               height: "28px",
             }}
+            onClick={(e) => props.edit(data)}
           >
             <CreateIcon />
           </IconButton>

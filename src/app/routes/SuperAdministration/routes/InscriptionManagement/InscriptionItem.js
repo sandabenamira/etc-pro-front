@@ -31,7 +31,7 @@ function InscriptionItem(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  return (
+     return (
     <tr style={{ backgroundColor: "white", borderRadius: 15 }}>
       <th
         scope="row"
@@ -59,7 +59,7 @@ function InscriptionItem(props) {
         {props.data.countryEntreprise}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
-        {props.data.telephoneNumberEntreprise}
+        {/* {props.data.telephoneNumberEntreprise} */}
       </td>
       <td style={{ textAlign: "center", backgroundColor: "#F5F5F5" }}>
         {props.data.createdIn}
@@ -90,19 +90,20 @@ function InscriptionItem(props) {
             <VisibilityOutlinedIcon />
           </IconButton>
 
-          <IconButton
-            aria-label="delete"
-            style={{
-              color: "#FFFFFF",
-              backgroundColor: "#F9972D",
-              width: "14px",
-              height: "14px",
-            }}
-            onClick={handleOpen}
-          >
-            <DeleteOutlineRoundedIcon backgroundColor="white" />
-          </IconButton>
-
+          {props.filter.value !== "confirmé" && (
+            <IconButton
+              aria-label="delete"
+              style={{
+                color: "#FFFFFF",
+                backgroundColor: "#F9972D",
+                width: "14px",
+                height: "14px",
+              }}
+              onClick={handleOpen}
+            >
+              <DeleteOutlineRoundedIcon backgroundColor="white" />
+            </IconButton>
+          )}
           <Dialog open={open} TransitionComponent={Slide}>
             <DialogContent>
               <DialogContentText>

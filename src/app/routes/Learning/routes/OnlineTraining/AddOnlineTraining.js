@@ -26,6 +26,10 @@ export default function AddOnlineTraining(props) {
       label: "Soft skills",
     },
     {
+      value: "Développement Web",
+      label: "Développement Web",
+    },
+    {
       value: "Marketing Degital",
       label: "Marketing Degital",
     },
@@ -36,7 +40,7 @@ export default function AddOnlineTraining(props) {
   ];
   const number = parseInt(values.nbrDays);
   const formateurs = props.users.filter(
-    ({ name, isArchived }) => name === "Formateurs" && isArchived === false
+    ({ roleId, isArchived }) => roleId === 4 && isArchived === false
   );
   return (
     <Modal isOpen={values.isOpen}>

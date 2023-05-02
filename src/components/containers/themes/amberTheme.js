@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import deepOrange from '@material-ui/core/colors/deepOrange';
+ import deepOrange from '@material-ui/core/colors/deepOrange';
 import amber from '@material-ui/core/colors/amber';
 
 export default {

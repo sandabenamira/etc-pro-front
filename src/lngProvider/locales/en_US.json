@@ -557,7 +557,7 @@
   "appNotification.message": "No notifications as of now!",
   "popup.profile": "Profile",
   "popup.setting": "Setting",
-  "popup.logout": "Logout",
+  "popup.logout": "Déconnecter",
   "popup.updateData": "Update Data",
   "popup.detailedLog": "Detailed Log",
   "popup.statistics": "Statistics",

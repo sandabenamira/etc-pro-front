@@ -8,8 +8,7 @@ import ArshivedUser from "./ArshivedUser";
 import { useSelector } from "react-redux";
 
 function User() {
-  // eslint-disable-next-line no-unused-vars
-  const [isOpen, setIsOpen] = useState(false);
+   const [ setIsOpen] = useState(false);
   const [archived, setArchived] = useState(false);
   const [filter, setFilter] = useState({});
   const data = useSelector((state) => state.users.users);

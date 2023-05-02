@@ -15,13 +15,16 @@ function Inscription() {
   useEffect(() => {
     dispatch(getInscriptions());
   }, [dispatch]);
- 
+  const [searchTerm,setSearchTerm]=useState("")
   const [filter, setFilter] = useState({
     label: "En attente",
     value: "en attente",
   });
-
-  return (
+  const handleSearchTerm =(e)=>{
+    let value=e.target.value
+    setSearchTerm(value)
+   }
+   return (
     <div>
       <div className="app-wrapper ">
         <div className="d-flex flex-column col-lg-12 col-md-12  col-sm-12 bd-highlight flex-wrap"></div>
@@ -48,7 +51,7 @@ function Inscription() {
                   borderRightStyle: "none",
                   borderLeftStyle: "none",
                    width: 200,
-                   backgroundColor: "rgb(63, 81, 181)",
+                  // backgroundColor: "rgb(63, 81, 181)",
            
                  }),
               }}
@@ -67,7 +70,11 @@ function Inscription() {
                 borderStyle: "solid",
                 borderWidth: "1px",
                 borderColor: "#565C79",
+                             
+
               }}
+              onChange={handleSearchTerm}
+
             >
               <IconButton aria-label="search">
                 <SearchIcon
@@ -124,8 +131,10 @@ function Inscription() {
             <tbody>
               {data
                 .filter((e) => e.status === filter.value)
+                .filter((e)=>e.nameEntreprise.toLowerCase().includes(searchTerm.toLowerCase()))
+
                 .map((row, index) => (
-                  <InscriptionItem key={index} data={row} />
+                  <InscriptionItem key={index} data={row} filter={filter} />
                 ))}
             </tbody>
           </table>

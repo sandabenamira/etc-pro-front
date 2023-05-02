@@ -12,18 +12,25 @@ import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import styles from "../../../Learning/routes/OnlineTraining/styles.module.css";
 import AddAgence from "./AddAgence";
 import { typeList } from "../../../../../constants/variables and listes";
+import { useDispatch } from "react-redux";
+import { setCurrentAgence } from "../../../../../store/actions/Agence";
 
 export default function AgenceList(props) {
   const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
   const [radio,setRadio]=useState("")
   const [openadd, setOpenadd] = useState(false);
+ const [searchTerm,setSearchTerm]=useState("")
   const [filter, setFilter] = useState({
     label: "",
     value: "",
   });
   const openaddAgence = () => {
     setOpenadd(!openadd);
+    if (openadd === true) {
+      dispatch(setCurrentAgence(null));
+    }
   };
+  let dispatch = useDispatch();
 
   const toggleDropDown = () => {
     setDropDownIsOpen((prevState) => !prevState);
@@ -34,6 +41,14 @@ export default function AgenceList(props) {
       value,
     });
    };
+   const handleSearchTerm =(e)=>{
+    let value=e.target.value
+    setSearchTerm(value)
+   }
+   const edit = (data) => {
+    dispatch(setCurrentAgence(data));
+    openaddAgence();
+  }
    return (
     <div className="app-wrapper ">
       {openadd && <AddAgence openaddAgence={openaddAgence} />}
@@ -86,6 +101,7 @@ export default function AgenceList(props) {
                 borderColor: "#3f51b5",
                 height: "40px",
               }}
+              onChange={handleSearchTerm}
             >
               <IconButton aria-label="search">
                 <SearchIcon
@@ -175,8 +191,9 @@ export default function AgenceList(props) {
                 )))}
                   { radio === "" &&( props.data
                 .filter((e) => e.isArchived === false)
+                .filter((e)=>e.name.toLowerCase().includes(searchTerm.toLowerCase()))
                  .map((row, index) => (
-                  <AgenceItems data={row} key={index} />
+                  <AgenceItems data={row} key={index} edit={edit}/>
                 )))}
 
             </tbody>

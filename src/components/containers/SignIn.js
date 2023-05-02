@@ -6,10 +6,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
 import IntlMessages from "../../util/IntlMessages";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ForgetPasswordModal from "./ForgetPasswordModal";
@@ -22,6 +18,8 @@ import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Formik, useFormik, Form } from "formik";
 import * as Yup from "yup";
+ import "react-toastify/dist/ReactToastify.css";
+import Alert from "@material-ui/lab/Alert";
 
 function SignIn(props) {
   const {
@@ -51,10 +49,9 @@ function SignIn(props) {
     validationSchema: Yup.object().shape({
       email: Yup.string()
         .trim("Champ obligatoire !")
-        .email("Entrer une adresse e-mail valide  "),
-      // .required("Champ obligatoire !")
-      // .max(40, "Trop long ! maximum 40")
-      // .min(3, "Trop court! minimum 3"),
+        .email("Entrer une adresse e-mail valide  ")
+        .required("Champ obligatoire !")
+         .min(3, "Trop court! minimum 3"),
 
       // password: Yup.string()
       //   .trim("Champ obligatoire !")
@@ -68,7 +65,7 @@ function SignIn(props) {
   const handleCancel = () => {
     setIsopen(false);
   };
-
+ 
   if (props.authUser) {
     return <Redirect to={"/app/home"} />;
   } else {
@@ -127,11 +124,11 @@ function SignIn(props) {
                           name="email"
                           className="mt-1 my-sm-3"
                         />
-                        {/* {formik.touched.email && formik.errors.email ? (
-                        <div className="error" style={{ color: "red" }}>
-                          <small>{formik.errors.email}</small>
-                        </div>
-                      ) : null} */}
+                        {formik.touched.email && formik.errors.email ? (
+                          <div className="error" style={{ color: "red" }}>
+                            <small>{formik.errors.email}</small>
+                          </div>
+                        ) : null}
                       </div>
                       <div className="p-2">
                         <FormControl className="mb-3">
@@ -161,7 +158,11 @@ function SignIn(props) {
                       </div>
                     </div>
                     <div className="mb-3 d-flex align-items-center justify-content-between">
-                      <Button variant="contained" color="primary" type="submit">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                       >
                         <span style={{ textTransform: "none" }}>Connecter</span>
                       </Button>
                       <Link
@@ -174,7 +175,7 @@ function SignIn(props) {
                         <IntlMessages id="forgot.password" />
                       </Link>
                     </div>
-                    <div className="app-social-block my-1 my-sm-3">
+                    {/* <div className="app-social-block my-1 my-sm-3">
                       <Link to="">
                         <IntlMessages id="signIn.connectWith" />
                       </Link>
@@ -203,10 +204,11 @@ function SignIn(props) {
                           </IconButton>
                         </li>
                       </ul>
-                    </div>
+                    </div> */}
                   </Form>
                 </Formik>
               </div>
+              {showMessage &&   <Alert severity="error">Valider votre adresse et mot de passe</Alert>}
             </div>
           </div>
           {loader && (
@@ -214,9 +216,8 @@ function SignIn(props) {
               <CircularProgress />
             </div>
           )}
-          {showMessage && NotificationManager.error(alertMessage)}
-          <NotificationContainer />
-
+         
+         
           {isopen === true ? (
             <ForgetPasswordModal
               isopen={isopen}

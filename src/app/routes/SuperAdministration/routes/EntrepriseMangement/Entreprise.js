@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
  import IconButton from "@material-ui/core/IconButton";
 import EntrepriseItem from "./EntrepriseItem";
  import Paper from "@material-ui/core/Paper";
@@ -15,8 +15,11 @@ export default function Entreprise(props) {
   useEffect(() => {
     dispatch(getEntreprises());
   }, [dispatch]);
-
- 
+  const [searchTerm,setSearchTerm]=useState("")
+  const handleSearchTerm =(e)=>{
+    let value=e.target.value
+    setSearchTerm(value)
+   }
   return (
     <div>
       <div className="app-wrapper ">
@@ -40,6 +43,8 @@ export default function Entreprise(props) {
                 borderWidth: "1px",
                 borderColor: "#565C79",
               }}
+              onChange={handleSearchTerm}
+
             >
               <IconButton aria-label="search">
                 <SearchIcon
@@ -90,16 +95,15 @@ export default function Entreprise(props) {
 
                 <th style={{ borderBottom: "0", borderTop: "0" }}>Créer en</th>
 
-                {/* <th style={{ borderBottom: "0", borderTop: "0" }}>
-               
-                Confirmer
-              </th> */}
+              
                 <th style={{ borderBottom: "0", borderTop: "0" }}>Actions</th>
               </tr>
             </thead>
-            {/* //key={person.id} */}
-            <tbody>
-              {data.map((row, index) => (
+             <tbody>
+              {data
+           .filter((e)=>e.nameEntreprise.toLowerCase().includes(searchTerm.toLowerCase()))
+              
+              .map((row, index) => (
                 <EntrepriseItem key={index} data={row} />
               ))}
             </tbody>

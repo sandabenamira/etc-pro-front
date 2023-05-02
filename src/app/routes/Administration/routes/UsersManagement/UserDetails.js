@@ -37,7 +37,7 @@ export default function UserDetails(props) {
               <div className="col-lg-4 col-md-4 col-sm-4 d-flex flex-wrap flex-column  justify-content-start mb-4">
                 <Avatar
                   alt={data.firstName}
-                  //  src={require(data.photo)}
+                   src={data.photo}
                   style={{ width: 180, height: 180 }}
                 />
               </div>
@@ -139,7 +139,7 @@ export default function UserDetails(props) {
               </div>
             </div>
 
-            <div className="d-flex justify-content-start flex-row flex-wrap  ">
+            {/* <div className="d-flex justify-content-start flex-row flex-wrap  ">
               <div className="col-lg-7 col-md-6 col-sm-10 d-flex flex-wrap flex-column  justify-content-start align-items-start ">
                 <h1 style={{ fontSize: "20px", color: "#44548F" }}>
                   <IntlMessages id="user.join.papiers" /> (1)
@@ -155,7 +155,7 @@ export default function UserDetails(props) {
                 </h1>
                 <h2> </h2>
               </div>
-            </div>
+            </div> */}
           </div>
         </form>
       </ModalBody>

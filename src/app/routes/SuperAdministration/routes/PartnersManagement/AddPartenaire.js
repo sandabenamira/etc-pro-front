@@ -5,61 +5,61 @@ import TextField from "@material-ui/core/TextField";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "@material-ui/core/Button";
 import IntlMessages from "../../../../../util/IntlMessages";
-import { addAgence, editAgence2 } from "../../../../../store/actions/Agence";
+import { addPARTNER, editAgence2 } from "../../../../../store/actions/Partner";
 import MenuItem from "@mui/material/MenuItem";
 import { Formik, useFormik, Form } from "formik";
-import {
-  gouvernoratList,
-  typeList,
-} from "../../../../../constants/variables and listes";
-import {
-  validationSchema,
-  initialValues,
-} from "../../../../../constants/validationSchemaAgence";
+import { gouvernoratList } from "../../../../../constants/variables and listes";
 
-function AddAgence(props) {
+export const typeList = [
+  {
+    id: 1,
+    value: "Tunisie",
+    label: "Tunisie",
+  },
+  {
+    id: 2,
+    value: "France",
+    label: "France",
+  },
+];
+function AddPartenaire(props) {
   let dispatch = useDispatch();
   const onSubmit = (values, onSubmitProps) => {
     onSubmitProps.setSubmitting(false);
 
-    if (currentAgence && !!currentAgence?.name) {
-       dispatch(
-        editAgence2({
-          ...values,
-          id: currentAgence.id,isArchived:false
-        })
-      );
-      console.log("ediiiiiiiiiiiiiiiiiiiiiiiiiit")
-    } else {
-      dispatch(addAgence({ ...values }));
-    }
+    dispatch(
+      addPARTNER({
+        nom: values.name,
+        pays: values.type,
+        gouvernerat: values.governorate,
+        adresse: values.address,
+        email: values.email,
+        Ntel: values.telephoneNumber,
+        isArchived:false,
+        add:true,
+      })
+    );
+
     props.openaddAgence();
   };
-
+  const initialValues = {
+    name: "",
+    type: "",
+    governorate: "",
+    telephoneNumber: "",
+    address: "",
+    email: "",
+  };
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema,
   });
-  const currentAgence = useSelector((state) => state.Agence.agence);
-  useEffect(() => {
-    if (currentAgence && !!currentAgence.name) {
-      formik.setFieldValue("name", currentAgence.name);
-      formik.setFieldValue("type", currentAgence.type);
-      formik.setFieldValue("governorate", currentAgence.governorate);
-      formik.setFieldValue("fax", currentAgence.fax);
-      formik.setFieldValue("address", currentAgence.address);
-      formik.setFieldValue("email", currentAgence.email);
-      formik.setFieldValue("telephoneNumber", currentAgence.telephoneNumber);
-      formik.setFieldValue("email", currentAgence.email);
-    }
-  }, [currentAgence]);
+
   return (
     <Modal isOpen={props.openaddAgence}>
       <ModalBody>
         <Formik
           initialValues={initialValues}
-          validationSchema={validationSchema}
           validateOnChange={false}
           validateOnBlur={false}
         >
@@ -94,10 +94,7 @@ function AddAgence(props) {
                   className="d-flex justify-content-center  col-lg-11 col-md-11 col-sm-11 "
                   style={{ color: "#3f51b5", fontSize: "25px" }}
                 >
-                  {/* <IntlMessages id="gestion.agence.add.agency" /> */}
-                  {currentAgence && !!currentAgence?.name
-                    ? "Modifier une agence"
-                    : "  Ajouter une agence"}
+                  Ajouter un Partenaire
                 </div>
 
                 <br />
@@ -108,9 +105,7 @@ function AddAgence(props) {
                   className="p-2 d-flex flex-column col-md-6 form-group   "
                   style={{ height: "80px" }}
                 >
-                  <div style={{ fontSize: "18px" }}>
-                    <IntlMessages id="gestion.agence.agency" />*
-                  </div>
+                  <div style={{ fontSize: "18px" }}>Nom *</div>
                   <div>
                     <TextField
                       name="name"
@@ -130,9 +125,7 @@ function AddAgence(props) {
                 </div>
 
                 <div className="p-2 d-flex flex-column col-md-6  ">
-                  <div style={{ fontSize: "18px" }}>
-                    <IntlMessages id="gestion.agence.agency.type" />*
-                  </div>
+                  <div style={{ fontSize: "18px" }}>Pays *</div>
                   <TextField
                     className="textfield"
                     select
@@ -161,30 +154,7 @@ function AddAgence(props) {
 
               <div className="p-2 d-flex flex-row  ">
                 <div className="p-2 d-flex flex-column col-md-6  ">
-                  <div style={{ fontSize: "18px" }}>
-                    <IntlMessages id="gestion.agence.address" />*
-                  </div>
-                  <div>
-                    <TextField
-                      name="address"
-                      className="textfield"
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                      {...formik.getFieldProps("address")}
-                      required
-                    ></TextField>
-                    {formik.touched.address && formik.errors.address ? (
-                      <div className="error" style={{ color: "red" }}>
-                        <small>{formik.errors.address}</small>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-                <div className="p-2 d-flex flex-column col-md-6  ">
-                  <div style={{ fontSize: "18px" }}>
-                    <IntlMessages id="gestion.agence.governorate" />*
-                  </div>
+                  <div style={{ fontSize: "18px" }}>Gouvernorat *</div>
                   <div>
                     <TextField
                       className="textfield"
@@ -209,12 +179,33 @@ function AddAgence(props) {
                     ) : null}
                   </div>
                 </div>
+                <div className="p-2 d-flex flex-column col-md-6  ">
+                  <div style={{ fontSize: "18px" }}>Adresse *</div>
+
+                  <div>
+                    <TextField
+                      name="address"
+                      className="textfield"
+                      margin="normal"
+                      fullWidth
+                      size="small"
+                      {...formik.getFieldProps("address")}
+                      required
+                    ></TextField>
+                    {formik.touched.address && formik.errors.address ? (
+                      <div className="error" style={{ color: "red" }}>
+                        <small>{formik.errors.address}</small>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
               </div>
 
               <div className="p-2 d-flex flex-row  ">
                 <div className="p-2 d-flex flex-column col-md-6  ">
                   <div style={{ fontSize: "18px" }}>
-                    <IntlMessages id="gestion.agence.mail" />*
+                    <IntlMessages id="gestion.agence.mail" />
+                    {" *"}
                   </div>
                   <div>
                     <TextField
@@ -233,34 +224,10 @@ function AddAgence(props) {
                     ) : null}
                   </div>
                 </div>
-                <div className="p-2 d-flex flex-column col-md-6  "></div>
-              </div>
-
-              <div className="p-2 d-flex flex-row  ">
-                <div className="p-2 d-flex flex-column col-md-6  ">
-                  <div style={{ fontSize: "18px" }}>
-                    <IntlMessages id="gestion.agence.fax" />*
-                  </div>
-                  <div>
-                    <TextField
-                      className="textfield"
-                      name="fax"
-                      margin="normal"
-                      fullWidth
-                      size="small"
-                      required
-                      {...formik.getFieldProps("fax")}
-                    ></TextField>
-                    {formik.touched.fax && formik.errors.fax ? (
-                      <div className="error" style={{ color: "red" }}>
-                        <small>{formik.errors.fax}</small>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
                 <div className="p-2 d-flex flex-column col-md-6 ">
                   <div style={{ fontSize: "18px" }}>
-                    <IntlMessages id="gestion.agence.tel" />*
+                    <IntlMessages id="gestion.agence.tel" />
+                    {" *"}
                   </div>
                   <div>
                     <TextField
@@ -313,11 +280,7 @@ function AddAgence(props) {
                       paddingRight: "30px",
                     }}
                     type="submit"
-                    disabled={
-                      currentAgence && !!currentAgence.name
-                        ? false
-                        : !formik.isValid || formik.isSubmitting
-                    }
+                    disabled={!formik.isValid || formik.isSubmitting}
                   >
                     <IntlMessages id="confirm" />
                   </Button>
@@ -331,4 +294,4 @@ function AddAgence(props) {
   );
 }
 
-export default AddAgence;
+export default AddPartenaire;
