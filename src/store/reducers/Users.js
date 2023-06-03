@@ -21,7 +21,7 @@ const initialState = {
   profiles: [],
   profile: [],
   roleId: 1,
-  entreprise: "Educap Pro",
+  entreprise: "ETC Pro",
 };
 console.log(initialState.users, "users reducer");
 export default function (state = initialState, action) {

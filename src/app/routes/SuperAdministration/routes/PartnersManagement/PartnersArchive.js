@@ -41,7 +41,7 @@ export class PartnersArchive extends Component {
                     </IconButton>
 
                     <div className="p-2" style={{ color: "#4C25B7", fontSize: "26px", marginBottom: "1.5rem" }}>
-                       Gestion des partenaires - Archive
+                       Gestion des formateurs - Archive
                     </div>
                     <div className="p-2">
                         <PartnersList rr={true}/>

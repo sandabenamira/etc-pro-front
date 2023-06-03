@@ -10,7 +10,7 @@ import {
 } from "../../../constants/ActionTypes"; /* eslint eqeqeq: "off" */
 
 import { toggleCollapsedNav, updateWindowWidth } from "../../../store/actions/Setting";
-import imageSchool from "../../../assets/images/educapProLogo.png";
+import imageSchool from "../../../assets/images/logoetcpro.png";
 
 class SideNav extends React.PureComponent {
   constructor() {

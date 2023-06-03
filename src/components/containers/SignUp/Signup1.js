@@ -45,7 +45,7 @@ function SignUp1() {
                 position: "relative",
               }}
             >
-              <strong>Créer votre compte entreprise sur Educap Pro</strong>
+              <strong>Créer votre compte entreprise sur ETC Pro</strong>
             </h1>
           </div>
         </div>

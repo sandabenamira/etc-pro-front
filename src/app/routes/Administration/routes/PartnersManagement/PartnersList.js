@@ -8,8 +8,8 @@ function createData(nom, pays, gouvernerat, adresse, email, Ntel,) {
 
 const rows = [
 
-    createData('GO MY CODE', 'Tunisie', 'Tunis', 'Place Taher Haddad 1 Tunis 1053', 'hello@gomycode.com', 39143900),
-    createData('Formations et Perspectives', 'Tunisie', 'Tunis', "23 Rue d'Algerie Tunis 1000", 'hello@formation.com', 39143900),
+    createData('MR MOHAMED BOUJMIL', 'Tunisie', 'Tunis', 'Place Taher Haddad 1 Tunis 1053', 'mohamed.boujmil@gmail.com', 39143900),
+    createData('MR JENDOUBI NIZAR', 'Tunisie', 'Tunis', "23 Rue d'Algerie Tunis 1000", 'nizar.jendoubi@gmail.com', 39143900),
 ];
 
 

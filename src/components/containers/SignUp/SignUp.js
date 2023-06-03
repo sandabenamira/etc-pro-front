@@ -65,7 +65,7 @@ function SignUp(props) {
         <div className="d-flex   justify-content-center mt-4  ">
           <img
             width={70}
-            src={require("../../../assets/images/educapProLogo.png")}
+            src={require("../../../assets/images/logoetcpro.png")}
             alt="logo"
             title="logo"
             style={{
@@ -82,7 +82,7 @@ function SignUp(props) {
               position: "relative",
             }}
           >
-            <strong>Créer votre compte entreprise sur Educap Pro</strong>
+            <strong>Créer votre compte entreprise sur ETC Pro</strong>
           </h1>
         </div>
         <Formik

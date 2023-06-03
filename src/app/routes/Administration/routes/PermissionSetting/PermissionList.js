@@ -130,7 +130,7 @@ export default class PermissionList extends Component {
         },
         {
           id: 6,
-          label: "Gestions des Partenaires",
+          label: "Gestions des formateurs",
           value: 6,
         },
       ],

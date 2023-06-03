@@ -94,7 +94,7 @@ function AddPartenaire(props) {
                   className="d-flex justify-content-center  col-lg-11 col-md-11 col-sm-11 "
                   style={{ color: "#3f51b5", fontSize: "25px" }}
                 >
-                  Ajouter un Partenaire
+                  Ajouter un formateur 
                 </div>
 
                 <br />

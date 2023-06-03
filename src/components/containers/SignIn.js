@@ -20,6 +20,7 @@ import { Formik, useFormik, Form } from "formik";
 import * as Yup from "yup";
  import "react-toastify/dist/ReactToastify.css";
 import Alert from "@material-ui/lab/Alert";
+import logoetcpro from "../../assets/images/logoetcpro.png";
 
 function SignIn(props) {
   const {
@@ -90,12 +91,13 @@ function SignIn(props) {
         >
           <div className="app-login-main-content">
             <div className="app-logo-content d-flex align-items-center justify-content-center">
-              <Link className="logo-lg" to="/" title="Educap Pro">
+              <Link className="logo-lg" to="/" title="ETC Pro">
                 <img
                   width={220}
-                  src={require("../../assets/images/educapProLogo.png")}
-                  alt="Educap Pro"
-                  title="Educap Pro"
+                  src={logoetcpro}
+                  alt="ETC Pro"
+                  title="ETC Pro"
+                  
                 />
               </Link>
             </div>

@@ -13,8 +13,19 @@ import {
 
 // Define an initial state value for the app
 const initialState = {
-  inscriptions: [],
-  showMessage: false,
+  inscriptions: [
+    {
+    "nameEntreprise": "ETC Tunisie",
+    "serialNumberEntreprise": "00123456789",
+    "addressEntreprise": "Avenue Beit Elhikma, Immeuble Ghada",
+    "postalCodeEntreprise": "3131",
+    "governorateEntreprise": "Kairouan",
+    "countryEntreprise": "Tunisia",
+    "telephoneNumberEntreprise": "98617885",
+    "emailEntreprise": "Karine@etcinfo.fr",
+    }
+  ],
+  showMessage: true,
   alertMessage: "",
   success:"success"
 };

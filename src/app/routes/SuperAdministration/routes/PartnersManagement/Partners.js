@@ -48,7 +48,7 @@ import {useSelector} from "react-redux"
               className="p-2"
               style={{ color: "#3f51b5", fontSize: "24px", fontWeight: "bold" }}
             >
-              Gestion des partenaires
+              Gestion des formateurs
             </div>
             <div className="d-flex flex-row flex-wrap p-2 col-lg-12 col-md-12 col-sm-12">
               <div className=" col-lg-2 col-md-6 d-flex flex-wrap">
@@ -124,7 +124,7 @@ import {useSelector} from "react-redux"
                                 textTransform: "none",
                               }}
                             >
-                              Ajouter un partenaire
+                              Ajouter un formateur
                             </div>
                           </Button>
                         </div>
